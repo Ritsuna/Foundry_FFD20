@@ -1,0 +1,89 @@
+{{!-- Skill Rank Info --}}
+{{#unless useBGSkills}}
+<div class="flexcol skill-rank">
+  <ol class="form-group">
+    <li class="flexrow skill-rank-formula">
+      <label>{{localize "PF1.SkillBonusRankFormula"}}</label>
+      <input type="text" name="data.details.bonusSkillRankFormula" value="{{data.details.bonusSkillRankFormula}}" placeholder="{{localize "PF1.Formula"}}"/>
+    </li>
+  </ol>
+  <ol class="form-group">
+    <li class="flexrow skill-rank-info">
+      <table>
+        <thead>
+          <tr>
+            <th>{{localize "PF1.SkillRankPlural"}}</th>
+            <th>{{localize "PF1.Used"}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="center">{{skillRanks.allowed}}</td>
+            <td class="center">{{skillRanks.used}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+  </ol>
+</div>
+{{else}}
+<div class="flexcol skill-rank">
+  <ol class="form-group">
+    <li class="flexrow skill-rank-formula">
+      <label>{{localize "PF1.SkillBonusRankFormula"}}</label>
+      <input type="text" name="data.details.bonusSkillRankFormula" value="{{data.details.bonusSkillRankFormula}}" placeholder="{{localize "PF1.Formula"}}"/>
+    </li>
+  </ol>
+  <ol class="form-group">
+    <li class="flexrow skill-rank-info">
+      <table>
+        <thead>
+          <tr>
+            <th>{{localize "PF1.SkillRankPlural"}}</th>
+            <th>{{localize "PF1.Used"}}</th>
+            <th>{{localize "PF1.AdventureRanksToBG"}}</th>
+            <th>{{localize "PF1.BGSkillRanks"}}</th>
+            <th>{{localize "PF1.BGUsed"}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="center">{{skillRanks.allowed}}</td>
+            <td class="center">{{skillRanks.used}}</td>
+            <td class="center">{{skillRanks.sentToBG}}</td>
+            <td class="center">{{skillRanks.bgAllowed}}</td>
+            <td class="center">{{skillRanks.bgUsed}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+  </ol>
+</div>
+
+<nav class="sheet-navigation tabs" data-group="skillset">
+  <a class="item" data-tab="adventure">{{localize "PF1.SkillTypeAdventure"}}</a>
+  <a class="item" data-tab="background">{{localize "PF1.SkillTypeBackground"}}</a>
+</nav>
+
+<section class="skillset-body">
+  <div class="tab flexcol" data-group="skillset" data-tab="adventure">
+    {{> "systems/pf1/templates/actors/parts/actor-skills.hbs" skillset=skillsets.adventure.skills isBackgroundSkills="false" skillGroup="adventure"}}
+  </div>
+  
+  <div class="tab flexcol" data-group="skillset" data-tab="background">
+    {{> "systems/pf1/templates/actors/parts/actor-skills.hbs" skillset=skillsets.background.skills isBackgroundSkills="true" skillGroup="background"}}
+  </div>
+</section>
+{{/unless}}
+
+{{#unless useBGSkills}}
+<nav class="sheet-navigation tabs" data-group="skillset" style="display: none">
+  <a class="item" data-tab="all">{{localize "PF1.AllSkills"}}</a>
+</nav>
+
+<section class="skillset-body">
+  <div class="tab flexcol" data-group="skillset" data-tab="all">
+    {{> "systems/pf1/templates/actors/parts/actor-skills.hbs" skillset=skillsets.all.skills isBackgroundSkills="false" skillGroup="adventure"}}
+  </div>
+</section>
+{{/unless}}

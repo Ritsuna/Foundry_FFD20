@@ -1,0 +1,77 @@
+{{!-- Buffs --}}
+<div class="flexrow buffs-conditions">
+  {{#each config.conditions as |value con|}}
+  <div class="condition">
+    <label class="checkbox">
+      <input type="checkbox" name="data.attributes.conditions.{{con}}" {{checked (lookup ../data.attributes.conditions con)}}/>
+      <span>{{lookup ../config.conditions con}}</span>
+    </label>
+  </div>
+  {{/each}}
+</div>
+
+<hr>
+<div class="inventory-filters flexrow">  
+  <ul class="filter-list flexrow" data-filter="buffs">
+    {{#each sections as |section sid|}}
+    <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<section class="buffs-body">
+  <div class="inventory-group flexcol">
+    <ol class="inventory-list">
+      {{#each sections as |section sid|}}
+      {{#unless section._hidden}}
+      <li class="inventory-header flexrow">
+        <h3 class="item-name flexrow">{{section.label}}</h3>
+
+        <div class="item-detail item-level">
+          <span>{{localize "PF1.Level"}}</span>
+        </div>
+
+        <div class="item-detail item-active">
+          <span>{{localize "PF1.Active"}}</span>
+        </div>
+
+        {{#if ../owner}}
+        <div class="item-controls">
+          <a class="item-control item-create" title="{{localize "PF1.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
+            <i class="fas fa-plus"></i> {{localize "PF1.Add"}}
+          </a>
+        </div>
+        {{/if}}
+      </li>
+
+      <ol class="item-list">
+        {{#each section.items as |item iid|}}
+        <li class="item flexrow" data-item-id="{{item._id}}">
+          <div class="item-name flexrow rollable">
+              <div class="item-image" style="background-image: url({{item.img}})"></div>
+              <h4>{{item.name}}</h4>
+          </div>
+
+          <div class="item-detail item-level">
+            <span class="text-box" data-dtype="Number">{{#if item.data.level}}{{item.data.level}}{{/if}}</span>
+          </div>
+
+          <div class="item-detail item-active">
+            <input type="checkbox" {{checked item.data.active}}/>
+          </div>
+
+          {{#if ../../owner}}
+          <div class="item-controls">
+            <a class="item-control item-edit" title="{{localize "PF1.EditItem"}}"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-duplicate" title="{{localize "PF1.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
+            <a class="item-control item-delete" title="{{localize "PF1.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
+      {{/unless}}
+      {{/each}}
+    </ol>
+  </div>
+</section>

@@ -1,0 +1,300 @@
+@import "variables.less";
+
+/* ----------------------------------------- */
+/*  Chat Cards
+/* ----------------------------------------- */
+
+.pf1.chat-card {
+  font-style: normal;
+  font-size: 12px;
+
+  .card-header {
+    padding: 3px 0;
+    border-top: 2px groove #fff;
+    border-bottom: 2px groove #fff;
+
+    img {
+      flex: 0 0 36px;
+      margin-right: 5px;
+    }
+
+    h3 {
+      flex: 1;
+      margin: 0;
+      line-height: 28px;
+      .nodesto();
+      color: @colorOlive;
+    }
+  }
+
+  .card-content {
+    margin: 5px 0;
+
+    h3 {
+      font-size: 12px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    > * {
+      -webkit-user-select: text;
+      -moz-user-select: text;
+      -ms-user-select: text;
+      user-select: text;
+    }
+  }
+
+  .card-range {
+    display: block;
+    margin: 0 2px 1px 0;
+    padding: 1px 3px;
+    font-size: 14px;
+    line-height: 20px;
+    border: 1px solid #999;
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.05);
+    flex: 0 1 auto;
+    text-align: center;
+
+    &:hover {
+      border-color: blue;
+    }
+  }
+
+  .card-buttons {
+    margin: 2px 0;
+
+    .card-button-group {
+      label {
+        text-align: center;
+      }
+
+      button {
+        font-size: 12px;
+        height: 20px;
+        line-height: 16px;
+        margin: 2px 0;
+      }
+    }
+
+    span {
+      display: block;
+      line-height: 20px;
+      text-align: center;
+      border: 1px solid @borderLight;
+    }
+  }
+
+  .card-footer {
+    padding: 3px 0 0;
+    border-top: 2px groove #fff;
+
+    .spell-failure {
+      padding: 4px;
+      margin-bottom: 4px;
+      border: 1px solid #999;
+      border-radius: 3px;
+
+      h3 {
+        color: #4c6d9f;
+        font-size: 16px;
+        text-align: center;
+      }
+
+      .dice-roll,
+      .dice-total {
+        padding: 0;
+      }
+    }
+  }
+
+  .attack-row,
+  .damage-row {
+    align-items: baseline;
+
+    a.inline-result {
+      border-radius: 2px 2px 2px 0;
+    }
+
+    h1 {
+      margin-bottom: 4px;
+      font-size: 1.5em;
+      font-weight: bold;
+      border-bottom: unset;
+      box-shadow: inset 0px -2px 0px 0px #782e22;
+    }
+
+    h2 {
+      font-size: 1em;
+      margin-bottom: 4px;
+      margin-top: 4px;
+    }
+  }
+
+  .fake-inline-roll {
+    padding: 1px 4px 0 4px;
+    color: black;
+    text-shadow: none;
+    font-weight: normal;
+  }
+  .inline-roll,
+  .fake-inline-roll {
+    flex: 0;
+    height: 100%;
+
+    .dice-tooltip {
+      z-index: 1;
+    }
+
+    &.success {
+      background-color: rgb(96, 192, 96);
+    }
+
+    &.failure {
+      background-color: rgb(192, 96, 96);
+    }
+  }
+}
+
+.message {
+  .chat-attack {
+    margin-bottom: 2px;
+
+    .dice-roll {
+      overflow: hidden;
+
+      .dice-flavor {
+        color: #4c6d9f;
+        font-size: 11px;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .dice-total {
+        font-size: 16px;
+        line-height: 20px;
+      }
+    }
+  }
+
+  .property-group {
+    flex: 0 0 24px;
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      margin: 0 2px 1px 0;
+      padding: 1px 3px;
+      font-size: 12px;
+      line-height: 16px;
+      border: 1px solid #999;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, 0.05);
+      flex: 0 1 auto;
+    }
+
+    input[type="text"] {
+      height: 24px;
+      margin: 2px;
+    }
+
+    label {
+      flex: 2;
+      color: @colorOlive;
+      font-weight: bold;
+    }
+  }
+
+  .extra-text {
+    margin-top: 8px;
+    flex: 0 0 100%;
+    white-space: pre-wrap;
+
+    label {
+      flex: 2;
+      color: @colorOlive;
+      font-weight: bold;
+    }
+  }
+
+  .extra-effect:not(:last-child),
+  .extra-misc:not(:last-child) {
+    margin-bottom: 5px;
+  }
+
+  .extra-effect {
+    position: relative;
+    margin: 0;
+    line-height: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.1);
+    border: 1px solid #999;
+    border-radius: 3px;
+    box-shadow: 0 0 2px #fff inset;
+  }
+
+  .extra-misc {
+    position: relative;
+    margin: 0;
+    line-height: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid #999;
+    border-radius: 3px;
+    box-shadow: 0 0 2px #fff inset;
+  }
+
+  .extra-roll-label {
+    font-weight: bold;
+    font-size: 14px;
+  }
+
+  div.defense {
+    table {
+      font-size: 14px;
+      width: 100%;
+      table-layout: fixed;
+
+      td,
+      th {
+        text-align: center;
+      }
+    }
+  }
+}
+
+.chat-card.defense-card {
+  .saving-throws {
+    margin-top: 4px;
+  }
+}
+
+.damage-tooltip {
+  align-items: baseline;
+
+  &.tooltip .tooltipcontent {
+    width: 160px;
+
+    .roll-formula {
+      border-bottom: 1px solid white;
+    }
+  }
+
+  .damage-amount {
+    font-size: 14px;
+    text-align: right;
+    margin-right: 4px;
+  }
+
+  .damage-type {
+    font-size: 14px;
+    flex: 0 0 50%;
+    max-width: 50%;
+    overflow: hidden;
+    text-align: left;
+    margin-left: 4px;
+    padding: 2px;
+    border: 1px solid @borderDark;
+    border-radius: 4px;
+  }
+}

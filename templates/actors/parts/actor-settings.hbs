@@ -1,0 +1,9 @@
+{{!-- Spellbooks --}}
+<div class="form-group stacked">
+    <label>{{localize "PF1.SpellbookUsage"}}</label>
+    {{#each spellbookData as |spellbook a|}}
+    <label class="checkbox">
+        <input type="checkbox" {{checked spellbook.orig.inUse}} name="spellbook-{{a}}-inuse"/> {{spellbook.orig.name}}
+    </label>
+    {{/each}}
+</div>

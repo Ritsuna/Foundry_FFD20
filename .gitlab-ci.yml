@@ -1,0 +1,11 @@
+image: node
+
+stages:
+  - lint
+
+lint:
+  stage: lint
+  script:
+    - npm i
+    - npx eslint ./ .
+    - npx prettier --check .

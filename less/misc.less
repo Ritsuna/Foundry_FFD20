@@ -1,0 +1,147 @@
+form {
+  .form-group.stacked {
+    label {
+      flex: 0 0 100%;
+    }
+    label.checkbox {
+      flex: auto;
+      text-align: left;
+      line-height: 20px;
+      font-size: 11px;
+
+      input[type="checkbox"] {
+        height: unset;
+        margin: unset;
+      }
+    }
+  }
+}
+
+/* Tooltip text */
+.tooltip .tooltipcontent {
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  line-height: 13px;
+  min-width: 128px;
+  width: 240px;
+  white-space: normal;
+
+  /* Position the tooltip text */
+  position: fixed;
+  z-index: 1;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipcontent {
+  visibility: visible;
+  pointer-events: none;
+  opacity: 1;
+}
+
+.sidebar-tab[data-tab="compendium"] {
+  footer {
+    flex-direction: column;
+
+    span {
+      margin: 0 3px;
+      padding: 2px 7px;
+    }
+  }
+}
+
+.hide.hidden {
+  display: none;
+}
+
+.icon-label {
+  position: absolute;
+  -webkit-text-stroke: 1px black;
+  font-weight: bold;
+  font-size: 12px;
+  color: white;
+}
+
+span.text-box {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  color: black;
+  min-width: 20px;
+  width: calc(100% - 2px);
+  padding: 1px 3px;
+  cursor: text;
+  min-height: 20px;
+
+  &.readonly {
+    cursor: initial;
+  }
+  &:hover {
+    box-shadow: 0 0 8px red;
+    border-color: black;
+  }
+}
+
+input.text-box {
+  text-align: center;
+}
+
+.pf1 {
+  table {
+    margin: 4px 0;
+
+    thead {
+      .icon {
+        background-color: white;
+      }
+    }
+
+    tbody {
+      th {
+        background: rgba(127, 127, 127, 0.5);
+        color: white;
+        text-shadow: 1px 1px black;
+      }
+    }
+
+    tr {
+      td:not(.nocenter),
+      th:not(.nocenter) {
+        text-align: center;
+      }
+    }
+
+    td:not(:last-child),
+    th:not(:last-child) {
+      border-right: 1px solid black;
+    }
+
+    &.magic-items-table {
+      .name {
+        width: auto;
+      }
+      .aura {
+        width: 20%;
+      }
+      .cl {
+        width: 15%;
+      }
+      .identify-dc {
+        width: 15%;
+      }
+      .identify {
+        width: 40px;
+      }
+    }
+  }
+}

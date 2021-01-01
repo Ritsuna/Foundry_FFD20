@@ -1,0 +1,132 @@
+<div class="inventory-filters flexrow">  
+  <ul class="filter-list flexrow" data-filter="features">
+    {{#each sections as |section sid|}}
+    <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
+    {{/each}}
+  </ul>
+</div>
+
+<section class="feats-body">
+  {{#each sections as |section sid|}}
+  {{#unless section._hidden}}
+  <div class="feats-group flexcol">
+    <ol class="inventory-list sub-scroll scroll-feats">
+      <li class="inventory-header flexrow">
+        <h3 class="item-name flexrow">{{section.label}}</h3>
+        
+        {{#unless section.isClass}}
+        <div class="item-detail item-type"><i class="icon icon-magic-palm large" title="{{localize "PF1.Type"}}"></i></div>
+        {{/unless}}
+        
+        {{#if section.hasActions}}
+        <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "PF1.ActionPlural"}}"></i></div>
+        <div class="item-detail item-uses"><i class="icon icon-battery-pack large" title="{{localize "PF1.ChargePlural"}}"></i></div>
+        <div class="item-detail item-usage"><i class="icon icon-hand large" title="{{localize "PF1.Usage"}}"></i></div>
+        {{/if}}
+        
+        {{#if section.isClass}}
+        <div class="item-detail item-feat-level"><i class="icon icon-upgrade large" title="{{localize "PF1.Level"}}"></i></div>
+        {{/if}}
+        
+        {{#if ../owner}}
+        <div class="item-controls">
+          {{#if section.canCreate}}
+          <a class="item-control item-create" title="Create Item" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
+            <i class="fas fa-plus"></i>
+          </a>
+          {{/if}}
+          <a data-action="compendium" data-action-target="feats" title="{{localize "PF1.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
+        </div>
+        {{/if}}
+      </li>
+      
+      <ol class="item-list">
+        {{#each section.items as |item iid|}}
+        <li class="item flexrow {{#unless isCharged}}uncharged{{/unless}}" data-item-id="{{item._id}}">
+          <div class="item-name flexrow rollable">
+            <div class="item-image" style="background-image: url({{item.img}})"></div>
+            <h4>{{item.name}}</h4>
+          </div>
+          
+          {{#unless section.isClass}}
+          <div class="item-detail item-type">
+            <span>{{item.abilityTypeShort}}</span>
+          </div>
+          {{/unless}}
+          
+          {{#if section.hasActions}}
+          <div class="item-detail item-actions">
+            <div class="item-attack tooltip">
+              {{#if item.hasAction}}
+              <span class="tooltipcontent">
+                {{localize "PF1.UseFeat"}}
+              </span>
+              <a class="item-control item-attack"><img class="icon" src="systems/pf1/icons/actions/gladius.svg"></a>
+              {{/if}}
+            </div>
+          </div>
+          
+          <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
+            {{#if item.isCharged}}
+            <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.data.uses.value}}</span>
+            <span class="sep"> / </span>
+            <span class="text-box">{{item.data.uses.max}}</span>
+            <span class="tooltipcontent">
+              @resources.{{item.tag}}.value : {{item.data.uses.value}}<br>
+              @resources.{{item.tag}}.max : {{item.data.uses.max}}
+            </span>
+            {{/if}}
+          </div>
+          <div class="item-detail item-usage">
+            {{#if item.data.activation.type }}
+            <span>{{item.labels.activation}}</span>
+            {{/if}}
+          </div>
+          {{else if section.isClass}}
+          <div class="item-detail item-feat-level tooltip">
+            <span>Level {{item.data.level}}</span>
+            <span class="tooltipcontent">@classes.{{item.data.tag}}.level : {{item.data.level}}</span>
+          </div>
+          {{/if}}
+          
+          {{#if ../../owner}}
+          <div class="item-controls">
+            <a class="item-control item-edit" title="{{localize "PF1.EditItem"}}"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-duplicate" title="{{localize "PF1.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
+            <a class="item-control item-delete" title="{{localize "PF1.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
+      </ol>
+    </ol>
+  </div>
+  {{/unless}}
+  {{/each}}
+</section>
+
+<hr>
+<div class="tab-footer flexcol">
+  <div class="flexrow form-group">
+    <label>{{localize "PF1.BonusFeatFormula"}}</label>
+    <input type="text" name="data.details.bonusFeatFormula" value="{{data.details.bonusFeatFormula}}" placeholder="{{localize "PF1.Formula"}}" />
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>{{localize "PF1.Feats"}}</th>
+        <th>{{localize "PF1.ByLevel"}}</th>
+        <th>{{localize "PF1.ByBonus"}}</th>
+        <th>{{localize "PF1.Total"}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="center">{{featCount.value}}</td>
+        <td class="center">{{featCount.byLevel}}</td>
+        <td class="center">{{featCount.byFormula}}</td>
+        <td class="center">{{featCount.total}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,30 @@
+<div>
+  {{!-- Notes --}}
+  <h4 class="context-notes-header">
+    {{localize "PF1.ContextNotes"}}
+  </h4>
+  <ol class="context-notes form-group">
+    {{#each data.contextNotes as |note a|}}
+    <li class="context-note flexrow" data-note="{{a}}">
+      <textarea class="context-note-text" name="data.contextNotes.{{a}}.text" placeholder="{{localize "PF1.Notes"}}">{{{lookup this "text"}}}</textarea>
+      <select class="context-note-target" name="data.contextNotes.{{a}}.target" required>
+        {{#select (lookup this "target") }}
+        <option value=""></option>
+        {{#each ../contextNotes.targets as |target type|}}
+        <option value="{{type}}">{{target}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+      <select class="context-note-sub-target" name="data.contextNotes.{{a}}.subTarget">
+        {{#select (lookup this "subTarget") }}
+        {{#each subNotes as |target type|}}
+        <option value="{{type}}">{{target}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+      <a class="context-note-control delete-note"><i class="fas fa-trash"></i></a>
+    </li>
+    {{/each}}
+    <li class="context-note flexrow"><a class="context-note-control add-note"><i class="fas fa-plus"></i> {{localize "PF1.AddNote"}}</a></li>
+  </ol>
+</div>

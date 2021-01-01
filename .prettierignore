@@ -1,0 +1,6 @@
+node_modules/
+module/lib/
+module/semver.js
+*.hbs
+*.css
+foundry.js

@@ -1,0 +1,8 @@
+<h4 class="form-header">{{localize "PF1.Advanced"}}</h4>
+
+<div class="form-group">
+	<label>{{localize "PF1.Tag"}}</label>
+	<input {{#unless data.useCustomTag}}disabled{{/unless}} type="text" name="data.tag" value="{{data.tag}}" placeholder="{{localize "PF1.Tag"}}" />
+	<label>{{localize "PF1.Custom"}}</label>
+	<input type="checkbox" name="data.useCustomTag" {{checked data.useCustomTag}} />
+</div>

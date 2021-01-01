@@ -1,0 +1,35 @@
+<h2>{{localize "PF1.MagicItems"}}</h2>
+<table class="magic-items-table">
+  <thead>
+    <tr>
+      <th class="name">{{localize "PF1.Item"}}</th>
+      <th class="aura">{{localize "PF1.Aura"}}</th>
+      <th class="cl">{{localize "PF1.CasterLevel"}}</th>
+      {{#if isGM}}
+      <th class="identify-dc">{{localize "PF1.IdentifyDC"}}</th>
+      <th class="identify"><i class="icon icon-quill-ink large" title="{{localize "PF1.Identified"}}"></i></th>
+      {{/if}}
+    </tr>
+  </thead>
+  <tbody>
+  {{#each items as |item|}}
+    <tr class="item" data-item-id="{{item._id}}">
+      <td class="nocenter"><img src="{{item.img}}" width="24" height="24">{{item.name}}{{#if item.quantity}} (x{{item.quantity}}){{/if}}</td>
+      <td>{{{item.school}}}</td>
+      <td>{{item.cl}}</td>
+      {{#if ../isGM}}
+      <td>{{item.identifyDC}}</td>
+      <td>
+        <a class="item-control item-identify">
+          {{#if item.identified}}
+          <i class="fas fa-check"></i>
+          {{else}}
+          <i class="fas fa-times"></i>
+          {{/if}}
+        </a>
+      </td>
+      {{/if}}
+    </tr>
+  {{/each}}
+  </tbody>
+</table>

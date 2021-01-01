@@ -1,0 +1,41 @@
+{{#if flavor}}
+<span class="flavor-text">
+  {{#if compendiumEntry}}
+  <a title="{{localize "PF1.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"><i class="fas fa-book"></i></a>
+  {{/if}}
+  {{flavor}}
+</span>
+{{/if}}
+
+{{#unless flavor}}
+{{#if compendiumEntry}}
+<a title="{{localize "PF1.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"><i class="fas fa-book"></i></a>
+{{/if}}
+{{/unless}}
+
+{{#if formula}}
+<div class="dice-roll">
+  <div class="dice-result">
+      <div class="dice-formula">{{formula}}</div>
+      {{{tooltip}}}
+      <h4 class="dice-total{{#if isCrit}} success{{/if}}{{#if isFumble}} failure{{/if}}">{{total}}</h4>
+  </div>
+</div>
+{{/if}}
+
+{{#if hasExtraText}}
+<div class="extra-text gm-sensitive">{{{extraText}}}</div>
+{{/if}}
+
+{{#if hasProperties}}
+{{#each properties as |prop|}}
+<div class="flexcol property-group gm-sensitive">
+  <label>{{prop.header}}</label>
+  <div class="flexrow">
+    {{#each prop.value as |v|}}
+    <span class="tag">{{{v}}}</span>
+    {{/each}}
+  </div>
+</div>
+{{/each}}
+{{/if}}

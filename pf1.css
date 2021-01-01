@@ -1,0 +1,3077 @@
+/* Deprecated vars */
+/* ----------------------------------------- */
+/*  Fonts                                    */
+/* ----------------------------------------- */
+@font-face {
+  font-family: "Nodesto";
+  src: url("../../fonts/modesto-condensed/modesto-condensed-bold.woff2") format("woff2");
+}
+.nodesto {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+}
+/* ----------------------------------------- */
+/*  Sheet Styles                             */
+/* ----------------------------------------- */
+/* ----------------------------------------- */
+/*  Flexbox                                  */
+/* ----------------------------------------- */
+.flexrow {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.flexrow > * {
+  flex: 1;
+}
+.flexrow .flex1 {
+  flex: 1;
+}
+.flexrow .flex2 {
+  flex: 2;
+}
+.flexrow .flex3 {
+  flex: 3;
+}
+.flexrow .flex4 {
+  flex: 4;
+}
+.flexcol {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+.flexcol > * {
+  flex: 1;
+}
+.flexcol .flex1 {
+  flex: 1;
+}
+.flexcol .flex2 {
+  flex: 2;
+}
+.flexcol .flex3 {
+  flex: 3;
+}
+.flexcol .flex4 {
+  flex: 4;
+}
+.strikethrough-text {
+  text-decoration: line-through;
+}
+.pf1-sheet-group {
+  padding: 2px;
+  margin: 2px;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 2px;
+}
+.pf1-sheet-group:hover {
+  border-color: #666;
+}
+/* ----------------------------------------- */
+/*  Animation                                */
+/* ----------------------------------------- */
+@keyframes dice-spin {
+  100% {
+    transform: rotate(1turn);
+  }
+}
+/* ----------------------------------------- */
+/*  All PF1 Apps                           */
+/* ----------------------------------------- */
+.pf1 {
+  /* ----------------------------------------- */
+  /*  Element Styles                           */
+  /* ----------------------------------------- */
+  /* Form Groups */
+  /* Tags */
+}
+.pf1 input[type="text"]::placeholder,
+.pf1 .placeholder {
+  color: #7a7971;
+}
+.pf1 .align-left {
+  text-align: start;
+}
+.pf1 .align-center {
+  text-align: center;
+}
+.pf1 .align-right {
+  text-align: end;
+}
+.pf1 li {
+  align-items: center;
+}
+.pf1 .window-content {
+  background: url("ui/parchment.jpg") repeat;
+  font-size: 13px;
+  color: #191813;
+  overflow: hidden;
+}
+.pf1 input[type="text"],
+.pf1 input[type="number"],
+.pf1 select {
+  border: 1px solid #7a7971;
+  background: rgba(0, 0, 0, 0.05);
+  color: #191813;
+}
+.pf1 input[type="text"]:hover,
+.pf1 input[type="number"]:hover,
+.pf1 input[type="text"]:focus,
+.pf1 input[type="number"]:focus {
+  border: 1px solid #111;
+  box-shadow: 0 0 8px red;
+}
+.pf1 input:disabled,
+.pf1 select:disabled,
+.pf1 textarea:disabled,
+.pf1 input:readonly {
+  color: #4b4a44;
+}
+.pf1 input:disabled:hover,
+.pf1 select:disabled:hover,
+.pf1 textarea:disabled:hover,
+.pf1 input:readonly:hover,
+.pf1 input:disabled:focus,
+.pf1 select:disabled:focus,
+.pf1 textarea:disabled:focus,
+.pf1 input:readonly:focus {
+  box-shadow: none !important;
+}
+.pf1 button {
+  background: rgba(0, 0, 0, 0.1);
+  border: 2px groove #eeede0;
+}
+.pf1 button:active {
+  background: rgba(0, 0, 0, 0.3);
+}
+.pf1 label.checkbox {
+  flex: auto;
+  margin: 0;
+  line-height: 20px;
+  font-size: 11px;
+}
+.pf1 label.checkbox input[type="checkbox"] {
+  height: auto;
+  margin: 0 5px 0;
+  position: relative;
+  top: 3px;
+}
+.pf1 .form-group {
+  flex: 0 0 24px;
+}
+.pf1 .form-group label.header {
+  flex: 0 0 100%;
+}
+.pf1 .form-group label:nth-child(1n + 1) {
+  margin-left: 4px;
+}
+.pf1 .form-group .buff-flags {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 100%;
+  max-height: 76px;
+  overflow-y: auto;
+}
+.pf1 .form-group .buff-flags label.checkbox {
+  flex: 0 0 50%;
+  text-align: left;
+}
+.pf1 .form-group label {
+  flex: 0 0 200px;
+  color: #4b4a44;
+  font-weight: bold;
+  white-space: nowrap;
+}
+.pf1 .form-group label.checkbox {
+  flex: 0;
+}
+.pf1 .form-group label.aura-strength {
+  text-align: right;
+  margin-right: 4px;
+}
+.pf1 .form-group span {
+  flex: 0 0 1px;
+}
+.pf1 .form-group .form-fields {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+.pf1 .form-group .form-fields > * {
+  flex: 1;
+}
+.pf1 .form-group .form-fields .flex1 {
+  flex: 1;
+}
+.pf1 .form-group .form-fields .flex2 {
+  flex: 2;
+}
+.pf1 .form-group .form-fields .flex3 {
+  flex: 3;
+}
+.pf1 .form-group .form-fields .flex4 {
+  flex: 4;
+}
+.pf1 .form-group .form-fields > * {
+  margin: 0 3px 0 0;
+}
+.pf1 .form-group .form-fields > *:last-child {
+  margin-right: 0;
+}
+.pf1 .form-group .group {
+  flex: 1 1 96px;
+}
+.pf1 .form-group .group label {
+  flex: 1;
+  font-weight: normal;
+}
+.pf1 .form-group .group a {
+  flex: 0 0 16px;
+}
+.pf1 .form-group.stacked label {
+  flex: 0 0 100%;
+}
+.pf1 .form-group.stacked label.checkbox {
+  text-align: left;
+}
+.pf1 .form-group.stacked .data-selector {
+  flex: 1;
+}
+.pf1 .form-group.stacked .data-selector label {
+  font-weight: normal;
+  flex: 1;
+}
+.pf1 .form-group.stacked .data-selector .entry-selector {
+  flex: 0 0 16px;
+}
+.pf1 .form-header {
+  margin: 0 0 0.25em 0;
+  padding: 0 2px;
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+  font-size: 26px;
+  border-top: 2px groove #eeede0;
+  border-bottom: 2px groove #eeede0;
+}
+.pf1 .tag {
+  display: inline-block;
+  margin: 0 2px 1px 0;
+  padding: 0 3px;
+  font-size: 12px;
+  line-height: 16px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.pf1 .tag.type1 {
+  background: rgba(255, 0, 0, 0.1);
+}
+.pf1 .tag.type2 {
+  background: rgba(0, 255, 0, 0.1);
+}
+.pf1 .tag.type3 {
+  background: rgba(0, 0, 255, 0.1);
+}
+.pf1 div.links-body table .links-item-extra-field {
+  width: 128px;
+}
+.pf1 div.links-body table .links-controls {
+  width: 48px;
+}
+.pf1 div.links-body table .links-controls > div {
+  display: flex;
+  justify-content: center;
+}
+.pf1 div.links-body table .links-item .links-item-name img {
+  vertical-align: middle;
+}
+.pf1 div.links-body table .links-item .links-item-name span {
+  vertical-align: middle;
+}
+.pf1 div.links-body table th {
+  background-color: #747474;
+}
+.pf1 div.links-body table tr:not(:last-child) {
+  border-bottom: 1px solid #888888;
+}
+.pf1 div.links-body table td:not(:last-child),
+.pf1 div.links-body table th:not(:last-child) {
+  border-right: 1px solid #888888;
+}
+.pf1 .help-icon {
+  flex: 0;
+}
+.pf1 .fake-inline-roll {
+  background: #ddd;
+  padding: 1px 4px;
+  border: 1px solid #4b4a44;
+  border-radius: 2px;
+  white-space: nowrap;
+  word-break: break-all;
+}
+/* ----------------------------------------- */
+/*  Trait Selectors Specifically             */
+/* ----------------------------------------- */
+.pf1.trait-selector {
+  max-height: 720px;
+}
+.pf1.trait-selector .window-content {
+  overflow: auto;
+}
+/* ----------------------------------------- */
+/*  Entity Sheets Specifically               */
+/* ----------------------------------------- */
+.pf1.sheet {
+  /* ----------------------------------------- */
+  /*  Element Styles                           */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  TinyMCE                                  */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Sheet Header                             */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Sheet Navigation                         */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Sheet Body                               */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  List Filters                             */
+  /* ----------------------------------------- */
+}
+.pf1.sheet .window-content {
+  overflow-y: hidden;
+  padding: 5px;
+  background: url("ui/parchment.jpg") repeat;
+  font-size: 13px;
+  color: #191813;
+}
+.pf1.sheet .window-content form {
+  height: 100%;
+  overflow: hidden;
+}
+.pf1.sheet .window-content .tab {
+  height: 100%;
+  overflow-y: auto;
+  align-content: flex-start;
+}
+.pf1.sheet .inventory-list {
+  list-style: none;
+  margin: 0;
+  padding: 0 5px;
+  overflow-y: auto;
+}
+.pf1.sheet .inventory-list.flexcol {
+  height: 100%;
+}
+.pf1.sheet .inventory-list .item {
+  line-height: 24px;
+  padding: 0 2px;
+  border-bottom: 1px solid #c9c7b8;
+  background-color: rgba(155, 155, 155, 0.3);
+}
+.pf1.sheet .inventory-list .item:last-child {
+  border-bottom: none;
+}
+.pf1.sheet .inventory-list .item:nth-child(2n + 1) {
+  background-color: rgba(210, 210, 210, 0.3);
+}
+.pf1.sheet .inventory-list .item:hover {
+  background-color: rgba(64, 64, 192, 0.3);
+}
+.pf1.sheet .inventory-list .item .item-name {
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pf1.sheet .inventory-list .item .item-name .item-image {
+  flex: 0 0 24px;
+  background-size: 24px;
+  margin-right: 5px;
+}
+.pf1.sheet .inventory-list .item .item-name h4 {
+  margin: 0;
+  min-width: 0;
+}
+.pf1.sheet .inventory-list .item .item-name .item-image:hover {
+  background-image: url("/icons/svg/d20-black.svg") !important;
+}
+.pf1.sheet .inventory-list .item input[type="checkbox"] {
+  height: 12px;
+}
+.pf1.sheet .inventory-list .item .item-properties {
+  margin-top: 3px;
+}
+.pf1.sheet .inventory-list .item .item-recharge {
+  flex: 0 0 80px;
+  text-align: right;
+  font-size: 14px;
+  color: #7a7971;
+}
+.pf1.sheet .inventory-list .item .item-actions > div a {
+  display: flex;
+  flex: 0 0 16px;
+  padding: 0;
+  margin-right: 1px;
+  height: 16px;
+}
+.pf1.sheet .inventory-list .item .item-actions > div a:last-child {
+  margin-right: 0;
+}
+.pf1.sheet .inventory-list .inventory-header {
+  margin: 2px 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  line-height: 24px;
+  flex: 0 0 24px;
+}
+.pf1.sheet .inventory-list .inventory-header h3 {
+  margin: 0;
+  padding-left: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+.pf1.sheet .inventory-list .inventory-header .item-controls {
+  justify-content: space-evenly;
+}
+.pf1.sheet .inventory-list .item-detail {
+  height: 24px;
+  flex: 0 0 80px;
+  font-size: 14px;
+  color: #7a7971;
+  text-align: center;
+  border-right: 1px solid #b5b3a4;
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  justify-content: flex-end;
+  align-items: center;
+}
+.pf1.sheet .inventory-list .item-detail > * {
+  flex: 1;
+}
+.pf1.sheet .inventory-list .item-detail .flex1 {
+  flex: 1;
+}
+.pf1.sheet .inventory-list .item-detail .flex2 {
+  flex: 2;
+}
+.pf1.sheet .inventory-list .item-detail .flex3 {
+  flex: 3;
+}
+.pf1.sheet .inventory-list .item-detail .flex4 {
+  flex: 4;
+}
+.pf1.sheet .inventory-list .item-detail .icon {
+  background-color: #7a7971;
+}
+.pf1.sheet .inventory-list .item-detail.item-actions {
+  flex: 0 0 32px;
+  padding: 0 1px 0 1px;
+  justify-content: center;
+}
+.pf1.sheet .inventory-list .item-detail.item-actions > div {
+  flex: 0 0 16px;
+}
+.pf1.sheet .inventory-list .item-detail.item-slot {
+  flex: 0 0 64px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-usage {
+  flex: 0 0 120px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-type {
+  flex: 0 0 120px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-value {
+  flex: 0 0 72px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-weight {
+  flex: 0 0 56px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-identified {
+  flex: 0 0 32px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-carried {
+  flex: 0 0 32px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-equipped {
+  flex: 0 0 32px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail.item-uses {
+  flex: 0 0 64px;
+  padding: 0 1px 0 1px;
+}
+.pf1.sheet .inventory-list .item-detail:nth-child(2) {
+  border-left: 1px solid #b5b3a4;
+}
+.pf1.sheet .inventory-list .item-detail:last-child {
+  border-right: none;
+}
+.pf1.sheet .inventory-list a.item-control {
+  height: 100%;
+}
+.pf1.sheet .inventory-list a.item-control.item-toggle-data {
+  color: rgba(75, 75, 75, 0.3);
+}
+.pf1.sheet .inventory-list a.item-control.item-toggle-data.enabled {
+  color: #4b4b4b;
+}
+.pf1.sheet .inventory-list .item-level {
+  flex: 0 0 40px;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet .inventory-list .item-feat-level {
+  flex: 0 0 60px;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet .inventory-list .item-active {
+  flex: 0 0 60px;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet .inventory-list .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pf1.sheet .inventory-list .item-controls {
+  flex: 0 0 96px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  overflow-x: hidden;
+  white-space: nowrap;
+  justify-content: center;
+}
+.pf1.sheet .inventory-list .item-controls > * {
+  flex: 1;
+}
+.pf1.sheet .inventory-list .item-controls .flex1 {
+  flex: 1;
+}
+.pf1.sheet .inventory-list .item-controls .flex2 {
+  flex: 2;
+}
+.pf1.sheet .inventory-list .item-controls .flex3 {
+  flex: 3;
+}
+.pf1.sheet .inventory-list .item-controls .flex4 {
+  flex: 4;
+}
+.pf1.sheet .inventory-list .item-controls a {
+  flex: 0 0 16px;
+  font-size: 14px;
+  text-align: center;
+  color: #666;
+}
+.pf1.sheet .inventory-list .item-summary {
+  flex: 0 0 100%;
+  font-size: 14px;
+  line-height: 16px;
+  padding: 0.25em 0.5em;
+  border-top: 1px solid #c9c7b8;
+}
+.pf1.sheet input[type="text"],
+.pf1.sheet input[type="number"] {
+  background: none;
+  border: 1px solid transparent;
+}
+.pf1.sheet input[type="text"]:hover,
+.pf1.sheet input[type="number"]:hover,
+.pf1.sheet input[type="text"]:focus,
+.pf1.sheet input[type="number"]:focus {
+  border: 1px solid #111;
+}
+.pf1.sheet textarea {
+  font-family: sans-serif;
+  padding: 1px 5px;
+  resize: none;
+  border: 1px solid #7a7971;
+  background: rgba(0, 0, 0, 0.05);
+  white-space: nowrap;
+}
+.pf1.sheet textarea:hover {
+  border: 1px solid #111;
+}
+.pf1.sheet select {
+  flex: 1;
+  font-size: 12px;
+  height: 24px;
+  background: transparent;
+}
+.pf1.sheet .editable .rollable:hover {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+.pf1.sheet .editor {
+  height: 100%;
+}
+.pf1.sheet .editor .tox-toolbar-overlord,
+.pf1.sheet .editor .tox-toolbar__primary {
+  background: none;
+}
+.pf1.sheet .sheet-header {
+  flex: 0 0 100px;
+  border-bottom: 2px groove #eeede0;
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+  align-items: center;
+  /* Character Name */
+  /* Profile Image */
+  /* Header Summary Details */
+}
+.pf1.sheet .sheet-header h1 {
+  flex: 1;
+  border-bottom: none;
+  height: 60px;
+  margin: 0;
+  padding: 5px;
+}
+.pf1.sheet .sheet-header h1 input {
+  height: 50px;
+  font-size: 36px;
+  font-variant-caps: small-caps;
+  margin: 0;
+}
+.pf1.sheet .sheet-header img.profile {
+  flex: 0 0 100px;
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  border: none;
+  border-right: 2px groove #eeede0;
+}
+.pf1.sheet .sheet-header .summary {
+  flex: 0 0 100%;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 2px groove #eeede0;
+  border-bottom: none;
+}
+.pf1.sheet .sheet-header .summary li {
+  width: 33.33%;
+  float: left;
+  height: 24px;
+  padding: 0 3px;
+  border-right: 2px groove #eeede0;
+  border-bottom: 2px groove #eeede0;
+  line-height: 24px;
+  color: #4b4a44;
+}
+.pf1.sheet .sheet-header .summary li input {
+  vertical-align: top;
+}
+.pf1.sheet .sheet-header .header-details .summary input[type="checkbox"] {
+  margin: 0;
+}
+.pf1.sheet .sheet-navigation {
+  flex: 0 0 30px;
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+  margin: 4px 0;
+  background: rgba(155, 155, 155, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 6px 6px 0 0;
+}
+.pf1.sheet .sheet-navigation .item {
+  height: 30px;
+  line-height: 32px;
+  margin: 0 2px;
+  white-space: nowrap;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 12px 12px 0 0;
+}
+.pf1.sheet .sheet-navigation .item.active {
+  background: rgba(155, 155, 155, 0.5);
+}
+.pf1.sheet .sheet-navigation .item:hover {
+  background: rgba(155, 155, 155, 0.2);
+}
+.pf1.sheet .sheet-navigation.tabs {
+  border-bottom: 2px groove #eeede0;
+}
+.pf1.sheet .sheet-navigation.subtabs {
+  font-size: 18px;
+}
+.pf1.sheet .primary-body {
+  flex: 1;
+  overflow: hidden;
+}
+.pf1.sheet .filter-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  line-height: 16px;
+}
+.pf1.sheet .filter-list .filter-title {
+  flex: 3;
+}
+.pf1.sheet .filter-list .filter-item {
+  text-align: center;
+  font-size: 12px;
+  margin: 0 6px;
+  border-bottom: 3px solid #b5b3a4;
+  white-space: nowrap;
+}
+.pf1.sheet .filter-list .filter-item:hover {
+  text-shadow: 0 0 4px red;
+  border-bottom: 3px solid #7a7971;
+}
+.pf1.sheet .filter-list .filter-item.active {
+  border-bottom: 3px solid #44191a;
+}
+.pf1.sheet a > .icon:hover {
+  opacity: 0.5;
+}
+.pf1.sheet .icon {
+  border: none;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+.pf1.sheet .icon.large {
+  width: 24px;
+  height: 24px;
+}
+.pf1.sheet div.info {
+  text-align: center;
+  justify-content: center;
+}
+.pf1.sheet div.info span {
+  color: #7a7971;
+  flex: 0;
+}
+.pf1.sheet div.info span a {
+  color: #7e78dc;
+}
+.pf1.sheet .currency {
+  list-style: none;
+  margin: 4px 0 8px;
+  padding: 0;
+  font-size: 14px;
+}
+.pf1.sheet .currency h3 {
+  flex: 0 0 160px;
+}
+.pf1.sheet .currency label {
+  flex: 0;
+  margin-left: 8px;
+  text-align: right;
+  line-height: 20px;
+  color: #7a7971;
+}
+.pf1.sheet .currency input[type="text"],
+.pf1.sheet .currency span.text-box {
+  flex: 1;
+  text-align: center;
+  margin-left: 8px;
+  border-bottom: 2px groove #eeede0;
+  padding: 1px 3px;
+  margin: 0;
+  height: auto;
+  line-height: 20px;
+}
+.pf1.sheet .currency .convert-currency {
+  flex: 0;
+}
+/* ----------------------------------------- */
+/* Trait Selector
+/* ----------------------------------------- */
+#trait-selector .trait-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+#trait-selector input[type="text"] {
+  height: 24px;
+  margin: 2px;
+}
+.pf1.entry table {
+  border: 1px solid #888888;
+  font-weight: normal;
+  table-layout: fixed;
+}
+.pf1.entry table th.entry-control {
+  width: 16px;
+}
+.pf1.entry table tr {
+  height: 16px;
+}
+.pf1.entry table thead {
+  background-color: #cfe2f3;
+}
+.pf1.entry table tbody tr {
+  background-color: white;
+}
+.pf1.entry table tbody tr:nth-child(even) {
+  background-color: #f3f3f3;
+}
+.compendium-browser {
+  max-height: 100%;
+}
+.compendium-browser h3.rollable {
+  margin: 4px 0;
+}
+.compendium-browser .rollable:hover {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+.compendium-browser .header {
+  flex: 1;
+  padding-right: 8px;
+  border-right: 2px groove #eeede0;
+  max-height: 100%;
+}
+.compendium-browser .header .search {
+  height: 48px;
+  display: flex;
+  align-items: center;
+}
+.compendium-browser .header .search .fas.fa-search {
+  margin: 4px;
+}
+.compendium-browser .header .filter-container {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  max-height: calc(100% - 48px);
+  margin-bottom: 8px;
+}
+.compendium-browser .header .filter-container .filter {
+  margin-top: 8px;
+  border: 1px solid #666;
+  border-radius: 4px;
+  max-height: 100%;
+}
+.compendium-browser .header .filter-container .filter h3 {
+  text-align: center;
+}
+.compendium-browser .header .filter-container .filter .filter-content {
+  max-height: 100%;
+}
+.compendium-browser .header .filter-container .filter .filter-content .checkbox {
+  display: flex;
+  align-items: center;
+}
+.compendium-browser .directory-container {
+  flex: 1;
+  max-height: 100%;
+}
+.compendium-browser .directory-container .top {
+  flex: 0;
+}
+.compendium-browser .directory-container .top span {
+  flex: 1;
+  text-align: center;
+}
+.compendium-browser .directory-container .top span:not(:last-child) {
+  border-right: 2px groove #eeede0;
+}
+.compendium-browser .directory-container .directory-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 0;
+}
+.compendium-browser .directory-container .directory-list .directory-item {
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+.compendium-browser .directory-container .directory-list .directory-item img {
+  flex: 0;
+  width: 48px;
+  height: 48px;
+  margin: 2px;
+}
+.compendium-browser .directory-container .directory-list .directory-item h4 {
+  margin-left: 4px;
+}
+.config .config-icon {
+  opacity: 0;
+}
+.config:hover .config-icon {
+  color: #888888;
+  opacity: 1;
+}
+.pf1.pointbuy-calculator ol.item-list li {
+  background-color: rgba(155, 155, 155, 0.3);
+}
+.pf1.pointbuy-calculator ol.item-list li:nth-child(2n + 1) {
+  background-color: rgba(210, 210, 210, 0.3);
+}
+.pf1.pointbuy-calculator ol.item-list .ability-controls {
+  flex: 0 0 32px;
+  padding: 0 1px 0 1px;
+}
+.pf1.pointbuy-calculator ol.item-list .item-detail.ability-value {
+  flex: 0 0 32px;
+  padding: 0 1px 0 1px;
+}
+.dialog-get-actor {
+  border-color: rgba(0, 0, 0, 0);
+  border-width: 1px;
+  border-radius: 4px;
+  border-style: solid;
+  margin-top: 4px;
+  padding: 2px;
+}
+.dialog-get-actor img {
+  flex: 0 0 96px;
+  max-width: 96px;
+  max-height: 96px;
+  object-fit: contain;
+}
+.dialog-get-actor h2 {
+  vertical-align: middle;
+  line-height: 96px;
+  margin-left: 8px;
+}
+.dialog-get-actor:hover {
+  border-color: #3030ff;
+}
+/* ----------------------------------------- */
+/* Changelog
+/* ----------------------------------------- */
+.pf1.changelog .content {
+  overflow-y: auto;
+  max-height: 640px;
+}
+/* ----------------------------------------- */
+/* Help Browser
+/* ----------------------------------------- */
+.pf1.help-browser section.window-content {
+  padding: 0;
+}
+.pf1.help-browser section.window-content .top-bar {
+  padding: 6px;
+  flex: 0 0 24px;
+  border-bottom: 2px groove #eeede0;
+}
+.pf1.help-browser section.window-content .top-bar > * {
+  margin-right: 8px;
+}
+.pf1.help-browser section.window-content .top-bar i {
+  font-size: 24px;
+}
+.pf1.help-browser section.window-content .top-bar i.gray {
+  color: gray;
+}
+.pf1.help-browser section.window-content .content a,
+.pf1.help-browser section.window-content nav a {
+  color: #ff6400;
+  text-decoration: underline;
+}
+.pf1.help-browser section.window-content .primary {
+  height: calc(100% - 32px);
+}
+.pf1.help-browser section.window-content nav {
+  flex: 0 0 200px;
+  border-right: 2px groove #eeede0;
+  height: 100%;
+  overflow: auto;
+}
+.pf1.help-browser section.window-content .content {
+  height: 100%;
+  overflow: auto;
+  padding-bottom: 32px;
+}
+.pf1.help-browser section.window-content .content code {
+  padding: 2px;
+  background-color: black;
+  color: white;
+}
+.pf1.help-browser section.window-content .content img {
+  margin-left: 8px;
+}
+.pf1.help-browser section.window-content .content h2 {
+  margin-top: 1em;
+}
+/* ----------------------------------------- */
+/* Script Editor
+/* ----------------------------------------- */
+.pf1.script-editor .form-group.command {
+  flex: 1;
+  flex-direction: column;
+  align-items: unset;
+}
+.pf1.script-editor .form-group.command label {
+  flex: 0;
+}
+.pf1.script-editor .form-group.command textarea {
+  flex: 1;
+}
+.pf1.script-editor footer {
+  flex: 0 0 32px;
+}
+.pf1.sheet.actor {
+  /* ----------------------------------------- */
+  /*  Sheet Header                             */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Summary Tab                              */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  General Styles                           */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Attributes                               */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Defenses                                 */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Ability Scores                           */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Skills                                   */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Statuses                                 */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Buffs & Conditions                       */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Traits                                   */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Inventory Lists                          */
+  /* ----------------------------------------- */
+  /* Encumbrance Bar */
+  /* Inventory List Filters */
+  /* ----------------------------------------- */
+  /*  Features                                 */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Spellbook                                */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  TinyMCE                                  */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Misc                                     */
+  /* ----------------------------------------- */
+}
+.pf1.sheet.actor .warning {
+  flex: 0;
+  background-color: #cece00;
+  border: 1px solid #909000;
+  border-radius: 2px;
+}
+.pf1.sheet.actor .tab-footer {
+  flex: 0;
+}
+.pf1.sheet.actor .tab.summary {
+  border-left: 2px groove #eeede0;
+}
+.pf1.sheet.actor .tab.summary .summary-header {
+  flex: 0;
+  border-bottom: 2px groove #eeede0;
+}
+.pf1.sheet.actor .tab.summary .summary-header .name-xp {
+  flex: 0;
+}
+.pf1.sheet.actor .tab.summary .summary-header .name-xp h1.charname input {
+  height: 32px;
+  padding: 0;
+}
+.pf1.sheet.actor .tab.summary .summary-header .character-summary {
+  flex: 0;
+}
+.pf1.sheet.actor .tab.summary .summary-header .character-summary > div {
+  flex: 0 0 33%;
+  height: 32px;
+  line-height: 28px;
+  border-right: 2px groove #eeede0;
+  border-bottom: 2px groove #eeede0;
+}
+.pf1.sheet.actor .tab.summary .summary-header .character-summary > div:nth-child(3n + 0) {
+  border-right: none;
+}
+.pf1.sheet.actor .tab.summary .summary-header .character-summary > div.alignment {
+  padding: 1px 3px;
+}
+.pf1.sheet.actor .tab.summary .summary-header .race-container {
+  flex: 1;
+  margin: 3px 0;
+}
+.pf1.sheet.actor .tab.summary .summary-header .race-container .item-controls {
+  flex: 0;
+  align-items: flex-start;
+}
+.pf1.sheet.actor .tab.summary .summary-header .race-container .item-controls a {
+  flex: 0 0 12px;
+  font-size: 12px;
+  text-align: center;
+  color: #666;
+}
+.pf1.sheet.actor .tab.summary .summary-header .race-container .race {
+  flex: 0 0 32px;
+  background-size: contain;
+  line-height: 32px;
+  text-align: center;
+  vertical-align: baseline;
+  margin-right: 4px;
+  height: 32px;
+  color: #7a7971;
+}
+.pf1.sheet.actor .tab.summary .summary-header .race-container .race.rollable:hover {
+  background-image: url("/icons/svg/d20-black.svg") !important;
+}
+.pf1.sheet.actor .tab.summary .summary-header .race-container .race-info {
+  margin-left: 8px;
+}
+.pf1.sheet.actor .tab.summary .summary-header .hp-ability {
+  flex: 1;
+  justify-content: flex-end;
+}
+.pf1.sheet.actor .tab.summary .summary-header .hp-ability > label {
+  flex: 0;
+  margin-right: 4px;
+}
+.pf1.sheet.actor .tab.summary .summary-header .hp-ability > select {
+  flex: 0 0 96px;
+}
+.pf1.sheet.actor .tab.summary .attributes > .attribute {
+  margin: 0;
+  border-left: none;
+  border-bottom: none;
+  border-top: 2px groove #eeede0;
+  border-right: 2px groove #eeede0;
+  border-radius: 0;
+  height: auto;
+}
+.pf1.sheet.actor .tab.summary img.profile {
+  flex: 0 0 160px;
+  width: 160px;
+  height: 160px;
+  padding: 0 3px;
+  object-fit: contain;
+  border: none;
+  border-right: 2px groove #eeede0;
+}
+.pf1.sheet.actor .tab.summary .misc-header-items {
+  flex: 0;
+}
+.pf1.sheet.actor .tab.summary .misc-header-items > * {
+  margin-right: 8px;
+}
+.pf1.sheet.actor .tab.summary .misc-header-items .actor-quick-actions button {
+  min-height: 24px;
+  width: calc(50% - 6px);
+  height: calc(50% - 6px);
+  line-height: 50%;
+}
+.pf1.sheet.actor .tab.summary .hd-level {
+  flex: 0 0 256px;
+  overflow-x: hidden;
+}
+.pf1.sheet.actor .tab.summary .hd-level table {
+  margin: 0 0 4px 8px;
+}
+.pf1.sheet.actor .tab.summary .hd-level table:hover a.config-icon {
+  color: #b5b3a4;
+}
+.pf1.sheet.actor .tab.summary .hd-level table tr td {
+  padding: 0;
+  text-align: center;
+}
+.pf1.sheet.actor .tab.summary .hd-level table tr a.config-icon {
+  flex: 0 0 16px;
+  width: 16px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0);
+}
+.pf1.sheet.actor .tab.summary .hd-level table tr a.config-icon:hover {
+  color: #191813;
+}
+.pf1.sheet.actor .tab.summary .hd-level table tr input[type="text"] {
+  flex: 1 0 32px;
+  height: auto;
+}
+.pf1.sheet.actor .tab.summary .hd-level table tr div.experience input[type="text"],
+.pf1.sheet.actor .tab.summary .hd-level table tr div.experience span.text-box,
+.pf1.sheet.actor .tab.summary .hd-level table tr div.experience .max {
+  padding: 0;
+  flex: 1;
+  text-align: center;
+}
+.pf1.sheet.actor .tab.summary .hd-level table tr div.experience .separator {
+  flex: 0;
+}
+.pf1.sheet.actor .tab.summary .hd-level .xpbar {
+  width: 100%;
+  height: 12px;
+  font-size: 16px;
+  color: #4b4a44;
+  background: #7a7971;
+  border: 1px solid #191813;
+  border-radius: 4px;
+}
+.pf1.sheet.actor .tab.summary .hd-level .xpbar span.bar {
+  background: #63ff00;
+  border: 1px solid #d0ffb2;
+  border-radius: 2px;
+  height: 10px;
+  display: block;
+}
+.pf1.sheet.actor .tab.summary .attributes {
+  border-bottom: 2px groove #eeede0;
+}
+.pf1.sheet.actor .tab.summary .attributes li {
+  padding: 0;
+  border-top: 2px groove #eeede0;
+}
+.pf1.sheet.actor .tab.summary .attributes li:not(:last-child) {
+  border-right: 2px groove #eeede0;
+}
+.pf1.sheet.actor .tab.summary .tab.quick-info ul.attributes {
+  margin: 2px 0;
+}
+.pf1.sheet.actor .tab.summary .tab.quick-info .quick-actions {
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  margin: 0;
+}
+.pf1.sheet.actor .tab.summary .tab.quick-info .quick-actions li {
+  cursor: pointer;
+  flex: 0 0 52px;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 4px;
+  display: flex;
+  margin: 2px;
+  overflow: hidden;
+}
+.pf1.sheet.actor .tab.summary .tab.quick-info .quick-actions li:hover {
+  filter: brightness(150%);
+}
+.pf1.sheet.actor .tab.summary .tab.quick-info .quick-actions li:hover .icon-label {
+  visibility: initial;
+}
+.pf1.sheet.actor .tab.summary .tab.quick-info .quick-actions li img {
+  border: none;
+  width: 48px;
+  height: 48px;
+}
+.pf1.sheet.actor .tab.summary .tab.quick-info .quick-actions li .icon-label {
+  visibility: hidden;
+}
+.pf1.sheet.actor .alignment {
+  color: black;
+}
+.pf1.sheet.actor .controls .control {
+  flex: 0;
+  visibility: hidden;
+  margin-right: 4px;
+}
+.pf1.sheet.actor .controls:hover .control {
+  visibility: visible;
+}
+.pf1.sheet.actor .attributes input[type="text"] {
+  height: 24px;
+}
+.pf1.sheet.actor .attributes input.temphp {
+  width: 48%;
+}
+.pf1.sheet.actor h4.box-title {
+  line-height: 16px;
+  margin: 4px 8px 2px;
+  font-size: 20px;
+  border-bottom: 1px solid #b5b3a4;
+}
+.pf1.sheet.actor .primary-body section {
+  overflow-y: hidden;
+}
+.pf1.sheet.actor .attributes .traits {
+  overflow-y: scroll;
+  height: 100%;
+}
+.pf1.sheet.actor .attributes .traits > * {
+  flex: 0 0 24px;
+  background-color: rgba(170, 170, 170, 0.3);
+}
+.pf1.sheet.actor .attributes .traits > *:nth-child(even) {
+  background-color: rgba(210, 210, 210, 0.3);
+}
+.pf1.sheet.actor .attributes .traits > *:hover {
+  background-color: rgba(64, 64, 192, 0.3);
+}
+.pf1.sheet.actor .attributes table {
+  margin: 0;
+}
+.pf1.sheet.actor ul.attributes.misc-base .attribute-footer input,
+.pf1.sheet.actor ul.attributes.misc-defenses .attribute-footer input {
+  width: 100%;
+}
+.pf1.sheet.actor .attributes-root {
+  flex: 0 0 30%;
+}
+.pf1.sheet.actor ul.attributes {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 0;
+}
+.pf1.sheet.actor ul.attributes h3 {
+  margin: 0;
+}
+.pf1.sheet.actor ul.attributes table span.text-box,
+.pf1.sheet.actor ul.attributes table input[type="text"] {
+  height: 20px;
+  padding: 1px 3px;
+}
+.pf1.sheet.actor .defenses .attributes {
+  flex: 0;
+}
+.pf1.sheet.actor .defenses .attribute .attribute-footer input {
+  width: 32px;
+}
+.pf1.sheet.actor .defenses .defense-rolls label,
+.pf1.sheet.actor .defenses .defense-notes label {
+  line-height: 20px;
+  white-space: nowrap;
+}
+.pf1.sheet.actor .defenses .defense-rolls label h3,
+.pf1.sheet.actor .defenses .defense-notes label h3 {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+  font-size: 24px;
+}
+.pf1.sheet.actor .defenses .defense-notes {
+  margin-top: 5px;
+  overflow-y: scroll;
+  flex: 1;
+}
+.pf1.sheet.actor .defenses .defense-notes label {
+  flex: 1;
+}
+.pf1.sheet.actor .defenses .defense-notes textarea {
+  flex: 3;
+}
+.pf1.sheet.actor .ability-scores {
+  flex: 0;
+  margin-bottom: 4px;
+}
+.pf1.sheet.actor .bottom {
+  overflow-y: auto;
+}
+.pf1.sheet.actor div.skill-rank {
+  flex: 0;
+}
+.pf1.sheet.actor div.skill-rank ol,
+.pf1.sheet.actor div.skill-rank ul {
+  padding-inline-start: 0;
+}
+.pf1.sheet.actor ul.skills-list {
+  flex: 1;
+  overflow-y: auto;
+  list-style: none;
+  margin: 5px 5px 0;
+  padding: 2px 2px 0;
+  border: 2px groove #eeede0;
+  border-radius: 3px;
+}
+.pf1.sheet.actor ul.skills-list li.skill,
+.pf1.sheet.actor ul.skills-list li.sub-skill {
+  height: 28px;
+  padding: 3px 0;
+  align-items: end;
+  background-color: rgba(170, 170, 170, 0.3);
+}
+.pf1.sheet.actor ul.skills-list li.skill:nth-child(even),
+.pf1.sheet.actor ul.skills-list li.sub-skill:nth-child(even) {
+  background-color: rgba(210, 210, 210, 0.3);
+}
+.pf1.sheet.actor ul.skills-list li.skill:hover,
+.pf1.sheet.actor ul.skills-list li.sub-skill:hover {
+  background-color: rgba(64, 64, 192, 0.3);
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name.untrained,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained {
+  color: rgba(0, 0, 0, 0.6);
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name.untrained .rollable img,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained .rollable img {
+  opacity: 60%;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name.untrained .rollable img:hover,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained .rollable img:hover {
+  animation: 0;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name {
+  display: flex;
+  flex: 180px;
+  margin: 0;
+  font-size: 14px;
+  align-items: start;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .untrained-label,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .untrained-label {
+  vertical-align: super;
+  font-size: 14px;
+  flex: 0;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .rollable,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable {
+  display: inline-block;
+  flex: 0 0 16px;
+  margin-right: 2px;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .rollable img,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable img {
+  width: 24px;
+  height: 24px;
+  border: unset;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .rollable img:hover,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable img:hover {
+  animation: dice-spin 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045) 1 forwards;
+  transform-origin: 50% 40%;
+  filter: invert(16%) sepia(51.5%) saturate(4012%) hue-rotate(345deg) brightness(100%) contrast(86%);
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name h4,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name h4,
+.pf1.sheet.actor ul.skills-list li.skill .skill-name input[type="text"],
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name input[type="text"] {
+  display: inline-block;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .compendium-entry > h4,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-entry > h4 {
+  border-bottom: 1px #111 dotted;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .compendium-entry:hover .compendium-icon,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-entry:hover .compendium-icon {
+  visibility: visible;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .compendium-icon,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-icon {
+  visibility: hidden;
+  flex: 0 0 24px;
+  margin-left: 5px;
+  position: relative;
+  top: -4px;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .skill-control,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .skill-control {
+  display: flex;
+  align-items: center;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-name .skill-control .fas,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name .skill-control .fas {
+  display: inline-block;
+  text-align: center;
+  width: 24px;
+}
+.pf1.sheet.actor ul.skills-list li.skill .checkbox,
+.pf1.sheet.actor ul.skills-list li.sub-skill .checkbox {
+  flex: 0 0 64px;
+  font-size: 14px;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-ability,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-ability {
+  flex: 0 0 48px;
+  margin: 0 2px;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-mod,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-mod {
+  flex: 0 0 28px;
+  line-height: 22px;
+  font-weight: bold;
+  margin: -1px 22px 0px 0px;
+  text-align: center;
+  border: 1px dotted #111;
+  cursor: initial;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-rank,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-rank {
+  flex: 0 0 48px;
+  border-bottom: 2px groove #eeede0;
+  margin-right: 12px;
+}
+.pf1.sheet.actor ul.skills-list li.skill .skill-controls,
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-controls {
+  flex: 0 0 24px;
+}
+.pf1.sheet.actor ul.skills-list li.skill input[type="text"],
+.pf1.sheet.actor ul.skills-list li.sub-skill input[type="text"] {
+  height: auto;
+}
+.pf1.sheet.actor ul.skills-list li.sub-skill .skill-name input[type="text"] {
+  padding-left: 8px;
+}
+.pf1.sheet.actor .counters {
+  flex: 0 0 100%;
+  border-bottom: 2px groove #eeede0;
+  margin-bottom: 5px;
+}
+.pf1.sheet.actor .counters .counter {
+  padding: 0 3px;
+  line-height: 32px;
+}
+.pf1.sheet.actor .counters .counter h4 {
+  flex: auto;
+  margin: 0;
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+  font-size: 16px;
+}
+.pf1.sheet.actor .counters .counter .counter-value {
+  flex: 0 0 50px;
+  text-align: right;
+}
+.pf1.sheet.actor .counters .counter .counter-value > * {
+  display: inline;
+}
+.pf1.sheet.actor .counters .counter input[type="text"] {
+  height: 20px;
+  max-width: 20px;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.pf1.sheet.actor .counters .counter input[type="checkbox"] {
+  position: relative;
+  margin: 0;
+  top: 6px;
+}
+.pf1.sheet.actor .counters .counter span.sep {
+  margin: 0 -2px;
+  font-size: 14px;
+}
+.pf1.sheet.actor .condition {
+  flex: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  margin: 2px;
+  flex-basis: calc(20% - 4px);
+}
+.pf1.sheet.actor .condition label {
+  line-height: 20px;
+  flex: 0;
+  white-space: nowrap;
+}
+.pf1.sheet.actor .condition label span {
+  font-size: 14px;
+}
+.pf1.sheet.actor .traits {
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin: 0 5px;
+}
+.pf1.sheet.actor .traits .form-group,
+.pf1.sheet.actor .traits .form-group-stacked {
+  margin: 0;
+  justify-content: space-between;
+}
+.pf1.sheet.actor .traits .trait-selector {
+  flex: 0 0 16px;
+  padding: 2px 0;
+  color: #666;
+  font-size: 14px;
+}
+.pf1.sheet.actor .traits .configure-flags {
+  flex: 1;
+}
+.pf1.sheet.actor .traits .traits-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: right;
+}
+.pf1.sheet.actor .traits select {
+  flex: 0 0 180px;
+}
+.pf1.sheet.actor .traits label {
+  flex: 0 0 150px;
+  line-height: 20px;
+  font-weight: bold;
+  margin: 0;
+  text-align: right;
+}
+.pf1.sheet.actor .traits input {
+  text-align: right;
+}
+.pf1.sheet.actor .traits i.fas {
+  float: right;
+  margin-right: 3px;
+  text-align: right;
+}
+.pf1.sheet.actor .traits i.fas:hover {
+  text-shadow: 0 0 10px red;
+}
+.pf1.sheet.actor .traits .inactive {
+  color: #7a7971;
+}
+.pf1.sheet.actor .encumbrance {
+  height: 12px;
+  background: #7a7971;
+  margin: 1px 15px 0 1px;
+  border: 1px solid #191813;
+  border-radius: 3px;
+  position: relative;
+}
+.pf1.sheet.actor .encumbrance .encumbrance-bar {
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  background: #6c8aa5;
+  height: 8px;
+  border: 1px solid #cde4ff;
+  border-radius: 2px;
+}
+.pf1.sheet.actor .encumbrance .encumbrance-label {
+  height: 10px;
+  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 14px;
+  line-height: 12px;
+  text-align: right;
+  color: #eee;
+  text-shadow: 0 0 5px #000;
+}
+.pf1.sheet.actor .encumbrance.encumbered .encumbrance-bar {
+  background: #a80d0d;
+  border-color: #e14949;
+}
+.pf1.sheet.actor .encumbrance .encumbrance-breakpoint {
+  position: absolute;
+  left: 66%;
+}
+.pf1.sheet.actor .encumbrance .arrow-up {
+  bottom: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-bottom: 4px solid #666;
+}
+.pf1.sheet.actor .encumbrance .arrow-down {
+  top: 0;
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #666;
+}
+.pf1.sheet.actor .encumbrance.encumbered .arrow-up {
+  border-bottom: 4px solid #000;
+}
+.pf1.sheet.actor .encumbrance.encumbered .arrow-down {
+  border-top: 4px solid #000;
+}
+.pf1.sheet.actor .tab-footer .tag {
+  flex: 0 1 auto;
+}
+.pf1.sheet.actor .tab.features,
+.pf1.sheet.actor .tab.inventory,
+.pf1.sheet.actor .tab.spellbook,
+.pf1.sheet.actor .tab.attributes,
+.pf1.sheet.actor .tab.combat,
+.pf1.sheet.actor .tab.buffs {
+  overflow-y: hidden;
+}
+.pf1.sheet.actor .tab.features label.checkbox,
+.pf1.sheet.actor .tab.inventory label.checkbox,
+.pf1.sheet.actor .tab.spellbook label.checkbox,
+.pf1.sheet.actor .tab.attributes label.checkbox,
+.pf1.sheet.actor .tab.combat label.checkbox,
+.pf1.sheet.actor .tab.buffs label.checkbox {
+  text-align: left;
+  flex: 0;
+  margin: 0 0 0 4px;
+}
+.pf1.sheet.actor .tab.features label.checkbox:first-child,
+.pf1.sheet.actor .tab.inventory label.checkbox:first-child,
+.pf1.sheet.actor .tab.spellbook label.checkbox:first-child,
+.pf1.sheet.actor .tab.attributes label.checkbox:first-child,
+.pf1.sheet.actor .tab.combat label.checkbox:first-child,
+.pf1.sheet.actor .tab.buffs label.checkbox:first-child {
+  margin-top: 4px;
+}
+.pf1.sheet.actor .tab.features .buffs-conditions,
+.pf1.sheet.actor .tab.inventory .buffs-conditions,
+.pf1.sheet.actor .tab.spellbook .buffs-conditions,
+.pf1.sheet.actor .tab.attributes .buffs-conditions,
+.pf1.sheet.actor .tab.combat .buffs-conditions,
+.pf1.sheet.actor .tab.buffs .buffs-conditions {
+  flex: 0;
+}
+.pf1.sheet.actor .tab.features .combat-attacks,
+.pf1.sheet.actor .tab.inventory .combat-attacks,
+.pf1.sheet.actor .tab.spellbook .combat-attacks,
+.pf1.sheet.actor .tab.attributes .combat-attacks,
+.pf1.sheet.actor .tab.combat .combat-attacks,
+.pf1.sheet.actor .tab.buffs .combat-attacks {
+  flex: 1 1 320px;
+  overflow-y: scroll;
+}
+.pf1.sheet.actor .tab.features .inventory-group,
+.pf1.sheet.actor .tab.inventory .inventory-group,
+.pf1.sheet.actor .tab.spellbook .inventory-group,
+.pf1.sheet.actor .tab.attributes .inventory-group,
+.pf1.sheet.actor .tab.combat .inventory-group,
+.pf1.sheet.actor .tab.buffs .inventory-group {
+  height: 100%;
+}
+.pf1.sheet.actor .tab.features .inventory-body .inventory-list,
+.pf1.sheet.actor .tab.inventory .inventory-body .inventory-list,
+.pf1.sheet.actor .tab.spellbook .inventory-body .inventory-list,
+.pf1.sheet.actor .tab.attributes .inventory-body .inventory-list,
+.pf1.sheet.actor .tab.combat .inventory-body .inventory-list,
+.pf1.sheet.actor .tab.buffs .inventory-body .inventory-list {
+  height: 100%;
+  overflow-y: scroll;
+}
+.pf1.sheet.actor .tab.settings {
+  overflow-x: hidden;
+}
+.pf1.sheet.actor div.attributes-traits {
+  align-items: flex-start;
+  margin: 0;
+  overflow-y: hidden;
+}
+.pf1.sheet.actor .inventory-filters {
+  margin: 0 8px;
+  flex: 0 0 20px;
+}
+.pf1.sheet.actor .inventory-filters h3,
+.pf1.sheet.actor .inventory-filters .filter-title {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+  color: #4b4a44;
+  font-size: 24px;
+  margin: 0;
+}
+.pf1.sheet.actor .inventory-filters.spellbook-filters {
+  flex: 0 0 40px;
+}
+.pf1.sheet.actor .tab.inventory .tab-footer > * {
+  flex: 0 0 100%;
+}
+.pf1.sheet.actor .tab.inventory .inventory-tags,
+.pf1.sheet.actor .tab.inventory .carry-bonus {
+  flex-basis: 50%;
+  align-self: center;
+}
+.pf1.sheet.actor .tab.inventory .inventory-tags {
+  justify-content: flex-end;
+}
+.pf1.sheet.actor .carry-label {
+  flex: 0 0 24px;
+}
+.pf1.sheet.actor .carry-bonus label {
+  flex: 0;
+  margin-left: 8px;
+  text-align: right;
+  line-height: 20px;
+  color: #7a7971;
+  white-space: nowrap;
+}
+.pf1.sheet.actor .carry-bonus input[type="text"],
+.pf1.sheet.actor .carry-bonus span.text-box {
+  height: 20px;
+  flex: 0 0 48px;
+  text-align: center;
+  margin-left: 8px;
+  border-bottom: 2px groove #eeede0;
+}
+.pf1.sheet.actor section.feats-body {
+  overflow-y: scroll;
+}
+.pf1.sheet.actor section.feats-body .feats-group .item-detail.item-type {
+  flex: 0 0 40px;
+}
+.pf1.sheet.actor .spellbook-group label {
+  margin: 0;
+}
+.pf1.sheet.actor .spellbook-group .spell-points-current {
+  flex: 0;
+}
+.pf1.sheet.actor .spellbook-group .spell-points-current h3 {
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-variant: small-caps;
+  font-size: 22px;
+  flex: 0 0 160px;
+}
+.pf1.sheet.actor .spellbook-group .spell-points-current .value,
+.pf1.sheet.actor .spellbook-group .spell-points-current .max {
+  display: flex;
+  flex: 0 0 32px;
+  text-align: center;
+}
+.pf1.sheet.actor .spellbook-group .spell-points-current .sep {
+  flex: 0;
+}
+.pf1.sheet.actor .spellbook-group .spell-comps,
+.pf1.sheet.actor .spellbook-group .spell-uses {
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 0 0 96px;
+  font-size: 14px;
+  text-align: center;
+  color: #7a7971;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pf1.sheet.actor .spellbook-group .spell-comps input[type="number"],
+.pf1.sheet.actor .spellbook-group .spell-uses input[type="number"] {
+  width: calc(100% - 2px);
+  min-width: 40px;
+  height: 24px;
+  padding: 1px 3px;
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  border-radius: 3px;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+.pf1.sheet.actor .spellbook-group .spell-comps input[type="text"].base,
+.pf1.sheet.actor .spellbook-group .spell-uses input[type="text"].base,
+.pf1.sheet.actor .spellbook-group .spell-comps input[type="number"].base,
+.pf1.sheet.actor .spellbook-group .spell-uses input[type="number"].base {
+  flex: 1;
+}
+.pf1.sheet.actor .spellbook-group .spell-comps input,
+.pf1.sheet.actor .spellbook-group .spell-uses input,
+.pf1.sheet.actor .spellbook-group .spell-comps span.sep,
+.pf1.sheet.actor .spellbook-group .spell-uses span.sep {
+  text-align: center;
+}
+.pf1.sheet.actor .spellbook-group .spell-comps span.sep,
+.pf1.sheet.actor .spellbook-group .spell-uses span.sep {
+  flex: 0 0 8px;
+}
+.pf1.sheet.actor .spellbook-group .spell-uses input {
+  flex: 0 0 24px;
+}
+.pf1.sheet.actor .spellbook-group .spell-school {
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 0 0 96px;
+  font-size: 14px;
+  color: #7a7971;
+  text-align: center;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet.actor .spellbook-group .spell-activation {
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 0 0 120px;
+  font-size: 14px;
+  color: #7a7971;
+  text-align: center;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet.actor .spellbook-group .spell-components {
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 0 0 80px;
+  font-size: 14px;
+  color: #7a7971;
+  text-align: center;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet.actor .spellbook-group .spellbook-empty .item-controls {
+  flex: 1;
+}
+.pf1.sheet.actor .spellbook-group .spell-failure input[type="text"] {
+  flex: 1;
+}
+.pf1.sheet.actor .spellbook-group .spell-range label {
+  flex: 1 1 48px;
+  text-align: right;
+  margin-right: 8px;
+  white-space: nowrap;
+}
+.pf1.sheet.actor .spellbook-group .spell-range input[type="text"] {
+  flex: 1 1 48px;
+}
+.pf1.sheet.actor a.rollable span {
+  margin: 0 2px;
+}
+.pf1.sheet.actor .rollable.image-d20 {
+  flex: 0 0 24px;
+  display: inline-block;
+  background-image: url(../../icons/dice/d20black.svg);
+  background-size: 100%;
+  height: 24px;
+}
+.pf1.sheet.actor .editor {
+  padding: 0 8px;
+}
+.pf1.sheet.actor hr {
+  margin: 4px 0 4px 0;
+  flex: 0;
+}
+.pf1.sheet.actor .actor-notes .primary-content {
+  flex: 1 0 320px;
+}
+.pf1.sheet.actor table {
+  table-layout: fixed;
+  overflow: hidden;
+}
+.pf1.sheet.actor table.ability-table input[type="text"] {
+  height: 20px;
+}
+.pf1.sheet.actor table td img {
+  vertical-align: middle;
+  margin-right: 2px;
+}
+.locked img.sheet-profile {
+  max-height: 360px;
+  max-width: 240px;
+  float: left;
+}
+.pf1.sheet.item {
+  min-width: 580px;
+  min-height: 620px;
+  max-height: calc(100% - 24px);
+  /* ----------------------------------------- */
+  /*  Sheet Header                             */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Item Details Form                        */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Item Actions                             */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Item Actions                             */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Loot Sheet (No Tabs)                     */
+  /* ----------------------------------------- */
+}
+.pf1.sheet.item .sheet-header img.profile {
+  border: 1px solid #000;
+}
+.pf1.sheet.item .sheet-header .item-subtitle {
+  flex: 0 0 80px;
+  height: 60px;
+  margin: 0;
+  padding: 5px;
+  text-align: right;
+  color: #7a7971;
+}
+.pf1.sheet.item .sheet-header .item-subtitle .item-type {
+  font-size: 24px;
+  line-height: 26px;
+  margin: 0;
+}
+.pf1.sheet.item .sheet-header .item-subtitle .item-status {
+  font-size: 16px;
+  line-height: 24px;
+}
+.pf1.sheet.item .sheet-navigation {
+  margin-bottom: 5px;
+}
+.pf1.sheet.item .sheet-navigation .item {
+  font-size: 18px;
+}
+.pf1.sheet.item .primary-body {
+  overflow: hidden;
+}
+.pf1.sheet.item .primary-body .tab {
+  padding: 0 5px;
+}
+.pf1.sheet.item .primary-body .item-properties {
+  flex: 0 0 120px;
+  margin: 5px 5px 5px 0;
+  padding-right: 5px;
+  border-right: 2px groove #eeede0;
+}
+.pf1.sheet.item .primary-body .item-properties .form-group {
+  margin: 0;
+}
+.pf1.sheet.item .primary-body .item-properties .form-group label {
+  line-height: 20px;
+  flex: 0;
+}
+.pf1.sheet.item .primary-body .item-properties .form-group input {
+  text-align: right;
+}
+.pf1.sheet.item .primary-body .item-properties .properties-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pf1.sheet.item .primary-body .item-properties .properties-list li {
+  margin: 3px 0;
+  padding: 0 2px;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  text-align: center;
+  font-size: 12px;
+  line-height: 18px;
+}
+.pf1.sheet.item .details input[type="text"],
+.pf1.sheet.item .details select {
+  border: 1px solid #7a7971;
+  background: rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .details .form-group .entry-selector {
+  flex: 1;
+  height: 28px;
+  overflow: hidden;
+}
+.pf1.sheet.item .details .form-group.input-select select {
+  flex: 1.8;
+}
+.pf1.sheet.item .details .form-group.input-select-select select {
+  flex: 1.5;
+}
+.pf1.sheet.item .details .form-group.uses-per input {
+  flex: 1;
+}
+.pf1.sheet.item .details .form-group.uses-per span {
+  text-align: center;
+  flex: 0 0 16px;
+  line-height: 24px;
+}
+.pf1.sheet.item .details .form-group.uses-per select {
+  flex: 3;
+}
+.pf1.sheet.item .details span.sep {
+  flex: 0 0 8px;
+  line-height: 24px;
+  text-align: center;
+}
+.pf1.sheet.item .details .prepared {
+  flex: 1.3 !important;
+  text-align: right;
+  padding-right: 10px;
+}
+.pf1.sheet.item .details .spell-materials {
+  flex: 0 0 100%;
+  margin: 0.25em 0;
+  justify-content: flex-end;
+}
+.pf1.sheet.item .details .spell-materials label {
+  flex: 0 0 64px;
+  text-align: right;
+  margin-right: 5px;
+  font-size: 12px;
+  line-height: 24px;
+}
+.pf1.sheet.item .details .spell-materials input[type="text"] {
+  flex: 0 0 48px;
+  margin-right: 10px;
+}
+.pf1.sheet.item .details .item-list .item {
+  line-height: 24px;
+  border-bottom: 1px solid #c9c7b8;
+  background-color: rgba(155, 155, 155, 0.3);
+}
+.pf1.sheet.item .details .item-list .item:last-child {
+  border-bottom: none;
+}
+.pf1.sheet.item .details .item-list .item:nth-child(2n + 1) {
+  background-color: rgba(210, 210, 210, 0.3);
+}
+.pf1.sheet.item .details .item-list .item .checkbox {
+  flex: 0;
+}
+.pf1.sheet.item .tab .inventory-header {
+  margin: 2px 0;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+  line-height: 24px;
+}
+.pf1.sheet.item .tab .inventory-header h3 {
+  margin: 0 -5px 0 0;
+  padding-left: 5px;
+  font-size: 13px;
+  font-weight: bold;
+}
+.pf1.sheet.item .tab .inventory-header .item-controls a.item-create {
+  flex: 0 0 100%;
+}
+.pf1.sheet.item .tab .item-detail {
+  flex: 0 0 80px;
+  font-size: 12px;
+  color: #7a7971;
+  text-align: center;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet.item .tab .item-detail:last-child {
+  border-right: none;
+}
+.pf1.sheet.item .tab .item-weight {
+  flex: 0 0 60px;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+}
+.pf1.sheet.item .tab .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pf1.sheet.item .tab .item-summary {
+  flex: 0 0 100%;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 0.25em 0.5em;
+  border-top: 1px solid #c9c7b8;
+}
+.pf1.sheet.item h4.damage-header,
+.pf1.sheet.item h4.change-header,
+.pf1.sheet.item h4.context-notes-header,
+.pf1.sheet.item h4.attack-header,
+.pf1.sheet.item h4.conditional-header {
+  margin: 0;
+  padding: 0;
+  font-weight: bold;
+  line-height: 24px;
+  color: #4b4a44;
+}
+.pf1.sheet.item h4.attack-header {
+  margin-left: 4px;
+}
+.pf1.sheet.item .damage-parts,
+.pf1.sheet.item .attack-parts {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.pf1.sheet.item .damage-parts .damage-part,
+.pf1.sheet.item .attack-parts .damage-part,
+.pf1.sheet.item .damage-parts .attack-part,
+.pf1.sheet.item .attack-parts .attack-part {
+  flex: 0 0 100%;
+  padding: 2px;
+}
+.pf1.sheet.item .damage-parts .damage-part .damage-type,
+.pf1.sheet.item .attack-parts .damage-part .damage-type,
+.pf1.sheet.item .damage-parts .attack-part .damage-type,
+.pf1.sheet.item .attack-parts .attack-part .damage-type {
+  flex: 0 0 80px;
+}
+.pf1.sheet.item .damage-parts .damage-part input,
+.pf1.sheet.item .attack-parts .damage-part input,
+.pf1.sheet.item .damage-parts .attack-part input,
+.pf1.sheet.item .attack-parts .attack-part input {
+  flex: 3;
+}
+.pf1.sheet.item .damage-parts .damage-part input:not(:first-child),
+.pf1.sheet.item .attack-parts .damage-part input:not(:first-child),
+.pf1.sheet.item .damage-parts .attack-part input:not(:first-child),
+.pf1.sheet.item .attack-parts .attack-part input:not(:first-child) {
+  margin-left: 5px;
+}
+.pf1.sheet.item .damage-parts .damage-part select,
+.pf1.sheet.item .attack-parts .damage-part select,
+.pf1.sheet.item .damage-parts .attack-part select,
+.pf1.sheet.item .attack-parts .attack-part select {
+  margin-left: 5px;
+  flex: 1;
+}
+.pf1.sheet.item .changes,
+.pf1.sheet.item .context-notes,
+.pf1.sheet.item .conditionals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: block;
+}
+.pf1.sheet.item .changes .change,
+.pf1.sheet.item .context-notes .change,
+.pf1.sheet.item .conditionals .change,
+.pf1.sheet.item .changes .context-note,
+.pf1.sheet.item .context-notes .context-note,
+.pf1.sheet.item .conditionals .context-note {
+  flex: 0 0 100%;
+  padding: 1px;
+}
+.pf1.sheet.item .changes .change input,
+.pf1.sheet.item .context-notes .change input,
+.pf1.sheet.item .conditionals .change input,
+.pf1.sheet.item .changes .context-note input,
+.pf1.sheet.item .context-notes .context-note input,
+.pf1.sheet.item .conditionals .context-note input {
+  flex: 3;
+  border: 1px solid #7a7971;
+  background: rgba(0, 0, 0, 0.05);
+  height: 24px;
+}
+.pf1.sheet.item .changes .change input[type="text"]:invalid,
+.pf1.sheet.item .context-notes .change input[type="text"]:invalid,
+.pf1.sheet.item .conditionals .change input[type="text"]:invalid,
+.pf1.sheet.item .changes .context-note input[type="text"]:invalid,
+.pf1.sheet.item .context-notes .context-note input[type="text"]:invalid,
+.pf1.sheet.item .conditionals .context-note input[type="text"]:invalid {
+  border: 2px solid #782e22;
+  background: url(icons/misc/hazard-sign.svg) no-repeat 95% 50% rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .changes .change input[type="text"]:not(:first-child),
+.pf1.sheet.item .context-notes .change input[type="text"]:not(:first-child),
+.pf1.sheet.item .conditionals .change input[type="text"]:not(:first-child),
+.pf1.sheet.item .changes .context-note input[type="text"]:not(:first-child),
+.pf1.sheet.item .context-notes .context-note input[type="text"]:not(:first-child),
+.pf1.sheet.item .conditionals .context-note input[type="text"]:not(:first-child) {
+  margin-left: 5px;
+}
+.pf1.sheet.item .changes .change select,
+.pf1.sheet.item .context-notes .change select,
+.pf1.sheet.item .conditionals .change select,
+.pf1.sheet.item .changes .context-note select,
+.pf1.sheet.item .context-notes .context-note select,
+.pf1.sheet.item .conditionals .context-note select {
+  flex: 0 0 80px;
+  width: 80px;
+  background: rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .changes .change select.change-sub-target,
+.pf1.sheet.item .context-notes .change select.change-sub-target,
+.pf1.sheet.item .conditionals .change select.change-sub-target,
+.pf1.sheet.item .changes .context-note select.change-sub-target,
+.pf1.sheet.item .context-notes .context-note select.change-sub-target,
+.pf1.sheet.item .conditionals .context-note select.change-sub-target {
+  flex: 0 0 128px;
+  width: 128px;
+}
+.pf1.sheet.item .changes .change select:invalid,
+.pf1.sheet.item .context-notes .change select:invalid,
+.pf1.sheet.item .conditionals .change select:invalid,
+.pf1.sheet.item .changes .context-note select:invalid,
+.pf1.sheet.item .context-notes .context-note select:invalid,
+.pf1.sheet.item .conditionals .context-note select:invalid {
+  border: 2px solid #782e22;
+  background: url(icons/misc/hazard-sign.svg) no-repeat 75% 50% rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .changes .change select:not(:first-child),
+.pf1.sheet.item .context-notes .change select:not(:first-child),
+.pf1.sheet.item .conditionals .change select:not(:first-child),
+.pf1.sheet.item .changes .context-note select:not(:first-child),
+.pf1.sheet.item .context-notes .context-note select:not(:first-child),
+.pf1.sheet.item .conditionals .context-note select:not(:first-child) {
+  margin-left: 5px;
+}
+.pf1.sheet.item .changes .change .change-priority,
+.pf1.sheet.item .context-notes .change .change-priority,
+.pf1.sheet.item .conditionals .change .change-priority,
+.pf1.sheet.item .changes .context-note .change-priority,
+.pf1.sheet.item .context-notes .context-note .change-priority,
+.pf1.sheet.item .conditionals .context-note .change-priority {
+  flex: 0 0 24px;
+}
+.pf1.sheet.item .changes .change .change-operator,
+.pf1.sheet.item .context-notes .change .change-operator,
+.pf1.sheet.item .conditionals .change .change-operator,
+.pf1.sheet.item .changes .context-note .change-operator,
+.pf1.sheet.item .context-notes .context-note .change-operator,
+.pf1.sheet.item .conditionals .context-note .change-operator {
+  flex: 0 0 24px;
+}
+.pf1.sheet.item .changes .change .conditional-default,
+.pf1.sheet.item .context-notes .change .conditional-default,
+.pf1.sheet.item .conditionals .change .conditional-default,
+.pf1.sheet.item .changes .context-note .conditional-default,
+.pf1.sheet.item .context-notes .context-note .conditional-default,
+.pf1.sheet.item .conditionals .context-note .conditional-default {
+  flex: 0 0 18px;
+}
+.pf1.sheet.item .changes .change .conditional-modifier,
+.pf1.sheet.item .context-notes .change .conditional-modifier,
+.pf1.sheet.item .conditionals .change .conditional-modifier,
+.pf1.sheet.item .changes .context-note .conditional-modifier,
+.pf1.sheet.item .context-notes .context-note .conditional-modifier,
+.pf1.sheet.item .conditionals .context-note .conditional-modifier {
+  display: flex;
+}
+.pf1.sheet.item .conditionals .conditional,
+.pf1.sheet.item .conditionals .conditional-modifier {
+  padding: 1px;
+}
+.pf1.sheet.item .conditionals .conditional select,
+.pf1.sheet.item .conditionals .conditional-modifier select {
+  max-width: max-content;
+  min-width: 80px;
+  flex: 1;
+  border: 1px solid #7a7971;
+  background: rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .conditionals .conditional select:not(:first-child),
+.pf1.sheet.item .conditionals .conditional-modifier select:not(:first-child) {
+  margin-left: 5px;
+}
+.pf1.sheet.item .conditionals .conditional select:invalid,
+.pf1.sheet.item .conditionals .conditional-modifier select:invalid {
+  border: 2px solid #782e22;
+  background: url(icons/misc/hazard-sign.svg) no-repeat 80% 50% rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .conditionals .conditional input[type="text"],
+.pf1.sheet.item .conditionals .conditional-modifier input[type="text"] {
+  height: 24px;
+  border: 1px solid #7a7971;
+  background: rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .conditionals .conditional input[type="text"]:invalid,
+.pf1.sheet.item .conditionals .conditional-modifier input[type="text"]:invalid {
+  border: 2px solid #782e22;
+  background: url(icons/misc/hazard-sign.svg) no-repeat 100% 50% rgba(0, 0, 0, 0.05);
+}
+.pf1.sheet.item .conditionals .conditional input[type="text"]:not(:first-child),
+.pf1.sheet.item .conditionals .conditional-modifier input[type="text"]:not(:first-child) {
+  margin-left: 5px;
+}
+.pf1.sheet.item .conditionals .conditional input[class*="conditional-name"]:not(:first-child),
+.pf1.sheet.item .conditionals .conditional-modifier input[class*="conditional-name"]:not(:first-child) {
+  margin-left: 0;
+}
+.pf1.sheet.item .conditionals .conditional .conditional-name,
+.pf1.sheet.item .conditionals .conditional-modifier .conditional-name,
+.pf1.sheet.item .conditionals .conditional .conditional-formula,
+.pf1.sheet.item .conditionals .conditional-modifier .conditional-formula {
+  min-width: 140px;
+}
+.pf1.sheet.item .conditionals .conditional .conditional-damage-type,
+.pf1.sheet.item .conditionals .conditional-modifier .conditional-damage-type {
+  min-width: 90px;
+  max-width: 200px;
+}
+.pf1.sheet.item .conditionals .conditional .form-group,
+.pf1.sheet.item .conditionals .conditional-modifier .form-group {
+  padding-left: 30px;
+}
+.pf1.sheet.item .delete-damage,
+.pf1.sheet.item .crit-damage-control,
+.pf1.sheet.item .delete-attack,
+.pf1.sheet.item .delete-change,
+.pf1.sheet.item .delete-note,
+.pf1.sheet.item .delete-conditional,
+.pf1.sheet.item .delete-conditional-modifier {
+  width: 18px;
+  flex: 0 0 18px;
+  line-height: 24px;
+  float: right;
+  text-align: right;
+  color: #7a7971;
+}
+.pf1.sheet.item .add-attack,
+.pf1.sheet.item .add-damage,
+.pf1.sheet.item .add-change,
+.pf1.sheet.item .add-note,
+.pf1.sheet.item .add-conditional,
+.pf1.sheet.item .add-conditional-modifier {
+  flex: 0 0 auto;
+  line-height: 24px;
+  color: #7a7971;
+  margin-left: 2px;
+}
+.pf1.sheet.item .recharge span {
+  line-height: 24px;
+  flex: 0 0 80px;
+}
+.pf1.sheet.item .recharge label.checkbox {
+  flex: 0 0 80px;
+  text-align: right;
+}
+.pf1.sheet.item .weapon-properties label.checkbox {
+  flex: 0 0 98px;
+}
+.pf1.sheet.item .loot-header {
+  margin-bottom: 10px;
+}
+.pf1.sheet.item div[data-tab="description"][data-group="primary"] nav {
+  flex: 0;
+}
+.pf1.sheet.item div[data-tab="description"][data-group="primary"] .description-container {
+  flex: 1;
+  height: 100%;
+}
+.pf1.sheet.item section.inventory-body {
+  overflow-y: auto;
+}
+.pf1.sheet.item footer {
+  flex: 0;
+}
+/* ----------------------------------------- */
+/*  Chat Cards
+/* ----------------------------------------- */
+.pf1.chat-card {
+  font-style: normal;
+  font-size: 12px;
+}
+.pf1.chat-card .card-header {
+  padding: 3px 0;
+  border-top: 2px groove #fff;
+  border-bottom: 2px groove #fff;
+}
+.pf1.chat-card .card-header img {
+  flex: 0 0 36px;
+  margin-right: 5px;
+}
+.pf1.chat-card .card-header h3 {
+  flex: 1;
+  margin: 0;
+  line-height: 28px;
+  font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+  font-size: 22px;
+  font-variant: small-caps;
+  color: #4b4a44;
+}
+.pf1.chat-card .card-content {
+  margin: 5px 0;
+}
+.pf1.chat-card .card-content h3 {
+  font-size: 12px;
+  margin: 0;
+  font-weight: bold;
+}
+.pf1.chat-card .card-content > * {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+.pf1.chat-card .card-range {
+  display: block;
+  margin: 0 2px 1px 0;
+  padding: 1px 3px;
+  font-size: 14px;
+  line-height: 20px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+  flex: 0 1 auto;
+  text-align: center;
+}
+.pf1.chat-card .card-range:hover {
+  border-color: blue;
+}
+.pf1.chat-card .card-buttons {
+  margin: 2px 0;
+}
+.pf1.chat-card .card-buttons .card-button-group label {
+  text-align: center;
+}
+.pf1.chat-card .card-buttons .card-button-group button {
+  font-size: 12px;
+  height: 20px;
+  line-height: 16px;
+  margin: 2px 0;
+}
+.pf1.chat-card .card-buttons span {
+  display: block;
+  line-height: 20px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+.pf1.chat-card .card-footer {
+  padding: 3px 0 0;
+  border-top: 2px groove #fff;
+}
+.pf1.chat-card .card-footer .spell-failure {
+  padding: 4px;
+  margin-bottom: 4px;
+  border: 1px solid #999;
+  border-radius: 3px;
+}
+.pf1.chat-card .card-footer .spell-failure h3 {
+  color: #4c6d9f;
+  font-size: 16px;
+  text-align: center;
+}
+.pf1.chat-card .card-footer .spell-failure .dice-roll,
+.pf1.chat-card .card-footer .spell-failure .dice-total {
+  padding: 0;
+}
+.pf1.chat-card .attack-row,
+.pf1.chat-card .damage-row {
+  align-items: baseline;
+}
+.pf1.chat-card .attack-row a.inline-result,
+.pf1.chat-card .damage-row a.inline-result {
+  border-radius: 2px 2px 2px 0;
+}
+.pf1.chat-card .attack-row h1,
+.pf1.chat-card .damage-row h1 {
+  margin-bottom: 4px;
+  font-size: 1.5em;
+  font-weight: bold;
+  border-bottom: unset;
+  box-shadow: inset 0px -2px 0px 0px #782e22;
+}
+.pf1.chat-card .attack-row h2,
+.pf1.chat-card .damage-row h2 {
+  font-size: 1em;
+  margin-bottom: 4px;
+  margin-top: 4px;
+}
+.pf1.chat-card .fake-inline-roll {
+  padding: 1px 4px 0 4px;
+  color: black;
+  text-shadow: none;
+  font-weight: normal;
+}
+.pf1.chat-card .inline-roll,
+.pf1.chat-card .fake-inline-roll {
+  flex: 0;
+  height: 100%;
+}
+.pf1.chat-card .inline-roll .dice-tooltip,
+.pf1.chat-card .fake-inline-roll .dice-tooltip {
+  z-index: 1;
+}
+.pf1.chat-card .inline-roll.success,
+.pf1.chat-card .fake-inline-roll.success {
+  background-color: #60c060;
+}
+.pf1.chat-card .inline-roll.failure,
+.pf1.chat-card .fake-inline-roll.failure {
+  background-color: #c06060;
+}
+.message .chat-attack {
+  margin-bottom: 2px;
+}
+.message .chat-attack .dice-roll {
+  overflow: hidden;
+}
+.message .chat-attack .dice-roll .dice-flavor {
+  color: #4c6d9f;
+  font-size: 11px;
+  text-align: center;
+  white-space: nowrap;
+}
+.message .chat-attack .dice-roll .dice-total {
+  font-size: 16px;
+  line-height: 20px;
+}
+.message .property-group {
+  flex: 0 0 24px;
+  /* Tags */
+}
+.message .property-group .tag {
+  display: inline-block;
+  margin: 0 2px 1px 0;
+  padding: 1px 3px;
+  font-size: 12px;
+  line-height: 16px;
+  border: 1px solid #999;
+  border-radius: 3px;
+  background: rgba(0, 0, 0, 0.05);
+  flex: 0 1 auto;
+}
+.message .property-group input[type="text"] {
+  height: 24px;
+  margin: 2px;
+}
+.message .property-group label {
+  flex: 2;
+  color: #4b4a44;
+  font-weight: bold;
+}
+.message .extra-text {
+  margin-top: 8px;
+  flex: 0 0 100%;
+  white-space: pre-wrap;
+}
+.message .extra-text label {
+  flex: 2;
+  color: #4b4a44;
+  font-weight: bold;
+}
+.message .extra-effect:not(:last-child),
+.message .extra-misc:not(:last-child) {
+  margin-bottom: 5px;
+}
+.message .extra-effect {
+  position: relative;
+  margin: 0;
+  line-height: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid #999;
+  border-radius: 3px;
+  box-shadow: 0 0 2px #fff inset;
+}
+.message .extra-misc {
+  position: relative;
+  margin: 0;
+  line-height: 20px;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #999;
+  border-radius: 3px;
+  box-shadow: 0 0 2px #fff inset;
+}
+.message .extra-roll-label {
+  font-weight: bold;
+  font-size: 14px;
+}
+.message div.defense table {
+  font-size: 14px;
+  width: 100%;
+  table-layout: fixed;
+}
+.message div.defense table td,
+.message div.defense table th {
+  text-align: center;
+}
+.chat-card.defense-card .saving-throws {
+  margin-top: 4px;
+}
+.damage-tooltip {
+  align-items: baseline;
+}
+.damage-tooltip.tooltip .tooltipcontent {
+  width: 160px;
+}
+.damage-tooltip.tooltip .tooltipcontent .roll-formula {
+  border-bottom: 1px solid white;
+}
+.damage-tooltip .damage-amount {
+  font-size: 14px;
+  text-align: right;
+  margin-right: 4px;
+}
+.damage-tooltip .damage-type {
+  font-size: 14px;
+  flex: 0 0 50%;
+  max-width: 50%;
+  overflow: hidden;
+  text-align: left;
+  margin-left: 4px;
+  padding: 2px;
+  border: 1px solid #666;
+  border-radius: 4px;
+}
+/* ----------------------------------------- */
+/*  Basic Structure                          */
+/* ----------------------------------------- */
+.pf1.sheet.actor.character {
+  min-width: 672px;
+  min-height: 736px;
+  /* ----------------------------------------- */
+  /*  Details Tab                              */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Sheet Body                               */
+  /* ----------------------------------------- */
+  /* ----------------------------------------- */
+  /*  Spellbook                                */
+  /* ----------------------------------------- */
+}
+.pf1.sheet.actor.character .tab.details .charlevel {
+  flex: 0 0 180px;
+  padding: 0 5px 2px;
+}
+.pf1.sheet.actor.character .tab.details .charlevel .level {
+  height: 28px;
+}
+.pf1.sheet.actor.character .tab.details .charlevel .experience input[type="text"] {
+  width: 100px;
+}
+.pf1.sheet.actor.character .tab.details .charlevel .xpbar {
+  width: 100%;
+  flex: 0 0 8px;
+  background: #666;
+  border: 1px solid #000;
+  border-radius: 3px;
+}
+.pf1.sheet.actor.character .tab.details .charlevel .xpbar .bar {
+  height: 4px;
+  margin: 1px;
+  display: block;
+  background: #afebff;
+  border: 1px solid #000;
+  border-radius: 2px;
+}
+.pf1.sheet.actor.character .attributes .resource .attribute-name {
+  margin: 0 8px;
+}
+.pf1.sheet.actor.character .attributes .resource .attribute-name input[type="text"] {
+  height: 20px;
+  margin: 2px 0 -2px;
+  line-height: 24px;
+}
+.pf1.sheet.actor.character .attributes .resource label.checkbox {
+  margin: 0 3px;
+}
+.pf1.sheet.actor.character .attributes .resource label.checkbox input[type="checkbox"] {
+  transform: scale(1.2);
+}
+.pf1.sheet.actor.character div.skill-rank label {
+  flex: 0;
+  white-space: nowrap;
+  margin-right: 10px;
+}
+.pf1.sheet.actor.character div.skill-rank li.skill-rank-formula input[type="text"] {
+  flex: 3 1 0;
+}
+.pf1.sheet.actor.character .counters .death-saves {
+  flex: 2;
+}
+.pf1.sheet.actor.character .counters .death-saves .counter-value {
+  flex: 0 0 90px;
+}
+.pf1.sheet.actor.character .item-detail.player-class {
+  flex: 0 0 180px;
+  text-align: right;
+  padding-right: 10px;
+}
+.pf1.sheet.actor.character .spellbook .item-controls {
+  flex: 0 0 68px;
+}
+.pf1.sheet.actor.character .spellbook .item-controls .toggle-prepared {
+  color: #b5b3a4;
+}
+.pf1.sheet.actor.character .spellbook .item-controls .toggle-prepared.prepared {
+  color: #4b4a44;
+}
+.pf1.sheet.actor.character .spellbook .caster-preferences {
+  align-items: flex-start;
+}
+/* ----------------------------------------- */
+/*  Basic Structure                          */
+/* ----------------------------------------- */
+.pf1.sheet.actor.npc {
+  min-width: 600px;
+  min-height: 658px;
+}
+.pf1.sheet.actor.npc.lite {
+  min-width: 440px;
+  min-height: 200px;
+}
+.pf1.sheet.actor.npc.lite .sheet-header img.profile {
+  flex: 0 0 100px;
+  max-width: 100px;
+  min-height: 100px;
+  max-height: 100px;
+}
+.pf1.sheet.actor.npc.lite .sheet-header .header-top {
+  max-height: 40px;
+}
+.pf1.sheet.actor.npc.lite .sheet-header .header-top .charname {
+  padding: 0;
+  margin: 0;
+}
+.pf1.sheet.actor.npc.lite .sheet-header .header-top .charname input[type="text"] {
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+  height: 24px;
+}
+.pf1.sheet.actor.npc.lite .sheet-header .header-top .charlevel {
+  flex: 0 0 128px;
+}
+.pf1.sheet.actor.npc.lite .sheet-header .attribute.health {
+  border-right: 0;
+}
+.icon.gladius {
+  background-image: url(icons/actions/gladius.svg), none;
+}
+.icon.all-for-one {
+  background-image: url(icons/actions/all-for-one.svg), none;
+}
+.icon.punch-blast {
+  background-image: url(icons/actions/punch-blast.svg), none;
+}
+.icon {
+  background-color: black;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+}
+.icon.icon-gears {
+  mask-image: url(icons/actions/gears.svg);
+  -webkit-mask-image: url(icons/actions/gears.svg);
+}
+.icon.icon-inventory-slot {
+  mask-image: url(icons/actions/inventory-slot.svg);
+  -webkit-mask-image: url(icons/actions/inventory-slot.svg);
+}
+.icon.icon-coins {
+  mask-image: url(icons/actions/coins.svg);
+  -webkit-mask-image: url(icons/actions/coins.svg);
+}
+.icon.icon-weight {
+  mask-image: url(icons/actions/weight.svg);
+  -webkit-mask-image: url(icons/actions/weight.svg);
+}
+.icon.icon-quill-ink {
+  mask-image: url(icons/actions/quill-ink.svg);
+  -webkit-mask-image: url(icons/actions/quill-ink.svg);
+}
+.icon.icon-wheelbarrow {
+  mask-image: url(icons/actions/wheelbarrow.svg);
+  -webkit-mask-image: url(icons/actions/wheelbarrow.svg);
+}
+.icon.icon-battle-gear {
+  mask-image: url(icons/actions/battle-gear.svg);
+  -webkit-mask-image: url(icons/actions/battle-gear.svg);
+}
+.icon.icon-battery-pack {
+  mask-image: url(icons/actions/battery-pack.svg);
+  -webkit-mask-image: url(icons/actions/battery-pack.svg);
+}
+.icon.icon-magic-palm {
+  mask-image: url(icons/actions/magic-palm.svg);
+  -webkit-mask-image: url(icons/actions/magic-palm.svg);
+}
+.icon.icon-hand {
+  mask-image: url(icons/actions/hand.svg);
+  -webkit-mask-image: url(icons/actions/hand.svg);
+}
+.icon.icon-upgrade {
+  mask-image: url(icons/actions/upgrade.svg);
+  -webkit-mask-image: url(icons/actions/upgrade.svg);
+}
+.icon.icon-expense {
+  mask-image: url(icons/actions/expense.svg);
+  -webkit-mask-image: url(icons/actions/expense.svg);
+}
+.icon.icon-spell-book {
+  mask-image: url(icons/actions/spell-book.svg);
+  -webkit-mask-image: url(icons/actions/spell-book.svg);
+}
+form .form-group.stacked label {
+  flex: 0 0 100%;
+}
+form .form-group.stacked label.checkbox {
+  flex: auto;
+  text-align: left;
+  line-height: 20px;
+  font-size: 11px;
+}
+form .form-group.stacked label.checkbox input[type="checkbox"] {
+  height: unset;
+  margin: unset;
+}
+/* Tooltip text */
+.tooltip .tooltipcontent {
+  font-family: sans-serif;
+  font-size: 11px;
+  font-weight: normal;
+  visibility: hidden;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  text-align: center;
+  padding: 5px;
+  border-radius: 6px;
+  line-height: 13px;
+  min-width: 128px;
+  width: 240px;
+  white-space: normal;
+  /* Position the tooltip text */
+  position: fixed;
+  z-index: 1;
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltipcontent {
+  visibility: visible;
+  pointer-events: none;
+  opacity: 1;
+}
+.sidebar-tab[data-tab="compendium"] footer {
+  flex-direction: column;
+}
+.sidebar-tab[data-tab="compendium"] footer span {
+  margin: 0 3px;
+  padding: 2px 7px;
+}
+.hide.hidden {
+  display: none;
+}
+.icon-label {
+  position: absolute;
+  -webkit-text-stroke: 1px black;
+  font-weight: bold;
+  font-size: 12px;
+  color: white;
+}
+span.text-box {
+  display: inline-block;
+  text-align: center;
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 3px;
+  color: black;
+  min-width: 20px;
+  width: calc(100% - 2px);
+  padding: 1px 3px;
+  cursor: text;
+  min-height: 20px;
+}
+span.text-box.readonly {
+  cursor: initial;
+}
+span.text-box:hover {
+  box-shadow: 0 0 8px red;
+  border-color: black;
+}
+input.text-box {
+  text-align: center;
+}
+.pf1 table {
+  margin: 4px 0;
+}
+.pf1 table thead .icon {
+  background-color: white;
+}
+.pf1 table tbody th {
+  background: rgba(127, 127, 127, 0.5);
+  color: white;
+  text-shadow: 1px 1px black;
+}
+.pf1 table tr td:not(.nocenter),
+.pf1 table tr th:not(.nocenter) {
+  text-align: center;
+}
+.pf1 table td:not(:last-child),
+.pf1 table th:not(:last-child) {
+  border-right: 1px solid black;
+}
+.pf1 table.magic-items-table .name {
+  width: auto;
+}
+.pf1 table.magic-items-table .aura {
+  width: 20%;
+}
+.pf1 table.magic-items-table .cl {
+  width: 15%;
+}
+.pf1 table.magic-items-table .identify-dc {
+  width: 15%;
+}
+.pf1 table.magic-items-table .identify {
+  width: 40px;
+}
+#token-hud .col.actions {
+  height: calc(100% + 150px);
+  width: 100%;
+  justify-content: center;
+}
+.col.actions .below {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+}
+.below .control-icon.token-quick-action {
+  cursor: pointer;
+  margin: 0 5px;
+}
+#health-config nav.tabs {
+  font-size: 16px;
+  line-height: 32px;
+  border-bottom: 1px solid black;
+}
+#hitdice {
+  display: grid;
+  grid-template: 32px 1fr 1fr 1fr / 1fr 1fr 1fr 1fr;
+  text-align: center;
+  vertical-align: middle;
+  padding: 5px 0;
+}
+#hitdice > * {
+  padding: 5px;
+  border-bottom: 1px solid #191813;
+}
+#hitdice .table-header {
+  color: #f0f0f0;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid #191813;
+  font-weight: bold;
+  text-shadow: 1px 1px black;
+}
+#hitdice .index {
+  text-align: left;
+}
+#hitdice .switch-check {
+  display: none;
+}
+#hitdice .switch-label > span {
+  display: block;
+  border: 1px solid #191813;
+  border-radius: 4px;
+  cursor: pointer;
+  margin: auto;
+  padding: 2px;
+  width: calc(100% - 2px);
+}
+#hitdice .switch-label > span.switch-auto {
+  background-color: rgba(25, 24, 19, 0.25);
+  color: #f0f0f0;
+}
+#hitdice .switch-check:not(:checked) + .switch-label .switch-auto {
+  display: none;
+}
+#hitdice .switch-check:checked + .switch-label .switch-manual {
+  display: none;
+}
+.widget {
+  z-index: 100;
+}
+.widget.item-picker {
+  display: flex;
+  flex-direction: column;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  border: 1px solid black;
+  border-radius: 2px;
+  background: #e1e1e1;
+}
+.widget.item-picker .row {
+  display: flex;
+  flex-direction: row;
+}
+.widget.item-picker .row .item {
+  height: 28px;
+  line-height: 24px;
+  border: 1px solid #4f4f4f;
+  background: #d3d3d3;
+  margin: 2px;
+  padding: 1px;
+  overflow: hidden;
+  text-align: center;
+}
+.widget.item-picker .row .item:hover {
+  border-color: #da0000;
+}

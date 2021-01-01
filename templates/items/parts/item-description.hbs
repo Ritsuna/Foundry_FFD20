@@ -1,0 +1,133 @@
+<div class="tab flexcol" data-group="primary" data-tab="description">
+  {{#if showIdentifyDescription}}
+  <nav class="sheet-navigation tabs subtabs description" data-group="description">
+    <a class="item active" data-tab="identified">{{localize "PF1.Identified"}}</a>
+    <a class="item" data-tab="unidentified">{{localize "PF1.Unidentified"}}</a>
+  </nav>
+  {{/if}}
+
+  <div class="flexrow description-container">
+    <div class="item-properties">
+      {{#if isPhysical}}
+      {{#unless descriptionAttributes}}
+      {{!-- Quantity --}}
+      <div class="form-group">
+        <label>{{localize "PF1.Quantity"}}</label>
+        <input class="select-on-click" type="text" name="data.quantity" value="{{data.quantity}}" data-dtype="Number"/>
+      </div>
+
+      {{!-- Weight --}}
+      <div class="form-group">
+        <label>{{localize "PF1.Weight"}} ({{data.weightUnits}})</label>
+        <input class="select-on-click" type="text" name="data.weightConverted" value="{{data.weightConverted}}" data-dtype="Number"/>
+      </div>
+
+      {{!-- Price --}}
+      {{#if showIdentifyDescription}}
+      <div class="form-group">
+        <label>{{localize "PF1.Price"}} ({{data.priceUnits}})</label>
+        <input class="select-on-click" type="text" name="data.price" value="{{data.price}}" data-dtype="Number"/>
+      </div>
+
+      <div class="form-group">
+        <label>{{localize "PF1.UnidentifiedPriceShort"}}</label>
+        <input class="select-on-click" type="text" name="data.unidentified.price" value="{{data.unidentified.price}}" data-dtype="Number"/>
+      </div>
+      {{else}}
+      {{#if showUnidentifiedData}}
+      <div class="form-group">
+        <label>{{localize "PF1.Price"}}</label>
+        <input class="select-on-click" type="text" name="data.unidentified.price" value="{{data.unidentified.price}}" data-dtype="Number"/>
+      </div>
+      {{else}}
+      <div class="form-group">
+        <label>{{localize "PF1.Price"}}</label>
+        <input class="select-on-click" type="text" name="data.price" value="{{data.price}}" data-dtype="Number"/>
+      </div>
+      {{/if}}
+      {{/if}}
+
+      {{!-- Hit Points --}}
+      <div class="form-group">
+        <label>{{localize "PF1.HPShort"}}</label>
+        <input class="select-on-click" type="text" name="data.hp.value" value="{{data.hp.value}}" data-dtype="Number" style="flex: 0 0 32px"/>
+        <span>/</span>
+        <input class="select-on-click" type="text" name="data.hp.max" value="{{data.hp.max}}" data-dtype="Number" style="flex: 0 0 32px"/>
+      </div>
+
+      {{!-- Hardness --}}
+      <div class="form-group">
+        <label>{{localize "PF1.Hardness"}}</label>
+        <input class="select-on-click" type="text" name="data.hardness" value="{{data.hardness}}" data-dtype="Number"/>
+      </div>
+
+      {{!-- Carried Flag --}}
+      <div class="form-group">
+        <label>{{localize "PF1.Carried"}}</label>
+        <input type="checkbox" name="data.carried" {{checked data.carried}}/>
+      </div>
+      {{else}}
+      {{#each descriptionAttributes as |attr|}}
+      {{#if attr.isBoolean}}
+      <div class="form-group">
+        <label>{{attr.label}}</label>
+        <input type="checkbox" name="{{attr.name}}" {{checked attr.value}}/>
+      </div>
+      {{/if}}
+      {{#if attr.isNumber}}
+      <div class="form-group">
+        <label>{{attr.label}}</label>
+        {{#if attr.fakeName}}
+        <div data-action="input-text" data-for=".{{attr.id}}-description-input" data-attr-name="{{attr.name}}">
+          <input class="{{#if attr.id}}{{attr.id}}-description-input{{/if}}" type="number" readonly data-dtype="Number" value="{{attr.value}}"/>
+        </div>
+        {{else}}
+        <input class="{{#if attr.id}}{{attr.name}}-description-input{{/if}}" type="number" data-dtype="Number" value="{{attr.value}}"/>
+        {{/if}}
+      </div>
+      {{/if}}
+      {{#if attr.isString}}
+      <div class="form-group">
+        <label>{{attr.label}}</label>
+        {{#if attr.fakeName}}
+        <div data-action="input-text" data-for=".{{attr.id}}-description-input" data-attr-name="{{attr.name}}">
+          <input class="{{#if attr.id}}{{attr.name}}-description-input{{/if}}" type="text" readonly value="{{attr.value}}"/>
+        </div>
+        {{else}}
+        <input class="{{#if attr.id}}{{attr.name}}-description-input{{/if}}" type="text" value="{{attr.value}}"/>
+        {{/if}}
+      </div>
+      {{/if}}
+      {{/each}}
+      {{/unless}}
+      {{/if}}
+
+      {{!-- Properties --}}
+      <ol class="properties-list">
+        {{#unless showUnidentifiedData}}
+        {{#each itemProperties}}
+        <li>{{this}}</li>
+        {{/each}}
+        {{/unless}}
+      </ol>
+    </div>
+
+    {{#if showIdentifyDescription}}
+    <section class="description-body">
+      <div class="tab description-group flexcol" data-group="description" data-tab="identified">
+      {{roll-editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+      </div>
+
+      <div class="tab description-group flexcol" data-group="description" data-tab="unidentified">
+      {{roll-editor content=data.description.unidentified target="data.description.unidentified" button=true owner=owner editable=editable}}
+      </div>
+    </section>
+    {{else}}
+    {{#if showUnidentifiedData}}
+    {{roll-editor content=data.description.unidentified target="data.description.unidentified" button=true owner=owner editable=editable}}
+    {{else}}
+    {{roll-editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+    {{/if}}
+    {{/if}}
+  </div>
+</div>

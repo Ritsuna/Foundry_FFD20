@@ -1,0 +1,87 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+    {{!-- NPC Sheet Navigation --}}
+    <nav class="sheet-navigation tabs" data-group="primary">
+      <a class="item active" data-tab="summary">{{ localize "PF1.Summary" }}</a>
+      <a class="item" data-tab="attributes">{{ localize "PF1.Attributes" }}</a>
+      <a class="item" data-tab="combat">{{ localize "PF1.Combat" }}</a>
+      <a class="item" data-tab="inventory">{{ localize "PF1.Inventory" }}</a>
+      <a class="item" data-tab="feats">{{ localize "PF1.Features" }}</a>
+      <a class="item" data-tab="skills">{{ localize "PF1.Skills" }}</a>
+      <a class="item" data-tab="buffs">{{ localize "PF1.Buffs" }}</a>
+      {{#if usesAnySpellbook}}<a class="item" data-tab="spellbook">{{ localize "PF1.Spells" }}</a>{{/if}}
+      <a class="item" data-tab="biography">{{ localize "PF1.Biography" }}</a>
+      <a class="item" data-tab="notes">{{ localize "PF1.Notes" }}</a>
+      <a class="item" data-tab="settings">{{ localize "PF1.Settings" }}</a>
+    </nav>
+
+    {{!-- NPC Sheet Body --}}
+    <section class="primary-body">
+
+      {{!-- Details --}}
+      <div class="tab summary flexcol" data-group="primary" data-tab="summary">
+        <div class="header-summary flexcol">
+          {{> "systems/pf1/templates/actors/parts/actor-summary.hbs"}}
+        </div>
+      </div>
+
+      <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
+        {{> "systems/pf1/templates/actors/parts/actor-attributes.hbs"}}
+      </div>
+
+      {{!-- Combat Tab --}}
+      <div class="tab combat flexcol" data-group="primary" data-tab="combat">
+        {{> "systems/pf1/templates/actors/parts/actor-combat.hbs" sections=attacks}}
+      </div>
+
+      {{!-- Inventory Tab --}}
+      <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
+        {{> "systems/pf1/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
+      </div>
+
+      {{!-- Features Tab --}}
+      <div class="tab features flexcol" data-group="primary" data-tab="feats">
+        {{> "systems/pf1/templates/actors/parts/actor-features.hbs" sections=features}}
+      </div>
+
+      {{!-- Skills Tab --}}
+      <div class="tab skills flexcol" data-group="primary" data-tab="skills">
+        {{> "systems/pf1/templates/actors/parts/actor-skills-front.hbs"}}
+      </div>
+
+      {{!-- Buffs Tab --}}
+      <div class="tab buffs flexcol" data-group="primary" data-tab="buffs">
+        {{> "systems/pf1/templates/actors/parts/actor-buffs.hbs" sections=buffs}}
+      </div>
+
+      {{!-- Spellbook Tab --}}
+      {{#if usesAnySpellbook}}
+      <div class="tab spellbook flexcol" data-group="primary" data-tab="spellbook">
+        {{> "systems/pf1/templates/actors/parts/actor-spellbook-front.hbs"}}
+      </div>
+      {{/if}}
+
+      {{!-- Biography Tab --}}
+      <div class="tab biography flexcol" data-group="primary" data-tab="biography">
+        {{roll-editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+      </div>
+
+      {{!-- Notes Tab --}}
+      <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+        <div class="primary-content">
+          {{roll-editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+        </div>
+
+        {{#if table_magicItems}}
+        <div>
+          {{{table_magicItems}}}
+        </div>
+        {{/if}}
+      </div>
+
+      {{!-- Settings Tab --}}
+      <div class="tab settings flexcol" data-group="primary" data-tab="settings">
+        {{> "systems/pf1/templates/actors/parts/actor-settings.hbs"}}
+      </div>
+    </section>
+  </form>

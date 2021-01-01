@@ -1,0 +1,103 @@
+{{!-- Ability Scores --}}
+<div class="ability-scores">
+    <table class="ability-table">
+        <thead>
+            <tr>
+                <th>{{localize "PF1.Ability"}}</th>
+                <th>{{localize "PF1.Total"}}</th>
+                <th>{{localize "PF1.Modifier"}}</th>
+                <th>{{localize "PF1.Damage"}}</th>
+                <th>{{localize "PF1.Drain"}}</th>
+                <th>{{localize "PF1.Penalty"}}</th>
+            </tr>
+        </thead>
+        
+        <tbody>
+            {{#each data.abilities as |ability id|}}
+            <tr class="ability" data-ability="{{id}}">
+                {{!-- Ability name --}}
+                <th class="tooltip">
+                    <span class="tooltipcontent">
+                        @abilities.{{id}}.total : {{ability.total}}<br/>
+                        @abilities.{{id}}.value : {{ability.value}}<br/>
+                        @abilities.{{id}}.mod : {{ability.mod}}<br/>
+                        @abilities.{{id}}.damage : {{ability.damage}}<br/>
+                        @abilities.{{id}}.drain : {{ability.drain}}<br/>
+                        @abilities.{{id}}.penalty : {{ability.penalty}}<br/>
+                        @abilities.{{id}}.base : {{ability.base}}<br/>
+                        @abilities.{{id}}.baseMod : {{ability.baseMod}}
+                        
+                        {{#if ability.sourceDetails.length}}
+                        <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                        {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                        {{/if}}
+                    </span>
+                    
+                    <a class="ability-name rollable">
+                        <i class="fas fa-dice"></i>
+                        {{ability.label}}
+                    </a>
+                </th>
+                
+                {{!-- Total --}}
+                <td>
+                    <span class="text-box direct" name="data.abilities.{{id}}.value" data-dtype="Number">{{ability.total}}</span>
+                </td>
+                
+                {{!-- Modifier --}}
+                <td>{{numberFormat ability.mod decimals=0 sign=true}}</td>
+                
+                {{!-- Damage --}}
+                <td>
+                    <span class="text-box direct allow-relative" name="data.abilities.{{id}}.damage" data-dtype="Number">{{#if ability.damage}}{{ability.damage}}{{/if}}</span>
+                </td>
+                
+                {{!-- Drain --}}
+                <td>
+                    <span class="text-box direct allow-relative" name="data.abilities.{{id}}.drain" data-dtype="Number">{{#if ability.drain}}{{ability.drain}}{{/if}}</span>
+                </td>
+                
+                {{!-- Penalty --}}
+                <td>
+                    <span class="text-box direct allow-relative" name="data.abilities.{{id}}.userPenalty" data-dtype="Number">{{#if ability.userPenalty}}{{ability.userPenalty}}{{/if}}</span>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    
+    <table>
+        <thead>
+            <th class="tooltip">
+                {{localize "PF1.ACP"}}
+                <div class="tooltipcontent">
+                    @attributes.acp.total : {{data.attributes.acp.total}}
+                    
+                    {{#if sourceDetails.data.attributes.acp.total.length}}
+                    <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                    {{#each sourceDetails.data.attributes.acp.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                    {{/if}}
+                </div>
+            </th>
+            <th class="tooltip">
+                {{localize "PF1.MaxDexShort"}}
+                <div class="tooltipcontent">
+                    @attributes.maxDexBonus : {{data.attributes.maxDexBonus}}
+                    
+                    {{#if sourceDetails.data.attributes.maxDexBonus.length}}
+                    <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                    {{#each sourceDetails.data.attributes.maxDexBonus as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                    {{/if}}
+                </div>
+            </th>
+        </thead>
+        
+        <tbody>
+            <td>{{data.attributes.acp.total}}</td>
+            <td>{{data.attributes.maxDexBonus}}</td>
+        </tbody>
+    </table>
+</div>
+
+{{!-- Traits --}}
+{{> "systems/pf1/templates/actors/parts/actor-traits.hbs"}}

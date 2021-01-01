@@ -1,0 +1,123 @@
+{{!-- Skills --}}
+<ul class="skills-list {{skillGroup}}" data-background="{{isBackgroundSkills}}">
+  {{#each skillset as |skill s|}}
+  {{#if skill.arbitrary}}
+  <li class="skill arbitrary flexrow" data-skill="{{s}}">
+    <div class="skill-name">
+      <a class="skill-control skill-create" title="Add Skill">
+        <i class="fas fa-plus"></i>
+      </a>
+      {{#if compendiumEntry}}
+      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}">
+        <h4>{{skill.label}}</h4><i class="fas fa-book compendium-icon"></i>
+      </a>
+      {{else}}
+      <h4>{{skill.label}}</h4>
+      {{/if}}
+    </div>
+  </li>
+  {{#each skill.subSkills as |subSkill b|}}
+  <li class="sub-skill flexrow" data-skill="{{b}}" data-main-skill="{{s}}">
+    <div class="skill-name tooltip {{#if subSkill.untrained}}untrained{{/if}}">
+      <span class="tooltipcontent">
+        @skills.{{s}}.subSkills.{{b}}.mod : {{subSkill.mod}}<br>
+        @skills.{{s}}.subSkills.{{b}}.rank : {{subSkill.rank}}<br>
+
+        {{#if subSkill.sourceDetails.length}}
+        <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+        {{#each subSkill.sourceDetails as |src|}}
+        {{src.name}}: {{src.value}}<br/>
+        {{/each}}
+        {{/if}}
+      </span>
+      <div class="rollable"><img src="../../icons/dice/d20black.svg"></div>
+      <input type="text" name="data.skills.{{s}}.subSkills.{{b}}.name" value="{{subSkill.name}}" placeholder="{{localize "PF1.SkillName"}}"/>
+    </div>
+    <span class="text-box skill-mod" title="{{localize "PF1.SkillModTooltip"}}">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
+    <span class="text-box skill-rank" name="data.skills.{{s}}.subSkills.{{b}}.rank" data-dtype="Number" title="{{localize "PF1.SkillRankPlural"}}" data-placeholder="{{localize "PF1.Rank"}}">{{#if subSkill.rank}}{{subSkill.rank}}{{/if}}</span>
+    <label class="checkbox skill-cs">
+      <abbr title="{{localize "PF1.CSTooltip"}}">{{localize "PF1.CS"}}</abbr> <input type="checkbox" disabled {{checked subSkill.cs}}/>
+    </label>
+    <label class="checkbox skill-acp">
+      <abbr title="{{localize "PF1.ACPTooltip"}}">{{localize "PF1.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.acp" {{checked subSkill.acp}}/>
+    </label>
+    <label class="checkbox skill-rt">
+      <abbr title="{{localize "PF1.RTTooltip"}}">{{localize "PF1.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.rt" {{checked subSkill.rt}}/>
+    </label>
+    <div class="form-group skill-ability">
+      <select class="skill-ability" name="data.skills.{{s}}.subSkills.{{b}}.ability" data-dtype="String">
+        {{#select subSkill.ability}}
+        {{#each ../../config.abilitiesShort as |ability a|}}
+        <option value="{{a}}">{{ability}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+    <div class="skill-controls">
+      <a class="skill-control skill-delete" title="Delete Skill"><i class="fas fa-trash"></i></a>
+    </div>
+  </li>
+  {{/each}}
+  {{else}}
+  <li class="skill flexrow" data-skill="{{s}}">
+    <div class="skill-name tooltip {{#if skill.untrained}}untrained{{/if}}">
+      <span class="tooltipcontent">
+        @skills.{{s}}.mod : {{skill.mod}}<br>
+        @skills.{{s}}.rank : {{skill.rank}}<br>
+
+        {{#if skill.sourceDetails.length}}
+        <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+        {{#each skill.sourceDetails as |src|}}
+        {{src.name}}: {{src.value}}<br/>
+        {{/each}}
+        {{/if}}
+      </span>
+      <div class="rollable"><img src="../../icons/dice/d20black.svg"></div>
+      {{#if skill.custom}}
+      <input type="text" name="data.skills.{{s}}.name" value="{{skill.name}}" placeholder="{{localize "PF1.Name"}}"/>
+      {{else}}
+      {{#if compendiumEntry}}
+      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}">
+        <h4>{{skill.label}}</h4><i class="fas fa-book compendium-icon"></i>
+      </a>
+      {{else}}
+      <h4>{{skill.label}}</h4>
+      {{/if}}
+      {{/if}}
+    </div>
+    <span class="text-box skill-mod" title="{{localize "PF1.SkillModTooltip"}}">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+    <span class="text-box skill-rank" name="data.skills.{{s}}.rank" data-dtype="Number" title="{{localize "PF1.SkillRankPlural"}}" data-placeholder="{{localize "PF1.Rank"}}">{{#if skill.rank}}{{skill.rank}}{{/if}}</span>
+    <label class="checkbox skill-cs">
+      <abbr title="{{localize "PF1.CSTooltip"}}">{{localize "PF1.CS"}}</abbr> <input type="checkbox" disabled {{checked skill.cs}}/>
+    </label>
+    <label class="checkbox skill-acp">
+      <abbr title="{{localize "PF1.ACPTooltip"}}">{{localize "PF1.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.acp" {{checked skill.acp}}/>
+    </label>
+    <label class="checkbox skill-rt">
+      <abbr title="{{localize "PF1.RTTooltip"}}">{{localize "PF1.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.rt" {{checked skill.rt}}/>
+    </label>
+    <div class="form-group skill-ability">
+      <select class="skill-ability" name="data.skills.{{s}}.ability" data-dtype="String">
+        {{#select skill.ability}}
+        {{#each ../config.abilitiesShort as |ability a|}}
+        <option value="{{a}}">{{ability}}</option>
+        {{/each}}
+        {{/select}}
+      </select>
+    </div>
+    <div class="skill-controls">
+      {{#if ../owner}}{{#if skill.custom}}
+      <a class="skill-control skill-delete" title="Delete Skill"><i class="fas fa-trash"></i></a>
+      {{/if}}{{/if}}
+    </div>
+  </li>
+  {{/if}}
+  {{/each}}
+  <div class="skill-controls skills">
+    {{#if owner}}
+    <a class="skill-control skill-create" title="Add Skill">
+      <i class="fas fa-plus"></i>
+    </a>
+    {{/if}}
+  </div>
+</ul>

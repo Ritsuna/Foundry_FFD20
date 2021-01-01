@@ -1,0 +1,77 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+  {{!-- Item Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+
+    {{> "systems/pf1/templates/items/parts/item-name.hbs"}}
+  </header>
+
+  {{!-- Item Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item" data-tab="description">{{ localize "PF1.Description" }}</a>
+    <a class="item active" data-tab="contents">{{ localize "PF1.ItemContainerContents" }}</a>
+  </nav>
+
+  {{!-- Item Sheet Body --}}
+  <section class="primary-body">
+
+    {{!-- Description Tab --}}
+    {{> "systems/pf1/templates/items/parts/item-description.hbs"}}
+
+    {{!-- Contents Tab --}}
+    <div class="tab active flexcol" data-group="primary" data-tab="contents">
+
+      {{!-- Equipment Status --}}
+      {{#if isGM}}
+      <div class="form-group stacked">
+        <label>{{localize "PF1.EquipmentStatus"}}</label>
+        <label class="checkbox">
+          <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{localize "PF1.Identified"}}
+        </label>
+      </div>
+      {{/if}}
+
+      <div class="form-group">
+        <label>{{localize "PF1.ItemContainerWeightReduction"}} %</label>
+        <input type="number" class="select-on-click" value="{{data.weightReduction}}" name="data.weightReduction"/>
+      </div>
+
+      <div class="form-group">
+        <ol class="currency flexrow">
+          <h3>
+            {{localize "PF1.Currency"}}
+          </h3>
+          {{#each config.currencies as |l k|}}
+          <label class="denomination {{k}}">{{l}}</label>
+          <input type="text" class="select-on-click" name="data.currency.{{k}}" value="{{lookup ../data.currency k}}" data-dtype="String"/>
+          <a class="convert-currency" data-type="{{k}}" data-category="currency" title="{{localize "PF1.ConvertCurrency"}}"><i class="fas fa-long-arrow-alt-left"></i></a>
+          {{/each}}
+        </ol>
+      </div>
+
+      {{> "systems/pf1/templates/items/parts/item-contents.hbs" sections=inventory}}
+
+      <footer>
+        <table>
+          <thead>
+            <tr>
+              <th>{{localize "PF1.ItemContainerContentsWeight"}}</th>
+              <th>{{localize "PF1.ItemContainerContentsValue"}}</th>
+              <th>{{localize "PF1.ItemContainerContentsSellValue"}}</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            <tr>
+              <td>{{contentsWeight}} {{weightUnits}}</td>
+              <td>{{labels.totalValue}}</td>
+              <td>{{labels.sellValue}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </footer>
+    </div>
+
+  </section>
+</form>

@@ -1,0 +1,23 @@
+<div class="top-bar">
+    {{#if hasHistoryBack}}
+    <a class="history-back"><i class="fas fa-arrow-left"></i></a>
+    {{else}}
+    <i class="fas fa-arrow-left gray"></i>
+    {{/if}}
+
+    {{#if hasHistoryForward}}
+    <a class="history-forward"><i class="fas fa-arrow-right"></i></a>
+    {{else}}
+    <i class="fas fa-arrow-right gray"></i>
+    {{/if}}
+</div>
+
+<div class="primary flexrow">
+    <nav>
+        {{{nav}}}
+    </nav>
+
+    <section class="content">
+        {{{pageContent}}}
+    </section>
+</div>

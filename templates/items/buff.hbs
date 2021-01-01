@@ -1,0 +1,83 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+  {{!-- Item Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+
+    <div class="header-details flexrow">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF1.BuffName"}}"/>
+      </h1>
+
+      <div class="item-subtitle">
+        <h4 class="item-type">{{itemType}}</h4>
+        <span class="item-status">{{itemStatus}}</span>
+      </div>
+
+      <ul class="summary">
+        <li>
+          {{labels.buffType}}
+        </li>
+        <li class="tooltip">
+          <span class="tooltipcontent">@item.level : {{data.level}}</span>
+          <input type="text" name="data.level" value="{{#if data.level}}{{data.level}}{{/if}}" placeholder="{{localize "PF1.Level"}}"/>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" name="data.active" {{checked data.active}}> {{localize "PF1.Active"}}
+          </label>
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  {{!-- Item Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item active" data-tab="description">{{ localize "PF1.Description" }}</a>
+    <a class="item" data-tab="details">{{localize "PF1.Details"}}</a>
+    <a class="item" data-tab="changes">{{ localize "PF1.Changes" }}</a>
+    <a class="item" data-tab="links">{{localize "PF1.Links"}}</a>
+  </nav>
+
+  {{!-- Item Sheet Body --}}
+  <section class="primary-body">
+
+    {{!-- Description Tab --}}
+    <div class="tab flexcol active" data-group="primary" data-tab="description">
+      {{roll-editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+    </div>
+
+    {{!-- Details Tab --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      <div class="form-group">
+        <label>{{localize "PF1.HideFromToken"}}</label>
+        <input type="checkbox" name="data.hideFromToken" {{checked data.hideFromToken}} />
+      </div>
+
+      {{!-- Advanced Tag --}}
+      {{> "systems/pf1/templates/items/parts/item-tag.hbs"}}
+    </div>
+
+    {{!-- Changes Tab --}}
+    <div class="tab flexcol" data-group="primary" data-tab="changes">
+      <div class="form-group select">
+        <label>{{localize "PF1.Type"}}</label>
+        <select name="data.buffType" value="{{data.buffType}}">
+          {{#select data.buffType}}
+          {{#each config.buffTypes as |type a|}}
+          <option value="{{a}}">{{type}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
+      {{> "systems/pf1/templates/items/parts/item-changes.hbs"}}
+
+      {{> "systems/pf1/templates/items/parts/item-notes.hbs"}}
+    </div>
+
+    <div class="tab flexcol" data-group="primary" data-tab="links">
+      {{> "systems/pf1/templates/items/parts/item-links.hbs"}}
+    </div>
+  </section>
+</form>

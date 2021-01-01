@@ -1,0 +1,33 @@
+.widget {
+  z-index: 100;
+
+  &.item-picker {
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    border: 1px solid black;
+    border-radius: 2px;
+    background: #e1e1e1;
+
+    .row {
+      display: flex;
+      flex-direction: row;
+
+      .item {
+        height: 28px;
+        line-height: 24px;
+        border: 1px solid #4f4f4f;
+        background: #d3d3d3;
+        margin: 2px;
+        padding: 1px;
+        overflow: hidden;
+        text-align: center;
+      }
+      .item:hover {
+        border-color: #da0000;
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+<table>
+    <thead>
+        <tr>
+            {{#each data.attributes.ac as |ac id|}}
+            <th class="tooltip">
+                <div class="tooltipcontent">
+                @attributes.ac.{{id}}.total : {{ac.total}}<br/>
+                @armor.type : {{../rollData.armor.type}}<br/>
+                @shield.type : {{../rollData.shield.type}}
+            
+                {{#if ac.sourceDetails.length}}
+                <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                {{#each ac.sourceDetails as |src|}}
+                {{src.name}}: {{src.value}}<br/>
+                {{/each}}
+                {{/if}}
+                </div>
+
+                {{ac.label}}
+            </th>
+            {{/each}}
+            <th class="tooltip">
+                <div class="tooltipcontent">
+                @attributes.cmd.total : {{data.attributes.cmd.total}}
+            
+                {{#if sourceDetails.data.attributes.cmd.total.length}}
+                <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                {{#each sourceDetails.data.attributes.cmd.total as |src|}}
+                {{src.name}}: {{src.value}}<br/>
+                {{/each}}
+                {{/if}}
+                </div>
+
+                {{localize "PF1.CMDAbbr"}}
+            </th>
+            <th class="tooltip">
+                <div class="tooltipcontent">
+                @attributes.cmd.flatFootedTotal : {{data.attributes.cmd.flatFootedTotal}}
+            
+                {{#if sourceDetails.data.attributes.cmd.flatFootedTotal.length}}
+                <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                {{#each sourceDetails.data.attributes.cmd.flatFootedTotal as |src|}}
+                {{src.name}}: {{src.value}}<br/>
+                {{/each}}
+                {{/if}}
+                </div>
+                
+                {{localize "PF1.CMDFFAbbr"}}
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {{#each data.attributes.ac as |ac id|}}
+            <td>
+                {{ac.total}}
+            </td>
+            {{/each}}
+            <td>
+                {{data.attributes.cmd.total}}
+            </td>
+            <td>
+                {{data.attributes.cmd.flatFootedTotal}}
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<table>
+    <thead>
+        <tr>
+            {{#each data.attributes.savingThrows as |savingThrow id|}}
+            <th class="saving-throw tooltip" data-savingthrow="{{id}}" colspan="2">
+                <div class="tooltipcontent">
+                @attributes.savingThrows.{{id}}.total : {{savingThrow.total}}
+            
+                {{#if savingThrow.sourceDetails.length}}
+                <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                {{#each savingThrow.sourceDetails as |src|}}
+                {{src.name}}: {{src.value}}<br/>
+                {{/each}}
+                {{/if}}
+                </div>
+
+                <a class="rollable"><i class="fas fa-dice"></i><span>{{savingThrow.label}}</span></a>
+            </th>
+            {{/each}}
+            <th rowspan="2" class="tooltip">
+                <div class="tooltipcontent">
+                @attributes.sr.total : {{data.attributes.sr.total}}
+                </div>
+                
+                {{localize "PF1.SpellResistance"}}
+            </th>
+        </tr>
+
+        <tr>
+            {{#each data.attributes.savingThrows as |savingThrow id|}}
+            <th>{{localize "PF1.Value"}}</th>
+            <th>{{localize "PF1.Ability"}}</th>
+            {{/each}}
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            {{#each data.attributes.savingThrows as |savingThrow id|}}
+            <td>{{numberFormat savingThrow.total decimals=0 sign=true}}</td>
+            <td>
+                <select data-name="data.attributes.savingThrows.{{id}}.ability">
+                    {{#select savingThrow.ability}}
+                    <option value=""></option>
+                    {{#each ../config.abilities as |abl a|}}
+                    <option value="{{a}}">{{abl}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </td>
+            {{/each}}
+            <td>{{data.attributes.sr.total}}</td>
+        </tr>
+    </tbody>
+</table>

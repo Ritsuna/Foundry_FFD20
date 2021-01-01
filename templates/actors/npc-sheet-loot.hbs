@@ -1,0 +1,53 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item active" data-tab="inventory">{{ localize "PF1.Inventory" }}</a>
+    <a class="item" data-tab="notes">{{ localize "PF1.Notes" }}</a>
+  </nav>
+  
+  <section class="primary-body">
+
+    {{!-- Inventory Tab --}}
+    <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
+      <header class="sheet-header flexrow">
+        <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
+        
+        <div class="header-details flexcol">
+          <div class="header-top flexrow">
+            <h1 class="charname">
+              <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF1.CharacterName"}}"/>
+            </h1>
+          </div>
+
+          {{!-- Options --}}
+          <div class="flexcol">
+            <ul class="summary options">
+              {{!-- Sell Multiplier --}}
+              <li>
+                <input type="text" name="flags.pf1.sellMultiplier" value="{{sellMultiplier}}" placeholder="{{localize "PF1.HelpSellMultiplierN"}}" data-dtype="Number"
+                  title="{{localize "PF1.HelpSellMultiplier"}}" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </header>
+
+      {{> "systems/pf1/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
+    </div>
+
+    {{!-- Notes Tab --}}
+    <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+      <div class="primary-content">
+        {{roll-editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+      </div>
+
+      {{#if table_magicItems}}
+      <div>
+        {{{table_magicItems}}}
+      </div>
+      {{/if}}
+    </div>
+
+  </section>
+  
+</form>

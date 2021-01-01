@@ -1,0 +1,50 @@
+{{#unless showUnidentifiedData}}
+<h3 class="form-header">{{localize "PF1.Aura"}}</h3>
+
+{{!-- Caster Level --}}
+<div class="form-group tooltip">
+  <div class="tooltipcontent">
+    @item.cl : {{data.cl}}
+  </div>
+  <label>{{localize "PF1.CasterLevel"}}</label>
+  <div class="form-fields">
+    <input type="text" name="data.cl" value="{{data.cl}}" placeholder="{{localize "PF1.CasterLevel"}}" data-dtype="Number"/>
+  </div>
+</div>
+
+{{!-- Aura --}}
+<div class="form-group tooltip">
+  <div class="tooltipcontent">
+    @item.auraStrength : {{auraStrength}}
+  </div>
+  <label>{{localize "PF1.Aura"}}</label>
+  {{#if data.aura.custom}}
+  <div class="form-fields">
+    <label class="aura-strength">{{auraStrength_name}}</label>
+    <input type="text" name="data.aura.school" value="{{data.aura.school}}" placeholder="{{localize "PF1.Aura"}}"/>
+  </div>
+  {{else}}
+  <div class="form-fields">
+    <label class="aura-strength">{{auraStrength_name}}</label>
+    <select name="data.aura.school">
+      {{#select data.aura.school}}
+      <option value=""></option>
+      {{#each config.spellSchools as |name k|}}
+      <option value="{{k}}">{{name}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
+  {{/if}}
+  <label class="checkbox">
+    <input type="checkbox" name="data.aura.custom" {{checked data.aura.custom}}/> {{localize "PF1.Custom"}}
+  </label>
+</div>
+
+{{!-- Identify DC --}}
+{{#if isGM}}
+<div class="form-group">
+  <label>{{labels.identify}}</label>
+</div>
+{{/if}}
+{{/unless}}

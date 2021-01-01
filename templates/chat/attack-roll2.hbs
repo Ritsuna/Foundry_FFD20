@@ -1,0 +1,134 @@
+<div class="pf1 chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+  <header class="card-header flexrow">
+    <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
+    {{#if name}}<h3 class="item-name">{{name}}</h3>{{/if}}
+  </header>
+
+  <div class="card-content">
+    {{{data.description.value}}}
+  </div>
+
+  {{#if range}}
+  <div class="card-range" data-range="{{range}}" {{#if rangeFormula}}title="{{rangeFormula}}"{{/if}}>
+    {{localize "PF1.Range"}}: {{rangeLabel}}
+  </div>
+  {{/if}}
+
+  {{#each attacks as |atk|}}
+  <div class="chat-attack">
+
+    {{#if atk.hasAttack}}
+    <div class="flexrow attack-row">
+      <h1>{{atk.attack.flavor}}</h1>
+      <a class="inline-roll inline-result{{#if atk.attack.isCrit}} success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
+         title="{{atk.attack.roll.formula}}" data-roll="{{atk.attack.rollJSON}}">
+        <i class="fas fa-dice-d20"></i> {{atk.attack.total}}
+      </a>
+    </div>
+
+    {{#if atk.hasCritConfirm}}
+    <div class="flexrow">
+      <h3>{{atk.critConfirm.flavor}}</h3>
+      <a class="inline-roll inline-result{{#if atk.critConfirm.isCrit}} success{{/if}}{{#if atk.critConfirm.isFumble}} failure{{/if}}"
+         title="{{atk.critConfirm.roll.formula}}" data-roll="{{atk.critConfirm.rollJSON}}"}}>
+        <i class="fas fa-dice-d20"></i> {{atk.critConfirm.total}}
+      </a>
+    </div>
+
+    {{/if}}{{/if}}
+
+    {{#if atk.hasDamage}}
+    <div class="flexrow damage-row">
+      <h2>{{atk.damage.flavor}}</h2>
+      <a class="fake-inline-roll inline-result" title="{{localize "PF1.Total"}}">
+        {{atk.damage.total}}
+      </a>
+    </div>
+
+    {{#each atk.damage.parts as |part|}}
+    {{#each part.rolls as |roll|}}
+    <div class="flexrow">
+      <span>{{part.damageType}}</span>
+      <a class="inline-roll inline-result" title="{{roll.roll.formula}}" data-roll="{{roll.json}}">
+        <i class="fas fa-dice-d20"></i> {{roll.roll.total}}
+      </a>
+    </div>
+    {{/each}}
+    {{/each}}
+
+    {{#if atk.hasCritConfirm}}
+    <div class="flexrow damage-row">
+      <h2>{{atk.critDamage.flavor}}</h2>
+      <a class="fake-inline-roll inline-result" title="{{localize "PF1.Total"}}">
+        {{atk.critDamage.total}}
+      </a>
+    </div>
+    {{/if}}
+
+    {{#each atk.critDamage.parts as |part|}}
+    {{#each part.rolls as |roll|}}
+    <div class="flexrow">
+      <span>{{part.damageType}}</span>
+      <a class="inline-roll inline-result" title="{{roll.roll.formula}}" data-roll="{{roll.json}}">
+        <i class="fas fa-dice-d20"></i> {{roll.roll.total}}
+      </a>
+    </div>
+    {{/each}}
+    {{/each}}
+
+    {{/if}}
+
+    {{#if atk.hasCards}}
+    <hr>
+
+    <div class="flexcol card-buttons">
+      {{#each atk.cards as |cardGroup|}}
+      <div class="card-button-group flexcol">
+        <label>{{cardGroup.label}}</label>
+        <div class="flexrow">
+        {{#each cardGroup.items as |item|}}
+          <button data-action="{{item.action}}" data-value="{{item.value}}" data-tags="{{item.tags}}">{{item.label}}</button>
+        {{/each}}
+        </div>
+      </div>
+      {{/each}}
+      {{#if ../save.hasSave}}
+      <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}" data-tags="{{../save.tags}}">{{../save.label}}</button>
+      {{/if}}
+    </div>
+    {{/if}}
+
+    {{{atk.effectNotesHTML}}}
+  </div>
+  {{/each}}
+
+  <footer class="card-footer">
+    {{#if hasExtraText}}
+      <div class="extra-text gm-sensitive">{{{extraText}}}</div>
+    {{/if}}
+
+    {{#if spellFailure}}
+      <div class="spell-failure">
+        <h3>{{localize "PF1.ArcaneSpellFailure"}}</h3>
+        <div class="dice-roll">
+          <div class="dice-result">
+            <h4 class="dice-total spell-failure {{#unless spellFailureSuccess}}failure{{/unless}}">{{spellFailure}}</h4>
+          </div>
+        </div>
+      </div>
+    {{/if}}
+
+    {{#if hasProperties}}
+      {{#each properties as |prop|}}
+        <div class="flexcol property-group gm-sensitive">
+          <label>{{prop.header}}</label>
+          <div class="flexrow">
+            {{#each prop.value as |v|}}
+              <span class="tag">{{{v}}}</span>
+            {{/each}}
+          </div>
+        </div>
+      {{/each}}
+    {{/if}}
+  </footer>
+</div>

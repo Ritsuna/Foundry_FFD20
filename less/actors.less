@@ -1,0 +1,1125 @@
+@import "./variables.less";
+.pf1.sheet.actor {
+  /* ----------------------------------------- */
+  /*  Sheet Header                             */
+  /* ----------------------------------------- */
+
+  .warning {
+    flex: 0;
+    background-color: #cece00;
+    border: 1px solid #909000;
+    border-radius: 2px;
+  }
+
+  .tab-footer {
+    flex: 0;
+  }
+
+  /* ----------------------------------------- */
+  /*  Summary Tab                              */
+  /* ----------------------------------------- */
+
+  .tab.summary {
+    border-left: @borderGroove;
+
+    .summary-header {
+      flex: 0;
+      border-bottom: @borderGroove;
+
+      .name-xp {
+        flex: 0;
+
+        h1.charname {
+          input {
+            height: 32px;
+            padding: 0;
+          }
+        }
+      }
+
+      .character-summary {
+        flex: 0;
+
+        & > div {
+          flex: 0 0 33%;
+          height: 32px;
+          line-height: 28px;
+          border-right: @borderGroove;
+          border-bottom: @borderGroove;
+
+          &:nth-child(3n + 0) {
+            border-right: none;
+          }
+
+          &.alignment {
+            padding: 1px 3px;
+          }
+        }
+      }
+
+      .race-container {
+        flex: 1;
+        margin: 3px 0;
+
+        .item-controls {
+          flex: 0;
+          align-items: flex-start;
+
+          a {
+            flex: 0 0 12px;
+            font-size: 12px;
+            text-align: center;
+            color: #666;
+          }
+        }
+
+        .race {
+          flex: 0 0 32px;
+          background-size: contain;
+          line-height: 32px;
+          text-align: center;
+          vertical-align: baseline;
+          margin-right: 4px;
+          height: 32px;
+          color: @colorTan;
+
+          &.rollable:hover {
+            background-image: url("/icons/svg/d20-black.svg") !important;
+          }
+        }
+
+        .race-info {
+          margin-left: 8px;
+        }
+      }
+
+      .hp-ability {
+        flex: 1;
+        justify-content: flex-end;
+
+        > label {
+          flex: 0;
+          margin-right: 4px;
+        }
+
+        > select {
+          flex: 0 0 96px;
+        }
+      }
+    }
+
+    .attributes > .attribute {
+      margin: 0;
+      border-left: none;
+      border-bottom: none;
+      border-top: @borderGroove;
+      border-right: @borderGroove;
+      border-radius: 0;
+      height: auto;
+    }
+
+    img.profile {
+      flex: 0 0 160px;
+      width: 160px;
+      height: 160px;
+      padding: 0 3px;
+      object-fit: contain;
+      border: none;
+      border-right: @borderGroove;
+    }
+
+    .misc-header-items {
+      flex: 0;
+
+      & > * {
+        margin-right: 8px;
+      }
+
+      .actor-quick-actions {
+        button {
+          min-height: 24px;
+          width: calc(50% - 6px);
+          height: calc(50% - 6px);
+          line-height: 50%;
+        }
+      }
+    }
+
+    .hd-level {
+      flex: 0 0 256px;
+      overflow-x: hidden;
+
+      table {
+        margin: 0 0 4px 8px;
+
+        &:hover {
+          a.config-icon {
+            color: @colorBeige;
+          }
+        }
+
+        tr {
+          td {
+            padding: 0;
+            text-align: center;
+          }
+
+          a.config-icon {
+            flex: 0 0 16px;
+            width: 16px;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0);
+
+            &:hover {
+              color: @colorDark;
+            }
+          }
+
+          input[type="text"] {
+            flex: 1 0 32px;
+            height: auto;
+          }
+
+          div.experience {
+            input[type="text"],
+            span.text-box,
+            .max {
+              padding: 0;
+              flex: 1;
+              text-align: center;
+            }
+
+            .separator {
+              flex: 0;
+            }
+          }
+        }
+      }
+
+      .xpbar {
+        width: 100%;
+        height: 12px;
+        font-size: 16px;
+        color: @colorOlive;
+        background: @colorTan;
+        border: 1px solid @colorDark;
+        border-radius: 4px;
+
+        span.bar {
+          background: #63ff00;
+          border: 1px solid #d0ffb2;
+          border-radius: 2px;
+          height: 10px;
+          display: block;
+        }
+      }
+    }
+
+    .attributes {
+      border-bottom: @borderGroove;
+
+      li {
+        padding: 0;
+        border-top: @borderGroove;
+
+        &:not(:last-child) {
+          border-right: @borderGroove;
+        }
+      }
+    }
+
+    .tab.quick-info {
+      ul.attributes {
+        margin: 2px 0;
+      }
+
+      .quick-actions {
+        display: flex;
+        flex-direction: row;
+        padding: 0;
+        margin: 0;
+
+        li {
+          cursor: pointer;
+          flex: 0 0 52px;
+          border-width: 2px;
+          border-style: solid;
+          border-radius: 4px;
+          display: flex;
+          margin: 2px;
+          overflow: hidden;
+
+          &:hover {
+            filter: brightness(150%);
+
+            .icon-label {
+              visibility: initial;
+            }
+          }
+
+          img {
+            border: none;
+            width: 48px;
+            height: 48px;
+          }
+
+          .icon-label {
+            visibility: hidden;
+          }
+        }
+      }
+    }
+  }
+
+  .alignment {
+    color: black;
+  }
+
+  .controls {
+    .control {
+      flex: 0;
+      visibility: hidden;
+      margin-right: 4px;
+    }
+
+    &:hover {
+      .control {
+        visibility: visible;
+      }
+    }
+  }
+
+  .attributes {
+    input[type="text"] {
+      height: 24px;
+    }
+
+    input.temphp {
+      width: 48%;
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  General Styles                           */
+  /* ----------------------------------------- */
+
+  // Box Headers
+  h4.box-title {
+    line-height: 16px;
+    margin: 4px 8px 2px;
+    font-size: 20px;
+    border-bottom: 1px solid @colorBeige;
+  }
+
+  // Sections
+  .primary-body section {
+    overflow-y: hidden;
+  }
+
+  /* ----------------------------------------- */
+  /*  Attributes                               */
+  /* ----------------------------------------- */
+
+  .attributes {
+    .traits {
+      overflow-y: scroll;
+      height: 100%;
+
+      > * {
+        flex: 0 0 24px;
+
+        background-color: rgba(170, 170, 170, 0.3);
+        &:nth-child(even) {
+          background-color: rgba(210, 210, 210, 0.3);
+        }
+        &:hover {
+          background-color: rgba(64, 64, 192, 0.3);
+        }
+      }
+    }
+
+    table {
+      margin: 0;
+    }
+  }
+
+  ul.attributes.misc-base,
+  ul.attributes.misc-defenses {
+    .attribute-footer input {
+      width: 100%;
+    }
+  }
+
+  .attributes-root {
+    flex: 0 0 30%;
+  }
+
+  ul.attributes {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 0;
+
+    h3 {
+      margin: 0;
+    }
+
+    table {
+      span.text-box,
+      input[type="text"] {
+        height: 20px;
+        padding: 1px 3px;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Defenses                                 */
+  /* ----------------------------------------- */
+
+  .defenses {
+    .attributes {
+      flex: 0;
+    }
+
+    .attribute .attribute-footer input {
+      width: 32px;
+    }
+
+    .defense-rolls,
+    .defense-notes {
+      label {
+        line-height: 20px;
+        white-space: nowrap;
+
+        h3 {
+          .nodesto();
+          font-size: 24px;
+        }
+      }
+    }
+
+    .defense-notes {
+      margin-top: 5px;
+      overflow-y: scroll;
+      flex: 1;
+
+      label {
+        flex: 1;
+      }
+
+      textarea {
+        flex: 3;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Ability Scores                           */
+  /* ----------------------------------------- */
+
+  .ability-scores {
+    flex: 0;
+    margin-bottom: 4px;
+  }
+
+  .bottom {
+    overflow-y: auto;
+  }
+
+  /* ----------------------------------------- */
+  /*  Skills                                   */
+  /* ----------------------------------------- */
+
+  div.skill-rank {
+    flex: 0;
+
+    ol,
+    ul {
+      padding-inline-start: 0;
+    }
+  }
+
+  ul.skills-list {
+    flex: 1;
+    overflow-y: auto;
+    list-style: none;
+    margin: 5px 5px 0;
+    padding: 2px 2px 0;
+    border: @borderGroove;
+    border-radius: 3px;
+
+    li.skill,
+    li.sub-skill {
+      height: 28px;
+      padding: 3px 0;
+      align-items: end;
+
+      background-color: rgba(170, 170, 170, 0.3);
+      &:nth-child(even) {
+        background-color: rgba(210, 210, 210, 0.3);
+      }
+      &:hover {
+        background-color: rgba(64, 64, 192, 0.3);
+      }
+
+      .skill-name.untrained {
+        color: rgba(0, 0, 0, 0.6);
+
+        .rollable {
+          img {
+            opacity: 60%;
+          }
+
+          img:hover {
+            animation: 0;
+          }
+        }
+      }
+
+      .skill-name {
+        display: flex;
+        flex: 180px;
+        margin: 0;
+        font-size: 14px;
+        align-items: start;
+
+        .untrained-label {
+          vertical-align: super;
+          font-size: 14px;
+          flex: 0;
+        }
+
+        .rollable {
+          display: inline-block;
+          flex: 0 0 16px;
+          margin-right: 2px;
+
+          img {
+            width: 24px;
+            height: 24px;
+            border: unset;
+          }
+
+          img:hover {
+            animation: dice-spin 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045) 1 forwards;
+            transform-origin: 50% 40%;
+            filter: @filterAuburn;
+          }
+        }
+
+        h4,
+        input[type="text"] {
+          display: inline-block;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+        .compendium-entry > h4 {
+          border-bottom: 1px #111 dotted;
+        }
+
+        .compendium-entry:hover .compendium-icon {
+          visibility: visible;
+        }
+
+        .compendium-icon {
+          visibility: hidden;
+          flex: 0 0 24px;
+          margin-left: 5px;
+          position: relative;
+          top: -4px;
+        }
+
+        .skill-control {
+          display: flex;
+          align-items: center;
+
+          .fas {
+            display: inline-block;
+            text-align: center;
+            width: 24px;
+          }
+        }
+      }
+
+      .checkbox {
+        flex: 0 0 64px;
+        font-size: 14px;
+      }
+
+      .skill-ability {
+        flex: 0 0 48px;
+        margin: 0 2px;
+      }
+
+      .skill-mod {
+        flex: 0 0 28px;
+        line-height: 22px;
+        font-weight: bold;
+        margin: -1px 22px 0px 0px;
+        text-align: center;
+        border: 1px dotted #111;
+        cursor: initial;
+      }
+
+      .skill-rank {
+        flex: 0 0 48px;
+        border-bottom: @borderGroove;
+        margin-right: 12px;
+      }
+
+      .skill-controls {
+        flex: 0 0 24px;
+      }
+
+      input[type="text"] {
+        height: auto;
+      }
+    }
+
+    li.sub-skill .skill-name input[type="text"] {
+      padding-left: 8px;
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Statuses                                 */
+  /* ----------------------------------------- */
+
+  .counters {
+    flex: 0 0 100%;
+    border-bottom: @borderGroove;
+    margin-bottom: 5px;
+
+    .counter {
+      padding: 0 3px;
+      line-height: 32px;
+
+      h4 {
+        flex: auto;
+        margin: 0;
+        .nodesto();
+        font-size: 16px;
+      }
+
+      .counter-value {
+        flex: 0 0 50px;
+        text-align: right;
+        > * {
+          display: inline;
+        }
+      }
+
+      input[type="text"] {
+        height: 20px;
+        max-width: 20px;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+
+      input[type="checkbox"] {
+        position: relative;
+        margin: 0;
+        top: 6px;
+      }
+
+      span.sep {
+        margin: 0 -2px;
+        font-size: 14px;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Buffs & Conditions                       */
+  /* ----------------------------------------- */
+
+  .condition {
+    flex: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: center;
+    margin: 2px;
+    flex-basis: calc(20% - 4px);
+
+    label {
+      line-height: 20px;
+      flex: 0;
+      white-space: nowrap;
+
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Traits                                   */
+  /* ----------------------------------------- */
+
+  .traits {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin: 0 5px;
+
+    .form-group,
+    .form-group-stacked {
+      margin: 0;
+      justify-content: space-between;
+    }
+
+    .trait-selector {
+      flex: 0 0 16px;
+      padding: 2px 0;
+      color: #666;
+      font-size: 14px;
+    }
+
+    .configure-flags {
+      flex: 1;
+    }
+
+    .traits-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      text-align: right;
+    }
+
+    select {
+      flex: 0 0 180px;
+    }
+
+    label {
+      flex: 0 0 150px;
+      line-height: 20px;
+      font-weight: bold;
+      margin: 0;
+      text-align: right;
+    }
+
+    input {
+      text-align: right;
+    }
+
+    i.fas {
+      float: right;
+      margin-right: 3px;
+      text-align: right;
+
+      &:hover {
+        text-shadow: 0 0 10px red;
+      }
+    }
+
+    .inactive {
+      color: @colorTan;
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Inventory Lists                          */
+  /* ----------------------------------------- */
+
+  /* Encumbrance Bar */
+  .encumbrance {
+    height: 12px;
+    background: @colorTan;
+    margin: 1px 15px 0 1px;
+    border: 1px solid @colorDark;
+    border-radius: 3px;
+    position: relative;
+
+    .encumbrance-bar {
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      background: #6c8aa5;
+      height: 8px;
+      border: 1px solid #cde4ff;
+      border-radius: 2px;
+    }
+
+    .encumbrance-label {
+      height: 10px;
+      padding: 0 5px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 14px;
+      line-height: 12px;
+      text-align: right;
+      color: #eee;
+      text-shadow: 0 0 5px #000;
+    }
+
+    &.encumbered {
+      .encumbrance-bar {
+        background: #a80d0d;
+        border-color: #e14949;
+      }
+    }
+
+    .encumbrance-breakpoint {
+      position: absolute;
+      left: 66%;
+    }
+
+    .arrow-up {
+      bottom: 0;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid #666;
+    }
+
+    .arrow-down {
+      top: 0;
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 4px solid #666;
+    }
+
+    &.encumbered {
+      .arrow-up {
+        border-bottom: 4px solid #000;
+      }
+      .arrow-down {
+        border-top: 4px solid #000;
+      }
+    }
+  }
+
+  .tab-footer {
+    .tag {
+      flex: 0 1 auto;
+    }
+  }
+
+  .tab.features,
+  .tab.inventory,
+  .tab.spellbook,
+  .tab.attributes,
+  .tab.combat,
+  .tab.buffs {
+    overflow-y: hidden;
+
+    label.checkbox {
+      text-align: left;
+      flex: 0;
+      margin: 0 0 0 4px;
+
+      &:first-child {
+        margin-top: 4px;
+      }
+    }
+
+    .buffs-conditions {
+      flex: 0;
+    }
+
+    .combat-attacks {
+      flex: 1 1 320px;
+      overflow-y: scroll;
+    }
+
+    .inventory-group {
+      height: 100%;
+    }
+
+    .inventory-body {
+      .inventory-list {
+        height: 100%;
+        overflow-y: scroll;
+      }
+    }
+  }
+
+  .tab.settings {
+    overflow-x: hidden;
+  }
+
+  div.attributes-traits {
+    align-items: flex-start;
+    margin: 0;
+    overflow-y: hidden;
+  }
+
+  /* Inventory List Filters */
+  .inventory-filters {
+    margin: 0 8px;
+    flex: 0 0 20px;
+    h3,
+    .filter-title {
+      .nodesto();
+      color: @colorOlive;
+      font-size: 24px;
+      margin: 0;
+    }
+
+    &.spellbook-filters {
+      flex: 0 0 40px;
+    }
+  }
+
+  .tab.inventory {
+    .tab-footer > * {
+      flex: 0 0 100%;
+    }
+
+    .inventory-tags,
+    .carry-bonus {
+      flex-basis: 50%;
+      align-self: center;
+    }
+
+    .inventory-tags {
+      justify-content: flex-end;
+    }
+  }
+
+  .carry-label {
+    flex: 0 0 24px;
+  }
+
+  .carry-bonus {
+    label {
+      flex: 0;
+      margin-left: 8px;
+      text-align: right;
+      line-height: 20px;
+      color: @colorTan;
+      white-space: nowrap;
+    }
+    input[type="text"],
+    span.text-box {
+      height: 20px;
+      flex: 0 0 48px;
+      text-align: center;
+      margin-left: 8px;
+      border-bottom: @borderGroove;
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Features                                 */
+  /* ----------------------------------------- */
+
+  section.feats-body {
+    overflow-y: scroll;
+
+    .feats-group {
+      .item-detail.item-type {
+        flex: 0 0 40px;
+      }
+    }
+  }
+
+  /* ----------------------------------------- */
+  /*  Spellbook                                */
+  /* ----------------------------------------- */
+
+  .spellbook-group {
+    label {
+      margin: 0;
+    }
+
+    .spell-points-current {
+      flex: 0;
+
+      h3 {
+        .nodesto();
+        font-size: 22px;
+        flex: 0 0 160px;
+      }
+
+      .value,
+      .max {
+        display: flex;
+        flex: 0 0 32px;
+        text-align: center;
+      }
+
+      .sep {
+        flex: 0;
+      }
+    }
+
+    .spell-comps,
+    .spell-uses {
+      white-space: nowrap;
+      overflow: hidden;
+      flex: 0 0 96px;
+      font-size: 14px;
+      text-align: center;
+      color: @colorTan;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      input[type="number"] {
+        width: calc(100% - 2px);
+        min-width: 40px;
+        height: 24px;
+        padding: 1px 3px;
+        margin: 0;
+        font-family: inherit;
+        font-size: inherit;
+        line-height: inherit;
+        border-radius: 3px;
+        -webkit-user-select: text;
+        -moz-user-select: text;
+        -ms-user-select: text;
+        user-select: text;
+      }
+
+      input[type="text"].base,
+      input[type="number"].base {
+        flex: 1;
+      }
+
+      input,
+      span.sep {
+        text-align: center;
+      }
+      span.sep {
+        flex: 0 0 8px;
+      }
+    }
+
+    .spell-uses {
+      input {
+        flex: 0 0 24px;
+      }
+    }
+
+    // .spell-uses {
+    //   padding-right: 8px;
+    //   text-align: right !important;
+    // }
+
+    .spell-school {
+      white-space: nowrap;
+      overflow: hidden;
+      flex: 0 0 96px;
+      font-size: 14px;
+      color: @colorTan;
+      text-align: center;
+      border-right: 1px solid @colorFaint;
+    }
+
+    .spell-activation {
+      white-space: nowrap;
+      overflow: hidden;
+      flex: 0 0 120px;
+      font-size: 14px;
+      color: @colorTan;
+      text-align: center;
+      border-right: 1px solid @colorFaint;
+    }
+
+    .spell-components {
+      white-space: nowrap;
+      overflow: hidden;
+      flex: 0 0 80px;
+      font-size: 14px;
+      color: @colorTan;
+      text-align: center;
+      border-right: 1px solid @colorFaint;
+    }
+
+    // Empty spellbook controls
+    .spellbook-empty .item-controls {
+      flex: 1;
+    }
+
+    .spell-failure {
+      input[type="text"] {
+        flex: 1;
+      }
+    }
+
+    .spell-range {
+      label {
+        flex: 1 1 48px;
+        text-align: right;
+        margin-right: 8px;
+        white-space: nowrap;
+      }
+
+      input[type="text"] {
+        flex: 1 1 48px;
+      }
+    }
+  }
+
+  a.rollable {
+    span {
+      margin: 0 2px;
+    }
+  }
+
+  .rollable.image-d20 {
+    flex: 0 0 24px;
+    display: inline-block;
+    background-image: url(../../icons/dice/d20black.svg);
+    background-size: 100%;
+    height: 24px;
+  }
+
+  /* ----------------------------------------- */
+  /*  TinyMCE                                  */
+  /* ----------------------------------------- */
+
+  .editor {
+    padding: 0 8px;
+  }
+
+  /* ----------------------------------------- */
+  /*  Misc                                     */
+  /* ----------------------------------------- */
+
+  hr {
+    margin: 4px 0 4px 0;
+    flex: 0;
+  }
+
+  .actor-notes {
+    .primary-content {
+      flex: 1 0 320px;
+    }
+  }
+
+  table {
+    table-layout: fixed;
+    overflow: hidden;
+
+    &.ability-table {
+      input[type="text"] {
+        height: 20px;
+      }
+    }
+
+    td {
+      img {
+        vertical-align: middle;
+        margin-right: 2px;
+      }
+    }
+  }
+}
+
+.locked {
+  img.sheet-profile {
+    max-height: 360px;
+    max-width: 240px;
+    float: left;
+  }
+}

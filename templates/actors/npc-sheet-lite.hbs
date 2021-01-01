@@ -1,0 +1,250 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+  
+  {{!-- NPC Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
+    
+    <div class="header-details flexcol">
+      <!-- <div class="header-top flexrow"> -->
+        <h1 class="charname">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF1.CharacterName"}}"/>
+        </h1>
+      <!-- </div> -->
+    </div>
+  </header>
+
+  
+  <section class="primary-body">
+    <div class="hd-level npc tooltip flexrow">
+      <table>
+        <thead>
+          <tr>
+            <th>{{localize "PF1.ChallengeRatingShort"}}</th>
+            <th>{{localize "PF1.Experience"}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-action="input-text" data-for=".cr-input" data-attr-name="data.details.cr.base">
+              <input readonly class="cr-input" type="text" value="{{labels.cr}}"/>
+            </td>
+            <td>
+              {{data.details.xp.value}}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <span class="tooltipcontent">
+        @attributes.hd.total : {{data.attributes.hd.total}}<br/>
+        @details.cr.base : {{data.details.cr.base}}<br/>
+        @details.cr.total : {{data.details.cr.total}}
+      </span>
+    </div>
+    
+    {{!-- Health --}}
+    {{#unless healthConfig.variants.pc.useWoundsAndVigor}}
+    <table class="health-table">
+      <thead>
+        <tr>
+          <th colspan="4">
+            {{localize "PF1.HitPoints"}}
+          </th>
+        </tr>
+        
+        <tr>
+          <th>{{localize "PF1.Current"}}</th>
+          <th>{{localize "PF1.Maximum"}}</th>
+          <th>{{localize "PF1.TempShort"}}</th>
+          <th>{{localize "PF1.Nonlethal"}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td data-action="input-text" data-for=".hp-current-input" data-attr-name="data.attributes.hp.value">
+            <input readonly class="hp-current-input" type="text" value="{{data.attributes.hp.value}}" placeholder="0"/>
+          </td>
+          <td data-action="input-text" data-for="CHILD-0" data-attr-name="data.attributes.hp.base">
+            <input readonly type="text" value="{{data.attributes.hp.max}}" placeholder="0"/>
+          </td>
+          <td data-action="input-text" data-for=".hp-temp-input" data-attr-name="data.attributes.hp.temp">
+            <input readonly class="hp-temp-input" type="text"
+              {{#if data.attributes.hp.temp}}value="{{data.attributes.hp.temp}}"{{/if}}/>
+          </td>
+          <td data-action="input-text" data-for=".hp-nonlethal-input" data-attr-name="data.attributes.hp.nonlethal">
+            <input readonly class="hp-nonlethal-input" type="text"
+              {{#if data.attributes.hp.nonlethal}}value="{{data.attributes.hp.nonlethal}}"{{/if}}/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {{else}}
+    <table class="health-table wounds-vigor">
+      <thead>
+        <tr>
+          <th colspan="3">
+            {{localize "PF1.Vigor"}}
+          </th>
+
+          <th colspan="2">
+            {{localize "PF1.Wounds"}}
+          </th>
+        </tr>
+
+        <tr>
+          <th>{{localize "PF1.Current"}}</th>
+          <th>{{localize "PF1.Maximum"}}</th>
+          <th>{{localize "PF1.TempShort"}}</th>
+          <th>{{localize "PF1.Current"}}</th>
+          <th>{{localize "PF1.Maximum"}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td data-action="input-text" data-for=".vigor-current-input" data-attr-name="data.attributes.vigor.value">
+            <input readonly class="vigor-current-input" type="text" value="{{data.attributes.vigor.value}}"/>
+          </td>
+          <td>
+            <input disabled class="vigor-max-input" name="data.attributes.vigor.max" type="text" value="{{data.attributes.vigor.max}}"/>
+          </td>
+          <td data-action="input-text" data-for=".vigor-temp-input" data-attr-name="data.attributes.vigor.temp">
+            <input readonly class="vigor-temp-input" type="text"
+              {{#if data.attributes.vigor.temp}}value="{{data.attributes.vigor.temp}}"{{/if}}/>
+          </td>
+          <td data-action="input-text" data-for=".wounds-current-input" data-attr-name="data.attributes.wounds.value">
+            <input readonly class="wounds-current-input" type="text" value="{{data.attributes.wounds.value}}"/>
+          </td>
+          <td>
+            <input disabled class="wounds-max-input" name="data.attributes.wounds.max" type="text" value="{{data.attributes.wounds.max}}"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {{/unless}}
+
+    <table>
+      <thead>
+        <tr>
+          <th class="attribute initiative">
+            <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "PF1.Initiative"}}</span></a>
+          </th>
+          <th class="attribute">
+            {{localize "PF1.Size"}}
+          </th>
+          <th class="attribute">
+            {{localize "PF1.Stature"}}
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td data-action="input-text" data-for="CHILD-0" data-attr-name="data.attributes.init.value">
+            <input readonly type="text" data-dtype="Number" value="{{data.attributes.init.total}}"/>
+          </td>
+          <td>
+            <select name="data.traits.size">
+              {{#select data.traits.size}}
+              {{#each config.actorSizes as |label size|}}
+              <option value="{{size}}">{{label}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </td>
+          <td>
+            <select name="data.traits.stature">
+              {{#select data.traits.stature}}
+              {{#each config.actorStatures as |label key|}}
+              <option value="{{key}}">{{label}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="combat-attacks">
+      <section class="attacks-body">
+        {{#each attacks as |section sid|}}
+        <div class="inventory-group flexcol {{#if section.initial}}active{{/if}}">
+          <ol class="inventory-list sub-scroll scroll-attacks">
+            <li class="inventory-header flexrow">
+              <h3 class="item-name flexrow">{{section.label}}</h3>
+    
+              {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon icon-magic-palm large" title="{{localize "PF1.Type"}}"></i></div>{{/if}}
+              
+              <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "PF1.ActionPlural"}}"></i></div>
+              
+              <div class="item-detail item-uses"><i class="icon icon-battery-pack large" title="{{localize "PF1.ChargePlural"}}"></i></div>
+              
+              {{#if ../owner}}
+              <div class="item-controls">
+                {{#if section.canCreate}}
+                <a class="item-control item-create" title="Create Item" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
+                  <i class="fas fa-plus"></i> {{localize "PF1.Add"}}
+                </a>
+                {{/if}}
+              </div>
+              {{/if}}
+            </li>
+            
+            <ol class="item-list">
+              {{#each section.items as |item iid|}}
+              <li class="item flexrow" data-item-id="{{item._id}}">
+                <div class="item-name flexrow rollable">
+                  <div class="item-image" style="background-image: url({{item.img}})"></div>
+                  <h4>
+                    {{item.name~}}
+                  </h4>
+                </div>
+    
+                {{#if section.showTypes}}
+                <div class="item-detail item-type">
+                  <span>{{lookup ../../config.attackTypes item.data.attackType}}</span>
+                </div>
+                {{/if}}
+                
+                <div class="item-detail item-actions">
+                  <div class="item-attack tooltip">
+                    {{#if item.hasAction}}
+                    <span class="tooltipcontent">
+                      {{localize "PF1.PerformAttack"}}
+                    </span>
+                    <a class="item-control item-attack"><img class="icon" src="systems/pf1/icons/actions/gladius.svg"></a>
+                    {{/if}}
+                  </div>
+                </div>
+                
+                <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
+                  {{#if item.isCharged}}
+                  <input type="text" class="select-on-click" value="{{item.data.uses.value}}" data-dtype="Number"/>
+                  <span class="sep"> / </span>
+                  <input type="text" value="{{item.data.uses.max}}" disabled data-dtype="Number"/>
+                  <span class="tooltipcontent">
+                    @resources.{{item.tag}}.value : {{item.data.uses.value}}<br>
+                    @resources.{{item.tag}}.max : {{item.data.uses.max}}
+                  </span>
+                  {{/if}}
+                </div>
+                
+                {{#if ../../owner}}
+                <div class="item-controls">
+                  <a class="item-control item-edit" title="{{localize "PF1.EditItem"}}"><i class="fas fa-edit"></i></a>
+                  <a class="item-control item-duplicate" title="{{localize "PF1.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
+                  <a class="item-control item-delete" title="{{localize "PF1.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+                </div>
+                {{/if}}
+              </li>
+              {{/each}}
+            </ol>
+          </ol>
+        </div>
+        {{/each}}
+      </section>
+    </div>
+  </section>
+  
+</form>

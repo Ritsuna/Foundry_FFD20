@@ -1,0 +1,144 @@
+<h1>{{{localize "PF1.Help.Content.Special.Formulas.Label"}}}</h1>
+
+<p>{{localize "PF1.Help.WIP"}}</p>
+
+<p>{{{localize "PF1.Help.Content.Special.Formulas.Desc"}}}</p>
+
+<h2>{{{localize "PF1.Help.Content.Special.Formulas.Variables.Label"}}}</h2>
+
+<p>{{{localize "PF1.Help.Content.Special.Formulas.Desc2"}}}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>{{{localize "PF1.Help.Content.Special.Formulas.Variables.Header.Name"}}}</th>
+            <th>{{{localize "PF1.Help.Content.Special.Formulas.Variables.Header.Description"}}}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {{!-- Ability Score Total --}}
+        <tr>
+            <td><code>@abilities.X.total</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Variables.AbilityScoreTotal.Desc"}}}</td>
+        </tr>
+
+        {{!-- Ability Score Modifier --}}
+        <tr>
+            <td><code>@abilities.X.mod</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Variables.AbilityScoreMod.Desc"}}}</td>
+        </tr>
+
+        {{!-- Hit Die --}}
+        <tr>
+            <td><code>@attributes.hd.total</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Variables.HitDie.Desc"}}}</td>
+        </tr>
+
+        {{!-- Encumbrance Level --}}
+        <tr>
+            <td><code>@attributes.encumbrance.level</code></td>
+            <td>
+                {{{localize "PF1.Help.Content.Special.Formulas.Variables.EncumbranceLevel.Desc"}}}
+                <ul class="align-left">
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.EncumbranceLevel.0"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.EncumbranceLevel.1"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.EncumbranceLevel.2"}}}</li>
+                </ul>
+            </td>
+        </tr>
+
+        {{!-- Armor Type --}}
+        <tr>
+            <td><code>@armor.type</code></td>
+            <td>
+                {{{localize "PF1.Help.Content.Special.Formulas.Variables.ArmorType.Desc"}}}
+                <ul class="align-left">
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ArmorType.0"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ArmorType.1"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ArmorType.2"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ArmorType.3"}}}</li>
+                </ul>
+            </td>
+        </tr>
+
+        {{!-- Shield Type --}}
+        <tr>
+            <td><code>@shield.type</code></td>
+            <td>
+                {{{localize "PF1.Help.Content.Special.Formulas.Variables.ShieldType.Desc"}}}
+                <ul class="align-left">
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ShieldType.0"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ShieldType.1"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ShieldType.2"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ShieldType.3"}}}</li>
+                    <li>{{{localize "PF1.Help.Content.Special.Formulas.Variables.ShieldType.4"}}}</li>
+                </ul>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+<h2>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Label"}}}</h2>
+
+<p>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Desc"}}}</p>
+
+<table>
+    <thead>
+        <tr>
+            <th rowspan="2">{{{localize "PF1.Help.Content.Special.Formulas.Functions.Header.Name"}}}</th>
+            <th rowspan="2">{{{localize "PF1.Help.Content.Special.Formulas.Functions.Header.Description"}}}</th>
+            <th colspan="2">{{{localize "PF1.Help.Content.Special.Formulas.Functions.Header.Examples"}}}</th>
+        </tr>
+
+        <tr>
+            <th>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Header.Example"}}}</th>
+            <th>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Header.Description"}}}</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td><code>max</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Max.Desc"}}}</td>
+            <td><code>max(@abilities.str.mod, @abilities.dex.mod)</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Max.Examples.0"}}}</td>
+        </tr>
+        <tr>
+            <td><code>min</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Min.Desc"}}}</td>
+            <td><code>min(@attributes.hd.total, 10)</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Min.Examples.0"}}}</td>
+        </tr>
+        <tr>
+            <td><code>floor</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Floor.Desc"}}}</td>
+            <td><code>floor(@attributes.hd.total / 2)</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Floor.Examples.0"}}}</td>
+        </tr>
+        <tr>
+            <td><code>ceil</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Ceil.Desc"}}}</td>
+            <td><code>ceil(@attributes.hd.total / 2)</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Ceil.Examples.0"}}}</td>
+        </tr>
+        <tr>
+            <td><code>round</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Round.Desc"}}}</td>
+            <td><code>round(@attributes.hd.total / 3)</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Round.Examples.0"}}}</td>
+        </tr>
+        <tr>
+            <td><code>sqrt</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.SquareRoot.Desc"}}}</td>
+            <td><code>sqrt(16)</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.SquareRoot.Examples.0"}}}</td>
+        </tr>
+        <tr>
+            <td><code>pow</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Power.Desc"}}}</td>
+            <td><code>pow(4, 3)</code></td>
+            <td>{{{localize "PF1.Help.Content.Special.Formulas.Functions.Power.Examples.0"}}}</td>
+        </tr>
+    </tbody>
+</table>

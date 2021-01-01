@@ -1,0 +1,27 @@
+{{#if isGM}}
+<div class='flexcol'>
+<h3 class="charname">
+	<input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'PF1.ItemName'}}" />
+</h3>
+<!-- <div class="flex-break"></div>-->
+<h3 class="charname">
+	<input name="data.unidentified.name" type="text" value="{{data.unidentified.name}}"
+		placeholder="{{localize 'PF1.UnidentifiedName'}}" />
+</h3>
+</div>
+{{else}}
+{{#if showUnidentifiedData}}
+<h1 class="charname">
+	<input name="data.unidentified.name" type="text" value="{{itemName}}" placeholder="{{localize 'PF1.ItemName'}}" />
+</h1>
+{{else}}
+<h1 class="charname">
+	<input name="name" type="text" value="{{itemName}}" placeholder="{{localize 'PF1.ItemName'}}" />
+</h1>
+{{/if}}
+{{/if}}
+
+<div class="item-subtitle">
+	<h4 class="item-type">{{localize "PF1.Item"}}</h4>
+	<span class="item-status">{{itemStatus}}</span>
+</div>

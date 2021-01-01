@@ -1,0 +1,112 @@
+<form>
+  {{#if hasAttack}}
+  <div class="form-group">
+      <label>{{localize "PF1.AttackRollDice"}}</label>
+      <input type="text" name="d20" value="{{data.d20}}" placeholder="e.g. 2d20kl"/>
+  </div>
+  <div class="form-group">
+    <label>{{localize "PF1.AttackRollBonus"}}</label>
+    <input type="text" name="attack-bonus" value="" placeholder="e.g. +1d4"/>
+  </div>
+  {{/if}}
+  {{#if hasDamage}}
+  <div class="form-group">
+    <label>{{localize "PF1.DamageBonus"}}</label>
+    <input type="text" name="damage-bonus" value="" placeholder="e.g. +1d4"/>
+  </div>
+  {{/if}}
+
+  {{!-- Flags --}}
+  {{#if (or hasAttack hasDamage)}}
+  <div class="form-group stacked">
+    <label>{{localize "PF1.Misc"}}</label>
+    <label class="checkbox">
+      <input type="checkbox" name="power-attack"/> {{localize "PF1.PowerAttack"}}/{{localize "PF1.DeadlyAim"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="rapid-shot"/> {{localize "PF1.RapidShot"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="point-blank-shot"/> {{localize "PF1.PointBlankShot"}}
+    </label>
+    {{#if isNaturalAttack}}
+    <label class="checkbox">
+      <input type="checkbox" {{checked item.primaryAttack}} name="primary-attack"/> {{localize "PF1.PrimaryAttack"}}
+    </label>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  {{!-- Conditionals --}}
+  {{#if item.conditionals}}
+  <div class="form-group stacked">
+    <label>{{localize "PF1.Conditionals"}}</label>
+    {{#each item.conditionals as |conditional a|}}
+    <label class="checkbox">
+      <input type="checkbox" name="conditional.{{a}}" class="conditional" {{checked this.default}}> {{lookup this "name"}}
+    </label>
+    {{/each}}
+  </div>
+  {{/if}}
+
+  {{#if hasDamage}}{{#if hasDamageAbility}}
+  <div class="form-group select">
+    <label>{{localize "PF1.DamageAbility"}}</label>
+    <select name="damage-ability-multiplier">
+      {{#select data.item.ability.damageMult}}
+      <option value="0.5">x0.5</option>
+      <option value="1">x1</option>
+      <option value="1.5">x1.5</option>
+      <option value="2">x2</option>
+      <option value="2.5">x2.5</option>
+      {{/select}}
+    </select>
+  </div>
+  {{/if}}{{/if}}
+
+  {{#if isAttack}}
+  {{#unless isNaturalAttack}}
+  <div class="form-group select">
+    <label>{{localize "PF1.Held"}}</label>
+    <select name="held">
+      {{#select data.item.held}}
+      {{#each config.weaponHoldTypes as |name type|}}
+      <option value="{{type}}">{{name}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
+  {{/unless}}
+  {{/if}}
+
+  {{#if isSpell}}
+  <div class="form-group">
+    <label>{{localize "PF1.CasterLevelOffset"}}</label>
+    <input type="number" data-dtype="Number" value="0" name="cl-offset" />
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "PF1.SpellLevelOffset"}}</label>
+    <input type="number" data-dtype="Number" value="0" name="sl-offset" />
+  </div>
+  {{/if}}
+
+  <div class="form-group stacked">
+    {{#if hasTemplate}}
+    <label class="checkbox">
+      <input type="checkbox" name="measure-template" checked/> {{localize "PF1.MeasureTemplate"}}
+    </label>
+    {{/if}}
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "PF1.RollMode"}}</label>
+    <select name="rollMode">
+      {{#select rollMode}}
+      {{#each rollModes as |label mode|}}
+      <option value="{{mode}}">{{localize label}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
+</form>

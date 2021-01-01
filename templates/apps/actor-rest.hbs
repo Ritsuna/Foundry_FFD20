@@ -1,0 +1,26 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <div class="flexcol">
+    <div class="form-group stacked">
+      <label class="checkbox">
+        <input type="checkbox" name="restoreHealth" checked/> {{localize "PF1.RestoreHealth"}}
+      </label>
+
+      <label class="checkbox">
+        <input type="checkbox" name="restoreDailyUses" checked/> {{localize "PF1.RestoreDailyUses"}}
+      </label>
+
+      <label class="checkbox">
+        <input type="checkbox" name="longTermCare"/> {{localize "PF1.LongTermCare"}}
+      </label>
+    </div>
+
+    <div class="form-group">
+      <label>{{localize "PF1.Duration"}}</label>
+      <input type="number" data-dtype="Number" name="hours" value="8"/> {{localize "PF1.TimeHour"}}
+    </div>
+  </div>
+
+  <button type="submit" name="submit">
+    {{localize "PF1.Rest"}}
+  </button>
+</form>
