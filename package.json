@@ -1,8 +1,8 @@
 {
-  "name": "foundryvtt-pf1",
+  "name": "FFd20-foundry-LNRW",
   "private": true,
   "author": {
-    "name": "Tijmen Bok"
+    "name": "Ritsu Voices"
   },
   "devDependencies": {
     "color": "^3.1.2",
