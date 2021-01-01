@@ -191,14 +191,11 @@
             "temp": 0,
             "nonlethal": 0
           },
-          "wounds": {
-            "min": 0,
-            "value": 0
-          },
-          "vigor": {
-            "min": 0,
+          "mp": {
             "value": 0,
-            "temp": 0
+            "base": 0,
+            "max": 0,
+            "temp": 0,
           },
           "init": {
             "value": 0,
@@ -273,7 +270,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": false,
                 "spellPoints": {
-                  "useSystem": false,
+                  "useSystem": true,
                   "value": 0,
                   "max": 0,
                   "maxFormula": "",
@@ -301,7 +298,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": false,
                 "spellPoints": {
-                  "useSystem": false,
+                  "useSystem": true,
                   "value": 0,
                   "max": 0,
                   "maxFormula": "",
@@ -329,7 +326,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": false,
                 "spellPoints": {
-                  "useSystem": false,
+                  "useSystem": true,
                   "value": 0,
                   "max": 0,
                   "maxFormula": "",
@@ -357,7 +354,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": false,
                 "spellPoints": {
-                  "useSystem": false,
+                  "useSystem": true,
                   "value": 0,
                   "max": 0,
                   "maxFormula": "",
@@ -759,16 +756,10 @@
           "stature": "tall"
         },
         "currency": {
-          "pp": 0,
-          "gp": 0,
-          "sp": 0,
-          "cp": 0
+          "Gil": 0
         },
         "altCurrency": {
-          "pp": 0,
-          "gp": 0,
-          "sp": 0,
-          "cp": 0
+          "Gil": 0
         }
       }
     },
@@ -802,6 +793,10 @@
       "attributes": {
         "spellLevel": 0,
         "hp": {
+          "value": 0,
+          "max": 0
+        },
+        "mp": {
           "value": 0,
           "max": 0
         }
@@ -962,10 +957,7 @@
         "baseWeight": 0,
         "sellMultiplier": 0.5,
         "currency": {
-          "pp": 0,
-          "gp": 0,
-          "sp": 0,
-          "cp": 0
+          "Gil": 0
         }
       },
       "tagged": {
@@ -983,6 +975,7 @@
       "level": 1,
       "hd": 8,
       "hp": 8,
+      "mp": 0,
       "bab": "low",
       "skillsPerLevel": 0,
       "savingThrows": {
@@ -1109,7 +1102,7 @@
       "spellArea": "",
       "showInQuickbar": false,
       "spellPoints": {
-        "cost": "1 + @sl"
+        "cost": "@sl"
       },
       "domain": false,
       "slotCost": 1
