@@ -169,31 +169,6 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
-    },
-    {
-      "lang": "de",
-      "name": "German",
-      "path": "lang/de.json"
-    },
-    {
-      "lang": "fr",
-      "name": "French",
-      "path": "lang/fr.json"
-    },
-    {
-      "lang": "it",
-      "name": "Italian",
-      "path": "lang/it.json"
-    },
-    {
-      "lang": "es",
-      "name": "Spanish",
-      "path": "lang/es.json"
-    },
-    {
-      "lang": "cn",
-      "name": "Chinese",
-      "path": "lang/cn.json"
     }
   ],
   "socket": true,
