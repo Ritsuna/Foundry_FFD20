@@ -1,18 +1,18 @@
 # Pathfinder 1e for Foundry VTT
 
-An implementation of the first edition of Pathfinder for Foundry Virtual
-Tabletop (http://foundryvtt.com).
+An implementation of the Final Fantasy d20 (FFd20) system for for Foundry Virtual
+Tabletop (http://foundryvtt.com), based on the Pathfinder 1 implementation by Furyspark [https://gitlab.com/Furyspark/foundryvtt-pathfinder1](https://gitlab.com/Furyspark/foundryvtt-pathfinder1).
 
 The software component of this system is distributed under the GNUv3 license
 while the game content is distributed under the Open Gaming License v1.0a.
 
 ## Installation
 
-Install the following game system in FoundryVTT's game system tab: [https://gitlab.com/Furyspark/foundryvtt-pathfinder1/-/raw/master/system.json](https://gitlab.com/Furyspark/foundryvtt-pathfinder1/-/raw/master/system.json)
+Install the following game system in FoundryVTT's game system tab: [https://github.com/Ritsuna/FFd20-foundry-LNRW/raw/master/system.json](https://github.com/Ritsuna/FFd20-foundry-LNRW/raw/master/system.json)
 
 If you wish to manually install the system, you must clone or extract it into
 the Data/systems/pf1 folder. You may do this by cloning the repository or
-downloading a zip archive from the [Releases Page](https://gitlab.com/Furyspark/foundryvtt-pathfinder1/-/releases).
+downloading a zip archive from the [Releases Page](https://github.com/Ritsuna/FFd20-foundry-LNRW/releases).
 
 ## Building
 

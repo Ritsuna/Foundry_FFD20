@@ -10,31 +10,10 @@
   "styles": ["pf1.css"],
   "packs": [
     {
-      "name": "classes",
-      "label": "Classes",
-      "system": "pf1",
-      "path": "./packs/classes.db",
-      "entity": "Item"
-    },
-    {
-      "name": "mythicpaths",
-      "label": "Mythic Paths",
-      "system": "pf1",
-      "path": "./packs/mythic-paths.db",
-      "entity": "Item"
-    },
-    {
       "name": "commonbuffs",
       "label": "Common Buffs",
       "system": "pf1",
       "path": "./packs/commonbuffs.db",
-      "entity": "Item"
-    },
-    {
-      "name": "spells",
-      "label": "Spells",
-      "system": "pf1",
-      "path": "./packs/spells.db",
       "entity": "Item"
     },
     {
@@ -73,20 +52,6 @@
       "entity": "Item"
     },
     {
-      "name": "races",
-      "label": "Races",
-      "system": "pf1",
-      "path": "./packs/races.db",
-      "entity": "Item"
-    },
-    {
-      "name": "class-abilities",
-      "label": "Class Abilities",
-      "system": "pf1",
-      "path": "./packs/class-abilities.db",
-      "entity": "Item"
-    },
-    {
       "name": "monster-templates",
       "label": "Monster Templates",
       "system": "pf1",
@@ -99,13 +64,6 @@
       "system": "pf1",
       "path": "./packs/sample-macros.db",
       "entity": "Macro"
-    },
-    {
-      "name": "roll-tables",
-      "label": "Roll Tables",
-      "system": "pf1",
-      "path": "./packs/roll-tables.db",
-      "entity": "RollTable"
     },
     {
       "name": "ultimate-equipment",
