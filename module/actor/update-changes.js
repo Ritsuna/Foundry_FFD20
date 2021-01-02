@@ -19,8 +19,7 @@ export const updateChanges = async function ({ data = null } = {}) {
   // Track previous values
   const prevValues = {
     mhp: getProperty(this.data, "data.attributes.hp.max") || 0,
-    wounds: getProperty(this.data, "data.attributes.wounds.max") || 0,
-    vigor: getProperty(this.data, "data.attributes.vigor.max") || 0,
+    mmp: getProperty(this.data, "data.attributes.mp.max") || 0,
   };
 
   // Gather change types
