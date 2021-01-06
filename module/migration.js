@@ -706,7 +706,7 @@ const _migrateSpellCosts = function (ent, updateData) {
 
   const spellPointCost = getProperty(ent.data, "data.spellPoints.cost");
   if (spellPointCost == null) {
-    updateData["data.spellPoints.cost"] = "1 + @sl";
+    updateData["data.spellPoints.cost"] = "@sl";
   }
 
   const slotCost = getProperty(ent.data, "data.slotCost");

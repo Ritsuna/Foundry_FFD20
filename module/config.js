@@ -972,7 +972,7 @@ PF1.spellComponents = {
 
 // Spell Schools
 PF1.spellSchools = {
-  chrono: "PF1.SpellSchoolChronomancy",
+  crn: "PF1.SpellSchoolChronomancy",
   ill: "PF1.SpellSchoolIllusion",
   drk: "PF1.SpellSchoolDark",
   lit: "PF1.SpellSchoolLight",
