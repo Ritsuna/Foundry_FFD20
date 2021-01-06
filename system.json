@@ -2,7 +2,7 @@
   "name": "ffd20lnrw",
   "title": "FFd20 for LNRW",
   "description": "FFd20 for use by the LNRW group using Pathfinder 1 as a base in the Foundry VTT environment.",
-  "version": "0.0.01",
+  "version": "0.0.02",
   "author": "Ritsu Voices",
   "templateVersion": 1,
   "scripts": [],
@@ -181,5 +181,5 @@
   "compatibleCoreVersion": "0.7.9",
   "url": "https://github.com/Ritsuna/FFd20-foundry-LNRW",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/FFd20-foundry-LNRW/master/system.json",
-  "download": "https://github.com/Ritsuna/FFd20-foundry-LNRW/releases/download/0.00.01/master.zip"
+  "download": "https://github.com/Ritsuna/FFd20-foundry-LNRW/releases/download/0.00.02/FFd20-foundry-LNRW-master.zip"
 }
