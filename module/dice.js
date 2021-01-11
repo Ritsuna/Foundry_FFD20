@@ -112,7 +112,7 @@ export class DicePF {
             speaker: speaker,
             content: await renderTemplate(chatTemplate, rollData),
             rollMode: rollMode,
-            "flags.pf1.noRollRender": true,
+            "flags.ffd20lnrw.noRollRender": true,
           };
 
           // Send message
@@ -129,6 +129,7 @@ export class DicePF {
             sound: a === 0 ? CONFIG.sounds.dice : null,
           });
         }
+        return roll;
       }
     };
 
@@ -138,7 +139,7 @@ export class DicePF {
     else parts = parts.concat(["@bonus"]);
 
     // Render modal dialog
-    template = template || "systems/pf1/templates/chat/roll-dialog.hbs";
+    template = template || "systems/ffd20lnrw/templates/chat/roll-dialog.hbs";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -156,17 +157,17 @@ export class DicePF {
           buttons: {
             normal: {
               label: "Normal",
-              callback: (html) => (roll = _roll(parts, staticRoll != null ? staticRoll : -1, html)),
+              callback: (html) => resolve((roll = _roll(parts, staticRoll != null ? staticRoll : -1, html))),
             },
             takeTen: {
               label: "Take 10",
               condition: takeTwenty,
-              callback: (html) => (roll = _roll(parts, 10, html)),
+              callback: (html) => resolve((roll = _roll(parts, 10, html))),
             },
             takeTwenty: {
               label: "Take 20",
               condition: takeTwenty,
-              callback: (html) => (roll = _roll(parts, 20, html)),
+              callback: (html) => resolve((roll = _roll(parts, 20, html))),
             },
           },
           default: "normal",
@@ -303,7 +304,7 @@ export class DicePF {
     else parts = parts.concat(["@bonus"]);
 
     // Construct dialog data
-    template = template || "systems/pf1/templates/chat/roll-dialog.hbs";
+    template = template || "systems/ffd20lnrw/templates/chat/roll-dialog.hbs";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -354,7 +355,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
   // Replace parentheses with semicolons to use for splitting
   let toSplit = formula
     .replace(/([A-z]+)?\(/g, (match, prefix) => {
-      return prefix in game.pf1.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
+      return prefix in game.ffd20lnrw.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
     })
     .replace(/\)/g, ";);");
   let terms = toSplit.split(";");
@@ -364,7 +365,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
     nOpenPreProcess = [];
   terms = terms.reduce((arr, t) => {
     // Handle cases where the prior term is a math function
-    const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.pf1.rollPreProcess;
+    const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.ffd20lnrw.rollPreProcess;
     if (beginPreProcessFn) nOpenPreProcess.push([arr.length - 1, nOpen]);
     const beginMathFn = t[0] === "(" && arr[arr.length - 1] in Math;
     if (beginMathFn && nOpenPreProcess.length > 0) nOpenPreProcess.push([arr.length - 1, nOpen]);
@@ -396,7 +397,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
           if (fn in Math) {
             arr.push(Math[fn](...fnParams).toString());
           } else {
-            arr.push(game.pf1.rollPreProcess[fn](...fnParams).toString());
+            arr.push(game.ffd20lnrw.rollPreProcess[fn](...fnParams).toString());
           }
 
           nOpenPreProcess.splice(a, 1);

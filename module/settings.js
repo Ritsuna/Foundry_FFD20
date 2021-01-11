@@ -7,7 +7,7 @@ export const registerSystemSettings = function () {
   /**
    * Track the system version upon which point a migration was last applied
    */
-  game.settings.register("pf1", "systemMigrationVersion", {
+  game.settings.register("ffd20lnrw", "systemMigrationVersion", {
     name: "System Migration Version",
     scope: "world",
     config: false,
@@ -17,14 +17,14 @@ export const registerSystemSettings = function () {
   /**
    * Track when the last changelog was shown
    */
-  game.settings.register("pf1", "changelogVersion", {
+  game.settings.register("ffd20lnrw", "changelogVersion", {
     name: "Changelog Version",
     scope: "client",
     config: false,
     type: String,
     default: "0.74.9",
   });
-  game.settings.register("pf1", "dontShowChangelog", {
+  game.settings.register("ffd20lnrw", "dontShowChangelog", {
     name: "Don't Automatically Show Changelog",
     scope: "client",
     config: false,
@@ -33,16 +33,16 @@ export const registerSystemSettings = function () {
   });
 
   // Health configuration
-  game.settings.registerMenu("pf1", "healthConfig", {
-    name: "SETTINGS.pf1HealthConfigName",
-    label: "SETTINGS.pf1HealthConfigLabel",
-    hint: "SETTINGS.pf1HealthConfigHint",
+  game.settings.registerMenu("ffd20lnrw", "healthConfig", {
+    name: "SETTINGS.ffd20lnrwHealthConfigName",
+    label: "SETTINGS.ffd20lnrwHealthConfigLabel",
+    hint: "SETTINGS.ffd20lnrwHealthConfigHint",
     icon: "fas fa-heartbeat",
     type: HealthConfig,
     restricted: true,
   });
-  game.settings.register("pf1", "healthConfig", {
-    name: "SETTINGS.pf1HealthConfigName",
+  game.settings.register("ffd20lnrw", "healthConfig", {
+    name: "SETTINGS.ffd20lnrwHealthConfigName",
     scope: "world",
     default: HealthConfig.defaultSettings,
     type: Object,
@@ -58,16 +58,16 @@ export const registerSystemSettings = function () {
   });
 
   // Experience configuration
-  game.settings.registerMenu("pf1", "experienceConfig", {
-    name: "PF1.ExperienceConfigName",
-    label: "PF1.ExperienceConfigLabel",
-    hint: "PF1.ExperienceConfigHint",
+  game.settings.registerMenu("ffd20lnrw", "experienceConfig", {
+    name: "ffd20lnrw.ExperienceConfigName",
+    label: "ffd20lnrw.ExperienceConfigLabel",
+    hint: "ffd20lnrw.ExperienceConfigHint",
     icon: "fas fa-book",
     type: ExperienceConfig,
     restricted: true,
   });
-  game.settings.register("pf1", "experienceConfig", {
-    name: "PF1.ExperienceConfigName",
+  game.settings.register("ffd20lnrw", "experienceConfig", {
+    name: "ffd20lnrw.ExperienceConfigName",
     scope: "world",
     default: ExperienceConfig.defaultSettings,
     type: Object,
@@ -83,16 +83,16 @@ export const registerSystemSettings = function () {
   });
 
   // Accessibility configuration
-  game.settings.registerMenu("pf1", "accessibilityConfig", {
-    name: "PF1.AccessibilityConfigName",
-    label: "PF1.AccessibilityConfigLabel",
-    hint: "PF1.AccessibilityConfigHint",
+  game.settings.registerMenu("ffd20lnrw", "accessibilityConfig", {
+    name: "ffd20lnrw.AccessibilityConfigName",
+    label: "ffd20lnrw.AccessibilityConfigLabel",
+    hint: "ffd20lnrw.AccessibilityConfigHint",
     restricted: false,
     icon: "fas fa-wheelchair",
     type: AccessibilityConfig,
   });
-  game.settings.register("pf1", "accessibilityConfig", {
-    name: "PF1.AccessibilityConfigName",
+  game.settings.register("ffd20lnrw", "accessibilityConfig", {
+    name: "ffd20lnrw.AccessibilityConfigName",
     scope: "client",
     default: AccessibilityConfig.defaultSettings,
     type: Object,
@@ -105,16 +105,16 @@ export const registerSystemSettings = function () {
   /**
    * Register diagonal movement rule setting
    */
-  game.settings.register("pf1", "diagonalMovement", {
-    name: "SETTINGS.pf1DiagN",
-    hint: "SETTINGS.pf1DiagL",
+  game.settings.register("ffd20lnrw", "diagonalMovement", {
+    name: "SETTINGS.ffd20lnrwDiagN",
+    hint: "SETTINGS.ffd20lnrwDiagL",
     scope: "world",
     config: true,
     default: "5105",
     type: String,
     choices: {
-      555: "SETTINGS.pf1DiagPHB",
-      5105: "SETTINGS.pf1DiagDMG",
+      555: "SETTINGS.ffd20lnrwDiagPHB",
+      5105: "SETTINGS.ffd20lnrwDiagDMG",
     },
     onChange: (rule) => (canvas.grid.diagonalRule = rule),
   });
@@ -123,9 +123,9 @@ export const registerSystemSettings = function () {
    * Experience rate
    * @deprecated
    */
-  game.settings.register("pf1", "experienceRate", {
-    name: "SETTINGS.pf1ExpRateN",
-    hint: "SETTINGS.pf1ExpRateL",
+  game.settings.register("ffd20lnrw", "experienceRate", {
+    name: "SETTINGS.ffd20lnrwExpRateN",
+    hint: "SETTINGS.ffd20lnrwExpRateL",
     scope: "world",
     config: false,
     default: "",
@@ -145,9 +145,9 @@ export const registerSystemSettings = function () {
   /**
    * System of Units
    */
-  game.settings.register("pf1", "units", {
-    name: "SETTINGS.pf1UnitsN",
-    hint: "SETTINGS.pf1UnitsL",
+  game.settings.register("ffd20lnrw", "units", {
+    name: "SETTINGS.ffd20lnrwUnitsN",
+    hint: "SETTINGS.ffd20lnrwUnitsL",
     scope: "world",
     config: true,
     default: "imperial",
@@ -171,9 +171,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to allow the background skills optional ruleset.
    */
-  game.settings.register("pf1", "allowBackgroundSkills", {
-    name: "SETTINGS.pf1BackgroundSkillsN",
-    hint: "SETTINGS.pf1BackgroundSkillsH",
+  game.settings.register("ffd20lnrw", "allowBackgroundSkills", {
+    name: "SETTINGS.ffd20lnrwBackgroundSkillsN",
+    hint: "SETTINGS.ffd20lnrwBackgroundSkillsH",
     scope: "world",
     config: true,
     default: false,
@@ -191,9 +191,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to use the Fractional Base Bonuses optional ruleset.
    */
-  game.settings.register("pf1", "useFractionalBaseBonuses", {
-    name: "SETTINGS.pf1FractionalBaseBonusesN",
-    hint: "SETTINGS.pf1FractionalBaseBonusesH",
+  game.settings.register("ffd20lnrw", "useFractionalBaseBonuses", {
+    name: "SETTINGS.ffd20lnrwFractionalBaseBonusesN",
+    hint: "SETTINGS.ffd20lnrwFractionalBaseBonusesH",
     scope: "world",
     config: true,
     default: false,
@@ -211,9 +211,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to automatically collapse Item Card descriptions
    */
-  game.settings.register("pf1", "autoCollapseItemCards", {
-    name: "SETTINGS.pf1AutoCollapseCardN",
-    hint: "SETTINGS.pf1AutoCollapseCardL",
+  game.settings.register("ffd20lnrw", "autoCollapseItemCards", {
+    name: "SETTINGS.ffd20lnrwAutoCollapseCardN",
+    hint: "SETTINGS.ffd20lnrwAutoCollapseCardL",
     scope: "client",
     config: true,
     default: false,
@@ -226,9 +226,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to hide chat buttons
    */
-  game.settings.register("pf1", "hideChatButtons", {
-    name: "SETTINGS.pf1HideChatButtonsN",
-    hint: "SETTINGS.pf1HideChatButtonsH",
+  game.settings.register("ffd20lnrw", "hideChatButtons", {
+    name: "SETTINGS.ffd20lnrwHideChatButtonsN",
+    hint: "SETTINGS.ffd20lnrwHideChatButtonsH",
     scope: "client",
     config: true,
     default: false,
@@ -241,9 +241,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to change measure style
    */
-  game.settings.register("pf1", "measureStyle", {
-    name: "SETTINGS.pf1MeasureStyleN",
-    hint: "SETTINGS.pf1MeasureStyleL",
+  game.settings.register("ffd20lnrw", "measureStyle", {
+    name: "SETTINGS.ffd20lnrwMeasureStyleN",
+    hint: "SETTINGS.ffd20lnrwMeasureStyleL",
     scope: "world",
     config: true,
     default: true,
@@ -253,37 +253,37 @@ export const registerSystemSettings = function () {
   /**
    * Low-light Vision Mode
    */
-  game.settings.register("pf1", "lowLightVisionMode", {
-    name: "SETTINGS.pf1LowLightVisionModeN",
-    hint: "SETTINGS.pf1LowLightVisionModeH",
+  game.settings.register("ffd20lnrw", "lowLightVisionMode", {
+    name: "SETTINGS.ffd20lnrwLowLightVisionModeN",
+    hint: "SETTINGS.ffd20lnrwLowLightVisionModeH",
     scope: "world",
     config: true,
     default: false,
     type: Boolean,
   });
 
-  game.settings.register("pf1", "sharedVisionMode", {
-    name: "SETTINGS.pf1SharedVisionModeN",
-    hint: "SETTINGS.pf1SharedVisionModeH",
+  game.settings.register("ffd20lnrw", "sharedVisionMode", {
+    name: "SETTINGS.ffd20lnrwSharedVisionModeN",
+    hint: "SETTINGS.ffd20lnrwSharedVisionModeH",
     scope: "world",
     config: true,
     default: "0",
     type: String,
     choices: {
-      0: "SETTINGS.pf1SharedVisionWithoutSelection",
-      1: "SETTINGS.pf1SharedVisionWithSelection",
+      0: "SETTINGS.ffd20lnrwSharedVisionWithoutSelection",
+      1: "SETTINGS.ffd20lnrwSharedVisionWithSelection",
     },
     onChange: () => {
-      game.socket.emit("system.pf1", { eventType: "redrawCanvas" });
+      game.socket.emit("system.ffd20lnrw", { eventType: "redrawCanvas" });
     },
   });
 
   /**
    * Set coin weight
    */
-  game.settings.register("pf1", "coinWeight", {
-    name: "SETTINGS.pf1CoinWeightN",
-    hint: "SETTINGS.pf1CoinWeightH",
+  game.settings.register("ffd20lnrw", "coinWeight", {
+    name: "SETTINGS.ffd20lnrwCoinWeightN",
+    hint: "SETTINGS.ffd20lnrwCoinWeightH",
     scope: "world",
     config: true,
     default: 50,
@@ -301,9 +301,9 @@ export const registerSystemSettings = function () {
   /**
    * Hide token conditions
    */
-  game.settings.register("pf1", "hideTokenConditions", {
-    name: "SETTINGS.pf1HideTokenConditionsN",
-    hint: "SETTINGS.pf1HideTokenConditionsH",
+  game.settings.register("ffd20lnrw", "hideTokenConditions", {
+    name: "SETTINGS.ffd20lnrwHideTokenConditionsN",
+    hint: "SETTINGS.ffd20lnrwHideTokenConditionsH",
     scope: "world",
     config: true,
     default: false,
@@ -324,9 +324,9 @@ export const registerSystemSettings = function () {
   /**
    * Skip action dialog prompts
    */
-  game.settings.register("pf1", "skipActionDialogs", {
-    name: "SETTINGS.pf1SkipActionDialogsN",
-    hint: "SETTINGS.pf1SkipActionDialogsH",
+  game.settings.register("ffd20lnrw", "skipActionDialogs", {
+    name: "SETTINGS.ffd20lnrwSkipActionDialogsN",
+    hint: "SETTINGS.ffd20lnrwSkipActionDialogsH",
     scope: "client",
     config: true,
     default: false,
@@ -336,7 +336,7 @@ export const registerSystemSettings = function () {
   /*
    * When skipping an action dialog prompt still place the template if one is configured
    */
-  game.settings.register("pf1", "placeMeasureTemplateOnQuickRolls", {
+  game.settings.register("ffd20lnrw", "placeMeasureTemplateOnQuickRolls", {
     name: "SETTINGS.placeMeasureTemplateOnQuickRollsN",
     hint: "SETTINGS.placeMeasureTemplateOnQuickRollsH",
     scope: "client",
@@ -348,25 +348,25 @@ export const registerSystemSettings = function () {
   /**
    * Attack chat card template
    */
-  game.settings.register("pf1", "attackChatCardTemplate", {
-    name: "SETTINGS.pf1AttackChatCardTemplateN",
-    hint: "SETTINGS.pf1AttackChatCardTemplateH",
+  game.settings.register("ffd20lnrw", "attackChatCardTemplate", {
+    name: "SETTINGS.ffd20lnrwAttackChatCardTemplateN",
+    hint: "SETTINGS.ffd20lnrwAttackChatCardTemplateH",
     scope: "world",
     config: true,
-    default: "systems/pf1/templates/chat/attack-roll.hbs",
+    default: "systems/ffd20lnrw/templates/chat/attack-roll.hbs",
     type: String,
     choices: {
-      "systems/pf1/templates/chat/attack-roll.hbs": "PF1.Primary",
-      "systems/pf1/templates/chat/attack-roll2.hbs": "PF1.Alternate",
+      "systems/ffd20lnrw/templates/chat/attack-roll.hbs": "ffd20lnrw.Primary",
+      "systems/ffd20lnrw/templates/chat/attack-roll2.hbs": "ffd20lnrw.Alternate",
     },
   });
 
   /**
    * Unchained action economy
    */
-  game.settings.register("pf1", "unchainedActionEconomy", {
-    name: "SETTINGS.pf1UnchainedActionEconomyN",
-    hint: "SETTINGS.pf1UnchainedActionEconomyH",
+  game.settings.register("ffd20lnrw", "unchainedActionEconomy", {
+    name: "SETTINGS.ffd20lnrwUnchainedActionEconomyN",
+    hint: "SETTINGS.ffd20lnrwUnchainedActionEconomyH",
     scope: "world",
     config: true,
     default: false,
@@ -387,9 +387,9 @@ export const registerSystemSettings = function () {
   /**
    * Invert filter Shift-clicking
    */
-  game.settings.register("pf1", "invertSectionFilterShiftBehaviour", {
-    name: "SETTINGS.pf1InvertSectionFilterBehaviourN",
-    hint: "SETTINGS.pf1InvertSectionFilterBehaviourH",
+  game.settings.register("ffd20lnrw", "invertSectionFilterShiftBehaviour", {
+    name: "SETTINGS.ffd20lnrwInvertSectionFilterBehaviourN",
+    hint: "SETTINGS.ffd20lnrwInvertSectionFilterBehaviourH",
     scope: "client",
     config: true,
     default: false,
@@ -399,9 +399,9 @@ export const registerSystemSettings = function () {
   /**
    * Hide reach measurements
    */
-  game.settings.register("pf1", "hideReachMeasurements", {
-    name: "SETTINGS.pf1HideReachMeasurementsN",
-    hint: "SETTINGS.pf1HideReachMeasurementsH",
+  game.settings.register("ffd20lnrw", "hideReachMeasurements", {
+    name: "SETTINGS.ffd20lnrwHideReachMeasurementsN",
+    hint: "SETTINGS.ffd20lnrwHideReachMeasurementsH",
     scope: "client",
     config: true,
     default: false,
@@ -413,7 +413,7 @@ export const registerClientSettings = function () {
   /**
    * Compendium filters
    */
-  game.settings.register("pf1", "compendiumFilters", {
+  game.settings.register("ffd20lnrw", "compendiumFilters", {
     name: "Compendium Filters",
     hint: "Stores compendium filters",
     scope: "client",
@@ -425,7 +425,7 @@ export const registerClientSettings = function () {
   /**
    * Compendium items
    */
-  game.settings.register("pf1", "compendiumItems", {
+  game.settings.register("ffd20lnrw", "compendiumItems", {
     name: "Compendium Items",
     hint: "Cache compendium entries",
     scope: "client",
@@ -437,7 +437,7 @@ export const registerClientSettings = function () {
   /**
    * Compendium save versions
    */
-  game.settings.register("pf1", "compendiumSaveVersions", {
+  game.settings.register("ffd20lnrw", "compendiumSaveVersions", {
     name: "Compendium Save Versions",
     hint: "Versions of compendium caches",
     scope: "client",
@@ -456,7 +456,7 @@ export const registerClientSettings = function () {
   /*
    * Compendium difference data
    */
-  game.settings.register("pf1", "compendiumForceRefresh", {
+  game.settings.register("ffd20lnrw", "compendiumForceRefresh", {
     name: "Compendium Force Refresh Data",
     hint: "Data needed to determine whether to force refresh compendiums",
     scope: "client",
@@ -480,17 +480,17 @@ export const migrateSystemSettings = async function () {
 
   // Migrate attack template
   {
-    const template = game.settings.get("pf1", "attackChatCardTemplate");
+    const template = game.settings.get("ffd20lnrw", "attackChatCardTemplate");
     if (template.endsWith(".html")) {
       const newTemplate = template.slice(0, template.length - "html".length) + "hbs";
-      await game.settings.set("pf1", "attackChatCardTemplate", newTemplate);
+      await game.settings.set("ffd20lnrw", "attackChatCardTemplate", newTemplate);
     }
   }
 };
 
 export const getSkipActionPrompt = function () {
   return (
-    (game.settings.get("pf1", "skipActionDialogs") && !game.keyboard.isDown("Shift")) ||
-    (!game.settings.get("pf1", "skipActionDialogs") && game.keyboard.isDown("Shift"))
+    (game.settings.get("ffd20lnrw", "skipActionDialogs") && !game.keyboard.isDown("Shift")) ||
+    (!game.settings.get("ffd20lnrw", "skipActionDialogs") && game.keyboard.isDown("Shift"))
   );
 };

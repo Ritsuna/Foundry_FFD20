@@ -7,10 +7,10 @@ const fse = require("fs-extra");
 /*  Compile LESS
 /* ----------------------------------------- */
 
-const PF1_LESS = ["less/*.less"];
-const PF1_MODULE = ["module/**/*.js", "webpack.config.js", "pf1.js"];
+const ffd20lnrw_LESS = ["less/*.less"];
+const ffd20lnrw_MODULE = ["module/**/*.js", "webpack.config.js", "ffd20lnrw.js"];
 function compileLESS() {
-  return gulp.src("less/pf1.less").pipe(less()).pipe(gulp.dest("./"));
+  return gulp.src("less/ffd20lnrw.less").pipe(less()).pipe(gulp.dest("./"));
 }
 function compileJS() {
   return new Promise((resolve) => {
@@ -37,8 +37,8 @@ const js = gulp.series(cleanDist, compileJS);
 /* ----------------------------------------- */
 
 function watchUpdates() {
-  gulp.watch(PF1_LESS, css);
-  // gulp.watch(PF1_MODULE, js);
+  gulp.watch(ffd20lnrw_LESS, css);
+  // gulp.watch(ffd20lnrw_MODULE, js);
 }
 
 /* ----------------------------------------- */

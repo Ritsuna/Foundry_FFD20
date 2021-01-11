@@ -1,17 +1,17 @@
 <form>
   {{#if hasAttack}}
   <div class="form-group">
-      <label>{{localize "PF1.AttackRollDice"}}</label>
+      <label>{{localize "ffd20lnrw.AttackRollDice"}}</label>
       <input type="text" name="d20" value="{{data.d20}}" placeholder="e.g. 2d20kl"/>
   </div>
   <div class="form-group">
-    <label>{{localize "PF1.AttackRollBonus"}}</label>
+    <label>{{localize "ffd20lnrw.AttackRollBonus"}}</label>
     <input type="text" name="attack-bonus" value="" placeholder="e.g. +1d4"/>
   </div>
   {{/if}}
   {{#if hasDamage}}
   <div class="form-group">
-    <label>{{localize "PF1.DamageBonus"}}</label>
+    <label>{{localize "ffd20lnrw.DamageBonus"}}</label>
     <input type="text" name="damage-bonus" value="" placeholder="e.g. +1d4"/>
   </div>
   {{/if}}
@@ -19,19 +19,19 @@
   {{!-- Flags --}}
   {{#if (or hasAttack hasDamage)}}
   <div class="form-group stacked">
-    <label>{{localize "PF1.Misc"}}</label>
+    <label>{{localize "ffd20lnrw.Misc"}}</label>
     <label class="checkbox">
-      <input type="checkbox" name="power-attack"/> {{localize "PF1.PowerAttack"}}/{{localize "PF1.DeadlyAim"}}
+      <input type="checkbox" name="power-attack"/> {{localize "ffd20lnrw.PowerAttack"}}/{{localize "ffd20lnrw.DeadlyAim"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="rapid-shot"/> {{localize "PF1.RapidShot"}}
+      <input type="checkbox" name="rapid-shot"/> {{localize "ffd20lnrw.RapidShot"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="point-blank-shot"/> {{localize "PF1.PointBlankShot"}}
+      <input type="checkbox" name="point-blank-shot"/> {{localize "ffd20lnrw.PointBlankShot"}}
     </label>
     {{#if isNaturalAttack}}
     <label class="checkbox">
-      <input type="checkbox" {{checked item.primaryAttack}} name="primary-attack"/> {{localize "PF1.PrimaryAttack"}}
+      <input type="checkbox" {{checked item.primaryAttack}} name="primary-attack"/> {{localize "ffd20lnrw.PrimaryAttack"}}
     </label>
     {{/if}}
   </div>
@@ -40,7 +40,7 @@
   {{!-- Conditionals --}}
   {{#if item.conditionals}}
   <div class="form-group stacked">
-    <label>{{localize "PF1.Conditionals"}}</label>
+    <label>{{localize "ffd20lnrw.Conditionals"}}</label>
     {{#each item.conditionals as |conditional a|}}
     <label class="checkbox">
       <input type="checkbox" name="conditional.{{a}}" class="conditional" {{checked this.default}}> {{lookup this "name"}}
@@ -51,7 +51,7 @@
 
   {{#if hasDamage}}{{#if hasDamageAbility}}
   <div class="form-group select">
-    <label>{{localize "PF1.DamageAbility"}}</label>
+    <label>{{localize "ffd20lnrw.DamageAbility"}}</label>
     <select name="damage-ability-multiplier">
       {{#select data.item.ability.damageMult}}
       <option value="0.5">x0.5</option>
@@ -67,7 +67,7 @@
   {{#if isAttack}}
   {{#unless isNaturalAttack}}
   <div class="form-group select">
-    <label>{{localize "PF1.Held"}}</label>
+    <label>{{localize "ffd20lnrw.Held"}}</label>
     <select name="held">
       {{#select data.item.held}}
       {{#each config.weaponHoldTypes as |name type|}}
@@ -81,12 +81,12 @@
 
   {{#if isSpell}}
   <div class="form-group">
-    <label>{{localize "PF1.CasterLevelOffset"}}</label>
+    <label>{{localize "ffd20lnrw.CasterLevelOffset"}}</label>
     <input type="number" data-dtype="Number" value="0" name="cl-offset" />
   </div>
 
   <div class="form-group">
-    <label>{{localize "PF1.SpellLevelOffset"}}</label>
+    <label>{{localize "ffd20lnrw.SpellLevelOffset"}}</label>
     <input type="number" data-dtype="Number" value="0" name="sl-offset" />
   </div>
   {{/if}}
@@ -94,13 +94,13 @@
   <div class="form-group stacked">
     {{#if hasTemplate}}
     <label class="checkbox">
-      <input type="checkbox" name="measure-template" checked/> {{localize "PF1.MeasureTemplate"}}
+      <input type="checkbox" name="measure-template" checked/> {{localize "ffd20lnrw.MeasureTemplate"}}
     </label>
     {{/if}}
   </div>
 
   <div class="form-group">
-    <label>{{localize "PF1.RollMode"}}</label>
+    <label>{{localize "ffd20lnrw.RollMode"}}</label>
     <select name="rollMode">
       {{#select rollMode}}
       {{#each rollModes as |label mode|}}

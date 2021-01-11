@@ -1,9 +1,9 @@
 {{!-- Template Type --}}
 <div class="form-group select">
-  <label>{{localize "PF1.TemplateType"}}</label>
+  <label>{{localize "ffd20lnrw.TemplateType"}}</label>
   <select name="data.measureTemplate.type">
     {{#select data.measureTemplate.type}}
-    <option value="">{{localize "PF1.None"}}</option>
+    <option value="">{{localize "ffd20lnrw.None"}}</option>
     {{#each config.measureTemplateTypes as |name type|}}
     <option value="{{type}}">{{name}}</option>
     {{/each}}
@@ -14,25 +14,25 @@
 {{#if data.measureTemplate.type}}
 {{!-- Template Size --}}
 <div class="form-group">
-  <label>{{localize "PF1.Size"}}</label>
+  <label>{{localize "ffd20lnrw.Size"}}</label>
   <div class="form-fields">
-    <input type="text" name="data.measureTemplate.size" value="{{data.measureTemplate.size}}" placeholder="{{localize "PF1.Formula"}}" />
+    <input type="text" name="data.measureTemplate.size" value="{{data.measureTemplate.size}}" placeholder="{{localize "ffd20lnrw.Formula"}}" />
   </div>
 </div>
 
 {{!-- Override Color --}}
 <div class="form-group stacked">
   <label class="checkbox">
-    <input type="checkbox" name="data.measureTemplate.overrideColor" {{checked data.measureTemplate.overrideColor}}/> {{localize "PF1.OverrideColor"}}
+    <input type="checkbox" name="data.measureTemplate.overrideColor" {{checked data.measureTemplate.overrideColor}}/> {{localize "ffd20lnrw.OverrideColor"}}
   </label>
   <label class="checkbox">
-    <input type="checkbox" name="data.measureTemplate.overrideTexture" {{checked data.measureTemplate.overrideTexture}}/> {{localize "PF1.OverrideTexture"}}
+    <input type="checkbox" name="data.measureTemplate.overrideTexture" {{checked data.measureTemplate.overrideTexture}}/> {{localize "ffd20lnrw.OverrideTexture"}}
   </label>
 </div>
 
 {{#if data.measureTemplate.overrideColor}}
 <div class="form-group">
-  <label>{{localize "PF1.CustomColor"}}</label>
+  <label>{{localize "ffd20lnrw.CustomColor"}}</label>
   <div class="form-fields">
     <input class="color" type="text" name="data.measureTemplate.customColor" value="{{data.measureTemplate.customColor}}" />
     <input type="color" value="{{data.measureTemplate.customColor}}" data-edit="data.measureTemplate.customColor" />
@@ -42,7 +42,7 @@
 
 {{#if data.measureTemplate.overrideTexture}}
 <div class="form-group">
-  <label>{{localize "PF1.CustomTexture"}}</label>
+  <label>{{localize "ffd20lnrw.CustomTexture"}}</label>
   <div class="form-fields">
     {{!-- {{filePicker target="data.measureTemplate.customTexture" type="imagevideo"}} --}}
     <input class="image" type="text" name="data.measureTemplate.customTexture" placeholder="path/image.png" value="{{data.measureTemplate.customTexture}}"/>

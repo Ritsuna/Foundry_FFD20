@@ -7,19 +7,19 @@ export class ActorSheetPFNPCLite extends ActorSheetPFNPC {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["pf1", "sheet", "actor", "npc", "lite"],
+      classes: ["ffd20lnrw", "sheet", "actor", "npc", "lite"],
       width: 440,
       height: "auto",
     });
   }
 
   get template() {
-    if (!game.user.isGM && this.actor.limited) return "systems/pf1/templates/actors/limited-sheet.hbs";
-    return "systems/pf1/templates/actors/npc-sheet-lite.hbs";
+    if (!game.user.isGM && this.actor.limited) return "systems/ffd20lnrw/templates/actors/limited-sheet.hbs";
+    return "systems/ffd20lnrw/templates/actors/npc-sheet-lite.hbs";
   }
 
   // static get name() {
-  //   return game.i18n.localize("PF1.ActorSheetPFNPCLite");
+  //   return game.i18n.localize("ffd20lnrw.ActorSheetPFNPCLite");
   // }
 
   _prepareItems(data) {
@@ -39,7 +39,7 @@ export class ActorSheetPFNPCLite extends ActorSheetPFNPC {
 
     const attackSections = {
       all: {
-        label: game.i18n.localize("PF1.Attacks"),
+        label: game.i18n.localize("ffd20lnrw.Attacks"),
         items: [],
         canCreate: true,
         initial: true,

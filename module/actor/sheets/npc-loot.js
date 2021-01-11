@@ -8,14 +8,14 @@ export class ActorSheetPFNPCLoot extends ActorSheetPFNPC {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["pf1", "sheet", "actor", "npc", "loot"],
+      classes: ["ffd20lnrw", "sheet", "actor", "npc", "loot"],
       width: 620,
       height: 420,
     });
   }
 
   get template() {
-    return "systems/pf1/templates/actors/npc-sheet-loot.hbs";
+    return "systems/ffd20lnrw/templates/actors/npc-sheet-loot.hbs";
   }
 
   get currentPrimaryTab() {
@@ -26,7 +26,7 @@ export class ActorSheetPFNPCLoot extends ActorSheetPFNPC {
     const data = await super.getData();
 
     data.isLootSheet = true;
-    data.sellMultiplier = this.actor.getFlag("pf1", "sellMultiplier");
+    data.sellMultiplier = this.actor.getFlag("ffd20lnrw", "sellMultiplier");
 
     // Get total value
     const gpValue = this.calculateTotalItemValue() + this.actor.mergeCurrency();
@@ -57,10 +57,10 @@ export class ActorSheetPFNPCLoot extends ActorSheetPFNPC {
     // Set labels
     if (!data.labels) data.labels = {};
     data.labels.totalValue = game.i18n
-      .localize("PF1.ItemContainerTotalValue")
+      .localize("ffd20lnrw.ItemContainerTotalValue")
       .format(data.totalValue.gp, data.totalValue.sp, data.totalValue.cp);
     data.labels.sellValue = game.i18n
-      .localize("PF1.ItemContainerSellValue")
+      .localize("ffd20lnrw.ItemContainerSellValue")
       .format(data.sellValue.gp, data.sellValue.sp, data.sellValue.cp);
 
     // Alter inventory columns

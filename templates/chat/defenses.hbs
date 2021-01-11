@@ -1,4 +1,4 @@
-<div class="pf1 chat-card defense-card" data-actor-id="{{actor._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="ffd20lnrw chat-card defense-card" data-actor-id="{{actor._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
   <header class="card-header flexrow">
     <h3 class="actor-name">{{name}} - Defenses</h3>
   </header>
@@ -9,9 +9,9 @@
       <table>
         <thead>
           <tr>
-            <th>{{localize "PF1.ACNormal"}}</th>
-            <th>{{localize "PF1.ACTouch"}}</th>
-            <th>{{localize "PF1.ACFlatFooted"}}</th>
+            <th>{{localize "ffd20lnrw.ACNormal"}}</th>
+            <th>{{localize "ffd20lnrw.ACTouch"}}</th>
+            <th>{{localize "ffd20lnrw.ACFlatFooted"}}</th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +26,7 @@
 
     {{#if ac.notes}}
     <div class="flexcol property-group">
-      <label>{{localize "PF1.ACNotes"}}</label>
+      <label>{{localize "ffd20lnrw.ACNotes"}}</label>
       <div class="flexrow">
         {{#each ac.notes as |v|}}
         <span class="tag">{{{v}}}</span>
@@ -41,8 +41,8 @@
       <table>
         <thead>
           <tr>
-            <th>{{localize "PF1.CMDAbbr"}}</th>
-            <th>{{localize "PF1.CMDFlatFooted"}}</th>
+            <th>{{localize "ffd20lnrw.CMDAbbr"}}</th>
+            <th>{{localize "ffd20lnrw.CMDFlatFooted"}}</th>
           </tr>
         </thead>
         <tbody>
@@ -56,7 +56,7 @@
 
     {{#if cmd.notes}}
     <div class="flexcol property-group">
-      <label>{{localize "PF1.CMDNotes"}}</label>
+      <label>{{localize "ffd20lnrw.CMDNotes"}}</label>
       <div class="flexrow">
         {{#each cmd.notes as |v|}}
         <span class="tag">{{{v}}}</span>
@@ -71,7 +71,7 @@
       <table>
         <thead>
           <tr>
-            <th>{{localize "PF1.SpellResistance"}}</th>
+            <th>{{localize "ffd20lnrw.SpellResistance"}}</th>
           </tr>
         </thead>
         <tbody>
@@ -84,7 +84,7 @@
 
     {{#if misc.srNotes}}
     <div class="flexcol property-group">
-      <label>{{localize "PF1.SpellResistanceNotes"}}</label>
+      <label>{{localize "ffd20lnrw.SpellResistanceNotes"}}</label>
       <div class="flexrow">
         {{#each misc.srNotes as |v|}}
         <span class="tag">{{{v}}}</span>
@@ -96,7 +96,7 @@
 
     {{#if misc.drNotes}}
     <div class="flexcol property-group">
-      <label>{{localize "PF1.DamRed"}}</label>
+      <label>{{localize "ffd20lnrw.DamRed"}}</label>
       <div class="flexrow">
         {{#each misc.drNotes as |v|}}
         <span class="tag">{{{v}}}</span>
@@ -107,7 +107,7 @@
 
     {{#if misc.energyResistance}}
     <div class="flexcol property-group">
-      <label>{{localize "PF1.EnRes"}}</label>
+      <label>{{localize "ffd20lnrw.EnRes"}}</label>
       <div class="flexrow">
         {{#each misc.energyResistance as |v|}}
         <span class="tag">{{{v}}}</span>
@@ -121,14 +121,14 @@
       <table>
         <thead>
           <tr>
-            <th>{{localize "PF1.Regeneration"}}</th>
-            <th>{{localize "PF1.FastHealing"}}</th>
+            <th>{{localize "ffd20lnrw.Regeneration"}}</th>
+            <th>{{localize "ffd20lnrw.FastHealing"}}</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>{{#if regen.regen}}{{regen.regen}}{{else}}{{localize "PF1.NonApplicable"}}{{/if}}</td>
-            <td>{{#if regen.fastHealing}}{{regen.fastHealing}}{{else}}{{localize "PF1.NonApplicable"}}{{/if}}</td>
+            <td>{{#if regen.regen}}{{regen.regen}}{{else}}{{localize "ffd20lnrw.NonApplicable"}}{{/if}}</td>
+            <td>{{#if regen.fastHealing}}{{regen.fastHealing}}{{else}}{{localize "ffd20lnrw.NonApplicable"}}{{/if}}</td>
           </tr>
         </tbody>
       </table>
@@ -136,9 +136,9 @@
     {{/if}}
 
     <div class="saving-throws flexrow">
-      <button data-action="defense-save" data-save="fort">{{localize "PF1.SavingThrowFort"}}</button>
-      <button data-action="defense-save" data-save="ref">{{localize "PF1.SavingThrowRef"}}</button>
-      <button data-action="defense-save" data-save="will">{{localize "PF1.SavingThrowWill"}}</button>
+      <button data-action="defense-save" data-save="fort">{{localize "ffd20lnrw.SavingThrowFort"}}</button>
+      <button data-action="defense-save" data-save="ref">{{localize "ffd20lnrw.SavingThrowRef"}}</button>
+      <button data-action="defense-save" data-save="will">{{localize "ffd20lnrw.SavingThrowWill"}}</button>
     </div>
   </div>
 </div>

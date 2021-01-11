@@ -119,25 +119,25 @@ export class ActorPF extends Actor {
 
   static _translateSourceInfo(type, subtype, name) {
     let result = "";
-    if (type === "size") result = game.i18n.localize("PF1.SourceInfoSize");
+    if (type === "size") result = game.i18n.localize("ffd20lnrw.SourceInfoSize");
     if (type === "buff") {
-      result = game.i18n.localize("PF1.SourceInfoBuffs");
-      if (subtype === "temp") result = game.i18n.localize("PF1.SourceInfoTemporaryBuffs");
-      if (subtype === "perm") result = game.i18n.localize("PF1.SourceInfoPermanentBuffs");
-      if (subtype === "item") result = game.i18n.localize("PF1.SourceInfoItemBuffs");
-      if (subtype === "misc") result = game.i18n.localize("PF1.SourceInfoMiscBuffs");
+      result = game.i18n.localize("ffd20lnrw.SourceInfoBuffs");
+      if (subtype === "temp") result = game.i18n.localize("ffd20lnrw.SourceInfoTemporaryBuffs");
+      if (subtype === "perm") result = game.i18n.localize("ffd20lnrw.SourceInfoPermanentBuffs");
+      if (subtype === "item") result = game.i18n.localize("ffd20lnrw.SourceInfoItemBuffs");
+      if (subtype === "misc") result = game.i18n.localize("ffd20lnrw.SourceInfoMiscBuffs");
     }
-    if (type === "equipment") result = game.i18n.localize("PF1.SourceInfoEquipment");
-    if (type === "weapon") result = game.i18n.localize("PF1.SourceInfoWeapons");
+    if (type === "equipment") result = game.i18n.localize("ffd20lnrw.SourceInfoEquipment");
+    if (type === "weapon") result = game.i18n.localize("ffd20lnrw.SourceInfoWeapons");
     if (type === "feat") {
-      result = game.i18n.localize("PF1.SourceInfoFeats");
-      if (subtype === "classFeat") result = game.i18n.localize("PF1.SourceInfoClassFeatures");
-      if (subtype === "trait") result = game.i18n.localize("PF1.SourceInfoTraits");
-      if (subtype === "racial") result = game.i18n.localize("PF1.SourceInfoRacialTraits");
-      if (subtype === "misc") result = game.i18n.localize("PF1.SourceInfoMiscFeatures");
+      result = game.i18n.localize("ffd20lnrw.SourceInfoFeats");
+      if (subtype === "classFeat") result = game.i18n.localize("ffd20lnrw.SourceInfoClassFeatures");
+      if (subtype === "trait") result = game.i18n.localize("ffd20lnrw.SourceInfoTraits");
+      if (subtype === "racial") result = game.i18n.localize("ffd20lnrw.SourceInfoRacialTraits");
+      if (subtype === "misc") result = game.i18n.localize("ffd20lnrw.SourceInfoMiscFeatures");
     }
     if (type === "race") {
-      result = game.i18n.localize("PF1.SourceInfoRace");
+      result = game.i18n.localize("ffd20lnrw.SourceInfoRace");
     }
 
     if (!name || name.length === 0) return result;
@@ -191,7 +191,7 @@ export class ActorPF extends Actor {
     else if (actorData.type === "npc") this._prepareNPCData(data);
 
     // Create arbitrary skill slots
-    for (let skillId of CONFIG.PF1.arbitrarySkills) {
+    for (let skillId of CONFIG.ffd20lnrw.arbitrarySkills) {
       if (data.skills[skillId] == null) continue;
       let skill = data.skills[skillId];
       skill.subSkills = skill.subSkills || {};
@@ -215,14 +215,14 @@ export class ActorPF extends Actor {
     // Set labels
     this.labels = {};
     this.labels.race =
-      this.race == null ? game.i18n.localize("PF1.Race") : game.i18n.localize("PF1.RaceTitle").format(this.race.name);
-    this.labels.alignment = CONFIG.PF1.alignments[this.data.data.details.alignment];
+      this.race == null ? game.i18n.localize("ffd20lnrw.Race") : game.i18n.localize("ffd20lnrw.RaceTitle").format(this.race.name);
+    this.labels.alignment = CONFIG.ffd20lnrw.alignments[this.data.data.details.alignment];
 
     // Set speed labels
     this.labels.speed = {};
     for (let [key, obj] of Object.entries(getProperty(this.data, "data.attributes.speed") || {})) {
       const dist = convertDistance(obj.total);
-      this.labels.speed[key] = `${dist[0]} ${CONFIG.PF1.measureUnitsShort[dist[1]]}`;
+      this.labels.speed[key] = `${dist[0]} ${CONFIG.ffd20lnrw.measureUnitsShort[dist[1]]}`;
     }
 
     // Setup links
@@ -247,7 +247,7 @@ export class ActorPF extends Actor {
     if (flags == null) flags = {};
     let sourceDetails = {};
     // Get empty source arrays
-    for (let obj of Object.values(CONFIG.PF1.buffTargets)) {
+    for (let obj of Object.values(CONFIG.ffd20lnrw.buffTargets)) {
       for (let b of Object.keys(obj)) {
         if (!b.startsWith("_")) {
           let buffTargets = getChangeFlat.call(this, b, null, actorData.data);
@@ -262,23 +262,23 @@ export class ActorPF extends Actor {
     sourceDetails["data.attributes.bab.total"] = [];
 
     // Add base values to certain bonuses
-    sourceDetails["data.attributes.ac.normal.total"].push({ name: game.i18n.localize("PF1.Base"), value: 10 });
-    sourceDetails["data.attributes.ac.touch.total"].push({ name: game.i18n.localize("PF1.Base"), value: 10 });
-    sourceDetails["data.attributes.ac.flatFooted.total"].push({ name: game.i18n.localize("PF1.Base"), value: 10 });
-    sourceDetails["data.attributes.cmd.total"].push({ name: game.i18n.localize("PF1.Base"), value: 10 });
-    sourceDetails["data.attributes.cmd.flatFootedTotal"].push({ name: game.i18n.localize("PF1.Base"), value: 10 });
+    sourceDetails["data.attributes.ac.normal.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
+    sourceDetails["data.attributes.ac.touch.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
+    sourceDetails["data.attributes.ac.flatFooted.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
+    sourceDetails["data.attributes.cmd.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
+    sourceDetails["data.attributes.cmd.flatFootedTotal"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
     for (let [a, abl] of Object.entries(actorData.data.abilities)) {
-      sourceDetails[`data.abilities.${a}.total`].push({ name: game.i18n.localize("PF1.Base"), value: abl.value });
+      sourceDetails[`data.abilities.${a}.total`].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: abl.value });
       // Add ability penalty, damage and drain
       if (abl.damage != null && abl.damage !== 0) {
         sourceDetails[`data.abilities.${a}.total`].push({
-          name: game.i18n.localize("PF1.AbilityDamage"),
+          name: game.i18n.localize("ffd20lnrw.AbilityDamage"),
           value: `-${Math.floor(Math.abs(abl.damage) / 2)} (Mod only)`,
         });
       }
       if (abl.drain != null && abl.drain !== 0) {
         sourceDetails[`data.abilities.${a}.total`].push({
-          name: game.i18n.localize("PF1.AbilityDrain"),
+          name: game.i18n.localize("ffd20lnrw.AbilityDrain"),
           value: -Math.abs(abl.drain),
         });
       }
@@ -299,27 +299,27 @@ export class ActorPF extends Actor {
       };
       if (ac.normal !== 0)
         sourceDetails["data.attributes.ac.normal.total"].push({
-          name: game.i18n.localize("PF1.AbilityDex"),
+          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
           value: ac.normal,
         });
       if (ac.touch !== 0)
         sourceDetails["data.attributes.ac.touch.total"].push({
-          name: game.i18n.localize("PF1.AbilityDex"),
+          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
           value: ac.touch,
         });
       if (ac.ff !== 0)
         sourceDetails["data.attributes.ac.flatFooted.total"].push({
-          name: game.i18n.localize("PF1.AbilityDex"),
+          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
           value: ac.ff,
         });
       if (cmd.normal !== 0)
         sourceDetails["data.attributes.cmd.total"].push({
-          name: game.i18n.localize("PF1.AbilityDex"),
+          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
           value: cmd.normal,
         });
       if (cmd.ff !== 0)
         sourceDetails["data.attributes.cmd.flatFootedTotal"].push({
-          name: game.i18n.localize("PF1.AbilityDex"),
+          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
           value: cmd.ff,
         });
     }
@@ -332,7 +332,7 @@ export class ActorPF extends Actor {
           for (let src of grp) {
             let srcInfo = this.constructor._translateSourceInfo(src.type, src.subtype, src.name);
             let srcValue = src.value;
-            if (src.operator === "set") srcValue = game.i18n.localize("PF1.SetTo").format(srcValue);
+            if (src.operator === "set") srcValue = game.i18n.localize("ffd20lnrw.SetTo").format(srcValue);
             sourceDetails[changeTarget].push({
               name: srcInfo,
               value: srcValue,
@@ -421,11 +421,11 @@ export class ActorPF extends Actor {
    * @return {Number}       The XP required
    */
   getLevelExp(level) {
-    const expConfig = game.settings.get("pf1", "experienceConfig");
+    const expConfig = game.settings.get("ffd20lnrw", "experienceConfig");
     const expTrack = expConfig.track;
     // Preset experience tracks
     if (["fast", "medium", "slow"].includes(expTrack)) {
-      const levels = CONFIG.PF1.CHARACTER_EXP_LEVELS[expTrack];
+      const levels = CONFIG.ffd20lnrw.CHARACTER_EXP_LEVELS[expTrack];
       return levels[Math.min(level, levels.length - 1)];
     }
     // Custom formula experience track
@@ -450,7 +450,7 @@ export class ActorPF extends Actor {
    */
   getCRExp(cr) {
     if (cr < 1.0) return Math.max(400 * cr, 10);
-    return CONFIG.PF1.CR_EXP_LEVELS[cr];
+    return CONFIG.ffd20lnrw.CR_EXP_LEVELS[cr];
   }
 
   /* -------------------------------------------- */
@@ -504,12 +504,12 @@ export class ActorPF extends Actor {
 
     // Apply changes in Actor size to Token width/height
     if (data["data.traits.size"] && this.data.data.traits.size !== data["data.traits.size"]) {
-      let size = CONFIG.PF1.tokenSizes[data["data.traits.size"]];
+      let size = CONFIG.ffd20lnrw.tokenSizes[data["data.traits.size"]];
       let tokens = this.isToken ? [this.token] : [];
       if (this.data.token.actorLink) {
         tokens = this.getActiveTokens();
       }
-      tokens = tokens.filter((o) => !getProperty(o.data, "flags.pf1.staticSize"));
+      tokens = tokens.filter((o) => !getProperty(o.data, "flags.ffd20lnrw.staticSize"));
       tokens.forEach((o) => {
         o.update({ width: size.w, height: size.h, scale: size.scale });
       });
@@ -714,7 +714,7 @@ export class ActorPF extends Actor {
     if (!(item instanceof Item)) return;
     if (!this.hasPerm(game.user, "OWNER")) return;
 
-    const activationType = game.settings.get("pf1", "unchainedActionEconomy")
+    const activationType = game.settings.get("ffd20lnrw", "unchainedActionEconomy")
       ? item.data.data.unchainedAction?.activation?.type
       : item.data.data.activation?.type;
     if (item.data.data.uses?.per && activationType) {
@@ -779,14 +779,14 @@ export class ActorPF extends Actor {
    */
   async useSpell(item, ev, { skipDialog = false } = {}) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
     if (item.data.type !== "spell") throw new Error("Wrong Item type");
 
     if (getProperty(item.data, "data.preparation.mode") !== "atwill" && item.getSpellUses() < item.chargeCost) {
-      const msg = game.i18n.localize("PF1.ErrorNoSpellsLeft");
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoSpellsLeft");
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -797,7 +797,7 @@ export class ActorPF extends Actor {
 
   async createAttackFromWeapon(item) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -844,7 +844,7 @@ export class ActorPF extends Actor {
     // Add additional attacks
     let extraAttacks = [];
     for (let a = 5; a < this.data.data.attributes.bab.total; a += 5) {
-      extraAttacks = extraAttacks.concat([[`-${a}`, `${game.i18n.localize("PF1.Attack")} ${Math.floor((a + 5) / 5)}`]]);
+      extraAttacks = extraAttacks.concat([[`-${a}`, `${game.i18n.localize("ffd20lnrw.Attack")} ${Math.floor((a + 5) / 5)}`]]);
     }
     if (extraAttacks.length > 0) attackData["data.attackParts"] = extraAttacks;
 
@@ -857,7 +857,7 @@ export class ActorPF extends Actor {
       if (die.match(/^([0-9]+)d([0-9]+)$/)) {
         dieCount = parseInt(RegExp.$1);
         dieSides = parseInt(RegExp.$2);
-        // const weaponSize = Object.keys(CONFIG.PF1.sizeChart).indexOf(item.data.data.weaponData.size) - 4;
+        // const weaponSize = Object.keys(CONFIG.ffd20lnrw.sizeChart).indexOf(item.data.data.weaponData.size) - 4;
         part = `sizeRoll(${dieCount}, ${dieSides}, @size)`;
       }
       const bonusFormula = getProperty(item.data, "data.weaponData.damageFormula");
@@ -895,7 +895,7 @@ export class ActorPF extends Actor {
       }
     }
 
-    ui.notifications.info(game.i18n.localize("PF1.NotificationCreatedAttack").format(item.data.name));
+    ui.notifications.info(game.i18n.localize("ffd20lnrw.NotificationCreatedAttack").format(item.data.name));
   }
 
   /* -------------------------------------------- */
@@ -911,7 +911,7 @@ export class ActorPF extends Actor {
       skillId = skillParts[0];
       if (!this.data.data.skills[skillId].subSkills[skillParts[2]]) return null;
       skl = this.data.data.skills[skillId].subSkills[skillParts[2]];
-      sklName = `${CONFIG.PF1.skills[skillId]} (${skl.name})`;
+      sklName = `${CONFIG.ffd20lnrw.skills[skillId]} (${skl.name})`;
       parentSkill = this.getSkillInfo(skillId);
     } else {
       skl = this.data.data.skills[skillId];
@@ -919,7 +919,7 @@ export class ActorPF extends Actor {
       if (skl.name != null) {
         sklName = skl.name;
         isCustom = true;
-      } else sklName = CONFIG.PF1.skills[skillId];
+      } else sklName = CONFIG.ffd20lnrw.skills[skillId];
     }
 
     const result = {
@@ -946,7 +946,7 @@ export class ActorPF extends Actor {
    */
   rollSkill(skillId, options = { event: null, skipDialog: false, staticRoll: null, noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -959,12 +959,12 @@ export class ActorPF extends Actor {
     if (isSubSkill) {
       skillId = skillParts[0];
       skl = data.skills[skillId].subSkills[skillParts[2]];
-      sklName = `${CONFIG.PF1.skills[skillId]} (${skl.name})`;
+      sklName = `${CONFIG.ffd20lnrw.skills[skillId]} (${skl.name})`;
       sources = this.sourceDetails[`data.skills.${skillId}.subSkills.${skillParts[2]}.changeBonus`];
     } else {
       skl = data.skills[skillId];
       if (skl.name != null) sklName = skl.name;
-      else sklName = CONFIG.PF1.skills[skillId];
+      else sklName = CONFIG.ffd20lnrw.skills[skillId];
       sources = this.sourceDetails[`data.skills.${skillId}.changeBonus`];
     }
 
@@ -982,7 +982,7 @@ export class ActorPF extends Actor {
     }
     // Add untrained note
     if (skl.rt && skl.rank === 0) {
-      notes.push(game.i18n.localize("PF1.Untrained"));
+      notes.push(game.i18n.localize("ffd20lnrw.Untrained"));
     }
 
     // Build base modifiers, but don't include all if they're zeroed.
@@ -1005,12 +1005,12 @@ export class ActorPF extends Actor {
       parts: [...mods, ...changes],
       dice: options.dice,
       data: {},
-      title: game.i18n.localize("PF1.SkillCheck").format(sklName),
+      title: game.i18n.localize("ffd20lnrw.SkillCheck").format(sklName),
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      chatTemplate: "systems/pf1/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
-      compendiumEntry: CONFIG.PF1.skillCompendiumEntries[skillId],
+      compendiumEntry: CONFIG.ffd20lnrw.skillCompendiumEntries[skillId],
     });
   }
 
@@ -1028,7 +1028,7 @@ export class ActorPF extends Actor {
 
   rollBAB(options = { noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1038,7 +1038,7 @@ export class ActorPF extends Actor {
       parts: ["@mod"],
       dice: options.dice,
       data: { mod: this.data.data.attributes.bab.total },
-      title: game.i18n.localize("PF1.BAB"),
+      title: game.i18n.localize("ffd20lnrw.BAB"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
       noSound: options.noSound,
@@ -1047,7 +1047,7 @@ export class ActorPF extends Actor {
 
   rollCMB(options = { noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1070,16 +1070,16 @@ export class ActorPF extends Actor {
     }
 
     let props = [];
-    if (notes.length > 0) props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
+    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
     return DicePF.d20Roll({
       event: options.event,
       parts: ["@mod"],
       dice: options.dice,
       data: { mod: this.data.data.attributes.cmb.total },
-      title: game.i18n.localize("PF1.CMB"),
+      title: game.i18n.localize("ffd20lnrw.CMB"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
-      chatTemplate: "systems/pf1/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1094,15 +1094,15 @@ export class ActorPF extends Actor {
     const notes = this.getContextNotesParsed(`spell.cl.${spellbookKey}`);
 
     let props = [];
-    if (notes.length > 0) props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
+    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
     return DicePF.d20Roll({
       event: event,
       parts: [`@cl`],
       data: rollData,
-      title: game.i18n.localize("PF1.CasterLevelCheck"),
+      title: game.i18n.localize("ffd20lnrw.CasterLevelCheck"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
-      chatTemplate: "systems/pf1/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1119,7 +1119,7 @@ export class ActorPF extends Actor {
     const notes = this.getContextNotesParsed(`spell.concentration.${spellbookKey}`);
 
     let props = [];
-    if (notes.length > 0) props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
+    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
 
     let formulaRoll = 0;
     if (spellbook.concentrationFormula.length)
@@ -1131,10 +1131,10 @@ export class ActorPF extends Actor {
       parts: ["@cl + @mod + @concentrationBonus + @formulaBonus"],
       dice: options.dice,
       data: rollData,
-      title: game.i18n.localize("PF1.ConcentrationCheck"),
+      title: game.i18n.localize("ffd20lnrw.ConcentrationCheck"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
-      chatTemplate: "systems/pf1/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1144,30 +1144,30 @@ export class ActorPF extends Actor {
     const data = this.data.data;
     const headers = [];
 
-    const reSplit = CONFIG.PF1.re.traitSeparator;
+    const reSplit = CONFIG.ffd20lnrw.re.traitSeparator;
     let misc = [];
 
     // Damage reduction
     if (data.traits.dr.length) {
-      headers.push({ header: game.i18n.localize("PF1.DamRed"), value: data.traits.dr.split(reSplit) });
+      headers.push({ header: game.i18n.localize("ffd20lnrw.DamRed"), value: data.traits.dr.split(reSplit) });
     }
     // Energy resistance
     if (data.traits.eres.length) {
-      headers.push({ header: game.i18n.localize("PF1.EnRes"), value: data.traits.eres.split(reSplit) });
+      headers.push({ header: game.i18n.localize("ffd20lnrw.EnRes"), value: data.traits.eres.split(reSplit) });
     }
     // Damage vulnerabilities
     if (data.traits.dv.value.length || data.traits.dv.custom.length) {
       const value = [].concat(
         data.traits.dv.value.map((obj) => {
-          return CONFIG.PF1.damageTypes[obj];
+          return CONFIG.ffd20lnrw.damageTypes[obj];
         }),
         data.traits.dv.custom.length > 0 ? data.traits.dv.custom.split(";") : []
       );
-      headers.push({ header: game.i18n.localize("PF1.DamVuln"), value: value });
+      headers.push({ header: game.i18n.localize("ffd20lnrw.DamVuln"), value: value });
     }
     // Condition resistance
     if (data.traits.cres.length) {
-      headers.push({ header: game.i18n.localize("PF1.ConRes"), value: data.traits.cres.split(reSplit) });
+      headers.push({ header: game.i18n.localize("ffd20lnrw.ConRes"), value: data.traits.cres.split(reSplit) });
     }
     // Immunities
     if (
@@ -1178,23 +1178,23 @@ export class ActorPF extends Actor {
     ) {
       const value = [].concat(
         data.traits.di.value.map((obj) => {
-          return CONFIG.PF1.damageTypes[obj];
+          return CONFIG.ffd20lnrw.damageTypes[obj];
         }),
         data.traits.di.custom.length > 0 ? data.traits.di.custom.split(";") : [],
         data.traits.ci.value.map((obj) => {
-          return CONFIG.PF1.conditionTypes[obj];
+          return CONFIG.ffd20lnrw.conditionTypes[obj];
         }),
         data.traits.ci.custom.length > 0 ? data.traits.ci.custom.split(";") : []
       );
-      headers.push({ header: game.i18n.localize("PF1.ImmunityPlural"), value: value });
+      headers.push({ header: game.i18n.localize("ffd20lnrw.ImmunityPlural"), value: value });
     }
     // Spell Resistance
     if (data.attributes.sr.total > 0) {
-      misc.push(game.i18n.localize("PF1.SpellResistanceNote").format(data.attributes.sr.total));
+      misc.push(game.i18n.localize("ffd20lnrw.SpellResistanceNote").format(data.attributes.sr.total));
     }
 
     if (misc.length > 0) {
-      headers.push({ header: game.i18n.localize("PF1.MiscShort"), value: misc });
+      headers.push({ header: game.i18n.localize("ffd20lnrw.MiscShort"), value: misc });
     }
 
     return headers;
@@ -1202,7 +1202,7 @@ export class ActorPF extends Actor {
 
   async rollInitiative() {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1220,14 +1220,19 @@ export class ActorPF extends Actor {
 
     if (stop) return;
 
-    const actorData = this.getRollData();
+    const rollData = this.getRollData();
     // Add bonus
-    actorData.bonus = bonus;
+    rollData.bonus = bonus;
     if (bonus.length > 0) formula += " + @bonus";
+    if (rollData.attributes.woundThresholds.penalty > 0) {
+      // TODO: Show penalty separately (@attributes.woundThresholds.penalty)
+      // TODO: Output wound level penalty note
+      // notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[woundLevel]));
+    }
 
     // Roll initiative
     const rollMode = overrideRollMode;
-    const roll = new Roll(formula, actorData).roll();
+    const roll = new Roll(formula, rollData).roll();
 
     // Construct chat message data
     let messageData = {
@@ -1237,14 +1242,14 @@ export class ActorPF extends Actor {
         token: this.token ? this.token._id : null,
         alias: this.token ? this.token.name : null,
       },
-      flavor: game.i18n.localize("PF1.RollsForInitiative").format(this.token ? this.token.name : this.name),
+      flavor: game.i18n.localize("ffd20lnrw.RollsForInitiative").format(this.token ? this.token.name : this.name),
     };
     roll.toMessage(messageData, { rollMode });
   }
 
   rollSavingThrow(savingThrowId, options = { event: null, noSound: false, skipPrompt: true, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1270,8 +1275,8 @@ export class ActorPF extends Actor {
 
     // Roll saving throw
     let props = this.getDefenseHeaders();
-    if (notes.length > 0) props.push({ header: game.i18n.localize("PF1.Notes"), value: notes });
-    const label = CONFIG.PF1.savingThrows[savingThrowId];
+    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
+    const label = CONFIG.ffd20lnrw.savingThrows[savingThrowId];
     const savingThrow = this.data.data.attributes.savingThrows[savingThrowId];
     return DicePF.d20Roll({
       event: options.event,
@@ -1279,11 +1284,11 @@ export class ActorPF extends Actor {
       dice: options.dice,
       situational: true,
       data: {},
-      title: game.i18n.localize("PF1.SavingThrowRoll").format(label),
+      title: game.i18n.localize("ffd20lnrw.SavingThrowRoll").format(label),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
       fastForward: options.skipPrompt !== false ? true : false,
-      chatTemplate: "systems/pf1/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1299,7 +1304,7 @@ export class ActorPF extends Actor {
    */
   rollAbilityTest(abilityId, options = { noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1317,9 +1322,7 @@ export class ActorPF extends Actor {
       }
     }
 
-    let props = this.getDefenseHeaders();
-    if (notes.length > 0) props.push({ header: "Notes", value: notes });
-    const label = CONFIG.PF1.abilities[abilityId];
+    const label = CONFIG.ffd20lnrw.abilities[abilityId];
     const abl = this.data.data.abilities[abilityId];
 
     let formula = `@abilities.${abilityId}.mod`;
@@ -1335,9 +1338,9 @@ export class ActorPF extends Actor {
       parts: [formula],
       dice: options.dice,
       data: rollData,
-      title: game.i18n.localize("PF1.AbilityTest").format(label),
+      title: game.i18n.localize("ffd20lnrw.AbilityTest").format(label),
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      chatTemplate: "systems/pf1/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1348,7 +1351,7 @@ export class ActorPF extends Actor {
    */
   async rollDefenses() {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1394,7 +1397,7 @@ export class ActorPF extends Actor {
     }
 
     // Add misc data
-    const reSplit = CONFIG.PF1.re.traitSeparator;
+    const reSplit = CONFIG.ffd20lnrw.re.traitSeparator;
     // Damage Reduction
     let drNotes = [];
     if (this.data.data.traits.dr.length) {
@@ -1409,21 +1412,21 @@ export class ActorPF extends Actor {
     if (this.data.data.traits.di.value.length || this.data.data.traits.di.custom.length) {
       const values = [
         ...this.data.data.traits.di.value.map((obj) => {
-          return CONFIG.PF1.damageTypes[obj];
+          return CONFIG.ffd20lnrw.damageTypes[obj];
         }),
         ...(this.data.data.traits.di.custom.length > 0 ? this.data.data.traits.di.custom.split(reSplit) : []),
       ];
-      energyResistance.push(...values.map((o) => game.i18n.localize("PF1.ImmuneTo").format(o)));
+      energyResistance.push(...values.map((o) => game.i18n.localize("ffd20lnrw.ImmuneTo").format(o)));
     }
     // Damage Vulnerability
     if (this.data.data.traits.dv.value.length || this.data.data.traits.dv.custom.length) {
       const values = [
         ...this.data.data.traits.dv.value.map((obj) => {
-          return CONFIG.PF1.damageTypes[obj];
+          return CONFIG.ffd20lnrw.damageTypes[obj];
         }),
         ...(this.data.data.traits.dv.custom.length > 0 ? this.data.data.traits.dv.custom.split(reSplit) : []),
       ];
-      energyResistance.push(...values.map((o) => game.i18n.localize("PF1.VulnerableTo").format(o)));
+      energyResistance.push(...values.map((o) => game.i18n.localize("ffd20lnrw.VulnerableTo").format(o)));
     }
 
     // Create message
@@ -1457,7 +1460,7 @@ export class ActorPF extends Actor {
         fastHealing: d.traits.fastHealing,
       };
     }
-    const msg = await createCustomChatMessage("systems/pf1/templates/chat/defenses.hbs", data, {
+    const msg = await createCustomChatMessage("systems/ffd20lnrw/templates/chat/defenses.hbs", data, {
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
   }
@@ -1514,7 +1517,7 @@ export class ActorPF extends Actor {
         let dt = value > 0 ? Math.min(tmp, value) : 0;
 
         if (!a.hasPerm(game.user, "OWNER")) {
-          const msg = game.i18n.localize("PF1.ErrorNoActorPermissionAlt").format(this.name);
+          const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
           console.warn(msg);
           ui.notifications.warn(msg);
           continue;
@@ -1548,7 +1551,7 @@ export class ActorPF extends Actor {
       reductionDefault = reductionDefault ?? "";
 
       // Dialog configuration and callbacks
-      let template = "systems/pf1/templates/apps/damage-dialog.hbs";
+      let template = "systems/ffd20lnrw/templates/apps/damage-dialog.hbs";
       let dialogData = {
         damage: value,
         healing: healingInvert == -1 ? true : false,
@@ -1560,16 +1563,16 @@ export class ActorPF extends Actor {
 
       const buttons = {};
       buttons.normal = {
-        label: game.i18n.localize("PF1.Apply"),
+        label: game.i18n.localize("ffd20lnrw.Apply"),
         callback: (html) => _submit.call(this, html, 1 * healingInvert),
       };
       buttons.half = {
-        label: game.i18n.localize("PF1.ApplyHalf"),
+        label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
         callback: (html) => _submit.call(this, html, 0.5 * healingInvert),
       };
       return new Promise((resolve) => {
         var d = new Dialog({
-          title: healingInvert > 0 ? game.i18n.localize("PF1.ApplyDamage") : game.i18n.localize("PF1.ApplyHealing"),
+          title: healingInvert > 0 ? game.i18n.localize("ffd20lnrw.ApplyDamage") : game.i18n.localize("ffd20lnrw.ApplyHealing"),
           content: html,
           buttons: buttons,
           default: "normal",
@@ -1822,7 +1825,7 @@ export class ActorPF extends Actor {
   }
 
   _calculateCoinWeight(data) {
-    const coinWeightDivisor = game.settings.get("pf1", "coinWeight");
+    const coinWeightDivisor = game.settings.get("ffd20lnrw", "coinWeight");
     return (
       Object.values(data.data.currency).reduce((cur, amount) => {
         return cur + amount;
@@ -1835,9 +1838,9 @@ export class ActorPF extends Actor {
     const carryStr = srcData.data.abilities.str.total + srcData.data.abilities.str.carryBonus;
     let carryMultiplier = srcData.data.abilities.str.carryMultiplier;
     const size = srcData.data.traits.size;
-    if (srcData.data.attributes.quadruped) carryMultiplier *= CONFIG.PF1.encumbranceMultipliers.quadruped[size];
-    else carryMultiplier *= CONFIG.PF1.encumbranceMultipliers.normal[size];
-    const table = CONFIG.PF1.encumbranceLoads;
+    if (srcData.data.attributes.quadruped) carryMultiplier *= CONFIG.ffd20lnrw.encumbranceMultipliers.quadruped[size];
+    else carryMultiplier *= CONFIG.ffd20lnrw.encumbranceMultipliers.normal[size];
+    const table = CONFIG.ffd20lnrw.encumbranceLoads;
 
     let heavy = Math.floor(table[carryStr] * carryMultiplier);
     if (carryStr >= table.length) {
@@ -1944,7 +1947,7 @@ export class ActorPF extends Actor {
     let result = duplicate(data);
 
     // Set size index
-    result.size = Object.keys(CONFIG.PF1.sizeChart).indexOf(getProperty(data, "traits.size")) - 4;
+    result.size = Object.keys(CONFIG.ffd20lnrw.sizeChart).indexOf(getProperty(data, "traits.size")) - 4;
 
     // Set class data
     result.classes = {};
@@ -1956,7 +1959,7 @@ export class ActorPF extends Actor {
         const tag = cls.data.tag;
         if (!tag) return;
 
-        let healthConfig = game.settings.get("pf1", "healthConfig");
+        let healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
         const hasPlayerOwner = isMinimumCoreVersion("0.7.2") ? this.hasPlayerOwner : this.isPC;
         healthConfig =
           cls.data.classType === "racial"
@@ -1984,7 +1987,7 @@ export class ActorPF extends Actor {
         };
 
         for (let k of Object.keys(result.classes[tag].savingThrows)) {
-          let formula = CONFIG.PF1.classSavingThrowFormulas[classType][cls.data.savingThrows[k].value];
+          let formula = CONFIG.ffd20lnrw.classSavingThrowFormulas[classType][cls.data.savingThrows[k].value];
           if (formula == null) formula = "0";
           result.classes[tag].savingThrows[k] = new Roll(formula, { level: cls.data.level }).roll().total;
         }
@@ -2159,21 +2162,21 @@ export class ActorPF extends Actor {
     const buffs = this.items.filter((o) => o.type === "buff");
     let buffTextures = buffs.reduce((cur, o) => {
       const img = o.data.img;
-      if (o.data.data.active && !o.data.data.hideFromToken && !game.settings.get("pf1", "hideTokenConditions"))
+      if (o.data.data.active && !o.data.data.hideFromToken && !game.settings.get("ffd20lnrw", "hideTokenConditions"))
         cur[img] = true;
       else if (cur[img] == null) cur[img] = false;
       return cur;
     }, {});
 
     // Determine condition textures
-    let conditionTextures = Object.entries(CONFIG.PF1.conditionTextures).reduce((cur, o) => {
+    let conditionTextures = Object.entries(CONFIG.ffd20lnrw.conditionTextures).reduce((cur, o) => {
       if (this.data.data.attributes.conditions[o[0]]) cur[o[1]] = true;
       else if (!this.data.data.attributes.conditions[o[0]] && cur[o[1]] == null) cur[o[1]] = false;
       return cur;
     }, {});
     for (let [k, v] of Object.entries(conditionTextures)) {
       if (v === true) {
-        if (!buffTextures[k] && !game.settings.get("pf1", "hideTokenConditions")) buffTextures[k] = v;
+        if (!buffTextures[k] && !game.settings.get("ffd20lnrw", "hideTokenConditions")) buffTextures[k] = v;
       } else if (v === false) {
         if (buffTextures[k] == null) buffTextures[k] = v;
       }

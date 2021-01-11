@@ -198,16 +198,16 @@ export const CR = {
 
 export const sizeDie = function (origCount, origSides, targetSize = "M", crit = 1) {
   if (typeof targetSize === "string")
-    targetSize = Object.values(CONFIG.PF1.sizeChart).indexOf(targetSize.toUpperCase());
+    targetSize = Object.values(CONFIG.ffd20lnrw.sizeChart).indexOf(targetSize.toUpperCase());
   else if (typeof targetSize === "number")
     targetSize = Math.max(
       0,
       Math.min(
-        Object.values(CONFIG.PF1.sizeChart).length - 1,
-        Object.values(CONFIG.PF1.sizeChart).indexOf("M") + targetSize
+        Object.values(CONFIG.ffd20lnrw.sizeChart).length - 1,
+        Object.values(CONFIG.ffd20lnrw.sizeChart).indexOf("M") + targetSize
       )
     );
-  let c = duplicate(CONFIG.PF1.sizeDie);
+  let c = duplicate(CONFIG.ffd20lnrw.sizeDie);
 
   const mediumDie = `${origCount}d${origSides}`;
   const mediumDieMax = origCount * origSides;
@@ -266,7 +266,7 @@ export const sizeDie = function (origCount, origSides, targetSize = "M", crit = 
   // formula = `${count * crit}d${sides}${RegExp.$3}`;
   // }
   if (index === -1) {
-    const msg = game.i18n.localize("PF1.WarningNoSizeDie").format(mediumDie, formula);
+    const msg = game.i18n.localize("ffd20lnrw.WarningNoSizeDie").format(mediumDie, formula);
     console.warn(msg);
     ui.notifications.warn(msg);
   }
@@ -326,10 +326,10 @@ export const getActorFromId = function (id) {
  * Converts feet to what the world is using as a measurement unit.
  * @param {Number} value - The value (in feet) to convert.
  * @param {String} type - The original type to convert from. Either 'ft' (feet, default) or 'mi' (miles, in which case the result is in km (metric))
- * @returns {Array.<Number, String>} An array containing the converted value in index 0 and the new unit key in index 1 (for use in CONFIG.PF1.measureUnits, for example)
+ * @returns {Array.<Number, String>} An array containing the converted value in index 0 and the new unit key in index 1 (for use in CONFIG.ffd20lnrw.measureUnits, for example)
  */
 export const convertDistance = function (value, type = "ft") {
-  switch (game.settings.get("pf1", "units")) {
+  switch (game.settings.get("ffd20lnrw", "units")) {
     case "metric":
       switch (type) {
         case "mi":
@@ -348,7 +348,7 @@ export const convertDistance = function (value, type = "ft") {
  * @returns {Number} The converted value. In the case of the metric system, converts to kg.
  */
 export const convertWeight = function (value) {
-  switch (game.settings.get("pf1", "units")) {
+  switch (game.settings.get("ffd20lnrw", "units")) {
     case "metric":
       return Math.round((value / 2) * 100) / 100; // 1 kg is not exactly 2 lb but this conversion is officially used by Paizo/BBE
     default:
@@ -362,7 +362,7 @@ export const convertWeight = function (value) {
  * @returns {Number} The converted value. In the case of the metric system, converts from kg.
  */
 export const convertWeightBack = function (value) {
-  switch (game.settings.get("pf1", "units")) {
+  switch (game.settings.get("ffd20lnrw", "units")) {
     case "metric":
       return Math.round(value * 2 * 100) / 100; // 1 kg is not exactly 2 lb but this conversion is officially used by Paizo/BBE
     default:
@@ -524,22 +524,22 @@ export const naturalSort = function (arr, propertyKey = "") {
 export const createConsumableSpellDialog = function (itemData) {
   return new Promise((resolve) => {
     new Dialog({
-      title: game.i18n.localize("PF1.CreateItemForSpell").format(itemData.name),
-      content: game.i18n.localize("PF1.CreateItemForSpell").format(itemData.name),
+      title: game.i18n.localize("ffd20lnrw.CreateItemForSpell").format(itemData.name),
+      content: game.i18n.localize("ffd20lnrw.CreateItemForSpell").format(itemData.name),
       buttons: {
         potion: {
           icon: '<i class="fas fa-prescription-bottle"></i>',
-          label: game.i18n.localize("PF1.CreateItemPotion"),
+          label: game.i18n.localize("ffd20lnrw.CreateItemPotion"),
           callback: () => resolve(createConsumableSpell(itemData, "potion")),
         },
         scroll: {
           icon: '<i class="fas fa-scroll"></i>',
-          label: game.i18n.localize("PF1.CreateItemScroll"),
+          label: game.i18n.localize("ffd20lnrw.CreateItemScroll"),
           callback: () => resolve(createConsumableSpell(itemData, "scroll")),
         },
         wand: {
           icon: '<i class="fas fa-magic"></i>',
-          label: game.i18n.localize("PF1.CreateItemWand"),
+          label: game.i18n.localize("ffd20lnrw.CreateItemWand"),
           callback: () => resolve(createConsumableSpell(itemData, "wand")),
         },
       },

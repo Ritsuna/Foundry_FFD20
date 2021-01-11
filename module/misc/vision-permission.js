@@ -9,7 +9,7 @@ export class VisionPermissionSheet extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["sheet", "vision-permission"],
-      template: "systems/pf1/templates/apps/vision-permission.hbs",
+      template: "systems/ffd20lnrw/templates/apps/vision-permission.hbs",
       width: 300,
       height: "auto",
       closeOnSubmit: true,
@@ -28,20 +28,20 @@ export class VisionPermissionSheet extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    await this.object.setFlag("pf1", "visionPermission", formData);
-    game.socket.emit("system.pf1", { eventType: "redrawCanvas" });
+    await this.object.setFlag("ffd20lnrw", "visionPermission", formData);
+    game.socket.emit("system.ffd20lnrw", { eventType: "redrawCanvas" });
   }
 
   async getData() {
     let data = super.getData();
-    data = mergeObject(data, this.object.getFlag("pf1", "visionPermission"));
+    data = mergeObject(data, this.object.getFlag("ffd20lnrw", "visionPermission"));
     data.users = data.users || {};
 
     data.defaultLevels = [
-      { level: "no", name: game.i18n.localize("PF1.No") },
-      { level: "yes", name: game.i18n.localize("PF1.Yes") },
+      { level: "no", name: game.i18n.localize("ffd20lnrw.No") },
+      { level: "yes", name: game.i18n.localize("ffd20lnrw.Yes") },
     ];
-    data.levels = [{ level: "default", name: game.i18n.localize("PF1.Default") }, ...data.defaultLevels];
+    data.levels = [{ level: "default", name: game.i18n.localize("ffd20lnrw.Default") }, ...data.defaultLevels];
     if (data.default == null) data.default = "no";
 
     data.users = game.users.reduce((cur, o) => {
@@ -64,7 +64,7 @@ export const hasTokenVision = function (token) {
   if (!token.actor) return false;
   if (token.actor.hasPerm(game.user, "OWNER")) return true;
 
-  const visionFlag = token.actor.getFlag("pf1", "visionPermission");
+  const visionFlag = token.actor.getFlag("ffd20lnrw", "visionPermission");
   if (!visionFlag || !visionFlag.users[game.user._id]) return false;
   if (visionFlag.users[game.user._id].level === "yes") return true;
   if (visionFlag.users[game.user._id].level === "default" && visionFlag.default === "yes") return true;
@@ -83,7 +83,7 @@ const ActorDirectory__getEntryContextOptions = ActorDirectory.prototype._getEntr
 ActorDirectory.prototype._getEntryContextOptions = function () {
   return ActorDirectory__getEntryContextOptions.call(this).concat([
     {
-      name: "PF1.Vision",
+      name: "ffd20lnrw.Vision",
       icon: '<i class="fas fa-eye"></i>',
       condition: (li) => {
         return game.user.isGM;
@@ -120,7 +120,7 @@ SightLayer.prototype._isTokenVisionSource = function (token) {
   const canObserve = token.actor && hasTokenVision(token);
   if (!canObserve) return false;
   const others = canvas.tokens.controlled.filter((t) => !t.data.hidden && t.hasSight);
-  return !others.length || game.settings.get("pf1", "sharedVisionMode") === "1";
+  return !others.length || game.settings.get("ffd20lnrw", "sharedVisionMode") === "1";
 };
 
 Object.defineProperty(Token.prototype, "observer", {

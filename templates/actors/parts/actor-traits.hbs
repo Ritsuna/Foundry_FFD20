@@ -1,6 +1,6 @@
 <div class="traits flexcol">
   <div class="form-group">
-    <label>{{localize "PF1.Size"}}</label>
+    <label>{{localize "ffd20lnrw.Size"}}</label>
     <select name="data.traits.size">
       {{#select data.traits.size}}
       {{#each config.actorSizes as |label size|}}
@@ -11,7 +11,7 @@
   </div>
 
   <div class="form-group">
-    <label>{{localize "PF1.Stature"}}</label>
+    <label>{{localize "ffd20lnrw.Stature"}}</label>
     <select name="data.traits.stature">
       {{#select data.traits.stature}}
       {{#each config.actorStatures as |label key|}}
@@ -22,37 +22,37 @@
   </div>
 
   <div class="form-group {{#unless data.traits.senses}}inactive{{/unless}}">
-    <label>{{localize "PF1.Senses"}}</label>
-    <input type="text" name="data.traits.senses" value="{{data.traits.senses}}" placeholder="{{localize "PF1.None"}}"/>
+    <label>{{localize "ffd20lnrw.Senses"}}</label>
+    <input type="text" name="data.traits.senses" value="{{data.traits.senses}}" placeholder="{{localize "ffd20lnrw.None"}}"/>
   </div>
 
   <div class="form-group {{#unless data.traits.dr}}inactive{{/unless}}">
-    <label>{{localize "PF1.DamRed"}}</label>
-    <input type="text" name="data.traits.dr" value="{{data.traits.dr}}" placeholder="{{localize "PF1.None"}}"/>
+    <label>{{localize "ffd20lnrw.DamRed"}}</label>
+    <input type="text" name="data.traits.dr" value="{{data.traits.dr}}" placeholder="{{localize "ffd20lnrw.None"}}"/>
   </div>
 
   <div class="form-group {{#unless data.traits.regen}}inactive{{/unless}}">
-    <label>{{localize "PF1.Regeneration"}}</label>
-    <input type="text" name="data.traits.regen" value="{{data.traits.regen}}" placeholder="{{localize "PF1.None"}}"/>
+    <label>{{localize "ffd20lnrw.Regeneration"}}</label>
+    <input type="text" name="data.traits.regen" value="{{data.traits.regen}}" placeholder="{{localize "ffd20lnrw.None"}}"/>
   </div>
 
   <div class="form-group {{#unless data.traits.fastHealing}}inactive{{/unless}}">
-    <label>{{localize "PF1.FastHealing"}}</label>
-    <input type="text" name="data.traits.fastHealing" value="{{data.traits.fastHealing}}" placeholder="{{localize "PF1.None"}}"/>
+    <label>{{localize "ffd20lnrw.FastHealing"}}</label>
+    <input type="text" name="data.traits.fastHealing" value="{{data.traits.fastHealing}}" placeholder="{{localize "ffd20lnrw.None"}}"/>
   </div>
 
   <div class="form-group {{#unless data.traits.eres}}inactive{{/unless}}">
-    <label>{{localize "PF1.EnRes"}}</label>
-    <input type="text" name="data.traits.eres" value="{{data.traits.eres}}" placeholder="{{localize "PF1.None"}}"/>
+    <label>{{localize "ffd20lnrw.EnRes"}}</label>
+    <input type="text" name="data.traits.eres" value="{{data.traits.eres}}" placeholder="{{localize "ffd20lnrw.None"}}"/>
   </div>
 
   <div class="form-group {{#unless data.traits.cres}}inactive{{/unless}}">
-    <label>{{localize "PF1.ConRes"}}</label>
-    <input type="text" name="data.traits.cres" value="{{data.traits.cres}}" placeholder="{{localize "PF1.None"}}"/>
+    <label>{{localize "ffd20lnrw.ConRes"}}</label>
+    <input type="text" name="data.traits.cres" value="{{data.traits.cres}}" placeholder="{{localize "ffd20lnrw.None"}}"/>
   </div>
 
   <div class="form-group {{data.traits.di.cssClass}}">
-    <label for="data.traits.di">{{localize "PF1.DamImm"}}</label>
+    <label for="data.traits.di">{{localize "ffd20lnrw.DamImm"}}</label>
     <ul class="traits-list">
       {{#each data.traits.di.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
@@ -62,7 +62,7 @@
   </div>
 
   <div class="form-group {{data.traits.dv.cssClass}}">
-    <label for="data.traits.dv">{{localize "PF1.DamVuln"}}</label>
+    <label for="data.traits.dv">{{localize "ffd20lnrw.DamVuln"}}</label>
     <ul class="traits-list">
       {{#each data.traits.dv.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
@@ -72,7 +72,7 @@
   </div>
 
   <div class="form-group {{data.traits.ci.cssClass}}">
-    <label for="data.traits.ci">{{localize "PF1.ConImm"}}</label>
+    <label for="data.traits.ci">{{localize "ffd20lnrw.ConImm"}}</label>
     <ul class="traits-list">
       {{#each data.traits.ci.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
@@ -82,7 +82,7 @@
   </div>
 
   <div class="form-group {{data.traits.languages.cssClass}}">
-    <label for="data.traits.languages">{{localize "PF1.Languages"}}</label>
+    <label for="data.traits.languages">{{localize "ffd20lnrw.Languages"}}</label>
     <ul class="traits-list">
       {{#each data.traits.languages.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
@@ -93,41 +93,57 @@
 
   {{#if isCharacter}}
   <div class="form-group {{data.traits.weaponProf.cssClass}}">
-    <label for="data.traits.weaponProf">{{localize "PF1.TraitWeaponProf"}}</label>
-    <ul class="traits-list">
+      <label for="data.traits.weaponProf">
+        {{localize "ffd20lnrw.TraitWeaponProf"}}
+      </label>
+      <ul class="traits-list tooltip">
       {{#each data.traits.weaponProf.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
       {{/each}}
+        {{#if sourceDetails.data.traits.weaponProf.length}}
+          <div class="tooltipcontent">
+            {{localize "ffd20lnrw.FromSources"}}:<br/>
+            {{#each sourceDetails.data.traits.weaponProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+          </div>
+        {{/if}}
     </ul>
     <a class="trait-selector" data-options="weaponProficiencies"><i class="fas fa-edit"></i></a>
   </div>
 
   <div class="form-group {{data.traits.armorProf.cssClass}}">
-    <label for="data.traits.armorProf">{{localize "PF1.TraitArmorProf"}}</label>
-    <ul class="traits-list">
+      <label for="data.traits.armorProf">
+        {{localize "ffd20lnrw.TraitArmorProf"}}
+      </label>
+      <ul class="traits-list tooltip">
       {{#each data.traits.armorProf.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
       {{/each}}
+        {{#if sourceDetails.data.traits.armorProf.length}}
+          <div class="tooltipcontent">
+            {{localize "ffd20lnrw.FromSources"}}:<br/>
+            {{#each sourceDetails.data.traits.armorProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+          </div>
+        {{/if}}
     </ul>
     <a class="trait-selector" data-options="armorProficiencies"><i class="fas fa-edit"></i></a>
   </div>
   {{/if}}
 
   <div class="form-group">
-    <label>{{localize "PF1.Quadruped"}}</label>
+    <label>{{localize "ffd20lnrw.Quadruped"}}</label>
     <label class="checkbox">
       <input type="checkbox" name="data.attributes.quadruped" {{checked data.attributes.quadruped}}/>
     </label>
   </div>
 
   <div class="form-group">
-    <label>{{localize "PF1.LevelDrain"}}</label>
+    <label>{{localize "ffd20lnrw.LevelDrain"}}</label>
     <input class="select-on-click" type="text" name="data.attributes.energyDrain" value="{{data.attributes.energyDrain}}"
                                                           placeholder="0" data-dtype="Number" />
   </div>
 
   {{!-- Point Buy Calculator --}}
   <div class="form-group">
-    <button type="button" class="pointbuy-calculator">{{localize "PF1.PointBuyCalculator"}}</button>
+    <button type="button" class="pointbuy-calculator">{{localize "ffd20lnrw.PointBuyCalculator"}}</button>
   </div>
 </div>

@@ -5,10 +5,10 @@ import { SemanticVersion } from "../semver.js";
 const NEED_NEW_VERSION = {
   spells: "0.76.12",
   items: "0.76.9",
-  bestiary: "0.76.9",
-  feats: "0.76.9",
-  classes: "0.76.5",
-  races: "0.75.6",
+  bestiary: "0.76.12",
+  feats: "0.76.12",
+  classes: "0.76.12",
+  races: "0.76.12",
 };
 
 export const COMPENDIUM_TYPES = {
@@ -74,17 +74,17 @@ export class CompendiumBrowser extends Application {
      */
     {
       this._savedItems = [];
-      const cacheVersions = game.settings.get("pf1", "compendiumSaveVersions");
+      const cacheVersions = game.settings.get("ffd20lnrw", "compendiumSaveVersions");
       const thisVersion = SemanticVersion.fromString(cacheVersions[this.type] || "0.0.1");
       const needVersion = SemanticVersion.fromString(NEED_NEW_VERSION[this.type]);
       if (needVersion.isHigherThan(thisVersion)) {
         game.settings.set(
-          "pf1",
+          "ffd20lnrw",
           "compendiumSaveVersions",
           mergeObject(cacheVersions, { [this.type]: needVersion.toString() })
         );
       } else {
-        const settings = game.settings.get("pf1", "compendiumItems");
+        const settings = game.settings.get("ffd20lnrw", "compendiumItems");
         if (settings[this.type]) {
           this._savedItems = settings[this.type];
         }
@@ -94,8 +94,8 @@ export class CompendiumBrowser extends Application {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      template: "systems/pf1/templates/apps/compendium-browser.hbs",
-      classes: ["pf1", "app"],
+      template: "systems/ffd20lnrw/templates/apps/compendium-browser.hbs",
+      classes: ["ffd20lnrw", "app"],
       width: 720,
       height: window.innerHeight - 60,
       top: 30,
@@ -110,7 +110,7 @@ export class CompendiumBrowser extends Application {
       this.updateForceRefreshData();
     }
 
-    const forceRefreshData = game.settings.get("pf1", "compendiumForceRefresh");
+    const forceRefreshData = game.settings.get("ffd20lnrw", "compendiumForceRefresh");
     const diff = getProperty(forceRefreshData, `diff.${this.type}`);
 
     // Determine difference in used compendiums
@@ -143,9 +143,9 @@ export class CompendiumBrowser extends Application {
 
     // Save results
     if (options.save) {
-      const forceRefreshData = duplicate(game.settings.get("pf1", "compendiumForceRefresh"));
+      const forceRefreshData = duplicate(game.settings.get("ffd20lnrw", "compendiumForceRefresh"));
       setProperty(forceRefreshData, `diff.${this.type}`, this._currentCompendiums);
-      return game.settings.set("pf1", "compendiumForceRefresh", forceRefreshData);
+      return game.settings.set("ffd20lnrw", "compendiumForceRefresh", forceRefreshData);
     }
   }
 
@@ -209,8 +209,8 @@ export class CompendiumBrowser extends Application {
         return cur;
       }, {}),
       labels: {
-        itemCount: game.i18n.localize("PF1.TotalItems").format(this.items.length),
-        filteredItemCount: game.i18n.localize("PF1.FilteredItems").format(this.items.length),
+        itemCount: game.i18n.localize("ffd20lnrw.TotalItems").format(this.items.length),
+        filteredItemCount: game.i18n.localize("ffd20lnrw.FilteredItems").format(this.items.length),
       },
     };
   }
@@ -218,17 +218,17 @@ export class CompendiumBrowser extends Application {
   get typeName() {
     switch (this.type) {
       case "spells":
-        return game.i18n.localize("PF1.Spells");
+        return game.i18n.localize("ffd20lnrw.Spells");
       case "items":
-        return game.i18n.localize("PF1.Items");
+        return game.i18n.localize("ffd20lnrw.Items");
       case "feats":
-        return game.i18n.localize("PF1.Features");
+        return game.i18n.localize("ffd20lnrw.Features");
       case "bestiary":
-        return game.i18n.localize("PF1.Creatures");
+        return game.i18n.localize("ffd20lnrw.Creatures");
       case "classes":
-        return game.i18n.localize("PF1.Classes");
+        return game.i18n.localize("ffd20lnrw.Classes");
       case "races":
-        return game.i18n.localize("PF1.Races");
+        return game.i18n.localize("ffd20lnrw.Races");
     }
     return this.type;
   }
@@ -254,8 +254,8 @@ export class CompendiumBrowser extends Application {
   async loadCompendium(p) {
     const progress = this._data.progress;
 
-    if ((p.private && !game.user.isGM) || p.metadata.system != "pf1") {
-      if (p.metadata.system != "pf1")
+    if ((p.private && !game.user.isGM) || p.metadata.system != "ffd20lnrw") {
+      if (p.metadata.system != "ffd20lnrw")
         console.warn(p.metadata.label + " is incompatible with this browser and has been skipped.");
       this._onProgress(progress);
       return;
@@ -288,7 +288,7 @@ export class CompendiumBrowser extends Application {
     if (this.shouldForceRefresh() || this._savedItems.length === 0) {
       // Initialize progress bar
       let packs = [];
-      const progress = { pct: 0, message: game.i18n.localize("PF1.LoadingCompendiumBrowser"), loaded: -1, total: 0 };
+      const progress = { pct: 0, message: game.i18n.localize("ffd20lnrw.LoadingCompendiumBrowser"), loaded: -1, total: 0 };
       for (let p of game.packs.values()) {
         if (p.entity === this.entityType) {
           progress.total++;
@@ -354,7 +354,7 @@ export class CompendiumBrowser extends Application {
 
     // Merge active filters object with stored settings
     const filterSettings =
-      getProperty(game.settings.get("pf1", "compendiumFilters") || {}, `${this.type}.activeFilters`) || {};
+      getProperty(game.settings.get("ffd20lnrw", "compendiumFilters") || {}, `${this.type}.activeFilters`) || {};
     for (let [k, v] of Object.entries(filterSettings)) {
       if (!this.activeFilters[k]) continue;
       this.activeFilters[k] = v;
@@ -526,7 +526,7 @@ export class CompendiumBrowser extends Application {
     }
     // Add spell types
     {
-      const spellTypes = item.data.types ? item.data.types.split(CONFIG.PF1.re.traitSeparator) : [];
+      const spellTypes = item.data.types ? item.data.types.split(CONFIG.ffd20lnrw.re.traitSeparator) : [];
       result.item.spellTypes = spellTypes;
       for (let st of spellTypes) {
         this.extraFilters["spellTypes"][st] = true;
@@ -619,7 +619,7 @@ export class CompendiumBrowser extends Application {
     this.filters = [
       {
         path: "pack",
-        label: game.i18n.localize("PF1.Compendium"),
+        label: game.i18n.localize("ffd20lnrw.Compendium"),
         items: naturalSort(
           Object.entries(this.packs).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1].metadata.label });
@@ -636,9 +636,9 @@ export class CompendiumBrowser extends Application {
       ...[
         {
           path: "data.school",
-          label: game.i18n.localize("PF1.SpellSchool"),
+          label: game.i18n.localize("ffd20lnrw.SpellSchool"),
           items: naturalSort(
-            Object.entries(CONFIG.PF1.spellSchools).reduce((cur, o) => {
+            Object.entries(CONFIG.ffd20lnrw.spellSchools).reduce((cur, o) => {
               cur.push({ key: o[0], name: o[1] });
               return cur;
             }, []),
@@ -647,7 +647,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "data.subschool",
-          label: game.i18n.localize("PF1.SubSchool"),
+          label: game.i18n.localize("ffd20lnrw.SubSchool"),
           items: naturalSort(
             Object.keys(this.extraFilters["data.subschool"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -658,7 +658,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "spellTypes",
-          label: game.i18n.localize("PF1.TypePlural"),
+          label: game.i18n.localize("ffd20lnrw.TypePlural"),
           items: naturalSort(
             Object.keys(this.extraFilters["spellTypes"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -669,7 +669,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "learnedAt.class",
-          label: game.i18n.localize("PF1.ClassPlural"),
+          label: game.i18n.localize("ffd20lnrw.ClassPlural"),
           items: naturalSort(
             Object.keys(this.extraFilters["learnedAt.class"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -680,7 +680,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "learnedAt.domain",
-          label: game.i18n.localize("PF1.Domain"),
+          label: game.i18n.localize("ffd20lnrw.Domain"),
           items: naturalSort(
             Object.keys(this.extraFilters["learnedAt.domain"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -691,7 +691,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "learnedAt.subDomain",
-          label: game.i18n.localize("PF1.SubDomain"),
+          label: game.i18n.localize("ffd20lnrw.SubDomain"),
           items: naturalSort(
             Object.keys(this.extraFilters["learnedAt.subDomain"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -702,7 +702,7 @@ export class CompendiumBrowser extends Application {
         },
         // {
         //   path: "learnedAt.elementalSchool",
-        //   label: game.i18n.localize("PF1.ElementalSchool"),
+        //   label: game.i18n.localize("ffd20lnrw.ElementalSchool"),
         //   items: this.extraFilters["learnedAt.elementalSchool"].reduce((cur, o) => {
         //     cur.push({ key: o, name: o });
         //     return cur;
@@ -710,7 +710,7 @@ export class CompendiumBrowser extends Application {
         // },
         {
           path: "learnedAt.bloodline",
-          label: game.i18n.localize("PF1.Bloodline"),
+          label: game.i18n.localize("ffd20lnrw.Bloodline"),
           items: naturalSort(
             Object.keys(this.extraFilters["learnedAt.bloodline"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -721,8 +721,8 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "_spellLevel",
-          label: game.i18n.localize("PF1.SpellLevel"),
-          items: Object.entries(CONFIG.PF1.spellLevels).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.SpellLevel"),
+          items: Object.entries(CONFIG.ffd20lnrw.spellLevels).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
@@ -736,26 +736,26 @@ export class CompendiumBrowser extends Application {
       ...[
         {
           path: "type",
-          label: game.i18n.localize("PF1.Type"),
+          label: game.i18n.localize("ffd20lnrw.Type"),
           items: [
-            { key: "weapon", name: game.i18n.localize("PF1.ItemTypeWeapon") },
-            { key: "equipment", name: game.i18n.localize("PF1.ItemTypeEquipment") },
-            { key: "consumable", name: game.i18n.localize("PF1.ItemTypeConsumable") },
-            { key: "loot", name: game.i18n.localize("PF1.Misc") },
+            { key: "weapon", name: game.i18n.localize("ffd20lnrw.ItemTypeWeapon") },
+            { key: "equipment", name: game.i18n.localize("ffd20lnrw.ItemTypeEquipment") },
+            { key: "consumable", name: game.i18n.localize("ffd20lnrw.ItemTypeConsumable") },
+            { key: "loot", name: game.i18n.localize("ffd20lnrw.Misc") },
           ],
         },
         {
           path: "data.weaponType",
-          label: game.i18n.localize("PF1.WeaponType"),
-          items: Object.entries(CONFIG.PF1.weaponTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.WeaponType"),
+          items: Object.entries(CONFIG.ffd20lnrw.weaponTypes).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1]._label });
             return cur;
           }, []),
         },
         {
           path: "data.weaponSubtype",
-          label: game.i18n.localize("PF1.WeaponSubtype"),
-          items: Object.values(CONFIG.PF1.weaponTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.WeaponSubtype"),
+          items: Object.values(CONFIG.ffd20lnrw.weaponTypes).reduce((cur, o) => {
             cur = cur.concat(
               Object.entries(o)
                 .filter((i) => !i[0].startsWith("_"))
@@ -771,24 +771,24 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "weaponProps",
-          label: game.i18n.localize("PF1.WeaponProperties"),
-          items: Object.entries(CONFIG.PF1.weaponProperties).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.WeaponProperties"),
+          items: Object.entries(CONFIG.ffd20lnrw.weaponProperties).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
         },
         {
           path: "data.equipmentType",
-          label: game.i18n.localize("PF1.EquipmentType"),
-          items: Object.entries(CONFIG.PF1.equipmentTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.EquipmentType"),
+          items: Object.entries(CONFIG.ffd20lnrw.equipmentTypes).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1]._label });
             return cur;
           }, []),
         },
         {
           path: "data.equipmentSubtype",
-          label: game.i18n.localize("PF1.EquipmentSubtype"),
-          items: Object.values(CONFIG.PF1.equipmentTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.EquipmentSubtype"),
+          items: Object.values(CONFIG.ffd20lnrw.equipmentTypes).reduce((cur, o) => {
             cur = cur.concat(
               Object.entries(o)
                 .filter((i) => !i[0].startsWith("_"))
@@ -804,8 +804,8 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "data.slot",
-          label: game.i18n.localize("PF1.Slot"),
-          items: Object.values(CONFIG.PF1.equipmentSlots).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.Slot"),
+          items: Object.values(CONFIG.ffd20lnrw.equipmentSlots).reduce((cur, o) => {
             cur = cur.concat(
               Object.entries(o)
                 .filter((i) => !i[0].startsWith("_"))
@@ -821,16 +821,16 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "data.consumableType",
-          label: game.i18n.localize("PF1.ConsumableType"),
-          items: Object.entries(CONFIG.PF1.consumableTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.ConsumableType"),
+          items: Object.entries(CONFIG.ffd20lnrw.consumableTypes).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
         },
         {
           path: "data.subType",
-          label: game.i18n.localize("PF1.Misc"),
-          items: Object.entries(CONFIG.PF1.lootTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.Misc"),
+          items: Object.entries(CONFIG.ffd20lnrw.lootTypes).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
@@ -855,9 +855,9 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "creatureType",
-          label: game.i18n.localize("PF1.CreatureType"),
+          label: game.i18n.localize("ffd20lnrw.CreatureType"),
           items: naturalSort(
-            Object.entries(CONFIG.PF1.creatureTypes).reduce((cur, o) => {
+            Object.entries(CONFIG.ffd20lnrw.creatureTypes).reduce((cur, o) => {
               cur.push({ key: o[0], name: o[1] });
               return cur;
             }, []),
@@ -866,7 +866,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "subTypes",
-          label: game.i18n.localize("PF1.RaceSubtypePlural"),
+          label: game.i18n.localize("ffd20lnrw.RaceSubtypePlural"),
           items: naturalSort(
             Object.keys(this.extraFilters["subTypes"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -884,15 +884,15 @@ export class CompendiumBrowser extends Application {
       ...[
         {
           path: "data.featType",
-          label: game.i18n.localize("PF1.Type"),
-          items: Object.entries(CONFIG.PF1.featTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.Type"),
+          items: Object.entries(CONFIG.ffd20lnrw.featTypes).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
         },
         {
           path: "tags",
-          label: game.i18n.localize("PF1.Tags"),
+          label: game.i18n.localize("ffd20lnrw.Tags"),
           items: naturalSort(
             Object.keys(this.extraFilters.tags).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -903,7 +903,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "assocations.class",
-          label: game.i18n.localize("PF1.ClassPlural"),
+          label: game.i18n.localize("ffd20lnrw.ClassPlural"),
           items: naturalSort(
             Object.keys(this.extraFilters.associations["class"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -921,15 +921,15 @@ export class CompendiumBrowser extends Application {
       ...[
         {
           path: "data.classType",
-          label: game.i18n.localize("PF1.ClassType"),
-          items: Object.entries(CONFIG.PF1.classTypes).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.ClassType"),
+          items: Object.entries(CONFIG.ffd20lnrw.classTypes).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
         },
         {
           path: "data.hd",
-          label: game.i18n.localize("PF1.HitDie"),
+          label: game.i18n.localize("ffd20lnrw.HitDie"),
           items: Object.keys(this.extraFilters["data.hd"]).reduce((cur, o) => {
             cur.push({ key: o.toString(), name: o.toString() });
             return cur;
@@ -937,15 +937,15 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "data.bab",
-          label: game.i18n.localize("PF1.BAB"),
-          items: Object.entries(CONFIG.PF1.classBAB).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.BAB"),
+          items: Object.entries(CONFIG.ffd20lnrw.classBAB).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
         },
         {
           path: "data.skillsPerLevel",
-          label: game.i18n.localize("PF1.SkillsPerLevel"),
+          label: game.i18n.localize("ffd20lnrw.SkillsPerLevel"),
           items: Object.keys(this.extraFilters["data.skillsPerLevel"]).reduce((cur, o) => {
             cur.push({ key: o.toString(), name: o.toString() });
             return cur;
@@ -953,24 +953,24 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "data.savingThrows.fort.value",
-          label: game.i18n.localize("PF1.SavingThrowFort"),
-          items: Object.entries(CONFIG.PF1.classSavingThrows).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.SavingThrowFort"),
+          items: Object.entries(CONFIG.ffd20lnrw.classSavingThrows).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
         },
         {
           path: "data.savingThrows.ref.value",
-          label: game.i18n.localize("PF1.SavingThrowRef"),
-          items: Object.entries(CONFIG.PF1.classSavingThrows).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.SavingThrowRef"),
+          items: Object.entries(CONFIG.ffd20lnrw.classSavingThrows).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
         },
         {
           path: "data.savingThrows.will.value",
-          label: game.i18n.localize("PF1.SavingThrowWill"),
-          items: Object.entries(CONFIG.PF1.classSavingThrows).reduce((cur, o) => {
+          label: game.i18n.localize("ffd20lnrw.SavingThrowWill"),
+          items: Object.entries(CONFIG.ffd20lnrw.classSavingThrows).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
             return cur;
           }, []),
@@ -984,9 +984,9 @@ export class CompendiumBrowser extends Application {
       ...[
         {
           path: "data.creatureType",
-          label: game.i18n.localize("PF1.CreatureType"),
+          label: game.i18n.localize("ffd20lnrw.CreatureType"),
           items: naturalSort(
-            Object.entries(CONFIG.PF1.creatureTypes).reduce((cur, o) => {
+            Object.entries(CONFIG.ffd20lnrw.creatureTypes).reduce((cur, o) => {
               cur.push({ key: o[0], name: o[1] });
               return cur;
             }, []),
@@ -995,7 +995,7 @@ export class CompendiumBrowser extends Application {
         },
         {
           path: "subTypes",
-          label: game.i18n.localize("PF1.RaceSubtypePlural"),
+          label: game.i18n.localize("ffd20lnrw.RaceSubtypePlural"),
           items: naturalSort(
             Object.keys(this.extraFilters["subTypes"]).reduce((cur, o) => {
               cur.push({ key: o, name: o });
@@ -1144,9 +1144,9 @@ export class CompendiumBrowser extends Application {
 
     // Save filter settings
     {
-      const settings = game.settings.get("pf1", "compendiumFilters");
+      const settings = game.settings.get("ffd20lnrw", "compendiumFilters");
       setProperty(settings, `${this.type}.activeFilters`, this.activeFilters);
-      game.settings.set("pf1", "compendiumFilters", settings);
+      game.settings.set("ffd20lnrw", "compendiumFilters", settings);
     }
 
     this._filterResults();
@@ -1171,7 +1171,7 @@ export class CompendiumBrowser extends Application {
     });
     this.element
       .find('span[data-type="filterItemCount"]')
-      .text(game.i18n.localize("PF1.FilteredItems").format(itemCount));
+      .text(game.i18n.localize("ffd20lnrw.FilteredItems").format(itemCount));
 
     // Scroll up a bit to prevent a lot of 'lazy' loading at once
     const rootElem = this.element[0].querySelector(".directory-list");
@@ -1318,9 +1318,9 @@ export class CompendiumBrowser extends Application {
   saveEntries() {
     const entries = this.getSaveEntries();
 
-    const settings = game.settings.get("pf1", "compendiumItems") || {};
+    const settings = game.settings.get("ffd20lnrw", "compendiumItems") || {};
     settings[this.type] = entries;
 
-    return game.settings.set("pf1", "compendiumItems", settings);
+    return game.settings.set("ffd20lnrw", "compendiumItems", settings);
   }
 }

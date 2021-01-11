@@ -28,7 +28,7 @@ export class ItemSheetPF extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 580,
-      classes: ["pf1", "sheet", "item"],
+      classes: ["ffd20lnrw", "sheet", "item"],
       scrollY: [".tab.details", ".buff-flags"],
     });
   }
@@ -40,7 +40,7 @@ export class ItemSheetPF extends ItemSheet {
    * @return {string}
    */
   get template() {
-    const path = "systems/pf1/templates/items/";
+    const path = "systems/ffd20lnrw/templates/items/";
     return `${path}/${this.item.data.type}.hbs`;
   }
 
@@ -76,7 +76,7 @@ export class ItemSheetPF extends ItemSheet {
     }
 
     // Include CONFIG values
-    data.config = CONFIG.PF1;
+    data.config = CONFIG.ffd20lnrw;
 
     // Item Type, Status, and Details
     data.itemType = this._getItemType(data.item);
@@ -91,21 +91,21 @@ export class ItemSheetPF extends ItemSheet {
     data.isGM = game.user.isGM;
     data.showIdentifyDescription = data.isGM && data.isPhysical;
     data.showUnidentifiedData = this.item.showUnidentifiedData;
-    data.unchainedActionEconomy = game.settings.get("pf1", "unchainedActionEconomy");
+    data.unchainedActionEconomy = game.settings.get("ffd20lnrw", "unchainedActionEconomy");
     data.hasActivationType =
-      (game.settings.get("pf1", "unchainedActionEconomy") &&
+      (game.settings.get("ffd20lnrw", "unchainedActionEconomy") &&
         getProperty(data.item, "data.unchainedAction.activation.type")) ||
-      (!game.settings.get("pf1", "unchainedActionEconomy") && getProperty(data.item, "data.activation.type"));
+      (!game.settings.get("ffd20lnrw", "unchainedActionEconomy") && getProperty(data.item, "data.activation.type"));
     if (rollData.item.auraStrength != null) {
       const auraStrength = rollData.item.auraStrength;
       data.auraStrength = auraStrength;
 
-      if (CONFIG.PF1.auraStrengths[auraStrength] != null) {
-        const auraStrength_name = CONFIG.PF1.auraStrengths[auraStrength];
+      if (CONFIG.ffd20lnrw.auraStrengths[auraStrength] != null) {
+        const auraStrength_name = CONFIG.ffd20lnrw.auraStrengths[auraStrength];
         data.auraStrength_name = auraStrength_name;
 
-        data.labels.identify = game.i18n.localize("PF1.IdentifyDCNumber").format(15 + rollData.item.cl);
-        // const auraSchool = CONFIG.PF1.spellSchools[rollData.item.aura.school];
+        data.labels.identify = game.i18n.localize("ffd20lnrw.IdentifyDCNumber").format(15 + rollData.item.cl);
+        // const auraSchool = CONFIG.ffd20lnrw.spellSchools[rollData.item.aura.school];
         // data.labels.aura = `${auraStrength_name} ${auraSchool}`;
       }
     }
@@ -152,12 +152,12 @@ export class ItemSheetPF extends ItemSheet {
 
       // Prepare categories for weapons
       data.weaponCategories = { types: {}, subTypes: {} };
-      for (let [k, v] of Object.entries(CONFIG.PF1.weaponTypes)) {
+      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.weaponTypes)) {
         if (typeof v === "object") data.weaponCategories.types[k] = v._label;
       }
       const type = data.item.data.weaponType;
-      if (hasProperty(CONFIG.PF1.weaponTypes, type)) {
-        for (let [k, v] of Object.entries(CONFIG.PF1.weaponTypes[type])) {
+      if (hasProperty(CONFIG.ffd20lnrw.weaponTypes, type)) {
+        for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.weaponTypes[type])) {
           // Add static targets
           if (!k.startsWith("_")) data.weaponCategories.subTypes[k] = v;
         }
@@ -168,19 +168,19 @@ export class ItemSheetPF extends ItemSheet {
     if (data.item.type === "equipment") {
       // Prepare categories for equipment
       data.equipmentCategories = { types: {}, subTypes: {} };
-      for (let [k, v] of Object.entries(CONFIG.PF1.equipmentTypes)) {
+      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.equipmentTypes)) {
         if (typeof v === "object") data.equipmentCategories.types[k] = v._label;
       }
       const type = data.item.data.equipmentType;
-      if (hasProperty(CONFIG.PF1.equipmentTypes, type)) {
-        for (let [k, v] of Object.entries(CONFIG.PF1.equipmentTypes[type])) {
+      if (hasProperty(CONFIG.ffd20lnrw.equipmentTypes, type)) {
+        for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.equipmentTypes[type])) {
           // Add static targets
           if (!k.startsWith("_")) data.equipmentCategories.subTypes[k] = v;
         }
       }
 
       // Prepare slots for equipment
-      data.equipmentSlots = CONFIG.PF1.equipmentSlots[type];
+      data.equipmentSlots = CONFIG.ffd20lnrw.equipmentSlots[type];
 
       // Whether the equipment should show armor data
       data.showArmorData = ["armor", "shield"].includes(type);
@@ -223,17 +223,17 @@ export class ItemSheetPF extends ItemSheet {
       data.isMythicPath = data.data.classType === "mythic";
 
       for (let [a, s] of Object.entries(data.data.savingThrows)) {
-        s.label = CONFIG.PF1.savingThrows[a];
+        s.label = CONFIG.ffd20lnrw.savingThrows[a];
       }
       for (let [a, s] of Object.entries(data.data.fc)) {
-        s.label = CONFIG.PF1.favouredClassBonuses[a];
+        s.label = CONFIG.ffd20lnrw.favouredClassBonuses[a];
       }
 
       data.isBaseClass = data.data.classType === "base";
       data.isRacialHD = data.data.classType === "racial";
 
       if (this.actor != null) {
-        let healthConfig = game.settings.get("pf1", "healthConfig");
+        let healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
         data.healthConfig = data.isRacialHD
           ? healthConfig.hitdice.Racial
           : this.actor.data.type === "character"
@@ -243,14 +243,14 @@ export class ItemSheetPF extends ItemSheet {
 
       // Add skill list
       if (!this.actor) {
-        data.skills = Object.entries(CONFIG.PF1.skills).reduce((cur, o) => {
+        data.skills = Object.entries(CONFIG.ffd20lnrw.skills).reduce((cur, o) => {
           cur[o[0]] = { name: o[1], classSkill: getProperty(this.item.data, `data.classSkills.${o[0]}`) === true };
           return cur;
         }, {});
       } else {
         data.skills = Object.entries(this.actor.data.data.skills).reduce((cur, o) => {
           const key = o[0];
-          const name = CONFIG.PF1.skills[key] != null ? CONFIG.PF1.skills[key] : o[1].name;
+          const name = CONFIG.ffd20lnrw.skills[key] != null ? CONFIG.ffd20lnrw.skills[key] : o[1].name;
           cur[o[0]] = { name: name, classSkill: getProperty(this.item.data, `data.classSkills.${o[0]}`) === true };
           return cur;
         }, {});
@@ -261,9 +261,9 @@ export class ItemSheetPF extends ItemSheet {
     if (this.item.changes) {
       data.changeGlobals = {
         targets: {},
-        modifiers: CONFIG.PF1.bonusModifiers,
+        modifiers: CONFIG.ffd20lnrw.bonusModifiers,
       };
-      for (let [k, v] of Object.entries(CONFIG.PF1.buffTargets)) {
+      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.buffTargets)) {
         if (typeof v === "object") data.changeGlobals.targets[k] = v._label;
       }
 
@@ -298,7 +298,7 @@ export class ItemSheetPF extends ItemSheet {
     // Prepare stuff for items with context notes
     if (data.item.data.contextNotes) {
       data.contextNotes = { targets: {} };
-      for (let [k, v] of Object.entries(CONFIG.PF1.contextNoteTargets)) {
+      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.contextNoteTargets)) {
         if (typeof v === "object") data.contextNotes.targets[k] = v._label;
       }
       data.item.data.contextNotes.forEach((item) => {
@@ -307,7 +307,7 @@ export class ItemSheetPF extends ItemSheet {
     }
 
     // Add distance units
-    data.distanceUnits = duplicate(CONFIG.PF1.distanceUnits);
+    data.distanceUnits = duplicate(CONFIG.ffd20lnrw.distanceUnits);
     if (this.item.type !== "spell") {
       for (let d of ["close", "medium", "long"]) {
         delete data.distanceUnits[d];
@@ -328,8 +328,8 @@ export class ItemSheetPF extends ItemSheet {
     // Add children link type
     data.links.list.push({
       id: "children",
-      label: game.i18n.localize("PF1.LinkTypeChildren"),
-      help: game.i18n.localize("PF1.LinkHelpChildren"),
+      label: game.i18n.localize("ffd20lnrw.LinkTypeChildren"),
+      help: game.i18n.localize("ffd20lnrw.LinkHelpChildren"),
       items: [],
     });
 
@@ -337,8 +337,8 @@ export class ItemSheetPF extends ItemSheet {
     if (["feat", "consumable", "attack"].includes(this.item.type)) {
       data.links.list.push({
         id: "charges",
-        label: game.i18n.localize("PF1.LinkTypeCharges"),
-        help: game.i18n.localize("PF1.LinkHelpCharges"),
+        label: game.i18n.localize("ffd20lnrw.LinkTypeCharges"),
+        help: game.i18n.localize("ffd20lnrw.LinkHelpCharges"),
         items: [],
       });
     }
@@ -347,12 +347,12 @@ export class ItemSheetPF extends ItemSheet {
     if (this.item.type === "class") {
       data.links.list.push({
         id: "classAssociations",
-        label: game.i18n.localize("PF1.LinkTypeClassAssociations"),
-        help: game.i18n.localize("PF1.LinkHelpClassAssociations"),
+        label: game.i18n.localize("ffd20lnrw.LinkTypeClassAssociations"),
+        help: game.i18n.localize("ffd20lnrw.LinkHelpClassAssociations"),
         fields: {
           level: {
             type: "Number",
-            label: game.i18n.localize("PF1.Level"),
+            label: game.i18n.localize("ffd20lnrw.Level"),
           },
         },
         items: [],
@@ -363,12 +363,12 @@ export class ItemSheetPF extends ItemSheet {
     if (this.item.type === "attack") {
       data.links.list.push({
         id: "ammunition",
-        label: game.i18n.localize("PF1.LinkTypeAmmunition"),
-        help: game.i18n.localize("PF1.LinkHelpAmmunition"),
+        label: game.i18n.localize("ffd20lnrw.LinkTypeAmmunition"),
+        help: game.i18n.localize("ffd20lnrw.LinkHelpAmmunition"),
         fields: {
           recoverChance: {
             type: "Number",
-            label: game.i18n.localize("PF1.RecoverChancePercentage"),
+            label: game.i18n.localize("ffd20lnrw.RecoverChancePercentage"),
           },
         },
         items: [],
@@ -405,10 +405,10 @@ export class ItemSheetPF extends ItemSheet {
    * @private
    */
   _getItemType(item) {
-    let typeKeys = Object.keys(CONFIG.PF1.itemTypes);
+    let typeKeys = Object.keys(CONFIG.ffd20lnrw.itemTypes);
     let itemType = item.type;
     if (!typeKeys.includes(itemType)) itemType = typeKeys[0];
-    return game.i18n.localize(CONFIG.PF1.itemTypes[itemType]);
+    return game.i18n.localize(CONFIG.ffd20lnrw.itemTypes[itemType]);
   }
 
   /**
@@ -422,17 +422,17 @@ export class ItemSheetPF extends ItemSheet {
       if (item.data.preparation.mode === "prepared") {
         if (item.data.preparation.preparedAmount > 0) {
           if (spellbook != null && spellbook.spontaneous) {
-            return game.i18n.localize("PF1.SpellPrepPrepared");
+            return game.i18n.localize("ffd20lnrw.SpellPrepPrepared");
           } else {
-            return game.i18n.localize("PF1.AmountPrepared").format(item.data.preparation.preparedAmount);
+            return game.i18n.localize("ffd20lnrw.AmountPrepared").format(item.data.preparation.preparedAmount);
           }
         }
-        return game.i18n.localize("PF1.Unprepared");
+        return game.i18n.localize("ffd20lnrw.Unprepared");
       } else if (item.data.preparation.mode) {
         return item.data.preparation.mode.titleCase();
       } else return "";
     } else if (["weapon", "equipment"].includes(item.type) || (item.type === "loot" && item.data.subType === "gear")) {
-      return item.data.equipped ? game.i18n.localize("PF1.Equipped") : game.i18n.localize("PF1.NotEquipped");
+      return item.data.equipped ? game.i18n.localize("ffd20lnrw.Equipped") : game.i18n.localize("ffd20lnrw.NotEquipped");
     }
   }
 
@@ -451,12 +451,12 @@ export class ItemSheetPF extends ItemSheet {
       props.push(
         ...Object.entries(item.data.properties)
           .filter((e) => e[1] === true)
-          .map((e) => CONFIG.PF1.weaponProperties[e[0]])
+          .map((e) => CONFIG.ffd20lnrw.weaponProperties[e[0]])
       );
     } else if (item.type === "spell") {
       props.push(labels.components, labels.materials);
     } else if (item.type === "equipment") {
-      props.push(CONFIG.PF1.equipmentTypes[item.data.armor.type]);
+      props.push(CONFIG.ffd20lnrw.equipmentTypes[item.data.armor.type]);
       props.push(labels.armor);
     } else if (item.type === "feat") {
       props.push(labels.featType);
@@ -464,7 +464,7 @@ export class ItemSheetPF extends ItemSheet {
 
     // Action type
     if (item.data.actionType) {
-      props.push(CONFIG.PF1.itemActionTypes[item.data.actionType]);
+      props.push(CONFIG.ffd20lnrw.itemActionTypes[item.data.actionType]);
     }
 
     // Action usage
@@ -1116,7 +1116,7 @@ export class ItemSheetPF extends ItemSheet {
 
       // Clean link
       this.item._cleanLink(link, group.dataset.tab);
-      game.socket.emit("system.pf1", {
+      game.socket.emit("system.ffd20lnrw", {
         eventType: "cleanItemLink",
         actorUUID: this.item.actor.uuid,
         itemUUID: this.item.uuid,
@@ -1174,7 +1174,7 @@ export class ItemSheetPF extends ItemSheet {
   }
 
   async _createAttack(event) {
-    if (this.item.actor == null) throw new Error(game.i18n.localize("PF1.ErrorItemNoOwner"));
+    if (this.item.actor == null) throw new Error(game.i18n.localize("ffd20lnrw.ErrorItemNoOwner"));
 
     await this._onSubmit(event);
 

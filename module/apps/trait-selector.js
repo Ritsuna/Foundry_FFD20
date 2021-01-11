@@ -6,9 +6,9 @@ export class ActorTraitSelector extends FormApplication {
   static get defaultOptions() {
     const options = super.defaultOptions;
     options.id = "trait-selector";
-    options.classes = ["pf1", "trait-selector"];
+    options.classes = ["ffd20lnrw", "trait-selector"];
     options.title = "Actor Trait Selection";
-    options.template = "systems/pf1/templates/apps/trait-selector.hbs";
+    options.template = "systems/ffd20lnrw/templates/apps/trait-selector.hbs";
     options.width = 320;
     options.height = "auto";
     return options;
@@ -43,10 +43,14 @@ export class ActorTraitSelector extends FormApplication {
       };
     }
 
+    // Object type
+    const updateButton = this.object instanceof Actor ? "ffd20lnrw.UpdateActor" : "ffd20lnrw.UpdateItem";
+
     // Return data
     return {
       choices: choices,
       custom: attr.custom,
+      updateButton,
     };
   }
 

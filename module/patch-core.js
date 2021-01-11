@@ -8,7 +8,7 @@ const FormApplication_close = FormApplication.prototype.close;
 
 export async function PatchCore() {
   // Patch getTemplate to prevent unwanted indentation in things things like <textarea> elements.
-  async function PF1_getTemplate(path) {
+  async function ffd20lnrw_getTemplate(path) {
     if (!Object.prototype.hasOwnProperty.call(_templateCache, path)) {
       await new Promise((resolve) => {
         game.socket.emit("template", path, (resp) => {
@@ -192,7 +192,7 @@ export async function PatchCore() {
   // Patch, patch, patch
   Combat.prototype._getInitiativeFormula = _getInitiativeFormula;
   Combat.prototype.rollInitiative = _rollInitiative;
-  window.getTemplate = PF1_getTemplate;
+  window.getTemplate = ffd20lnrw_getTemplate;
 
   await import("./low-light-vision.js");
 }

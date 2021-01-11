@@ -2,7 +2,7 @@ export const runUnitTests = async function () {
   const actorName = "Testy";
   const actor = game.actors.entities.find((o) => o.name === actorName);
   if (!actor) {
-    const msg = game.i18n.localize("PF1.ErrorCouldNotFindActorByName").format(actorName);
+    const msg = game.i18n.localize("ffd20lnrw.ErrorCouldNotFindActorByName").format(actorName);
     console.error(msg);
     return ui.notifications.error(msg);
   }

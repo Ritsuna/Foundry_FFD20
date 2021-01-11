@@ -3,7 +3,7 @@ import { CompendiumBrowser } from "../apps/compendium-browser.js";
 export class CompendiumDirectoryPF extends CompendiumDirectory {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      template: "systems/pf1/templates/sidebar/compendium.hbs",
+      template: "systems/ffd20lnrw/templates/sidebar/compendium.hbs",
     });
   }
 
@@ -21,6 +21,6 @@ export class CompendiumDirectoryPF extends CompendiumDirectory {
   _onBrowseCompendium(event, type) {
     event.preventDefault();
 
-    game.pf1.compendiums[type]._render(true);
+    game.ffd20lnrw.compendiums[type]._render(true);
   }
 }

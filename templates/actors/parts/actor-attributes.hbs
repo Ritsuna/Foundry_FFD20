@@ -3,12 +3,12 @@
     <table class="ability-table">
         <thead>
             <tr>
-                <th>{{localize "PF1.Ability"}}</th>
-                <th>{{localize "PF1.Total"}}</th>
-                <th>{{localize "PF1.Modifier"}}</th>
-                <th>{{localize "PF1.Damage"}}</th>
-                <th>{{localize "PF1.Drain"}}</th>
-                <th>{{localize "PF1.Penalty"}}</th>
+                <th>{{localize "ffd20lnrw.Ability"}}</th>
+                <th>{{localize "ffd20lnrw.Total"}}</th>
+                <th>{{localize "ffd20lnrw.Modifier"}}</th>
+                <th>{{localize "ffd20lnrw.Damage"}}</th>
+                <th>{{localize "ffd20lnrw.Drain"}}</th>
+                <th>{{localize "ffd20lnrw.Penalty"}}</th>
             </tr>
         </thead>
         
@@ -28,7 +28,7 @@
                         @abilities.{{id}}.baseMod : {{ability.baseMod}}
                         
                         {{#if ability.sourceDetails.length}}
-                        <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                        <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
                         {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                         {{/if}}
                     </span>
@@ -69,23 +69,23 @@
     <table>
         <thead>
             <th class="tooltip">
-                {{localize "PF1.ACP"}}
+                {{localize "ffd20lnrw.ACP"}}
                 <div class="tooltipcontent">
                     @attributes.acp.total : {{data.attributes.acp.total}}
                     
                     {{#if sourceDetails.data.attributes.acp.total.length}}
-                    <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                    <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
                     {{#each sourceDetails.data.attributes.acp.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                     {{/if}}
                 </div>
             </th>
             <th class="tooltip">
-                {{localize "PF1.MaxDexShort"}}
+                {{localize "ffd20lnrw.MaxDexShort"}}
                 <div class="tooltipcontent">
                     @attributes.maxDexBonus : {{data.attributes.maxDexBonus}}
                     
                     {{#if sourceDetails.data.attributes.maxDexBonus.length}}
-                    <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+                    <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
                     {{#each sourceDetails.data.attributes.maxDexBonus as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                     {{/if}}
                 </div>
@@ -100,4 +100,4 @@
 </div>
 
 {{!-- Traits --}}
-{{> "systems/pf1/templates/actors/parts/actor-traits.hbs"}}
+{{> "systems/ffd20lnrw/templates/actors/parts/actor-traits.hbs"}}

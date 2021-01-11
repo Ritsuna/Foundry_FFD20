@@ -30,7 +30,7 @@ export class ChatMessagePF extends ChatMessage {
     };
 
     // Enrich some data for dice rolls
-    if (this.isRoll && !this.getFlag("pf1", "noRollRender")) {
+    if (this.isRoll && !this.getFlag("ffd20lnrw", "noRollRender")) {
       // Render public rolls if they do not already start with valid HTML
       const hasHTMLContent = data.content.slice(0, 1) === "<";
       if (isVisible && !hasHTMLContent) {
@@ -65,7 +65,7 @@ export class ChatMessagePF extends ChatMessage {
    * @type {ItemPF}
    */
   get itemSource() {
-    let itemId = this.data.flags?.pf1?.metadata?.item;
+    let itemId = this.data.flags?.ffd20lnrw?.metadata?.item;
     let actor = this.constructor.getSpeakerActor(this.data.speaker);
     if (!itemId || !actor) return false;
     return actor.items.get(itemId);

@@ -28,17 +28,17 @@
         <h3 class="item-name flexrow">{{section.label}}</h3>
 
         <div class="item-detail item-level">
-          <span>{{localize "PF1.Level"}}</span>
+          <span>{{localize "ffd20lnrw.Level"}}</span>
         </div>
 
         <div class="item-detail item-active">
-          <span>{{localize "PF1.Active"}}</span>
+          <span>{{localize "ffd20lnrw.Active"}}</span>
         </div>
 
         {{#if ../owner}}
         <div class="item-controls">
-          <a class="item-control item-create" title="{{localize "PF1.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
-            <i class="fas fa-plus"></i> {{localize "PF1.Add"}}
+          <a class="item-control item-create" title="{{localize "ffd20lnrw.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
+            <i class="fas fa-plus"></i> {{localize "ffd20lnrw.Add"}}
           </a>
         </div>
         {{/if}}
@@ -62,9 +62,9 @@
 
           {{#if ../../owner}}
           <div class="item-controls">
-            <a class="item-control item-edit" title="{{localize "PF1.EditItem"}}"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-duplicate" title="{{localize "PF1.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
-            <a class="item-control item-delete" title="{{localize "PF1.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+            <a class="item-control item-edit" title="{{localize "ffd20lnrw.EditItem"}}"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-duplicate" title="{{localize "ffd20lnrw.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
+            <a class="item-control item-delete" title="{{localize "ffd20lnrw.DeleteItem"}}"><i class="fas fa-trash"></i></a>
           </div>
           {{/if}}
         </li>
