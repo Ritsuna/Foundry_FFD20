@@ -17,7 +17,7 @@ export const _getInitiativeFormula = function (actor) {
 
 Combat.showInitiativeDialog = function (formula = null) {
   return new Promise((resolve) => {
-    let template = "systems/pf1/templates/chat/roll-dialog.hbs";
+    let template = "systems/ffd20lnrw/templates/chat/roll-dialog.hbs";
     let rollMode = game.settings.get("core", "rollMode");
     let dialogData = {
       formula: formula ? formula : "",
@@ -39,7 +39,7 @@ Combat.showInitiativeDialog = function (formula = null) {
     renderTemplate(template, dialogData).then((dlg) => {
       new Dialog(
         {
-          title: game.i18n.localize("PF1.InitiativeBonus"),
+          title: game.i18n.localize("ffd20lnrw.InitiativeBonus"),
           content: dlg,
           buttons: buttons,
           default: "normal",
@@ -107,7 +107,7 @@ export const _rollInitiative = async function (ids, formula = null, messageOptio
             token: c.token._id,
             alias: c.token.name,
           },
-          flavor: game.i18n.localize("PF1.RollsForInitiative").format(c.token.name),
+          flavor: game.i18n.localize("ffd20lnrw.RollsForInitiative").format(c.token.name),
         },
         messageOptions
       );
@@ -151,25 +151,25 @@ export const addChatMessageContextOptions = function (html, options) {
   let canApplyCritical = (li) => canvas.tokens.controlled.length && li.find(".crit-damage-roll .dice-total").length;
   options.push(
     {
-      name: game.i18n.localize("PF1.ApplyDamage"),
+      name: game.i18n.localize("ffd20lnrw.ApplyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
       callback: (li) => ActorPF.applyDamage(li, 1),
     },
     {
-      name: game.i18n.localize("PF1.ApplyHealing"),
+      name: game.i18n.localize("ffd20lnrw.ApplyHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
       callback: (li) => ActorPF.applyDamage(li, -1),
     },
     {
-      name: game.i18n.localize("PF1.ApplyCriticalDamage"),
+      name: game.i18n.localize("ffd20lnrw.ApplyCriticalDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
       callback: (li) => ActorPF.applyDamage(li, 1, true),
     },
     {
-      name: game.i18n.localize("PF1.ApplyCriticalHealing"),
+      name: game.i18n.localize("ffd20lnrw.ApplyCriticalHealing"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
       callback: (li) => ActorPF.applyDamage(li, -1, true),
@@ -181,19 +181,19 @@ export const addChatMessageContextOptions = function (html, options) {
 const duplicateCombatantInitiativeDialog = function (combat, combatantId) {
   const combatant = combat.combatants.filter((o) => o._id === combatantId)[0];
   if (!combatant) {
-    ui.notifications.warn(game.i18n.localize("PF1.WarningNoCombatantFound"));
+    ui.notifications.warn(game.i18n.localize("ffd20lnrw.WarningNoCombatantFound"));
     return;
   }
 
   new Dialog({
-    title: `${game.i18n.localize("PF1.DuplicateInitiative")}: ${combatant.actor.name}`,
+    title: `${game.i18n.localize("ffd20lnrw.DuplicateInitiative")}: ${combatant.actor.name}`,
     content: `<div class="flexrow form-group">
-      <label>${game.i18n.localize("PF1.InitiativeOffset")}</label>
+      <label>${game.i18n.localize("ffd20lnrw.InitiativeOffset")}</label>
       <input type="number" name="initiativeOffset" value="0"/>
     </div>`,
     buttons: {
       confirm: {
-        label: game.i18n.localize("PF1.Confirm"),
+        label: game.i18n.localize("ffd20lnrw.Confirm"),
         callback: (html) => {
           const offset = parseFloat(html.find('input[name="initiativeOffset"]').val());
           const prevInitiative = combatant.initiative != null ? combatant.initiative : 0;
@@ -210,13 +210,13 @@ const duplicateCombatantInitiativeDialog = function (combat, combatantId) {
 };
 
 export const duplicateCombatantInitiative = function (combat, combatant, initiative) {
-  console.log(combatant);
+  console.debug("Duplicating combatant:", combatant);
   combat.createEmbeddedEntity("Combatant", mergeObject(combatant, { initiative: initiative }, { inplace: false }));
 };
 
 export const addCombatTrackerContextOptions = function (result) {
   result.push({
-    name: "PF1.DuplicateInitiative",
+    name: "ffd20lnrw.DuplicateInitiative",
     icon: '<i class="fas fa-dice-d20"></i>',
     callback: (li) => duplicateCombatantInitiativeDialog.call(this, this.combat, li.data("combatant-id")),
   });

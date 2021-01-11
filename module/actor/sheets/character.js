@@ -12,14 +12,14 @@ export class ActorSheetPFCharacter extends ActorSheetPF {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["pf1", "sheet", "actor", "character"],
+      classes: ["ffd20lnrw", "sheet", "actor", "character"],
       width: 800,
       height: 840,
     });
   }
 
   // static get name() {
-  //   return game.i18n.localize("PF1.ActorSheetPFCharacter");
+  //   return game.i18n.localize("ffd20lnrw.ActorSheetPFCharacter");
   // }
 
   /* -------------------------------------------- */
@@ -31,8 +31,8 @@ export class ActorSheetPFCharacter extends ActorSheetPF {
    * @type {String}
    */
   get template() {
-    if (!game.user.isGM && this.actor.limited) return "systems/pf1/templates/actors/limited-sheet.hbs";
-    return "systems/pf1/templates/actors/character-sheet.hbs";
+    if (!game.user.isGM && this.actor.limited) return "systems/ffd20lnrw/templates/actors/limited-sheet.hbs";
+    return "systems/ffd20lnrw/templates/actors/character-sheet.hbs";
   }
 
   /* -------------------------------------------- */
@@ -42,7 +42,7 @@ export class ActorSheetPFCharacter extends ActorSheetPF {
    */
   async getData() {
     const data = await super.getData();
-    const xpSettings = game.settings.get("pf1", "experienceConfig");
+    const xpSettings = game.settings.get("ffd20lnrw", "experienceConfig");
 
     // Experience Tracking
     data["disableExperience"] = xpSettings.disableExperienceTracking;

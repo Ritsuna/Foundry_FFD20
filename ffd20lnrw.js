@@ -5,7 +5,7 @@
  */
 
 // Import Modules
-import { PF1 } from "./module/config.js";
+import { ffd20lnrw } from "./module/config.js";
 import {
   registerSystemSettings,
   registerClientSettings,
@@ -35,7 +35,7 @@ import { updateChanges } from "./module/actor/update-changes.js";
 import { SemanticVersion } from "./module/semver.js";
 import { runUnitTests } from "./module/unit-tests.js";
 import { ChangeLogWindow } from "./module/apps/change-log.js";
-import { PF1_HelpBrowser } from "./module/apps/help-browser.js";
+import { ffd20lnrw_HelpBrowser } from "./module/apps/help-browser.js";
 import { addReachCallback } from "./module/misc/attack-reach.js";
 import * as chat from "./module/chat.js";
 import * as migrations from "./module/migration.js";
@@ -55,13 +55,13 @@ if (!String.prototype.format) {
 /* -------------------------------------------- */
 
 Hooks.once("init", async function () {
-  console.log(`PF1 | Initializing Pathfinder 1 System`);
+  console.log(`ffd20lnrw | Initializing Pathfinder 1 System`);
 
   // Register client settings
   registerClientSettings();
 
-  // Create a PF1 namespace within the game global
-  game.pf1 = {
+  // Create a ffd20lnrw namespace within the game global
+  game.ffd20lnrw = {
     ActorPF,
     DicePF,
     ItemPF,
@@ -81,7 +81,7 @@ Hooks.once("init", async function () {
   };
 
   // Record Configuration Values
-  CONFIG.PF1 = PF1;
+  CONFIG.ffd20lnrw = ffd20lnrw;
   CONFIG.Actor.entityClass = ActorPF;
   CONFIG.Item.entityClass = ItemPF;
   CONFIG.ui.compendium = CompendiumDirectoryPF;
@@ -99,16 +99,16 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("PF1", ActorSheetPFCharacter, { types: ["character"], makeDefault: true });
-  Actors.registerSheet("PF1", ActorSheetPFNPC, { types: ["npc"], makeDefault: true });
-  Actors.registerSheet("PF1", ActorSheetPFNPCLite, { types: ["npc"], makeDefault: false });
-  Actors.registerSheet("PF1", ActorSheetPFNPCLoot, { types: ["npc"], makeDefault: false });
+  Actors.registerSheet("ffd20lnrw", ActorSheetPFCharacter, { types: ["character"], makeDefault: true });
+  Actors.registerSheet("ffd20lnrw", ActorSheetPFNPC, { types: ["npc"], makeDefault: true });
+  Actors.registerSheet("ffd20lnrw", ActorSheetPFNPCLite, { types: ["npc"], makeDefault: false });
+  Actors.registerSheet("ffd20lnrw", ActorSheetPFNPCLoot, { types: ["npc"], makeDefault: false });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("PF1", ItemSheetPF, {
+  Items.registerSheet("ffd20lnrw", ItemSheetPF, {
     types: ["class", "feat", "spell", "consumable", "equipment", "loot", "weapon", "buff", "attack", "race"],
     makeDefault: true,
   });
-  Items.registerSheet("PF1", ItemSheetPF_Container, { types: ["container"], makeDefault: true });
+  Items.registerSheet("ffd20lnrw", ItemSheetPF_Container, { types: ["container"], makeDefault: true });
 
   initializeSocket();
 });
@@ -190,7 +190,7 @@ Hooks.once("setup", function () {
     }, {});
   };
   for (let o of toLocalize) {
-    CONFIG.PF1[o] = doLocalize(CONFIG.PF1[o]);
+    CONFIG.ffd20lnrw[o] = doLocalize(CONFIG.ffd20lnrw[o]);
   }
 });
 
@@ -202,7 +202,7 @@ Hooks.once("setup", function () {
 Hooks.once("ready", async function () {
   // Migrate data
   const NEEDS_MIGRATION_VERSION = "0.76.12";
-  let PREVIOUS_MIGRATION_VERSION = game.settings.get("pf1", "systemMigrationVersion");
+  let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20lnrw", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";
   } else if (
@@ -222,7 +222,7 @@ Hooks.once("ready", async function () {
   await migrateSystemSettings();
 
   // Create compendium browsers
-  game.pf1.compendiums = {
+  game.ffd20lnrw.compendiums = {
     spells: new CompendiumBrowser({ type: "spells" }),
     items: new CompendiumBrowser({ type: "items" }),
     bestiary: new CompendiumBrowser({ type: "bestiary" }),
@@ -232,15 +232,15 @@ Hooks.once("ready", async function () {
   };
 
   // Show changelog
-  if (!game.settings.get("pf1", "dontShowChangelog")) {
-    const v = game.settings.get("pf1", "changelogVersion") || "0.0.1";
+  if (!game.settings.get("ffd20lnrw", "dontShowChangelog")) {
+    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.1";
     const changelogVersion = SemanticVersion.fromString(v);
     const curVersion = SemanticVersion.fromString(game.system.data.version);
 
     if (curVersion.isHigherThan(changelogVersion)) {
       const app = new ChangeLogWindow(changelogVersion);
       app.render(true);
-      game.settings.set("pf1", "changelogVersion", curVersion.toString());
+      game.settings.set("ffd20lnrw", "changelogVersion", curVersion.toString());
     }
   }
 
@@ -260,7 +260,7 @@ Hooks.once("ready", async function () {
 
 Hooks.on("canvasInit", function () {
   // Extend Diagonal Measurement
-  canvas.grid.diagonalRule = game.settings.get("pf1", "diagonalMovement");
+  canvas.grid.diagonalRule = game.settings.get("ffd20lnrw", "diagonalMovement");
   SquareGrid.prototype.measureDistances = measureDistances;
 });
 
@@ -309,13 +309,13 @@ Hooks.on("renderChatMessage", (app, html, data) => {
   chat.hideGMSensitiveInfo(app, html, data);
 
   // Optionally collapse the content
-  if (game.settings.get("pf1", "autoCollapseItemCards")) html.find(".card-content").hide();
+  if (game.settings.get("ffd20lnrw", "autoCollapseItemCards")) html.find(".card-content").hide();
 
   // Optionally hide chat buttons
-  if (game.settings.get("pf1", "hideChatButtons")) html.find(".card-buttons").hide();
+  if (game.settings.get("ffd20lnrw", "hideChatButtons")) html.find(".card-buttons").hide();
 
   // Apply accessibility settings to chat message
-  chat.applyAccessibilitySettings(app, html, data, game.settings.get("pf1", "accessibilityConfig"));
+  chat.applyAccessibilitySettings(app, html, data, game.settings.get("ffd20lnrw", "accessibilityConfig"));
 
   // Alter chat card title color
   chat.addChatCardTitleGradient(app, html, data);
@@ -326,10 +326,10 @@ Hooks.on("renderChatMessage", (app, html, data) => {
 
 Hooks.on("renderChatPopout", (app, html, data) => {
   // Optionally collapse the content
-  if (game.settings.get("pf1", "autoCollapseItemCards")) html.find(".card-content").hide();
+  if (game.settings.get("ffd20lnrw", "autoCollapseItemCards")) html.find(".card-content").hide();
 
   // Optionally hide chat buttons
-  if (game.settings.get("pf1", "hideChatButtons")) html.find(".card-buttons").hide();
+  if (game.settings.get("ffd20lnrw", "hideChatButtons")) html.find(".card-buttons").hide();
 });
 
 Hooks.on("renderChatLog", (_, html) => ItemPF.chatListeners(html));
@@ -510,16 +510,16 @@ Hooks.on("hotbarDrop", (bar, data, slot) => {
 // Render TokenConfig
 Hooks.on("renderTokenConfig", async (app, html) => {
   // Add vision inputs
-  let newHTML = await renderTemplate("systems/pf1/templates/internal/token-config_vision.hbs", {
+  let newHTML = await renderTemplate("systems/ffd20lnrw/templates/internal/token-config_vision.hbs", {
     object: duplicate(app.object.data),
   });
   html.find('.tab[data-tab="vision"] > *:nth-child(2)').after(newHTML);
 
   // Add static size checkbox
   newHTML = `<div class="form-group"><label>${game.i18n.localize(
-    "PF1.StaticSize"
-  )}</label><input type="checkbox" name="flags.pf1.staticSize" data-dtype="Boolean"`;
-  if (getProperty(app.object.data, "flags.pf1.staticSize")) newHTML += " checked";
+    "ffd20lnrw.StaticSize"
+  )}</label><input type="checkbox" name="flags.ffd20lnrw.staticSize" data-dtype="Boolean"`;
+  if (getProperty(app.object.data, "flags.ffd20lnrw.staticSize")) newHTML += " checked";
   newHTML += "/></div>";
   html.find('.tab[data-tab="image"] > *:nth-child(3)').after(newHTML);
 
@@ -531,17 +531,17 @@ Hooks.on("renderTokenConfig", async (app, html) => {
 Hooks.on("renderSidebarTab", (app, html) => {
   if (app instanceof Settings) {
     // Add changelog button
-    let button = $(`<button>${game.i18n.localize("PF1.Changelog")}</button>`);
+    let button = $(`<button>${game.i18n.localize("ffd20lnrw.Changelog")}</button>`);
     html.find("#game-details").append(button);
     button.click(() => {
       new ChangeLogWindow().render(true);
     });
 
     // Add help button
-    button = $(`<button>${game.i18n.localize("PF1.Help.Label")}</button>`);
+    button = $(`<button>${game.i18n.localize("ffd20lnrw.Help.Label")}</button>`);
     html.find("#game-details").append(button);
     button.click(() => {
-      new PF1_HelpBrowser().openURL("systems/pf1/help/index.hbs");
+      new ffd20lnrw_HelpBrowser().openURL("systems/ffd20lnrw/help/index.hbs");
     });
   }
 });
@@ -556,7 +556,7 @@ Hooks.on("renderSidebarTab", (app, html) => {
 async function createItemMacro(item, slot) {
   const actor = getItemOwner(item);
   const command =
-    `game.pf1.rollItemMacro("${item.name}", {\n` +
+    `game.ffd20lnrw.rollItemMacro("${item.name}", {\n` +
     `  itemId: "${item._id}",\n` +
     `  itemType: "${item.type}",\n` +
     (actor != null ? `  actorId: "${actor._id}",\n` : "") +
@@ -569,7 +569,7 @@ async function createItemMacro(item, slot) {
         type: "script",
         img: item.img,
         command: command,
-        flags: { "pf1.itemMacro": true },
+        flags: { "ffd20lnrw.itemMacro": true },
       },
       { displaySheet: false }
     );
@@ -582,17 +582,17 @@ async function createSkillMacro(skillId, actorId, slot) {
   if (!actor) return;
 
   const skillInfo = actor.getSkillInfo(skillId);
-  const command = `game.pf1.rollSkillMacro("${actorId}", "${skillId}");`;
-  const name = game.i18n.localize("PF1.RollSkillMacroName").format(actor.name, skillInfo.name);
+  const command = `game.ffd20lnrw.rollSkillMacro("${actorId}", "${skillId}");`;
+  const name = game.i18n.localize("ffd20lnrw.RollSkillMacroName").format(actor.name, skillInfo.name);
   let macro = game.macros.entities.find((m) => m.name === name && m.command === command);
   if (!macro) {
     macro = await Macro.create(
       {
         name: name,
         type: "script",
-        img: "systems/pf1/icons/items/inventory/dice.jpg",
+        img: "systems/ffd20lnrw/icons/items/inventory/dice.jpg",
         command: command,
-        flags: { "pf1.skillMacro": true },
+        flags: { "ffd20lnrw.skillMacro": true },
       },
       { displaySheet: false }
     );
@@ -622,29 +622,29 @@ async function createMiscActorMacro(type, actorId, slot, altType = null) {
   }
 
   const command = altType
-    ? `game.pf1.rollActorAttributeMacro("${actorId}", "${type}", "${altType}");`
-    : `game.pf1.rollActorAttributeMacro("${actorId}", "${type}");`;
+    ? `game.ffd20lnrw.rollActorAttributeMacro("${actorId}", "${type}", "${altType}");`
+    : `game.ffd20lnrw.rollActorAttributeMacro("${actorId}", "${type}");`;
   let name, img;
   switch (type) {
     case "defenses":
-      name = game.i18n.localize("PF1.RollDefensesMacroName").format(actor.name);
-      img = "systems/pf1/icons/items/armor/shield-light-metal.png";
+      name = game.i18n.localize("ffd20lnrw.RollDefensesMacroName").format(actor.name);
+      img = "systems/ffd20lnrw/icons/items/armor/shield-light-metal.png";
       break;
     case "cmb":
-      name = game.i18n.localize("PF1.RollCMBMacroName").format(actor.name);
-      img = "systems/pf1/icons/feats/improved-grapple.jpg";
+      name = game.i18n.localize("ffd20lnrw.RollCMBMacroName").format(actor.name);
+      img = "systems/ffd20lnrw/icons/feats/improved-grapple.jpg";
       break;
     case "cl":
-      name = game.i18n.localize("PF1.RollCLMacroName").format(actor.name, altTypeLabel);
-      img = "systems/pf1/icons/spells/wind-grasp-eerie-3.jpg";
+      name = game.i18n.localize("ffd20lnrw.RollCLMacroName").format(actor.name, altTypeLabel);
+      img = "systems/ffd20lnrw/icons/spells/wind-grasp-eerie-3.jpg";
       break;
     case "concentration":
-      name = game.i18n.localize("PF1.RollConcentrationMacroName").format(actor.name, altTypeLabel);
-      img = "systems/pf1/icons/skills/light_01.jpg";
+      name = game.i18n.localize("ffd20lnrw.RollConcentrationMacroName").format(actor.name, altTypeLabel);
+      img = "systems/ffd20lnrw/icons/skills/light_01.jpg";
       break;
     case "bab":
-      name = game.i18n.localize("PF1.RollBABMacroName").format(actor.name);
-      img = "systems/pf1/icons/skills/yellow_08.jpg";
+      name = game.i18n.localize("ffd20lnrw.RollBABMacroName").format(actor.name);
+      img = "systems/ffd20lnrw/icons/skills/yellow_08.jpg";
       break;
   }
 
@@ -658,7 +658,7 @@ async function createMiscActorMacro(type, actorId, slot, altType = null) {
         type: "script",
         img: img,
         command: command,
-        flags: { "pf1.miscMacro": true },
+        flags: { "ffd20lnrw.miscMacro": true },
       },
       { displaySheet: false }
     );
@@ -677,7 +677,7 @@ async function createMiscActorMacro(type, actorId, slot, altType = null) {
 function rollItemMacro(itemName, { itemId, itemType, actorId } = {}) {
   let actor = getActorFromId(actorId);
   if (actor && !actor.hasPerm(game.user, "OWNER")) {
-    const msg = game.i18n.localize("PF1.ErrorNoActorPermission");
+    const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermission");
     console.warn(msg);
     return ui.notifications.warn(msg);
   }
@@ -689,7 +689,7 @@ function rollItemMacro(itemName, { itemId, itemType, actorId } = {}) {
       })
     : null;
   if (!item) {
-    const msg = game.i18n.localize("PF1.WarningNoItemOnActor").format(actor.name, itemName);
+    const msg = game.i18n.localize("ffd20lnrw.WarningNoItemOnActor").format(actor.name, itemName);
     console.warn(msg);
     return ui.notifications.warn(msg);
   }
@@ -704,7 +704,7 @@ function rollItemMacro(itemName, { itemId, itemType, actorId } = {}) {
 function rollSkillMacro(actorId, skillId) {
   const actor = getActorFromId(actorId);
   if (!actor) {
-    const msg = game.i18n.localize("PF1.ErrorActorNotFound").format(actorId);
+    const msg = game.i18n.localize("ffd20lnrw.ErrorActorNotFound").format(actorId);
     console.warn(msg);
     return ui.notifications.error(msg);
   }
@@ -719,8 +719,8 @@ function rollDefenses({ actorName = null, actorId = null } = {}) {
   const actor = ActorPF.getActiveActor({ actorName: actorName, actorId: actorId });
   if (!actor) {
     const msg = game.i18n
-      .localize("PF1.ErrorNoApplicableActorFoundForAction")
-      .format(game.i18n.localize("PF1.Action_RollDefenses"));
+      .localize("ffd20lnrw.ErrorNoApplicableActorFoundForAction")
+      .format(game.i18n.localize("ffd20lnrw.Action_RollDefenses"));
     console.warn(msg);
     return ui.notifications.warn(msg);
   }
@@ -731,7 +731,7 @@ function rollDefenses({ actorName = null, actorId = null } = {}) {
 function rollActorAttributeMacro(actorId, type, altType = null) {
   const actor = getActorFromId(actorId);
   if (!actor) {
-    const msg = game.i18n.localize("PF1.ErrorActorNotFound").format(actorId);
+    const msg = game.i18n.localize("ffd20lnrw.ErrorActorNotFound").format(actorId);
     console.error(msg);
     return ui.notifications.error(msg);
   }

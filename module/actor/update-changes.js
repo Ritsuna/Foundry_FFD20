@@ -38,7 +38,7 @@ export const updateChanges = async function ({ data = null } = {}) {
       source: null,
     },
   };
-  for (let [key, buffTarget] of Object.entries(CONFIG.PF1.buffTargets)) {
+  for (let [key, buffTarget] of Object.entries(CONFIG.ffd20lnrw.buffTargets)) {
     if (typeof buffTarget === "object") {
       // Add specific skills as targets
       if (key === "skill") {
@@ -46,13 +46,13 @@ export const updateChanges = async function ({ data = null } = {}) {
           if (skl == null) continue;
           if (!skl.subSkills) {
             changeData[`skill.${s}`] = {};
-            Object.keys(CONFIG.PF1.bonusModifiers).forEach((b) => {
+            Object.keys(CONFIG.ffd20lnrw.bonusModifiers).forEach((b) => {
               changeData[`skill.${s}`][b] = duplicate(changeDataTemplate);
             });
           } else {
             for (let s2 of Object.keys(skl.subSkills)) {
               changeData[`skill.${s}.subSkills.${s2}`] = {};
-              Object.keys(CONFIG.PF1.bonusModifiers).forEach((b) => {
+              Object.keys(CONFIG.ffd20lnrw.bonusModifiers).forEach((b) => {
                 changeData[`skill.${s}.subSkills.${s2}`][b] = duplicate(changeDataTemplate);
               });
             }
@@ -64,7 +64,7 @@ export const updateChanges = async function ({ data = null } = {}) {
         for (let subKey of Object.keys(buffTarget)) {
           if (subKey.startsWith("_")) continue;
           changeData[subKey] = {};
-          Object.keys(CONFIG.PF1.bonusModifiers).forEach((b) => {
+          Object.keys(CONFIG.ffd20lnrw.bonusModifiers).forEach((b) => {
             changeData[subKey][b] = duplicate(changeDataTemplate);
           });
         }
@@ -271,7 +271,7 @@ export const updateChanges = async function ({ data = null } = {}) {
             }
           }
         } catch (e) {
-          const msg = game.i18n.localize("PF1.ErrorItemFormula").format(change.source.name, this.name);
+          const msg = game.i18n.localize("ffd20lnrw.ErrorItemFormula").format(change.source.name, this.name);
           console.error(msg);
           ui.notifications.error(msg);
         }
@@ -337,11 +337,11 @@ export const updateChanges = async function ({ data = null } = {}) {
         Math.min(updateData["data.attributes.maxDexBonus"] || Number.POSITIVE_INFINITY, 3)
       );
       getSourceInfo(sourceInfo, "data.attributes.acp.total").negative.push({
-        name: game.i18n.localize("PF1.Encumbrance"),
+        name: game.i18n.localize("ffd20lnrw.Encumbrance"),
         value: 3,
       });
       getSourceInfo(sourceInfo, "data.attributes.maxDexBonus").negative.push({
-        name: game.i18n.localize("PF1.Encumbrance"),
+        name: game.i18n.localize("ffd20lnrw.Encumbrance"),
         value: 3,
       });
       break;
@@ -354,11 +354,11 @@ export const updateChanges = async function ({ data = null } = {}) {
         Math.min(updateData["data.attributes.maxDexBonus"] || Number.POSITIVE_INFINITY, 1)
       );
       getSourceInfo(sourceInfo, "data.attributes.acp.total").negative.push({
-        name: game.i18n.localize("PF1.Encumbrance"),
+        name: game.i18n.localize("ffd20lnrw.Encumbrance"),
         value: 6,
       });
       getSourceInfo(sourceInfo, "data.attributes.maxDexBonus").negative.push({
-        name: game.i18n.localize("PF1.Encumbrance"),
+        name: game.i18n.localize("ffd20lnrw.Encumbrance"),
         value: 1,
       });
       break;
@@ -410,24 +410,24 @@ export const updateChanges = async function ({ data = null } = {}) {
   {
     let armorItems = srcData1.items.filter((o) => o.type === "equipment");
     let reducedSpeed = false;
-    let sInfo = { name: "", value: game.i18n.localize("PF1.ReducedMovementSpeed") };
+    let sInfo = { name: "", value: game.i18n.localize("ffd20lnrw.ReducedMovementSpeed") };
     if (updateData["data.attributes.encumbrance.level"] >= 1 && !flags.noEncumbrance) {
       reducedSpeed = true;
-      sInfo.name = game.i18n.localize("PF1.Encumbrance");
+      sInfo.name = game.i18n.localize("ffd20lnrw.Encumbrance");
     }
     if (
       armorItems.filter((o) => getProperty(o.data, "equipmentSubtype") === "mediumArmor" && o.data.equipped).length &&
       !flags.mediumArmorFullSpeed
     ) {
       reducedSpeed = true;
-      sInfo.name = game.i18n.localize("PF1.EquipTypeMedium");
+      sInfo.name = game.i18n.localize("ffd20lnrw.EquipTypeMedium");
     }
     if (
       armorItems.filter((o) => getProperty(o.data, "equipmentSubtype") === "heavyArmor" && o.data.equipped).length &&
       !flags.heavyArmorFullSpeed
     ) {
       reducedSpeed = true;
-      sInfo.name = game.i18n.localize("PF1.EquipTypeHeavy");
+      sInfo.name = game.i18n.localize("ffd20lnrw.EquipTypeHeavy");
     }
     if (reducedSpeed) {
       for (let speedKey of Object.keys(srcData1.data.attributes.speed)) {
@@ -470,13 +470,13 @@ export const updateChanges = async function ({ data = null } = {}) {
       if (this.data.type === "npc") {
         const value = getProperty(spellbook, "cl.base") || 0;
         total += value;
-        getSourceInfo(sourceInfo, key).positive.push({ name: game.i18n.localize("PF1.Base"), value: value });
+        getSourceInfo(sourceInfo, key).positive.push({ name: game.i18n.localize("ffd20lnrw.Base"), value: value });
       }
       // Add HD
       if (spellbook.class === "_hd") {
         const value = getProperty(srcData1, "data.attributes.hd.total");
         total += value;
-        getSourceInfo(sourceInfo, key).positive.push({ name: game.i18n.localize("PF1.HitDie"), value: value });
+        getSourceInfo(sourceInfo, key).positive.push({ name: game.i18n.localize("ffd20lnrw.HitDie"), value: value });
       }
       // Add class levels
       else if (spellbook.class && rollData.classes[spellbook.class]) {
@@ -489,12 +489,12 @@ export const updateChanges = async function ({ data = null } = {}) {
       total += clBonus;
       if (clBonus > 0) {
         getSourceInfo(sourceInfo, key).positive.push({
-          name: game.i18n.localize("PF1.CasterLevelBonusFormula"),
+          name: game.i18n.localize("ffd20lnrw.CasterLevelBonusFormula"),
           value: clBonus,
         });
       } else if (clBonus < 0) {
         getSourceInfo(sourceInfo, key).negative.push({
-          name: game.i18n.localize("PF1.CasterLevelBonusFormula"),
+          name: game.i18n.localize("ffd20lnrw.CasterLevelBonusFormula"),
           value: clBonus,
         });
       }
@@ -502,7 +502,7 @@ export const updateChanges = async function ({ data = null } = {}) {
       if (rollData.attributes.energyDrain) {
         total = Math.max(0, total - rollData.attributes.energyDrain);
         getSourceInfo(sourceInfo, key).negative.push({
-          name: game.i18n.localize("PF1.CondTypeEnergyDrain"),
+          name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain"),
           value: -Math.abs(rollData.attributes.energyDrain),
         });
       }
@@ -600,7 +600,7 @@ export const updateChanges = async function ({ data = null } = {}) {
   // Apply health rounding
   for (let k of ["data.attributes.hp.max", "data.attributes.wounds.max", "data.attributes.vigor.max"]) {
     let value = getProperty(srcData1, k);
-    const healthConfig = game.settings.get("pf1", "healthConfig");
+    const healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
     const continuous = { discrete: false, continuous: true }[healthConfig.continuity];
     if (continuous) {
       const round = { up: Math.ceil, nearest: Math.round, down: Math.floor }[healthConfig.rounding];
@@ -731,7 +731,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
   const classes = items.filter((obj) => {
     return obj.type === "class";
   });
-  const useFractionalBaseBonuses = game.settings.get("pf1", "useFractionalBaseBonuses") === true;
+  const useFractionalBaseBonuses = game.settings.get("ffd20lnrw", "useFractionalBaseBonuses") === true;
 
   // Reset HD
   linkData(data, updateData, "data.attributes.hd.total", data1.details.level.value);
@@ -809,7 +809,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
 
       const v = updateData[k];
       if (v !== 0) {
-        getSourceInfo(sourceInfo, k).positive.push({ name: game.i18n.localize("PF1.Base"), value: updateData[k] });
+        getSourceInfo(sourceInfo, k).positive.push({ name: game.i18n.localize("ffd20lnrw.Base"), value: updateData[k] });
       }
     } else {
       linkData(
@@ -818,7 +818,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
         k,
         classes.reduce((cur, obj) => {
           const classType = getProperty(obj.data, "classType") || "base";
-          let formula = CONFIG.PF1.classSavingThrowFormulas[classType][obj.data.savingThrows[a].value];
+          let formula = CONFIG.ffd20lnrw.classSavingThrowFormulas[classType][obj.data.savingThrows[a].value];
           if (formula == null) formula = "0";
           const v = Math.floor(new Roll(formula, { level: obj.data.level }).roll().total);
 
@@ -866,7 +866,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
 
       const v = updateData[k];
       if (v !== 0) {
-        getSourceInfo(sourceInfo, k).positive.push({ name: game.i18n.localize("PF1.Base"), value: v });
+        getSourceInfo(sourceInfo, k).positive.push({ name: game.i18n.localize("ffd20lnrw.Base"), value: v });
       }
     } else {
       linkData(
@@ -875,7 +875,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
         k,
         classes.reduce((cur, obj) => {
           const formula =
-            CONFIG.PF1.classBABFormulas[obj.data.bab] != null ? CONFIG.PF1.classBABFormulas[obj.data.bab] : "0";
+            CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] != null ? CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] : "0";
           const v = new Roll(formula, { level: obj.data.level }).roll().total;
 
           if (v !== 0) {
@@ -1191,7 +1191,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
       return a.sort - b.sort;
     });
 
-  const healthConfig = game.settings.get("pf1", "healthConfig");
+  const healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
   const cls_options = this.data.type === "character" ? healthConfig.hitdice.PC : healthConfig.hitdice.NPC;
   const race_options = healthConfig.hitdice.Racial;
   const round = { up: Math.ceil, nearest: Math.round, down: Math.floor }[healthConfig.rounding];
@@ -1262,7 +1262,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.AbilityCon") },
+      source: { name: game.i18n.localize("ffd20lnrw.AbilityCon") },
     });
     changes.push({
       raw: mergeObject(
@@ -1275,7 +1275,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.AbilityCon") },
+      source: { name: game.i18n.localize("ffd20lnrw.AbilityCon") },
     });
   }
 
@@ -1296,7 +1296,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.Base") },
+      source: { name: game.i18n.localize("ffd20lnrw.Base") },
     });
   }
 
@@ -1309,7 +1309,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "@attributes.bab.total", target: "misc", subTarget: "cmb", modifier: "untypedPerm" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.BAB") },
+      source: { name: game.i18n.localize("ffd20lnrw.BAB") },
     });
     // Ability to CMB
     const abl = getProperty(data, "data.attributes.cmbAbility");
@@ -1320,7 +1320,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
           { formula: `@abilities.${abl}.mod`, target: "misc", subTarget: "cmb", modifier: "untypedPerm" },
           { inplace: false }
         ),
-        source: { name: CONFIG.PF1.abilities[abl] },
+        source: { name: CONFIG.ffd20lnrw.abilities[abl] },
       });
     }
     // Energy Drain to CMB
@@ -1330,7 +1330,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "-@attributes.energyDrain", target: "misc", subTarget: "cmb", modifier: "untypedPerm" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondTypeEnergyDrain") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain") },
     });
 
     // BAB to CMD
@@ -1340,7 +1340,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "@attributes.bab.total", target: "misc", subTarget: "cmd", modifier: "untypedPerm" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.BAB") },
+      source: { name: game.i18n.localize("ffd20lnrw.BAB") },
     });
     // Strength to CMD
     changes.push({
@@ -1349,7 +1349,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "@abilities.str.mod", target: "misc", subTarget: "cmd", modifier: "untypedPerm" },
         { inplace: false }
       ),
-      source: { name: CONFIG.PF1.abilities["str"] },
+      source: { name: CONFIG.ffd20lnrw.abilities["str"] },
     });
     // Energy Drain to CMD
     changes.push({
@@ -1358,7 +1358,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "-@attributes.energyDrain", target: "misc", subTarget: "cmd", modifier: "untyped" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondTypeEnergyDrain") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain") },
     });
   }
 
@@ -1379,7 +1379,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
           },
           { inplace: false }
         ),
-        source: { name: CONFIG.PF1.abilities[abl] },
+        source: { name: CONFIG.ffd20lnrw.abilities[abl] },
       });
     }
 
@@ -1391,7 +1391,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
           { formula: "-@attributes.acp.attackPenalty", target: "misc", subTarget: "init", modifier: "penalty" },
           { inplace: false }
         ),
-        source: { name: game.i18n.localize("PF1.ArmorCheckPenalty") },
+        source: { name: game.i18n.localize("ffd20lnrw.ArmorCheckPenalty") },
       });
     }
   }
@@ -1408,7 +1408,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
           { formula: `@abilities.${abl}.mod`, target: "savingThrows", subTarget: "fort", modifier: "untypedPerm" },
           { inplace: false }
         ),
-        source: { name: CONFIG.PF1.abilities[abl] },
+        source: { name: CONFIG.ffd20lnrw.abilities[abl] },
       });
     }
     // Ability Mod to Reflex
@@ -1420,7 +1420,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
           { formula: `@abilities.${abl}.mod`, target: "savingThrows", subTarget: "ref", modifier: "untypedPerm" },
           { inplace: false }
         ),
-        source: { name: CONFIG.PF1.abilities[abl] },
+        source: { name: CONFIG.ffd20lnrw.abilities[abl] },
       });
     }
     // Ability Mod to Will
@@ -1432,7 +1432,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
           { formula: `@abilities.${abl}.mod`, target: "savingThrows", subTarget: "will", modifier: "untypedPerm" },
           { inplace: false }
         ),
-        source: { name: CONFIG.PF1.abilities[abl] },
+        source: { name: CONFIG.ffd20lnrw.abilities[abl] },
       });
     }
     // Energy Drain
@@ -1447,7 +1447,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondTypeEnergyDrain") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain") },
     });
   }
   // Natural armor
@@ -1460,7 +1460,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { inplace: false }
       ),
       source: {
-        name: game.i18n.localize("PF1.BuffTarACNatural"),
+        name: game.i18n.localize("ffd20lnrw.BuffTarACNatural"),
       },
     });
   }
@@ -1494,7 +1494,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
   // Add fly bonuses or penalties based on maneuverability
   const flyKey = getProperty(data, "data.attributes.speed.fly.maneuverability");
   let flyValue = 0;
-  if (flyKey != null) flyValue = CONFIG.PF1.flyManeuverabilityValues[flyKey];
+  if (flyKey != null) flyValue = CONFIG.ffd20lnrw.flyManeuverabilityValues[flyKey];
   if (flyValue !== 0) {
     changes.push({
       raw: mergeObject(
@@ -1503,7 +1503,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { inplace: false }
       ),
       source: {
-        name: game.i18n.localize("PF1.FlyManeuverability"),
+        name: game.i18n.localize("ffd20lnrw.FlyManeuverability"),
       },
     });
   }
@@ -1521,7 +1521,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { inplace: false }
       ),
       source: {
-        name: game.i18n.localize("PF1.SpeedClimb"),
+        name: game.i18n.localize("ffd20lnrw.SpeedClimb"),
       },
     });
     changes.push({
@@ -1536,7 +1536,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { inplace: false }
       ),
       source: {
-        name: game.i18n.localize("PF1.SpeedSwim"),
+        name: game.i18n.localize("ffd20lnrw.SpeedSwim"),
       },
     });
   }
@@ -1548,7 +1548,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
     changes.push({
       raw: mergeObject(
         ItemChange.defaultData,
-        { formula: CONFIG.PF1.sizeMods[sizeKey].toString(), target: "ac", subTarget: "ac", modifier: "size" },
+        { formula: CONFIG.ffd20lnrw.sizeMods[sizeKey].toString(), target: "ac", subTarget: "ac", modifier: "size" },
         { inplace: false }
       ),
       source: {
@@ -1560,7 +1560,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
       raw: mergeObject(
         ItemChange.defaultData,
         {
-          formula: CONFIG.PF1.sizeStealthMods[sizeKey].toString(),
+          formula: CONFIG.ffd20lnrw.sizeStealthMods[sizeKey].toString(),
           target: "skill",
           subTarget: "skill.ste",
           modifier: "size",
@@ -1576,7 +1576,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
       raw: mergeObject(
         ItemChange.defaultData,
         {
-          formula: CONFIG.PF1.sizeFlyMods[sizeKey].toString(),
+          formula: CONFIG.ffd20lnrw.sizeFlyMods[sizeKey].toString(),
           target: "skill",
           subTarget: "skill.fly",
           modifier: "size",
@@ -1591,7 +1591,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
     changes.push({
       raw: mergeObject(
         ItemChange.defaultData,
-        { formula: CONFIG.PF1.sizeSpecialMods[sizeKey].toString(), target: "misc", subTarget: "cmb", modifier: "size" },
+        { formula: CONFIG.ffd20lnrw.sizeSpecialMods[sizeKey].toString(), target: "misc", subTarget: "cmb", modifier: "size" },
         { inplace: false }
       ),
       source: {
@@ -1602,7 +1602,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
     changes.push({
       raw: mergeObject(
         ItemChange.defaultData,
-        { formula: CONFIG.PF1.sizeSpecialMods[sizeKey].toString(), target: "misc", subTarget: "cmd", modifier: "size" },
+        { formula: CONFIG.ffd20lnrw.sizeSpecialMods[sizeKey].toString(), target: "misc", subTarget: "cmd", modifier: "size" },
         { inplace: false }
       ),
       source: {
@@ -1623,24 +1623,24 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "ac", subTarget: "ac", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondBlind") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondBlind") },
         });
         flags["loseDexToAC"] = true;
         getSourceInfo(sourceInfo, "data.attributes.ac.normal.total").negative.push({
-          name: game.i18n.localize("PF1.CondBlind"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondBlind"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         getSourceInfo(sourceInfo, "data.attributes.ac.touch.total").negative.push({
-          name: game.i18n.localize("PF1.CondBlind"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondBlind"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         getSourceInfo(sourceInfo, "data.attributes.cmd.total").negative.push({
-          name: game.i18n.localize("PF1.CondBlind"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondBlind"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         getSourceInfo(sourceInfo, "data.attributes.cmd.flatFootedTotal").negative.push({
-          name: game.i18n.localize("PF1.CondBlind"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondBlind"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         break;
       case "dazzled":
@@ -1650,7 +1650,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-1", target: "attack", subTarget: "attack", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondDazzled") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondDazzled") },
         });
         break;
       case "deaf":
@@ -1660,7 +1660,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-4", target: "misc", subTarget: "init", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondDeaf") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondDeaf") },
         });
         break;
       case "entangled":
@@ -1670,7 +1670,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-4", target: "ability", subTarget: "dex", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondEntangled") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondEntangled") },
         });
         changes.push({
           raw: mergeObject(
@@ -1678,7 +1678,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "attack", subTarget: "attack", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondEntangled") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondEntangled") },
         });
         break;
       case "grappled":
@@ -1688,7 +1688,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-4", target: "ability", subTarget: "dex", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondGrappled") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondGrappled") },
         });
         changes.push({
           raw: mergeObject(
@@ -1696,7 +1696,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "attack", subTarget: "attack", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondGrappled") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondGrappled") },
         });
         changes.push({
           raw: mergeObject(
@@ -1704,41 +1704,41 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "misc", subTarget: "cmb", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondGrappled") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondGrappled") },
         });
         break;
       case "helpless":
         flags["noDex"] = true;
         getSourceInfo(sourceInfo, "data.abilities.dex.total").negative.push({
-          name: game.i18n.localize("PF1.CondHelpless"),
-          value: game.i18n.localize("PF1.ChangeFlagNoDex"),
+          name: game.i18n.localize("ffd20lnrw.CondHelpless"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagNoDex"),
         });
         break;
       case "paralyzed":
         flags["noDex"] = true;
         flags["noStr"] = true;
         getSourceInfo(sourceInfo, "data.abilities.dex.total").negative.push({
-          name: game.i18n.localize("PF1.CondParalyzed"),
-          value: game.i18n.localize("PF1.ChangeFlagNoDex"),
+          name: game.i18n.localize("ffd20lnrw.CondParalyzed"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagNoDex"),
         });
         getSourceInfo(sourceInfo, "data.abilities.str.total").negative.push({
-          name: game.i18n.localize("PF1.CondParalyzed"),
-          value: game.i18n.localize("PF1.ChangeFlagNoStr"),
+          name: game.i18n.localize("ffd20lnrw.CondParalyzed"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagNoStr"),
         });
         break;
       case "pinned":
         flags["loseDexToAC"] = true;
         getSourceInfo(sourceInfo, "data.attributes.ac.normal.total").negative.push({
-          name: game.i18n.localize("PF1.CondPinned"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondPinned"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         getSourceInfo(sourceInfo, "data.attributes.ac.touch.total").negative.push({
-          name: game.i18n.localize("PF1.CondPinned"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondPinned"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         getSourceInfo(sourceInfo, "data.attributes.cmd.total").negative.push({
-          name: game.i18n.localize("PF1.CondPinned"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondPinned"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         break;
       case "fear":
@@ -1748,7 +1748,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "attack", subTarget: "attack", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondFear") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondFear") },
         });
         changes.push({
           raw: mergeObject(
@@ -1756,7 +1756,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "savingThrows", subTarget: "allSavingThrows", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondFear") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondFear") },
         });
         changes.push({
           raw: mergeObject(
@@ -1764,7 +1764,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "skills", subTarget: "skills", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondFear") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondFear") },
         });
         changes.push({
           raw: mergeObject(
@@ -1772,7 +1772,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "abilityChecks", subTarget: "allChecks", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondFear") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondFear") },
         });
         break;
       case "sickened":
@@ -1782,7 +1782,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "attack", subTarget: "attack", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondSickened") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondSickened") },
         });
         changes.push({
           raw: mergeObject(
@@ -1790,7 +1790,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "damage", subTarget: "wdamage", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondSickened") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondSickened") },
         });
         changes.push({
           raw: mergeObject(
@@ -1798,7 +1798,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "savingThrows", subTarget: "allSavingThrows", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondSickened") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondSickened") },
         });
         changes.push({
           raw: mergeObject(
@@ -1806,7 +1806,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "skills", subTarget: "skills", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondSickened") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondSickened") },
         });
         changes.push({
           raw: mergeObject(
@@ -1814,7 +1814,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "abilityChecks", subTarget: "allChecks", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondSickened") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondSickened") },
         });
         break;
       case "stunned":
@@ -1824,20 +1824,20 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
             { formula: "-2", target: "ac", subTarget: "ac", modifier: "penalty" },
             { inplace: false }
           ),
-          source: { name: game.i18n.localize("PF1.CondStunned") },
+          source: { name: game.i18n.localize("ffd20lnrw.CondStunned") },
         });
         flags["loseDexToAC"] = true;
         getSourceInfo(sourceInfo, "data.attributes.ac.normal.total").negative.push({
-          name: game.i18n.localize("PF1.CondStunned"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondStunned"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         getSourceInfo(sourceInfo, "data.attributes.ac.touch.total").negative.push({
-          name: game.i18n.localize("PF1.CondStunned"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondStunned"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         getSourceInfo(sourceInfo, "data.attributes.cmd.total").negative.push({
-          name: game.i18n.localize("PF1.CondStunned"),
-          value: game.i18n.localize("PF1.ChangeFlagLoseDexToAC"),
+          name: game.i18n.localize("ffd20lnrw.CondStunned"),
+          value: game.i18n.localize("ffd20lnrw.ChangeFlagLoseDexToAC"),
         });
         break;
     }
@@ -1851,7 +1851,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "-6", target: "ability", subTarget: "str", modifier: "penalty" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondExhausted") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondExhausted") },
     });
     changes.push({
       raw: mergeObject(
@@ -1859,7 +1859,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "-6", target: "ability", subTarget: "dex", modifier: "penalty" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondExhausted") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondExhausted") },
     });
   } else if (data.data.attributes.conditions.fatigued) {
     changes.push({
@@ -1868,7 +1868,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "-2", target: "ability", subTarget: "str", modifier: "penalty" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondFatigued") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondFatigued") },
     });
     changes.push({
       raw: mergeObject(
@@ -1876,7 +1876,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { formula: "-2", target: "ability", subTarget: "dex", modifier: "penalty" },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondFatigued") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondFatigued") },
     });
   }
 
@@ -1894,7 +1894,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondTypeEnergyDrain") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain") },
     });
     changes.push({
       raw: mergeObject(
@@ -1908,7 +1908,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         },
         { inplace: false }
       ),
-      source: { name: game.i18n.localize("PF1.CondTypeEnergyDrain") },
+      source: { name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain") },
     });
   }
 };
@@ -2415,8 +2415,8 @@ const _updateSimpleAttributes = function (updateData, data) {
         linkData(data, updateData, "data.attributes.sr.total", roll.total);
       } catch (e) {
         const msg = game.i18n
-          .localize("PF1.ErrorActorFormula")
-          .format(game.i18n.localize("PF1.SpellResistance"), this.name);
+          .localize("ffd20lnrw.ErrorActorFormula")
+          .format(game.i18n.localize("ffd20lnrw.SpellResistance"), this.name);
         console.error(msg);
         ui.notifications.error(msg);
         linkData(data, updateData, "data.attributes.sr.total", 0);

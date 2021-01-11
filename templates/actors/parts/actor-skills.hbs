@@ -24,25 +24,25 @@
         @skills.{{s}}.subSkills.{{b}}.rank : {{subSkill.rank}}<br>
 
         {{#if subSkill.sourceDetails.length}}
-        <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+        <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
         {{#each subSkill.sourceDetails as |src|}}
         {{src.name}}: {{src.value}}<br/>
         {{/each}}
         {{/if}}
       </span>
       <div class="rollable"><img src="../../icons/dice/d20black.svg"></div>
-      <input type="text" name="data.skills.{{s}}.subSkills.{{b}}.name" value="{{subSkill.name}}" placeholder="{{localize "PF1.SkillName"}}"/>
+      <input type="text" name="data.skills.{{s}}.subSkills.{{b}}.name" value="{{subSkill.name}}" placeholder="{{localize "ffd20lnrw.SkillName"}}"/>
     </div>
-    <span class="text-box skill-mod" title="{{localize "PF1.SkillModTooltip"}}">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
-    <span class="text-box skill-rank" name="data.skills.{{s}}.subSkills.{{b}}.rank" data-dtype="Number" title="{{localize "PF1.SkillRankPlural"}}" data-placeholder="{{localize "PF1.Rank"}}">{{#if subSkill.rank}}{{subSkill.rank}}{{/if}}</span>
+    <span class="text-box skill-mod" title="{{localize "ffd20lnrw.SkillModTooltip"}}">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
+    <span class="text-box skill-rank" name="data.skills.{{s}}.subSkills.{{b}}.rank" data-dtype="Number" title="{{localize "ffd20lnrw.SkillRankPlural"}}" data-placeholder="{{localize "ffd20lnrw.Rank"}}">{{#if subSkill.rank}}{{subSkill.rank}}{{/if}}</span>
     <label class="checkbox skill-cs">
-      <abbr title="{{localize "PF1.CSTooltip"}}">{{localize "PF1.CS"}}</abbr> <input type="checkbox" disabled {{checked subSkill.cs}}/>
+      <abbr title="{{localize "ffd20lnrw.CSTooltip"}}">{{localize "ffd20lnrw.CS"}}</abbr> <input type="checkbox" disabled {{checked subSkill.cs}}/>
     </label>
     <label class="checkbox skill-acp">
-      <abbr title="{{localize "PF1.ACPTooltip"}}">{{localize "PF1.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.acp" {{checked subSkill.acp}}/>
+      <abbr title="{{localize "ffd20lnrw.ACPTooltip"}}">{{localize "ffd20lnrw.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.acp" {{checked subSkill.acp}}/>
     </label>
     <label class="checkbox skill-rt">
-      <abbr title="{{localize "PF1.RTTooltip"}}">{{localize "PF1.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.rt" {{checked subSkill.rt}}/>
+      <abbr title="{{localize "ffd20lnrw.RTTooltip"}}">{{localize "ffd20lnrw.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.rt" {{checked subSkill.rt}}/>
     </label>
     <div class="form-group skill-ability">
       <select class="skill-ability" name="data.skills.{{s}}.subSkills.{{b}}.ability" data-dtype="String">
@@ -66,7 +66,7 @@
         @skills.{{s}}.rank : {{skill.rank}}<br>
 
         {{#if skill.sourceDetails.length}}
-        <br/><br/>{{localize "PF1.FromSources"}}:<br/>
+        <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
         {{#each skill.sourceDetails as |src|}}
         {{src.name}}: {{src.value}}<br/>
         {{/each}}
@@ -74,7 +74,7 @@
       </span>
       <div class="rollable"><img src="../../icons/dice/d20black.svg"></div>
       {{#if skill.custom}}
-      <input type="text" name="data.skills.{{s}}.name" value="{{skill.name}}" placeholder="{{localize "PF1.Name"}}"/>
+      <input type="text" name="data.skills.{{s}}.name" value="{{skill.name}}" placeholder="{{localize "ffd20lnrw.Name"}}"/>
       {{else}}
       {{#if compendiumEntry}}
       <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}">
@@ -85,16 +85,16 @@
       {{/if}}
       {{/if}}
     </div>
-    <span class="text-box skill-mod" title="{{localize "PF1.SkillModTooltip"}}">{{numberFormat skill.mod decimals=0 sign=true}}</span>
-    <span class="text-box skill-rank" name="data.skills.{{s}}.rank" data-dtype="Number" title="{{localize "PF1.SkillRankPlural"}}" data-placeholder="{{localize "PF1.Rank"}}">{{#if skill.rank}}{{skill.rank}}{{/if}}</span>
+    <span class="text-box skill-mod" title="{{localize "ffd20lnrw.SkillModTooltip"}}">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+    <span class="text-box skill-rank" name="data.skills.{{s}}.rank" data-dtype="Number" title="{{localize "ffd20lnrw.SkillRankPlural"}}" data-placeholder="{{localize "ffd20lnrw.Rank"}}">{{#if skill.rank}}{{skill.rank}}{{/if}}</span>
     <label class="checkbox skill-cs">
-      <abbr title="{{localize "PF1.CSTooltip"}}">{{localize "PF1.CS"}}</abbr> <input type="checkbox" disabled {{checked skill.cs}}/>
+      <abbr title="{{localize "ffd20lnrw.CSTooltip"}}">{{localize "ffd20lnrw.CS"}}</abbr> <input type="checkbox" disabled {{checked skill.cs}}/>
     </label>
     <label class="checkbox skill-acp">
-      <abbr title="{{localize "PF1.ACPTooltip"}}">{{localize "PF1.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.acp" {{checked skill.acp}}/>
+      <abbr title="{{localize "ffd20lnrw.ACPTooltip"}}">{{localize "ffd20lnrw.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.acp" {{checked skill.acp}}/>
     </label>
     <label class="checkbox skill-rt">
-      <abbr title="{{localize "PF1.RTTooltip"}}">{{localize "PF1.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.rt" {{checked skill.rt}}/>
+      <abbr title="{{localize "ffd20lnrw.RTTooltip"}}">{{localize "ffd20lnrw.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.rt" {{checked skill.rt}}/>
     </label>
     <div class="form-group skill-ability">
       <select class="skill-ability" name="data.skills.{{s}}.ability" data-dtype="String">

@@ -1,5 +1,5 @@
 export function initializeSocket() {
-  game.socket.on("system.pf1", async (args) => {
+  game.socket.on("system.ffd20lnrw", async (args) => {
     switch (args.eventType) {
       case "cleanItemLink": {
         // Get actor

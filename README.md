@@ -11,7 +11,7 @@ while the game content is distributed under the Open Gaming License v1.0a.
 Install the following game system in FoundryVTT's game system tab: [https://github.com/Ritsuna/FFd20-foundry-LNRW/raw/master/system.json](https://github.com/Ritsuna/FFd20-foundry-LNRW/raw/master/system.json)
 
 If you wish to manually install the system, you must clone or extract it into
-the Data/systems/pf1 folder. You may do this by cloning the repository or
+the Data/systems/ffd20lnrw folder. You may do this by cloning the repository or
 downloading a zip archive from the [Releases Page](https://github.com/Ritsuna/FFd20-foundry-LNRW/releases).
 
 ## Building

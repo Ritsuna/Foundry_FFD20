@@ -1,9 +1,9 @@
 import { degtorad } from "./lib.js";
 
-// Use 90 degrees cone in PF1 style
+// Use 90 degrees cone in ffd20lnrw style
 const TemplateLayer__onDragLeftStart = TemplateLayer.prototype._onDragLeftStart;
 TemplateLayer.prototype._onDragLeftStart = function (event) {
-  if (!game.settings.get("pf1", "measureStyle")) return TemplateLayer__onDragLeftStart.call(this, event);
+  if (!game.settings.get("ffd20lnrw", "measureStyle")) return TemplateLayer__onDragLeftStart.call(this, event);
 
   PlaceablesLayer.prototype._onDragLeftStart.call(this, event);
 
@@ -38,7 +38,7 @@ TemplateLayer.prototype._onDragLeftStart = function (event) {
 
 const TemplateLayer__onDragLeftMove = TemplateLayer.prototype._onDragLeftMove;
 TemplateLayer.prototype._onDragLeftMove = function (event) {
-  if (!game.settings.get("pf1", "measureStyle")) return TemplateLayer__onDragLeftMove.call(this, event);
+  if (!game.settings.get("ffd20lnrw", "measureStyle")) return TemplateLayer__onDragLeftMove.call(this, event);
 
   PlaceablesLayer.prototype._onDragLeftMove.call(this, event);
   if (event.data.createState >= 1) {
@@ -72,10 +72,10 @@ TemplateLayer.prototype._onDragLeftMove = function (event) {
   }
 };
 
-// Highlight grid in PF1 style
+// Highlight grid in ffd20lnrw style
 const MeasuredTemplate_highlightGrid = MeasuredTemplate.prototype.highlightGrid;
 MeasuredTemplate.prototype.highlightGrid = function () {
-  if (!game.settings.get("pf1", "measureStyle") || !["circle", "cone"].includes(this.data.t))
+  if (!game.settings.get("ffd20lnrw", "measureStyle") || !["circle", "cone"].includes(this.data.t))
     return MeasuredTemplate_highlightGrid.call(this);
 
   const grid = canvas.grid,

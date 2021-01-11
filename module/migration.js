@@ -9,11 +9,11 @@ import { ItemChange } from "./item/components/change.js";
  */
 export const migrateWorld = async function () {
   if (!game.user.isGM) {
-    const msg = game.i18n.localize("PF1.ErrorUnauthorizedAction");
+    const msg = game.i18n.localize("ffd20lnrw.ErrorUnauthorizedAction");
     console.error(msg);
     return ui.notifications.error(msg);
   }
-  ui.notifications.info(`Applying PF1 System Migration for version ${game.system.data.version}. Please stand by.`);
+  ui.notifications.info(`Applying ffd20lnrw System Migration for version ${game.system.data.version}. Please stand by.`);
 
   await _migrateWorldSettings();
 
@@ -53,7 +53,7 @@ export const migrateWorld = async function () {
   // Migrate World Compendium Packs
   const packs = game.packs.filter((p) => {
     return (
-      (["world", "pf1"].includes(p.metadata.package) || p.metadata.system === "pf1") &&
+      (["world", "ffd20lnrw"].includes(p.metadata.package) || p.metadata.system === "ffd20lnrw") &&
       ["Actor", "Item", "Scene"].includes(p.metadata.entity) &&
       !p.locked
     );
@@ -63,8 +63,8 @@ export const migrateWorld = async function () {
   }
 
   // Set the migration as complete
-  game.settings.set("pf1", "systemMigrationVersion", game.system.data.version);
-  ui.notifications.info(`PF1 System Migration to version ${game.system.data.version} succeeded!`);
+  game.settings.set("ffd20lnrw", "systemMigrationVersion", game.system.data.version);
+  ui.notifications.info(`ffd20lnrw System Migration to version ${game.system.data.version} succeeded!`);
 };
 
 /* -------------------------------------------- */
@@ -104,14 +104,14 @@ export const migrateCompendium = async function (pack) {
  * Migrates world settings.
  */
 const _migrateWorldSettings = async function () {
-  const oldXPTrack = game.settings.get("pf1", "experienceRate");
+  const oldXPTrack = game.settings.get("ffd20lnrw", "experienceRate");
   if (oldXPTrack !== "" && oldXPTrack != null) {
     // Set new config style
-    const config = game.settings.get("pf1", "experienceConfig") || ExperienceConfig.defaultSettings;
+    const config = game.settings.get("ffd20lnrw", "experienceConfig") || ExperienceConfig.defaultSettings;
     config.track = oldXPTrack;
-    await game.settings.set("pf1", "experienceConfig", config);
+    await game.settings.set("ffd20lnrw", "experienceConfig", config);
     // Remove old config style
-    await game.settings.set("pf1", "experienceRate", "");
+    await game.settings.set("ffd20lnrw", "experienceRate", "");
   }
 };
 
@@ -246,13 +246,13 @@ export const migrateSceneData = async function (scene) {
  */
 const _migrateActorTraits = function (actor, updateData) {
   if (!actor.data.traits) return;
-  const dt = invertObject(CONFIG.pf1.damageTypes);
+  const dt = invertObject(CONFIG.ffd20lnrw.damageTypes);
   const map = {
     dr: dt,
     di: dt,
     dv: dt,
-    ci: invertObject(CONFIG.pf1.conditionTypes),
-    languages: invertObject(CONFIG.pf1.languages),
+    ci: invertObject(CONFIG.ffd20lnrw.conditionTypes),
+    languages: invertObject(CONFIG.ffd20lnrw.languages),
   };
   for (let [t, choices] of Object.entries(map)) {
     const trait = actor.data.traits[t];
@@ -729,7 +729,7 @@ const _migrateUnchainedActionEconomy = function (ent, updateData) {
   if (unchainedAction && unchainedAction.type) return;
 
   // Create unchained action economy data
-  if (CONFIG.PF1.abilityActivationTypes_unchained[curAction.type] != null) {
+  if (CONFIG.ffd20lnrw.abilityActivationTypes_unchained[curAction.type] != null) {
     updateData["data.unchainedAction.activation.cost"] = curAction.cost;
     updateData["data.unchainedAction.activation.type"] = curAction.type;
   }
@@ -792,7 +792,7 @@ const _migrateActorTokenVision = function (ent, updateData) {
   if (!vision) return;
 
   updateData["data.attributes.-=vision"] = null;
-  updateData["token.flags.pf1.lowLightVision"] = vision.lowLight;
+  updateData["token.flags.ffd20lnrw.lowLightVision"] = vision.lowLight;
   if (!getProperty(ent.data, "token.brightSight")) updateData["token.brightSight"] = vision.darkvision;
 };
 
@@ -861,7 +861,7 @@ const _migrateActorInitAbility = function (ent, updateData) {
 const migrateTokenVision = function (token, updateData) {
   if (!token.actor) return;
 
-  setProperty(updateData, "flags.pf1.lowLightVision", getProperty(token.actor.data, "token.flags.pf1.lowLightVision"));
+  setProperty(updateData, "flags.ffd20lnrw.lowLightVision", getProperty(token.actor.data, "token.flags.ffd20lnrw.lowLightVision"));
   setProperty(updateData, "brightSight", getProperty(token.actor.data, "token.brightSight"));
 };
 
@@ -874,7 +874,7 @@ const migrateTokenVision = function (token, updateData) {
 const _migrateCastTime = function (item, updateData) {
   const value = getProperty(item.data, "time.value");
   if (!value) return;
-  const ATS = invertObject(CONFIG.pf1.abilityActivationTypes);
+  const ATS = invertObject(CONFIG.ffd20lnrw.abilityActivationTypes);
   let match = value.match(/([\d]+\s)?([\w\s]+)/);
   if (!match) return;
   let type = ATS[match[2]] || "none";
@@ -914,7 +914,7 @@ const _migrateDamage = function (item, updateData) {
  * @private
  */
 const _migrateDuration = function (item, updateData) {
-  const TIME = invertObject(CONFIG.pf1.timePeriods);
+  const TIME = invertObject(CONFIG.ffd20lnrw.timePeriods);
   const dur = item.data.duration;
   if (dur && dur.value && !dur.units) {
     let match = dur.value.match(/([\d]+\s)?([\w\s]+)/);
@@ -1017,7 +1017,7 @@ const _migrateTarget = function (item, updateData) {
   if (target.value && !Number.isNumeric(target.value)) {
     // Target Type
     let type = null;
-    for (let t of Object.keys(CONFIG.pf1.targetTypes)) {
+    for (let t of Object.keys(CONFIG.ffd20lnrw.targetTypes)) {
       let rgx = new RegExp(t, "i");
       if (rgx.test(target.value)) {
         type = t;
@@ -1136,7 +1136,7 @@ const _migrateWeaponProperties = function (item, updateData) {
   // Map weapon property strings to boolean flags
   const props = item.data.properties;
   if (props.value) {
-    const labels = invertObject(CONFIG.pf1.weaponProperties);
+    const labels = invertObject(CONFIG.ffd20lnrw.weaponProperties);
     for (let k of props.value.split(",").map((p) => p.trim())) {
       if (labels[k]) updateData[`data.properties.${labels[k]}`] = true;
     }

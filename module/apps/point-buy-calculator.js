@@ -3,7 +3,7 @@ export class PointBuyCalculator extends FormApplication {
     super(...args);
 
     this.abilities = [];
-    for (let [k, name] of Object.entries(CONFIG.PF1.abilities)) {
+    for (let [k, name] of Object.entries(CONFIG.ffd20lnrw.abilities)) {
       this.abilities.push({
         key: k,
         name: name,
@@ -15,9 +15,9 @@ export class PointBuyCalculator extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "pointbuy-calculator",
-      classes: ["pf1", "pointbuy-calculator"],
+      classes: ["ffd20lnrw", "pointbuy-calculator"],
       title: "Point Buy Calculator",
-      template: "systems/pf1/templates/apps/pointbuy-calculator.hbs",
+      template: "systems/ffd20lnrw/templates/apps/pointbuy-calculator.hbs",
       width: 320,
       height: "auto",
       closeOnSubmit: false,
@@ -42,7 +42,7 @@ export class PointBuyCalculator extends FormApplication {
     let result = 0;
 
     for (let a of this.abilities) {
-      result += CONFIG.PF1.abilityCost[a.value];
+      result += CONFIG.ffd20lnrw.abilityCost[a.value];
     }
     return result;
   }

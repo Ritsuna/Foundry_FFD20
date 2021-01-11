@@ -2,17 +2,17 @@
 
     {{!-- NPC Sheet Navigation --}}
     <nav class="sheet-navigation tabs" data-group="primary">
-      <a class="item active" data-tab="summary">{{ localize "PF1.Summary" }}</a>
-      <a class="item" data-tab="attributes">{{ localize "PF1.Attributes" }}</a>
-      <a class="item" data-tab="combat">{{ localize "PF1.Combat" }}</a>
-      <a class="item" data-tab="inventory">{{ localize "PF1.Inventory" }}</a>
-      <a class="item" data-tab="feats">{{ localize "PF1.Features" }}</a>
-      <a class="item" data-tab="skills">{{ localize "PF1.Skills" }}</a>
-      <a class="item" data-tab="buffs">{{ localize "PF1.Buffs" }}</a>
-      {{#if usesAnySpellbook}}<a class="item" data-tab="spellbook">{{ localize "PF1.Spells" }}</a>{{/if}}
-      <a class="item" data-tab="biography">{{ localize "PF1.Biography" }}</a>
-      <a class="item" data-tab="notes">{{ localize "PF1.Notes" }}</a>
-      <a class="item" data-tab="settings">{{ localize "PF1.Settings" }}</a>
+      <a class="item active" data-tab="summary">{{ localize "ffd20lnrw.Summary" }}</a>
+      <a class="item" data-tab="attributes">{{ localize "ffd20lnrw.Attributes" }}</a>
+      <a class="item" data-tab="combat">{{ localize "ffd20lnrw.Combat" }}</a>
+      <a class="item" data-tab="inventory">{{ localize "ffd20lnrw.Inventory" }}</a>
+      <a class="item" data-tab="feats">{{ localize "ffd20lnrw.Features" }}</a>
+      <a class="item" data-tab="skills">{{ localize "ffd20lnrw.Skills" }}</a>
+      <a class="item" data-tab="buffs">{{ localize "ffd20lnrw.Buffs" }}</a>
+      {{#if usesAnySpellbook}}<a class="item" data-tab="spellbook">{{ localize "ffd20lnrw.Spells" }}</a>{{/if}}
+      <a class="item" data-tab="biography">{{ localize "ffd20lnrw.Biography" }}</a>
+      <a class="item" data-tab="notes">{{ localize "ffd20lnrw.Notes" }}</a>
+      <a class="item" data-tab="settings">{{ localize "ffd20lnrw.Settings" }}</a>
     </nav>
 
     {{!-- NPC Sheet Body --}}
@@ -21,43 +21,43 @@
       {{!-- Details --}}
       <div class="tab summary flexcol" data-group="primary" data-tab="summary">
         <div class="header-summary flexcol">
-          {{> "systems/pf1/templates/actors/parts/actor-summary.hbs"}}
+          {{> "systems/ffd20lnrw/templates/actors/parts/actor-summary.hbs"}}
         </div>
       </div>
 
       <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
-        {{> "systems/pf1/templates/actors/parts/actor-attributes.hbs"}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-attributes.hbs"}}
       </div>
 
       {{!-- Combat Tab --}}
       <div class="tab combat flexcol" data-group="primary" data-tab="combat">
-        {{> "systems/pf1/templates/actors/parts/actor-combat.hbs" sections=attacks}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-combat.hbs" sections=attacks}}
       </div>
 
       {{!-- Inventory Tab --}}
       <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
-        {{> "systems/pf1/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
       </div>
 
       {{!-- Features Tab --}}
       <div class="tab features flexcol" data-group="primary" data-tab="feats">
-        {{> "systems/pf1/templates/actors/parts/actor-features.hbs" sections=features}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-features.hbs" sections=features}}
       </div>
 
       {{!-- Skills Tab --}}
       <div class="tab skills flexcol" data-group="primary" data-tab="skills">
-        {{> "systems/pf1/templates/actors/parts/actor-skills-front.hbs"}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-skills-front.hbs"}}
       </div>
 
       {{!-- Buffs Tab --}}
       <div class="tab buffs flexcol" data-group="primary" data-tab="buffs">
-        {{> "systems/pf1/templates/actors/parts/actor-buffs.hbs" sections=buffs}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-buffs.hbs" sections=buffs}}
       </div>
 
       {{!-- Spellbook Tab --}}
       {{#if usesAnySpellbook}}
       <div class="tab spellbook flexcol" data-group="primary" data-tab="spellbook">
-        {{> "systems/pf1/templates/actors/parts/actor-spellbook-front.hbs"}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-spellbook-front.hbs"}}
       </div>
       {{/if}}
 
@@ -81,7 +81,7 @@
 
       {{!-- Settings Tab --}}
       <div class="tab settings flexcol" data-group="primary" data-tab="settings">
-        {{> "systems/pf1/templates/actors/parts/actor-settings.hbs"}}
+        {{> "systems/ffd20lnrw/templates/actors/parts/actor-settings.hbs"}}
       </div>
     </section>
   </form>

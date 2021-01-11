@@ -108,7 +108,7 @@ export class ChatAttack {
     }
     const inner = TextEditor.enrichHTML(result, { rollData: this.rollData });
     this.attackNotesHTML = `<div class="flexcol property-group gm-sensitive"><label>${game.i18n.localize(
-      "PF1.AttackNotes"
+      "ffd20lnrw.AttackNotes"
     )}</label><div class="flexrow">${inner}</div></div>`;
   }
 
@@ -126,7 +126,7 @@ export class ChatAttack {
     }
     const inner = TextEditor.enrichHTML(result, { rollData: this.rollData });
     this.effectNotesHTML = `<div class="flexcol property-group gm-sensitive"><label>${game.i18n.localize(
-      "PF1.EffectNotes"
+      "ffd20lnrw.EffectNotes"
     )}</label><div class="flexrow">${inner}</div></div>`;
   }
 
@@ -166,7 +166,7 @@ export class ChatAttack {
     else if (d20 === 1) critType = 2;
 
     // Add tooltip
-    data.flavor = critical ? game.i18n.localize("PF1.CriticalConfirmation") : this.label;
+    data.flavor = critical ? game.i18n.localize("ffd20lnrw.CriticalConfirmation") : this.label;
     data.total = roll.total;
     data.isCrit = critType === 1;
     data.isFumble = critType === 2;
@@ -250,18 +250,18 @@ export class ChatAttack {
 
     // Add tooltip
     for (let p of Object.values(consolidatedParts)) {
-      tooltips += await renderTemplate("systems/pf1/templates/internal/damage-tooltip.hbs", {
+      tooltips += await renderTemplate("systems/ffd20lnrw/templates/internal/damage-tooltip.hbs", {
         part: p,
       });
     }
 
     // Add normal data
     let flavor;
-    if (!critical) flavor = this.item.isHealing ? game.i18n.localize("PF1.Healing") : game.i18n.localize("PF1.Damage");
+    if (!critical) flavor = this.item.isHealing ? game.i18n.localize("ffd20lnrw.Healing") : game.i18n.localize("ffd20lnrw.Damage");
     else
       flavor = this.item.isHealing
-        ? game.i18n.localize("PF1.HealingCritical")
-        : game.i18n.localize("PF1.DamageCritical");
+        ? game.i18n.localize("ffd20lnrw.HealingCritical")
+        : game.i18n.localize("ffd20lnrw.DamageCritical");
 
     // Determine total damage
     let totalDamage = data.parts.reduce((cur, p) => {
@@ -278,36 +278,36 @@ export class ChatAttack {
     if (totalDamage < 1) {
       totalDamage = 1;
       minimumDamage = true;
-      flavor = game.i18n.localize("PF1.Nonlethal");
+      flavor = game.i18n.localize("ffd20lnrw.Nonlethal");
     }
 
     // Add card
     if (critical) {
       if (!this.cards.critical)
         this.cards.critical = {
-          label: game.i18n.localize(this.item.isHealing ? "PF1.HealingCritical" : "PF1.DamageCritical"),
+          label: game.i18n.localize(this.item.isHealing ? "ffd20lnrw.HealingCritical" : "ffd20lnrw.DamageCritical"),
           items: [],
         };
       if (this.item.isHealing) {
         this.cards.critical.items.push({
-          label: game.i18n.localize("PF1.Apply"),
+          label: game.i18n.localize("ffd20lnrw.Apply"),
           value: -totalDamage,
           action: "applyDamage",
         });
         this.cards.critical.items.push({
-          label: game.i18n.localize("PF1.ApplyHalf"),
+          label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
           value: -Math.floor(totalDamage / 2),
           action: "applyDamage",
         });
       } else {
         this.cards.critical.items.push({
-          label: game.i18n.localize("PF1.Apply"),
+          label: game.i18n.localize("ffd20lnrw.Apply"),
           value: totalDamage,
           action: "applyDamage",
           tags: minimumDamage ? "nonlethal" : "",
         });
         this.cards.critical.items.push({
-          label: game.i18n.localize("PF1.ApplyHalf"),
+          label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
           value: Math.floor(totalDamage / 2),
           action: "applyDamage",
           tags: minimumDamage ? "nonlethal" : "",
@@ -316,29 +316,29 @@ export class ChatAttack {
     } else {
       if (!this.cards.damage)
         this.cards.damage = {
-          label: game.i18n.localize(this.item.isHealing ? "PF1.Healing" : "PF1.Damage"),
+          label: game.i18n.localize(this.item.isHealing ? "ffd20lnrw.Healing" : "ffd20lnrw.Damage"),
           items: [],
         };
       if (this.item.isHealing) {
         this.cards.damage.items.push({
-          label: game.i18n.localize("PF1.Apply"),
+          label: game.i18n.localize("ffd20lnrw.Apply"),
           value: -totalDamage,
           action: "applyDamage",
         });
         this.cards.damage.items.push({
-          label: game.i18n.localize("PF1.ApplyHalf"),
+          label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
           value: -Math.floor(totalDamage / 2),
           action: "applyDamage",
         });
       } else {
         this.cards.damage.items.push({
-          label: game.i18n.localize("PF1.Apply"),
+          label: game.i18n.localize("ffd20lnrw.Apply"),
           value: totalDamage,
           action: "applyDamage",
           tags: minimumDamage ? "nonlethal" : "",
         });
         this.cards.damage.items.push({
-          label: game.i18n.localize("PF1.ApplyHalf"),
+          label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
           value: Math.floor(totalDamage / 2),
           action: "applyDamage",
           tags: minimumDamage ? "nonlethal" : "",
@@ -373,9 +373,9 @@ export class ChatAttack {
   }
 
   addAmmunitionCards() {
-    this.cards.recoverAmmo = { label: game.i18n.localize("PF1.RecoverAmmunition"), items: [] };
-    this.cards.recoverAmmo.items.push({ label: game.i18n.localize("PF1.Recover"), action: "recoverAmmo" });
-    this.cards.recoverAmmo.items.push({ label: game.i18n.localize("PF1.ForceRecover"), action: "forceRecoverAmmo" });
+    this.cards.recoverAmmo = { label: game.i18n.localize("ffd20lnrw.RecoverAmmunition"), items: [] };
+    this.cards.recoverAmmo.items.push({ label: game.i18n.localize("ffd20lnrw.Recover"), action: "recoverAmmo" });
+    this.cards.recoverAmmo.items.push({ label: game.i18n.localize("ffd20lnrw.ForceRecover"), action: "forceRecoverAmmo" });
   }
 
   finalize() {

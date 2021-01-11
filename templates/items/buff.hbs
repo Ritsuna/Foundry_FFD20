@@ -6,7 +6,7 @@
 
     <div class="header-details flexrow">
       <h1 class="charname">
-        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "PF1.BuffName"}}"/>
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "ffd20lnrw.BuffName"}}"/>
       </h1>
 
       <div class="item-subtitle">
@@ -20,11 +20,11 @@
         </li>
         <li class="tooltip">
           <span class="tooltipcontent">@item.level : {{data.level}}</span>
-          <input type="text" name="data.level" value="{{#if data.level}}{{data.level}}{{/if}}" placeholder="{{localize "PF1.Level"}}"/>
+          <input type="text" name="data.level" value="{{#if data.level}}{{data.level}}{{/if}}" placeholder="{{localize "ffd20lnrw.Level"}}"/>
         </li>
         <li>
           <label>
-            <input type="checkbox" name="data.active" {{checked data.active}}> {{localize "PF1.Active"}}
+            <input type="checkbox" name="data.active" {{checked data.active}}> {{localize "ffd20lnrw.Active"}}
           </label>
         </li>
       </ul>
@@ -33,10 +33,10 @@
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="description">{{ localize "PF1.Description" }}</a>
-    <a class="item" data-tab="details">{{localize "PF1.Details"}}</a>
-    <a class="item" data-tab="changes">{{ localize "PF1.Changes" }}</a>
-    <a class="item" data-tab="links">{{localize "PF1.Links"}}</a>
+    <a class="item active" data-tab="description">{{ localize "ffd20lnrw.Description" }}</a>
+    <a class="item" data-tab="details">{{localize "ffd20lnrw.Details"}}</a>
+    <a class="item" data-tab="changes">{{ localize "ffd20lnrw.Changes" }}</a>
+    <a class="item" data-tab="links">{{localize "ffd20lnrw.Links"}}</a>
   </nav>
 
   {{!-- Item Sheet Body --}}
@@ -50,18 +50,18 @@
     {{!-- Details Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
       <div class="form-group">
-        <label>{{localize "PF1.HideFromToken"}}</label>
+        <label>{{localize "ffd20lnrw.HideFromToken"}}</label>
         <input type="checkbox" name="data.hideFromToken" {{checked data.hideFromToken}} />
       </div>
 
       {{!-- Advanced Tag --}}
-      {{> "systems/pf1/templates/items/parts/item-tag.hbs"}}
+      {{> "systems/ffd20lnrw/templates/items/parts/item-tag.hbs"}}
     </div>
 
     {{!-- Changes Tab --}}
     <div class="tab flexcol" data-group="primary" data-tab="changes">
       <div class="form-group select">
-        <label>{{localize "PF1.Type"}}</label>
+        <label>{{localize "ffd20lnrw.Type"}}</label>
         <select name="data.buffType" value="{{data.buffType}}">
           {{#select data.buffType}}
           {{#each config.buffTypes as |type a|}}
@@ -71,13 +71,13 @@
         </select>
       </div>
 
-      {{> "systems/pf1/templates/items/parts/item-changes.hbs"}}
+      {{> "systems/ffd20lnrw/templates/items/parts/item-changes.hbs"}}
 
-      {{> "systems/pf1/templates/items/parts/item-notes.hbs"}}
+      {{> "systems/ffd20lnrw/templates/items/parts/item-notes.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">
-      {{> "systems/pf1/templates/items/parts/item-links.hbs"}}
+      {{> "systems/ffd20lnrw/templates/items/parts/item-links.hbs"}}
     </div>
   </section>
 </form>

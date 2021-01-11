@@ -1,6 +1,6 @@
 {{!-- Activation Cost --}}
 <div class="form-group input-select">
-  <label>{{localize "PF1.ActivationCost"}}</label>
+  <label>{{localize "ffd20lnrw.ActivationCost"}}</label>
   <div class="form-fields">
     <input type="text" name="{{#unless unchainedActionEconomy}}data.activation.cost{{else}}data.unchainedAction.activation.cost{{/unless}}"
       value="{{#unless unchainedActionEconomy}}{{data.activation.cost}}{{else}}{{data.unchainedAction.activation.cost}}{{/unless}}" data-dtype="Number" placeholder=""/>
@@ -30,7 +30,7 @@
 
 {{!-- Ability Target --}}
 <div class="form-group input-select-select">
-  <label>{{localize "PF1.Target"}}</label>
+  <label>{{localize "ffd20lnrw.Target"}}</label>
   <div class="form-fields">
     <input type="text" name="data.target.value" value="{{data.target.value}}"/>
   </div>
@@ -38,9 +38,9 @@
 
 {{!-- Ability Range --}}
 <div class="form-group input-select">
-  <label>{{localize "PF1.Range"}}</label>
+  <label>{{localize "ffd20lnrw.Range"}}</label>
   <div class="form-fields">
-    {{#if canInputRange}}<input type="text" name="data.range.value" value="{{data.range.value}}" placeholder="{{#unless isSpell}}{{localize "PF1.Formula"}}{{/unless}}"/>{{/if}}
+    {{#if canInputRange}}<input type="text" name="data.range.value" value="{{data.range.value}}" placeholder="{{#unless isSpell}}{{localize "ffd20lnrw.Formula"}}{{/unless}}"/>{{/if}}
     <select name="data.range.units">
       {{#select data.range.units}}
       <option value=""></option>
@@ -55,9 +55,9 @@
 {{#if data.range.units}}
 {{!-- Minimum Range --}}
 <div class="form-group input-select">
-  <label>{{localize "PF1.MinRange"}}</label>
+  <label>{{localize "ffd20lnrw.MinRange"}}</label>
   <div class="form-fields">
-    {{#if canInputMinRange}}<input type="text" name="data.range.minValue" value="{{data.range.minValue}}" placeholder="{{#unless isSpell}}{{localize "PF1.Formula"}}{{/unless}}"/>{{/if}}
+    {{#if canInputMinRange}}<input type="text" name="data.range.minValue" value="{{data.range.minValue}}" placeholder="{{#unless isSpell}}{{localize "ffd20lnrw.Formula"}}{{/unless}}"/>{{/if}}
     <select name="data.range.minUnits">
       {{#select data.range.minUnits}}
       <option value=""></option>
@@ -73,7 +73,7 @@
 {{!-- Range Increments --}}
 {{#if showMaxRangeIncrements}}
 <div class="form-group input-select-select">
-  <label>{{localize "PF1.MaximumRangeIncrements"}}</label>
+  <label>{{localize "ffd20lnrw.MaximumRangeIncrements"}}</label>
   <div class="form-fields">
     <input type="text" name="data.range.maxIncrements" value="{{data.range.maxIncrements}}"/>
   </div>
@@ -83,7 +83,7 @@
 {{!-- Area --}}
 {{#if isSpell}}
 <div class="form-group input-select-select">
-  <label>{{localize "PF1.Area"}}</label>
+  <label>{{localize "ffd20lnrw.Area"}}</label>
   <div class="form-fields">
     <input type="text" name="data.spellArea" value="{{data.spellArea}}"/>
   </div>
@@ -92,12 +92,12 @@
 
 {{!-- Effect Duration --}}
 <div class="form-group input-select">
-  <label>{{localize "PF1.Duration"}}</label>
+  <label>{{localize "ffd20lnrw.Duration"}}</label>
   <div class="form-fields">
     {{#if isSpell}}
-    <input type="text" name="data.spellDuration" value="{{data.spellDuration}}" placeholder="{{localize "PF1.SpellDurationExample"}}"/>
+    <input type="text" name="data.spellDuration" value="{{data.spellDuration}}" placeholder="{{localize "ffd20lnrw.SpellDurationExample"}}"/>
     {{else}}
-    {{#if canInputDuration}}<input type="text" name="data.duration.value" value="{{data.duration.value}}" placeholder="{{localize "PF1.Formula"}}"/>{{/if}}
+    {{#if canInputDuration}}<input type="text" name="data.duration.value" value="{{data.duration.value}}" placeholder="{{localize "ffd20lnrw.Formula"}}"/>{{/if}}
     <select name="data.duration.units">
       {{#select data.duration.units}}
       <option value=""></option>
@@ -113,7 +113,7 @@
 {{!-- Limited Uses --}}
 {{#unless isSpell}}
 <div class="form-group uses-per">
-  <label>{{localize "PF1.LimitedUses"}}</label>
+  <label>{{localize "ffd20lnrw.LimitedUses"}}</label>
   <div class="form-fields">
     {{#if isCharged}}
     <input type="text" name="data.uses.value" value="{{data.uses.value}}" data-dtype="Number"/>
@@ -132,15 +132,15 @@
 </div>
 {{#if isCharged}}
 <div class="form-group uses-per">
-  <input type="text" name="data.uses.maxFormula" value="{{data.uses.maxFormula}}" placeholder="{{localize "PF1.MaximumUsesFormula"}}"/>
+  <input type="text" name="data.uses.maxFormula" value="{{data.uses.maxFormula}}" placeholder="{{localize "ffd20lnrw.MaximumUsesFormula"}}"/>
 </div>
 {{/if}}
 
 <div class="form-group stacked">
-  <label>{{localize "PF1.AutoDeductCharges"}}</label>
+  <label>{{localize "ffd20lnrw.AutoDeductCharges"}}</label>
   <div class="flexrow">
     <input type="checkbox" name="data.uses.autoDeductCharges" {{checked data.uses.autoDeductCharges}}/>
-    {{#if data.uses.autoDeductCharges}}<input type="text" name="data.uses.autoDeductChargesCost" placeholder="{{localize "PF1.DeductChargeFormulaPlaceholder"}}"
+    {{#if data.uses.autoDeductCharges}}<input type="text" name="data.uses.autoDeductChargesCost" placeholder="{{localize "ffd20lnrw.DeductChargeFormulaPlaceholder"}}"
       value="{{data.uses.autoDeductChargesCost}}" />{{/if}}
   </div>
 </div>

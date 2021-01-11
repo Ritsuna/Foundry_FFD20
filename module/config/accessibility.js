@@ -10,7 +10,7 @@ export class AccessibilityConfig extends FormApplication {
     const data = {};
 
     if (!this._init) {
-      const settings = await game.settings.get("pf1", "accessibilityConfig");
+      const settings = await game.settings.get("ffd20lnrw", "accessibilityConfig");
       this._settings = mergeObject(this.constructor.defaultSettings, settings);
       this._init = true;
     }
@@ -22,9 +22,9 @@ export class AccessibilityConfig extends FormApplication {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      title: game.i18n.localize("PF1.AccessibilityConfigName"),
+      title: game.i18n.localize("ffd20lnrw.AccessibilityConfigName"),
       id: "accessibility-config",
-      template: "systems/pf1/templates/settings/accessibility.hbs",
+      template: "systems/ffd20lnrw/templates/settings/accessibility.hbs",
       width: 560,
       height: "auto",
     });
@@ -56,7 +56,7 @@ export class AccessibilityConfig extends FormApplication {
   async _updateObject(event, formData) {
     const settings = expandObject(formData);
     // Some mild sanitation for the numeric values.
-    await game.settings.set("pf1", "accessibilityConfig", settings);
+    await game.settings.set("ffd20lnrw", "accessibilityConfig", settings);
     ui.notifications.info("Updated Pathfinder accessibility configuration.");
   }
 }

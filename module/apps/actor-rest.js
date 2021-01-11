@@ -3,8 +3,8 @@ export class ActorRestDialog extends BaseEntitySheet {
     const options = super.defaultOptions;
     return mergeObject(options, {
       id: "actor-flags",
-      classes: ["pf1", "actor-rest"],
-      template: "systems/pf1/templates/apps/actor-rest.hbs",
+      classes: ["ffd20lnrw", "actor-rest"],
+      template: "systems/ffd20lnrw/templates/apps/actor-rest.hbs",
       width: 500,
       closeOnSubmit: true,
     });
@@ -17,7 +17,7 @@ export class ActorRestDialog extends BaseEntitySheet {
    * @type {String}
    */
   get title() {
-    return `${game.i18n.localize("PF1.Rest")}: ${this.object.name}`;
+    return `${game.i18n.localize("ffd20lnrw.Rest")}: ${this.object.name}`;
   }
 
   /* -------------------------------------------- */
@@ -31,8 +31,17 @@ export class ActorRestDialog extends BaseEntitySheet {
     const actorData = actor.data.data;
 
     const restOptions = {
+      /**
+       * add rest options
+       * Natural healing(8 hours rest, once per 24 hours): Restore HP equal to level plus con  and MP equal to caster level plus primary casting stat
+Complete rest(24 hours of rest, no combat or hard training): Double natural healing
+Aided Healing(8 hours with someone trained in heal 5 ranks or more looking after you): double natural healing
+Aided Complete Rest(24 hours with someone trained in heal 5 ranks or more looking after you): 5x natural healing
+There are items that boost natural healing that can be found.
+       */
       restoreHealth: formData["restoreHealth"],
       longTermCare: formData["longTermCare"],
+      aidedcare: formData["aidedcare"],
       restoreDailyUses: formData["restoreDailyUses"],
       hours: formData["hours"],
     };
@@ -49,9 +58,17 @@ export class ActorRestDialog extends BaseEntitySheet {
         abl: 1,
         nonlethal: restOptions.hours * hd,
       };
-      if (restOptions["longTermCare"] === true) {
+      if (restOptions["longTermCare"] === true && restOptions["aidedcare"] === false) {
         heal.hp *= 2;
         heal.abl *= 2;
+      }
+      if (restOptions["aidedcare"] === true && restOptions["longTermCare"] === false ) {
+        heal.hp *= 2;
+        heal.abl *= 2;
+      }
+      if (restOptions["longTermCare"] === true && restOptions["aidedcare"] === true) {
+        heal.hp *= 5;
+        heal.abl *= 5;
       }
 
       updateData["data.attributes.hp.value"] = Math.min(
@@ -70,15 +87,8 @@ export class ActorRestDialog extends BaseEntitySheet {
 
     let itemPromises = [];
     let spellbookUses = {};
-    // Restore daily uses of spells, feats, etc.
+    // Restore daily uses of spells, feats, etc. add limitbreak
     if (restOptions["restoreDailyUses"] === true) {
-      // Update spellbooks
-      for (let [sbKey, sb] of Object.entries(getProperty(actorData, `attributes.spells.spellbooks`) || {})) {
-        for (let a = 0; a < 10; a++) {
-          updateData[`data.attributes.spells.spellbooks.${sbKey}.spells.spell${a}.value`] =
-            getProperty(sb, `spells.spell${a}.max`) || 0;
-        }
-      }
 
       // Update charged items
       for (let item of actor.items) {
@@ -123,7 +133,7 @@ export class ActorRestDialog extends BaseEntitySheet {
               const restoreRoll = new Roll(spellbook.spellPoints.restoreFormula, actor.getRollData()).roll().total;
               restorePoints = Math.min(spellbook.spellPoints.value + restoreRoll, spellbook.spellPoints.max);
             } catch (e) {
-              console.error(e);
+              console.error(e, spellbook.spellPoints.restoreFormula);
             }
           }
           updateData[`data.attributes.spells.spellbooks.${key}.spellPoints.value`] = restorePoints;

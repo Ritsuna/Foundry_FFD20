@@ -12,7 +12,7 @@ export class ExperienceConfig extends FormApplication {
     const data = {};
 
     if (!this._init) {
-      const settings = await game.settings.get("pf1", "experienceConfig");
+      const settings = await game.settings.get("ffd20lnrw", "experienceConfig");
       this._settings = mergeObject(this.constructor.defaultSettings, settings);
       this._init = true;
     }
@@ -27,9 +27,9 @@ export class ExperienceConfig extends FormApplication {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      title: game.i18n.localize("PF1.ExperienceConfigName"),
+      title: game.i18n.localize("ffd20lnrw.ExperienceConfigName"),
       id: "experience-config",
-      template: "systems/pf1/templates/settings/experience.hbs",
+      template: "systems/ffd20lnrw/templates/settings/experience.hbs",
       width: 560,
       height: "auto",
     });
@@ -95,7 +95,7 @@ export class ExperienceConfig extends FormApplication {
   async _updateObject(event, formData) {
     const settings = expandObject(formData);
     // Some mild sanitation for the numeric values.
-    await game.settings.set("pf1", "experienceConfig", settings);
+    await game.settings.set("ffd20lnrw", "experienceConfig", settings);
     ui.notifications.info("Updated Pathfinder experience configuration.");
   }
 }

@@ -4,9 +4,9 @@ export class LinkOptions extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "link-options",
-      classes: ["pf1"],
-      title: game.i18n.localize("PF1.LinkOptionsTitle"),
-      template: "systems/pf1/templates/apps/link-options.hbs",
+      classes: ["ffd20lnrw"],
+      title: game.i18n.localize("ffd20lnrw.LinkOptionsTitle"),
+      template: "systems/ffd20lnrw/templates/apps/link-options.hbs",
       width: 320,
       height: "auto",
       submitOnClose: true,
