@@ -50,30 +50,39 @@ There are items that boost natural healing that can be found.
     if (proceed === false) return;
 
     const updateData = {};
-    // Restore health and ability damage
+    // Restore health and ability damage add mp
     if (restOptions["restoreHealth"] === true) {
       const hd = actorData.attributes.hd.total;
+      // const cl = actorData.attributes.hd.total;
       let heal = {
         hp: hd,
+        mp: cl,
         abl: 1,
         nonlethal: restOptions.hours * hd,
       };
       if (restOptions["longTermCare"] === true && restOptions["aidedcare"] === false) {
         heal.hp *= 2;
+        heal.mp *= 2;
         heal.abl *= 2;
       }
       if (restOptions["aidedcare"] === true && restOptions["longTermCare"] === false ) {
         heal.hp *= 2;
+        heal.mp *= 2;
         heal.abl *= 2;
       }
       if (restOptions["longTermCare"] === true && restOptions["aidedcare"] === true) {
         heal.hp *= 5;
+        heal.mp *= 5;
         heal.abl *= 5;
       }
 
       updateData["data.attributes.hp.value"] = Math.min(
         actorData.attributes.hp.value + heal.hp,
         actorData.attributes.hp.max
+      );
+      updateData["data.attributes.mp.value"] = Math.min(
+        actorData.attributes.mp.value + heal.mp,
+        actorData.attributes.mp.max
       );
       updateData["data.attributes.hp.nonlethal"] = Math.max(
         0,

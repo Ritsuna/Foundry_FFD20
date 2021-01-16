@@ -1,7 +1,7 @@
 import { _rollInitiative, _getInitiativeFormula } from "./combat.js";
 import { _preProcessDiceFormula } from "./dice.js";
 import "./misc/vision-permission.js";
-import { ActorPF } from "./actor/entity.js";
+import { ActorFFd20 } from "./actor/entity.js";
 import { addCombatTrackerContextOptions } from "./combat.js";
 
 const FormApplication_close = FormApplication.prototype.close;
@@ -136,7 +136,7 @@ export async function PatchCore() {
       return ActorTokenHelpers_update.call(this, data, options);
     }
 
-    const diff = await ActorPF.prototype.update.call(
+    const diff = await ActorFFd20.prototype.update.call(
       this,
       data,
       mergeObject(options, { recursive: true, skipUpdate: true })
@@ -166,7 +166,7 @@ export async function PatchCore() {
       await Promise.all(promises);
     }
 
-    // return ActorPF.prototype.update.call(this, {});
+    // return ActorFFd20.prototype.update.call(this, {});
   };
 
   // Workaround for unlinked token in first initiative on reload problem. No core issue number at the moment.

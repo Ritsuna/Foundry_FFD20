@@ -1,6 +1,6 @@
 import { linkData } from "../lib.js";
-import { ActorPF } from "./entity.js";
-import { ItemPF } from "../item/entity.js";
+import { ActorFFd20 } from "./entity.js";
+import { ItemFFd20 } from "../item/entity.js";
 import { ItemChange } from "../item/components/change.js";
 
 export const updateChanges = async function ({ data = null } = {}) {
@@ -19,7 +19,7 @@ export const updateChanges = async function ({ data = null } = {}) {
   // Track previous values
   const prevValues = {
     mhp: getProperty(this.data, "data.attributes.hp.max") || 0,
-    mmp: getProperty(this.data, "data.attributes.mp.max") || 0,
+    //mmp: getProperty(this.data, "data.attributes.mp.max") || 0,
   };
 
   // Gather change types
@@ -238,6 +238,65 @@ export const updateChanges = async function ({ data = null } = {}) {
         return Math.max(cur, o.data.data.armor.enh);
       }, 0);
 
+    // Handle armor and weapon proficiencies for PCs
+    // NPCs are considered proficient with their armor
+    if (this.data.type === "character") {
+      // Collect proficiencies from items, add them to actor's proficiency totals
+      for (const prof of ["armorProf", "weaponProf"]) {
+        // Custom proficiency baseline from actor
+        const customProficiencies =
+          srcData1.data.traits[prof]?.custom.split(CONFIG.ffd20lnrw.re.traitSeparator).filter((item) => item.length > 0) ||
+          [];
+
+        // Iterate over all items to create one array of non-custom proficiencies
+        const proficiencies = this.items.reduce(
+          (profs, item) => {
+            // Check only items able to grant proficiencies
+            if (hasProperty(item.data, `data.${prof}`)) {
+              // Get existing sourceInfo for item with this name, create sourceInfo if none is found
+              // Remember whether sourceInfo can be modified or has to be pushed at the end
+              let [sInfo, hasInfo] = getSourceInfo(sourceInfo, `data.traits.${prof}`).positive.find(
+                (o) => o.name === item.name
+              ) ?? [{ name: item.name, value: [] }, false];
+
+              // Regular proficiencies
+              for (const proficiency of item.data.data[prof].value) {
+                // Add localized source info if item's info does not have this proficiency already
+                if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.ffd20lnrw[`${prof}iciencies`][proficiency]);
+                // Add raw proficiency key
+                if (!profs.includes(proficiency)) profs.push(proficiency);
+              }
+
+              // Custom proficiencies
+              if (item.data.data.armorProf.custom) {
+                // Collect trimmed but otherwise original strings, dedupe array for actor's total
+                const customProfs =
+                  item.data.data[prof].custom
+                    .split(CONFIG.ffd20lnrw.re.traitSeparator)
+                    .map((i) => i.trim())
+                    .filter((el, i, arr) => el.length > 0 && arr.indexOf(el) === i) || [];
+                // Add readable custom profs to sources and overall collection
+                sInfo.value.push(...customProfs);
+                customProficiencies.push(...customProfs);
+              }
+              if (sInfo.value.length > 0) {
+                // Transform arrays into presentable strings
+                sInfo.value = sInfo.value.join(", ");
+                // If sourceInfo was not a reference to existing info, push it now
+                if (!hasInfo) getSourceInfo(sourceInfo, `data.traits.${prof}`).positive.push(sInfo);
+              }
+            }
+            return profs;
+          },
+          [...srcData1.data.traits[prof].value] // Default proficiency baseline from actor
+        );
+
+        // Save collected proficiencies in actor's data
+        linkData(srcData1, updateData, `data.traits.${prof}.total`, [...proficiencies]);
+        linkData(srcData1, updateData, `data.traits.${prof}.customTotal`, customProficiencies.join(";"));
+      }
+    }
+
     // Parse change formulas
     const highestBonus = {};
     allChanges.forEach((change, a) => {
@@ -259,6 +318,9 @@ export const updateChanges = async function ({ data = null } = {}) {
           // Execute formula
           const roll = new Roll(formula, rollData);
 
+          if (roll.warning)
+            ui.notifications.warn(game.i18n.localize("ffd20lnrw.ErrorItemFormula").format(change.source.name, this.name));
+
           // Process result
           value = 0;
           value = roll.roll().total;
@@ -271,8 +333,9 @@ export const updateChanges = async function ({ data = null } = {}) {
             }
           }
         } catch (e) {
-          const msg = game.i18n.localize("ffd20lnrw.ErrorItemFormula").format(change.source.name, this.name);
-          console.error(msg);
+          const msg =
+            change.raw.error ?? game.i18n.localize("ffd20lnrw.ErrorItemFormula").format(change.source.name, this.name);
+          console.error(msg, formula);
           ui.notifications.error(msg);
         }
       } else {
@@ -319,8 +382,6 @@ export const updateChanges = async function ({ data = null } = {}) {
       }
     });
   }
-
-  _updateSimpleAttributes.call(this, updateData, srcData1);
 
   // Update encumbrance
   this._computeEncumbrance(updateData, srcData1);
@@ -436,7 +497,7 @@ export const updateChanges = async function ({ data = null } = {}) {
           srcData1,
           updateData,
           `data.attributes.speed.${speedKey}.total`,
-          ActorPF.getReducedMovementSpeed(value)
+          ActorFFd20.getReducedMovementSpeed(value)
         );
         if (value > 0) {
           sourceInfo[`data.attributes.speed.${speedKey}.total`].negative.push(sInfo);
@@ -506,6 +567,7 @@ export const updateChanges = async function ({ data = null } = {}) {
           value: -Math.abs(rollData.attributes.energyDrain),
         });
       }
+
       linkData(srcData1, updateData, key, total);
     }
 
@@ -521,7 +583,7 @@ export const updateChanges = async function ({ data = null } = {}) {
         if (getProperty(srcData1, `data.attributes.spells.spellbooks.${spellbookKey}.autoSpellLevels`)) {
           const value =
             typeof spellbookAbilityMod === "number"
-              ? base + ActorPF.getSpellSlotIncrease(spellbookAbilityMod, a)
+              ? base + ActorFFd20.getSpellSlotIncrease(spellbookAbilityMod, a)
               : base;
           linkData(
             srcData1,
@@ -832,6 +894,12 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
     }
   }
 
+  // Reset proficiencies
+  linkData(data, updateData, "data.traits.armorProf.total", []);
+  linkData(data, updateData, "data.traits.armorProf.customTotal", "");
+  linkData(data, updateData, "data.traits.weaponProf.total", []);
+  linkData(data, updateData, "data.traits.weaponProf.customTotal", "");
+
   // Reset ACP and Max Dex bonus
   linkData(data, updateData, "data.attributes.acp.gear", 0);
   linkData(data, updateData, "data.attributes.acp.armorBonus", 0);
@@ -906,6 +974,9 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
       linkData(data, updateData, `data.skills.${k}.subSkills.${k2}.cs`, isClassSkill);
     }
   }
+
+  // Reset Spell Resistance
+  linkData(data, updateData, "data.attributes.sr.total", 0);
 };
 
 const _addDynamicData = function ({
@@ -933,8 +1004,8 @@ const _addDynamicData = function ({
   };
   // Custom proficiencies
   const customProficiencies =
-    data.data.traits.armorProf?.custom
-      .split(";")
+    data.data.traits.armorProf?.customTotal
+      ?.split(CONFIG.ffd20lnrw.re.traitSeparator)
       .map((item) => item.trim().toLowerCase())
       .filter((item) => item.length > 0) || [];
 
@@ -1147,6 +1218,7 @@ const _addDynamicData = function ({
 const _updateSkills = function (updateData, data) {
   const data1 = data.data;
   let energyDrainPenalty = Math.abs(data1.attributes.energyDrain);
+
   for (let [sklKey, skl] of Object.entries(data1.skills)) {
     if (skl == null) continue;
 
@@ -1365,7 +1437,6 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
   // Add Dexterity Modifier to Initiative
   {
     const abl = getProperty(data, "data.attributes.init.ability");
-    const acp = getProperty(data, "data.attributes.acp.attackPenalty");
     if (abl) {
       changes.push({
         raw: mergeObject(
@@ -1388,7 +1459,13 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
       changes.push({
         raw: mergeObject(
           ItemChange.defaultData,
-          { formula: "-@attributes.acp.attackPenalty", target: "misc", subTarget: "init", modifier: "penalty" },
+          {
+            formula: "-@attributes.acp.attackPenalty",
+            target: "misc",
+            subTarget: "init",
+            modifier: "penalty",
+            priority: -100,
+          },
           { inplace: false }
         ),
         source: { name: game.i18n.localize("ffd20lnrw.ArmorCheckPenalty") },
@@ -1448,6 +1525,27 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
         { inplace: false }
       ),
       source: { name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain") },
+    });
+  }
+  // Spell Resistance
+  {
+    const sr = getProperty(data, "data.attributes.sr.formula") || 0;
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        {
+          formula: sr.toString(),
+          target: "misc",
+          subTarget: "spellResist",
+          modifier: "base",
+          priority: 1000,
+          error: game.i18n
+            .localize("ffd20lnrw.ErrorActorFormula")
+            .format(game.i18n.localize("ffd20lnrw.SpellResistance"), this.name),
+        },
+        { inplace: false }
+      ),
+      source: { name: `${game.i18n.localize("ffd20lnrw.SpellResistance")} (${game.i18n.localize("ffd20lnrw.Base")})` },
     });
   }
   // Natural armor
@@ -1928,10 +2026,6 @@ export const getChangeFlat = function (changeTarget, changeType, curData) {
   switch (changeTarget) {
     case "mhp":
       return "data.attributes.hp.max";
-    case "wounds":
-      return "data.attributes.wounds.max";
-    case "vigor":
-      return "data.attributes.vigor.max";
     case "str":
     case "dex":
     case "con":
@@ -2123,6 +2217,8 @@ export const getChangeFlat = function (changeTarget, changeType, curData) {
       return "data.attributes.mDex.armorBonus";
     case "mDexS":
       return "data.attributes.mDex.shieldBonus";
+    case "spellResist":
+      return "data.attributes.sr.total";
   }
 
   if (changeTarget.match(/^skill\.([a-zA-Z0-9]+)$/)) {
@@ -2402,28 +2498,6 @@ const _applySetChanges = function (updateData, data, changes) {
       totalValue += v;
     }
     linkData(data, updateData, attrKey, totalValue);
-  }
-};
-
-const _updateSimpleAttributes = function (updateData, data) {
-  // Update Spell Resistance
-  {
-    const formula = updateData["data.attributes.sr.formula"] || "";
-    if (formula.length > 0) {
-      try {
-        let roll = new Roll(formula, this.getRollData()).roll();
-        linkData(data, updateData, "data.attributes.sr.total", roll.total);
-      } catch (e) {
-        const msg = game.i18n
-          .localize("ffd20lnrw.ErrorActorFormula")
-          .format(game.i18n.localize("ffd20lnrw.SpellResistance"), this.name);
-        console.error(msg);
-        ui.notifications.error(msg);
-        linkData(data, updateData, "data.attributes.sr.total", 0);
-      }
-    } else {
-      linkData(data, updateData, "data.attributes.sr.total", 0);
-    }
   }
 };
 

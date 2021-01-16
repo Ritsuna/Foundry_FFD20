@@ -1,11 +1,11 @@
-import { ActorSheetPF } from "./base.js";
+import { ActorSheetFFd20 } from "./base.js";
 
 /**
- * An Actor sheet for player character type actors in the PF system.
- * Extends the base ActorSheetPF class.
- * @type {ActorSheetPF}
+ * An Actor sheet for player character type actors in the FFd20 system.
+ * Extends the base ActorSheetFFd20 class.
+ * @type {ActorSheetFFd20}
  */
-export class ActorSheetPFCharacter extends ActorSheetPF {
+export class ActorSheetFFd20Character extends ActorSheetFFd20 {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
@@ -19,7 +19,7 @@ export class ActorSheetPFCharacter extends ActorSheetPF {
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetPFCharacter");
+  //   return game.i18n.localize("ffd20lnrw.ActorSheetFFd20Character");
   // }
 
   /* -------------------------------------------- */

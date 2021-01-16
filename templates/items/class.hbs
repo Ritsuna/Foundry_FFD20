@@ -57,6 +57,24 @@
         </select>
       </div>
 
+      {{!-- Class sub Type --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.ClassSubType"}}</label>
+        <select name="data.classSubType">
+          {{#select data.classSubType}}
+          {{#each config.classSubTypes as |name type|}}
+          <option value="{{type}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
+      {{!-- Parent class --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.ParentClass"}}</label>
+        <input type="text" name="data.parentclass" value="{{data.parentclass}}" data-dtype="String" />
+      </div>
+
       {{!-- HD --}}
       <div class="form-group">
         <label>{{localize "ffd20lnrw.HitDie"}}</label>
@@ -70,6 +88,24 @@
         <input type="text" name="data.hp" value="{{data.hp}}" data-dtype="Number" />
       </div>
       {{/unless}}
+
+      {{!-- mp type --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.ClassManaType"}}</label>
+        <select name="data.classBaseMPType">
+          {{#select data.classBaseMPType}}
+          {{#each config.classBaseMPTypes as |name value|}}
+          <option value="{{value}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
+      {{!-- MP --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.ManaPoints"}}</label>
+        <input type="text" name="data.mp" value="{{data.mp}}" data-dtype="Number" />
+      </div>
 
       {{!-- BAB --}}
       <div class="form-group">

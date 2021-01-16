@@ -1,4 +1,4 @@
-import { ActorPF } from "./actor/entity.js";
+import { ActorFFd20 } from "./actor/entity.js";
 import { isMinimumCoreVersion } from "./lib.js";
 
 /* -------------------------------------------- */
@@ -154,25 +154,25 @@ export const addChatMessageContextOptions = function (html, options) {
       name: game.i18n.localize("ffd20lnrw.ApplyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
-      callback: (li) => ActorPF.applyDamage(li, 1),
+      callback: (li) => ActorFFd20.applyDamage(li, 1),
     },
     {
       name: game.i18n.localize("ffd20lnrw.ApplyHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
-      callback: (li) => ActorPF.applyDamage(li, -1),
+      callback: (li) => ActorFFd20.applyDamage(li, -1),
     },
     {
       name: game.i18n.localize("ffd20lnrw.ApplyCriticalDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
-      callback: (li) => ActorPF.applyDamage(li, 1, true),
+      callback: (li) => ActorFFd20.applyDamage(li, 1, true),
     },
     {
       name: game.i18n.localize("ffd20lnrw.ApplyCriticalHealing"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
-      callback: (li) => ActorPF.applyDamage(li, -1, true),
+      callback: (li) => ActorFFd20.applyDamage(li, -1, true),
     }
   );
   return options;

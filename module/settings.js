@@ -22,7 +22,7 @@ export const registerSystemSettings = function () {
     scope: "client",
     config: false,
     type: String,
-    default: "0.74.9",
+    default: "0.0.04",
   });
   game.settings.register("ffd20lnrw", "dontShowChangelog", {
     name: "Don't Automatically Show Changelog",
@@ -443,12 +443,14 @@ export const registerClientSettings = function () {
     scope: "client",
     config: false,
     default: {
-      spells: "0.75.6",
-      items: "0.75.6",
-      bestiary: "0.75.6",
-      feats: "0.75.6",
-      classes: "0.75.6",
-      races: "0.75.6",
+      spells: "0.0.04",
+      items: "0.0.04",
+      bestiary: "0.0.04",
+      feats: "0.0.04",
+      classes: "0.0.04",
+      races: "0.0.04",
+      skills: "0.0.04",
+      limitbreaks: "0.0.04",
     },
     type: Object,
   });
@@ -469,6 +471,8 @@ export const registerClientSettings = function () {
         races: [],
         feats: [],
         bestiary: [],
+        skills: [],
+        limitbreaks: [],
       },
     },
     type: Object,

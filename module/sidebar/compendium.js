@@ -1,6 +1,6 @@
 import { CompendiumBrowser } from "../apps/compendium-browser.js";
 
-export class CompendiumDirectoryPF extends CompendiumDirectory {
+export class CompendiumDirectoryFFd20 extends CompendiumDirectory {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       template: "systems/ffd20lnrw/templates/sidebar/compendium.hbs",
@@ -16,6 +16,8 @@ export class CompendiumDirectoryPF extends CompendiumDirectory {
     html.find(".compendium-footer .compendium.feats").click((e) => this._onBrowseCompendium(e, "feats"));
     html.find(".compendium-footer .compendium.classes").click((e) => this._onBrowseCompendium(e, "classes"));
     html.find(".compendium-footer .compendium.races").click((e) => this._onBrowseCompendium(e, "races"));
+    html.find(".compendium-footer .compendium.skills").click((e) => this._onBrowseCompendium(e, "skills"));
+    html.find(".compendium-footer .compendium.limitbreaks").click((e) => this._onBrowseCompendium(e, "limitbreaks"));
   }
 
   _onBrowseCompendium(event, type) {

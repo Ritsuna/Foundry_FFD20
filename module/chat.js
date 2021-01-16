@@ -1,5 +1,5 @@
-import { ItemPF } from "./item/entity.js";
-import { ChatMessagePF } from "./sidebar/chat-message.js";
+import { ItemFFd20 } from "./item/entity.js";
+import { ChatMessageFFd20 } from "./sidebar/chat-message.js";
 import { Color } from "./lib/color/color.js";
 
 /* -------------------------------------------- */
@@ -43,7 +43,7 @@ export const createCustomChatMessage = async function (
     }
   }
 
-  return ChatMessagePF.create(chatData);
+  return ChatMessageFFd20.create(chatData);
 };
 
 export const hideRollInfo = function (app, html, data) {
@@ -82,7 +82,7 @@ export const hideGMSensitiveInfo = function (app, html, data) {
 export const addChatCardTitleGradient = function (app, html, data) {
   const card = html.find(".chat-card")[0];
   if (!card) return;
-  const actor = ItemPF._getChatCardActor(card);
+  const actor = ItemFFd20._getChatCardActor(card);
   if (!actor) return;
   const item = actor.getOwnedItem(card.dataset.itemId);
   if (!item) return;

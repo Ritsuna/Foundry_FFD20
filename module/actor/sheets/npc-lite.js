@@ -1,6 +1,6 @@
-import { ActorSheetPFNPC } from "./npc.js";
+import { ActorSheetFFd20NPC } from "./npc.js";
 
-export class ActorSheetPFNPCLite extends ActorSheetPFNPC {
+export class ActorSheetFFd20NPCLite extends ActorSheetFFd20NPC {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
@@ -19,7 +19,7 @@ export class ActorSheetPFNPCLite extends ActorSheetPFNPC {
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetPFNPCLite");
+  //   return game.i18n.localize("ffd20lnrw.ActorSheetFFd20NPCLite");
   // }
 
   _prepareItems(data) {

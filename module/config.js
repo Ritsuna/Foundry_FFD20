@@ -57,9 +57,33 @@ ffd20lnrw.classTypes = {
   prestige: "ffd20lnrw.ClassTypePrestige",
   npc: "ffd20lnrw.ClassTypeNPC",
   racial: "ffd20lnrw.ClassTypeRacial",
-  mythic: "ffd20lnrw.ClassTypeMythic",
 };
 
+ffd20lnrw.classSubTypes = {
+  core: "ffd20lnrw.ClassSubTypeCore",
+  coreArc: "ffd20lnrw.ClassSubTypeCoreArc",
+  base: "ffd20lnrw.ClassSubTypeBase",
+  baseArc: "ffd20lnrw.ClassSubTypeBaseArc",
+  hybrid: "ffd20lnrw.ClassSubTypeHybrid",
+  hybridArc: "ffd20lnrw.ClassSubTypeHybridArc",
+};
+
+ffd20lnrw.classBaseMPTypes = {
+  noncaster: "ffd20lnrw.NonCaster",
+  halfCaster: "ffd20lnrw.HalfCaster",
+  pacman: "ffd20lnrw.Pacman",
+  fullCaster: "ffd20lnrw.FullCaster",
+}; 
+
+// Character MP levels
+ffd20lnrw.classMPlevels = {
+// level             1   2   3   4   5   6   7   8   9   10   11    12    13    14    15    16    17    18    19    20
+  noncaster:     [0],
+  halfCaster:    [   0,  0,  0,  1,  2,  3,  4,  5,  6,   7,   8,   10,   12,   14,   16,   19,   22,   25,   29,   33,  ],
+  pacman:        [   2,  3,  4,  5,  6,  8, 10, 13, 16,  20,  24,   29,   34,   39,   45,   51,   57,   64,   71,   79,  ],
+  fullCaster:    [   3,  4,  5,  6,  8, 11, 15, 20, 26,  32,  39,   47,   56,   65,   75,   86,   98,  110,  122,  135,  ],
+};
+ 
 ffd20lnrw.classBAB = {
   low: "ffd20lnrw.Low",
   med: "ffd20lnrw.Medium",
@@ -93,10 +117,6 @@ ffd20lnrw.classSavingThrowFormulas = {
   racial: {
     low: "floor(@level / 3)",
     high: "2 + floor(@level / 2)",
-  },
-  mythic: {
-    low: "0",
-    high: "0",
   },
 };
 
@@ -173,7 +193,9 @@ ffd20lnrw.armorProficiencies = {
 ffd20lnrw.weaponProficiencies = {
   sim: "ffd20lnrw.WeaponProfSimple",
   mar: "ffd20lnrw.WeaponProfMartial",
-  
+  exo:  "ffd20lnrw.WeaponProfExotic",
+  che: "ffd20lnrw.WeaponProfChef",
+  pow: "ffd20lnrw.WeaponProfPower",
 };
 
 /* -------------------------------------------- */
@@ -752,10 +774,10 @@ ffd20lnrw.healingTypes = {
  * @type {Object}
  */
 ffd20lnrw.senses = {
-  bs: "ffd20lnrw.SenseBS",/* ?? */
+  bs: "ffd20lnrw.SenseBS",/* Blindsight */
   dv: "ffd20lnrw.SenseDV",/* Darkvision */
-  ts: "ffd20lnrw.SenseTS",/* ?? */
-  tr: "ffd20lnrw.SenseTR",/* ?? */
+  ts: "ffd20lnrw.SenseTS",/* Tremorsense */
+  tr: "ffd20lnrw.SenseTR",/* truesight */
   ll: "ffd20lnrw.SenseLL",/* Lowlight */
 };
 
@@ -993,18 +1015,18 @@ ffd20lnrw.spellComponents = {
 // Spell Schools
 ffd20lnrw.spellSchools = {
   crn: "ffd20lnrw.SpellSchoolChronomancy",
-  ill: "ffd20lnrw.SpellSchoolIllusion",
   drk: "ffd20lnrw.SpellSchoolDark",
-  lit: "ffd20lnrw.SpellSchoolLight",
   ele: "ffd20lnrw.SpellSchoolElemental",
-  nel: "ffd20lnrw.SpellSchoolNonElemental",
   enc: "ffd20lnrw.SpellSchoolEnhancing",
   enf: "ffd20lnrw.SpellSchoolEnfeebling",
   heal: "ffd20lnrw.SpellSchoolHealing",
+  ill: "ffd20lnrw.SpellSchoolIllusion",
+  lit: "ffd20lnrw.SpellSchoolLight",
+  misc: "ffd20lnrw.SpellSchoolMisc",
   nec: "ffd20lnrw.SpellSchoolNecromancy",
+  nel: "ffd20lnrw.SpellSchoolNonElemental",
   sum: "ffd20lnrw.SpellSchoolSummoning",
   uni: "ffd20lnrw.SpellSchoolUniversal",
-  misc: "ffd20lnrw.Misc",
 };
 
 // Spell Levels
@@ -1342,57 +1364,49 @@ ffd20lnrw.contextNoteTargets = {
 
 // Languages
 ffd20lnrw.languages = {
-  aboleth: "ffd20lnrw.LanguageAboleth",
-  abyssal: "ffd20lnrw.LanguageAbyssal",
-  aklo: "ffd20lnrw.LanguageAklo",
-  ancientosiriani: "ffd20lnrw.LanguageAncientOsiriani",
+  common: "ffd20lnrw.LanguageCommon",
+  dwarven: "ffd20lnrw.LanguageDwarven",
+  elvaan: "ffd20lnrw.LanguageElvaan",
+  galkan: "ffd20lnrw.LanguageGalkan",
+  lalafellan: "ffd20lnrw.LanguageLalafellan",
+  mithran: "ffd20lnrw.LanguageMithran",
+  moogle: "ffd20lnrw.LanguageMoogle",
+
+  aegyllan: "ffd20lnrw.LanguageAegyllan",
+  albhedian: "ffd20lnrw.LanguageAlbhedian",
+  banganese: "ffd20lnrw.LanguageBanganese",
+  burmecian: "ffd20lnrw.LanguageBurmecian",
+  draconic: "ffd20lnrw.LanguageDraconic",
+  garif: "ffd20lnrw.LanguageGarif",
+  lupin: "ffd20lnrw.LanguageLupin",
+  mandragoran: "ffd20lnrw.LanguageMandragoran",
+  numish: "ffd20lnrw.LanguageNumish",
+  qiqirn: "ffd20lnrw.LanguageQiqirn",
+  quadav: "ffd20lnrw.LanguageQuadav",
+  roegadyn: "ffd20lnrw.LanguageRoegadyn",
+  ronsaur: "ffd20lnrw.LanguageRonsaur",
+  seeq: "ffd20lnrw.LanguageSeeq",
+  tonberry: "ffd20lnrw.LanguageTonberry",
+  vieran: "ffd20lnrw.LanguageVieran",
+
   aquan: "ffd20lnrw.LanguageAquan",
   auran: "ffd20lnrw.LanguageAuran",
-  azlanti: "ffd20lnrw.LanguageAzlanti",
-  boggard: "ffd20lnrw.LanguageBoggard",
-  celestial: "ffd20lnrw.LanguageCelestial",
-  common: "ffd20lnrw.LanguageCommon",
-  cyclops: "ffd20lnrw.LanguageCyclops",
-  dark: "ffd20lnrw.LanguageDark",
-  draconic: "ffd20lnrw.LanguageDraconic",
-  drowsign: "ffd20lnrw.LanguageDrowsign",
-  druidic: "ffd20lnrw.LanguageDruidic",
-  dwarven: "ffd20lnrw.LanguageDwarven",
-  dziriak: "ffd20lnrw.LanguageDziriak",
-  elven: "ffd20lnrw.LanguageElven",
-  giant: "ffd20lnrw.LanguageGiant",
-  gnoll: "ffd20lnrw.LanguageGnoll",
-  gnome: "ffd20lnrw.LanguageGnome",
-  goblin: "ffd20lnrw.LanguageGoblin",
-  grippli: "ffd20lnrw.LanguageGrippli",
-  halfling: "ffd20lnrw.LanguageHalfling",
-  hallit: "ffd20lnrw.LanguageHallit",
+  auroran: "ffd20lnrw.LanguageAuroran",
+  enochian: "ffd20lnrw.LanguageEnochian",
   ignan: "ffd20lnrw.LanguageIgnan",
-  jistka: "ffd20lnrw.LanguageJistka",
-  infernal: "ffd20lnrw.LanguageInfernal",
-  kelish: "ffd20lnrw.LanguageKelish",
-  necril: "ffd20lnrw.LanguageNecril",
-  orc: "ffd20lnrw.LanguageOrc",
-  orvian: "ffd20lnrw.LanguageOrvian",
-  osiriani: "ffd20lnrw.LanguageOsiriani",
-  polyglot: "ffd20lnrw.LanguagePolyglot",
-  protean: "ffd20lnrw.LanguageProtean",
-  shadowtongue: "ffd20lnrw.LanguageShadowTongue",
-  shoanti: "ffd20lnrw.LanguageShoanti",
-  skald: "ffd20lnrw.LanguageSkald",
-  sphinx: "ffd20lnrw.LanguageSphinx",
-  sylvan: "ffd20lnrw.LanguageSylvan",
-  taldane: "ffd20lnrw.LanguageTaldane",
-  tekritanin: "ffd20lnrw.LanguageTekritanin",
-  tengu: "ffd20lnrw.LanguageTengu",
   terran: "ffd20lnrw.LanguageTerran",
-  thassilonian: "ffd20lnrw.LanguageThassilonian",
-  tien: "ffd20lnrw.LanguageTien",
-  treant: "ffd20lnrw.LanguageTreant",
-  undercommon: "ffd20lnrw.LanguageUndercommon",
-  varisian: "ffd20lnrw.LanguageVarisian",
-  vegepygmy: "ffd20lnrw.LanguageVegepygmy",
-  vudrani: "ffd20lnrw.LanguageVudrani",
+  thorian: "ffd20lnrw.LanguageThorian",
+  umbran: "ffd20lnrw.LanguageUmbran",
+  
+  antican: "ffd20lnrw.LanguageAntican",
+  goblin: "ffd20lnrw.LanguageGoblin",
+  kojin: "ffd20lnrw.LanguageKojin",
+  orcish: "ffd20lnrw.LanguageOrcish",
+  queran: "ffd20lnrw.LanguageQueran",
+  sahagin: "ffd20lnrw.LanguageSahagin",
+  sylvan: "ffd20lnrw.LanguageSylvan",
+  vanu: "ffd20lnrw.LanguageVanu",
+  yagudo: "ffd20lnrw.LanguageYagudo",
 };
 
 ffd20lnrw.creatureTypes = {
@@ -1435,7 +1449,7 @@ ffd20lnrw.sizeDie = [
   "16d8",
 ];
 
-// Character Level XP Requirements
+// Character MP levels
 ffd20lnrw.CHARACTER_EXP_LEVELS = {
   slow: [
     0,

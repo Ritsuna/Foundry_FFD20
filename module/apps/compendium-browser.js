@@ -1,14 +1,15 @@
-import { CR, naturalSort } from "../lib.js";
-import { ItemPF } from "../item/entity.js";
-import { SemanticVersion } from "../semver.js";
+import { CR, naturalSort } from "../lib.js"; // Monster CR information 
+import { ItemFFd20 } from "../item/entity.js"; // pulls item formating
+import { SemanticVersion } from "../semver.js"; // formats versioning correctly
 
+// deals with compendium versioning
 const NEED_NEW_VERSION = {
-  spells: "0.76.12",
-  items: "0.76.9",
-  bestiary: "0.76.12",
-  feats: "0.76.12",
-  classes: "0.76.12",
-  races: "0.76.12",
+  spells: "0.00.04",
+  items: "0.00.04",
+  bestiary: "0.00.04",
+  feats: "0.00.04",
+  classes: "0.00.04",
+  races: "0.00.04",
 };
 
 export const COMPENDIUM_TYPES = {
@@ -18,8 +19,11 @@ export const COMPENDIUM_TYPES = {
   feats: "Item",
   classes: "Item",
   races: "Item",
+  skills: "Item",
+  limitbreaks: "Item",
 };
 
+//adds filters to the compendium
 export class CompendiumBrowser extends Application {
   constructor(...args) {
     super(...args);
@@ -75,7 +79,7 @@ export class CompendiumBrowser extends Application {
     {
       this._savedItems = [];
       const cacheVersions = game.settings.get("ffd20lnrw", "compendiumSaveVersions");
-      const thisVersion = SemanticVersion.fromString(cacheVersions[this.type] || "0.0.1");
+      const thisVersion = SemanticVersion.fromString(cacheVersions[this.type] || "0.0.04");
       const needVersion = SemanticVersion.fromString(NEED_NEW_VERSION[this.type]);
       if (needVersion.isHigherThan(thisVersion)) {
         game.settings.set(
@@ -229,6 +233,10 @@ export class CompendiumBrowser extends Application {
         return game.i18n.localize("ffd20lnrw.Classes");
       case "races":
         return game.i18n.localize("ffd20lnrw.Races");
+      case "skills":
+        return game.i18n.localize("ffd20lnrw.Skills");
+      case "limitbreaks":
+        return game.i18n.localize("ffd20lnrw.Limitbreaks");
     }
     return this.type;
   }
@@ -373,10 +381,12 @@ export class CompendiumBrowser extends Application {
 
   _filterItems(item) {
     if (this.type === "spells" && item.type !== "spell") return false;
-    if (this.type === "items" && !ItemPF.isInventoryItem(item.type)) return false;
+    if (this.type === "items" && !ItemFFd20.isInventoryItem(item.type)) return false;
     if (this.type === "feats" && item.type !== "feat") return false;
     if (this.type === "classes" && item.type !== "class") return false;
     if (this.type === "races" && item.type !== "race") return false;
+    if (this.type === "skills" && item.type !== "skill") return false;
+    if (this.type === "limitbreaks" && item.type !== "limitbreak") return false;
     return true;
   }
 

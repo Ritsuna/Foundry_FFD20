@@ -17,13 +17,6 @@
 			"entity": "Item"
 		},
 		{
-			"name": "mythicpaths",
-			"label": "Mythic Paths",
-			"system": "ffd20lnrw",
-			"path": "./packs/mythic-paths.db",
-			"entity": "Item"
-		},
-		{
 			"name": "commonbuffs",
 			"label": "Common Buffs",
 			"system": "ffd20lnrw",
@@ -113,41 +106,6 @@
 			"system": "ffd20lnrw",
 			"path": "./packs/ultimate-equipment.db",
 			"entity": "RollTable"
-		},
-		{
-			"name": "bestiary_1",
-			"label": "Bestiary - Part 1",
-			"system": "ffd20lnrw",
-			"path": "./packs/bestiary_1.db",
-			"entity": "Actor"
-		},
-		{
-			"name": "bestiary_2",
-			"label": "Bestiary - Part 2",
-			"system": "ffd20lnrw",
-			"path": "./packs/bestiary_2.db",
-			"entity": "Actor"
-		},
-		{
-			"name": "bestiary_3",
-			"label": "Bestiary - Part 3",
-			"system": "ffd20lnrw",
-			"path": "./packs/bestiary_3.db",
-			"entity": "Actor"
-		},
-		{
-			"name": "bestiary_4",
-			"label": "Bestiary - Part 4",
-			"system": "ffd20lnrw",
-			"path": "./packs/bestiary_4.db",
-			"entity": "Actor"
-		},
-		{
-			"name": "bestiary_5",
-			"label": "Bestiary - Part 5",
-			"system": "ffd20lnrw",
-			"path": "./packs/bestiary_5.db",
-			"entity": "Actor"
 		},
 		{
 			"name": "conditions",

@@ -79,13 +79,7 @@
                              value="{{spellbook.orig.spellSlotAbilityBonusFormula}}" placeholder="{{localize "ffd20lnrw.Formula"}}" />
         </div>
 
-        <div class="flexrow domain-slot-value">
-          <label><h3>{{localize "ffd20lnrw.DomainSlotValue"}}</h3></label>
-          <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.domainSlotValue"
-            value="{{spellbook.orig.domainSlotValue}}" title="{{localize "ffd20lnrw.DomainSlotValueDesc"}}" placeholder="0" data-dtype="Number" />
-        </div>
-
-        {{#if spellbook.orig.spellPoints.useSystem}}
+{{!-- this is to add spell points --}}
         <div class="flexrow spell-points">
           <h3>{{localize "ffd20lnrw.SpellPoints"}}</h3>
           <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.maxFormula"
@@ -96,26 +90,25 @@
           <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.restoreFormula"
           value="{{spellbook.orig.spellPoints.restoreFormula}}" placeholder="{{localize "ffd20lnrw.SpellPointsMax"}}" title="{{localize "ffd20lnrw.Formula"}}"/>
         </div>
-        {{/if}}
       </div>
       
       <div class="flexcol caster-preferences ffd20lnrw-sheet-group">
-        <label class="checkbox">
+        {{!-- <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.autoSpellLevels"
           {{checked spellbook.orig.autoSpellLevels}}/> {{localize "ffd20lnrw.AutomaticSpellSlots"}}
         </label>
         <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spontaneous"
           {{checked spellbook.orig.spontaneous}}/> {{localize "ffd20lnrw.SpellPrepSpontaneous"}}
-        </label>
+        </label> --}}
         <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.arcaneSpellFailure"
           {{checked spellbook.orig.arcaneSpellFailure}}/> {{localize "ffd20lnrw.ArcaneSpellFailure"}}
         </label>
-        <label class="checkbox">
+        {{!-- <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.useSystem"
           {{checked spellbook.orig.spellPoints.useSystem}}/> {{localize "ffd20lnrw.UseSpellPoints"}}
-        </label>
+        </label> --}}
       </div>
     </div>
   </div>
@@ -168,8 +161,7 @@
 </div>
 
 <div class="spell-points-current flexrow">
-  {{#if spellbook.orig.spellPoints.useSystem}}
-  <h3>{{localize "ffd20lnrw.SpellPoints"}}</h3>
+    <h3>{{localize "ffd20lnrw.SpellPoints"}}</h3>
   <div class="tooltip value">
     <span class="tooltipcontent">
       {{localize "ffd20lnrw.SpellPointsCurrent"}}<br><br>
@@ -178,7 +170,7 @@
     </span>
 
     <span class="text-box" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.value"
-    data-dtype="Number">{{spellbook.orig.spellPoints.value}}</span>
+      data-dtype="Number">{{spellbook.orig.spellPoints.value}}</span>
   </div>
   <span class="sep"> / </span>
   <div class="tooltip max">
@@ -190,7 +182,6 @@
 
     <span class="text-box">{{spellbook.orig.spellPoints.max}}</span>
   </div>
-  {{/if}}
 </div>
 
 <section class="spells_{{spellbookIndex}}-body">

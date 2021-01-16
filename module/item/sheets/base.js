@@ -1,6 +1,6 @@
 import { createTabs } from "../../lib.js";
 import { EntrySelector } from "../../apps/entry-selector.js";
-import { ItemPF } from "../entity.js";
+import { ItemFFd20 } from "../entity.js";
 import { ItemChange } from "../components/change.js";
 import { ScriptEditor } from "../../apps/script-editor.js";
 
@@ -8,7 +8,7 @@ import { ScriptEditor } from "../../apps/script-editor.js";
  * Override and extend the core ItemSheet implementation to handle D&D5E specific item types
  * @type {ItemSheet}
  */
-export class ItemSheetPF extends ItemSheet {
+export class ItemSheetFFd20 extends ItemSheet {
   constructor(...args) {
     super(...args);
 
@@ -540,7 +540,7 @@ export class ItemSheetPF extends ItemSheet {
     // let change = Object.entries(formData).filter(e => e[0].startsWith("data.changes"));
     // formData["data.changes"] = change.reduce((arr, entry) => {
     // let [i, j] = entry[0].split(".").slice(2);
-    // if ( !arr[i] ) arr[i] = ItemPF.defaultChange;
+    // if ( !arr[i] ) arr[i] = ItemFFd20.defaultChange;
     // arr[i][j] = entry[1];
     // // Reset subtarget (if necessary)
     // if (j === "subTarget") {
@@ -563,10 +563,10 @@ export class ItemSheetPF extends ItemSheet {
     let conditionals = Object.entries(formData).filter((e) => e[0].startsWith("data.conditionals"));
     formData["data.conditionals"] = conditionals.reduce((arr, entry) => {
       let [i, j, k] = entry[0].split(".").slice(2);
-      if (!arr[i]) arr[i] = ItemPF.defaultConditional;
+      if (!arr[i]) arr[i] = ItemFFd20.defaultConditional;
       if (k) {
         const target = formData[`data.conditionals.${i}.${j}.target`];
-        if (!arr[i].modifiers[j]) arr[i].modifiers[j] = ItemPF.defaultConditionalModifier;
+        if (!arr[i].modifiers[j]) arr[i].modifiers[j] = ItemFFd20.defaultConditionalModifier;
         arr[i].modifiers[j][k] = entry[1];
         // Target dependent keys
         if (["subTarget", "critical", "type"].includes(k)) {
@@ -1040,7 +1040,7 @@ export class ItemSheetPF extends ItemSheet {
     if (a.classList.contains("add-conditional")) {
       await this._onSubmit(event); // Submit any unsaved changes
       const conditionals = this.item.data.data.conditionals || [];
-      return this.item.update({ "data.conditionals": conditionals.concat([ItemPF.defaultConditional]) });
+      return this.item.update({ "data.conditionals": conditionals.concat([ItemFFd20.defaultConditional]) });
     }
 
     // Remove a conditional
@@ -1057,7 +1057,7 @@ export class ItemSheetPF extends ItemSheet {
       await this._onSubmit(event);
       const li = a.closest(".conditional");
       const conditionals = this.item.data.data.conditionals;
-      conditionals[Number(li.dataset.conditional)].modifiers.push(ItemPF.defaultConditionalModifier);
+      conditionals[Number(li.dataset.conditional)].modifiers.push(ItemFFd20.defaultConditionalModifier);
       // duplicate object to ensure update
       return this.item.update({ "data.conditionals": duplicate(conditionals) });
     }
@@ -1080,7 +1080,7 @@ export class ItemSheetPF extends ItemSheet {
     if (a.classList.contains("add-note")) {
       await this._onSubmit(event); // Submit any unsaved changes
       const contextNotes = this.item.data.data.contextNotes || [];
-      return this.item.update({ "data.contextNotes": contextNotes.concat([ItemPF.defaultContextNote]) });
+      return this.item.update({ "data.contextNotes": contextNotes.concat([ItemFFd20.defaultContextNote]) });
     }
 
     // Remove a note
