@@ -1,10 +1,10 @@
-import { ItemSheetPF } from "./base.js";
-import { ItemPF } from "../entity.js";
+import { ItemSheetFFd20 } from "./base.js";
+import { ItemFFd20 } from "../entity.js";
 import { convertWeight } from "../../lib.js";
 import { getSkipActionPrompt } from "../../settings.js";
 import { createConsumableSpellDialog } from "../../lib.js";
 
-export class ItemSheetPF_Container extends ItemSheetPF {
+export class ItemSheetFFd20_Container extends ItemSheetFFd20 {
   constructor(...args) {
     super(...args);
 
@@ -446,7 +446,7 @@ export class ItemSheetPF_Container extends ItemSheetPF {
       actor = game.actors.entities.find((o) => o._id === data.actorId);
     }
 
-    const item = await ItemPF.fromDropData(data);
+    const item = await ItemFFd20.fromDropData(data);
     const itemData = duplicate(item.data);
 
     // Sort item
@@ -460,7 +460,7 @@ export class ItemSheetPF_Container extends ItemSheetPF {
     }
 
     // Create or transfer item
-    if (ItemPF.isInventoryItem(item.data.type)) {
+    if (ItemFFd20.isInventoryItem(item.data.type)) {
       await this.item.createContainerContent(itemData);
 
       if (actor) {
@@ -650,7 +650,7 @@ export class ItemSheetPF_Container extends ItemSheetPF {
    */
   _getSortSiblings(source) {
     return this.item.items.filter((i) => {
-      if (ItemPF.isInventoryItem(source.data.type)) return ItemPF.isInventoryItem(i.data.type);
+      if (ItemFFd20.isInventoryItem(source.data.type)) return ItemFFd20.isInventoryItem(i.data.type);
       return i.data.type === source.data.type && i.data._id !== source.data._id;
     });
   }

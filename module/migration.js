@@ -1,4 +1,4 @@
-import { ItemPF } from "./item/entity.js";
+import { ItemFFd20 } from "./item/entity.js";
 import { ExperienceConfig } from "./config/experience.js";
 import { createTag } from "./lib.js";
 import { ItemChange } from "./item/components/change.js";
@@ -528,7 +528,7 @@ const _migrateWeaponCategories = function (ent, updateData) {
     updateData["data.weaponSubtype"] = "splash";
   }
 
-  const changeProp = ["simple", "martial", "exotic"].includes(type);
+  const changeProp = ["simple", "martial", "exotic", "chef", "power"].includes(type);
   if (changeProp && getProperty(ent.data.data, "weaponSubtype") == null) {
     updateData["data.weaponSubtype"] = "1h";
   }
@@ -666,7 +666,7 @@ const _migrateItemChanges = function (ent, updateData) {
     for (let n of notes) {
       if (n instanceof Array) {
         newNotes.push(
-          mergeObject(ItemPF.defaultChange, { text: n[0], target: n[1], subTarget: n[2] }, { inplace: false })
+          mergeObject(ItemFFd20.defaultChange, { text: n[0], target: n[1], subTarget: n[2] }, { inplace: false })
         );
       } else {
         newNotes.push(n);
@@ -1120,6 +1120,10 @@ const _migrateWeaponProperties = function (item, updateData) {
       simpleR: "rwak",
       martialM: "mwak",
       martialR: "rwak",
+      chefM: "mwak",
+      chefR: "rwak",
+      powerM: "mwak",
+      powerR: "rwak",
       natural: "mwak",
       improv: "mwak",
       ammo: "rwak",

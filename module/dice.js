@@ -1,11 +1,11 @@
-import { ChatMessagePF } from "./sidebar/chat-message.js";
+import { ChatMessageFFd20 } from "./sidebar/chat-message.js";
 import { isMinimumCoreVersion } from "./lib.js";
 
 export const formulaHasDice = function (formula) {
   return formula.match(/[0-9)][dD]/) || formula.match(/[dD][0-9(]/);
 };
 
-export class DicePF {
+export class DiceFFd20 {
   /**
    * A standardized helper function for managing core 5e "d20 rolls"
    *
@@ -119,7 +119,7 @@ export class DicePF {
           rolled = true;
           chatData = mergeObject(roll.toMessage({}, { create: false }), chatData);
 
-          await ChatMessagePF.create(chatData);
+          await ChatMessageFFd20.create(chatData);
         } else {
           rolled = true;
           await roll.toMessage({
@@ -285,7 +285,7 @@ export class DicePF {
 
         // Send message
         rolled = true;
-        ChatMessagePF.create(chatData);
+        ChatMessageFFd20.create(chatData);
       } else {
         rolled = true;
         roll.toMessage({

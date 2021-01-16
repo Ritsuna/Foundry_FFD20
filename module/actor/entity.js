@@ -1,5 +1,5 @@
-import { DicePF } from "../dice.js";
-import { ItemPF } from "../item/entity.js";
+import { DiceFFd20 } from "../dice.js";
+import { ItemFFd20 } from "../item/entity.js";
 import { createTag, linkData, isMinimumCoreVersion, convertDistance, convertWeight } from "../lib.js";
 import { createCustomChatMessage } from "../chat.js";
 import { _getInitiativeFormula } from "../combat.js";
@@ -10,7 +10,7 @@ import { updateChanges, getChangeFlat } from "./update-changes.js";
 /**
  * Extend the base Actor class to implement additional logic specialized for D&D5e.
  */
-export class ActorPF extends Actor {
+export class ActorFFd20 extends Actor {
   constructor(...args) {
     super(...args);
 
@@ -46,11 +46,11 @@ export class ActorPF extends Actor {
 
     // Roll saving throw
     if (action === "defense-save") {
-      const actor = ItemPF._getChatCardActor(card);
+      const actor = ItemFFd20._getChatCardActor(card);
       const saveId = button.dataset.save;
       if (actor) actor.rollSavingThrow(saveId, { event: event, skipPrompt: getSkipActionPrompt() });
     } else if (action === "save") {
-      const actors = ActorPF.getSelectedActors();
+      const actors = ActorFFd20.getSelectedActors();
       const saveId = button.dataset.type;
       let noSound = false;
       for (let a of actors) {
@@ -85,7 +85,7 @@ export class ActorPF extends Actor {
 
   /**
    * Returns an array of all selected tokens, along with their actors.
-   * @returns {Array.<ActorPF, Token>[]}
+   * @returns {Array.<ActorFFd20, Token>[]}
    */
   static getSelectedActors() {
     let result = [];
@@ -404,7 +404,7 @@ export class ActorPF extends Actor {
   }
 
   /**
-   * Return increased amount of spell slots by ability score modifier.
+   * Return increased amount of spell slots by ability score modifier. use this for bonus mp
    * @param {Number} mod - The associated ability modifier.
    * @param {Number} level - Spell level.
    * @returns {Number} Amount of spell levels to increase.
@@ -440,6 +440,25 @@ export class ActorPF extends Actor {
     }
     return Math.max(1, totalXP);
   }
+
+    /**
+   * Return the amount of MP gained by a class
+   * @param level {Number}  The desired level
+   * @return {Number}       The XP required
+
+  getLevelMP(level) {
+              const mpConfig = game.settings.get("ffd20lnrw", "experienceConfig"); change to looking at casting classes
+              const MPTrack = mpConfig.track;
+
+    if (["low", "med", "high"].includes(MPTrack)) {
+      const levels = CONFIG.ffd20lnrw.CHARACTER_MP_LEVELS[MPTrack];
+      return levels[Math.min(level, levels.length - 1)];
+    }
+    // Custom formula experience track
+    let totalMP = 0;
+
+    return Math.min(0, totalMP);
+  }   */
 
   /* -------------------------------------------- */
 
@@ -652,7 +671,7 @@ export class ActorPF extends Actor {
 
   /**
    * Makes sure experience values are correct in update data.
-   * @param {Object} data - The update data, as per ActorPF.update()
+   * @param {Object} data - The update data, as per ActorFFd20.update()
    */
   _updateExp(data) {
     const classes = this.items.filter((o) => o.type === "class" && o.data.data.classType !== "mythic");
@@ -774,7 +793,7 @@ export class ActorPF extends Actor {
 
   /**
    * Cast a Spell, consuming a spell slot of a certain level
-   * @param {ItemPF} item   The spell being cast by the actor
+   * @param {ItemFFd20} item   The spell being cast by the actor
    * @param {MouseEvent} ev The click event
    */
   async useSpell(item, ev, { skipDialog = false } = {}) {
@@ -998,7 +1017,7 @@ export class ActorPF extends Actor {
 
     let props = [];
     if (notes.length > 0) props.push({ header: "Notes", value: notes });
-    return DicePF.d20Roll({
+    return DiceFFd20.d20Roll({
       event: options.event,
       fastForward: options.skipDialog === true,
       staticRoll: options.staticRoll,
@@ -1033,7 +1052,7 @@ export class ActorPF extends Actor {
       return ui.notifications.warn(msg);
     }
 
-    return DicePF.d20Roll({
+    return DiceFFd20.d20Roll({
       event: options.event,
       parts: ["@mod"],
       dice: options.dice,
@@ -1071,7 +1090,7 @@ export class ActorPF extends Actor {
 
     let props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    return DicePF.d20Roll({
+    return DiceFFd20.d20Roll({
       event: options.event,
       parts: ["@mod"],
       dice: options.dice,
@@ -1095,7 +1114,7 @@ export class ActorPF extends Actor {
 
     let props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    return DicePF.d20Roll({
+    return DiceFFd20.d20Roll({
       event: event,
       parts: [`@cl`],
       data: rollData,
@@ -1126,7 +1145,7 @@ export class ActorPF extends Actor {
       formulaRoll = new Roll(spellbook.concentrationFormula, rollData).roll().total;
     rollData.formulaBonus = formulaRoll;
 
-    return DicePF.d20Roll({
+    return DiceFFd20.d20Roll({
       event: event,
       parts: ["@cl + @mod + @concentrationBonus + @formulaBonus"],
       dice: options.dice,
@@ -1278,7 +1297,7 @@ export class ActorPF extends Actor {
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
     const label = CONFIG.ffd20lnrw.savingThrows[savingThrowId];
     const savingThrow = this.data.data.attributes.savingThrows[savingThrowId];
-    return DicePF.d20Roll({
+    return DiceFFd20.d20Roll({
       event: options.event,
       parts: mods,
       dice: options.dice,
@@ -1333,7 +1352,7 @@ export class ActorPF extends Actor {
       formula += " - @attributes.energyDrain";
     }
 
-    return DicePF.d20Roll({
+    return DiceFFd20.d20Roll({
       event: options.event,
       parts: [formula],
       dice: options.dice,
@@ -1974,6 +1993,8 @@ export class ActorPF extends Actor {
           hd: cls.data.hd,
           bab: cls.data.bab,
           hp: healthConfig.auto,
+          mp: cls.data.mp,
+          limitbreak: cls.data.limitbreak,
           savingThrows: {
             fort: 0,
             ref: 0,
@@ -2146,8 +2167,8 @@ export class ActorPF extends Actor {
       .map((o) => {
         return {
           item: o,
-          color1: ItemPF.getTypeColor(o.type, 0),
-          color2: ItemPF.getTypeColor(o.type, 1),
+          color1: ItemFFd20.getTypeColor(o.type, 0),
+          color2: ItemFFd20.getTypeColor(o.type, 1),
         };
       });
   }

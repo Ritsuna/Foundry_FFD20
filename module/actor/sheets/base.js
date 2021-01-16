@@ -1,7 +1,7 @@
 import { ActorTraitSelector } from "../../apps/trait-selector.js";
 import { ActorRestDialog } from "../../apps/actor-rest.js";
 import { ActorSheetFlags } from "../../apps/actor-flags.js";
-import { DicePF } from "../../dice.js";
+import { DiceFFd20 } from "../../dice.js";
 import {
   createTag,
   createTabs,
@@ -14,17 +14,17 @@ import {
 import { PointBuyCalculator } from "../../apps/point-buy-calculator.js";
 import { Widget_ItemPicker } from "../../widgets/item-picker.js";
 import { getSkipActionPrompt } from "../../settings.js";
-import { ItemPF } from "../../item/entity.js";
+import { ItemFFd20 } from "../../item/entity.js";
 import { dialogGetActor } from "../../dialog.js";
 import { applyAccessibilitySettings } from "../../chat.js";
 
 /**
- * Extend the basic ActorSheet class to do all the PF things!
+ * Extend the basic ActorSheet class to do all the FFd20 things!
  * This sheet is an Abstract layer which is not used.
  *
  * @type {ActorSheet}
  */
-export class ActorSheetPF extends ActorSheet {
+export class ActorSheetFFd20 extends ActorSheet {
   constructor(...args) {
     super(...args);
 
@@ -120,6 +120,35 @@ export class ActorSheetPF extends ActorSheet {
   }
 
   /* -------------------------------------------- */
+
+  async close(options = {}) {
+    //Room left for potential client setting
+    if (typeof options.save === "boolean") {
+      if (options.save) {
+        for (let ed of Object.values(this.editors)) {
+          if (ed.mce && ed.changed) ed.saveEditor(ed.target);
+        }
+      }
+      return super.close(options);
+    } else {
+      let unsavedChanges = [];
+      for (let ed of Object.values(this.editors)) {
+        if (ed.mce && ed.changed) {
+          let d = Dialog.confirm({
+            title: this.object.name + " : " + ed.target,
+            content: `<p>${game.i18n.localize("ffd20lnrw.UnsavedTinyMCE")}</p>`,
+            yes: () => this.saveEditor(ed.target),
+            no: () => ed.mce.destroy(),
+            defaultYes: true,
+          });
+          unsavedChanges.push(d);
+        }
+      }
+      return Promise.all(unsavedChanges).then(() => {
+        return super.close(options);
+      });
+    }
+  }
 
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
@@ -488,7 +517,10 @@ export class ActorSheetPF extends ActorSheet {
       const trait = traits[t];
       if (!trait) continue;
       let values = [];
-      if (trait.value) {
+      // Prefer total over value for dynamically collected proficiencies
+      if (["armorProf", "weaponProf"].includes(t)) {
+        values = trait.total ?? trait.value;
+      } else if (trait.value) {
         values = trait.value instanceof Array ? trait.value : [trait.value];
       }
       trait.selected = values.reduce((obj, t) => {
@@ -496,8 +528,13 @@ export class ActorSheetPF extends ActorSheet {
         return obj;
       }, {});
 
-      // Add custom entry
-      if (trait.custom) {
+      // Prefer total over value for dynamically collected proficiencies
+      if (trait.customTotal) {
+        trait.customTotal
+          .split(CONFIG.ffd20lnrw.re.traitSeparator)
+          .forEach((c, i) => (trait.selected[`custom${i + 1}`] = c.trim()));
+      } else if (trait.custom) {
+        // Add custom entry
         trait.custom
           .split(CONFIG.ffd20lnrw.re.traitSeparator)
           .forEach((c, i) => (trait.selected[`custom${i + 1}`] = c.trim()));
@@ -621,7 +658,7 @@ export class ActorSheetPF extends ActorSheet {
         if (hasTypeFilter && !filters.has(`type-${data.featType}`)) return false;
       }
 
-      if (ItemPF.isInventoryItem(item.type)) {
+      if (ItemFFd20.isInventoryItem(item.type)) {
         if (hasTypeFilter && item.type !== "loot" && !filters.has(`type-${item.type}`)) return false;
         else if (hasTypeFilter && item.type === "loot" && !filters.has(`type-${data.subType}`)) return false;
       }
@@ -1988,7 +2025,7 @@ export class ActorSheetPF extends ActorSheet {
         else if (item.type === "feat") arr[2].push(item);
         else if (item.type === "class") arr[3].push(item);
         else if (item.type === "attack") arr[4].push(item);
-        else if (ItemPF.isInventoryItem(item.type)) arr[0].push(item);
+        else if (ItemFFd20.isInventoryItem(item.type)) arr[0].push(item);
         return arr;
       },
       [[], [], [], [], []]
@@ -2379,6 +2416,7 @@ export class ActorSheetPF extends ActorSheet {
 
     let itemData = {};
     let dataType = "";
+    let fromContainer = false;
 
     // Case 1 - Import from a Compendium pack
     const actor = this.actor;
@@ -2397,6 +2435,8 @@ export class ActorSheetPF extends ActorSheet {
 
       dataType = "data";
       itemData = data.data;
+
+      fromContainer = data.containerId ?? false;
     }
 
     // Case 3 - Import from World entity
@@ -2405,7 +2445,21 @@ export class ActorSheetPF extends ActorSheet {
       itemData = game.items.get(data.id).data;
     }
 
-    return this.importItem(mergeObject(itemData, this.getDropData(itemData), { inplace: false }), dataType);
+    return this.importItem(mergeObject(itemData, this.getDropData(itemData), { inplace: false }), dataType)
+      .then((item) => {
+        // Remove from container if destination is parent actor
+        if (item && fromContainer) {
+          const sourceActor = game.actors.get(actor._id);
+          const container = sourceActor?.getOwnedItem(data.containerId);
+          if (container) container.deleteContainerContent(itemData._id);
+        }
+      })
+      .catch((err) => {
+        console.error(
+          `Failed to remove item ${itemData._id} (${itemData.name}) from container ${data.containerId} on actor ${actor._id} (${actor.name})`,
+          err
+        );
+      });
   }
 
   getDropData(origData) {
@@ -2454,7 +2508,7 @@ export class ActorSheetPF extends ActorSheet {
    */
   _getSortSiblings(source) {
     return this.actor.items.filter((i) => {
-      if (ItemPF.isInventoryItem(source.data.type)) return ItemPF.isInventoryItem(i.data.type);
+      if (ItemFFd20.isInventoryItem(source.data.type)) return ItemFFd20.isInventoryItem(i.data.type);
       return i.data.type === source.data.type && i.data._id !== source.data._id;
     });
   }
@@ -2467,7 +2521,10 @@ export class ActorSheetPF extends ActorSheet {
     }
 
     if (itemData._id) delete itemData._id;
-    return this.actor.createEmbeddedEntity("OwnedItem", itemData);
+    var actorRef = this.actor;
+    return this.actor.createEmbeddedEntity("OwnedItem", itemData).then((createdItem) => {
+      if (createdItem.data.uses?.maxFormula) return actorRef.updateItemResources(actorRef.items.get(createdItem._id));
+    });
   }
 
   async _onConfigControl(event) {

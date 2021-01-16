@@ -59,7 +59,7 @@ export class ChatAttack {
 
   /**
    * Sets the attack's item reference.
-   * @param {ItemPF} item - The item to reference.
+   * @param {ItemFFd20} item - The item to reference.
    */
   setItem(item) {
     if (item == null) {

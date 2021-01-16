@@ -15,20 +15,20 @@ import {
 import { preloadHandlebarsTemplates } from "./module/handlebars/templates.js";
 import { registerHandlebarsHelpers } from "./module/handlebars/helpers.js";
 import { measureDistances } from "./module/canvas.js";
-import { ActorPF } from "./module/actor/entity.js";
-import { ActorSheetPFCharacter } from "./module/actor/sheets/character.js";
-import { ActorSheetPFNPC } from "./module/actor/sheets/npc.js";
-import { ActorSheetPFNPCLite } from "./module/actor/sheets/npc-lite.js";
-import { ActorSheetPFNPCLoot } from "./module/actor/sheets/npc-loot.js";
-import { ItemPF } from "./module/item/entity.js";
-import { ItemSheetPF } from "./module/item/sheets/base.js";
-import { ItemSheetPF_Container } from "./module/item/sheets/container.js";
-import { CompendiumDirectoryPF } from "./module/sidebar/compendium.js";
+import { ActorFFd20 } from "./module/actor/entity.js";
+import { ActorSheetFFd20Character } from "./module/actor/sheets/character.js";
+import { ActorSheetFFd20NPC } from "./module/actor/sheets/npc.js";
+import { ActorSheetFFd20NPCLite } from "./module/actor/sheets/npc-lite.js";
+import { ActorSheetFFd20NPCLoot } from "./module/actor/sheets/npc-loot.js";
+import { ItemFFd20 } from "./module/item/entity.js";
+import { ItemSheetFFd20 } from "./module/item/sheets/base.js";
+import { ItemSheetFFd20_Container } from "./module/item/sheets/container.js";
+import { CompendiumDirectoryFFd20 } from "./module/sidebar/compendium.js";
 import { CompendiumBrowser } from "./module/apps/compendium-browser.js";
 import { PatchCore } from "./module/patch-core.js";
-import { DicePF } from "./module/dice.js";
+import { DiceFFd20 } from "./module/dice.js";
 import { getItemOwner, sizeDie, normalDie, getActorFromId, isMinimumCoreVersion } from "./module/lib.js";
-import { ChatMessagePF } from "./module/sidebar/chat-message.js";
+import { ChatMessageFFd20 } from "./module/sidebar/chat-message.js";
 import { TokenQuickActions } from "./module/token-quick-actions.js";
 import { initializeSocket } from "./module/socket.js";
 import { updateChanges } from "./module/actor/update-changes.js";
@@ -62,15 +62,15 @@ Hooks.once("init", async function () {
 
   // Create a ffd20lnrw namespace within the game global
   game.ffd20lnrw = {
-    ActorPF,
-    DicePF,
-    ItemPF,
+    ActorFFd20,
+    DiceFFd20,
+    ItemFFd20,
     migrations,
     rollItemMacro,
     rollSkillMacro,
     rollDefenses,
     rollActorAttributeMacro,
-    CompendiumDirectoryPF,
+    CompendiumDirectoryFFd20,
     rollPreProcess: {
       sizeRoll: sizeDie,
       roll: normalDie,
@@ -82,10 +82,10 @@ Hooks.once("init", async function () {
 
   // Record Configuration Values
   CONFIG.ffd20lnrw = ffd20lnrw;
-  CONFIG.Actor.entityClass = ActorPF;
-  CONFIG.Item.entityClass = ItemPF;
-  CONFIG.ui.compendium = CompendiumDirectoryPF;
-  CONFIG.ChatMessage.entityClass = ChatMessagePF;
+  CONFIG.Actor.entityClass = ActorFFd20;
+  CONFIG.Item.entityClass = ItemFFd20;
+  CONFIG.ui.compendium = CompendiumDirectoryFFd20;
+  CONFIG.ChatMessage.entityClass = ChatMessageFFd20;
 
   // Register System Settings
   registerSystemSettings();
@@ -99,16 +99,16 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("ffd20lnrw", ActorSheetPFCharacter, { types: ["character"], makeDefault: true });
-  Actors.registerSheet("ffd20lnrw", ActorSheetPFNPC, { types: ["npc"], makeDefault: true });
-  Actors.registerSheet("ffd20lnrw", ActorSheetPFNPCLite, { types: ["npc"], makeDefault: false });
-  Actors.registerSheet("ffd20lnrw", ActorSheetPFNPCLoot, { types: ["npc"], makeDefault: false });
+  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20Character, { types: ["character"], makeDefault: true });
+  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20NPC, { types: ["npc"], makeDefault: true });
+  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20NPCLite, { types: ["npc"], makeDefault: false });
+  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20NPCLoot, { types: ["npc"], makeDefault: false });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("ffd20lnrw", ItemSheetPF, {
+  Items.registerSheet("ffd20lnrw", ItemSheetFFd20, {
     types: ["class", "feat", "spell", "consumable", "equipment", "loot", "weapon", "buff", "attack", "race"],
     makeDefault: true,
   });
-  Items.registerSheet("ffd20lnrw", ItemSheetPF_Container, { types: ["container"], makeDefault: true });
+  Items.registerSheet("ffd20lnrw", ItemSheetFFd20_Container, { types: ["container"], makeDefault: true });
 
   initializeSocket();
 });
@@ -166,7 +166,10 @@ Hooks.once("setup", function () {
     "divineFocus",
     "classSavingThrows",
     "classBAB",
+    "classBaseMPTypes",
     "classTypes",
+    "classSubTypes",
+    "parentClass",
     "measureTemplateTypes",
     "creatureTypes",
     "measureUnits",
@@ -201,7 +204,7 @@ Hooks.once("setup", function () {
  */
 Hooks.once("ready", async function () {
   // Migrate data
-  const NEEDS_MIGRATION_VERSION = "0.76.12";
+  const NEEDS_MIGRATION_VERSION = "0.0.04";
   let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20lnrw", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";
@@ -233,7 +236,7 @@ Hooks.once("ready", async function () {
 
   // Show changelog
   if (!game.settings.get("ffd20lnrw", "dontShowChangelog")) {
-    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.1";
+    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.4";
     const changelogVersion = SemanticVersion.fromString(v);
     const curVersion = SemanticVersion.fromString(game.system.data.version);
 
@@ -332,11 +335,11 @@ Hooks.on("renderChatPopout", (app, html, data) => {
   if (game.settings.get("ffd20lnrw", "hideChatButtons")) html.find(".card-buttons").hide();
 });
 
-Hooks.on("renderChatLog", (_, html) => ItemPF.chatListeners(html));
-Hooks.on("renderChatLog", (_, html) => ActorPF.chatListeners(html));
+Hooks.on("renderChatLog", (_, html) => ItemFFd20.chatListeners(html));
+Hooks.on("renderChatLog", (_, html) => ActorFFd20.chatListeners(html));
 
-Hooks.on("renderChatPopout", (_, html) => ItemPF.chatListeners(html));
-Hooks.on("renderChatPopout", (_, html) => ActorPF.chatListeners(html));
+Hooks.on("renderChatPopout", (_, html) => ItemFFd20.chatListeners(html));
+Hooks.on("renderChatPopout", (_, html) => ActorFFd20.chatListeners(html));
 
 Hooks.on("renderLightConfig", (app, html) => {
   RenderLightConfig_LowLightVision(app, html);
@@ -716,7 +719,7 @@ function rollSkillMacro(actorId, skillId) {
  * Show an actor's defenses.
  */
 function rollDefenses({ actorName = null, actorId = null } = {}) {
-  const actor = ActorPF.getActiveActor({ actorName: actorName, actorId: actorId });
+  const actor = ActorFFd20.getActiveActor({ actorName: actorName, actorId: actorId });
   if (!actor) {
     const msg = game.i18n
       .localize("ffd20lnrw.ErrorNoApplicableActorFoundForAction")
@@ -769,5 +772,5 @@ const handleChatTooltips = function (event) {
 
 // Export objects for being a library
 
-export { ActorPF, ItemPF, ActorSheetPFCharacter, ActorSheetPFNPC, ActorSheetPFNPCLite, ActorSheetPFNPCLoot };
-export { DicePF, ChatMessagePF, measureDistances };
+export { ActorFFd20, ItemFFd20, ActorSheetFFd20Character, ActorSheetFFd20NPC, ActorSheetFFd20NPCLite, ActorSheetFFd20NPCLoot };
+export { DiceFFd20, ChatMessageFFd20, measureDistances };

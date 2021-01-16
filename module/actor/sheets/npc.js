@@ -1,12 +1,12 @@
-import { ActorSheetPF } from "../sheets/base.js";
+import { ActorSheetFFd20 } from "../sheets/base.js";
 import { CR } from "../../lib.js";
 
 /**
  * An Actor sheet for NPC type characters in the D&D5E system.
- * Extends the base ActorSheetPF class.
- * @type {ActorSheetPF}
+ * Extends the base ActorSheetFFd20 class.
+ * @type {ActorSheetFFd20}
  */
-export class ActorSheetPFNPC extends ActorSheetPF {
+export class ActorSheetFFd20NPC extends ActorSheetFFd20 {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
@@ -33,7 +33,7 @@ export class ActorSheetPFNPC extends ActorSheetPF {
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetPFNPC");
+  //   return game.i18n.localize("ffd20lnrw.ActorSheetFFd20NPC");
   // }
 
   /* -------------------------------------------- */

@@ -1,6 +1,6 @@
 import { ListTabs } from "./misc/list-tabs.js";
 import { SemanticVersion } from "./semver.js";
-import { ItemPF } from "./item/entity.js";
+import { ItemFFd20 } from "./item/entity.js";
 import { Color } from "./lib/color/color.js";
 
 /**
@@ -552,7 +552,7 @@ export const createConsumableSpellDialog = function (itemData) {
 };
 
 export const createConsumableSpell = async function (itemData, type) {
-  let data = await ItemPF.toConsumable(itemData, type);
+  let data = await ItemFFd20.toConsumable(itemData, type);
 
   if (data._id) delete data._id;
   return data;

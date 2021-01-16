@@ -1,7 +1,7 @@
-import { DicePF, formulaHasDice } from "../dice.js";
+import { DiceFFd20, formulaHasDice } from "../dice.js";
 import { createCustomChatMessage } from "../chat.js";
 import { createTag, linkData, convertDistance, convertWeight, convertWeightBack } from "../lib.js";
-import { ActorPF } from "../actor/entity.js";
+import { ActorFFd20 } from "../actor/entity.js";
 import { AbilityTemplate } from "../pixi/ability-template.js";
 import { ChatAttack } from "../misc/chat-attack.js";
 import { SemanticVersion } from "../semver.js";
@@ -10,7 +10,7 @@ import { ItemChange } from "./components/change.js";
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-export class ItemPF extends Item {
+export class ItemFFd20 extends Item {
   constructor(...args) {
     super(...args);
 
@@ -428,7 +428,7 @@ export class ItemPF extends Item {
       itemData.data.weightConverted = convertWeight(itemData.data.weight);
       itemData.data.weightUnits =
         game.settings.get("ffd20lnrw", "units") === "metric" ? game.i18n.localize("ffd20lnrw.Kgs") : game.i18n.localize("ffd20lnrw.Lbs");
-      itemData.data.priceUnits = game.i18n.localize("ffd20lnrw.CurrencyGP").toLowerCase();
+      itemData.data.priceUnits = game.i18n.localize("ffd20lnrw.CurrencyGil").toLowerCase();
 
       // Set basic data
       itemData.data.hp = itemData.data.hp || { max: 10, value: 10 };
@@ -2055,7 +2055,7 @@ export class ItemPF extends Item {
 
   /**
    * Place an attack roll using an item (weapon, feat, spell, or equipment)
-   * Rely upon the DicePF.d20Roll logic for the core implementation
+   * Rely upon the DiceFFd20.d20Roll logic for the core implementation
    */
   rollAttack({ data = null, extraParts = [], bonus = null, primaryAttack = true } = {}) {
     const itemData = this.data.data;
@@ -2193,7 +2193,7 @@ export class ItemPF extends Item {
 
   /**
    * Place an attack roll using an item (weapon, feat, spell, or equipment)
-   * Rely upon the DicePF.d20Roll logic for the core implementation
+   * Rely upon the DiceFFd20.d20Roll logic for the core implementation
    */
   async rollFormula(options = {}) {
     const itemData = this.data.data;
@@ -2216,7 +2216,7 @@ export class ItemPF extends Item {
 
   /**
    * Place a damage roll using an item (weapon, feat, spell, or equipment)
-   * Rely upon the DicePF.damageRoll logic for the core implementation
+   * Rely upon the DiceFFd20.damageRoll logic for the core implementation
    */
   rollDamage({ data = null, critical = false, extraParts = [], conditionalParts = {} } = {}) {
     const rollData = mergeObject(this.getRollData(), data || {});
@@ -2332,7 +2332,7 @@ export class ItemPF extends Item {
     // Add effect string
     let effectStr = "";
     if (typeof itemData.effectNotes === "string" && itemData.effectNotes.length) {
-      effectStr = DicePF.messageRoll({
+      effectStr = DiceFFd20.messageRoll({
         data: data,
         msgStr: itemData.effectNotes,
       });
@@ -2476,7 +2476,7 @@ export class ItemPF extends Item {
       if (button.dataset.tags?.split(" ").includes("nonlethal")) asNonlethal = true;
 
       const value = button.dataset.value;
-      if (!isNaN(parseInt(value))) ActorPF.applyDamage(parseInt(value), { asNonlethal });
+      if (!isNaN(parseInt(value))) ActorFFd20.applyDamage(parseInt(value), { asNonlethal });
     }
     // Recover ammunition
     else if (["recoverAmmo", "forceRecoverAmmo"].includes(action)) {
@@ -3308,7 +3308,7 @@ export class ItemPF extends Item {
 
   /**
    * Generates a list of targets this modifier can have.
-   * @param {ItemPF} item - The item for which the modifier is to be created.
+   * @param {ItemFFd20} item - The item for which the modifier is to be created.
    * @returns {Object.<string, string>} A list of targets
    */
   getConditionalTargets() {

@@ -1,6 +1,6 @@
 import { CompendiumBrowser } from "../apps/compendium-browser.js";
 
-export class SidebarPF extends Sidebar {
+export class SidebarFFd20 extends Sidebar {
   constructor(...args) {
     super(...args);
 

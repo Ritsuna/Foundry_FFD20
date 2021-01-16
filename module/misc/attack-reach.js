@@ -53,7 +53,7 @@ export class SquareHighlight {
 /**
  * Highlights the reach of an attack for a token.
  * @param {Token} token
- * @param {ItemPF} attack
+ * @param {ItemFFd20} attack
  * @returns SquareHighlight
  */
 export const showAttackReach = function (token, attack) {

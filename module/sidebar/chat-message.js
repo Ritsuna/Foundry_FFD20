@@ -1,4 +1,4 @@
-export class ChatMessagePF extends ChatMessage {
+export class ChatMessageFFd20 extends ChatMessage {
   async render() {
     // Determine some metadata
     const data = duplicate(this.data);
@@ -62,7 +62,7 @@ export class ChatMessagePF extends ChatMessage {
 
   /**
    * Return linked item or falsey
-   * @type {ItemPF}
+   * @type {ItemFFd20}
    */
   get itemSource() {
     let itemId = this.data.flags?.ffd20lnrw?.metadata?.item;
