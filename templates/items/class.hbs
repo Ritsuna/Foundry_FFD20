@@ -89,6 +89,18 @@
       </div>
       {{/unless}}
 
+      {{!-- Casting stat type --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.SpellcastingAbility"}}</label>
+        <select name="data.classCastingStat">
+          {{#select data.classCastingStat}}
+          {{#each config.classCastingStats as |name value|}}
+          <option value="{{value}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
       {{!-- mp type --}}
       <div class="form-group">
         <label>{{localize "ffd20lnrw.ClassManaType"}}</label>

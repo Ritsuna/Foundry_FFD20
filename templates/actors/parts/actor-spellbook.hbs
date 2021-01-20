@@ -13,11 +13,11 @@
       <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.cl.formula"
       value="{{spellbook.orig.cl.formula}}" placeholder="{{localize "ffd20lnrw.CasterLevelBonusFormula"}}" />
     </div>
+
+    <div class="spellcasting-config flexrow" style="flex: 0 5 5%; align-items: center; margin-left: auto; text-align: right;">
+      <label><a class="hide-show" data-for="spellbook-info_{{spellbookIndex}}"><i class="fas fa-cogs"></i></a></label>
   </div>
-  
-  <a class="hide-show" data-for="spellbook-info_{{spellbookIndex}}">
-    <i class="fas {{#if (lookup hiddenElems (concat "spellbook-info_" spellbookIndex))}}fa-arrow-circle-down{{else}}fa-arrow-circle-up{{/if}}"></i>
-  </a>
+  </div>
   <div class="hide spellbook-info_{{spellbookIndex}} {{#if (lookup hiddenElems (concat "spellbook-info_" spellbookIndex))}}hidden{{/if}}">
     <div class="flexrow spellcasting-notes ffd20lnrw-sheet-group">
       <textarea name="data.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationNotes" placeholder="{{localize "ffd20lnrw.ConcentrationNotes"}}">{{spellbook.orig.concentrationNotes}}</textarea>
@@ -79,7 +79,13 @@
                              value="{{spellbook.orig.spellSlotAbilityBonusFormula}}" placeholder="{{localize "ffd20lnrw.Formula"}}" />
         </div>
 
-{{!-- this is to add spell points --}}
+        <div class="flexrow domain-slot-value">
+          <label><h3>{{localize "ffd20lnrw.DomainSlotValue"}}</h3></label>
+          <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.domainSlotValue"
+            value="{{spellbook.orig.domainSlotValue}}" title="{{localize "ffd20lnrw.DomainSlotValueDesc"}}" placeholder="0" data-dtype="Number" />
+        </div>
+
+        {{#if spellbook.orig.spellPoints.useSystem}}
         <div class="flexrow spell-points">
           <h3>{{localize "ffd20lnrw.SpellPoints"}}</h3>
           <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.maxFormula"
@@ -90,25 +96,26 @@
           <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.restoreFormula"
           value="{{spellbook.orig.spellPoints.restoreFormula}}" placeholder="{{localize "ffd20lnrw.SpellPointsMax"}}" title="{{localize "ffd20lnrw.Formula"}}"/>
         </div>
+        {{/if}}
       </div>
       
       <div class="flexcol caster-preferences ffd20lnrw-sheet-group">
-        {{!-- <label class="checkbox">
+        <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.autoSpellLevels"
           {{checked spellbook.orig.autoSpellLevels}}/> {{localize "ffd20lnrw.AutomaticSpellSlots"}}
         </label>
         <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spontaneous"
           {{checked spellbook.orig.spontaneous}}/> {{localize "ffd20lnrw.SpellPrepSpontaneous"}}
-        </label> --}}
+        </label>
         <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.arcaneSpellFailure"
           {{checked spellbook.orig.arcaneSpellFailure}}/> {{localize "ffd20lnrw.ArcaneSpellFailure"}}
         </label>
-        {{!-- <label class="checkbox">
+        <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.useSystem"
           {{checked spellbook.orig.spellPoints.useSystem}}/> {{localize "ffd20lnrw.UseSpellPoints"}}
-        </label> --}}
+        </label>
       </div>
     </div>
   </div>
@@ -151,6 +158,32 @@
   </div>
 </div>
 
+<div class="spell-points-current flexrow">
+  {{#if spellbook.orig.spellPoints.useSystem}}
+  <h3>{{localize "ffd20lnrw.SpellPoints"}}</h3>
+  <div class="tooltip value">
+    <span class="tooltipcontent">
+      {{localize "ffd20lnrw.SpellPointsCurrent"}}<br><br>
+
+      {{data.attributes.mp.value}}
+    </span>
+
+    <span class="text-box" name="data.attributes.mp.value"
+      data-dtype="Number">{{data.attributes.mp.value}}</span>
+  </div>
+  <span class="sep"> / </span>
+  <div class="tooltip max">
+    <span class="tooltipcontent">
+      {{localize "ffd20lnrw.SpellPointsMax"}}<br><br>
+
+      {{data.attributes.mp.max}}
+    </span>
+
+    <span class="text-box">{{data.attributes.mp.max}}</span>
+  </div>
+  {{/if}}
+</div>
+
 {{!-- Spellbook Navigation --}}
 <div class="inventory-filters flexrow">  
   <ul class="filter-list flexrow" data-filter="spellbook-{{spellbookIndex}}">
@@ -158,30 +191,6 @@
     <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
     {{/each}}
   </ul>
-</div>
-
-<div class="spell-points-current flexrow">
-    <h3>{{localize "ffd20lnrw.SpellPoints"}}</h3>
-  <div class="tooltip value">
-    <span class="tooltipcontent">
-      {{localize "ffd20lnrw.SpellPointsCurrent"}}<br><br>
-
-      @spells.{{spellbookIndex}}.spellPoints.value : {{spellbook.orig.spellPoints.value}}
-    </span>
-
-    <span class="text-box" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.value"
-      data-dtype="Number">{{spellbook.orig.spellPoints.value}}</span>
-  </div>
-  <span class="sep"> / </span>
-  <div class="tooltip max">
-    <span class="tooltipcontent">
-      {{localize "ffd20lnrw.SpellPointsMax"}}<br><br>
-
-      @spells.{{spellbookIndex}}.spellPoints.max : {{spellbook.orig.spellPoints.max}}
-    </span>
-
-    <span class="text-box">{{spellbook.orig.spellPoints.max}}</span>
-  </div>
 </div>
 
 <section class="spells_{{spellbookIndex}}-body">
@@ -195,7 +204,7 @@
           <h3>{{section.name}}</h3>
         </div>
         
-        {{#unless ../spellbook.orig.spellPoints.useSystem}}
+        {{!-- {{#unless ../spellbook.orig.spellPoints.useSystem}}
         <div class="item-detail spell-uses">
           {{#if section.usesSlots}}
           <div class="tooltip spell-slots{{#if ../spellbook.orig.spontaneous}} spontaneous{{/if}}">
@@ -223,7 +232,7 @@
           <span class="spell-max">{{{section.slots}}}</span>
           {{/if}}
         </div>
-        {{/unless}}
+        {{/unless}} --}}
         
         <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "ffd20lnrw.ActionPlural"}}"></i></div>
 

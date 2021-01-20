@@ -3,6 +3,7 @@ import { EntrySelector } from "../../apps/entry-selector.js";
 import { ItemFFd20 } from "../entity.js";
 import { ItemChange } from "../components/change.js";
 import { ScriptEditor } from "../../apps/script-editor.js";
+import { ActorTraitSelector } from "../../apps/trait-selector.js";
 
 /**
  * Override and extend the core ItemSheet implementation to handle D&D5E specific item types
@@ -56,6 +57,35 @@ export class ItemSheetFFd20 extends ItemSheet {
   }
 
   /* -------------------------------------------- */
+
+  async close(options = {}) {
+    //Room left for potential client setting
+    if (typeof options.save === "boolean") {
+      if (options.save) {
+        for (let ed of Object.values(this.editors)) {
+          if (ed.mce && ed.changed) ed.saveEditor(ed.target);
+        }
+      }
+      return super.close(options);
+    } else {
+      let unsavedChanges = [];
+      for (let ed of Object.values(this.editors)) {
+        if (ed.mce && ed.changed) {
+          let d = Dialog.confirm({
+            title: this.object.name + " : " + ed.target,
+            content: `<p>${game.i18n.localize("ffd20lnrw.UnsavedTinyMCE")}</p>`,
+            yes: () => this.saveEditor(ed.target),
+            no: () => ed.mce.destroy(),
+            defaultYes: true,
+          });
+          unsavedChanges.push(d);
+        }
+      }
+      return Promise.all(unsavedChanges).then(() => {
+        return super.close(options);
+      });
+    }
+  }
 
   /**
    * Prepare item sheet data
@@ -254,6 +284,35 @@ export class ItemSheetFFd20 extends ItemSheet {
           cur[o[0]] = { name: name, classSkill: getProperty(this.item.data, `data.classSkills.${o[0]}`) === true };
           return cur;
         }, {});
+      }
+    }
+
+    // Prepare proficiencies
+    const profs = {
+      languages: CONFIG.ffd20lnrw.languages,
+      armorProf: CONFIG.ffd20lnrw.armorProficiencies,
+      weaponProf: CONFIG.ffd20lnrw.weaponProficiencies,
+    };
+    for (let [t, choices] of Object.entries(profs)) {
+      if (hasProperty(data.item.data, t)) {
+        const trait = data.data[t];
+        if (!trait) continue;
+        let values = [];
+        if (trait.value) {
+          values = trait.value instanceof Array ? trait.value : [trait.value];
+        }
+        trait.selected = values.reduce((obj, t) => {
+          obj[t] = choices[t];
+          return obj;
+        }, {});
+
+        // Add custom entry
+        if (trait.custom) {
+          trait.custom
+            .split(CONFIG.ffd20lnrw.re.traitSeparator)
+            .forEach((c, i) => (trait.selected[`custom${i + 1}`] = c.trim()));
+        }
+        trait.cssClass = !isObjectEmpty(trait.selected) ? "" : "inactive";
       }
     }
 
@@ -744,6 +803,9 @@ export class ItemSheetFFd20 extends ItemSheet {
 
     // Edit change script contents
     html.find(".edit-change-contents").on("click", this._onEditChangeScriptContents.bind(this));
+
+    // Trait Selector
+    html.find(".trait-selector").click(this._onTraitSelector.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -892,6 +954,23 @@ export class ItemSheetFFd20 extends ItemSheet {
     if (typeof command === "string") {
       return change.update({ formula: command });
     }
+  }
+
+  /**
+   * Handle spawning the ActorTraitSelector application which allows a checkbox of multiple trait options
+   * @param {Event} event   The click event which originated the selection
+   * @private
+   */
+  _onTraitSelector(event) {
+    event.preventDefault();
+    const a = event.currentTarget;
+    const label = a.parentElement.querySelector("label");
+    const options = {
+      name: label.getAttribute("for"),
+      title: label.innerText,
+      choices: CONFIG.ffd20lnrw[a.dataset.options],
+    };
+    new ActorTraitSelector(this.object, options).render(true);
   }
 
   /**

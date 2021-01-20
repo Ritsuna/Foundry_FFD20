@@ -53,10 +53,10 @@ There are items that boost natural healing that can be found.
     // Restore health and ability damage add mp
     if (restOptions["restoreHealth"] === true) {
       const hd = actorData.attributes.hd.total;
-      // const cl = actorData.attributes.hd.total;
+      const mprev = actorData.attributes.hd.total;
       let heal = {
         hp: hd,
-        mp: cl,
+        mp: mprev,
         abl: 1,
         nonlethal: restOptions.hours * hd,
       };
@@ -98,6 +98,13 @@ There are items that boost natural healing that can be found.
     let spellbookUses = {};
     // Restore daily uses of spells, feats, etc. add limitbreak
     if (restOptions["restoreDailyUses"] === true) {
+      // Update spellbooks
+      for (let [sbKey, sb] of Object.entries(getProperty(actorData, `attributes.spells.spellbooks`) || {})) {
+        for (let a = 0; a < 10; a++) {
+          updateData[`data.attributes.spells.spellbooks.${sbKey}.spells.spell${a}.value`] =
+            getProperty(sb, `spells.spell${a}.max`) || 0;
+        }
+      }
 
       // Update charged items
       for (let item of actor.items) {

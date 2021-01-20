@@ -35,10 +35,27 @@ export async function PatchCore() {
     });
   };
 
-  const Roll__identifyTerms = Roll.prototype._identifyTerms;
+  // const Roll__identifyTerms = Roll.prototype._identifyTerms;
   Roll.prototype._identifyTerms = function (formula, { step = 0 } = {}) {
     formula = _preProcessDiceFormula(formula, this.data);
-    const terms = Roll__identifyTerms.call(this, formula, step);
+    var warned;
+    if (typeof formula !== "string") throw new Error("The formula provided to a Roll instance must be a string");
+
+    // Step 1 - Update the Roll formula using provided data
+    [formula, warned] = this.constructor.replaceFormulaData(formula, this.data, { missing: "0", warn: false });
+    if (warned) this.warning = true;
+
+    // Step 2 - identify separate parenthetical terms
+    let terms = this._splitParentheticalTerms(formula);
+
+    // Step 3 - expand pooled terms
+    terms = this._splitPooledTerms(terms);
+
+    // Step 4 - expand remaining arithmetic terms
+    terms = this._splitDiceTerms(terms, step);
+
+    // Step 5 - clean and de-dupe terms
+    terms = this.constructor.cleanTerms(terms);
     return terms;
   };
 
@@ -126,6 +143,24 @@ export async function PatchCore() {
         return terms;
       }, []);
     };
+
+    const Roll_replaceFormulaData = Roll.replaceFormulaData;
+    Roll.replaceFormulaData = function (formula, data, { missing, warn = false }) {
+      let dataRgx = new RegExp(/@([a-z.0-9_-]+)/gi);
+      var warned = false;
+      return [
+        formula.replace(dataRgx, (match, term) => {
+          let value = getProperty(data, term);
+          if (value === undefined) {
+            if (warn) ui.notifications.warn(game.i18n.format("DICE.WarnMissingData", { match }));
+            warned = true;
+            return missing !== undefined ? String(missing) : match;
+          }
+          return String(value).trim();
+        }),
+        warned,
+      ];
+    };
   }
 
   // Patch ActorTokenHelpers.update
@@ -146,6 +181,7 @@ export async function PatchCore() {
       await this.toggleConditionStatusIcons();
       await this.refreshItems();
     }
+    return diff;
   };
   // Patch ActorTokenHelpers.deleteEmbeddedEntity
   const ActorTokenHelpers_deleteEmbeddedEntity = ActorTokenHelpers.prototype.deleteEmbeddedEntity;

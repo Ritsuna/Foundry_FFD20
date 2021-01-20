@@ -135,29 +135,13 @@ export class ItemSheetFFd20_Container extends ItemSheetFFd20 {
       game.settings.get("ffd20lnrw", "units") === "metric" ? game.i18n.localize("ffd20lnrw.Kgs") : game.i18n.localize("ffd20lnrw.Lbs");
 
     // Get contents value
-    const gpValue = this.item.getValue({ sellValue: 1 }) - this.item.getValue({ recursive: false, sellValue: 1 });
+    const gilValue = this.item.getValue({ sellValue: 1 }) - this.item.getValue({ recursive: false, sellValue: 1 });
     const sellValue = this.item.getValue() - this.item.getValue({ recursive: false });
     data.totalValue = {
-      gp: Math.max(0, Math.floor(gpValue)),
-      sp: Math.max(0, Math.floor(gpValue * 10 - Math.floor(gpValue) * 10)),
-      cp: Math.max(
-        0,
-        Math.floor(
-          Math.floor(gpValue * 100 - Math.floor(gpValue) * 100) -
-            Math.floor(gpValue * 10 - Math.floor(gpValue) * 10) * 10
-        )
-      ),
+      gil: Math.max(0, Math.floor(gilValue)),
     };
     data.sellValue = {
-      gp: Math.max(0, Math.floor(sellValue)),
-      sp: Math.max(0, Math.floor(sellValue * 10 - Math.floor(sellValue) * 10)),
-      cp: Math.max(
-        0,
-        Math.floor(
-          Math.floor(sellValue * 100 - Math.floor(sellValue) * 100) -
-            Math.floor(sellValue * 10 - Math.floor(sellValue) * 10) * 10
-        )
-      ),
+      gil: Math.max(0, Math.floor(sellValue)),
     };
 
     // Set labels

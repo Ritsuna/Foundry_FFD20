@@ -12,7 +12,7 @@ export class TokenQuickActions {
     let items = actor.getQuickActions();
     items.forEach(function (i) {
       const item = i.item;
-      const icon = item.img;
+      const icon = item.img ?? DEFAULT_TOKEN;
       let title = "";
       if (item.type === "attack") title = game.i18n.localize("ffd20lnrw.AttackWith").format(item.name);
       else if (item.type === "spell") title = game.i18n.localize("ffd20lnrw.AttackWithSpell").format(item.name);

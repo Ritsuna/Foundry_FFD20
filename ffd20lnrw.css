@@ -2,7 +2,7 @@
 /* ----------------------------------------- */
 /*  Fonts                                    */
 /* ----------------------------------------- */
-@ font - face {
+@font-face {
   font-family: "Nodesto";
   src: url("../../fonts/modesto-condensed/modesto-condensed-bold.woff2") format("woff2");
 }
@@ -22,13 +22,6 @@
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
-}
-.flexrow2 {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  flex: 2;
 }
 .flexrow > * {
   flex: 1;
@@ -965,6 +958,9 @@
 .ffd20lnrw.changelog .content {
   overflow-y: auto;
   max-height: 640px;
+}
+.ffd20lnrw.changelog .content li > ul {
+  margin: 0;
 }
 /* ----------------------------------------- */
 /* Help Browser
@@ -1964,6 +1960,26 @@
 .ffd20lnrw.sheet.actor table td img {
   vertical-align: middle;
   margin-right: 2px;
+}
+.ffd20lnrw.sheet.actor .table .header {
+  background: rgba(0, 0, 0, 0.5);
+}
+.ffd20lnrw.sheet.actor .table .sub-header {
+  background: rgba(0, 0, 0, 0.2);
+}
+.ffd20lnrw.sheet.actor .table .header label,
+.ffd20lnrw.sheet.actor .table .sub-header label {
+  color: #f0f0e0;
+  text-shadow: #000000 1px 1px 0px;
+}
+.ffd20lnrw.sheet.actor .table .cell {
+  background: rgba(0, 0, 0, 0.05);
+}
+.ffd20lnrw.sheet.actor .table .cell .midsize {
+  flex-basis: 40%;
+}
+.ffd20lnrw.sheet.actor .table .cell .left-label {
+  flex-basis: 60%;
 }
 .locked img.sheet-profile {
   max-height: 360px;

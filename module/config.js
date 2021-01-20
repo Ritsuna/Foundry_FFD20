@@ -68,6 +68,13 @@ ffd20lnrw.classSubTypes = {
   hybridArc: "ffd20lnrw.ClassSubTypeHybridArc",
 };
 
+ffd20lnrw.classCastingStats = {
+  noncaster: "ffd20lnrw.NonCaster",
+  int: "ffd20lnrw.AbilityShortInt",
+  wis: "ffd20lnrw.AbilityShortWis",
+  cha: "ffd20lnrw.AbilityShortCha",
+}; 
+
 ffd20lnrw.classBaseMPTypes = {
   noncaster: "ffd20lnrw.NonCaster",
   halfCaster: "ffd20lnrw.HalfCaster",
@@ -193,7 +200,7 @@ ffd20lnrw.armorProficiencies = {
 ffd20lnrw.weaponProficiencies = {
   sim: "ffd20lnrw.WeaponProfSimple",
   mar: "ffd20lnrw.WeaponProfMartial",
-  exo:  "ffd20lnrw.WeaponProfExotic",
+  exo: "ffd20lnrw.WeaponProfExotic",
   che: "ffd20lnrw.WeaponProfChef",
   pow: "ffd20lnrw.WeaponProfPower",
 };
@@ -253,6 +260,13 @@ ffd20lnrw.abilityActivationTypesPlurals_unchained = {
   minute: "ffd20lnrw.ActivationTypeMinutePlural",
   hour: "ffd20lnrw.ActivationTypeHourPlural",
   special: "ffd20lnrw.ActivationTypeSpecial",
+};
+
+ffd20lnrw.woundThresholdConditions = {
+  0: "ffd20lnrw.WoundLevelHealthy",
+  1: "ffd20lnrw.WoundLevelGrazed",
+  2: "ffd20lnrw.WoundLevelWounded",
+  3: "ffd20lnrw.WoundLevelCritical",
 };
 
 ffd20lnrw.divineFocus = {
@@ -663,7 +677,7 @@ ffd20lnrw.damageTypes = {
   water: "ffd20lnrw.DamageTypeWater",
   light: "ffd20lnrw.DamageTypeLight",
   dark: "ffd20lnrw.DamageTypeDark",
-  nonelemental: "ffd20lnrw.DamageTypenonelemental",
+  nonelemental: "ffd20lnrw.DamageTypeNonElemental",
 };
 
 /* -------------------------------------------- */
@@ -878,6 +892,8 @@ ffd20lnrw.arbitrarySkills = ["crf", "prf", "pro"];
 /* -------------------------------------------- */
 
 ffd20lnrw.spellPreparationModes = {
+  atwill: "ffd20lnrw.SpellPrepAtWill",
+  prepared: "ffd20lnrw.SpellPrepPrepared",
   spontaneous: "ffd20lnrw.SpellPrepSpontaneous",
 };
 
@@ -1317,6 +1333,12 @@ ffd20lnrw.contextNoteTargets = {
     _label: "ffd20lnrw.Attacks",
     attack: "ffd20lnrw.AttackRollPlural",
     effect: "ffd20lnrw.Effects",
+    melee: "ffd20lnrw.Melee",
+    meleeWeapon: "ffd20lnrw.MeleeWeapon",
+    meleeSpell: "ffd20lnrw.MeleeSpell",
+    ranged: "ffd20lnrw.Ranged",
+    rangedWeapon: "ffd20lnrw.RangedWeapon",
+    rangedSpell: "ffd20lnrw.RangedSpell",
   },
   savingThrows: {
     _label: "ffd20lnrw.SavingThrowPlural",
@@ -1350,6 +1372,7 @@ ffd20lnrw.contextNoteTargets = {
   },
   spell: {
     _label: "ffd20lnrw.BuffTarSpells",
+    effect: "ffd20lnrw.SpellBuffEffect",
     concentration: "ffd20lnrw.Concentration",
     cl: "ffd20lnrw.CasterLevel",
   },
@@ -1359,6 +1382,7 @@ ffd20lnrw.contextNoteTargets = {
     cmb: "ffd20lnrw.CMBAbbr",
     cmd: "ffd20lnrw.CMDAbbr",
     sr: "ffd20lnrw.SpellResistance",
+    init: "ffd20lnrw.Initiative",
   },
 };
 
@@ -1371,7 +1395,6 @@ ffd20lnrw.languages = {
   lalafellan: "ffd20lnrw.LanguageLalafellan",
   mithran: "ffd20lnrw.LanguageMithran",
   moogle: "ffd20lnrw.LanguageMoogle",
-
   aegyllan: "ffd20lnrw.LanguageAegyllan",
   albhedian: "ffd20lnrw.LanguageAlbhedian",
   banganese: "ffd20lnrw.LanguageBanganese",
@@ -1388,7 +1411,6 @@ ffd20lnrw.languages = {
   seeq: "ffd20lnrw.LanguageSeeq",
   tonberry: "ffd20lnrw.LanguageTonberry",
   vieran: "ffd20lnrw.LanguageVieran",
-
   aquan: "ffd20lnrw.LanguageAquan",
   auran: "ffd20lnrw.LanguageAuran",
   auroran: "ffd20lnrw.LanguageAuroran",
@@ -1396,8 +1418,7 @@ ffd20lnrw.languages = {
   ignan: "ffd20lnrw.LanguageIgnan",
   terran: "ffd20lnrw.LanguageTerran",
   thorian: "ffd20lnrw.LanguageThorian",
-  umbran: "ffd20lnrw.LanguageUmbran",
-  
+  umbran: "ffd20lnrw.LanguageUmbran",  
   antican: "ffd20lnrw.LanguageAntican",
   goblin: "ffd20lnrw.LanguageGoblin",
   kojin: "ffd20lnrw.LanguageKojin",
@@ -1449,7 +1470,7 @@ ffd20lnrw.sizeDie = [
   "16d8",
 ];
 
-// Character MP levels
+// Character Level XP Requirements
 ffd20lnrw.CHARACTER_EXP_LEVELS = {
   slow: [
     0,

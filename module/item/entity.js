@@ -234,7 +234,7 @@ export class ItemFFd20 extends Item {
             new Roll(data.save.dc.length > 0 ? data.save.dc : "0", rollData).roll().total +
             dcBonus;
         } catch (e) {
-          console.error(e);
+          console.error(e, spellbook.baseDCFormula, data.save.dc.length > 0 ? data.save.dc : "0");
         }
       }
       return result;
@@ -243,7 +243,7 @@ export class ItemFFd20 extends Item {
     try {
       result = new Roll(dcFormula, rollData).roll().total + dcBonus;
     } catch (e) {
-      console.error(e);
+      console.error(e, dcFormula);
     }
     return result;
   }
@@ -1337,7 +1337,8 @@ export class ItemFFd20 extends Item {
         primaryAttack = true,
         useMeasureTemplate = this.hasTemplate && game.settings.get("ffd20lnrw", "placeMeasureTemplateOnQuickRolls"),
         rollMode = game.settings.get("core", "rollMode"),
-        conditionals;
+        conditionals,
+        result;
       // Get form data
       if (form) {
         rollData.d20 = form.find('[name="d20"]').val();
@@ -1511,8 +1512,9 @@ export class ItemFFd20 extends Item {
         // Add specific pre-rolled rollData entries
         for (const target of ["effect.cl", "effect.dc", "misc.charges"]) {
           if (conditionalPartsCommon[target] != null) {
+            const formula = conditionalPartsCommon[target].join("+");
             try {
-              const roll = new Roll(conditionalPartsCommon[target].join("+"), rollData).roll().total;
+              const roll = new Roll(formula, rollData).roll().total;
               switch (target) {
                 case "effect.cl":
                   rollData.cl += roll;
@@ -1525,11 +1527,35 @@ export class ItemFFd20 extends Item {
                   break;
               }
             } catch (e) {
-              console.error(e);
+              console.error(e, formula);
             }
           }
         }
       }
+
+      // Deduct charge
+      let cost;
+      if (this.autoDeductCharges) {
+        cost = this.chargeCost;
+        let uses = this.charges;
+        if (this.data.type === "spell" && this.useSpellPoints()) {
+          cost = this.getSpellPointCost(rollData);
+          uses = this.getSpellUses();
+        }
+        // Add charge cost from conditional modifiers
+        cost += rollData["chargeCostBonus"] ?? 0;
+
+        // Cancel usage on insufficient charges
+        if (cost > uses) {
+          const msg = game.i18n.localize("ffd20lnrw.ErrorInsufficientCharges").format(this.name);
+          console.warn(msg);
+          ui.notifications.warn(msg);
+          return;
+        }
+        await this.addCharges(-cost);
+      }
+      // Save chargeCost as rollData entry for following formulae
+      rollData.chargeCost = cost;
 
       if (this.hasAttack) {
         ammoCost = Math.min(minAmmo, allAttacks.length);
@@ -1721,28 +1747,6 @@ export class ItemFFd20 extends Item {
         }
       }
 
-      // Deduct charge
-      let cost;
-      if (this.autoDeductCharges) {
-        cost = this.chargeCost;
-        let uses = this.charges;
-        if (this.data.type === "spell" && this.useSpellPoints()) {
-          cost = this.getSpellPointCost(rollData);
-          uses = this.getSpellUses();
-        }
-        // Add charge cost from conditional modifiers
-        cost += rollData["chargeCostBonus"] ?? 0;
-
-        // Cancel usage on insufficient charges
-        if (cost > uses) {
-          const msg = game.i18n.localize("ffd20lnrw.ErrorInsufficientCharges").format(this.name);
-          console.warn(msg);
-          ui.notifications.warn(msg);
-          return;
-        }
-        await this.addCharges(-cost);
-      }
-
       // Set chat data
       let chatData = {
         speaker: ChatMessage.getSpeaker({ actor: this.parentActor }),
@@ -1860,6 +1864,13 @@ export class ItemFFd20 extends Item {
             properties.push(this.data.data.conditionals[c].name);
           });
         }
+
+        // Add Wound Thresholds info
+        if (rollData.attributes.woundThresholds.level > 0)
+          properties.push(
+            game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level])
+          );
+
         if (properties.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.InfoShort"), value: properties });
 
         // Add combat info
@@ -1986,15 +1997,16 @@ export class ItemFFd20 extends Item {
         setProperty(chatData, "flags.core.canPopout", true);
         // Create message
         const t = game.settings.get("ffd20lnrw", "attackChatCardTemplate");
-        await createCustomChatMessage(t, templateData, chatData);
+        result = await createCustomChatMessage(t, templateData, chatData);
       }
       // Post chat card even without action
       else {
-        this.roll();
+        result = this.roll();
       }
 
       // Subtract ammunition
       await subtractAmmo(-ammoCost);
+      return result;
     };
 
     // Handle fast-forwarding
@@ -2019,28 +2031,28 @@ export class ItemFFd20 extends Item {
     };
     const html = await renderTemplate(template, dialogData);
 
-    let roll;
-    const buttons = {};
-    if (this.hasAttack) {
-      if (this.type !== "spell") {
+    let result = await new Promise((resolve) => {
+      let roll;
+      const buttons = {};
+      if (this.hasAttack) {
+        if (this.type !== "spell") {
+          buttons.normal = {
+            label: game.i18n.localize("ffd20lnrw.SingleAttack"),
+            callback: (html) => resolve((roll = _roll.call(this, false, html))),
+          };
+        }
+        if ((getProperty(this.data, "data.attackParts") || []).length || this.type === "spell") {
+          buttons.multi = {
+            label: this.type === "spell" ? game.i18n.localize("ffd20lnrw.Cast") : game.i18n.localize("ffd20lnrw.FullAttack"),
+            callback: (html) => resolve((roll = _roll.call(this, true, html))),
+          };
+        }
+      } else {
         buttons.normal = {
-          label: game.i18n.localize("ffd20lnrw.SingleAttack"),
-          callback: (html) => (roll = _roll.call(this, false, html)),
+          label: this.type === "spell" ? game.i18n.localize("ffd20lnrw.Cast") : game.i18n.localize("ffd20lnrw.Use"),
+          callback: (html) => resolve((roll = _roll.call(this, false, html))),
         };
       }
-      if ((getProperty(this.data, "data.attackParts") || []).length || this.type === "spell") {
-        buttons.multi = {
-          label: this.type === "spell" ? game.i18n.localize("ffd20lnrw.Cast") : game.i18n.localize("ffd20lnrw.FullAttack"),
-          callback: (html) => (roll = _roll.call(this, true, html)),
-        };
-      }
-    } else {
-      buttons.normal = {
-        label: this.type === "spell" ? game.i18n.localize("ffd20lnrw.Cast") : game.i18n.localize("ffd20lnrw.Use"),
-        callback: (html) => (roll = _roll.call(this, false, html)),
-      };
-    }
-    return new Promise((resolve) => {
       new Dialog({
         title: `${game.i18n.localize("ffd20lnrw.Use")}: ${this.name}`,
         content: html,
@@ -2051,6 +2063,8 @@ export class ItemFFd20 extends Item {
         },
       }).render(true);
     });
+
+    return result;
   }
 
   /**
@@ -2104,6 +2118,12 @@ export class ItemFFd20 extends Item {
         parts.push("- max(0, abs(@attributes.energyDrain))");
       }
     }
+
+    // Add wound thresholds penalties
+    if (rollData.attributes.woundThresholds.penalty > 0) {
+      parts.push("- @attributes.woundThresholds.penalty");
+    }
+
     // Add certain attack bonuses
     if (rollData.attributes.attack.general !== 0) {
       parts.push("@attributes.attack.general");
@@ -2801,10 +2821,10 @@ export class ItemFFd20 extends Item {
 
     if (this.useSpellPoints()) {
       const curUses = this.getSpellUses();
-      const updateData = {};
-      updateData[`data.attributes.spells.spellbooks.${spellbookKey}.spellPoints.value`] = curUses + value;
-      return this.parentActor.update(updateData);
-    } else {
+      const actorUpdateData = {};
+      actorUpdateData['data.attributes.mp.value'] = curUses + value;
+      return this.parentActor.update(actorUpdateData);
+    }  else {
       if (this.data.data.level === 0) return;
       const newCharges = isSpontaneous
         ? Math.max(0, (getProperty(spellbook, `spells.spell${spellLevel}.value`) || 0) + value)
@@ -2824,8 +2844,8 @@ export class ItemFFd20 extends Item {
         const actorUpdateData = {};
         actorUpdateData[key] = newCharges;
         return this.parentActor.update(actorUpdateData);
-      }
-    }
+      } 
+    } 
 
     return null;
   }
@@ -2842,8 +2862,8 @@ export class ItemFFd20 extends Item {
       spellLevel = getProperty(this.data, "data.level");
 
     if (this.useSpellPoints()) {
-      if (max) return getProperty(spellbook, "spellPoints.max");
-      return getProperty(spellbook, "spellPoints.value");
+      if (max) return getProperty(this.parentActor.data.data.attributes, "mp.max");
+      return getProperty(this.parentActor.data.data.attributes, "mp.value");
     } else {
       if (isSpontaneous) {
         if (getProperty(this.data, "data.preparation.spontaneousPrepared") === true) {
@@ -2872,7 +2892,7 @@ export class ItemFFd20 extends Item {
     };
 
     const slcl = this.getMinimumCasterLevelBySpellData(origData.data);
-    const materialPrice = getProperty(origData, "data.materials.gpValue") || 0;
+    const materialPrice = getProperty(origData, "data.materials.gilValue") || 0;
 
     // Set consumable type
     data.data.consumableType = type;

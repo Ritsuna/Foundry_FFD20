@@ -70,10 +70,10 @@
     <thead>
         <tr>
             {{#each data.attributes.savingThrows as |savingThrow id|}}
-            <th class="saving-throw tooltip" data-savingthrow="{{id}}" colspan="2">
+            <th class="saving-throw tooltip" data-savingthrow="{{id}}">
                 <div class="tooltipcontent">
                 @attributes.savingThrows.{{id}}.total : {{savingThrow.total}}
-            
+
                 {{#if savingThrow.sourceDetails.length}}
                 <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
                 {{#each savingThrow.sourceDetails as |src|}}
@@ -85,20 +85,20 @@
                 <a class="rollable"><i class="fas fa-dice"></i><span>{{savingThrow.label}}</span></a>
             </th>
             {{/each}}
-            <th rowspan="2" class="tooltip">
+            <th class="tooltip">
                 <div class="tooltipcontent">
                 @attributes.sr.total : {{data.attributes.sr.total}}
+
+                {{#if sourceDetails.data.attributes.sr.total.length}}
+                  <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                  {{#each sourceDetails.data.attributes.sr.total as |src|}}
+                    {{src.name}}: {{src.value}}<br/>
+                  {{/each}}
+                {{/if}}
                 </div>
-                
+
                 {{localize "ffd20lnrw.SpellResistance"}}
             </th>
-        </tr>
-
-        <tr>
-            {{#each data.attributes.savingThrows as |savingThrow id|}}
-            <th>{{localize "ffd20lnrw.Value"}}</th>
-            <th>{{localize "ffd20lnrw.Ability"}}</th>
-            {{/each}}
         </tr>
     </thead>
 
@@ -106,16 +106,6 @@
         <tr>
             {{#each data.attributes.savingThrows as |savingThrow id|}}
             <td>{{numberFormat savingThrow.total decimals=0 sign=true}}</td>
-            <td>
-                <select data-name="data.attributes.savingThrows.{{id}}.ability">
-                    {{#select savingThrow.ability}}
-                    <option value=""></option>
-                    {{#each ../config.abilities as |abl a|}}
-                    <option value="{{a}}">{{abl}}</option>
-                    {{/each}}
-                    {{/select}}
-                </select>
-            </td>
             {{/each}}
             <td>{{data.attributes.sr.total}}</td>
         </tr>

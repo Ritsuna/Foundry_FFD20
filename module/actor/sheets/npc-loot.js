@@ -29,29 +29,13 @@ export class ActorSheetFFd20NPCLoot extends ActorSheetFFd20NPC {
     data.sellMultiplier = this.actor.getFlag("ffd20lnrw", "sellMultiplier");
 
     // Get total value
-    const gpValue = this.calculateTotalItemValue() + this.actor.mergeCurrency();
+    const gilValue = this.calculateTotalItemValue() + this.actor.mergeCurrency();
     const sellValue = this.calculateSellItemValue();
     data.totalValue = {
-      gp: Math.max(0, Math.floor(gpValue)),
-      sp: Math.max(0, Math.floor(gpValue * 10 - Math.floor(gpValue) * 10)),
-      cp: Math.max(
-        0,
-        Math.floor(
-          Math.floor(gpValue * 100 - Math.floor(gpValue) * 100) -
-            Math.floor(gpValue * 10 - Math.floor(gpValue) * 10) * 10
-        )
-      ),
+      gil: Math.max(0, Math.floor(gilValue)),
     };
     data.sellValue = {
-      gp: Math.max(0, Math.floor(sellValue)),
-      sp: Math.max(0, Math.floor(sellValue * 10 - Math.floor(sellValue) * 10)),
-      cp: Math.max(
-        0,
-        Math.floor(
-          Math.floor(sellValue * 100 - Math.floor(sellValue) * 100) -
-            Math.floor(sellValue * 10 - Math.floor(sellValue) * 10) * 10
-        )
-      ),
+      gil: Math.max(0, Math.floor(sellValue)),
     };
 
     // Set labels

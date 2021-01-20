@@ -187,9 +187,21 @@ export class ChatAttack {
   addAttackNotes() {
     if (!this.item) return;
 
+    const type = this.item.data.data.actionType;
+    const typeMap = {
+      rsak: ["ranged", /*"spell",*/ "rangedSpell"],
+      rwak: ["ranged", /*"weapon",*/ "rangedWeapon"],
+      mwak: ["melee", /*"weapon",*/ "meleeWeapon"],
+      msak: ["melee", /*"spell",*/ "meleeSpell"],
+    };
+
     let notes = [];
     if (this.item != null && this.item.actor != null) {
       notes.push(...this.item.actor.getContextNotesParsed("attacks.attack"));
+      if ((typeMap[type]?.length || 0) > 0)
+        typeMap[type].forEach((subTarget) =>
+          notes.push(...this.item.actor.getContextNotesParsed(`attacks.${subTarget}`))
+        );
     }
     if (this.item != null && this.item.data.data.attackNotes) {
       notes.push(...this.item.data.data.attackNotes.split(/[\n\r]+/));
@@ -363,7 +375,15 @@ export class ChatAttack {
         }
         return arr;
       }, []);
+
+      // Spell specific notes
+      if (this.item.type === "spell") {
+        this.item.actor.getContextNotes("spell.effect").forEach((o) => {
+          for (let n of o.notes) notes.push(...n.split(/[\n\r]+/));
+        });
+      }
     }
+
     if (this.item != null && this.item.data.data.effectNotes) {
       notes.push(...this.item.data.data.effectNotes.split(/[\n\r]+/));
     }

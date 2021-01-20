@@ -197,21 +197,13 @@ export class ActorSheetFFd20 extends ActorSheet {
 
     // Add inventory value
     {
-      const gpValue = this.calculateTotalItemValue();
+      const gilValue = this.calculateTotalItemValue();
       const totalValue = {
-        gp: Math.max(0, Math.floor(gpValue)),
-        sp: Math.max(0, Math.floor(gpValue * 10 - Math.floor(gpValue) * 10)),
-        cp: Math.max(
-          0,
-          Math.floor(
-            Math.floor(gpValue * 100 - Math.floor(gpValue) * 100) -
-              Math.floor(gpValue * 10 - Math.floor(gpValue) * 10) * 10
-          )
-        ),
+        gil: Math.max(0, Math.floor(gilValue)),
       };
       data.labels.totalValue = game.i18n
         .localize("ffd20lnrw.ItemContainerTotalItemValue")
-        .format(totalValue.gp, totalValue.sp, totalValue.cp);
+        .format(totalValue.gil);
     }
 
     // Race type label
@@ -865,6 +857,9 @@ export class ActorSheetFFd20 extends ActorSheet {
 
     // Submit hit points
     html.find('input[name="data.attributes.hp.value"]').keypress(this._onSubmitElement.bind(this));
+
+    // Submit hit points
+    html.find('input[name="data.attributes.mp.value"]').keypress(this._onSubmitElement.bind(this));
 
     // Ability Checks
     html.find(".ability-name").click(this._onRollAbilityTest.bind(this));

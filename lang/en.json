@@ -1,7 +1,7 @@
 {
-  "Pathfinder 1": "Pathfinder 1",
-  "ffd20lnrw.title": "Pathfinder 1",
-  "ffd20lnrw.description": "A comprehensive game system for running games of Pathfinder 1 in the Foundry VTT environment.",
+  "Final Fantasy D20": "Final Fantasy D20",
+  "ffd20lnrw.title": "Final Fantasy D20",
+  "ffd20lnrw.description": "A comprehensive game system for running games of Final Fantasy D20 in the Foundry VTT environment.",
 
   "ffd20lnrw.ActorSheetFFd20Character": "Character",
   "ffd20lnrw.ActorSheetFFd20NPC": "NPC",
@@ -72,6 +72,31 @@
   "SETTINGS.ffd20lnrwHealthContinuityHint": "Health can be computed discretely or continuously.  Discrete health is rounded at each level, meaning creatures will receive a stable amount of health for each hitdie.  Continuous health is rounded after each source of hitdie is evaluated, meaning creatures will receive a fluctuating amount of health for each hitdie.",
   "SETTINGS.ffd20lnrwHealthContinuityContinuous": "Continuous",
   "SETTINGS.ffd20lnrwHealthContinuityDiscrete": "Discrete",
+  "SETTINGS.ffd20lnrwHealthConfigWoundsAndVigorPCName": "Wounds and Vigor for PCs",
+  "SETTINGS.ffd20lnrwHealthConfigWoundsAndVigorPCHint": "Use the Wounds and Vigor optional ruleset for player characters.",
+  "SETTINGS.ffd20lnrwHealthConfigWoundsAndVigorNPCName": "Wounds and Vigor for NPCs",
+  "SETTINGS.ffd20lnrwHealthConfigWoundsAndVigorNPCHint": "Use the Wounds and Vigor optional ruleset for nonplayer characters.",
+
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdsPCName": "Wound thresholds for PCs",
+  "SETTINGS.ffd20lnrwHealthConfigWoundsThresholdsPCHint": "Use wound threshold optional ruleset for player characters.",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdsNPCName": "Wound thresholds for NPCs",
+  "SETTINGS.ffd20lnrwHealthConfigWoundsThresholdsNPCHint": "Use wound threshold optional rulset for nonplayer characters.",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdsPCOverrideName": "Allow wound threshold override for PCs",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdsPCOverrideHint": "Allows per character override modification of wound threshold rule for player characters in character settings.",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdsNPCOverrideName": "Allow wound threshold override for NPCs",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdsNPCOverrideHint": "Allows per character override modification of wound threshold rule for nonplayer characters in character settings.",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdDisabled": "Disabled",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdNormal": "Normal",
+  "SETTINGS.ffd20lnrwHealthConfigWoundThresholdGritty": "Gritty",
+
+  "ffd20lnrw.OptionalAndVariantRules": "Optional & Variant Rules",
+
+  "ffd20lnrw.WoundThresholdOverride": "Wound Threshold override",
+
+  "ffd20lnrw.WoundLevelHealthy": "Healthy Condition",
+  "ffd20lnrw.WoundLevelGrazed": "Grazed Condition",
+  "ffd20lnrw.WoundLevelWounded": "Wounded Condition",
+  "ffd20lnrw.WoundLevelCritical": "Critical Condition",
 
   "SETTINGS.ffd20lnrwUnitsN": "System of units",
   "SETTINGS.ffd20lnrwUnitsL": "System of units to be used in the world",
@@ -93,6 +118,8 @@
   "ffd20lnrw.AccessibilityConfigHint": "Change accessibility settings",
   "ffd20lnrw.AccessibilityFontSize": "Font Size",
   "ffd20lnrw.AccessibilityFontSizeHint": "Changes font size in certain aspects of the game (such as on attack chat cards)",
+
+  "ffd20lnrw.General": "General",
 
   "ffd20lnrw.Apply": "Apply",
   "ffd20lnrw.ApplyHalf": "Apply Half",
@@ -424,7 +451,9 @@
   "ffd20lnrw.BuffTarIntChecks": "Intelligence Checks",
   "ffd20lnrw.BuffTarWisChecks": "Wisdom Checks",
   "ffd20lnrw.BuffTarChaChecks": "Charisma Checks",
+
   "ffd20lnrw.BuffTarSpells": "Spells",
+  "ffd20lnrw.SpellBuffEffect": "Effect",
 
   "ffd20lnrw.SkillAcr": "Acrobatics",
   "ffd20lnrw.SkillApr": "Appraise",
@@ -530,7 +559,6 @@
   "ffd20lnrw.WeaponType": "Weapon Type",
   "ffd20lnrw.WeaponTypeSimple": "Simple",
   "ffd20lnrw.WeaponTypeMartial": "Martial",
-
   "ffd20lnrw.WeaponTypeExotic": "Exotic",
   "ffd20lnrw.WeaponTypeSplash": "Splash",
 
@@ -719,6 +747,8 @@
   "ffd20lnrw.ErrorInsufficientCharges": "There's insufficient charges left in {0}",
   "ffd20lnrw.ErrorNoQuantity": "You don't have any more of that item",
   "ffd20lnrw.ErrorNoSpellsLeft": "You don't have spells left of that type",
+  "ffd20lnrw.ErrorNoMPLeft": "You don't have any MP left",
+
   "ffd20lnrw.ErrorUnauthorizedAction": "You are not authorized to perform that action",
   "ffd20lnrw.ErrorActorFormula": "Formula error of type {0} on actor {1}",
   "ffd20lnrw.ErrorActorNotFound": "Actor with ID {0} not found",
@@ -769,8 +799,6 @@
   "ffd20lnrw.BrowseFeats": "Browse Features",
   "ffd20lnrw.BrowseClasses": "Browse Classes",
   "ffd20lnrw.BrowseRaces": "Browse Races",
-  "ffd20lnrw.BrowseSkills": "Browse Skills",
-  "ffd20lnrw.BrowseLimitbreaks": "Browse Limitbreaks",
 
   "ffd20lnrw.LanguageCommon": "Common",
   "ffd20lnrw.LanguageDwarven": "Dwarven",
@@ -779,7 +807,6 @@
   "ffd20lnrw.LanguageLalafellan": "Lalafellan",
   "ffd20lnrw.LanguageMithran": "Mithran",
   "ffd20lnrw.LanguageMoogle": "Moogle",
-
   "ffd20lnrw.LanguageAegyllan": "Aegyllan",
   "ffd20lnrw.LanguageAlbhedian": "Albhedian",
   "ffd20lnrw.LanguageBanganese": "Banganese",
@@ -796,7 +823,6 @@
   "ffd20lnrw.LanguageSeeq": "Seeq",
   "ffd20lnrw.LanguageTonberry": "Tonberry",
   "ffd20lnrw.LanguageVieran": "Vieran",
-
   "ffd20lnrw.LanguageAquan": "Aquan",
   "ffd20lnrw.LanguageAuran": "Auran",
   "ffd20lnrw.LanguageAuroran": "Auroran",
@@ -805,7 +831,6 @@
   "ffd20lnrw.LanguageTerran": "Terran",
   "ffd20lnrw.LanguageThorian": "Thorian",
   "ffd20lnrw.LanguageUmbran": "Umbran",
-
   "ffd20lnrw.LanguageAntican": "Antican",
   "ffd20lnrw.LanguageGoblin": "Goblin",
   "ffd20lnrw.LanguageKojin": "Kojin",
@@ -881,7 +906,7 @@
   "ffd20lnrw.DamageTypeWater": "Water",
   "ffd20lnrw.DamageTypeLight": "Light",
   "ffd20lnrw.DamageTypeDark": "Dark",
-  "ffd20lnrw.DamageTypenonelemental": "Non-Elemental",
+  "ffd20lnrw.DamageTypeNonElemental": "Non-Elemental",
 
   "ffd20lnrw.SourceInfoSize": "Size",
   "ffd20lnrw.SourceInfoBuffs": "Buffs",
@@ -895,7 +920,8 @@
   "ffd20lnrw.SourceInfoClassFeatures": "Class Feature",
   "ffd20lnrw.SourceInfoTraits": "Traits",
   "ffd20lnrw.SourceInfoRacialTraits": "Racial Traits",
-  "ffd20lnrw.SourceInfoMiscFeatures": "Misc Features",
+  "ffd20lnrw.SourceInfoMiscFeatures": "Miscellaneous",
+  "ffd20lnrw.SourceInfoTemplate": "Template",
   "ffd20lnrw.SourceInfoRace": "Race",
 
   "ffd20lnrw.CreateItemForSpell": "Create Item for {0}",
@@ -972,6 +998,7 @@
   "ffd20lnrw.InfoShort": "Info",
   "ffd20lnrw.Inventory": "Inventory",
   "ffd20lnrw.Inspiration": "Inspiration",
+  "ffd20lnrw.Feature": "Feature",
   "ffd20lnrw.Features": "Features",
   "ffd20lnrw.FullRoundAttack": "Full-round Attack",
   "ffd20lnrw.Languages": "Languages",
@@ -1040,6 +1067,7 @@
   "ffd20lnrw.Active": "Active",
   "ffd20lnrw.SpellDetails": "Spell Details",
   "ffd20lnrw.SpellBook": "Spellbook",
+  "ffd20lnrw.SpellBookPlural": "Spellbooks",
   "ffd20lnrw.SpellLevel": "Spell Level",
   "ffd20lnrw.SpellSchool": "Spell School",
   "ffd20lnrw.SpellComponents": "Spell Components",
@@ -1056,12 +1084,17 @@
   "ffd20lnrw.Area": "Area",
   "ffd20lnrw.Supply": "Supply",
   "ffd20lnrw.Melee": "Melee",
+  "ffd20lnrw.MeleeWeapon": "Melee Weapon",
+  "ffd20lnrw.MeleeSpell": "Melee Spell",
   "ffd20lnrw.Ranged": "Ranged",
+  "ffd20lnrw.RangedWeapon": "Ranged Weapon",
+  "ffd20lnrw.RangedSpell": "Ranged Spell",
   "ffd20lnrw.WeaponDamage": "Weapon Damage",
   "ffd20lnrw.SpellDamage": "Spell Damage",
   "ffd20lnrw.AttackRollPlural": "Attack Rolls",
   "ffd20lnrw.DamageRollPlural": "Damage Rolls",
   "ffd20lnrw.AbilityScore": "Ability Score",
+  "ffd20lnrw.AbilityScoreLinks": "Ability Score Links",
   "ffd20lnrw.SavingThrow": "Saving Throw",
   "ffd20lnrw.SavingThrowPlural": "Saving Throws",
   "ffd20lnrw.SavingThrowEffect": "Saving Throw Effect",
@@ -1239,6 +1272,7 @@
   "ffd20lnrw.Low": "Low",
   "ffd20lnrw.Medium": "Medium",
   "ffd20lnrw.High": "High",
+  
   "ffd20lnrw.Poor": "Poor",
   "ffd20lnrw.Good": "Good",
   "ffd20lnrw.Proficient": "Proficient",
