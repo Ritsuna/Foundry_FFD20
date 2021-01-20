@@ -1,4 +1,4 @@
-# Pathfinder 1e for Foundry VTT
+# Final Fantasy D20 for Foundry VTT
 
 An implementation of the Final Fantasy d20 (FFd20) system for for Foundry Virtual
 Tabletop (http://foundryvtt.com), based on the Pathfinder 1 implementation by Furyspark [https://gitlab.com/Furyspark/foundryvtt-pathfinder1](https://gitlab.com/Furyspark/foundryvtt-pathfinder1).
@@ -24,6 +24,9 @@ downloading a zip archive from the [Releases Page](https://github.com/Ritsuna/FF
 
 "This system uses trademarks and/or copyrights owned by Paizo Inc., which are used under Paizo's Community Use Policy. We are expressly prohibited from charging you to use or access this content. This [website, character sheet, or whatever it is] is not published, endorsed, or specifically approved by Paizo Inc. For more information about Paizo's Community Use Policy, please visit paizo.com/communityuse. For more information about Paizo Inc. and Paizo products, please visit paizo.com."
 
+
+"This system uses trademarks and/or copyrights owned by those who own Final Fantasy. We are expressly prohibited from charging you to use or access this content. This [website, character sheet, or whatever it is] is not published, endorsed, or specifically approved by those who own Final Fantasy. "
+
 ## Information
 
-You can view information on this game system [here](https://furyspark.gitlab.io/foundryvtt-pathfinder1-doc/).
+You can view information on this game system [here](https://www.finalfantasyd20.com/).
