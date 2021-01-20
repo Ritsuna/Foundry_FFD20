@@ -3,26 +3,21 @@
   <table>
     <thead>
       <tr>
-        <th class="attribute bab" data-attribute="bab" rowspan="2" colspan="2">
+        <th class="attribute bab" data-attribute="bab">
           <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.BABAbbr"}}</span></a>
         </th>
-        <th class="attribute cmb" data-attribute="cmb" colspan="2">
+        <th class="attribute cmb" data-attribute="cmb">
           <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.CMBAbbr"}}</span></a>
         </th>
-        <th class="attribute initiative" data-attribute="initiative" rowspan="2" colspan="2">
+        <th class="attribute initiative" data-attribute="initiative">
           <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.Initiative"}}</span></a>
         </th>
-      </tr>
-
-      <tr>
-        <th>{{localize "ffd20lnrw.Value"}}</th>
-        <th>{{localize "ffd20lnrw.Ability"}}</th>
       </tr>
     </thead>
 
     <tbody>
       <tr>
-        <td class="tooltip" colspan="2">
+        <td class="tooltip">
           <span class="tooltipcontent">
             @attributes.bab.total : {{data.attributes.bab.total}}
             {{#if sourceDetails.data.attributes.bab.total.length}}
@@ -45,18 +40,8 @@
 
           {{data.attributes.cmb.total}}
         </td>
-        <td>
-          <select name="data.attributes.cmbAbility">
-            {{#select data.attributes.cmbAbility}}
-            <option value=""></option>
-            {{#each config.abilities as |v k|}}
-            <option value="{{k}}">{{v}}</option>
-            {{/each}}
-            {{/select}}
-          </select>
-        </td>
 
-        <td class="tooltip" colspan="2">
+        <td class="tooltip">
           <span class="tooltipcontent">
             @attributes.init.total : {{data.attributes.init.total}}
             {{#if sourceDetails.data.attributes.init.total.length}}

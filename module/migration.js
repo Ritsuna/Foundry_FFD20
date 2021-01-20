@@ -14,39 +14,40 @@ export const migrateWorld = async function () {
     return ui.notifications.error(msg);
   }
   ui.notifications.info(`Applying ffd20lnrw System Migration for version ${game.system.data.version}. Please stand by.`);
+  console.log("System Migration starting.");
 
   await _migrateWorldSettings();
 
   // Migrate World Actors
+  console.log("Migrating Actor entities");
   for (let a of game.actors.entities) {
     try {
       const updateData = await migrateActorData(a);
-      console.log(`Migrating Actor entity ${a.name}`);
       await a.update(updateData);
     } catch (err) {
-      console.error(err);
+      console.error(`Error migrating actor entity ${a.name}`, err);
     }
   }
 
   // Migrate World Items
+  console.log("Migrating Item entities.");
   for (let i of game.items.entities) {
     try {
       const updateData = migrateItemData(i);
-      console.log(`Migrating Item entity ${i.name}`);
       await i.update(updateData, { enforceTypes: false });
     } catch (err) {
-      console.error(err);
+      console.error(`Error migrating item entity ${i.name}`, err);
     }
   }
 
   // Migrate Actor Override Tokens
+  console.log("Migrating scene entities.");
   for (let s of game.scenes.entities) {
     try {
       const updateData = await migrateSceneData(s.data);
-      console.log(`Migrating Scene entity ${s.name}`);
       await s.update(updateData);
     } catch (err) {
-      console.error(err);
+      console.error(`Error migrating scene entity ${s.name}`, err);
     }
   }
 
@@ -65,6 +66,7 @@ export const migrateWorld = async function () {
   // Set the migration as complete
   game.settings.set("ffd20lnrw", "systemMigrationVersion", game.system.data.version);
   ui.notifications.info(`ffd20lnrw System Migration to version ${game.system.data.version} succeeded!`);
+  console.log("System Migration completed.");
 };
 
 /* -------------------------------------------- */
@@ -83,6 +85,7 @@ export const migrateCompendium = async function (pack) {
   const content = await pack.getContent();
 
   // Iterate over compendium entries - applying fine-tuned migration functions
+  console.log(`Migrating ${entity} entities in Compendium ${pack.collection}`);
   for (let ent of content) {
     try {
       let updateData = null;
@@ -92,9 +95,9 @@ export const migrateCompendium = async function (pack) {
       expandObject(updateData);
       updateData["_id"] = ent._id;
       await pack.updateEntity(updateData);
-      console.log(`Migrated ${entity} entity ${ent.name} in Compendium ${pack.collection}`);
+      //console.log(`Migrated ${entity} entity ${ent.name} in Compendium ${pack.collection}`);
     } catch (err) {
-      console.error(err);
+      console.error(`Error migrating ${entity} entity ${ent.name} in Compendium ${pack.collection}`, err);
     }
   }
   console.log(`Migrated all ${entity} entities from Compendium ${pack.collection}`);
@@ -196,6 +199,7 @@ export const migrateItemData = function (item) {
   _migrateUnchainedActionEconomy(item, updateData);
   _migrateItemRange(item, updateData);
   _migrateItemLinks(item, updateData);
+  _migrateProficiencies(item, updateData);
 
   // Return the migrated update data
   return updateData;
@@ -379,12 +383,15 @@ const _migrateActorBaseStats = function (ent, updateData) {
   const keys = [
     "attributes.hp.base",
     "attributes.hd.base",
+    "attributes.mp.base",
     "attributes.savingThrows.fort.value",
     "attributes.savingThrows.ref.value",
     "attributes.savingThrows.will.value",
   ];
   for (let k of keys) {
-    if (k === "attributes.hp.base" && !(getProperty(ent, "items") || []).filter((o) => o.type === "class").length)
+    if (k === "attributes.hp.base" && !(getProperty(ent, "items") ||  []).filter((o) => o.type === "class").length)
+      continue;
+    if (k === "attributes.mp.base" && !(getProperty(ent, "items") ||  []).filter((o) => o.type === "class").length)
       continue;
     if (getProperty(ent.data.data, k) != null) {
       let kList = k.split(".");
@@ -765,6 +772,19 @@ const _migrateItemRange = function (ent, updateData) {
 const _migrateItemLinks = function (ent, updateData) {
   if (["attack", "consumable"].includes(ent.type) && !hasProperty(ent.data, "data.links.charges")) {
     updateData["data.links.charges"] = [];
+  }
+};
+
+const _migrateProficiencies = function (ent, updateData) {
+  // Add proficiency objects to items able to grant proficiencies
+  if (["feat", "class", "race"].includes(ent.type)) {
+    for (const prof of ["armorProf", "weaponProf"]) {
+      if (!hasProperty(ent.data, `data.${prof}`))
+        updateData[`data.${prof}`] = {
+          value: [],
+          custom: "",
+        };
+    }
   }
 };
 

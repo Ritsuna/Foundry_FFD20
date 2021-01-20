@@ -49,6 +49,9 @@ export class ActorSheetFFd20Character extends ActorSheetFFd20 {
 
     data.hasClasses = this.actor.items.filter((o) => o.type === "class").length > 0;
 
+    const hpSettings = game.settings.get("ffd20lnrw", "healthConfig");
+    data["woundThresholds"] = hpSettings.variants.pc;
+
     // Return data for rendering
     return data;
   }

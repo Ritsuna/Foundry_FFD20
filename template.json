@@ -191,11 +191,27 @@
 						"temp": 0,
 						"nonlethal": 0
 					},
+					"wounds": {
+						"min": 0,
+						"value": 0
+					  },
+					  "vigor": {
+						"min": 0,
+						"value": 0,
+						"temp": 0
+					},
+					"woundThresholds": {
+					  "penalty": 0,
+					  "mod": 0,
+					  "level": 0,
+					  "override": -1
+					},
 					"mp": {
 						"value": 0,
 						"base": 0,
 						"max": 0,
-						"temp": 0
+						"temp": 0,
+						"recover": 0
 					},
 					"limitbreak": {
 						"value": 0,
@@ -317,8 +333,9 @@
 									"maxFormula": "",
 									"restoreFormula": ""
 								},
-								"spellSlotAbilityBonusFormula": ""
-							},
+								"spellSlotAbilityBonusFormula": "",
+								"domainSlotValue": 1
+											},
 							"secondary": {
 								"name": "Secondary",
 								"class": "",
@@ -344,8 +361,9 @@
 									"maxFormula": "",
 									"restoreFormula": ""
 								},
-								"spellSlotAbilityBonusFormula": ""
-							},
+								"spellSlotAbilityBonusFormula": "",
+								"domainSlotValue": 1
+											},
 							"tertiary": {
 								"name": "Tertiary",
 								"class": "",
@@ -371,8 +389,9 @@
 									"maxFormula": "",
 									"restoreFormula": ""
 								},
-								"spellSlotAbilityBonusFormula": ""
-							},
+								"spellSlotAbilityBonusFormula": "",
+								"domainSlotValue": 1
+											},
 							"spelllike": {
 								"name": "Spell-likes",
 								"class": "_hd",
@@ -398,8 +417,9 @@
 									"maxFormula": "",
 									"restoreFormula": ""
 								},
-								"spellSlotAbilityBonusFormula": ""
-							}
+								"spellSlotAbilityBonusFormula": "",
+								"domainSlotValue": 1
+											}
 						}
 					},
 					"spellcasting": {
@@ -1051,6 +1071,7 @@
 			"level": 1,
 			"hd": 8,
 			"hp": 8,
+			"classCastingStat": "noncaster",
 			"classBaseMPType": "noncaster",
 			"mp": 0,
 			"bab": "low",
@@ -1250,7 +1271,11 @@
 		"race": {
 			"templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies"],
 			"creatureType": "humanoid",
-			"subTypes": []
+			"subTypes": [],
+			"languages": {
+				"value": [],
+				"custom": ""
+			}
 		},
 		"container": {
 			"templates": ["itemDescription", "physicalItem", "inventory"],

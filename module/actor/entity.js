@@ -135,7 +135,8 @@ export class ActorFFd20 extends Actor {
       if (subtype === "trait") result = game.i18n.localize("ffd20lnrw.SourceInfoTraits");
       if (subtype === "racial") result = game.i18n.localize("ffd20lnrw.SourceInfoRacialTraits");
       if (subtype === "misc") result = game.i18n.localize("ffd20lnrw.SourceInfoMiscFeatures");
-    }
+      if (subtype === "template") result = game.i18n.localize("ffd20lnrw.SourceInfoTemplate");
+        }
     if (type === "race") {
       result = game.i18n.localize("ffd20lnrw.SourceInfoRace");
     }
@@ -324,6 +325,30 @@ export class ActorFFd20 extends Actor {
         });
     }
 
+    // Add wound threshold data
+    {
+      const hpconf = game.settings.get("ffd20lnrw", "healthConfig").variants;
+      const wtUsage = this.data.type === "npc" ? hpconf.npc.useWoundThresholds : hpconf.pc.useWoundThresholds;
+      if (wtUsage > 0) {
+        const wtData = this.getWoundThresholdData(actorData);
+
+        if (wtData.level > 0) {
+          const changeFlatKeys = ["cmb", "cmd", "init", "allSavingThrows", "ac", "skills", "abilityChecks"];
+          for (let fk of changeFlatKeys) {
+            let flats = getChangeFlat.call(this, fk, "penalty", actorData.data);
+            if (!(flats instanceof Array)) flats = [flats];
+            for (let k of flats) {
+              if (!k) continue;
+              sourceDetails[k].push({
+                name: game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wtData.level]),
+                value: -wtData.penalty,
+              });
+            }
+          }
+        }
+      }
+    }
+
     // Add extra data
     for (let [changeTarget, changeGrp] of Object.entries(extraData)) {
       for (let grp of Object.values(changeGrp)) {
@@ -416,6 +441,24 @@ export class ActorFFd20 extends Actor {
   }
 
   /**
+   * Use this for Max MP
+   * @param {} level 
+
+
+  getMaxMP(level) {
+    const expConfig = game.settings.get("ffd20lnrw", "experienceConfig");
+    const expTrack = expConfig.track;
+    // Preset experience tracks
+    if (["fast", "medium", "slow"].includes(expTrack)) {
+      const levels = CONFIG.ffd20lnrw.CHARACTER_EXP_LEVELS[expTrack];
+      return levels[Math.min(level, levels.length - 1)];
+    }
+   */
+
+
+
+
+  /**
    * Return the amount of experience required to gain a certain character level.
    * @param level {Number}  The desired level
    * @return {Number}       The XP required
@@ -445,20 +488,21 @@ export class ActorFFd20 extends Actor {
    * Return the amount of MP gained by a class
    * @param level {Number}  The desired level
    * @return {Number}       The XP required
-
-  getLevelMP(level) {
-              const mpConfig = game.settings.get("ffd20lnrw", "experienceConfig"); change to looking at casting classes
-              const MPTrack = mpConfig.track;
-
-    if (["low", "med", "high"].includes(MPTrack)) {
-      const levels = CONFIG.ffd20lnrw.CHARACTER_MP_LEVELS[MPTrack];
-      return levels[Math.min(level, levels.length - 1)];
-    }
-    // Custom formula experience track
-    let totalMP = 0;
-
-    return Math.min(0, totalMP);
-  }   */
+   *
+   *  getLevelMP(level) {
+   *              const mpConfig = game.settings.get("ffd20lnrw", "experienceConfig"); change to looking at casting classes
+   *              const MPTrack = mpConfig.track;
+   *
+   *    if (["low", "med", "high"].includes(MPTrack)) {
+   *      const levels = CONFIG.ffd20lnrw.CHARACTER_MP_LEVELS[MPTrack];
+   *      return levels[Math.min(level, levels.length - 1)];
+   *    }
+   *    // Custom formula experience track
+   *    let totalMP = 0;
+   *
+   *    return Math.min(0, totalMP);
+   *  }
+  */
 
   /* -------------------------------------------- */
 
@@ -625,6 +669,7 @@ export class ActorFFd20 extends Actor {
       if (updateObj.diff.items) delete updateObj.diff.items;
       diff = mergeObject(diff, updateObj.diff);
     }
+
     // Diff token data
     if (data.token != null) {
       diff.token = diffObject(this.data.token, data.token);
@@ -805,7 +850,7 @@ export class ActorFFd20 extends Actor {
     if (item.data.type !== "spell") throw new Error("Wrong Item type");
 
     if (getProperty(item.data, "data.preparation.mode") !== "atwill" && item.getSpellUses() < item.chargeCost) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoSpellsLeft");
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoMPLeft");
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1013,6 +1058,13 @@ export class ActorFFd20 extends Actor {
     const energyDrain = Math.abs(data.attributes.energyDrain);
     if (energyDrain > 0) mods.push(-energyDrain);
 
+    // Wound Threshold penalty
+    const wT = this.getWoundThresholdData();
+    if (wT.multiplier > 0 && wT.penalty > 0) {
+      mods.push(-wT.penalty);
+      notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]));
+    }
+
     let changes = sources.map((item) => item.value).filter((item) => Number.isInteger(item));
 
     let props = [];
@@ -1112,6 +1164,10 @@ export class ActorFFd20 extends Actor {
     // Add contextual caster level string
     const notes = this.getContextNotesParsed(`spell.cl.${spellbookKey}`);
 
+    // Wound Threshold penalty
+    const wT = this.getWoundThresholdData();
+    if (wT.valid) notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]));
+
     let props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
     return DiceFFd20.d20Roll({
@@ -1136,6 +1192,11 @@ export class ActorFFd20 extends Actor {
 
     // Add contextual concentration string
     const notes = this.getContextNotesParsed(`spell.concentration.${spellbookKey}`);
+
+    // Wound Threshold penalty
+    const wT = this.getWoundThresholdData();
+    if (wT.valid) notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]));
+    // TODO: Make the penalty show separate of the CL.total.
 
     let props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
@@ -1219,6 +1280,28 @@ export class ActorFFd20 extends Actor {
     return headers;
   }
 
+  getInitiativeContextNotes() {
+    let notes = this.getContextNotes("misc.init").reduce((arr, o) => {
+      for (let n of o.notes) arr.push(...n.split(/[\n\r]+/));
+      return arr;
+    }, []);
+
+    let notesHTML;
+    if (notes.length > 0) {
+      // Format notes if they're present
+      let notesHTMLParts = [];
+      notes.forEach((note) => notesHTMLParts.push(`<span class="tag">${note}</span>`));
+      notesHTML =
+        '<div class="flexcol property-group gm-sensitive"><label>' +
+        game.i18n.localize("ffd20lnrw.Notes") +
+        '</label> <div class="flexrow">' +
+        notesHTMLParts.join("") +
+        "</div></div>";
+    }
+
+    return [notes, notesHTML];
+  }
+
   async rollInitiative() {
     if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
@@ -1250,20 +1333,41 @@ export class ActorFFd20 extends Actor {
     }
 
     // Roll initiative
-    const rollMode = overrideRollMode;
     const roll = new Roll(formula, rollData).roll();
 
-    // Construct chat message data
-    let messageData = {
+    // Context notes
+    let [notes, notesHTML] = this.getInitiativeContextNotes();
+
+    // Create roll template data
+    const templateData = mergeObject(
+      {
+        user: game.user._id,
+        formula: roll.formula,
+        tooltip: await roll.getTooltip(),
+        total: roll.total,
+      },
+      notes.length > 0 ? { hasExtraText: true, extraText: notesHTML } : {}
+    );
+
+    // Create chat data
+    let chatData = {
+      user: game.user._id,
+      type: CONST.CHAT_MESSAGE_TYPES.CHAT,
+      rollMode: overrideRollMode,
+      sound: CONFIG.sounds.dice,
       speaker: {
-        scene: canvas.scene._id,
+        scene: canvas.scene?._id,
         actor: this._id,
-        token: this.token ? this.token._id : null,
-        alias: this.token ? this.token.name : null,
+        token: this.token?.id,
+        alias: this.token?.name,
       },
       flavor: game.i18n.localize("ffd20lnrw.RollsForInitiative").format(this.token ? this.token.name : this.name),
+      roll: roll,
+      content: await renderTemplate("systems/ffd20lnrw/templates/chat/roll-ext.hbs", templateData),
     };
-    roll.toMessage(messageData, { rollMode });
+
+    // Send message
+    await ChatMessage.create(chatData);
   }
 
   rollSavingThrow(savingThrowId, options = { event: null, noSound: false, skipPrompt: true, dice: "1d20" }) {
@@ -1291,6 +1395,10 @@ export class ActorFFd20 extends Actor {
     const ablMod = getProperty(this.data, `data.abilities.${abl}.mod`);
     let mods = changes.map((item) => item.value);
     if (ablMod === 0) mods.unshift(0); // Include missing 0 ability modifier in front
+
+    // Wound Threshold penalty
+    if (rollData.attributes.woundThresholds.penalty > 0)
+      notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
 
     // Roll saving throw
     let props = this.getDefenseHeaders();
@@ -1352,7 +1460,14 @@ export class ActorFFd20 extends Actor {
       formula += " - @attributes.energyDrain";
     }
 
-    return DiceFFd20.d20Roll({
+    // Wound Threshold penalty
+    if (rollData.attributes.woundThresholds.penalty > 0)
+      notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
+
+    let props = this.getDefenseHeaders();
+    if (notes.length > 0) props.push({ header: "Notes", value: notes });
+
+    return DicePF.d20Roll({
       event: options.event,
       parts: [formula],
       dice: options.dice,
@@ -1446,6 +1561,14 @@ export class ActorFFd20 extends Actor {
         ...(this.data.data.traits.dv.custom.length > 0 ? this.data.data.traits.dv.custom.split(reSplit) : []),
       ];
       energyResistance.push(...values.map((o) => game.i18n.localize("ffd20lnrw.VulnerableTo").format(o)));
+    }
+
+    // Wound Threshold penalty
+    const wT = this.getWoundThresholdData();
+    if (wT.valid) {
+      const wTlabel = game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]);
+      acNotes.push(wTlabel);
+      cmdNotes.push(wTlabel);
     }
 
     // Create message
@@ -1580,16 +1703,17 @@ export class ActorFFd20 extends Actor {
       };
       const html = await renderTemplate(template, dialogData);
 
-      const buttons = {};
-      buttons.normal = {
-        label: game.i18n.localize("ffd20lnrw.Apply"),
-        callback: (html) => _submit.call(this, html, 1 * healingInvert),
-      };
-      buttons.half = {
-        label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
-        callback: (html) => _submit.call(this, html, 0.5 * healingInvert),
-      };
       return new Promise((resolve) => {
+        const buttons = {};
+        buttons.normal = {
+          label: game.i18n.localize("ffd20lnrw.Apply"),
+          callback: (html) => resolve(_submit.call(this, html, 1 * healingInvert)),
+        };
+        buttons.half = {
+          label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
+          callback: (html) => resolve(_submit.call(this, html, 0.5 * healingInvert)),
+        };
+
         var d = new Dialog({
           title: healingInvert > 0 ? game.i18n.localize("ffd20lnrw.ApplyDamage") : game.i18n.localize("ffd20lnrw.ApplyHealing"),
           content: html,
@@ -1607,13 +1731,57 @@ export class ActorFFd20 extends Actor {
               inp[0].querySelector('input[name="damage-reduction"]').value =
                 e.currentTarget.innerText.match(numReg) ?? "";
             }
+            function mouseWheelAdd(event) {
+              const el = event.currentTarget;
+
+              //Digits with optional sign only
+              if (/[^\d+-]|(?:\d[+-])/.test(el.value.trim())) return;
+
+              const value = parseFloat(el.value) || 0;
+              const increase = -Math.sign(event.originalEvent.deltaY);
+
+              el.value = (value + increase).toString();
+            }
+
             inp.on("click", 'a[name="swap-selected"]', swapSelected);
             inp.on("click", 'a[name="clear-reduction"], p.notes a', setReduction);
+            inp.on("wheel", "input", mouseWheelAdd);
           },
         });
         d.render(true);
       });
-    } else _submit();
+    } else return _submit();
+  }
+
+  /**
+   * Returns effective Wound Threshold multiplier with rules and overrides applied.
+   */
+  getWoundThresholdMultiplier(data = null) {
+    data = data ?? this.data;
+
+    const hpconf = game.settings.get("ffd20lnrw", "healthConfig").variants;
+    const conf = this.data.type === "npc" ? hpconf.npc : hpconf.pc;
+    const override = getProperty(data, "data.attributes.woundThresholds.override") ?? -1;
+    return override >= 0 && conf.allowWoundThresholdOverride ? override : conf.useWoundThresholds;
+  }
+
+  /**
+   * Returns Wound Threshold relevant data.
+   *
+   * @param {*} rollData Provided valid rollData
+   */
+  getWoundThresholdData(data = null) {
+    data = data ?? this.data;
+
+    const woundMult = this.getWoundThresholdMultiplier(data),
+      woundLevel = getProperty(data, "data.attributes.woundThresholds.level") ?? 0,
+      woundPenalty = woundLevel * woundMult + (getProperty(data, "data.attributes.woundThresholds.mod") ?? 0);
+    return {
+      level: woundLevel,
+      penalty: woundPenalty,
+      multiplier: woundMult,
+      valid: woundLevel > 0 && woundMult > 0,
+    };
   }
 
   getSkill(key) {
@@ -1781,6 +1949,14 @@ export class ActorFFd20 extends Actor {
       const spellbookNotes = getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.clNotes`);
       if (spellbookNotes.length) {
         result.push({ notes: spellbookNotes.split(/[\n\r]+/), item: null });
+      }
+
+      return result;
+    }
+
+    if (context.match(/^spell\.effect$/)) {
+      for (let note of result) {
+        note.notes = note.notes.filter((o) => o.target === "spell" && o.subTarget === "effect").map((o) => o.text);
       }
 
       return result;
@@ -1994,7 +2170,7 @@ export class ActorFFd20 extends Actor {
           bab: cls.data.bab,
           hp: healthConfig.auto,
           mp: cls.data.mp,
-          limitbreak: cls.data.limitbreak,
+          //limitbreak: cls.data.limitbreak,
           savingThrows: {
             fort: 0,
             ref: 0,
@@ -2103,6 +2279,11 @@ export class ActorFFd20 extends Actor {
         }
         break;
     }
+
+    // Wound Threshold penalty shorthand
+    const wT = this.getWoundThresholdData(result);
+    setProperty(result, "attributes.woundThresholds.penaltyBase", wT.level * wT.multiplier); // To aid relevant formulas
+    setProperty(result, "attributes.woundThresholds.penalty", wT.penalty);
 
     return result;
   }

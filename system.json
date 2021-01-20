@@ -2,9 +2,9 @@
 	"name": "ffd20lnrw",
 	"title": "FFd20 for LNRW",
 	"description": "FFd20 for use by the LNRW group using Pathfinder 1 as a base in the Foundry VTT environment.",
-	"version": "0.0.04",
-	"templateVersion": 2,
+	"version": "0.0.5",
 	"author": "Ritsu Voices",
+	"templateVersion": 2,
 	"scripts": [],
 	"esmodules": ["ffd20lnrw.js"],
 	"styles": ["ffd20lnrw.css"],
@@ -108,6 +108,41 @@
 			"entity": "RollTable"
 		},
 		{
+			"name": "bestiary_1",
+			"label": "Bestiary - Part 1",
+			"system": "ffd20lnrw",
+			"path": "./packs/bestiary_1.db",
+			"entity": "Actor"
+		  },
+		  {
+			"name": "bestiary_2",
+			"label": "Bestiary - Part 2",
+			"system": "ffd20lnrw",
+			"path": "./packs/bestiary_2.db",
+			"entity": "Actor"
+		  },
+		  {
+			"name": "bestiary_3",
+			"label": "Bestiary - Part 3",
+			"system": "ffd20lnrw",
+			"path": "./packs/bestiary_3.db",
+			"entity": "Actor"
+		  },
+		  {
+			"name": "bestiary_4",
+			"label": "Bestiary - Part 4",
+			"system": "ffd20lnrw",
+			"path": "./packs/bestiary_4.db",
+			"entity": "Actor"
+		  },
+		  {
+			"name": "bestiary_5",
+			"label": "Bestiary - Part 5",
+			"system": "ffd20lnrw",
+			"path": "./packs/bestiary_5.db",
+			"entity": "Actor"
+		  },
+		  {
 			"name": "conditions",
 			"label": "Conditions",
 			"system": "ffd20lnrw",

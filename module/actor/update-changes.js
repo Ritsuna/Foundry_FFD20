@@ -19,7 +19,9 @@ export const updateChanges = async function ({ data = null } = {}) {
   // Track previous values
   const prevValues = {
     mhp: getProperty(this.data, "data.attributes.hp.max") || 0,
-    //mmp: getProperty(this.data, "data.attributes.mp.max") || 0,
+    wounds: getProperty(this.data, "data.attributes.wounds.max") || 0,
+    vigor: getProperty(this.data, "data.attributes.vigor.max") || 0,
+    mmp: getProperty(this.data, "data.attributes.mp.max") || 0,
   };
 
   // Gather change types
@@ -339,14 +341,7 @@ export const updateChanges = async function ({ data = null } = {}) {
           ui.notifications.error(msg);
         }
       } else {
-        // Create script functions, if non exist
-        // if (Object.keys(this._changeFunctions).length === 0) {
-        //   this.updateChangeEvals();
-        // }
-
-        // console.log(change);
         const scriptResult = this._changeFunctions[change.raw._id].func(rollData);
-        // const scriptResult = evalChange.call(this, change);
         if (typeof scriptResult === "object") {
           value = scriptResult.value;
           operator = scriptResult.operator;
@@ -559,6 +554,16 @@ export const updateChanges = async function ({ data = null } = {}) {
           value: clBonus,
         });
       }
+
+      // Subtract Wound Thresholds penalty. Can't reduce below 1.
+      if (rollData.attributes.woundThresholds.penalty > 0 && total > 1) {
+        total = Math.max(1, total - rollData.attributes.woundThresholds.penalty);
+        getSourceInfo(sourceInfo, key).negative.push({
+          name: game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level]),
+          value: -rollData.attributes.woundThresholds.penalty,
+        });
+      }
+
       // Subtract energy drain
       if (rollData.attributes.energyDrain) {
         total = Math.max(0, total - rollData.attributes.energyDrain);
@@ -647,7 +652,7 @@ export const updateChanges = async function ({ data = null } = {}) {
       }
     }
 
-    // Spell points
+    /* Spell points find way to pull mp progression
     {
       const formula =
         getProperty(srcData1, `data.attributes.spells.spellbooks.${spellbookKey}.spellPoints.maxFormula`) || "0";
@@ -655,9 +660,9 @@ export const updateChanges = async function ({ data = null } = {}) {
       rollData.cl = getProperty(srcData1, `data.attributes.spells.spellbooks.${spellbookKey}.cl.total`);
       rollData.ablMod = spellbookAbilityMod;
       const roll = new Roll(formula, rollData).roll();
-      linkData(srcData1, updateData, `data.attributes.spells.spellbooks.${spellbookKey}.spellPoints.max`, roll.total);
-    }
-  }
+      linkData(srcData1, updateData, `data.attributes.mp.max`, roll.total);
+    }*/
+  } 
 
   // Apply health rounding
   for (let k of ["data.attributes.hp.max", "data.attributes.wounds.max", "data.attributes.vigor.max"]) {
@@ -704,6 +709,24 @@ export const updateChanges = async function ({ data = null } = {}) {
       );
     }
   }
+
+// Current mp boost
+if (updateData["data.attributes.mp.max"]) {
+  const mpDiff = updateData["data.attributes.mp.max"] - prevValues.mmp;
+  if (mpDiff !== 0) {
+    linkData(
+      srcData1,
+      updateData,
+      "data.attributes.mp.value",
+      Math.min(updateData["data.attributes.mp.max"], srcData1.data.attributes.mp.value + mpDiff)
+    );
+  }
+}
+
+
+
+  // Apply wound thresholds
+  updateWoundThreshold.call(this, srcData1, updateData);
 
   // Refresh source info
   for (let [bt, change] of Object.entries(changeData)) {
@@ -832,6 +855,110 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
   linkData(data, updateData, "data.attributes.hp.max", getProperty(data, "data.attributes.hp.base") || 0);
   linkData(data, updateData, "data.attributes.wounds.max", getProperty(data, "data.attributes.wounds.base") || 0);
   linkData(data, updateData, "data.attributes.vigor.max", getProperty(data, "data.attributes.vigor.base") || 0);
+  linkData(data, updateData, "data.attributes.mp.max", getProperty(data, "data.attributes.mp.base") || 0);
+
+  // Reset wound thresholds
+  linkData(
+    data,
+    updateData,
+    "data.attributes.woundThresholds.level",
+    getProperty(data, "data.attributes.woundThresholds.level") || 0
+  );
+  linkData(
+    data,
+    updateData,
+    "data.attributes.woundThresholds.override",
+    getProperty(data, "data.attributes.woundThresholds.override") || -1
+  );
+  linkData(
+    data,
+    updateData,
+    "data.attributes.woundThresholds.mod",
+    getProperty(data, "data.attributes.woundThresholds.mod") || 0
+  );
+  linkData(
+    data,
+    updateData,
+    "data.attributes.woundThresholds.penalty",
+    getProperty(data, "data.attributes.woundThresholds.penalty") || 0
+  );
+
+  /* Reset MP
+  /{
+    const k = "data.attributes.mp.max";
+      linkData(
+        data,
+        updateData,
+        k,
+        Math.floor(
+          classes.reduce((cur, obj) => {
+            const mpScale = getProperty(obj, "data.classBaseMPType") || "";
+            if (mpScale === "fullCaster") return cur + obj.data.level;
+            if (mpScale === "pacman") return cur + obj.data.level * 0.75;
+            if (mpScale === "halfCaster") return cur + obj.data.level * 0.5;
+            if (mpScale === "noncaster") return 0;
+            return cur;
+          }, 0)
+        )
+      );
+
+
+      const v = updateData[k];
+      linkData(
+        data,
+        updateData,
+        k,
+        classes.reduce((cur, obj) => {
+          const formula =
+            CONFIG.ffd20lnrw.classBaseMPType[obj.data.bab] != null ? CONFIG.ffd20lnrw.classBaseMPType[obj.data.bab] : "0";
+          const v = new Roll(formula, { level: obj.data.level }).roll().total;
+
+          if (v !== 0) {
+            getSourceInfo(sourceInfo, k).positive.push({ name: getProperty(obj, "name"), value: v });
+          }
+
+          return cur + v;
+        }, 0)
+      );
+    }
+  }
+  linkData(data, updateData, "data.attributes.cmb.total", 0);
+
+    // Add Constitution to HP
+  let hpAbility = getProperty(data, "data.attributes.hpAbility");
+  if (hpAbility == null) hpAbility = "con";
+  if (hpAbility !== "") {
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        {
+          formula: `@abilities.${hpAbility}.mod * @attributes.hd.total`,
+          target: "misc",
+          subTarget: "mhp",
+          modifier: "base",
+        },
+        { inplace: false }
+      ),
+      source: { name: game.i18n.localize("ffd20lnrw.AbilityCon") },
+    });
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        {
+          formula: `2 * (@abilities.${hpAbility}.total + @abilities.${hpAbility}.drain)`,
+          target: "misc",
+          subTarget: "wounds",
+          modifier: "base",
+        },
+        { inplace: false }
+      ),
+      source: { name: game.i18n.localize("ffd20lnrw.AbilityCon") },
+    });
+  }
+
+
+*/
+
 
   // Reset AC
   for (let type of Object.keys(data1.attributes.ac)) {
@@ -977,7 +1104,8 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
 
   // Reset Spell Resistance
   linkData(data, updateData, "data.attributes.sr.total", 0);
-};
+}
+;
 
 const _addDynamicData = function ({
   updateData = {},
@@ -1351,6 +1479,50 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
     });
   }
 
+  // Class mana points add links and pull for spellcaster stat and mp type per class
+  const push_mana = (value, source) => {
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        { formula: value.toString(), target: "misc", subTarget: "mmp", modifier: "untypedPerm" },
+        { inplace: false }
+      ),
+      source: { name: source.name, subtype: source.name.toString() },
+    });
+  };
+  const manual_mana = (mana_source) => {
+    let mana = mana_source.data.mp;
+    push_mana(mana, mana_source);
+  };
+  const auto_mana = (mana_source, options, maximized = 0) => {
+    if (mana_source.data.hd === 0) return;
+
+    let die_mana = 1 + (mana_source.data.hd - 1) * options.rate;
+    if (!continuous) die_mana = round(die_mana);
+
+    const maxed_mana = Math.min(mana_source.data.level, maximized) * mana_source.data.hd;
+    const level_mana = Math.max(0, mana_source.data.level - maximized) * die_mana;
+    const favor_mana = (mana_source.data.classType === "base") * mana_source.data.fc.mp.value;
+    let mana = maxed_mana + level_mana + favor_mana;
+
+    push_mana(mana, mana_source);
+  };
+  const compute_mana = (mana_sources, options) => {
+    // Compute and push mana, tracking the remaining maximized levels.
+    if (options.auto) {
+      let maximized = options.maximized;
+      for (const hd of mana_sources) {
+        auto_mana(hd, options, maximized);
+        maximized = Math.max(0, maximized - hd.data.level);
+      }
+    } else mana_sources.forEach((race) => manual_mana(race));
+  };
+
+  compute_mana(racialHD, race_options);
+  compute_mana(classes, cls_options);
+
+
+
   // Add movement speed(s)
   for (let [k, s] of Object.entries(data.data.attributes.speed)) {
     let base = s.base;
@@ -1455,7 +1627,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
     }
 
     //Add ACP penalty
-    if (["str", "dex"].includes(abl) && acp > 0) {
+    if (["str", "dex"].includes(abl)) {
       changes.push({
         raw: mergeObject(
           ItemChange.defaultData,
@@ -2026,6 +2198,12 @@ export const getChangeFlat = function (changeTarget, changeType, curData) {
   switch (changeTarget) {
     case "mhp":
       return "data.attributes.hp.max";
+    case "mmp":
+      return "data.attributes.mp.max";
+    case "wounds":
+      return "data.attributes.wounds.max";
+    case "vigor":
+      return "data.attributes.vigor.max";
     case "str":
     case "dex":
     case "con":
@@ -2245,6 +2423,10 @@ const _blacklistChangeData = function (data, changeTarget) {
       result.attributes.hp = null;
       result.skills = null;
       break;
+    case "mmp":
+        result.attributes.mp = null;
+        result.skills = null;
+      break;
     case "wounds":
       result.attributes.wounds = null;
       result.skills = null;
@@ -2388,6 +2570,7 @@ const getSortChangePriority = function () {
       "cmd",
       "init",
       "mhp",
+      "mmp",
       "wounds",
       "vigor",
     ],
@@ -2519,4 +2702,46 @@ const evalChange = function (change) {
   //   this.changeEval[funcName] = new Function(
   // `);
   return 0;
+};
+
+/**
+ * Updates attributes.woundThresholds.level variable.
+ */
+const updateWoundThreshold = function (expandedData = {}, data = {}) {
+  const hpconf = game.settings.get("ffd20lnrw", "healthConfig").variants;
+  const usage = this.data.type === "npc" ? hpconf.npc.useWoundThresholds : hpconf.pc.useWoundThresholds;
+  if (!usage) {
+    linkData(expandedData, data, "data.attributes.woundThresholds.level", 0);
+    linkData(expandedData, data, "data.attributes.woundThresholds.penaltyBase", 0);
+    linkData(expandedData, data, "data.attributes.woundThresholds.penalty", 0);
+    return;
+  }
+  const curHP =
+      getProperty(expandedData, "data.attributes.hp.value") ?? getProperty(this.data, "data.attributes.hp.value"),
+    maxHP = getProperty(expandedData, "data.attributes.hp.max") ?? getProperty(this.data, "data.attributes.hp.max");
+
+  let level = usage > 0 ? Math.min(3, 4 - Math.ceil((curHP / maxHP) * 4)) : 0;
+  if (Number.isNaN(level)) level = 0; // BUG: This shouldn't happen, but it does.
+
+  const wtMult = this.getWoundThresholdMultiplier(expandedData);
+  const wtMod =
+    getProperty(expandedData, "data.attributes.woundThresholds.mod") ??
+    getProperty(this.data, "data.attributes.woundThresholds.mod") ??
+    0;
+
+  linkData(expandedData, data, "data.attributes.woundThresholds.level", level);
+  linkData(expandedData, data, "data.attributes.woundThresholds.penaltyBase", level * wtMult); // To aid relevant formulas
+  linkData(expandedData, data, "data.attributes.woundThresholds.penalty", level * wtMult + wtMod);
+
+  const penalty = getProperty(expandedData, "data.attributes.woundThresholds.penalty");
+  const changeFlatKeys = ["cmb", "cmd", "init", "allSavingThrows", "ac", "skills", "abilityChecks"];
+  for (let fk of changeFlatKeys) {
+    let flats = getChangeFlat.call(this, fk, "penalty", expandedData.data);
+    if (!(flats instanceof Array)) flats = [flats];
+    for (let k of flats) {
+      if (!k) continue;
+      const curValue = getProperty(expandedData, k);
+      linkData(expandedData, data, k, curValue - penalty);
+    }
+  }
 };

@@ -1,5 +1,5 @@
 /**
- * The Pathfinder 1st edition game system for Foundry Virtual Tabletop
+ * The Final Fantasy d20 based in Pathfinder 1st edition game system for Foundry Virtual Tabletop
  * Author: Furyspark
  * Software License: GNU GPLv3
  */
@@ -55,7 +55,7 @@ if (!String.prototype.format) {
 /* -------------------------------------------- */
 
 Hooks.once("init", async function () {
-  console.log(`ffd20lnrw | Initializing Pathfinder 1 System`);
+  console.log(`ffd20lnrw | Initializing Final Fantasy D20 System`);
 
   // Register client settings
   registerClientSettings();
@@ -169,12 +169,14 @@ Hooks.once("setup", function () {
     "classBaseMPTypes",
     "classTypes",
     "classSubTypes",
-    "parentClass",
+    "classCastingStats",
+     //error "parentClass",
     "measureTemplateTypes",
     "creatureTypes",
     "measureUnits",
     "measureUnitsShort",
     "languages",
+    //"racialLanguages",
     "damageTypes",
     "weaponHoldTypes",
     "auraStrengths",
@@ -204,7 +206,7 @@ Hooks.once("setup", function () {
  */
 Hooks.once("ready", async function () {
   // Migrate data
-  const NEEDS_MIGRATION_VERSION = "0.0.04";
+  const NEEDS_MIGRATION_VERSION = "0.0.5";
   let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20lnrw", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";
@@ -236,7 +238,7 @@ Hooks.once("ready", async function () {
 
   // Show changelog
   if (!game.settings.get("ffd20lnrw", "dontShowChangelog")) {
-    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.4";
+    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.5";
     const changelogVersion = SemanticVersion.fromString(v);
     const curVersion = SemanticVersion.fromString(game.system.data.version);
 

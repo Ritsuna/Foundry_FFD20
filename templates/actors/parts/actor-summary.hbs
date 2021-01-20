@@ -138,22 +138,9 @@
         </div>
         {{/if}}
       </div>
-
-      {{!-- Hit Point Ability --}}
-      <div class="form-group select hp-ability">
-        <label>{{localize "ffd20lnrw.HPAbility"}}</label>
-        <select name="data.attributes.hpAbility">
-          {{#select data.attributes.hpAbility}}
-          <option value=""></option>
-          {{#each config.abilities as |ability a|}}
-          <option value="{{a}}">{{ability}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
       </div>
     </div>
   </div>
-</div>
 
 <div class="flexrow item-list misc-header-items">
 
@@ -165,8 +152,8 @@
 
 {{!-- Contains HP and speed, add Limit Breaks and MP here --}}
 <ul class="attributes flexrow">
-  
     <li>
+    {{#unless healthConfig.variants.pc.useWoundsAndVigor}}
       <table class="health-table">
         <thead class="tooltip">
           <tr>
@@ -182,9 +169,11 @@
                 {{#each sourceDetails.data.attributes.hp.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                 {{/if}}
               </div>
+
               {{localize "ffd20lnrw.HitPoints"}}
             </th>
           </tr>
+
           <tr>
             <th>{{localize "ffd20lnrw.Current"}}</th>
             <th>{{localize "ffd20lnrw.Maximum"}}</th>
@@ -192,6 +181,7 @@
             <th>{{localize "ffd20lnrw.Nonlethal"}}</th>
           </tr>
         </thead>
+
         <tbody>
           <tr>
             <td>
@@ -209,16 +199,90 @@
           </tr>
         </tbody>
       </table>
+          {{else}}
+    <table class="health-table wounds-vigor">
+      <thead>
+        <tr>
+          <th class="tooltip" colspan="3">
+            <div class="tooltipcontent">
+              @attributes.vigor.min : {{data.attributes.vigor.min}}<br/>
+              @attributes.vigor.value : {{data.attributes.vigor.value}}<br/>
+              @attributes.vigor.max : {{data.attributes.vigor.max}}<br/>
+              @attributes.vigor.temp : {{data.attributes.vigor.temp}}
+
+              {{#if sourceDetails.data.attributes.vigor.max.length}}
+              <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+              {{#each sourceDetails.data.attributes.vigor.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{/if}}
+            </div>
+
+            {{localize "ffd20lnrw.Vigor"}}
+          </th>
+
+          <th class="tooltip" colspan="2">
+            <div class="tooltipcontent">
+              @attributes.wounds.min : {{data.attributes.wounds.min}}<br/>
+              @attributes.wounds.value : {{data.attributes.wounds.value}}<br/>
+              @attributes.wounds.max : {{data.attributes.wounds.max}}<br/>
+
+              {{#if sourceDetails.data.attributes.wounds.max.length}}
+              <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+              {{#each sourceDetails.data.attributes.wounds.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{/if}}
+            </div>
+
+            {{localize "ffd20lnrw.Wounds"}}
+          </th>
+        </tr>
+
+        <tr>
+          <th>{{localize "ffd20lnrw.Current"}}</th>
+          <th>{{localize "ffd20lnrw.Maximum"}}</th>
+          <th>{{localize "ffd20lnrw.TempShort"}}</th>
+          <th>{{localize "ffd20lnrw.Current"}}</th>
+          <th>{{localize "ffd20lnrw.Maximum"}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <span class="text-box direct allow-relative vigor-current-input" name="data.attributes.vigor.value" data-dtype="Number">
+              {{data.attributes.vigor.value}}
+            </span>
+          </td>
+          <td>
+            <span class="text-box readonly">{{data.attributes.vigor.max}}</span>
+          </td>
+          <td>
+            <span class="text-box direct allow-relative vigor-temp-input" name="data.attributes.vigor.temp" data-dtype="Number">
+              {{#if data.attributes.vigor.temp}}{{data.attributes.vigor.temp}}{{/if}}
+            </span>
+          </td>
+          <td>
+            <span class="text-box direct allow-relative wounds-current-input" name="data.attributes.wounds.value" data-dtype="Number">
+              {{data.attributes.wounds.value}}
+            </span>
+          </td>
+          <td>
+            <span class="text-box readonly">{{data.attributes.wounds.max}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    {{/unless}}
     </li>
+
     <li>
       <table class="manapoint-table">
         <thead class="tooltip">
           <tr>
-            <th colspan="3">
+            <th colspan="4">
               <div class="tooltipcontent">
                 @attributes.mp.value : {{data.attributes.mp.value}}<br/>
                 @attributes.mp.max : {{data.attributes.mp.max}}<br/>
-                @attributes.mp.temp : {{data.attributes.mp.temp}}
+                @attributes.mp.temp : {{data.attributes.mp.temp}}<br/>
+                @attributes.mp.recover : {{data.attributes.mp.recover}}
                 {{#if sourceDetails.data.attributes.mp.max.length}}
                 <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
                 {{#each sourceDetails.data.attributes.mp.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
@@ -231,6 +295,7 @@
             <th>{{localize "ffd20lnrw.Current"}}</th>
             <th>{{localize "ffd20lnrw.Maximum"}}</th>
             <th>{{localize "ffd20lnrw.TempShort"}}</th>
+            <th>{{localize "ffd20lnrw.Recover"}}</th>
           </tr>
         </thead>
         <tbody>
@@ -244,6 +309,10 @@
             <td>
               <span class="text-box direct allow-relative mp-temp-input" name="data.attributes.mp.temp" data-dtype="Number">{{#if data.attributes.mp.temp}}{{data.attributes.mp.temp}}{{/if}}</span>
             </td>
+            <td>
+              <span class="text-box direct allow-relative mp-temp-input" name="data.attributes.mp.recover" data-dtype="Number">{{#if data.attributes.mp.recover}}{{data.attributes.mp.recover}}{{/if}}</span>
+            </td>
+
           </tr>
         </tbody>
       </table>
@@ -303,6 +372,7 @@
             <th>{{localize "ffd20lnrw.SpeedFly_Short"}}</th>
           </tr>
         </thead>
+
         <tbody>
           <td class="tooltip">
             <span class="text-box direct speed" name="data.attributes.speed.land.base" data-dtype="Number">
@@ -321,6 +391,7 @@
             <span class="text-box direct speed" name="data.attributes.speed.climb.base" data-dtype="Number">
               {{#if data.attributes.speed.climb.total}}{{data.attributes.speed.climb.total}}{{/if}}
             </span>
+
             <div class="tooltipcontent">
               @attributes.speed.climb.total : {{data.attributes.speed.climb.total}}
               {{#if sourceDetails.data.attributes.speed.climb.total.length}}
@@ -333,6 +404,7 @@
             <span class="text-box direct speed" name="data.attributes.speed.swim.base" data-dtype="Number">
               {{#if data.attributes.speed.swim.total}}{{data.attributes.speed.swim.total}}{{/if}}
             </span>
+
             <div class="tooltipcontent">
               @attributes.speed.swim.total : {{data.attributes.speed.swim.total}}
               {{#if sourceDetails.data.attributes.speed.swim.total.length}}
@@ -345,6 +417,7 @@
             <span class="text-box direct speed" name="data.attributes.speed.burrow.base" data-dtype="Number">
               {{#if data.attributes.speed.burrow.total}}{{data.attributes.speed.burrow.total}}{{/if}}
             </span>
+
             <div class="tooltipcontent">
               @attributes.speed.burrow.total : {{data.attributes.speed.burrow.total}}
               {{#if sourceDetails.data.attributes.speed.burrow.total.length}}
@@ -357,6 +430,7 @@
             <span class="text-box direct speed" name="data.attributes.speed.fly.base" data-dtype="Number">
               {{#if data.attributes.speed.fly.total}}{{data.attributes.speed.fly.total}}{{/if}}
             </span>
+
             <div class="tooltipcontent">
               @attributes.speed.fly.total : {{data.attributes.speed.fly.total}}<br/>
               @attributes.speed.fly.maneuverability : "{{data.attributes.speed.fly.maneuverability}}"
@@ -378,7 +452,6 @@
         </tbody>
       </table>
     </li>
-  
 </ul>
 
 {{!-- This is for adding classes and seeing quickj information --}}
@@ -410,10 +483,6 @@
             <th class="attribute initiative" data-attribute="initiative" colspan="2">
               <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.Initiative"}}</span></a>
             </th>
-          </tr>
-          <tr>
-            <th>{{localize "ffd20lnrw.Value"}}</th>
-            <th>{{localize "ffd20lnrw.Ability"}}</th>
           </tr>
         </thead>
 
@@ -452,14 +521,6 @@
                 {{/if}}
               </span>
               {{data.attributes.init.total}}
-            </td>
-            <td>
-              <select data-name="data.attributes.init.ability">
-                {{#select data.attributes.init.ability}}
-                  <option value=""></option>
-                  {{selectOptions config.abilities}}
-                {{/select}}
-              </select>
             </td>
           </tr>
         </tbody>

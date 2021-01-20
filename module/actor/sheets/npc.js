@@ -54,6 +54,10 @@ export class ActorSheetFFd20NPC extends ActorSheetFFd20 {
         data.labels.cr = CR.fromNumber(1);
       }
     }
+
+    const hpSettings = game.settings.get("ffd20lnrw", "healthConfig");
+    data["woundThresholds"] = hpSettings.variants.npc;
+
     return data;
   }
 
