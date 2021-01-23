@@ -206,7 +206,7 @@ Hooks.once("setup", function () {
  */
 Hooks.once("ready", async function () {
   // Migrate data
-  const NEEDS_MIGRATION_VERSION = "0.0.5";
+  const NEEDS_MIGRATION_VERSION = "0.0.6";
   let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20lnrw", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";
@@ -238,7 +238,7 @@ Hooks.once("ready", async function () {
 
   // Show changelog
   if (!game.settings.get("ffd20lnrw", "dontShowChangelog")) {
-    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.5";
+    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.6";
     const changelogVersion = SemanticVersion.fromString(v);
     const curVersion = SemanticVersion.fromString(game.system.data.version);
 
