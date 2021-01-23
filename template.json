@@ -1047,16 +1047,16 @@
 			"tagged": {
 				"tag": "",
 				"useCustomTag": false
-      },
-      "proficiencies": {
-        "armorProf": {
-          "value": [],
-          "custom": ""
-        },
-        "weaponProf": {
-          "value": [],
-          "custom": ""
-        }
+			},
+			"proficiencies": {
+				"armorProf": {
+					"value": [],
+					"custom": ""
+				},
+				"weaponProf": {
+					"value": [],
+					"custom": ""
+				}
 			}
 		},
 		"class": {
@@ -1064,15 +1064,14 @@
 			"classType": "base",
 			"classSubType": "",
 			"parentclass": "",
-			"levels": {
-				"value": 0,
-				"_deprecated": true
-			},
 			"level": 1,
+			"countforexp": "exp",
 			"hd": 8,
 			"hp": 8,
+			"classSpellProgression": "noncaster",
 			"classCastingStat": "noncaster",
 			"classBaseMPType": "noncaster",
+			"classBaseMPauto": "no",
 			"mp": 0,
 			"bab": "low",
 			"skillsPerLevel": 0,

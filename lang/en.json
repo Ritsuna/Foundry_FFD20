@@ -340,6 +340,12 @@
   "ffd20lnrw.ClassSubTypeHybrid": "Hybrid Class",
   "ffd20lnrw.ClassSubTypeHybridArc": "Hybrid Class Archetype",
   "ffd20lnrw.ParentClass": "Parent Class",
+  "ffd20lnrw.countforexp": "Apply to exp and HD",
+  "ffd20lnrw.ClassSpellProgression": "Max Spell Level",
+  "ffd20lnrw.ClassNoExp": "Disable Experience Tracking",
+  "ffd20lnrw.ClassExp": "Enable Experience Tracking",
+  "ffd20lnrw.classBaseMPauto": "Auto MP",
+
 
   "ffd20lnrw.ActionMWAK": "Melee Weapon Attack",
   "ffd20lnrw.ActionRWAK": "Ranged Weapon Attack",
@@ -856,9 +862,10 @@
   "ffd20lnrw.CreatureTypeVermin": "Vermin",
 
   "ffd20lnrw.Rest": "Rest",
-  "ffd20lnrw.RestoreHealth": "Restore Health",
+  "ffd20lnrw.RestoreHealth": "Restore Health (8 hours min)",
   "ffd20lnrw.RestoreDailyUses": "Restore Daily Uses",
-  "ffd20lnrw.LongTermCare": "Long-Term Care",
+  "ffd20lnrw.LongTermCare": "Long-Term Care (24 hours min, no heavy activity)",
+  "ffd20lnrw.aidedCare": "Aided Care (caregiver has 5 ranks in heal)",
 
   "ffd20lnrw.BonusModifierUntyped": "Untyped",
   "ffd20lnrw.BonusModifierUntypedPerm": "Untyped (Permanent)",
@@ -1272,7 +1279,7 @@
   "ffd20lnrw.Low": "Low",
   "ffd20lnrw.Medium": "Medium",
   "ffd20lnrw.High": "High",
-  
+
   "ffd20lnrw.Poor": "Poor",
   "ffd20lnrw.Good": "Good",
   "ffd20lnrw.Proficient": "Proficient",

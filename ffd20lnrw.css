@@ -318,9 +318,11 @@
 /*  Trait Selectors Specifically             */
 /* ----------------------------------------- */
 .ffd20lnrw.trait-selector {
+  columns: auto;
   max-height: 720px;
 }
 .ffd20lnrw.trait-selector .window-content {
+  column-count: auto;
   overflow: auto;
 }
 /* ----------------------------------------- */

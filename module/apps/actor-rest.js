@@ -41,7 +41,7 @@ There are items that boost natural healing that can be found.
        */
       restoreHealth: formData["restoreHealth"],
       longTermCare: formData["longTermCare"],
-      aidedcare: formData["aidedcare"],
+      aidedcare: formData["aidedCare"],
       restoreDailyUses: formData["restoreDailyUses"],
       hours: formData["hours"],
     };
@@ -53,10 +53,10 @@ There are items that boost natural healing that can be found.
     // Restore health and ability damage add mp
     if (restOptions["restoreHealth"] === true) {
       const hd = actorData.attributes.hd.total;
-      const mprev = actorData.attributes.hd.total;
+      const mprev = actorData.attributes.mp.recover;
       let heal = {
         hp: hd,
-        mp: mprev,
+        mp: mprev, // change this to reflect total caster level and casting mods
         abl: 1,
         nonlethal: restOptions.hours * hd,
       };
@@ -105,6 +105,9 @@ There are items that boost natural healing that can be found.
             getProperty(sb, `spells.spell${a}.max`) || 0;
         }
       }
+
+      // refresh limitbreak uses
+      updateData["data.attributes.limitbreak.value"] = actorData.attributes.limitbreak.max;
 
       // Update charged items
       for (let item of actor.items) {

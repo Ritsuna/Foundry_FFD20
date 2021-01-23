@@ -510,7 +510,7 @@ export class ActorSheetFFd20 extends ActorSheet {
       if (!trait) continue;
       let values = [];
       // Prefer total over value for dynamically collected proficiencies
-      if (["armorProf", "weaponProf"].includes(t)) {
+      if (["armorProf", "weaponProf", "languages"].includes(t)) {
         values = trait.total ?? trait.value;
       } else if (trait.value) {
         values = trait.value instanceof Array ? trait.value : [trait.value];

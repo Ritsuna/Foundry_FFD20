@@ -74,16 +74,16 @@
       </div>
 
 
-      {{!-- add racial languaes selection --}}
-      <div class="form-group {{data.languages.cssClass}}">
-        <label for="data.languages">{{localize "ffd20lnrw.Languages"}}</label>
-        <ul class="traits-list">
-          {{#each data.languages.selected as |v k|}}
-          <li class="tag {{k}}">{{v}}</li>
-          {{/each}}
-        </ul>
-        <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
-      </div>
+      {{!-- add racial languages selection --}}
+  <div class="form-group {{data.languages.cssClass}}">
+    <label for="data.languages">{{localize "ffd20lnrw.Languages"}}</label>
+    <ul class="traits-list">
+      {{#each data.languages.selected as |v k|}}
+      <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+  </div>
     </div>
 
 

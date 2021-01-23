@@ -719,7 +719,7 @@ export class ActorFFd20 extends Actor {
    * @param {Object} data - The update data, as per ActorFFd20.update()
    */
   _updateExp(data) {
-    const classes = this.items.filter((o) => o.type === "class" && o.data.data.classType !== "mythic");
+    const classes = this.items.filter((o) => o.type === "class" && o.data.data.classType !== "mythic" && o.data.data.countforexp === "exp");
     const level = classes.reduce((cur, o) => {
       return cur + o.data.data.level;
     }, 0);
@@ -2066,7 +2066,7 @@ export class ActorFFd20 extends Actor {
 
   /**
    * @returns {number} The total amount of currency this actor has, in gold pieces
-   */
+
   mergeCurrency() {
     return this.getTotalCurrency("currency") + this.getTotalCurrency("altCurrency");
   }
@@ -2074,13 +2074,13 @@ export class ActorFFd20 extends Actor {
   getTotalCurrency(category = "currency") {
     const currencies = getProperty(this.data.data, category);
     return (currencies.pp * 1000 + currencies.gp * 100 + currencies.sp * 10 + currencies.cp) / 100;
-  }
+  }   */
 
   /**
    * Converts currencies of the given category to the given currency type
    * @param {string} category - Either 'currency' or 'altCurrency'.
    * @param {string} type - Either 'pp', 'gp', 'sp' or 'cp'. Converts as much currency as possible to this type.
-   */
+
   convertCurrency(category = "currency", type = "pp") {
     const totalValue =
       category === "currency" ? this.getTotalCurrency("currency") : this.getTotalCurrency("altCurrency");
@@ -2112,7 +2112,7 @@ export class ActorFFd20 extends Actor {
     updateData[`data.${category}.sp`] = values[2];
     updateData[`data.${category}.cp`] = values[3];
     return this.update(updateData);
-  }
+  }   */
 
   /**
    * Import a new owned Item from a compendium collection
@@ -2155,6 +2155,7 @@ export class ActorFFd20 extends Actor {
         if (!tag) return;
 
         let healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
+        let manaConfig = cls.data.classBaseMPauto;
         const hasPlayerOwner = isMinimumCoreVersion("0.7.2") ? this.hasPlayerOwner : this.isPC;
         healthConfig =
           cls.data.classType === "racial"
@@ -2166,11 +2167,10 @@ export class ActorFFd20 extends Actor {
         result.classes[tag] = {
           level: cls.data.level,
           name: cls.name,
-          hd: cls.data.hd,
-          bab: cls.data.bab,
-          hp: healthConfig.auto,
+          hd: cls.data.countforexp === "exp" ? cls.data.hd : 0, // account for nonexp calls
+          bab: cls.data.countforexp === "exp" ? cls.data.bab : 0,
+          hp: cls.data.countforexp === "exp" ? healthConfig.auto : 0,
           mp: cls.data.mp,
-          //limitbreak: cls.data.limitbreak,
           savingThrows: {
             fort: 0,
             ref: 0,

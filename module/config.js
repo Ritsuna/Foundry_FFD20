@@ -68,6 +68,11 @@ ffd20lnrw.classSubTypes = {
   hybridArc: "ffd20lnrw.ClassSubTypeHybridArc",
 };
 
+ffd20lnrw.countforexp = {
+  exp: "ffd20lnrw.ClassExp",
+  noExp: "ffd20lnrw.ClassNoExp",
+};
+
 ffd20lnrw.classCastingStats = {
   noncaster: "ffd20lnrw.NonCaster",
   int: "ffd20lnrw.AbilityShortInt",
@@ -82,15 +87,43 @@ ffd20lnrw.classBaseMPTypes = {
   fullCaster: "ffd20lnrw.FullCaster",
 }; 
 
-// Character MP levels
-ffd20lnrw.classMPlevels = {
-// level             1   2   3   4   5   6   7   8   9   10   11    12    13    14    15    16    17    18    19    20
-  noncaster:     [0],
-  halfCaster:    [   0,  0,  0,  1,  2,  3,  4,  5,  6,   7,   8,   10,   12,   14,   16,   19,   22,   25,   29,   33,  ],
-  pacman:        [   2,  3,  4,  5,  6,  8, 10, 13, 16,  20,  24,   29,   34,   39,   45,   51,   57,   64,   71,   79,  ],
-  fullCaster:    [   3,  4,  5,  6,  8, 11, 15, 20, 26,  32,  39,   47,   56,   65,   75,   86,   98,  110,  122,  135,  ],
+// Max Spell Level
+ffd20lnrw.ClassSpellProgression = {
+  noncaster: 0,
+  halfCaster: 4,
+  pacman: 6,
+  fullCaster: 9,
 };
- 
+
+// Character MP from levels
+ffd20lnrw.classMPlevels = {
+// level          1   2   3   4   5   6   7   8   9   10   11    12    13    14    15    16    17    18    19    20
+noncaster:     [0],
+halfCaster:    [0,  0,  0,  1,  2,  3,  4,  5,  6,   7,   8,   10,   12,   14,   16,   19,   22,   25,   29,   33,],
+pacman:        [2,  3,  4,  5,  6,  8, 10, 13, 16,  20,  24,   29,   34,   39,   45,   51,   57,   64,   71,   79,],
+fullCaster:    [3,  4,  5,  6,  8, 11, 15, 20, 26,  32,  39,   47,   56,   65,   75,   86,   98,  110,  122,  135,],
+};
+
+// Character MP from stat
+ffd20lnrw.classMPStatsBonus = {
+// stat mod 0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17
+  1:       [0,   1,   1,   1,   1,   2,   2,   2,   2,   3,   3,   3,   3,   4,   4,   4,   4,   5,],
+  2:       [0,   1,   3,   3,   3,   4,   6,   6,   6,   7,   9,   9,   9,  10,  12,  12,  12,  13,],
+  3:       [0,   1,   3,   6,   6,   7,   9,  12,  12,  13,  15,  18,  18,  19,  21,  24,  24,  25,],
+  4:       [0,   1,   3,   6,  10,  11,  13,  16,  20,  21,  23,  26,  30,  31,  33,  36,  40,  41,],
+  5:       [0,   1,   3,   6,  10,  16,  18,  21,  25,  31,  33,  36,  40,  46,  48,  51,  55,  61,],
+  6:       [0,   1,   3,   6,  10,  16,  24,  27,  31,  37,  45,  48,  52,  58,  66,  69,  73,  79,],
+  7:       [0,   1,   3,   6,  10,  16,  24,  34,  38,  44,  52,  62,  66,  72,  80,  90,  94, 100,],
+  8:       [0,   1,   3,   6,  10,  16,  24,  34,  46,  52,  60,  70,  82,  88,  96, 106, 118, 124,],
+  9:       [0,   1,   3,   6,  10,  16,  24,  34,  46,  61,  69,  79,  91, 106, 114, 124, 136, 151,],
+};
+
+// to calculate auto mp
+ffd20lnrw.classBaseMPauto = {
+no: "ffd20lnrw.No",
+yes: "ffd20lnrw.Yes",
+};
+
 ffd20lnrw.classBAB = {
   low: "ffd20lnrw.Low",
   med: "ffd20lnrw.Medium",

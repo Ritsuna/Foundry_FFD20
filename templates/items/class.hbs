@@ -75,6 +75,18 @@
         <input type="text" name="data.parentclass" value="{{data.parentclass}}" data-dtype="String" />
       </div>
 
+      {{!-- count for exp  --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.countforexp"}}</label>
+        <select name="data.countforexp">
+          {{#select data.countforexp}}
+          {{#each config.countforexp as |name value|}}
+          <option value="{{value}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
       {{!-- HD --}}
       <div class="form-group">
         <label>{{localize "ffd20lnrw.HitDie"}}</label>
@@ -89,6 +101,30 @@
       </div>
       {{/unless}}
 
+      {{!-- mp type --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.ClassManaType"}}</label>
+        <select name="data.classBaseMPType">
+          {{#select data.classBaseMPType}}
+          {{#each config.classBaseMPTypes as |name value|}}
+          <option value="{{value}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
+      {{!-- Spell progression --}}
+      <div class="form-group">
+        <label>{{localize "ffd20lnrw.ClassSpellProgression"}}</label>
+        <select name="data.ClassSpellProgression">
+          {{#select data.ClassSpellProgression}}
+          {{#each config.ClassSpellProgression as |name value|}}
+          <option value="{{value}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
       {{!-- Casting stat type --}}
       <div class="form-group">
         <label>{{localize "ffd20lnrw.SpellcastingAbility"}}</label>
@@ -101,12 +137,12 @@
         </select>
       </div>
 
-      {{!-- mp type --}}
+      {{!-- mp auto  --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ClassManaType"}}</label>
-        <select name="data.classBaseMPType">
-          {{#select data.classBaseMPType}}
-          {{#each config.classBaseMPTypes as |name value|}}
+        <label>{{localize "ffd20lnrw.classBaseMPauto"}}</label>
+        <select name="data.classBaseMPauto">
+          {{#select data.classBaseMPauto}}
+          {{#each config.classBaseMPauto as |name value|}}
           <option value="{{value}}">{{name}}</option>
           {{/each}}
           {{/select}}

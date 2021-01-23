@@ -299,6 +299,70 @@ export const updateChanges = async function ({ data = null } = {}) {
       }
     }
 
+
+    // Handle languages for PCs
+    if (this.data.type === "character") {
+      // Collect languages from items, add them to actor's proficiency totals
+        // Custom languages baseline from actor
+        const customlanguages =
+          srcData1.data.traits.languages.custom.split(CONFIG.ffd20lnrw.re.traitSeparator).filter((item) => 
+          item.length > 0) ||
+          [];
+
+        // Iterate over all items to create one array of non-custom proficiencies
+        const languages = this.items.reduce(
+          (langs, item) => {
+            // Check only items able to grant proficiencies
+            if (hasProperty(item.data, `data.languages`)) {
+              // Get existing sourceInfo for item with this name, create sourceInfo if none is found
+              // Remember whether sourceInfo can be modified or has to be pushed at the end
+              let [sInfo, hasInfo] = getSourceInfo(sourceInfo, 'data.traits.languages').positive.find(
+                (o) => o.name === item.name
+              ) ?? [{ name: item.name, value: [] }, false];
+
+              // Regular languages
+              for (const language of item.data.data.languages.value) {
+                // Add localized source info if item's info does not have this proficiency already
+                if (!sInfo.value.includes(language)) sInfo.value.push(CONFIG.ffd20lnrw.languages[language]);
+                // Add raw languages key
+                if (!langs.includes(language)) langs.push(language);
+              }
+
+              // Custom languages
+              if (item.data.data.languages.custom) {
+                // Collect trimmed but otherwise original strings, dedupe array for actor's total
+                const customlangs =
+                  item.data.data.languages.custom
+                    .split(CONFIG.ffd20lnrw.re.traitSeparator)
+                    .map((i) => i.trim())
+                    .filter((el, i, arr) => el.length > 0 && arr.indexOf(el) === i) || [];
+                // Add readable custom profs to sources and overall collection
+                sInfo.value.push(...customlangs);
+                customlanguages.push(...customlangs);
+              }
+              if (sInfo.value.length > 0) {
+                // Transform arrays into presentable strings
+                sInfo.value = sInfo.value.join(", ");
+                // If sourceInfo was not a reference to existing info, push it now
+                if (!hasInfo) getSourceInfo(sourceInfo, `data.traits.languages`).positive.push(sInfo);
+              }
+            }
+            return langs;
+          },
+          [...srcData1.data.traits.languages.value] // Default languages baseline from actor
+        );
+
+        // Save collected languages in actor's data
+        linkData(srcData1, updateData, `data.traits.languages.total`, [...languages]);
+        linkData(srcData1, updateData, `data.traits.languages.customTotal`, customlanguages.join(";"));
+    }
+
+
+
+
+
+
+
     // Parse change formulas
     const highestBonus = {};
     allChanges.forEach((change, a) => {
@@ -710,18 +774,18 @@ export const updateChanges = async function ({ data = null } = {}) {
     }
   }
 
-// Current mp boost
-if (updateData["data.attributes.mp.max"]) {
-  const mpDiff = updateData["data.attributes.mp.max"] - prevValues.mmp;
-  if (mpDiff !== 0) {
-    linkData(
-      srcData1,
-      updateData,
-      "data.attributes.mp.value",
-      Math.min(updateData["data.attributes.mp.max"], srcData1.data.attributes.mp.value + mpDiff)
-    );
+  // Current mp boost
+  if (updateData["data.attributes.mp.max"]) {
+    const mpDiff = updateData["data.attributes.mp.max"] - prevValues.mmp;
+    if (mpDiff !== 0) {
+      linkData(
+        srcData1,
+        updateData,
+        "data.attributes.mp.value",
+        Math.min(updateData["data.attributes.mp.max"], srcData1.data.attributes.mp.value + mpDiff)
+      );
+    }
   }
-}
 
 
 
@@ -820,6 +884,10 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
 
   // Reset HD
   linkData(data, updateData, "data.attributes.hd.total", data1.details.level.value);
+
+  // recalulate limitbreaks
+  linkData(data, updateData, "data.attributes.limitbreak.max", (1 + Math.floor(data.data.attributes.hd.total / 4)));
+
 
   // Reset CR
   if (this.data.type === "npc") {
@@ -1008,7 +1076,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
         classes.reduce((cur, obj) => {
           const classType = getProperty(obj.data, "classType") || "base";
           let formula = CONFIG.ffd20lnrw.classSavingThrowFormulas[classType][obj.data.savingThrows[a].value];
-          if (formula == null) formula = "0";
+          if (formula == null || obj.data.countforexp === "noExp") formula = "0";
           const v = Math.floor(new Roll(formula, { level: obj.data.level }).roll().total);
 
           if (v !== 0) {
@@ -1026,6 +1094,9 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
   linkData(data, updateData, "data.traits.armorProf.customTotal", "");
   linkData(data, updateData, "data.traits.weaponProf.total", []);
   linkData(data, updateData, "data.traits.weaponProf.customTotal", "");
+  linkData(data, updateData, "data.traits.languages.total", []);
+  linkData(data, updateData, "data.traits.languages.customTotal", "");
+
 
   // Reset ACP and Max Dex bonus
   linkData(data, updateData, "data.attributes.acp.gear", 0);
@@ -1069,8 +1140,9 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
         updateData,
         k,
         classes.reduce((cur, obj) => {
-          const formula =
-            CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] != null ? CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] : "0";
+          const formula = 
+            obj.data.countforexp === "exp" && CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] != null ?
+              CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] : "0";
           const v = new Roll(formula, { level: obj.data.level }).roll().total;
 
           if (v !== 0) {
@@ -1509,6 +1581,22 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
   };
   const compute_mana = (mana_sources, options) => {
     // Compute and push mana, tracking the remaining maximized levels.
+    // for each class, check if it is calulating mp or defaulting to manually entered value
+    /**
+     * for each source check auto
+     * if auto yes
+     * calculate
+     * pass result
+     * else
+     * pass manual mp value
+    let mana = mana_source.data.mp;
+    push_mana(mana, mana_source);
+  };
+     * 
+     * 
+     * total results
+     * 
+     */
     if (options.auto) {
       let maximized = options.maximized;
       for (const hd of mana_sources) {
@@ -1519,7 +1607,7 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
   };
 
   compute_mana(racialHD, race_options);
-  compute_mana(classes, cls_options);
+  compute_mana(classes, false);
 
 
 
