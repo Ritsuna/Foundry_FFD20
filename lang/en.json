@@ -324,6 +324,7 @@
   "ffd20lnrw.CondZombie": "Zombie",
   "ffd20lnrw.CondTypeZombie": "Zombie",
 
+
   "ffd20lnrw.CostGP": "Cost (GP)",
 
   "ffd20lnrw.ClassType": "Class Type",
@@ -331,7 +332,6 @@
   "ffd20lnrw.ClassTypePrestige": "Prestige Class",
   "ffd20lnrw.ClassTypeNPC": "NPC Class",
   "ffd20lnrw.ClassTypeRacial": "Racial HD",
-
   "ffd20lnrw.ClassSubType": "Class Catagory",
   "ffd20lnrw.ClassSubTypeCore": "Core Class",
   "ffd20lnrw.ClassSubTypeCoreArc": "Core Class Archetype",
@@ -345,7 +345,6 @@
   "ffd20lnrw.ClassNoExp": "Disable Experience Tracking",
   "ffd20lnrw.ClassExp": "Enable Experience Tracking",
   "ffd20lnrw.classBaseMPauto": "Auto MP",
-
 
   "ffd20lnrw.ActionMWAK": "Melee Weapon Attack",
   "ffd20lnrw.ActionRWAK": "Ranged Weapon Attack",
@@ -566,6 +565,8 @@
   "ffd20lnrw.WeaponTypeSimple": "Simple",
   "ffd20lnrw.WeaponTypeMartial": "Martial",
   "ffd20lnrw.WeaponTypeExotic": "Exotic",
+  "ffd20lnrw.WeaponTypeChef": "Chef",
+  "ffd20lnrw.WeaponTypePower": "Power",
   "ffd20lnrw.WeaponTypeSplash": "Splash",
 
   "ffd20lnrw.WeaponPropBlocking": "Blocking",
@@ -754,7 +755,6 @@
   "ffd20lnrw.ErrorNoQuantity": "You don't have any more of that item",
   "ffd20lnrw.ErrorNoSpellsLeft": "You don't have spells left of that type",
   "ffd20lnrw.ErrorNoMPLeft": "You don't have any MP left",
-
   "ffd20lnrw.ErrorUnauthorizedAction": "You are not authorized to perform that action",
   "ffd20lnrw.ErrorActorFormula": "Formula error of type {0} on actor {1}",
   "ffd20lnrw.ErrorActorNotFound": "Actor with ID {0} not found",
@@ -819,6 +819,8 @@
   "ffd20lnrw.LanguageBurmecian": "Burmecian",
   "ffd20lnrw.LanguageDraconic": "Draconic",
   "ffd20lnrw.LanguageGarif": "Garif",
+  "ffd20lnrw.LanguageGuado": "Guado",
+  "ffd20lnrw.LanguageHypello": "Hypello",
   "ffd20lnrw.LanguageLupin": "Lupin",
   "ffd20lnrw.LanguageMandragoran": "Mandragoran",
   "ffd20lnrw.LanguageNumish": "Numish",
@@ -837,6 +839,7 @@
   "ffd20lnrw.LanguageTerran": "Terran",
   "ffd20lnrw.LanguageThorian": "Thorian",
   "ffd20lnrw.LanguageUmbran": "Umbran",
+  "ffd20lnrw.LanguageAmaljaa": "Amalj’aa",
   "ffd20lnrw.LanguageAntican": "Antican",
   "ffd20lnrw.LanguageGoblin": "Goblin",
   "ffd20lnrw.LanguageKojin": "Kojin",
@@ -844,6 +847,7 @@
   "ffd20lnrw.LanguageQueran": "Queran",
   "ffd20lnrw.LanguageSahagin": "Sahagin",
   "ffd20lnrw.LanguageSylvan": "Sylvan",
+  "ffd20lnrw.LanguageUndercommon": "Undercommon",
   "ffd20lnrw.LanguageVanu": "Vanu",
   "ffd20lnrw.LanguageYagudo": "Yagudo",
 
@@ -1127,6 +1131,7 @@
   "ffd20lnrw.CMDFFAbbr": "FF CMD",
   "ffd20lnrw.Untrained": "Untrained",
   "ffd20lnrw.DeleteItemConfirmation": "Are you sure you want to delete this item?",
+  "ffd20lnrw.UnsavedTinyMCE": "You have unsaved text in a field.<br>Would you like to save before closing?",
   "ffd20lnrw.UsesItem": "Uses {0}",
   "ffd20lnrw.OtherFormula": "Other Formula",
   "ffd20lnrw.Range": "Range",
@@ -1250,6 +1255,7 @@
   "ffd20lnrw.CarryDragPush": "Drag & Push",
   "ffd20lnrw.CarryLabel": "Carrying {0} lbs",
   "ffd20lnrw.CarryLabelKg": "Carrying {0} kg",
+
   "ffd20lnrw.SkillBonusRankFormula": "Bonus Rank Formula",
   "ffd20lnrw.Rank": "Rank",
   "ffd20lnrw.SkillRankPlural": "Skill Ranks",
@@ -1279,7 +1285,6 @@
   "ffd20lnrw.Low": "Low",
   "ffd20lnrw.Medium": "Medium",
   "ffd20lnrw.High": "High",
-
   "ffd20lnrw.Poor": "Poor",
   "ffd20lnrw.Good": "Good",
   "ffd20lnrw.Proficient": "Proficient",
@@ -1300,6 +1305,7 @@
   "ffd20lnrw.DMG": "DMG",
   "ffd20lnrw.PNL": "PNL",
   "ffd20lnrw.DRN": "DRN",
+
   "ffd20lnrw.UnidentifiedName": "Unidentified Name",
   "ffd20lnrw.UnidentifiedPriceShort": "Unid. Price",
   "ffd20lnrw.Yes": "Yes",
@@ -1326,6 +1332,7 @@
   "ffd20lnrw.AttackAction": "Attack Action",
   "ffd20lnrw.SingleAttack": "Single Attack",
   "ffd20lnrw.FullAttack": "Full Attack",
+
   "ffd20lnrw.Cast": "Cast",
   "ffd20lnrw.Use": "Use",
   "ffd20lnrw.Regeneration": "Regeneration",
