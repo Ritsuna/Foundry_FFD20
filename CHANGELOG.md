@@ -1,17 +1,23 @@
 # Changelog
 
+## 0.0.8
+
+### Bug Fixes
+
+- localization files updated and corrected
+
+### Changelog
+
+- added other mana progression
+- added Race Data File to core files and removed old file
+- made Verbal and Somatic default true
+- added compendium lookups for skills, need to create and add repair
+
 ## 0.0.7
 
 ### Bug Fixes
 
 - localization files updated
-
-### Changelog
-
-- Add more movement types, and automate movement speedt totals based on encumbrance and armor
-- Automation of spell slot count (you'll have to re-enter your casters' spell slot count for this update)
-- Add lite version of the NPC sheet, which is meant to be used alongside an NPC stat block, and only shows the bare minimum
-- Added a bunch of feats to their compendium, thanks to Amakiir (some icons still missing, for now)
 
 ## 0.0.6 
 

@@ -78,13 +78,17 @@ ffd20lnrw.classCastingStats = {
   int: "ffd20lnrw.AbilityShortInt",
   wis: "ffd20lnrw.AbilityShortWis",
   cha: "ffd20lnrw.AbilityShortCha",
+  intAndWis: "ffd20lnrw.AbilityShortIntAndWis",
 }; 
 
 ffd20lnrw.classBaseMPTypes = {
   noncaster: "ffd20lnrw.NonCaster",
   halfCaster: "ffd20lnrw.HalfCaster",
+  dimPacman: "ffd20lnrw.DimPacman",
   pacman: "ffd20lnrw.Pacman",
+  dimFullCaster: "ffd20lnrw.DimFullCaster",
   fullCaster: "ffd20lnrw.FullCaster",
+  advFullCaster: "ffd20lnrw.AdvFullCaster",
 }; 
 
 // Max Spell Level
@@ -888,9 +892,10 @@ ffd20lnrw.skillCompendiumEntries = {
   blf: "ffd20lnrw.skills.pAB2PYkZO3lsmeaC",
   clm: "ffd20lnrw.skills.xvua9V5Zggkc77Gt",
   crf: "ffd20lnrw.skills.L6LEhHRrn53cMuhE",
-  dip: "ffd20lnrw.skills.OtfbHJhIQsNzmiTN",
   dev: "ffd20lnrw.skills.CCy1fajKKU3K02iQ",
+  dip: "ffd20lnrw.skills.OtfbHJhIQsNzmiTN",
   dis: "ffd20lnrw.skills.lP3L1RXi9q4ha9Gu",
+  dir: "ffd20lnrw.skills.LqNIXvXeQTxcDeUA",
   esc: "ffd20lnrw.skills.AOQsMtvLY4V3wFEL",
   fly: "ffd20lnrw.skills.rR877UB1xVd3Z7z1",
   han: "ffd20lnrw.skills.fXauAodbOBHBi7Mj",
@@ -906,10 +911,14 @@ ffd20lnrw.skillCompendiumEntries = {
   kno: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
   kpl: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
   kre: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
+  kte: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
   lin: "ffd20lnrw.skills.QXIYXqy6ivNHrDrW",
+  nav: "ffd20lnrw.skills.mY5hN2EBEG0zWcSk",
   per: "ffd20lnrw.skills.YYmmxDgp0g3ltSUG",
+  pil: "ffd20lnrw.skills.RbmyZeLZzFv7YHqF",
   prf: "ffd20lnrw.skills.HhV5UmaRLTjtB3Xh",
   pro: "ffd20lnrw.skills.O7Utk8xKbHYDP7Ot",
+  rep: "ffd20lnrw.skills.", //repair
   rid: "ffd20lnrw.skills.mKO8Q4uMiqpMySOZ",
   sen: "ffd20lnrw.skills.R8HGxGCKayOl15AO",
   slt: "ffd20lnrw.skills.zK0CbvpYLZhTN5Wn",
@@ -919,6 +928,9 @@ ffd20lnrw.skillCompendiumEntries = {
   swm: "ffd20lnrw.skills.weCPHUuXi9sF5r4E",
   umd: "ffd20lnrw.skills.WR5lekzyLT6T2CFH",
 };
+
+
+
 
 ffd20lnrw.arbitrarySkills = ["crf", "prf", "pro"];
 
@@ -1454,7 +1466,7 @@ ffd20lnrw.languages = {
   terran: "ffd20lnrw.LanguageTerran",
   thorian: "ffd20lnrw.LanguageThorian",
   umbran: "ffd20lnrw.LanguageUmbran",
-  amaljaa: "ffd20.lnrw.LanguageAmaljaa",
+  amaljaa: "ffd20lnrw.LanguageAmaljaa",
   antican: "ffd20lnrw.LanguageAntican",
   goblin: "ffd20lnrw.LanguageGoblin",
   kojin: "ffd20lnrw.LanguageKojin",

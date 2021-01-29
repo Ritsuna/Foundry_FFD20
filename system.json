@@ -2,7 +2,7 @@
 	"name": "ffd20lnrw",
 	"title": "FFd20 for LNRW",
 	"description": "FFd20 for use by the LNRW group using Pathfinder 1 as a base in the Foundry VTT environment.",
-	"version": "0.0.7",
+	"version": "0.0.8",
 	"author": "Ritsu Voices",
 	"templateVersion": 2,
 	"scripts": [],
@@ -66,10 +66,10 @@
 			"entity": "Item"
 		},
 		{
-			"name": "races",
-			"label": "Races",
+			"name": "ffd20 races",
+			"label": "FFD20 Races",
 			"system": "ffd20lnrw",
-			"path": "./packs/races.db",
+			"path": "./packs/ffd20-races.db",
 			"entity": "Item"
 		},
 		{
@@ -174,5 +174,5 @@
 	"compatibleCoreVersion": "0.7.9",
 	"url": "https://github.com/Ritsuna/FFd20-foundry-LNRW",
 	"manifest": "https://raw.githubusercontent.com/Ritsuna/FFd20-foundry-LNRW/master/system.json",
-	"download": "https://github.com/Ritsuna/FFd20-foundry-LNRW/releases/download/0.0.7/FFd20-foundry-LNRW-master.zip"
+	"download": "https://github.com/Ritsuna/FFd20-foundry-LNRW/releases/download/0.0.8/FFd20-foundry-LNRW-master.zip"
 }
