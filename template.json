@@ -1063,7 +1063,7 @@
       "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies"],
 			"classType": "base",
 			"classSubType": "",
-			"parentclass": "",
+			"parentClass": "",
 			"level": 1,
 			"countforexp": "exp",
 			"hd": 8,

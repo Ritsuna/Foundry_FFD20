@@ -4,12 +4,12 @@ import { SemanticVersion } from "../semver.js"; // formats versioning correctly
 
 // deals with compendium versioning
 const NEED_NEW_VERSION = {
-  spells: "0.0.4",
-  items: "0.0.4",
-  bestiary: "0.0.4",
-  feats: "0.0.4",
-  classes: "0.0.4",
-  races: "0.0.4",
+  spells: "0.0.8",
+  items: "0.0.8",
+  bestiary: "0.0.8",
+  feats: "0.0.8",
+  classes: "0.0.8",
+  races: "0.0.8",
 };
 
 export const COMPENDIUM_TYPES = {
@@ -77,7 +77,7 @@ export class CompendiumBrowser extends Application {
     {
       this._savedItems = [];
       const cacheVersions = game.settings.get("ffd20lnrw", "compendiumSaveVersions");
-      const thisVersion = SemanticVersion.fromString(cacheVersions[this.type] || "0.0.4");
+      const thisVersion = SemanticVersion.fromString(cacheVersions[this.type] || "0.0.1");
       const needVersion = SemanticVersion.fromString(NEED_NEW_VERSION[this.type]);
       if (needVersion.isHigherThan(thisVersion)) {
         game.settings.set(
@@ -540,6 +540,7 @@ export class CompendiumBrowser extends Application {
     this.extraFilters = this.extraFilters || {
       "data.hd": {},
       "data.skillsPerLevel": {},
+      "data.parentClass": {},
     };
 
     // Add HD
@@ -551,6 +552,11 @@ export class CompendiumBrowser extends Application {
     {
       const s = item.data.skillsPerLevel;
       if (s) this.extraFilters["data.skillsPerLevel"][s] = true;
+    }
+    // Add parent classes
+    {
+      const s = item.data.parentClass;
+      if (s) this.extraFilters["data.parentClass"][s] = true;
     }
   }
 
@@ -918,6 +924,7 @@ export class CompendiumBrowser extends Application {
     );
   }
 
+  // add other class features
   _fetchClassFilters() {
     this.filters.push(
       ...[
@@ -929,6 +936,24 @@ export class CompendiumBrowser extends Application {
             return cur;
           }, []),
         },
+        // TODO class catagory
+        {
+          path: "data.classSubType",
+          label: game.i18n.localize("ffd20lnrw.ClassSubType"),
+          items: Object.entries(CONFIG.ffd20lnrw.classSubTypes).reduce((cur, o) => {
+            cur.push({ key: o[0], name: o[1] });
+            return cur;
+          }, []),
+        }, 
+        // TODO Parent class
+        {
+          path: "data.parentClass",
+          label: game.i18n.localize("ffd20lnrw.ParentClass"),
+          items: Object.keys(this.extraFilters["data.parentClass"]).reduce((cur, o) => {
+            cur.push({ key: o.toString(), name: o.toString() });
+            return cur;
+          }, []),
+        }, 
         {
           path: "data.hd",
           label: game.i18n.localize("ffd20lnrw.HitDie"),
@@ -937,6 +962,24 @@ export class CompendiumBrowser extends Application {
             return cur;
           }, []),
         },
+        // TODO MP type
+        {
+          path: "data.classBaseMPType",
+          label: game.i18n.localize("ffd20lnrw.ClassMPType"),
+          items: Object.entries(CONFIG.ffd20lnrw.classBaseMPTypes).reduce((cur, o) => {
+            cur.push({ key: o[0], name: o[1] });
+            return cur;
+          }, []),
+        },
+        //  TODO Casting stat
+        {
+          path: "data.classCastingStat",
+          label: game.i18n.localize("ffd20lnrw.SpellcastingAbility"),
+          items: Object.entries(CONFIG.ffd20lnrw.classCastingStats).reduce((cur, o) => {
+            cur.push({ key: o[0], name: o[1] });
+            return cur;
+          }, []),
+        }, 
         {
           path: "data.bab",
           label: game.i18n.localize("ffd20lnrw.BAB"),
@@ -1278,8 +1321,12 @@ export class CompendiumBrowser extends Application {
       case "classes":
         propKeys.push(
           "data.classType",
+          "data.classSubTypes",
+          "data.parentClass",
           "data.bab",
           "data.hd",
+          "data.classBaseMPType",
+          "data.classCastingStat",
           "data.skillsPerLevel",
           "data.savingThrows.fort.value",
           "data.savingThrows.ref.value",

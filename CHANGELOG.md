@@ -1,5 +1,38 @@
 # Changelog
 
+## 0.0.9
+
+### Bug Fixes
+
+- more localization files updated and corrected
+- corrected most image links
+
+### Changelog
+
+- updated compendium search function for classes
+- Started construction on Class Packs
+
+- Summoner pack added
+- Todo: Add archatypes, add other avatars
+- Added: Carbuncle Avatar
+- White Mage pack added
+- Added: Holy Warden, Blood Lily Acolite
+- Todo: Add other archatypes
+- Black Mage pack added
+- Added: Magus
+- Todo: Add other archatypes
+- Time Mage pack added
+- Todo: Add archatypes
+- Gunbreaker pack added
+- Todo: Add archatypes
+- Added: Sorceress Knight
+- Engineer pack added
+- Todo: Add archatypes, Fix construct elements
+- Added: Gadgeteer 
+
+- Added a number of Feats
+- Added some gear
+
 ## 0.0.8
 
 ### Bug Fixes
