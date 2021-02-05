@@ -17,14 +17,6 @@
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-class-pack-black-mage-skills",
-			"label": "Class Pack - Black Mage Skills",
-			"system": "ffd20lnrw",
-			"path": "./packs/ffd20-class-pack-black-mage-skills.db",
-			"entity": "Item"
-		},
-
-		{
 			"name": "ffd20-class-pack-engineer",
 			"label": "Class Pack - Engineer",
 			"system": "ffd20lnrw",
