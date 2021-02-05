@@ -57,6 +57,7 @@ ffd20lnrw.classTypes = {
   prestige: "ffd20lnrw.ClassTypePrestige",
   npc: "ffd20lnrw.ClassTypeNPC",
   racial: "ffd20lnrw.ClassTypeRacial",
+  mythic: "ffd20lnrw.ClassTypeMythic",
 };
 
 ffd20lnrw.classSubTypes = {
@@ -67,45 +68,6 @@ ffd20lnrw.classSubTypes = {
   hybrid: "ffd20lnrw.ClassSubTypeHybrid",
   hybridArc: "ffd20lnrw.ClassSubTypeHybridArc",
 };
-
-/**ffd20lnrw.parentClass = {
-  archer: "ffd20lnrw.ClassArcher",
-  astrologian: "ffd20lnrw.ClassAstrologian",
-  bard: "ffd20lnrw.ClassBard",
-  beastmaster: "ffd20lnrw.ClassBeastmaster",
-  berserker: "ffd20lnrw.ClassBerserker",
-  blackBelt: "ffd20lnrw.ClassBlackBelt",
-  blackMage: "ffd20lnrw.ClassBlackMage",
-  blueMage: "ffd20lnrw.ClassBlueMage",
-  chemist: "ffd20lnrw.ClassChemist",
-  chocoboKnight: "ffd20lnrw.ClassChocoboKnight",
-  cleric: "ffd20lnrw.ClassCleric",
-  dancer: "ffd20lnrw.ClassDancer",
-  darkKnight: "ffd20lnrw.ClassDarkKnight",
-  dragoon: "ffd20lnrw.ClassDragoon",
-  engineer: "ffd20lnrw.ClassEngineer",
-  fencer: "ffd20lnrw.ClassFencer",
-  fighter: "ffd20lnrw.ClassFighter",
-  gambler: "ffd20lnrw.ClassGambler",
-  geomancer: "ffd20lnrw.ClassGeomancer",
-  gunbreaker: "ffd20lnrw.ClassGunbreaker",
-  gunner: "ffd20lnrw.ClassGunner",
-  holyKnight: "ffd20lnrw.ClassHolyKnight",
-  illusionist: "ffd20lnrw.ClassIllusionist",
-  knight: "ffd20lnrw.ClassKnight",
-  medic: "ffd20lnrw.ClassMedic",
-  monk: "ffd20lnrw.ClassMonk",
-  necromancer: "ffd20lnrw.ClassNecromancer",
-  ninja: "ffd20lnrw.ClassNinja",
-  redMage: "ffd20lnrw.ClassRedMage",
-  samurai: "ffd20lnrw.ClassSamurai",
-  scholar: "ffd20lnrw.ClassScholar",
-  summoner: "ffd20lnrw.ClassSummoner",
-  swordSaint: "ffd20lnrw.ClassSwordSaint",
-  thief: "ffd20lnrw.ClassThief",
-  timeMage: "ffd20lnrw.ClassTimeMage",
-  whiteMage: "ffd20lnrw.ClassWhiteMage",
-};*/
 
 ffd20lnrw.countforexp = {
   exp: "ffd20lnrw.ClassExp",
@@ -200,6 +162,10 @@ ffd20lnrw.classSavingThrowFormulas = {
   racial: {
     low: "floor(@level / 3)",
     high: "2 + floor(@level / 2)",
+  },
+  mythic: {
+    low: "0",
+    high: "0",
   },
 };
 
@@ -738,6 +704,8 @@ ffd20lnrw.bonusModifiers = {
   penalty: "ffd20lnrw.BonusModifierPenalty",
 };
 
+ffd20lnrw.stackingBonusModifiers = ["untyped", "untypedPerm", "dodge", "racial", "penalty"];
+
 /* -------------------------------------------- */
 
 // Damage Types
@@ -967,9 +935,6 @@ ffd20lnrw.skillCompendiumEntries = {
   swm: "ffd20lnrw.skills.weCPHUuXi9sF5r4E",
   umd: "ffd20lnrw.skills.WR5lekzyLT6T2CFH",
 };
-
-
-
 
 ffd20lnrw.arbitrarySkills = ["crf", "prf", "pro"];
 
@@ -1342,6 +1307,7 @@ ffd20lnrw.buffTargets = {
     attack: "ffd20lnrw.All",
     mattack: "ffd20lnrw.Melee",
     rattack: "ffd20lnrw.Ranged",
+    "~attackCore": "", // hidden
   },
   damage: {
     _label: "ffd20lnrw.Damage",
@@ -1409,6 +1375,7 @@ ffd20lnrw.buffTargets = {
     acpS: "ffd20lnrw.ACPShield",
     mDexA: "ffd20lnrw.MaxDexArmor",
     mDexS: "ffd20lnrw.MaxDexShield",
+    spellResist: "ffd20lnrw.SpellResistance",
   },
 };
 

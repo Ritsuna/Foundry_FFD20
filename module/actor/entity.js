@@ -1,16 +1,16 @@
-import { DiceFFd20 } from "../dice.js";
-import { ItemFFd20 } from "../item/entity.js";
+import { Diceffd20lnrw } from "../dice.js";
+import { Itemffd20lnrw } from "../item/entity.js";
 import { createTag, linkData, isMinimumCoreVersion, convertDistance, convertWeight } from "../lib.js";
 import { createCustomChatMessage } from "../chat.js";
 import { _getInitiativeFormula } from "../combat.js";
 import { LinkFunctions } from "../misc/links.js";
 import { getSkipActionPrompt } from "../settings.js";
-import { updateChanges, getChangeFlat } from "./update-changes.js";
+import { applyChanges, addDefaultChanges, getChangeFlat, getSourceInfo } from "./apply-changes.js";
 
 /**
  * Extend the base Actor class to implement additional logic specialized for D&D5e.
  */
-export class ActorFFd20 extends Actor {
+export class Actorffd20lnrw extends Actor {
   constructor(...args) {
     super(...args);
 
@@ -22,12 +22,32 @@ export class ActorFFd20 extends Actor {
     this.changeItems = [];
 
     /**
-     * Change functions, as determined by changes' script formulas
+     * Stores all ItemChanges from carried items.
      * @property
-     * @private
+     * @public
      * @type {Object}
      */
-    this._changeFunctions = {};
+    this.changes = new Collection();
+
+    /**
+     * Stores cancellable tokens for pending update promises.
+     * @property
+     * @private
+     * @type {Array.<Object>}
+     */
+    this._pendingUpdateTokens = [];
+
+    /**
+     * @property {Object} _rollData
+     * Cached roll data for this item.
+     */
+    this._rollData = null;
+
+    /**
+     * @property {Array.<String>} _runningFunctions
+     * Keeps track of currently running async functions that shouldn't run multiple times simultaneously.
+     */
+    this._runningFunctions = [];
   }
 
   /* -------------------------------------------- */
@@ -46,11 +66,11 @@ export class ActorFFd20 extends Actor {
 
     // Roll saving throw
     if (action === "defense-save") {
-      const actor = ItemFFd20._getChatCardActor(card);
+      const actor = Itemffd20lnrw._getChatCardActor(card);
       const saveId = button.dataset.save;
       if (actor) actor.rollSavingThrow(saveId, { event: event, skipPrompt: getSkipActionPrompt() });
     } else if (action === "save") {
-      const actors = ActorFFd20.getSelectedActors();
+      const actors = Actorffd20lnrw.getSelectedActors();
       const saveId = button.dataset.type;
       let noSound = false;
       for (let a of actors) {
@@ -85,7 +105,7 @@ export class ActorFFd20 extends Actor {
 
   /**
    * Returns an array of all selected tokens, along with their actors.
-   * @returns {Array.<ActorFFd20, Token>[]}
+   * @returns {Array.<Actorffd20lnrw, Token>[]}
    */
   static getSelectedActors() {
     let result = [];
@@ -178,18 +198,580 @@ export class ActorFFd20 extends Actor {
     return hasPlayerOwner;
   }
 
+  prepareEmbeddedEntities() {
+    super.prepareEmbeddedEntities();
+    this._prepareChanges();
+  }
+
+  _prepareChanges() {
+    this.changeItems = this.items
+      .filter((obj) => {
+        return (
+          (obj.data.data.changes instanceof Array && obj.data.data.changes.length) ||
+          (obj.data.data.changeFlags && Object.values(obj.data.data.changeFlags).filter((o) => o === true).length)
+        );
+      })
+      .filter((obj) => {
+        if (obj.type === "buff") return obj.data.data.active;
+        if (obj.type === "equipment" || obj.type === "weapon") return obj.data.data.equipped;
+        if (obj.type === "loot" && obj.data.data.subType === "gear") return obj.data.data.equipped;
+        return true;
+      });
+
+    let changes = [];
+    for (let i of this.changeItems) {
+      changes.push(...i.changes);
+    }
+    addDefaultChanges.call(this, changes);
+
+    const prior = this.changes;
+    const c = new Collection();
+    for (let e of changes) {
+      c.set(e._id, e);
+    }
+    this.changes = c;
+  }
+
+  applyActiveEffects() {
+    super.applyActiveEffects();
+
+    applyChanges.call(this);
+  }
+
+  prepareData() {
+    this._queuedUpdates = {};
+    this._prevAttributes = {};
+    for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor"]) {
+      this._prevAttributes[k] = getProperty(this.data, `${k}.max`);
+    }
+    this.sourceInfo = {};
+    this.flags = {};
+
+    super.prepareData();
+
+    // Send queued updates
+    if (this._initialized) {
+      const diff = diffObject(duplicate(this._data), expandObject(this._queuedUpdates), { inner: true });
+      if (!isObjectEmpty(diff)) {
+        this.update(diff);
+      }
+    }
+    this._initialized = true;
+    this._setSourceDetails(this.sourceInfo);
+  }
+
+  prepareBaseData() {
+    super.prepareBaseData();
+
+    const classes = this.data.items.filter((obj) => {
+      return obj.type === "class";
+    });
+
+    {
+      const highestArmorEnhBonus = this.data.items
+        .filter((o) => o.type === "equipment" && o.data.equipmentType === "armor" && o.data.equipped)
+        .reduce((cur, o) => {
+          return Math.max(cur, o.data.armor.enh);
+        }, 0);
+      const highestShieldEnhBonus = this.data.items
+        .filter((o) => o.type === "equipment" && o.data.equipmentType === "shield" && o.data.equipped)
+        .reduce((cur, o) => {
+          return Math.max(cur, o.data.armor.enh);
+        }, 0);
+
+      // Handle armor and weapon proficiencies for PCs
+      // NPCs are considered proficient with their armor
+      if (this.data.type === "character") {
+        // Collect proficiencies from items, add them to actor's proficiency totals
+        for (const prof of ["armorProf", "weaponProf"]) {
+          // Custom proficiency baseline from actor
+          const customProficiencies =
+            this.data.data.traits[prof]?.custom.split(CONFIG.ffd20lnrw.re.traitSeparator).filter((item) => item.length > 0) ||
+            [];
+
+          // Iterate over all items to create one array of non-custom proficiencies
+          const proficiencies = this.data.items.reduce(
+            (profs, item) => {
+              // Check only items able to grant proficiencies
+              if (hasProperty(item, `data.${prof}`)) {
+                // Get existing sourceInfo for item with this name, create sourceInfo if none is found
+                // Remember whether sourceInfo can be modified or has to be pushed at the end
+                let [sInfo, hasInfo] = getSourceInfo(this.sourceInfo, `data.traits.${prof}`).positive.find(
+                  (o) => o.name === item.name
+                ) ?? [{ name: item.name, value: [] }, false];
+
+                // Regular proficiencies
+                for (const proficiency of item.data[prof].value) {
+                  // Add localized source info if item's info does not have this proficiency already
+                  if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.ffd20lnrw[`${prof}iciencies`][proficiency]);
+                  // Add raw proficiency key
+                  if (!profs.includes(proficiency)) profs.push(proficiency);
+                }
+
+                // Custom proficiencies
+                if (item.data.armorProf.custom) {
+                  // Collect trimmed but otherwise original strings, dedupe array for actor's total
+                  const customProfs =
+                    item.data[prof].custom
+                      .split(CONFIG.ffd20lnrw.re.traitSeparator)
+                      .map((i) => i.trim())
+                      .filter((el, i, arr) => el.length > 0 && arr.indexOf(el) === i) || [];
+                  // Add readable custom profs to sources and overall collection
+                  sInfo.value.push(...customProfs);
+                  customProficiencies.push(...customProfs);
+                }
+                if (sInfo.value.length > 0) {
+                  // Transform arrays into presentable strings
+                  sInfo.value = sInfo.value.join(", ");
+                  // If sourceInfo was not a reference to existing info, push it now
+                  if (!hasInfo) getSourceInfo(this.sourceInfo, `data.traits.${prof}`).positive.push(sInfo);
+                }
+              }
+              return profs;
+            },
+            [...this.data.data.traits[prof].value] // Default proficiency baseline from actor
+          );
+
+          // Save collected proficiencies in actor's data
+          setProperty(this.data, `data.traits.${prof}.total`, [...proficiencies]);
+          setProperty(this.data, `data.traits.${prof}.customTotal`, customProficiencies.join(";"));
+        }
+      }
+    }
+
+    // Refresh ability scores
+    {
+      const abs = Object.keys(this.data.data.abilities);
+      for (let ab of abs) {
+        setProperty(
+          this.data,
+          `data.abilities.${ab}.total`,
+          getProperty(this.data, `data.abilities.${ab}.value`) - getProperty(this.data, `data.abilities.${ab}.drain`)
+        );
+      }
+      this.refreshAbilityModifiers();
+    }
+
+    // Reset BAB
+    {
+      const useFractionalBaseBonuses = game.settings.get("ffd20lnrw", "useFractionalBaseBonuses") === true;
+      const k = "data.attributes.bab.total";
+      if (useFractionalBaseBonuses) {
+        setProperty(
+          this.data,
+          k,
+          Math.floor(
+            classes.reduce((cur, obj) => {
+              const babScale = getProperty(obj, "data.bab") || "";
+              if (babScale === "high") return cur + obj.data.level;
+              if (babScale === "med") return cur + obj.data.level * 0.75;
+              if (babScale === "low") return cur + obj.data.level * 0.5;
+              return cur;
+            }, 0)
+          )
+        );
+
+        const v = getProperty(this.data, k);
+        if (v !== 0) {
+          getSourceInfo(this.sourceInfo, k).positive.push({
+            name: game.i18n.localize("ffd20lnrw.Base"),
+            value: v,
+          });
+        }
+      } else {
+        setProperty(
+          this.data,
+          k,
+          classes.reduce((cur, obj) => {
+            const formula =
+              CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] != null ? CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] : "0";
+            const v = new Roll(formula, { level: obj.data.level }).roll().total;
+
+            if (v !== 0) {
+              getSourceInfo(this.sourceInfo, k).positive.push({
+                name: getProperty(obj, "name"),
+                value: v,
+              });
+            }
+
+            return cur + v;
+          }, 0)
+        );
+      }
+    }
+
+    this._updateExp();
+
+    // Prepare Character data
+    if (this.data.type === "character") this._prepareCharacterData(this.data.data);
+    else if (this.data.type === "npc") this._prepareNPCData(this.data.data);
+
+    // Reset HD
+    setProperty(this.data, "data.attributes.hd.total", getProperty(this.data, "data.details.level.value"));
+
+    // Reset CR
+    if (this.data.type === "npc") {
+      setProperty(this.data, "data.details.cr.total", this.getCR(this.data.data));
+    }
+
+    // Item type to proficiency maps
+    const armorProficiencyMap = {
+      lightArmor: "lgt",
+      mediumArmor: "med",
+      heavyArmor: "hvy",
+    };
+    const shieldProficiencyMap = {
+      other: "shl", // buckler
+      lightShield: "shl",
+      heavyShield: "shl",
+      towerShield: "twr",
+    };
+    // Custom proficiencies
+    const customProficiencies =
+      this.data.data.traits.armorProf?.customTotal
+        ?.split(CONFIG.ffd20lnrw.re.traitSeparator)
+        .map((item) => item.trim().toLowerCase())
+        .filter((item) => item.length > 0) || [];
+
+    // Check if there's any matching proficiency
+    const hasArmorProficiency = (item, proficiencyName) => {
+      // Assume NPCs to be proficient with their armor
+      if (this.data.type === "npc") return true;
+
+      const name = item.name.toLowerCase(),
+        tag = item.data.tag;
+      return (
+        this.data.data.traits.armorProf.total.includes(proficiencyName) ||
+        customProficiencies.find((prof) => prof.includes(name) || prof.includes(tag)) != undefined
+      );
+    };
+
+    // Apply ACP and Max Dexterity Bonus
+    {
+      let armorACP = 0;
+      let shieldACP = 0;
+      let attackACPPenalty = 0; // ACP to attack penalty from lacking proficiency. Stacks infinitely.
+      let armorMDexWorst = null;
+      let shieldMDexWorst = null;
+
+      this.data.items
+        .filter((obj) => {
+          return obj.type === "equipment" && obj.data.equipped;
+        })
+        .forEach((obj) => {
+          let itemACP = Math.abs(obj.data.armor.acp);
+          if (obj.data.masterwork === true && ["armor", "shield"].includes(obj.data.equipmentType)) {
+            itemACP = Math.max(0, itemACP - 1);
+          }
+
+          switch (obj.data.equipmentType) {
+            case "armor":
+              itemACP = Math.max(0, itemACP + getProperty(this.data, "data.attributes.acp.armorBonus"));
+              break;
+            case "shield":
+              itemACP = Math.max(0, itemACP + getProperty(this.data, "data.attributes.acp.shieldBonus"));
+              break;
+          }
+
+          if (obj.data.broken) {
+            itemACP *= 2;
+          }
+
+          if (itemACP) {
+            const sInfo = getSourceInfo(this.sourceInfo, "data.attributes.acp.total").negative.find(
+              (o) => o.name === obj.name
+            );
+            if (sInfo) sInfo.value = itemACP;
+            else {
+              getSourceInfo(this.sourceInfo, "data.attributes.acp.total").negative.push({
+                name: obj.name,
+                value: itemACP,
+              });
+            }
+          }
+
+          switch (obj.data.equipmentType) {
+            case "armor":
+              if (itemACP > armorACP) armorACP = itemACP;
+              if (!hasArmorProficiency(obj, armorProficiencyMap[obj.data.equipmentSubtype]))
+                attackACPPenalty += armorACP;
+              break;
+            case "shield":
+              if (itemACP > shieldACP) shieldACP = itemACP;
+              if (!hasArmorProficiency(obj, shieldProficiencyMap[obj.data.equipmentSubtype]))
+                attackACPPenalty += shieldACP;
+              break;
+          }
+
+          if (obj.data.armor.dex !== null) {
+            const mDex = Number.parseInt(obj.data.armor.dex);
+            switch (obj.data.equipmentType) {
+              case "armor":
+                if (Number.isInteger(mDex)) {
+                  const armorMDex = mDex + getProperty(this.data, "data.attributes.mDex.armorBonus");
+                  armorMDexWorst = Math.min(armorMDex, armorMDexWorst ?? Number.POSITIVE_INFINITY);
+
+                  if (!Number.isNaN(armorMDex)) {
+                    const sInfo = getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.find(
+                      (o) => o.name === obj.name
+                    );
+                    if (sInfo) sInfo.value = armorMDex;
+                    else {
+                      getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.push({
+                        name: obj.name,
+                        value: armorMDex,
+                      });
+                    }
+                  }
+                }
+                break;
+              case "shield":
+                if (Number.isInteger(mDex)) {
+                  const shieldMDex = mDex + getProperty(this.data, "data.attributes.mDex.shieldBonus");
+                  shieldMDexWorst = Math.min(shieldMDex, shieldMDexWorst ?? Number.POSITIVE_INFINITY);
+
+                  if (!Number.isNaN(shieldMDex)) {
+                    const sInfo = getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.find(
+                      (o) => o.name === obj.name
+                    );
+                    if (sInfo) sInfo.value = shieldMDex;
+                    else {
+                      getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.push({
+                        name: obj.name,
+                        value: shieldMDex,
+                      });
+                    }
+                  }
+                }
+                break;
+            }
+          }
+        });
+
+      // Update
+      setProperty(this.data, "data.attributes.acp.gear", (armorACP ?? 0) + (shieldACP ?? 0));
+      if (armorMDexWorst !== null || shieldMDexWorst !== null) {
+        setProperty(
+          this.data,
+          "data.attributes.maxDexBonus",
+          Math.min(armorMDexWorst ?? Number.POSITIVE_INFINITY, shieldMDexWorst ?? Number.POSITIVE_INFINITY)
+        );
+      }
+      setProperty(this.data, "data.attributes.acp.total", getProperty(this.data, "data.attributes.acp.gear"));
+
+      setProperty(this.data, "data.attributes.acp.attackPenalty", attackACPPenalty);
+    }
+
+    // Reset class skills
+    for (let [k, s] of Object.entries(getProperty(this.data, "data.skills"))) {
+      if (!s) continue;
+      const isClassSkill = classes.reduce((cur, o) => {
+        if ((getProperty(o, "data.classSkills") || {})[k] === true) return true;
+        return cur;
+      }, false);
+      setProperty(this.data, `data.skills.${k}.cs`, isClassSkill);
+      for (let k2 of Object.keys(getProperty(s, "subSkills") || {})) {
+        setProperty(this.data, `data.skills.${k}.subSkills.${k2}.cs`, isClassSkill);
+      }
+    }
+  }
+
   /**
    * Augment the basic actor data with additional dynamic data.
    */
-  prepareData() {
-    super.prepareData();
+  prepareDerivedData() {
+    super.prepareDerivedData();
 
     const actorData = this.data;
     const data = actorData.data;
+    const rollData = this.getRollData();
 
-    // Prepare Character data
-    if (actorData.type === "character") this._prepareCharacterData(actorData);
-    else if (actorData.type === "npc") this._prepareNPCData(data);
+    // Refresh HP
+    if (!game.ffd20lnrw.isMigrating) {
+      for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor"]) {
+        const prevMax = this._prevAttributes[k] || 0;
+        const newMax = getProperty(this.data, `${k}.max`) || 0;
+        const prevValue = getProperty(this.data, `${k}.value`);
+        const newValue = prevValue + (newMax - prevMax);
+        this._queuedUpdates[`${k}.value`] = newValue;
+      }
+    }
+
+    // Reset spell slots and spell points
+    for (let spellbookKey of Object.keys(getProperty(this.data, "data.attributes.spells.spellbooks"))) {
+      const spellbook = getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}`);
+      const spellbookAbilityKey = spellbook.ability;
+      let spellbookAbilityScore = getProperty(this.data, `data.abilities.${spellbookAbilityKey}.total`);
+
+      // Add spell slots based on ability bonus slot formula
+      {
+        const formula = getProperty(spellbook, "spellSlotAbilityBonusFormula") || "0";
+        spellbookAbilityScore += new Roll(formula, rollData).roll().total;
+      }
+
+      const spellbookAbilityMod = Math.floor((spellbookAbilityScore - 10) / 2);
+
+      // Set CL
+      {
+        const key = `data.attributes.spells.spellbooks.${spellbookKey}.cl.total`;
+        const formula = getProperty(spellbook, "cl.formula") || "0";
+        let total = 0;
+
+        // Add NPC base
+        if (this.data.type === "npc") {
+          const value = getProperty(spellbook, "cl.base") || 0;
+          total += value;
+          getSourceInfo(this.sourceInfo, key).positive.push({ name: game.i18n.localize("ffd20lnrw.Base"), value: value });
+        }
+        // Add HD
+        if (spellbook.class === "_hd") {
+          const value = getProperty(this.data, "data.attributes.hd.total");
+          total += value;
+          getSourceInfo(this.sourceInfo, key).positive.push({ name: game.i18n.localize("ffd20lnrw.HitDie"), value: value });
+        }
+        // Add class levels
+        else if (spellbook.class && rollData.classes[spellbook.class]) {
+          const value = rollData.classes[spellbook.class].level;
+          total += value;
+          getSourceInfo(this.sourceInfo, key).positive.push({
+            name: rollData.classes[spellbook.class].name,
+            value: value,
+          });
+        }
+        // Add from bonus formula
+        const clBonus = new Roll(formula, rollData).roll().total;
+        total += clBonus;
+        if (clBonus > 0) {
+          getSourceInfo(this.sourceInfo, key).positive.push({
+            name: game.i18n.localize("ffd20lnrw.CasterLevelBonusFormula"),
+            value: clBonus,
+          });
+        } else if (clBonus < 0) {
+          getSourceInfo(this.sourceInfo, key).negative.push({
+            name: game.i18n.localize("ffd20lnrw.CasterLevelBonusFormula"),
+            value: clBonus,
+          });
+        }
+
+        if (getProperty(rollData, "attributes.woundThresholds.penalty") != null) {
+          // Subtract Wound Thresholds penalty. Can't reduce below 1.
+          if (rollData.attributes.woundThresholds.penalty > 0 && total > 1) {
+            total = Math.max(1, total - rollData.attributes.woundThresholds.penalty);
+            getSourceInfo(this.sourceInfo, key).negative.push({
+              name: game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level]),
+              value: -rollData.attributes.woundThresholds.penalty,
+            });
+          }
+        }
+
+        // Subtract energy drain
+        if (rollData.attributes.energyDrain) {
+          total = Math.max(0, total - rollData.attributes.energyDrain);
+          getSourceInfo(this.sourceInfo, key).negative.push({
+            name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain"),
+            value: -Math.abs(rollData.attributes.energyDrain),
+          });
+        }
+
+        setProperty(this.data, key, total);
+      }
+
+      // Spell slots
+      for (let a = 0; a < 10; a++) {
+        let base = parseInt(
+          getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${a}.base`)
+        );
+        if (Number.isNaN(base)) {
+          setProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${a}.base`, null);
+          setProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${a}.max`, 0);
+        } else {
+          if (getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.autoSpellLevels`)) {
+            const value =
+              typeof spellbookAbilityMod === "number"
+                ? base + Actorffd20lnrw.getSpellSlotIncrease(spellbookAbilityMod, a)
+                : base;
+            setProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${a}.max`, value);
+          } else {
+            setProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${a}.max`, base);
+          }
+        }
+      }
+
+      // Update spellbook slots
+      {
+        const slots = {};
+        for (let sbKey of Object.keys(getProperty(this.data, "data.attributes.spells.spellbooks"))) {
+          for (let a = 0; a < 10; a++) {
+            setProperty(
+              slots,
+              `${sbKey}.${a}.value`,
+              getProperty(this.data, `data.attributes.spells.spellbooks.${sbKey}.spells.spell${a}.max`) || 0
+            );
+            setProperty(
+              slots,
+              `${sbKey}.${a}.domainSlots`,
+              getProperty(this.data, `data.attributes.spells.spellbooks.${sbKey}.domainSlotValue`) || 0
+            );
+          }
+        }
+
+        const spells = this.items.filter((o) => o.type === "spell");
+        for (let i of spells) {
+          const sb = i.spellbook;
+          if (!sb || (sb && sb.spontaneous)) continue;
+          const sbKey = i.data.data.spellbook;
+          const isDomain = getProperty(i.data, "data.domain") === true;
+          const a = i.data.data.level;
+          const slotCost = i.data.data.slotCost || 1;
+          let dSlots = getProperty(slots, `${sbKey}.${a}.domainSlots`);
+          let uses = getProperty(slots, `${sbKey}.${a}.value`);
+          if (Number.isFinite(i.maxCharges)) {
+            let subtract = { domain: 0, uses: 0 };
+            if (isDomain) {
+              subtract.domain = Math.min(i.maxCharges, dSlots);
+              subtract.uses = (i.maxCharges - subtract.domain) * slotCost;
+            } else {
+              subtract.uses = i.maxCharges * slotCost;
+            }
+            dSlots -= subtract.domain;
+            uses -= subtract.uses;
+          }
+          setProperty(slots, `${sbKey}.${a}.value`, uses);
+          setProperty(slots, `${sbKey}.${a}.domainSlots`, dSlots);
+          setProperty(this.data, `data.attributes.spells.spellbooks.${sbKey}.spells.spell${a}.value`, uses);
+        }
+      }
+
+      // Spell points
+      {
+        const formula =
+          getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spellPoints.maxFormula`) || "0";
+        rollData.cl = getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.cl.total`);
+        rollData.ablMod = spellbookAbilityMod;
+        const spellClass = getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.class`) ?? "";
+        rollData.classLevel =
+          spellClass === "_hd"
+            ? rollData.attributes.hd.total
+            : spellClass?.length > 0
+            ? getProperty(rollData, `classes.${spellClass}.level`) || 0 // `
+            : 0;
+        const roll = new Roll(formula, rollData).roll();
+        setProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spellPoints.max`, roll.total);
+      }
+    }
+
+    // Shared attack bonuses
+    {
+      // Size
+      const sizeMod = CONFIG.ffd20lnrw.sizeMods[this.data.data.traits.size];
+      // Total
+      const totalAtk =
+        getProperty(this.data, "data.attributes.bab.total") -
+        getProperty(this.data, "data.attributes.acp.attackPenalty") -
+        getProperty(this.data, "data.attributes.energyDrain") +
+        sizeMod;
+      setProperty(this.data, "data.attributes.attack.shared", totalAtk);
+    }
 
     // Create arbitrary skill slots
     for (let skillId of CONFIG.ffd20lnrw.arbitrarySkills) {
@@ -209,6 +791,54 @@ export class ActorFFd20 extends Actor {
       }
     }
 
+    // Compute encumbrance
+    this._computeEncumbrance();
+    switch (this.data.data.attributes.encumbrance.level) {
+      case 0:
+        setProperty(this.data, "data.attributes.acp.encumbrance", 0);
+        break;
+      case 1:
+        setProperty(this.data, "data.attributes.acp.encumbrance", 3);
+        setProperty(
+          this.data,
+          "data.attributes.maxDexBonus",
+          Math.min(getProperty(this.data, "data.attributes.maxDexBonus") ?? Number.POSITIVE_INFINITY, 3)
+        );
+        getSourceInfo(this.sourceInfo, "data.attributes.acp.total").negative.push({
+          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          value: 3,
+        });
+        getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.push({
+          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          value: 3,
+        });
+        break;
+      case 2:
+        setProperty(this.data, "data.attributes.acp.encumbrance", 6);
+        setProperty(
+          this.data,
+          "data.attributes.maxDexBonus",
+          Math.min(getProperty(this.data, "data.attributes.maxDexBonus") ?? Number.POSITIVE_INFINITY, 1)
+        );
+        getSourceInfo(this.sourceInfo, "data.attributes.acp.total").negative.push({
+          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          value: 6,
+        });
+        getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.push({
+          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          value: 1,
+        });
+        break;
+    }
+    setProperty(
+      this.data,
+      "data.attributes.acp.total",
+      Math.max(
+        getProperty(this.data, "data.attributes.acp.gear"),
+        getProperty(this.data, "data.attributes.acp.encumbrance")
+      )
+    );
+
     // Prepare modifier containers
     data.attributes.mods = data.attributes.mods || {};
     data.attributes.mods.skills = data.attributes.mods.skills || {};
@@ -221,9 +851,94 @@ export class ActorFFd20 extends Actor {
 
     // Set speed labels
     this.labels.speed = {};
-    for (let [key, obj] of Object.entries(getProperty(this.data, "data.attributes.speed") || {})) {
+    for (const [key, obj] of Object.entries(getProperty(this.data, "data.attributes.speed") || {})) {
       const dist = convertDistance(obj.total);
       this.labels.speed[key] = `${dist[0]} ${CONFIG.ffd20lnrw.measureUnitsShort[dist[1]]}`;
+    }
+
+    // Combine AC types
+    for (const k of ["temp.ac.armor", "temp.ac.shield", "temp.ac.natural"]) {
+      const v = getProperty(this.data, k);
+      if (v) {
+        for (const k2 of ["normal", "flatFooted"]) {
+          setProperty(
+            this.data,
+            `data.attributes.ac.${k2}.total`,
+            getProperty(this.data, `data.attributes.ac.${k2}.total`) + v
+          );
+        }
+      }
+    }
+
+    // Add Dexterity to AC
+    {
+      let dex = this.data.data.abilities.dex.mod;
+      if (this.flags["loseDexToAC"]) dex = Math.min(dex, 0);
+      const maxDex = this.data.data.attributes.maxDexBonus;
+      const ac = {
+        normal: maxDex !== null ? Math.min(maxDex, dex) : dex,
+        touch: maxDex !== null ? Math.min(maxDex, dex) : dex,
+        flatFooted: Math.min(0, dex),
+      };
+      const cmd = {
+        total: maxDex !== null ? Math.min(maxDex, dex) : dex,
+        flatFootedTotal: Math.min(0, dex),
+      };
+      for (const [k, v] of Object.entries(ac)) {
+        setProperty(
+          this.data,
+          `data.attributes.ac.${k}.total`,
+          getProperty(this.data, `data.attributes.ac.${k}.total`) + v
+        );
+        getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).positive.push({
+          value: v,
+          name: CONFIG.ffd20lnrw.abilities["dex"],
+        });
+      }
+      for (const [k, v] of Object.entries(cmd)) {
+        setProperty(this.data, `data.attributes.cmd.${k}`, getProperty(this.data, `data.attributes.cmd.${k}`) + v);
+        getSourceInfo(this.sourceInfo, `data.attributes.cmd.${k}`).positive.push({
+          value: v,
+          name: CONFIG.ffd20lnrw.abilities["dex"],
+        });
+      }
+    }
+
+    // Reduce final speed under certain circumstances
+    {
+      const armorItems = this.items.filter((o) => o.data.type === "equipment");
+      let reducedSpeed = false;
+      let sInfo = { name: "", value: game.i18n.localize("ffd20lnrw.ReducedMovementSpeed") };
+      if (this.data.data.attributes.encumbrance.level >= 1 && !this.flags["noEncumbrance"]) {
+        reducedSpeed = true;
+        sInfo.name = game.i18n.localize("ffd20lnrw.Encumbrance");
+      }
+      if (
+        armorItems.filter((o) => getProperty(o.data.data, "equipmentSubtype") === "mediumArmor" && o.data.data.equipped)
+          .length &&
+        !this.flags["mediumArmorFullSpeed"]
+      ) {
+        reducedSpeed = true;
+        sInfo.name = game.i18n.localize("ffd20lnrw.EquipTypeMedium");
+      }
+      if (
+        armorItems.filter((o) => getProperty(o.data.data, "equipmentSubtype") === "heavyArmor" && o.data.data.equipped)
+          .length &&
+        !this.flags["heavyArmorFullSpeed"]
+      ) {
+        reducedSpeed = true;
+        sInfo.name = game.i18n.localize("ffd20lnrw.EquipTypeHeavy");
+      }
+      if (reducedSpeed) {
+        for (const speedKey of Object.keys(this.data.data.attributes.speed)) {
+          const key = `data.attributes.speed.${speedKey}.total`;
+          let value = getProperty(this.data, key);
+          setProperty(this.data, key, this.constructor.getReducedMovementSpeed(value));
+          if (value > 0) {
+            getSourceInfo(this.sourceInfo, key).negative.push(sInfo);
+          }
+        }
+      }
     }
 
     // Setup links
@@ -244,14 +959,14 @@ export class ActorFFd20 extends Actor {
     }
   }
 
-  _setSourceDetails(actorData, extraData, flags) {
-    if (flags == null) flags = {};
+  _setSourceDetails(extraData) {
+    const actorData = this.data;
     let sourceDetails = {};
     // Get empty source arrays
     for (let obj of Object.values(CONFIG.ffd20lnrw.buffTargets)) {
       for (let b of Object.keys(obj)) {
         if (!b.startsWith("_")) {
-          let buffTargets = getChangeFlat.call(this, b, null, actorData.data);
+          let buffTargets = getChangeFlat.call(this, b, null);
           if (!(buffTargets instanceof Array)) buffTargets = [buffTargets];
           for (let bt of buffTargets) {
             if (!sourceDetails[bt]) sourceDetails[bt] = [];
@@ -285,46 +1000,6 @@ export class ActorFFd20 extends Actor {
       }
     }
 
-    // Add AC and CMD details
-    {
-      const dex = actorData.data.abilities.dex.mod;
-      const maxDex = actorData.data.attributes.maxDexBonus;
-      const ac = {
-        normal: maxDex != null ? Math.min(maxDex, dex) : dex,
-        touch: maxDex != null ? Math.min(maxDex, dex) : dex,
-        ff: Math.min(0, dex),
-      };
-      const cmd = {
-        normal: maxDex != null ? Math.min(maxDex, dex) : dex,
-        ff: Math.min(0, dex),
-      };
-      if (ac.normal !== 0)
-        sourceDetails["data.attributes.ac.normal.total"].push({
-          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
-          value: ac.normal,
-        });
-      if (ac.touch !== 0)
-        sourceDetails["data.attributes.ac.touch.total"].push({
-          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
-          value: ac.touch,
-        });
-      if (ac.ff !== 0)
-        sourceDetails["data.attributes.ac.flatFooted.total"].push({
-          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
-          value: ac.ff,
-        });
-      if (cmd.normal !== 0)
-        sourceDetails["data.attributes.cmd.total"].push({
-          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
-          value: cmd.normal,
-        });
-      if (cmd.ff !== 0)
-        sourceDetails["data.attributes.cmd.flatFootedTotal"].push({
-          name: game.i18n.localize("ffd20lnrw.AbilityDex"),
-          value: cmd.ff,
-        });
-    }
-
     // Add wound threshold data
     {
       const hpconf = game.settings.get("ffd20lnrw", "healthConfig").variants;
@@ -350,14 +1025,17 @@ export class ActorFFd20 extends Actor {
     }
 
     // Add extra data
+    const rollData = this.getRollData();
     for (let [changeTarget, changeGrp] of Object.entries(extraData)) {
       for (let grp of Object.values(changeGrp)) {
         if (grp.length > 0) {
           sourceDetails[changeTarget] = sourceDetails[changeTarget] || [];
           for (let src of grp) {
+            if (!src.operator) src.operator = "add";
             let srcInfo = this.constructor._translateSourceInfo(src.type, src.subtype, src.name);
-            let srcValue = src.value;
+            let srcValue = src.value != null ? src.value : new Roll(src.formula || "0", rollData).roll().total;
             if (src.operator === "set") srcValue = game.i18n.localize("ffd20lnrw.SetTo").format(srcValue);
+            if (!(src.operator === "add" && srcValue === 0)) {
             sourceDetails[changeTarget].push({
               name: srcInfo,
               value: srcValue,
@@ -366,6 +1044,7 @@ export class ActorFFd20 extends Actor {
         }
       }
     }
+  }
 
     this.sourceDetails = sourceDetails;
   }
@@ -379,15 +1058,15 @@ export class ActorFFd20 extends Actor {
   /**
    * Prepare Character type specific data
    */
-  _prepareCharacterData(actorData) {
-    if (!hasProperty(actorData, "data.details.level.value")) return;
-    const data = actorData.data;
+  _prepareCharacterData() {
+    if (!hasProperty(this.data, "data.details.level.value")) return;
 
     // Experience bar
-    let prior = this.getLevelExp(data.details.level.value - 1 || 0),
-      max = this.getLevelExp(data.details.level.value || 1);
+    let prior = this.getLevelExp(this.data.data.details.level.value - 1 || 0),
+      max = this.getLevelExp(this.data.data.details.level.value || 1);
 
-    data.details.xp.pct = ((Math.max(prior, Math.min(max, data.details.xp.value)) - prior) / (max - prior)) * 100 || 0;
+    this.data.data.details.xp.pct =
+      ((Math.max(prior, Math.min(max, this.data.data.details.xp.value)) - prior) / (max - prior)) * 100 || 0;
   }
 
   /* -------------------------------------------- */
@@ -395,13 +1074,14 @@ export class ActorFFd20 extends Actor {
   /**
    * Prepare NPC type specific data
    */
-  _prepareNPCData(data) {
+  _prepareNPCData() {
+    setProperty(this.data, "data.details.cr.total", this.getCR());
     // Kill Experience
     try {
       const crTotal = getProperty(this.data, "data.details.cr.total") || 1;
-      data.details.xp.value = this.getCRExp(crTotal);
+      this.data.data.details.xp.value = this.getCRExp(crTotal);
     } catch (e) {
-      data.details.xp.value = this.getCRExp(1);
+      this.data.data.details.xp.value = this.getCRExp(1);
     }
   }
 
@@ -640,8 +1320,6 @@ export class ActorFFd20 extends Actor {
       }
     }
 
-    this._updateExp(data);
-
     return data;
   }
 
@@ -654,46 +1332,101 @@ export class ActorFFd20 extends Actor {
    * @return {Promise}        A Promise which resolves to the updated Entity
    */
   async update(data, options = {}) {
+    this._pendingUpdateTokens.forEach((token) => {
+      token.cancel();
+    });
+    this._pendingUpdateTokens = [];
+
     // Avoid regular update flow for explicitly non-recursive update calls
     if (options.recursive === false) {
       return super.update(data, options);
     }
 
-    data = expandObject(this.preUpdate(data));
-    this.updateChangeEvals();
+    this.getRollData({ forceRefresh: true });
+    data = this.preUpdate(data);
 
     // Update changes
     let diff = data;
-    if (options.updateChanges !== false) {
-      const updateObj = await updateChanges.call(this, { data: data });
-      if (updateObj.diff.items) delete updateObj.diff.items;
-      diff = mergeObject(diff, updateObj.diff);
-    }
 
     // Diff token data
     if (data.token != null) {
       diff.token = diffObject(this.data.token, data.token);
     }
 
+    let result = diff;
     if (options.skipUpdate !== true) {
+      const token = {};
+      this._pendingUpdateTokens.push(token);
       if (Object.keys(diff).length) {
-        await super.update(diff, mergeObject(options, { recursive: true }));
+        result = new Promise((resolve) => {
+          token.cancel = function () {
+            resolve();
+          };
+
+          super.update(diff, mergeObject(options, { recursive: true })).then((...args) => {
+            this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
+            let promises = [];
+            let tokens = [];
+
+            // Toggle condition status icons
+            {
+              const token = {};
+              this._pendingUpdateTokens.push(token);
+              tokens.push(token);
+              const p = this.toggleConditionStatusIcons(token);
+              promises.push(p);
+            }
+            // Refresh items
+            {
+              const token = {};
+              this._pendingUpdateTokens.push(token);
+              tokens.push(token);
+              const p = this.refreshItems(token);
+              promises.push(p);
+            }
+
+            Promise.all(promises).then(() => {
+              for (let t of tokens) {
+                this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(t), 1);
+              }
+              resolve();
+            });
+          });
+        });
       }
-      await this.toggleConditionStatusIcons();
-      await this.refreshItems();
     }
-    return diff;
+    return result;
   }
 
-  async refreshItems() {
+  refreshItems(token) {
+    return new Promise((resolve) => {
+      if (token) {
+        token.cancel = function () {
+          resolve();
+        };
+  }
+
     const items = Array.from(this.items);
     const updates = items.map((o) => o.update({}, { skipUpdate: true }));
-    const values = (await Promise.all(updates)).filter((o) => Object.keys(o).length > 1);
+    Promise.all(updates).then((results) => {
+      const values = results.filter((o) => Object.keys(o).length > 1);
 
     if (values.length > 0) {
-      return this.updateOwnedItem(values);
+      this.updateOwnedItem(values).then(() => {
+        if (token) {
+          this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
+        }
+        resolve();
+      });
+    } else {
+      if (token) {
+        this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
+      }
+      resolve();
     }
-  }
+  });
+});
+}
 
   _onUpdate(data, options, userId, context) {
     for (let k of Object.keys(data)) {
@@ -706,32 +1439,32 @@ export class ActorFFd20 extends Actor {
       let itemUpdateData = {};
 
       i._updateMaxUses(itemUpdateData, { actorData: data });
+      if (isObjectEmpty(itemUpdateData)) continue;
 
       const itemDiff = diffObject(flattenObject(i.data), itemUpdateData);
       if (Object.keys(itemDiff).length > 0 && i.hasPerm(game.user, "OWNER")) i.update(itemDiff);
     }
 
-    return super._onUpdate(data, options, userId, context);
+    super._onUpdate(data, options, userId, context);
   }
 
   /**
    * Makes sure experience values are correct in update data.
-   * @param {Object} data - The update data, as per ActorFFd20.update()
+   * @param {Object} data - The update data, as per Actorffd20lnrw.update()
    */
-  _updateExp(data) {
-    const classes = this.items.filter((o) => o.type === "class" && o.data.data.classType !== "mythic" && o.data.data.countforexp === "exp");
-    const level = classes.reduce((cur, o) => {
-      return cur + o.data.data.level;
-    }, 0);
-    if (getProperty(this.data, "data.details.level.value") !== level) {
-      data["data.details.level.value"] = level;
-    }
+  _updateExp() {
+    const classes = this.data.items.filter((o) => o.type === "class" && o.data.countforexp === "exp");
+    const level = classes.filter((o) => o.data.classType !== "mythic").reduce((cur, o) => cur + o.data.level, 0);
+    setProperty(this.data, "data.details.level.value", level);
+
+    const mythicTier = classes.filter((o) => o.data.classType === "mythic").reduce((acc, o) => acc + o.data.level, 0);
+    setProperty(this.data, "data.details.mythicTier", mythicTier);
 
     // The following is not for NPCs
     if (this.data.type !== "character") return;
 
     // Translate update exp value to number
-    let newExp = data["data.details.xp.value"],
+    let newExp = getProperty(this.data, "data.details.xp.value"),
       resetExp = false;
     if (typeof newExp === "string") {
       if (newExp.match(/^\+([0-9]+)$/)) {
@@ -745,31 +1478,27 @@ export class ActorFFd20 extends Actor {
         if (Number.isNaN(newExp)) newExp = this.data.data.details.xp.value;
       }
 
-      if (typeof newExp === "number" && newExp !== getProperty(this.data, "data.details.xp.value")) {
-        data["data.details.xp.value"] = newExp;
+      setProperty(this.data, "data.details.xp.value", newExp);
       }
-    }
     const maxExp = this.getLevelExp(level);
-    if (maxExp !== getProperty(this.data, "data.details.xp.max")) {
-      data["data.details.xp.max"] = maxExp;
-    }
+    setProperty(this.data, "data.details.xp.max", maxExp);
 
     const minExp = level > 0 ? this.getLevelExp(level - 1) : 0;
-    if (resetExp) data["data.details.xp.value"] = minExp;
+    if (resetExp) {
+      setProperty(this.data, "data.details.xp.value", minExp);
+    }
 
     // Make sure experience ends as a number
-    if (typeof data["data.details.xp.value"] === "string") {
-      const xpValue = parseInt(data["data.details.xp.value"]);
-      if (!Number.isNaN(xpValue)) data["data.details.xp.value"] = xpValue;
+    if (typeof getProperty(this.data, "data.details.xp.value") === "string") {
+      const xpValue = parseInt(getProperty(this.data, "data.details.xp.value"));
+      if (!Number.isNaN(xpValue)) {
+        setProperty(this.data, "data.details.xp.value", xpValue);
+      }
     }
   }
 
   async _onCreate(data, options, userId, context) {
     if (data.type === "character") this.update({ "token.actorLink": true }, { updateChanges: false });
-
-    if (userId === game.user._id) {
-      await updateChanges.call(this);
-    }
 
     super._onCreate(data, options, userId, context);
   }
@@ -838,7 +1567,7 @@ export class ActorFFd20 extends Actor {
 
   /**
    * Cast a Spell, consuming a spell slot of a certain level
-   * @param {ItemFFd20} item   The spell being cast by the actor
+   * @param {Itemffd20lnrw} item   The spell being cast by the actor
    * @param {MouseEvent} ev The click event
    */
   async useSpell(item, ev, { skipDialog = false } = {}) {
@@ -878,8 +1607,11 @@ export class ActorFFd20 extends Actor {
 
     // Add ability modifiers
     const isMelee = getProperty(item.data, "data.weaponSubtype") !== "ranged";
-    if (isMelee) attackData["data.ability.attack"] = "str";
-    else attackData["data.ability.attack"] = "dex";
+
+    if (isMelee)
+      attackData["data.ability.attack"] = getProperty(this.data, "data.attributes.attack.meleeAbility") || "str";
+    else attackData["data.ability.attack"] = getProperty(this.data, "data.attributes.attack.rangedAbility") || "dex";
+
     if (isMelee) {
       attackData["data.ability.damage"] = "str";
       if (item.data.data.weaponSubtype === "2h" && isMelee) {
@@ -1015,6 +1747,9 @@ export class ActorFFd20 extends Actor {
       return ui.notifications.warn(msg);
     }
 
+    const allowed = Hooks.call("actorRoll", this, "skill", skillId, options);
+    if (allowed === false) return;
+
     let skl, sklName;
     const data = this.data.data,
       skillParts = skillId.split("."),
@@ -1061,7 +1796,6 @@ export class ActorFFd20 extends Actor {
     // Wound Threshold penalty
     const wT = this.getWoundThresholdData();
     if (wT.multiplier > 0 && wT.penalty > 0) {
-      mods.push(-wT.penalty);
       notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]));
     }
 
@@ -1069,7 +1803,7 @@ export class ActorFFd20 extends Actor {
 
     let props = [];
     if (notes.length > 0) props.push({ header: "Notes", value: notes });
-    return DiceFFd20.d20Roll({
+    return Diceffd20lnrw.d20Roll({
       event: options.event,
       fastForward: options.skipDialog === true,
       staticRoll: options.staticRoll,
@@ -1104,7 +1838,10 @@ export class ActorFFd20 extends Actor {
       return ui.notifications.warn(msg);
     }
 
-    return DiceFFd20.d20Roll({
+    const allowed = Hooks.call("actorRoll", this, "bab", null, options);
+    if (allowed === false) return;
+
+    return Diceffd20lnrw.d20Roll({
       event: options.event,
       parts: ["@mod"],
       dice: options.dice,
@@ -1122,6 +1859,9 @@ export class ActorFFd20 extends Actor {
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
+
+    const allowed = Hooks.call("actorRoll", this, "cmb", null, options);
+    if (allowed === false) return;
 
     // Add contextual notes
     let notes = [];
@@ -1142,7 +1882,7 @@ export class ActorFFd20 extends Actor {
 
     let props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    return DiceFFd20.d20Roll({
+    return Diceffd20lnrw.d20Roll({
       event: options.event,
       parts: ["@mod"],
       dice: options.dice,
@@ -1156,10 +1896,62 @@ export class ActorFFd20 extends Actor {
     });
   }
 
+  rollAttack(options = { melee: true, noSound: false, dice: "1d20" }) {
+    if (!this.hasPerm(game.user, "OWNER")) {
+      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      console.warn(msg);
+      return ui.notifications.warn(msg);
+    }
+
+    const sources = [
+      ...this.sourceDetails["data.attributes.attack.shared"],
+      ...this.sourceDetails["data.attributes.attack.general"],
+      ...this.sourceDetails[`data.attributes.attack.${options.melee ? "melee" : "ranged"}`],
+    ];
+
+    // Add contextual notes
+    let notes = [];
+    let rollData = this.getRollData();
+    const noteObjects = [...this.getContextNotes("attacks.effect"), ...this.getContextNotes("attacks.attack")];
+    for (let noteObj of noteObjects) {
+      rollData.item = {};
+      if (noteObj.item != null) rollData = noteObj.item.getRollData();
+
+      for (let note of noteObj.notes) {
+        notes.push(...note.split(/[\n\r]+/).map((o) => TextEditor.enrichHTML(o, { rollData: rollData })));
+      }
+    }
+    rollData.item = {};
+
+    let changes = sources.map((item) => item.value).filter((item) => Number.isInteger(item));
+
+    // Add ability modifier
+    const atkAbl = getProperty(this.data, `data.attributes.attack.${options.melee ? "melee" : "ranged"}Ability`);
+    changes.push(getProperty(this.data, `data.abilities.${atkAbl}.mod`));
+
+    let props = [];
+    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
+    return Diceffd20lnrw.d20Roll({
+      event: options.event,
+      parts: changes,
+      dice: options.dice,
+      data: rollData,
+      title: game.i18n.localize(`ffd20lnrw.${options.melee ? "Melee" : "Ranged"}`),
+      speaker: ChatMessage.getSpeaker({ actor: this }),
+      takeTwenty: false,
+      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplateData: { hasProperties: props.length > 0, properties: props },
+      noSound: options.noSound,
+    });
+  }
+
   rollCL(spellbookKey, options = { noSound: false, dice: "1d20" }) {
     const spellbook = this.data.data.attributes.spells.spellbooks[spellbookKey];
     const rollData = this.getRollData();
     rollData.cl = spellbook.cl.total;
+
+    const allowed = Hooks.call("actorRoll", this, "cl", spellbookKey, options);
+    if (allowed === false) return;
 
     // Add contextual caster level string
     const notes = this.getContextNotesParsed(`spell.cl.${spellbookKey}`);
@@ -1170,7 +1962,7 @@ export class ActorFFd20 extends Actor {
 
     let props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    return DiceFFd20.d20Roll({
+    return Diceffd20lnrw.d20Roll({
       event: event,
       parts: [`@cl`],
       data: rollData,
@@ -1190,6 +1982,9 @@ export class ActorFFd20 extends Actor {
     rollData.mod = this.data.data.abilities[spellbook.ability].mod;
     rollData.concentrationBonus = spellbook.concentration;
 
+    const allowed = Hooks.call("actorRoll", this, "concentration", spellbookKey, options);
+    if (allowed === false) return;
+
     // Add contextual concentration string
     const notes = this.getContextNotesParsed(`spell.concentration.${spellbookKey}`);
 
@@ -1206,7 +2001,7 @@ export class ActorFFd20 extends Actor {
       formulaRoll = new Roll(spellbook.concentrationFormula, rollData).roll().total;
     rollData.formulaBonus = formulaRoll;
 
-    return DiceFFd20.d20Roll({
+    return Diceffd20lnrw.d20Roll({
       event: event,
       parts: ["@cl + @mod + @concentrationBonus + @formulaBonus"],
       dice: options.dice,
@@ -1302,72 +2097,37 @@ export class ActorFFd20 extends Actor {
     return [notes, notesHTML];
   }
 
-  async rollInitiative() {
-    if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
-      console.warn(msg);
-      return ui.notifications.warn(msg);
+  async rollInitiative({ createCombatants = false, rerollInitiative = false, initiativeOptions = {} } = {}) {
+    // Obtain (or create) a combat encounter
+    let combat = game.combat;
+    if (!combat) {
+      if (game.user.isGM && canvas.scene) {
+        combat = await game.combats.object.create({ scene: canvas.scene._id, active: true });
+      } else {
+        ui.notifications.warn(game.i18n.localize("COMBAT.NoneActive"));
+        return null;
+      }
     }
 
-    let formula = _getInitiativeFormula(this);
-    let overrideRollMode = null,
-      bonus = "",
-      stop = false;
-    if (keyboard.isDown("Shift")) {
-      const dialogData = await Combat.showInitiativeDialog(formula);
-      overrideRollMode = dialogData.rollMode;
-      bonus = dialogData.bonus || "";
-      stop = dialogData.stop || false;
+    // Create new combatants
+    if (createCombatants) {
+      const tokens = this.isToken ? [this.token] : this.getActiveTokens();
+      const createData = tokens.reduce((arr, t) => {
+        if (t.inCombat) return arr;
+        arr.push({ tokenId: t.id, hidden: t.data.hidden });
+        return arr;
+      }, []);
+      await combat.createEmbeddedEntity("Combatant", createData);
     }
 
-    if (stop) return;
-
-    const rollData = this.getRollData();
-    // Add bonus
-    rollData.bonus = bonus;
-    if (bonus.length > 0) formula += " + @bonus";
-    if (rollData.attributes.woundThresholds.penalty > 0) {
-      // TODO: Show penalty separately (@attributes.woundThresholds.penalty)
-      // TODO: Output wound level penalty note
-      // notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[woundLevel]));
-    }
-
-    // Roll initiative
-    const roll = new Roll(formula, rollData).roll();
-
-    // Context notes
-    let [notes, notesHTML] = this.getInitiativeContextNotes();
-
-    // Create roll template data
-    const templateData = mergeObject(
-      {
-        user: game.user._id,
-        formula: roll.formula,
-        tooltip: await roll.getTooltip(),
-        total: roll.total,
-      },
-      notes.length > 0 ? { hasExtraText: true, extraText: notesHTML } : {}
-    );
-
-    // Create chat data
-    let chatData = {
-      user: game.user._id,
-      type: CONST.CHAT_MESSAGE_TYPES.CHAT,
-      rollMode: overrideRollMode,
-      sound: CONFIG.sounds.dice,
-      speaker: {
-        scene: canvas.scene?._id,
-        actor: this._id,
-        token: this.token?.id,
-        alias: this.token?.name,
-      },
-      flavor: game.i18n.localize("ffd20lnrw.RollsForInitiative").format(this.token ? this.token.name : this.name),
-      roll: roll,
-      content: await renderTemplate("systems/ffd20lnrw/templates/chat/roll-ext.hbs", templateData),
-    };
-
-    // Send message
-    await ChatMessage.create(chatData);
+    // Iterate over combatants to roll for
+    const combatantIds = combat.combatants.reduce((arr, c) => {
+      if (c.actor.id !== this.id || (this.isToken && c.tokenId !== this.token.id)) return arr;
+      if (c.initiative && !rerollInitiative) return arr;
+      arr.push(c._id);
+      return arr;
+    }, []);
+    return combatantIds.length ? combat.rollInitiative(combatantIds, initiativeOptions) : combat;
   }
 
   rollSavingThrow(savingThrowId, options = { event: null, noSound: false, skipPrompt: true, dice: "1d20" }) {
@@ -1376,6 +2136,9 @@ export class ActorFFd20 extends Actor {
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
+
+    const allowed = Hooks.call("actorRoll", this, "save", savingThrowId, options);
+    if (allowed === false) return;
 
     // Add contextual notes
     let notes = [];
@@ -1405,7 +2168,7 @@ export class ActorFFd20 extends Actor {
     if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
     const label = CONFIG.ffd20lnrw.savingThrows[savingThrowId];
     const savingThrow = this.data.data.attributes.savingThrows[savingThrowId];
-    return DiceFFd20.d20Roll({
+    return Diceffd20lnrw.d20Roll({
       event: options.event,
       parts: mods,
       dice: options.dice,
@@ -1435,6 +2198,9 @@ export class ActorFFd20 extends Actor {
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
+
+    const allowed = Hooks.call("actorRoll", this, "ability", abilityId, options);
+    if (allowed === false) return;
 
     // Add contextual notes
     let notes = [];
@@ -1467,7 +2233,7 @@ export class ActorFFd20 extends Actor {
     let props = this.getDefenseHeaders();
     if (notes.length > 0) props.push({ header: "Notes", value: notes });
 
-    return DicePF.d20Roll({
+    return Diceffd20lnrw.d20Roll({
       event: options.event,
       parts: [formula],
       dice: options.dice,
@@ -1999,41 +2765,41 @@ export class ActorFFd20 extends Actor {
     return super.createEmbeddedEntity(embeddedName, noArray ? createData[0] : createData, options);
   }
 
-  _computeEncumbrance(updateData, srcData) {
-    const carry = this.getCarryCapacity(srcData);
-    linkData(srcData, updateData, "data.attributes.encumbrance.levels.light", carry.light);
-    linkData(srcData, updateData, "data.attributes.encumbrance.levels.medium", carry.medium);
-    linkData(srcData, updateData, "data.attributes.encumbrance.levels.heavy", carry.heavy);
-    linkData(srcData, updateData, "data.attributes.encumbrance.levels.carry", carry.heavy * 2);
-    linkData(srcData, updateData, "data.attributes.encumbrance.levels.drag", carry.heavy * 5);
+  _computeEncumbrance() {
+    const carry = this.getCarryCapacity();
+    setProperty(this.data, "data.attributes.encumbrance.levels.light", carry.light);
+    setProperty(this.data, "data.attributes.encumbrance.levels.medium", carry.medium);
+    setProperty(this.data, "data.attributes.encumbrance.levels.heavy", carry.heavy);
+    setProperty(this.data, "data.attributes.encumbrance.levels.carry", carry.heavy * 2);
+    setProperty(this.data, "data.attributes.encumbrance.levels.drag", carry.heavy * 5);
 
-    const carriedWeight = Math.max(0, this.getCarriedWeight(srcData));
-    linkData(srcData, updateData, "data.attributes.encumbrance.carriedWeight", Math.round(carriedWeight * 10) / 10);
+    const carriedWeight = Math.max(0, this.getCarriedWeight());
+    setProperty(this.data, "data.attributes.encumbrance.carriedWeight", Math.round(carriedWeight * 10) / 10);
 
     // Determine load level
     let encLevel = 0;
     if (carriedWeight > 0) {
-      if (carriedWeight >= srcData.data.attributes.encumbrance.levels.light) encLevel++;
-      if (carriedWeight >= srcData.data.attributes.encumbrance.levels.medium) encLevel++;
+      if (carriedWeight >= this.data.data.attributes.encumbrance.levels.light) encLevel++;
+      if (carriedWeight >= this.data.data.attributes.encumbrance.levels.medium) encLevel++;
     }
-    linkData(srcData, updateData, "data.attributes.encumbrance.level", encLevel);
+    setProperty(this.data, "data.attributes.encumbrance.level", encLevel);
   }
 
-  _calculateCoinWeight(data) {
+  _calculateCoinWeight() {
     const coinWeightDivisor = game.settings.get("ffd20lnrw", "coinWeight");
     return (
-      Object.values(data.data.currency).reduce((cur, amount) => {
+      Object.values(this.data.data.currency).reduce((cur, amount) => {
         return cur + amount;
       }, 0) / coinWeightDivisor
     );
   }
 
-  getCarryCapacity(srcData) {
+  getCarryCapacity() {
     // Determine carrying capacity
-    const carryStr = srcData.data.abilities.str.total + srcData.data.abilities.str.carryBonus;
-    let carryMultiplier = srcData.data.abilities.str.carryMultiplier;
-    const size = srcData.data.traits.size;
-    if (srcData.data.attributes.quadruped) carryMultiplier *= CONFIG.ffd20lnrw.encumbranceMultipliers.quadruped[size];
+    const carryStr = this.data.data.abilities.str.total + this.data.data.abilities.str.carryBonus;
+    let carryMultiplier = this.data.data.abilities.str.carryMultiplier;
+    const size = this.data.data.traits.size;
+    if (this.data.data.attributes.quadruped) carryMultiplier *= CONFIG.ffd20lnrw.encumbranceMultipliers.quadruped[size];
     else carryMultiplier *= CONFIG.ffd20lnrw.encumbranceMultipliers.normal[size];
     const table = CONFIG.ffd20lnrw.encumbranceLoads;
 
@@ -2051,15 +2817,15 @@ export class ActorFFd20 extends Actor {
     };
   }
 
-  getCarriedWeight(srcData) {
+  getCarriedWeight() {
     // Determine carried weight
-    const physicalItems = srcData.items.filter((o) => {
+    const physicalItems = this.data.items.filter((o) => {
       return o.data.weight != null;
     });
     const weight = physicalItems.reduce((cur, o) => {
       if (!o.data.carried) return cur;
       return cur + o.data.weight * o.data.quantity;
-    }, this._calculateCoinWeight(srcData));
+    }, this._calculateCoinWeight());
 
     return convertWeight(weight);
   }
@@ -2280,17 +3046,13 @@ export class ActorFFd20 extends Actor {
         break;
     }
 
-    // Wound Threshold penalty shorthand
-    const wT = this.getWoundThresholdData(result);
-    setProperty(result, "attributes.woundThresholds.penaltyBase", wT.level * wT.multiplier); // To aid relevant formulas
-    setProperty(result, "attributes.woundThresholds.penalty", wT.penalty);
-
+    this._rollData = result;
     return result;
   }
 
-  getCR(data = null) {
+  getCR() {
     if (this.data.type !== "npc") return 0;
-    if (data == null) data = this.data.data;
+    const data = this.data.data;
 
     const base = data.details.cr.base;
     if (this.items == null) return base;
@@ -2348,119 +3110,90 @@ export class ActorFFd20 extends Actor {
       .map((o) => {
         return {
           item: o,
-          color1: ItemFFd20.getTypeColor(o.type, 0),
-          color2: ItemFFd20.getTypeColor(o.type, 1),
+          color1: Itemffd20lnrw.getTypeColor(o.type, 0),
+          color2: Itemffd20lnrw.getTypeColor(o.type, 1),
         };
       });
   }
 
-  async toggleConditionStatusIcons() {
+  toggleConditionStatusIcons(token) {
+    if (this._runningFunctions.indexOf("toggleConditionStatusIcons") !== -1) return;
+
+    return new Promise((resolve) => {
+      this._runningFunctions.push("toggleConditionStatusIcons");
+      if (token) {
+        token.cancel = function () {
+          resolve();
+        };
+      }
+
+      (async () => {
     const isLinkedToken = getProperty(this.data, "token.actorLink");
     const tokens = isLinkedToken ? this.getActiveTokens() : [this.token].filter((o) => o != null);
+    const buffTextures = this._calcBuffTextures();
 
-    if (!tokens.length) return;
-
-    // Determine buff textures
-    const buffs = this.items.filter((o) => o.type === "buff");
-    let buffTextures = buffs.reduce((cur, o) => {
-      const img = o.data.img;
-      if (o.data.data.active && !o.data.data.hideFromToken && !game.settings.get("ffd20lnrw", "hideTokenConditions"))
-        cur[img] = true;
-      else if (cur[img] == null) cur[img] = false;
-      return cur;
-    }, {});
-
-    // Determine condition textures
-    let conditionTextures = Object.entries(CONFIG.ffd20lnrw.conditionTextures).reduce((cur, o) => {
-      if (this.data.data.attributes.conditions[o[0]]) cur[o[1]] = true;
-      else if (!this.data.data.attributes.conditions[o[0]] && cur[o[1]] == null) cur[o[1]] = false;
-      return cur;
-    }, {});
-    for (let [k, v] of Object.entries(conditionTextures)) {
-      if (v === true) {
-        if (!buffTextures[k] && !game.settings.get("ffd20lnrw", "hideTokenConditions")) buffTextures[k] = v;
-      } else if (v === false) {
-        if (buffTextures[k] == null) buffTextures[k] = v;
-      }
-    }
-
-    // Update token(s)
     let promises = [];
-    for (let token of tokens) {
-      const fx = token.data.effects;
-      for (let [img, active] of Object.entries(buffTextures)) {
-        const idx = fx.findIndex((e) => e === img);
-        if (idx === -1 && active === true) {
-          fx.push(img);
-        } else if (idx !== -1 && active === false) {
-          fx.splice(idx, 1);
-        }
-      }
-      promises.push(token.update({ effects: fx }, { diff: false }));
+    const fx = [...this.effects];
+
+    for (let [id, obj] of Object.entries(buffTextures)) {
+      if (obj.active) await obj.item.toEffect();
+      else await fx.find((f) => f.data.origin === id)?.delete();
     }
 
-    return Promise.all(promises);
+    for (let ae of fx) {
+      let item = this.items.get(ae.data.origin?.split(".")[3]);
+      if (!item && ae.data.origin) await ae.delete();
+    }
+
+    for (let token of tokens) {
+      CONFIG.statusEffects.forEach((con) => {
+        const idx = fx.findIndex((e) => e.getFlag("core", "statusId") === con.id);
+        if (CONFIG.ffd20lnrw.conditions[con.id] && (idx !== -1) != this.data.data.attributes.conditions[con.id])
+          promises.push(token.toggleEffect(con, { midUpdate: true }));
+      });
+    }
+    await Promise.all(promises);
+  })().then(() => {
+    if (token) {
+      this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
+    }
+    this._runningFunctions.splice(this._runningFunctions.indexOf("toggleConditionStatusIcons"), 1);
+    resolve();
+  });
+});
+}
+
+  // @Object { id: { title: String, type: buff/string, img: imgPath, active: true/false }, ... }
+  _calcBuffTextures() {
+    const buffs = this.items.filter((o) => o.type === "buff");
+    return buffs.reduce((acc, cur) => {
+      const id = cur.uuid;
+      if (cur.data.data.hideFromToken) return acc;
+
+      if (!acc[id]) acc[id] = { id: cur.id, label: cur.name, icon: cur.data.img, item: cur };
+      if (cur.data.data.active) acc[id].active = true;
+      else acc[id].active = false;
+      return acc;
+    }, {});
   }
 
-  updateChangeEvals() {
-    this.changeItems = this.items
-      .filter((obj) => {
-        return (
-          (obj.data.data.changes instanceof Array && obj.data.data.changes.length) ||
-          (obj.data.data.changeFlags && Object.values(obj.data.data.changeFlags).filter((o) => o === true).length)
-        );
-      })
-      .filter((obj) => {
-        if (obj.type === "buff") return obj.data.data.active;
-        if (obj.type === "equipment" || obj.type === "weapon") return obj.data.data.equipped;
-        if (obj.type === "loot" && obj.data.data.subType === "gear") return obj.data.data.equipped;
-        return true;
-      });
+  refreshAbilityModifiers() {
+    for (let k of Object.keys(this.data.data.abilities)) {
+      const total = getProperty(this.data, `data.abilities.${k}.total`);
+      const penalty =
+        Math.abs(getProperty(this.data, `data.abilities.${k}.penalty`) || 0) +
+        (getProperty(this.data, `data.abilities.${k}.userPenalty`) || 0);
+      const damage = getProperty(this.data, `data.abilities.${k}.damage`);
 
-    // Gather changes
-    const changes = this.changeItems.reduce((cur, o) => {
-      cur.push(
-        ...o.changes.filter((c) => {
-          return c.operator === "script";
-        })
-      );
-      return cur;
-    }, []);
-
-    const createFunction = function (funcDef, funcArgs = []) {
-      try {
-        const preDef = `const result = { operator: "add", value: 0, };`;
-        const postDef = `return result;`;
-        const fullDef = `return function(${funcArgs.join(",")}) {${preDef}${funcDef}${postDef}};`;
-        return new Function(fullDef)();
-      } catch (e) {
-        console.warn("Could not create change function with definition ", funcDef);
-        return function () {
-          return 0;
-        };
-      }
-    };
-
-    // Create functions
-    let removeIDs = Object.keys(this._changeFunctions);
-    for (let c of changes) {
-      if (this._changeFunctions[c._id] && c.updateTime < this._changeFunctions[c._id].time) continue;
-
-      if (removeIDs.includes(c._id)) removeIDs.splice(removeIDs.indexOf(c._id), 1);
-
-      const obj = {
-        time: new Date(),
-      };
-
-      // Create function
-      const funcDef = c.formula;
-      obj.func = createFunction(funcDef, ["d"]);
-      this._changeFunctions[c._id] = obj;
+      const result = Math.max(-5, Math.floor((total - 10) / 2) - Math.floor(penalty / 2) - Math.floor(damage / 2));
+      setProperty(this.data, `data.abilities.${k}.mod`, result);
     }
+  }
 
-    // Remove old functions
-    for (let id of removeIDs) {
-      delete this._changeFunctions[id];
-    }
+  importFromJSON(json) {
+    const data = JSON.parse(json);
+    delete data._id;
+    data.effects = [];
+    return this.update(data);
   }
 }

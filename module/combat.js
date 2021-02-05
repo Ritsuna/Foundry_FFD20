@@ -1,4 +1,4 @@
-import { ActorFFd20 } from "./actor/entity.js";
+import { Actorffd20lnrw } from "./actor/entity.js";
 import { isMinimumCoreVersion } from "./lib.js";
 
 /* -------------------------------------------- */
@@ -54,11 +54,11 @@ Combat.showInitiativeDialog = function (formula = null) {
   });
 };
 
-export const _rollInitiative = async function (ids, formula = null, messageOptions = {}) {
+export const _rollInitiative = async function (ids, { formula = null, updateTurn = true, messageOptions = {} } = {}) {
   // Structure input data
   ids = typeof ids === "string" ? [ids] : ids;
   const currentId = this.combatant._id;
-  if (!formula) formula = _getInitiativeFormula(this.combatant.actor);
+  if (formula ?? true) formula = _getInitiativeFormula(this.combatant.actor);
 
   let overrideRollMode = null,
     bonus = "",
@@ -160,7 +160,7 @@ export const _rollInitiative = async function (ids, formula = null, messageOptio
   await this.updateEmbeddedEntity("Combatant", updates);
 
   // Ensure the turn order remains with the same combatant
-  await this.update({ turn: this.turns.findIndex((t) => t._id === currentId) });
+  if (updateTurn) await this.update({ turn: this.turns.findIndex((t) => t._id === currentId) });
 
   // Create multiple chat messages
   await ChatMessage.create(messages);
@@ -188,25 +188,25 @@ export const addChatMessageContextOptions = function (html, options) {
       name: game.i18n.localize("ffd20lnrw.ApplyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
-      callback: (li) => ActorFFd20.applyDamage(li, 1),
+      callback: (li) => Actorffd20lnrw.applyDamage(li, 1),
     },
     {
       name: game.i18n.localize("ffd20lnrw.ApplyHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
-      callback: (li) => ActorFFd20.applyDamage(li, -1),
+      callback: (li) => Actorffd20lnrw.applyDamage(li, -1),
     },
     {
       name: game.i18n.localize("ffd20lnrw.ApplyCriticalDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
-      callback: (li) => ActorFFd20.applyDamage(li, 1, true),
+      callback: (li) => Actorffd20lnrw.applyDamage(li, 1, true),
     },
     {
       name: game.i18n.localize("ffd20lnrw.ApplyCriticalHealing"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
-      callback: (li) => ActorFFd20.applyDamage(li, -1, true),
+      callback: (li) => Actorffd20lnrw.applyDamage(li, -1, true),
     }
   );
   return options;

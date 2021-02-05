@@ -123,7 +123,7 @@ MeasuredTemplate.prototype.highlightGrid = function () {
     let nDiagonal = Math.min(nx, ny),
       nStraight = Math.abs(ny - nx);
 
-    // Diagonals in FFd20 pretty much count as 1.5 times a straight
+    // Diagonals in ffd20lnrw pretty much count as 1.5 times a straight
     let distance = Math.floor(nDiagonal * 1.5 + nStraight);
     let distanceOnGrid = distance * canvas.dimensions.distance;
     return distanceOnGrid;

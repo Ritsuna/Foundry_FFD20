@@ -1,7 +1,7 @@
 import { ActorTraitSelector } from "../../apps/trait-selector.js";
 import { ActorRestDialog } from "../../apps/actor-rest.js";
 import { ActorSheetFlags } from "../../apps/actor-flags.js";
-import { DiceFFd20 } from "../../dice.js";
+import { Diceffd20lnrw } from "../../dice.js";
 import {
   createTag,
   createTabs,
@@ -14,17 +14,17 @@ import {
 import { PointBuyCalculator } from "../../apps/point-buy-calculator.js";
 import { Widget_ItemPicker } from "../../widgets/item-picker.js";
 import { getSkipActionPrompt } from "../../settings.js";
-import { ItemFFd20 } from "../../item/entity.js";
+import { Itemffd20lnrw } from "../../item/entity.js";
 import { dialogGetActor } from "../../dialog.js";
 import { applyAccessibilitySettings } from "../../chat.js";
 
 /**
- * Extend the basic ActorSheet class to do all the FFd20 things!
+ * Extend the basic ActorSheet class to do all the ffd20lnrw things!
  * This sheet is an Abstract layer which is not used.
  *
  * @type {ActorSheet}
  */
-export class ActorSheetFFd20 extends ActorSheet {
+export class ActorSheetffd20lnrw extends ActorSheet {
   constructor(...args) {
     super(...args);
 
@@ -181,6 +181,7 @@ export class ActorSheetFFd20 extends ActorSheet {
       i.data.hasAttack = i.hasAttack;
       i.data.hasMultiAttack = i.hasMultiAttack;
       i.data.hasDamage = i.hasDamage;
+      i.data.hasRange = i.hasRange;
       i.data.hasEffect = i.hasEffect;
       i.data.hasAction = i.hasAction || i.isCharged;
       i.data.showUnidentifiedData = i.showUnidentifiedData;
@@ -194,6 +195,18 @@ export class ActorSheetFFd20 extends ActorSheet {
     data.data = data.actor.data;
     data.labels = this.actor.labels || {};
     data.filters = this._filters;
+
+    // Generic melee and ranged attack bonuses, only present for sheet.
+    const coreAttack = data.data.attributes.attack.shared + data.data.attributes.attack.general,
+      meleeAtkAbl = getProperty(data, `data.abilities.${data.data.attributes.attack.meleeAbility}.mod`),
+      rangedAtkAbl = getProperty(data, `data.abilities.${data.data.attributes.attack.rangedAbility}.mod`);
+
+    data.data.attributes.attack.meleeAttackMod = meleeAtkAbl;
+    data.data.attributes.attack.rangedAttackMod = rangedAtkAbl;
+    data.meleeAttack = coreAttack + data.data.attributes.attack.melee + (meleeAtkAbl ?? 0);
+    data.rangedAttack = coreAttack + data.data.attributes.attack.ranged + (rangedAtkAbl ?? 0);
+    data.data.attributes.attack.meleeAttackLabel = CONFIG.ffd20lnrw.abilities[data.data.attributes.attack.meleeAbility];
+    data.data.attributes.attack.rangedAttackLabel = CONFIG.ffd20lnrw.abilities[data.data.attributes.attack.rangedAbility];
 
     // Add inventory value
     {
@@ -269,6 +282,7 @@ export class ActorSheetFFd20 extends ActorSheet {
       });
 
       // Add misc skill bonus source
+      // console.log(this.actor.sourceDetails);
       if (data.sourceDetails != null && data.sourceDetails.data.skills[s] != null) {
         skl.sourceDetails = skl.sourceDetails.concat(data.sourceDetails.data.skills[s].changeBonus);
       }
@@ -650,7 +664,7 @@ export class ActorSheetFFd20 extends ActorSheet {
         if (hasTypeFilter && !filters.has(`type-${data.featType}`)) return false;
       }
 
-      if (ItemFFd20.isInventoryItem(item.type)) {
+      if (Itemffd20lnrw.isInventoryItem(item.type)) {
         if (hasTypeFilter && item.type !== "loot" && !filters.has(`type-${item.type}`)) return false;
         else if (hasTypeFilter && item.type === "loot" && !filters.has(`type-${data.subType}`)) return false;
       }
@@ -858,7 +872,7 @@ export class ActorSheetFFd20 extends ActorSheet {
     // Submit hit points
     html.find('input[name="data.attributes.hp.value"]').keypress(this._onSubmitElement.bind(this));
 
-    // Submit hit points
+    // Submit mana points
     html.find('input[name="data.attributes.mp.value"]').keypress(this._onSubmitElement.bind(this));
 
     // Ability Checks
@@ -869,6 +883,10 @@ export class ActorSheetFFd20 extends ActorSheet {
 
     // CMB Check
     html.find(".attribute.cmb .rollable").click(this._onRollCMB.bind(this));
+
+    // Attack check
+    html.find(".attribute.attack.melee .rollable").click(this._onRollMelee.bind(this));
+    html.find(".attribute.attack.ranged .rollable").click(this._onRollRanged.bind(this));
 
     // Initiative Check
     html.find(".attribute.initiative .rollable").click(this._onRollInitiative.bind(this));
@@ -1347,7 +1365,10 @@ export class ActorSheetFFd20 extends ActorSheet {
     const el = event.currentTarget;
 
     this._mouseWheelAdd(event.originalEvent, el);
-    const value = el.tagName.toUpperCase() === "INPUT" ? Number(el.value) : Number(el.innerText);
+    let value = el.tagName.toUpperCase() === "INPUT" ? Number(el.value) : Number(el.innerText);
+    if (el.dataset.dtype && el.dataset.dtype.toUpperCase() === "STRING") {
+      value = el.tagName.toUpperCase() === "INPUT" ? el.value : el.innerText;
+    }
     const name = el.getAttribute("name");
     if (name) {
       this._pendingUpdates[name] = value;
@@ -1899,6 +1920,16 @@ export class ActorSheetFFd20 extends ActorSheet {
     this.actor.rollBAB({ event: event });
   }
 
+  _onRollMelee(event) {
+    event.preventDefault();
+    this.actor.rollAttack({ event: event, melee: true });
+  }
+
+  _onRollRanged(event) {
+    event.preventDefault();
+    this.actor.rollAttack({ event: event, melee: false });
+  }
+
   _onRollCMB(event) {
     event.preventDefault();
     this.actor.rollCMB({ event: event });
@@ -1906,7 +1937,7 @@ export class ActorSheetFFd20 extends ActorSheet {
 
   _onRollInitiative(event) {
     event.preventDefault();
-    this.actor.rollInitiative();
+    this.actor.rollInitiative({ createCombatants: true, rerollInitiative: game.user.isGM });
   }
 
   _onRollSavingThrow(event) {
@@ -2020,7 +2051,7 @@ export class ActorSheetFFd20 extends ActorSheet {
         else if (item.type === "feat") arr[2].push(item);
         else if (item.type === "class") arr[3].push(item);
         else if (item.type === "attack") arr[4].push(item);
-        else if (ItemFFd20.isInventoryItem(item.type)) arr[0].push(item);
+        else if (Itemffd20lnrw.isInventoryItem(item.type)) arr[0].push(item);
         return arr;
       },
       [[], [], [], [], []]
@@ -2503,7 +2534,7 @@ export class ActorSheetFFd20 extends ActorSheet {
    */
   _getSortSiblings(source) {
     return this.actor.items.filter((i) => {
-      if (ItemFFd20.isInventoryItem(source.data.type)) return ItemFFd20.isInventoryItem(i.data.type);
+      if (Itemffd20lnrw.isInventoryItem(source.data.type)) return Itemffd20lnrw.isInventoryItem(i.data.type);
       return i.data.type === source.data.type && i.data._id !== source.data._id;
     });
   }
@@ -2518,7 +2549,9 @@ export class ActorSheetFFd20 extends ActorSheet {
     if (itemData._id) delete itemData._id;
     var actorRef = this.actor;
     return this.actor.createEmbeddedEntity("OwnedItem", itemData).then((createdItem) => {
-      if (createdItem.data.uses?.maxFormula) return actorRef.updateItemResources(actorRef.items.get(createdItem._id));
+      var fullItem = actorRef.items.get(createdItem._id);
+      if (fullItem.isCharged) return actorRef.updateItemResources(fullItem);
+      else return fullItem;
     });
   }
 

@@ -9,6 +9,12 @@
         <th class="attribute cmb" data-attribute="cmb">
           <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.CMBAbbr"}}</span></a>
         </th>
+        <th class="attribute attack melee" data-attribute="melee">
+          <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.Melee"}}</span></a>
+        </th>
+        <th class="attribute attack ranged" data-attribute="ranged">
+          <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.Ranged"}}</span></a>
+        </th>
         <th class="attribute initiative" data-attribute="initiative">
           <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.Initiative"}}</span></a>
         </th>
@@ -26,19 +32,74 @@
             {{/if}}
           </span>
 
-          {{data.attributes.bab.total}}
+          {{#if iteratives}}
+          {{iteratives}}
+          {{else}}
+          {{numberFormat data.attributes.bab.total decimals=0 sign=true}}
+          {{/if}}
         </td>
 
         <td class="tooltip">
           <span class="tooltipcontent">
             @attributes.cmb.total : {{data.attributes.cmb.total}}
-            {{#if sourceDetails.data.attributes.cmb.total.length}}
             <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+            {{#if sourceDetails.data.attributes.cmb.total.length}}
             {{#each sourceDetails.data.attributes.cmb.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
           </span>
 
-          {{data.attributes.cmb.total}}
+          {{numberFormat data.attributes.cmb.total decimals=0 sign=true}}
+        </td>
+
+        <td class="tooltip">
+          <span class="tooltipcontent">
+            …<br/>
+            + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
+            + @attributes.attack.general : {{data.attributes.attack.general}}<br/>
+            + @attributes.attack.melee : {{data.attributes.attack.melee}}<br/>
+            + @abilities.{{data.attributes.attack.meleeAbility}}.mod : {{data.attributes.attack.meleeAttackMod}}
+
+            <br/><br/>{{localize "ffd20lnrw.FromSources"}}<br/>
+            {{#if sourceDetails.data.attributes.attack.shared.length}}
+            {{#each sourceDetails.data.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{/if}}
+            {{#if sourceDetails.data.attributes.attack.general.length}}
+            {{#each sourceDetails.data.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{/if}}
+            {{#if sourceDetails.data.attributes.attack.melee.length}}
+            {{#each sourceDetails.data.attributes.attack.melee as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{/if}}
+            {{#if data.attributes.attack.meleeAttackMod}}
+            {{data.attributes.attack.meleeAttackLabel}}: {{data.attributes.attack.meleeAttackMod}}<br/>
+            {{/if}}
+          </span>
+          {{numberFormat meleeAttack decimals=0 sign=true}}
+        </td>
+
+        <td class="tooltip">
+          <span class="tooltipcontent">
+            …<br/>
+            + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
+            + @attributes.attack.general : {{data.attributes.attack.general}}<br/>
+            + @attributes.attack.ranged : {{data.attributes.attack.ranged}}<br/>
+            + @abilities.{{data.attributes.attack.rangedAbility}}.mod : {{data.attributes.attack.rangedAttackMod}}
+
+            <br/><br/>{{localize "ffd20lnrw.FromSources"}}<br/>
+            {{#if sourceDetails.data.attributes.attack.shared.length}}
+            {{#each sourceDetails.data.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{/if}}
+            {{#if sourceDetails.data.attributes.attack.general.length}}
+            {{#each sourceDetails.data.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{/if}}
+            {{#if sourceDetails.data.attributes.attack.ranged.length}}
+            {{#each sourceDetails.data.attributes.attack.ranged as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{/if}}
+            {{#if data.attributes.attack.rangedAttackMod}}
+            {{data.attributes.attack.rangedAttackLabel}}: {{data.attributes.attack.rangedAttackMod}}<br/>
+            {{/if}}
+          </span>
+
+          {{numberFormat rangedAttack decimals=0 sign=true}}
         </td>
 
         <td class="tooltip">
@@ -80,6 +141,18 @@
 
           {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon icon-magic-palm large" title="{{localize "ffd20lnrw.Type"}}"></i></div>{{/if}}
 
+          <div class="item-detail item-attacks">
+            <label>{{localize "ffd20lnrw.Attacks"}}</label>
+          </div>
+
+          <div class="item-detail item-damage">
+              <label>{{localize "ffd20lnrw.Damage"}}</label>
+          </div>
+
+          <div class="item-detail item-range">
+              <label>{{localize "ffd20lnrw.Range"}}</label>
+          </div>
+
           <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "ffd20lnrw.ActionPlural"}}"></i></div>
 
           <div class="item-detail item-uses"><i class="icon icon-battery-pack large" title="{{localize "ffd20lnrw.ChargePlural"}}"></i></div>
@@ -110,6 +183,47 @@
               <span>{{lookup ../../config.attackTypes item.data.attackType}}</span>
             </div>
             {{/if}}
+
+            <div class="item-detail item-attacks">
+              <label>{{itemAttacks item ../../rollData}}</label>
+            </div>
+
+            <div class="item-detail item-damage tooltip">
+              {{#if item.hasDamage}}
+              <label>{{ellipsis (itemDamage item ../../rollData) 8 -4 2}}</label>
+              <span class="tooltipcontent">
+                {{itemDamage item ../../rollData}}<br/>
+                <br/>
+                {{localize "ffd20lnrw.Details"}}:<br/>
+                {{#each item.data.damage.parts as |pt ix|}}
+                  {{pt.[0]}}{{#if pt.[1]}} [{{pt.[1]}}]{{/if}}<br/>
+                {{/each}}
+                {{#if item.data.damage.nonCritParts}}
+                  {{#each item.data.damage.nonCritParts as |pt|}}
+                    {{pt.[0]}}{{#if pt.[1]}} [{{pt.[1]}}]{{/if}}<br/>
+                  {{/each}}
+                {{/if}}
+                {{#if item.data.ability.damage}}
+                  {{abilityMod item.data.ability.damage ../../rollData item.data.ability.damageMult}} [{{lookup ../../config.abilities item.data.ability.damage}}]<br/>
+                {{/if}}
+                {{#if item.data.enh}}
+                  {{item.data.enh}} [{{localize "ffd20lnrw.EnhancementBonus"}}]<br/>
+                {{/if}}
+                {{#if item.data.damage.critParts}}
+                  <br/>+ {{localize "ffd20lnrw.CritDamageBonusFormula"}}<br/>
+                {{/if}}
+                {{#if item.data.conditionals}}
+                  <br/>+ {{localize "ffd20lnrw.Conditionals"}}<br/>
+                {{/if}}
+              </span>
+              {{/if}}
+            </div>
+
+            <div class="item-detail item-range">
+              {{#if item.hasRange}}
+              <label>{{itemRange item ../../rollData}}</label>
+              {{/if}}
+            </div>
 
             <div class="item-detail item-actions">
               <div class="item-attack tooltip">

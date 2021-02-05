@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0
+
+### Bug Fixes
+- database error fixed
+
+### Changelog
+- updated from the Pathfinder 1 github
+
 ## 0.0.9
 
 ### Bug Fixes
@@ -72,7 +80,7 @@
 ### Changelog
 
 - got MP working, auto MP backburnered until code can be cleaned up
-- updated from the PF1 github
+- updated from the Pathfinder 1 github
 
 ## 0.0.4
 

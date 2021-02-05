@@ -14,24 +14,25 @@ import {
 } from "./module/settings.js";
 import { preloadHandlebarsTemplates } from "./module/handlebars/templates.js";
 import { registerHandlebarsHelpers } from "./module/handlebars/helpers.js";
-import { measureDistances } from "./module/canvas.js";
-import { ActorFFd20 } from "./module/actor/entity.js";
-import { ActorSheetFFd20Character } from "./module/actor/sheets/character.js";
-import { ActorSheetFFd20NPC } from "./module/actor/sheets/npc.js";
-import { ActorSheetFFd20NPCLite } from "./module/actor/sheets/npc-lite.js";
-import { ActorSheetFFd20NPCLoot } from "./module/actor/sheets/npc-loot.js";
-import { ItemFFd20 } from "./module/item/entity.js";
-import { ItemSheetFFd20 } from "./module/item/sheets/base.js";
-import { ItemSheetFFd20_Container } from "./module/item/sheets/container.js";
-import { CompendiumDirectoryFFd20 } from "./module/sidebar/compendium.js";
+import { tinyMCEInit } from "./module/mce/mce.js";
+import { measureDistances, getConditions } from "./module/canvas.js";
+import { Actorffd20lnrw } from "./module/actor/entity.js";
+import { ActorSheetffd20lnrwCharacter } from "./module/actor/sheets/character.js";
+import { ActorSheetffd20lnrwNPC } from "./module/actor/sheets/npc.js";
+import { ActorSheetffd20lnrwNPCLite } from "./module/actor/sheets/npc-lite.js";
+import { ActorSheetffd20lnrwNPCLoot } from "./module/actor/sheets/npc-loot.js";
+import { ActiveEffectffd20lnrw } from "./module/ae/entity.js";
+import { Itemffd20lnrw } from "./module/item/entity.js";
+import { ItemSheetffd20lnrw } from "./module/item/sheets/base.js";
+import { ItemSheetffd20lnrw_Container } from "./module/item/sheets/container.js";
+import { CompendiumDirectoryffd20lnrw } from "./module/sidebar/compendium.js";
 import { CompendiumBrowser } from "./module/apps/compendium-browser.js";
 import { PatchCore } from "./module/patch-core.js";
-import { DiceFFd20 } from "./module/dice.js";
+import { Diceffd20lnrw } from "./module/dice.js";
 import { getItemOwner, sizeDie, normalDie, getActorFromId, isMinimumCoreVersion } from "./module/lib.js";
-import { ChatMessageFFd20 } from "./module/sidebar/chat-message.js";
+import { ChatMessageffd20lnrw } from "./module/sidebar/chat-message.js";
 import { TokenQuickActions } from "./module/token-quick-actions.js";
 import { initializeSocket } from "./module/socket.js";
-import { updateChanges } from "./module/actor/update-changes.js";
 import { SemanticVersion } from "./module/semver.js";
 import { runUnitTests } from "./module/unit-tests.js";
 import { ChangeLogWindow } from "./module/apps/change-log.js";
@@ -40,6 +41,7 @@ import { addReachCallback } from "./module/misc/attack-reach.js";
 import * as chat from "./module/chat.js";
 import * as migrations from "./module/migration.js";
 import { RenderLightConfig_LowLightVision, RenderTokenConfig_LowLightVision } from "./module/low-light-vision.js";
+import "./module/modules.js";
 
 // Add String.format
 if (!String.prototype.format) {
@@ -62,15 +64,15 @@ Hooks.once("init", async function () {
 
   // Create a ffd20lnrw namespace within the game global
   game.ffd20lnrw = {
-    ActorFFd20,
-    DiceFFd20,
-    ItemFFd20,
+    Actorffd20lnrw,
+    Diceffd20lnrw,
+    Itemffd20lnrw,
     migrations,
     rollItemMacro,
     rollSkillMacro,
     rollDefenses,
     rollActorAttributeMacro,
-    CompendiumDirectoryFFd20,
+    CompendiumDirectoryffd20lnrw,
     rollPreProcess: {
       sizeRoll: sizeDie,
       roll: normalDie,
@@ -78,17 +80,22 @@ Hooks.once("init", async function () {
     migrateWorld: migrations.migrateWorld,
     runUnitTests,
     compendiums: {},
+    isMigrating: false,
   };
 
   // Record Configuration Values
   CONFIG.ffd20lnrw = ffd20lnrw;
-  CONFIG.Actor.entityClass = ActorFFd20;
-  CONFIG.Item.entityClass = ItemFFd20;
-  CONFIG.ui.compendium = CompendiumDirectoryFFd20;
-  CONFIG.ChatMessage.entityClass = ChatMessageFFd20;
+  CONFIG.Actor.entityClass = Actorffd20lnrw;
+  CONFIG.ActiveEffect.entityClass = ActiveEffectffd20lnrw;
+  CONFIG.Item.entityClass = Itemffd20lnrw;
+  CONFIG.ui.compendium = CompendiumDirectoryffd20lnrw;
+  CONFIG.ChatMessage.entityClass = ChatMessageffd20lnrw;
 
   // Register System Settings
   registerSystemSettings();
+
+  //Calculate conditions for world
+  CONFIG.statusEffects = getConditions();
 
   // Preload Handlebars Templates
   await preloadHandlebarsTemplates();
@@ -99,16 +106,16 @@ Hooks.once("init", async function () {
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20Character, { types: ["character"], makeDefault: true });
-  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20NPC, { types: ["npc"], makeDefault: true });
-  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20NPCLite, { types: ["npc"], makeDefault: false });
-  Actors.registerSheet("ffd20lnrw", ActorSheetFFd20NPCLoot, { types: ["npc"], makeDefault: false });
+  Actors.registerSheet("ffd20lnrw", ActorSheetffd20lnrwCharacter, { types: ["character"], makeDefault: true });
+  Actors.registerSheet("ffd20lnrw", ActorSheetffd20lnrwNPC, { types: ["npc"], makeDefault: true });
+  Actors.registerSheet("ffd20lnrw", ActorSheetffd20lnrwNPCLite, { types: ["npc"], makeDefault: false });
+  Actors.registerSheet("ffd20lnrw", ActorSheetffd20lnrwNPCLoot, { types: ["npc"], makeDefault: false });
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("ffd20lnrw", ItemSheetFFd20, {
+  Items.registerSheet("ffd20lnrw", ItemSheetffd20lnrw, {
     types: ["class", "feat", "spell", "consumable", "equipment", "loot", "weapon", "buff", "attack", "race"],
     makeDefault: true,
   });
-  Items.registerSheet("ffd20lnrw", ItemSheetFFd20_Container, { types: ["container"], makeDefault: true });
+  Items.registerSheet("ffd20lnrw", ItemSheetffd20lnrw_Container, { types: ["container"], makeDefault: true });
 
   initializeSocket();
 });
@@ -166,12 +173,7 @@ Hooks.once("setup", function () {
     "divineFocus",
     "classSavingThrows",
     "classBAB",
-    "classBaseMPTypes",
     "classTypes",
-    "classSubTypes",
-    "classBaseMPauto",
-    "classCastingStats",
-    "countforexp",
     "measureTemplateTypes",
     "creatureTypes",
     "measureUnits",
@@ -185,6 +187,11 @@ Hooks.once("setup", function () {
     "abilityActivationTypes_unchained",
     "abilityActivationTypesPlurals_unchained",
     "actorStatures",
+    "classBaseMPTypes",
+    "classSubTypes",
+    "classBaseMPauto",
+    "classCastingStats",
+    "countforexp",
   ];
 
   const doLocalize = function (obj) {
@@ -197,16 +204,19 @@ Hooks.once("setup", function () {
   for (let o of toLocalize) {
     CONFIG.ffd20lnrw[o] = doLocalize(CONFIG.ffd20lnrw[o]);
   }
+
+  // TinyMCE variables and commands
+  tinyMCEInit();
 });
 
 /* -------------------------------------------- */
 
 /**
  * Once the entire VTT framework is initialized, check to see if we should perform a data migration
- */
+*/
 Hooks.once("ready", async function () {
-  // Migrate data
-  const NEEDS_MIGRATION_VERSION = "0.0.10";
+  /**  Migrate data*/
+  const NEEDS_MIGRATION_VERSION = "0.1.0";
   let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20lnrw", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";
@@ -221,10 +231,10 @@ Hooks.once("ready", async function () {
   );
   if (needMigration && game.user.isGM) {
     await migrations.migrateWorld();
-  }
+  } 
 
   // Migrate system settings
-  await migrateSystemSettings();
+   await migrateSystemSettings();
 
   // Create compendium browsers
   game.ffd20lnrw.compendiums = {
@@ -238,7 +248,7 @@ Hooks.once("ready", async function () {
 
   // Show changelog
   if (!game.settings.get("ffd20lnrw", "dontShowChangelog")) {
-    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.5";
+    const v = game.settings.get("ffd20lnrw", "changelogVersion") || "0.0.1";
     const changelogVersion = SemanticVersion.fromString(v);
     const curVersion = SemanticVersion.fromString(game.system.data.version);
 
@@ -248,11 +258,6 @@ Hooks.once("ready", async function () {
       game.settings.set("ffd20lnrw", "changelogVersion", curVersion.toString());
     }
   }
-
-  // Refresh actors on startup
-  game.actors.entities.forEach((obj) => {
-    updateChanges.call(obj, { sourceOnly: true });
-  });
 
   Hooks.on("renderTokenHUD", (app, html, data) => {
     TokenQuickActions.addTop3Attacks(app, html, data);
@@ -285,12 +290,7 @@ Hooks.on("canvasInit", function () {
       const results = addReachCallback(m.data, elem);
       callbacks.push(...results);
     });
-
-    // Refresh tokens on startup
-    Object.values(game.actors.tokens)?.forEach((obj) => {
-      updateChanges.call(obj, { sourceOnly: true });
     });
-  });
 
   Hooks.on("renderChatMessage", (app, html, data) => {
     // Wait for setup after this
@@ -337,71 +337,56 @@ Hooks.on("renderChatPopout", (app, html, data) => {
   if (game.settings.get("ffd20lnrw", "hideChatButtons")) html.find(".card-buttons").hide();
 });
 
-Hooks.on("renderChatLog", (_, html) => ItemFFd20.chatListeners(html));
-Hooks.on("renderChatLog", (_, html) => ActorFFd20.chatListeners(html));
+Hooks.on("renderChatLog", (_, html) => Itemffd20lnrw.chatListeners(html));
+Hooks.on("renderChatLog", (_, html) => Actorffd20lnrw.chatListeners(html));
 
-Hooks.on("renderChatPopout", (_, html) => ItemFFd20.chatListeners(html));
-Hooks.on("renderChatPopout", (_, html) => ActorFFd20.chatListeners(html));
+Hooks.on("renderChatPopout", (_, html) => Itemffd20lnrw.chatListeners(html));
+Hooks.on("renderChatPopout", (_, html) => Actorffd20lnrw.chatListeners(html));
 
 Hooks.on("renderLightConfig", (app, html) => {
   RenderLightConfig_LowLightVision(app, html);
 });
 
-Hooks.on("preUpdateOwnedItem", (actor, itemData, changedData, options, userId) => {
-  if (userId !== game.user._id) return;
-  if (!(actor instanceof Actor)) return;
-
-  const item = actor.getOwnedItem(changedData._id);
-  if (!item) return;
-
-  // On level change
-  if (item.type === "class" && getProperty(changedData, "data.level") != null) {
-    const curLevel = item.data.data.level;
-    const newLevel = getProperty(changedData, "data.level");
-    item._onLevelChange(curLevel, newLevel);
-  }
-});
-Hooks.on("updateOwnedItem", async (actor, itemData, changedData, options, userId) => {
+Hooks.on("updateOwnedItem", (actor, itemData, changedData, options, userId) => {
   if (userId !== game.user._id) return;
   if (!(actor instanceof Actor)) return;
 
   const item = actor.getOwnedItem(changedData._id);
   if (item == null) return;
 
-  // Update token buff effect images
-  const isLinkedToken = getProperty(actor.data, "token.actorLink");
-  if (isLinkedToken) {
-    let promises = [];
-    const isActive = item.data.data.active || changedData["data.active"];
-
-    if (item.data.type === "buff" && isActive && changedData["img"]) {
-      const tokens = actor.getActiveTokens();
-      for (const token of tokens) {
-        const fx = token.data.effects || [];
-        if (fx.indexOf(item.data.img) !== -1) fx.splice(fx.indexOf(item.data.img), 1);
-        if (fx.indexOf(changedData["img"]) === -1) fx.push(changedData["img"]);
-        promises.push(token.update({ effects: fx }, { diff: false }));
-      }
-    }
-
-    await Promise.all(promises);
-  }
-
   // Merge changed data into item data immediately, to avoid update lag
   // item.data = mergeObject(item.data, changedData);
 
+  // Update level
   {
-    // Update item resources
-    const result = await actor.updateItemResources(item);
-
-    // Refresh actor
-    if (!result) await actor.refresh();
+    new Promise((resolve) => {
+      if (item.type === "class" && hasProperty(changedData, "data.level")) {
+        const prevLevel = getProperty(item.data, "data.level");
+        const newLevel = getProperty(changedData, "data.level");
+        item._onLevelChange(prevLevel, newLevel).then(() => {
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    })
+      .then(actor.updateItemResources(item))
+      .then((result) => {
+        return new Promise((resolve) => {
+          if (!result) {
+            actor.refresh().then(() => {
+              resolve();
+            });
+          }
+        });
+      });
   }
 });
-Hooks.on("updateToken", (scene, sceneId, data, options, userId) => {
+
+Hooks.on("updateToken", (scene, token, data, options, userId) => {
   if (userId !== game.user._id) return;
 
-  const actor = game.actors.tokens[data._id];
+  const actor = game.actors.tokens[data._id] ?? game.actors.get(token.actorId);
   if (actor != null && hasProperty(data, "actorData.items")) {
     if (!actor.hasPerm(game.user, "OWNER")) return;
     actor.refresh();
@@ -417,9 +402,18 @@ Hooks.on("updateToken", (scene, sceneId, data, options, userId) => {
 Hooks.on("createToken", async (scene, token, options, userId) => {
   if (userId !== game.user._id) return;
 
-  const actor = game.actors.tokens[token._id];
+  const actor = game.actors.tokens[token._id] ?? game.actors.get(token.actorId);
+
   // Update changes and generate sourceDetails to ensure valid actor data
-  if (actor != null) updateChanges.call(actor);
+  if (actor != null) {
+    actor.toggleConditionStatusIcons();
+  }
+});
+
+Hooks.on("preCreateToken", async (scene, token, options, userId) => {
+  const actor = game.actors.get(token.actorId),
+    buffTextures = Object.values(actor._calcBuffTextures() ?? []).map((b) => b.icon);
+  for (let icon of buffTextures) await loadTexture(icon);
 });
 
 // Create race on actor
@@ -434,7 +428,7 @@ Hooks.on("preCreateOwnedItem", (actor, item, options, userId) => {
   }
 });
 
-Hooks.on("createOwnedItem", async (actor, itemData, options, userId) => {
+Hooks.on("createOwnedItem", (actor, itemData, options, userId) => {
   if (userId !== game.user._id) return;
   if (!(actor instanceof Actor)) return;
 
@@ -447,9 +441,9 @@ Hooks.on("createOwnedItem", async (actor, itemData, options, userId) => {
   }
 
   // Refresh item
-  await item.update({});
+  item.update({});
   // Refresh actor
-  await actor.update({});
+  // await actor.update({});
 });
 
 Hooks.on("deleteOwnedItem", async (actor, itemData, options, userId) => {
@@ -461,9 +455,10 @@ Hooks.on("deleteOwnedItem", async (actor, itemData, options, userId) => {
   if (isLinkedToken) {
     let promises = [];
     if (itemData.type === "buff" && itemData.data.active) {
+      actor.effects.find((e) => e.data.origin?.indexOf(itemData._id) > 0)?.delete();
       const tokens = actor.getActiveTokens();
       for (const token of tokens) {
-        promises.push(token.toggleEffect(itemData.img));
+        promises.push(token.toggleEffect(itemData.img, { active: false }));
       }
     }
     await Promise.all(promises);
@@ -721,7 +716,7 @@ function rollSkillMacro(actorId, skillId) {
  * Show an actor's defenses.
  */
 function rollDefenses({ actorName = null, actorId = null } = {}) {
-  const actor = ActorFFd20.getActiveActor({ actorName: actorName, actorId: actorId });
+  const actor = Actorffd20lnrw.getActiveActor({ actorName: actorName, actorId: actorId });
   if (!actor) {
     const msg = game.i18n
       .localize("ffd20lnrw.ErrorNoApplicableActorFoundForAction")
@@ -774,5 +769,5 @@ const handleChatTooltips = function (event) {
 
 // Export objects for being a library
 
-export { ActorFFd20, ItemFFd20, ActorSheetFFd20Character, ActorSheetFFd20NPC, ActorSheetFFd20NPCLite, ActorSheetFFd20NPCLoot };
-export { DiceFFd20, ChatMessageFFd20, measureDistances };
+export { Actorffd20lnrw, Itemffd20lnrw, ActorSheetffd20lnrwCharacter, ActorSheetffd20lnrwNPC, ActorSheetffd20lnrwNPCLite, ActorSheetffd20lnrwNPCLoot };
+export { Diceffd20lnrw, ChatMessageffd20lnrw, measureDistances };

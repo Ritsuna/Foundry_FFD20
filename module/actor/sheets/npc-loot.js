@@ -1,7 +1,7 @@
-import { ActorSheetFFd20NPC } from "./npc.js";
+import { ActorSheetffd20lnrwNPC } from "./npc.js";
 import { createTabs } from "../../lib.js";
 
-export class ActorSheetFFd20NPCLoot extends ActorSheetFFd20NPC {
+export class ActorSheetffd20lnrwNPCLoot extends ActorSheetffd20lnrwNPC {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}

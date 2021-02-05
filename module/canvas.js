@@ -77,6 +77,70 @@ Token.prototype.getBarAttribute = function (barName, { alternative = null } = {}
   return data;
 };
 
+/**
+ * Condition/ status effects section
+ */
+export const getConditions = function () {
+  var core = CONFIG.statusEffects,
+    sys = Object.keys(CONFIG.ffd20lnrw.conditions).map((c) => {
+      return { id: c, label: CONFIG.ffd20lnrw.conditions[c], icon: CONFIG.ffd20lnrw.conditionTextures[c] };
+    });
+  if (game.settings.get("ffd20lnrw", "coreEffects")) sys.push(...core);
+  else sys = [core[0]].concat(sys);
+  return sys;
+};
+
+const _TokenHUD_getStatusEffectChoices = TokenHUD.prototype._getStatusEffectChoices;
+TokenHUD.prototype._getStatusEffectChoices = function () {
+  let core = _TokenHUD_getStatusEffectChoices.call(this),
+    buffs = {};
+  Object.entries(this.object.actor._calcBuffTextures()).forEach((obj, ind) => {
+    let [idx, buff] = obj;
+    if (buffs[buff.icon] && buff.label) buff.icon += "?" + ind;
+    if (buff) {
+      buffs[buff.icon] = {
+        id: buff.id,
+        title: buff.label,
+        src: idx,
+        isActive: buff.active,
+        isOverlay: false,
+        cssClass: buff.active ? "active" : "",
+      };
+    }
+  });
+  return Object.assign({}, core, buffs);
+};
+
+//const TokenHUD__onToggleEffect = TokenHUD.prototype._onToggleEffect;
+TokenHUD.prototype._onToggleEffect = function (event, { overlay = false } = {}) {
+  event.preventDefault();
+  let img = event.currentTarget;
+  const effect =
+    img.dataset.statusId && this.object.actor
+      ? CONFIG.statusEffects.find((e) => e.id === img.dataset.statusId) ?? img.dataset.statusId
+      : img.getAttribute("src");
+  return this.object.toggleEffect(effect, { overlay });
+};
+
+const Token_toggleEffect = Token.prototype.toggleEffect;
+Token.prototype.toggleEffect = async function (effect, { active, overlay = false, midUpdate } = {}) {
+  let call;
+  if (typeof effect == "string") {
+    let buffItem = this.actor.items.get(effect);
+    if (buffItem) {
+      call = await buffItem.update({ "data.active": !buffItem.data.data.active });
+    } else call = await Token_toggleEffect.call(this, effect, { active, overlay });
+  } else if (!midUpdate && Object.keys(CONFIG.ffd20lnrw.conditions).includes(effect.id)) {
+    const updates = {};
+    updates["data.attributes.conditions." + effect.id] = !this.actor.data.data.attributes.conditions[effect.id];
+    call = await this.actor.update(updates);
+  } else {
+    call = await Token_toggleEffect.call(this, effect, { active, overlay });
+  }
+  if (this.hasActiveHUD) canvas.tokens.hud.refreshStatusIcons();
+  return call;
+};
+
 TokenHUD.prototype._onAttributeUpdate = function (event) {
   event.preventDefault();
 

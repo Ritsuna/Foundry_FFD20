@@ -318,11 +318,9 @@
 /*  Trait Selectors Specifically             */
 /* ----------------------------------------- */
 .ffd20lnrw.trait-selector {
-  columns: auto;
   max-height: 720px;
 }
 .ffd20lnrw.trait-selector .window-content {
-  column-count: auto;
   overflow: auto;
 }
 /* ----------------------------------------- */
@@ -522,6 +520,15 @@
   flex: 0 0 64px;
   padding: 0 1px 0 1px;
 }
+.ffd20lnrw.sheet .inventory-list .item-detail.item-attacks {
+  flex: 0 0 56px;
+}
+.ffd20lnrw.sheet .inventory-list .item-detail.item-damage {
+  flex: 0 0 100px;
+}
+.ffd20lnrw.sheet .inventory-list .item-detail.item-range {
+  flex: 0 1 56px;
+}
 .ffd20lnrw.sheet .inventory-list .item-detail:nth-child(2) {
   border-left: 1px solid #b5b3a4;
 }
@@ -631,6 +638,27 @@
 .ffd20lnrw.sheet .editor .tox-toolbar-overlord,
 .ffd20lnrw.sheet .editor .tox-toolbar__primary {
   background: none;
+}
+.ffd20lnrw.sheet .notImp {
+  text-decoration: firebrick dotted underline;
+  text-decoration-skip-ink: none;
+}
+.ffd20lnrw.sheet .notImp::after {
+  color: firebrick;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f071";
+  text-shadow: 0 0 4px white;
+}
+.ffd20lnrw.sheet .needSteps {
+  text-decoration: goldenrod double underline;
+}
+.ffd20lnrw.sheet .needSteps::after {
+  color: goldenrod;
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f14a";
+  text-shadow: 0 0 4px black;
 }
 .ffd20lnrw.sheet .sheet-header {
   flex: 0 0 100px;
@@ -1203,6 +1231,10 @@
 .ffd20lnrw.sheet.actor .tab.summary .hd-level table tr td {
   padding: 0;
   text-align: center;
+}
+.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr td.experience,
+.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr th.experience {
+  width: 50%;
 }
 .ffd20lnrw.sheet.actor .tab.summary .hd-level table tr a.config-icon {
   flex: 0 0 16px;

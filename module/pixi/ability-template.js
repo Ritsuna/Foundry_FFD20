@@ -14,6 +14,7 @@ export class AbilityTemplate extends MeasuredTemplate {
     let distance = options.distance;
     if (!type) return null;
     if (!distance) return null;
+    if (!canvas.scene) return null;
     if (!["cone", "circle", "rect", "ray"].includes(type)) return null;
 
     // Prepare template data
@@ -77,7 +78,7 @@ export class AbilityTemplate extends MeasuredTemplate {
       const handlers = {};
       let moveTime = 0;
 
-      const pfStyle = game.settings.get("ffd20lnrw", "measureStyle") === true;
+      const ffd20lnrwStyle = game.settings.get("ffd20lnrw", "measureStyle") === true;
 
       // Update placement (mouse-move)
       handlers.mm = (event) => {
@@ -136,7 +137,7 @@ export class AbilityTemplate extends MeasuredTemplate {
           }
           this.data.distance += delta * -Math.sign(event.deltaY);
         } else {
-          if (pfStyle && this.data.t === "cone") {
+          if (ffd20lnrwStyle && this.data.t === "cone") {
             delta = 90;
             snap = event.shiftKey ? delta : 45;
           } else {
@@ -165,6 +166,7 @@ export class AbilityTemplate extends MeasuredTemplate {
 
   refresh() {
     if (!this.template) return;
+    if (!canvas.scene) return;
 
     super.refresh();
 

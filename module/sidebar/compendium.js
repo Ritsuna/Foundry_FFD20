@@ -1,6 +1,6 @@
 import { CompendiumBrowser } from "../apps/compendium-browser.js";
 
-export class CompendiumDirectoryFFd20 extends CompendiumDirectory {
+export class CompendiumDirectoryffd20lnrw extends CompendiumDirectory {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       template: "systems/ffd20lnrw/templates/sidebar/compendium.hbs",

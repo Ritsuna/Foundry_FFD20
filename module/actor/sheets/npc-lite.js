@@ -1,6 +1,6 @@
-import { ActorSheetFFd20NPC } from "./npc.js";
+import { ActorSheetffd20lnrwNPC } from "./npc.js";
 
-export class ActorSheetFFd20NPCLite extends ActorSheetFFd20NPC {
+export class ActorSheetffd20lnrwNPCLite extends ActorSheetffd20lnrwNPC {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
@@ -19,7 +19,7 @@ export class ActorSheetFFd20NPCLite extends ActorSheetFFd20NPC {
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetFFd20NPCLite");
+  //   return game.i18n.localize("ffd20lnrw.ActorSheetffd20lnrwNPCLite");
   // }
 
   _prepareItems(data) {

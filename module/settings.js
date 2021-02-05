@@ -22,7 +22,7 @@ export const registerSystemSettings = function () {
     scope: "client",
     config: false,
     type: String,
-    default: "0.0.5",
+    default: "0.1.0",
   });
   game.settings.register("ffd20lnrw", "dontShowChangelog", {
     name: "Don't Automatically Show Changelog",
@@ -49,10 +49,12 @@ export const registerSystemSettings = function () {
     config: false,
     onChange: () => {
       game.actors.entities.forEach((o) => {
-        o.update({});
+        o.prepareData();
+        if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
       });
       Object.values(game.actors.tokens).forEach((o) => {
-        o.update({});
+        o.prepareData();
+        if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
       });
     },
   });
@@ -74,10 +76,12 @@ export const registerSystemSettings = function () {
     config: false,
     onChange: () => {
       game.actors.entities.forEach((o) => {
-        o.update({});
+        o.prepareData();
+        if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
       });
       Object.values(game.actors.tokens).forEach((o) => {
-        o.update({});
+        o.prepareData();
+        if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
       });
     },
   });
@@ -136,7 +140,7 @@ export const registerSystemSettings = function () {
           return o.data.type === "character";
         })
         .forEach((o) => {
-          o.update({});
+          o.prepareData();
           if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
         });
     },
@@ -162,7 +166,7 @@ export const registerSystemSettings = function () {
           return o.data.type === "character";
         })
         .forEach((o) => {
-          o.update({});
+          o.prepareData();
           if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
         });
     },
@@ -200,10 +204,10 @@ export const registerSystemSettings = function () {
     type: Boolean,
     onChange: () => {
       game.actors.entities.forEach((o) => {
-        o.update({});
+        o.prepareData();
       });
       Object.values(game.actors.tokens).forEach((o) => {
-        o.update({});
+        o.prepareData();
       });
     },
   });
@@ -290,10 +294,10 @@ export const registerSystemSettings = function () {
     type: Number,
     onChange: () => {
       game.actors.entities.forEach((o) => {
-        o.update({});
+        o.prepareData();
       });
       Object.values(game.actors.tokens).forEach((o) => {
-        o.update({});
+        o.prepareData();
       });
     },
   });
@@ -318,6 +322,21 @@ export const registerSystemSettings = function () {
         promises.push(actor.toggleConditionStatusIcons());
       }
       return Promise.all(promises);
+    },
+  });
+
+  /**
+   * Display default token conditions alongside system ones
+   */
+  game.settings.register("ffd20lnrw", "coreEffects", {
+    name: "SETTINGS.ffd20lnrwCoreEffectsN",
+    hint: "SETTINGS.ffd20lnrwCoreEffectsH",
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => {
+      window.location.reload();
     },
   });
 
@@ -407,6 +426,18 @@ export const registerSystemSettings = function () {
     default: false,
     type: Boolean,
   });
+
+  /**
+   * Display BAB iteratives instead of simply total
+   */
+  game.settings.register("ffd20lnrw", "displayIteratives", {
+    name: "SETTINGS.ffd20lnrwDisplayIterativesN",
+    hint: "SETTINGS.ffd20lnrwDisplayIterativesH",
+    scope: "client",
+    config: true,
+    default: false,
+    type: Boolean,
+  });
 };
 
 export const registerClientSettings = function () {
@@ -443,12 +474,12 @@ export const registerClientSettings = function () {
     scope: "client",
     config: false,
     default: {
-      spells: "0.0.8",
-      items: "0.0.8",
-      bestiary: "0.0.8",
-      feats: "0.0.8",
-      classes: "0.0.8",
-      races: "0.0.8",
+      spells: "0.0.9",
+      items: "0.0.9",
+      bestiary: "0.0.9",
+      feats: "0.0.9",
+      classes: "0.0.9",
+      races: "0.0.9",
     },
     type: Object,
   });
@@ -475,6 +506,7 @@ export const registerClientSettings = function () {
   });
 };
 
+/***/
 export const migrateSystemSettings = async function () {
   if (!game.user.isGM) return;
 

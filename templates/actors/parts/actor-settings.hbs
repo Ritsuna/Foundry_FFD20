@@ -1,9 +1,136 @@
 {{!-- Spellbooks --}}
+<div class="form-group">
+    <h2>{{localize "ffd20lnrw.SpellbookUsage"}}</h2>
+</div>
+
 <div class="form-group stacked">
-    <label>{{localize "ffd20lnrw.SpellbookUsage"}}</label>
+    <label>{{localize "ffd20lnrw.SpellBookPlural"}}</label>
     {{#each spellbookData as |spellbook a|}}
     <label class="checkbox">
-        <input type="checkbox" {{checked spellbook.orig.inUse}} name="spellbook-{{a}}-inuse"/> {{spellbook.orig.name}}
+        <input type="checkbox" {{checked spellbook.orig.inUse}} name="spellbook-{{a}}-inuse" /> {{spellbook.orig.name}}
     </label>
     {{/each}}
+</div>
+
+{{!-- Ability Score Linking --}}
+<div class="form-group">
+    <h2>{{localize "ffd20lnrw.AbilityScoreLinks"}}</h2>
+</div>
+
+<div class="form-group table">
+    <div class="flexcol" style="max-width: 32em;">
+        {{!-- Header --}}
+        <div class="flexrow header">
+            <label class="cell left-label">{{localize "ffd20lnrw.Feature"}}</label>
+            <label class="cell midsize">{{localize "ffd20lnrw.AbilityScore"}}</label>
+        </div>
+
+        {{!-- General --}}
+        <div class="flexrow sub-header">
+            <label class="cell">{{localize "ffd20lnrw.General"}}</label>
+        </div>
+
+        {{!-- Hit Points --}}
+            <div class="flexrow">
+                <label class="cell left-label">{{localize "ffd20lnrw.HitPoints"}}</label>
+                <select name="data.attributes.hpAbility" class="cell midsize-cell">
+                    {{#select data.attributes.hpAbility}}
+                    <option value=""></option>
+                    {{#each config.abilities as |ability a|}}
+                    <option value="{{a}}">{{ability}}</option>
+                    {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+        {{!-- Combat --}}
+        <div class="flexrow sub-header">
+            <label class="cell">{{localize "ffd20lnrw.Combat"}}</label>
+        </div>
+
+        {{!-- Initiative --}}
+        <div class="flexrow">
+            <label class="cell left-label">{{localize "ffd20lnrw.Initiative"}}</label>
+            <select data-name="data.attributes.init.ability" class="cell midsize">
+                {{#select data.attributes.init.ability}}
+                <option value=""></option>
+                {{selectOptions config.abilities}}
+                {{/select}}
+            </select>
+        </div>
+
+        {{!-- CMB --}}
+        <div class="flexrow">
+            <label class="cell left-label">{{localize "ffd20lnrw.CMB"}}</label>
+            <select name="data.attributes.cmbAbility" class="cell midsize">
+                {{#select data.attributes.cmbAbility}}
+                <option value=""></option>
+                {{#each config.abilities as |label value|}}
+                <option value="{{value}}">{{label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+
+        <div class="flexrow">
+            <label class="cell left-label">{{localize "ffd20lnrw.Melee"}}<!-- Attack --></label>
+            <select name="data.attributes.attack.meleeAbility" class="cell midsize">
+                {{#select data.attributes.attack.meleeAbility}}
+                <option value=""></option>
+                {{#each config.abilities as |label value|}}
+                <option value="{{value}}">{{label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+
+        <div class="flexrow">
+            <label class="cell left-label">{{localize "ffd20lnrw.Ranged"}}<!-- Attack --></label>
+            <select name="data.attributes.attack.rangedAbility" class="cell midsize">
+                {{#select data.attributes.attack.rangedAbility}}
+                <option value=""></option>
+                {{#each config.abilities as |label value|}}
+                <option value="{{value}}">{{label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+
+        {{!-- Saving Throws --}}
+        <div class="flexrow sub-header">
+            <label class="cell">{{localize "ffd20lnrw.SavingThrowPlural"}}</label>
+        </div>
+
+        {{#each data.attributes.savingThrows as |savingThrow id|}}
+        <div class="flexrow">
+            <label class="cell left-label">{{savingThrow.label}}</label>
+            <select data-name="data.attributes.savingThrows.{{id}}.ability" class="cell midsize">
+                {{#select savingThrow.ability}}
+                <option value=""></option>
+                {{#each ../config.abilities as |label value|}}
+                <option value="{{value}}">{{label}}</option>
+                {{/each}}
+                {{/select}}
+            </select>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+{{!-- Optional Rules --}}
+<div class="form-group">
+    <h2>{{localize "ffd20lnrw.OptionalAndVariantRules"}}</h2>
+</div>
+
+{{!-- Wound Thresholds --}}
+<div class="form-group">
+    <label>{{localize "ffd20lnrw.WoundThresholdOverride"}}</label>
+    <select data-dtype="Number" name="data.attributes.woundThresholds.override" {{#unless woundThresholds.allowWoundThresholdOverride}}disabled{{/unless}}>
+        {{#select data.attributes.woundThresholds.override}}
+        <option value="-1">{{localize 'ffd20lnrw.Default'}}</option>
+        <option value="0">{{localize 'SETTINGS.ffd20lnrwHealthConfigWoundThresholdDisabled'}}</option>
+        <option value="1">{{localize 'SETTINGS.ffd20lnrwHealthConfigWoundThresholdNormal'}}</option>
+        <option value="2">{{localize 'SETTINGS.ffd20lnrwHealthConfigWoundThresholdGritty'}}</option>
+        {{/select}}
+    </select>
 </div>

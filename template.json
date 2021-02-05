@@ -147,8 +147,11 @@
 					"srNotes": "",
 					"attack": {
 						"general": 0,
+						"shared": 0,
 						"melee": 0,
-						"ranged": 0
+						"ranged": 0,
+						"meleeAbility": "str",
+						"rangedAbility": "dex"
 					},
 					"damage": {
 						"general": 0,
@@ -435,6 +438,7 @@
 						"min": 0,
 						"max": 40
 					},
+					"mythicTier": 0,
 					"bonusFeatFormula": "",
 					"alignment": "tn",
 					"biography": {
@@ -1132,7 +1136,10 @@
 			"masterwork": false,
 			"size": "med",
 			"broken": false,
-			"nonlethal": false
+			"nonlethal": false,
+			"links": {
+				"charges": []
+			  }
 		},
 		"feat": {
 			"templates": [

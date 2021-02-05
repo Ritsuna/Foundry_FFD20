@@ -1,7 +1,7 @@
-import { DiceFFd20, formulaHasDice } from "../dice.js";
+import { Diceffd20lnrw, formulaHasDice } from "../dice.js";
 import { createCustomChatMessage } from "../chat.js";
 import { createTag, linkData, convertDistance, convertWeight, convertWeightBack } from "../lib.js";
-import { ActorFFd20 } from "../actor/entity.js";
+import { Actorffd20lnrw } from "../actor/entity.js";
 import { AbilityTemplate } from "../pixi/ability-template.js";
 import { ChatAttack } from "../misc/chat-attack.js";
 import { SemanticVersion } from "../semver.js";
@@ -10,7 +10,7 @@ import { ItemChange } from "./components/change.js";
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-export class ItemFFd20 extends Item {
+export class Itemffd20lnrw extends Item {
   constructor(...args) {
     super(...args);
 
@@ -25,6 +25,12 @@ export class ItemFFd20 extends Item {
      * Links are stored here during runtime.
      */
     this.links = {};
+
+    /**
+     * @property {Object} _rollData
+     * Cached roll data for this item.
+     */
+    this._rollData = null;
   }
 
   static isInventoryItem(type) {
@@ -159,7 +165,7 @@ export class ItemFFd20 extends Item {
     return 4;
   }
 
-  // Returns range (in feet)
+  // Returns range (in system configured units)
   get range() {
     let range = getProperty(this.data, "data.range.value");
     const rangeType = getProperty(this.data, "data.range.units");
@@ -370,6 +376,14 @@ export class ItemFFd20 extends Item {
    */
   get hasDamage() {
     return !!(this.data.data.damage && this.data.data.damage.parts.length);
+  }
+
+  /**
+   * Does the item have range defined.
+   * @type {boolean}
+   */
+  get hasRange() {
+    return this.data.data.range?.units != null;
   }
 
   /* -------------------------------------------- */
@@ -669,6 +683,10 @@ export class ItemFFd20 extends Item {
   }
 
   async update(data, options = {}) {
+    // Avoid regular update flow for explicitly non-recursive update calls
+    if (options.recursive === false) {
+      return super.update(data, options);
+    }
     const srcData = mergeObject(this.data, expandObject(data), { inplace: false });
 
     // Make sure changes remains an array
@@ -801,7 +819,7 @@ export class ItemFFd20 extends Item {
     const taggedTypes = game.system.template.Item.types.filter((t) =>
       game.system.template.Item[t].templates?.includes("tagged")
     );
-    if (taggedTypes.includes(this.type) && !srcData.data.useCustomTag) {
+    if (data["useCustomTag"] !== undefined && taggedTypes.includes(this.type) && !srcData.data.useCustomTag) {
       const name = srcData.name;
       linkData(srcData, data, "data.tag", createTag(name));
     }
@@ -937,6 +955,9 @@ export class ItemFFd20 extends Item {
     // No actor? No charges!
     if (!this.parentActor) return;
 
+    // No charges? No charges!
+    if (!["day", "week", "charges"].includes(getProperty(this.data, "data.uses.per"))) return;
+
     let doLinkData = true;
     if (srcData == null) {
       srcData = this.data;
@@ -960,6 +981,22 @@ export class ItemFFd20 extends Item {
     }
   }
 
+  //Creates a simple ActiveEffect from a buff item. Returns the effect
+  async toEffect({ noCreate = false } = {}) {
+    if (!this.parentActor || this.type !== "buff") return;
+
+    const existing = this.parentActor.effects.find((e) => e.data.origin == this.uuid);
+    if (existing || noCreate) return existing;
+
+    // Add a new effect
+    const createData = { label: this.name, icon: this.img, origin: this.uuid, disabled: !this.data.data.active };
+    createData["flags.ffd20lnrw.show"] = !this.data.data.hideFromToken && !game.settings.get("ffd20lnrw", "hideTokenConditions");
+    const effect = ActiveEffect.create(createData, this.actor);
+    await effect.create();
+
+    return effect;
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -973,6 +1010,9 @@ export class ItemFFd20 extends Item {
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
+
+    const allowed = Hooks.call("itemUse", this, "description", { altChatData, addDC });
+    if (allowed === false) return;
 
     // Basic template rendering data
     const token = this.parentActor.token;
@@ -989,6 +1029,7 @@ export class ItemFFd20 extends Item {
       hasAction: this.hasAction || this.isCharged,
       isHealing: this.isHealing,
       hasDamage: this.hasDamage,
+      hasRange: this.hasRange,
       hasEffect: this.hasEffect,
       isVersatile: this.isVersatile,
       hasSave: this.hasSave,
@@ -1261,7 +1302,7 @@ export class ItemFFd20 extends Item {
   /*  Item Rolls - Attack, Damage, Saves, Checks  */
   /* -------------------------------------------- */
 
-  async use({ ev = null, skipDialog = false }) {
+  async use({ ev = null, skipDialog = false } = {}) {
     if (this.type === "spell") {
       return this.parentActor.useSpell(this, ev, { skipDialog: skipDialog });
     } else if (this.hasAction) {
@@ -1296,6 +1337,9 @@ export class ItemFFd20 extends Item {
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
+
+    const allowed = Hooks.call("itemUse", this, "attack", { ev, skipDialog, dice });
+    if (allowed === false) return;
 
     const itemQuantity = getProperty(this.data, "data.quantity");
     if (itemQuantity != null && itemQuantity <= 0) {
@@ -2069,7 +2113,7 @@ export class ItemFFd20 extends Item {
 
   /**
    * Place an attack roll using an item (weapon, feat, spell, or equipment)
-   * Rely upon the DiceFFd20.d20Roll logic for the core implementation
+   * Rely upon the Diceffd20lnrw.d20Roll logic for the core implementation
    */
   rollAttack({ data = null, extraParts = [], bonus = null, primaryAttack = true } = {}) {
     const itemData = this.data.data;
@@ -2092,9 +2136,14 @@ export class ItemFFd20 extends Item {
     // Add bonus parts
     parts = parts.concat(extraParts);
     // Add attack bonus
-    if (itemData.attackBonus !== "") {
+    if (typeof itemData.attackBonus === "string" && itemData.attackBonus !== "") {
       let attackBonus = new Roll(itemData.attackBonus, rollData).roll().total;
       rollData.item.attackBonus = attackBonus;
+      parts.push("@item.attackBonus");
+    }
+    // Backwards compatibility
+    else if (typeof itemData.attackBonus === "number") {
+      rollData.item.attackBonus = itemData.attackBonus;
       parts.push("@item.attackBonus");
     }
 
@@ -2213,7 +2262,7 @@ export class ItemFFd20 extends Item {
 
   /**
    * Place an attack roll using an item (weapon, feat, spell, or equipment)
-   * Rely upon the DiceFFd20.d20Roll logic for the core implementation
+   * Rely upon the Diceffd20lnrw.d20Roll logic for the core implementation
    */
   async rollFormula(options = {}) {
     const itemData = this.data.data;
@@ -2236,7 +2285,7 @@ export class ItemFFd20 extends Item {
 
   /**
    * Place a damage roll using an item (weapon, feat, spell, or equipment)
-   * Rely upon the DiceFFd20.damageRoll logic for the core implementation
+   * Rely upon the Diceffd20lnrw.damageRoll logic for the core implementation
    */
   rollDamage({ data = null, critical = false, extraParts = [], conditionalParts = {} } = {}) {
     const rollData = mergeObject(this.getRollData(), data || {});
@@ -2349,10 +2398,13 @@ export class ItemFFd20 extends Item {
     let parts = itemData.damage.parts;
     const data = this.getRollData();
 
+    const allowed = Hooks.call("itemUse", this, "consumable", options);
+    if (allowed === false) return;
+
     // Add effect string
     let effectStr = "";
     if (typeof itemData.effectNotes === "string" && itemData.effectNotes.length) {
-      effectStr = DiceFFd20.messageRoll({
+      effectStr = Diceffd20lnrw.messageRoll({
         data: data,
         msgStr: itemData.effectNotes,
       });
@@ -2418,10 +2470,17 @@ export class ItemFFd20 extends Item {
   /**
    * @returns {Object} An object with data to be used in rolls in relation to this item.
    */
-  getRollData() {
-    const result = this.parentActor != null ? this.parentActor.getRollData() : {};
-    result.item = duplicate(this.data.data);
+  getRollData(options = { forceRefresh: false }) {
+    const result = this.parentActor != null ? this.parentActor.getRollData({ forceRefresh: false }) : {};
 
+    if (this._rollData === this.data.data) {
+      if (!options.forceRefresh) {
+        result.item = this._rollData;
+        return result;
+      }
+    }
+
+    result.item = this.data.data;
     if (this.type === "spell" && this.parentActor != null) {
       const spellbook = this.spellbook;
       const spellAbility = spellbook.ability;
@@ -2430,6 +2489,12 @@ export class ItemFFd20 extends Item {
 
       result.cl = this.casterLevel || 0;
       result.sl = this.spellLevel || 0;
+      result.classLevel =
+        spellbook.class === "_hd"
+          ? result.attributes.hd.total
+          : spellbook.class?.length > 0
+          ? getProperty(result, `classes.${spellbook.class}.level`) || 0 // `
+          : 0;
       result.ablMod = ablMod;
     }
     if (this.type === "buff") result.item.level = this.data.data.level;
@@ -2442,6 +2507,7 @@ export class ItemFFd20 extends Item {
       }
     }
 
+    this._rollData = result.item;
     return result;
   }
 
@@ -2496,7 +2562,7 @@ export class ItemFFd20 extends Item {
       if (button.dataset.tags?.split(" ").includes("nonlethal")) asNonlethal = true;
 
       const value = button.dataset.value;
-      if (!isNaN(parseInt(value))) ActorFFd20.applyDamage(parseInt(value), { asNonlethal });
+      if (!isNaN(parseInt(value))) Actorffd20lnrw.applyDamage(parseInt(value), { asNonlethal });
     }
     // Recover ammunition
     else if (["recoverAmmo", "forceRecoverAmmo"].includes(action)) {
@@ -2821,10 +2887,10 @@ export class ItemFFd20 extends Item {
 
     if (this.useSpellPoints()) {
       const curUses = this.getSpellUses();
-      const actorUpdateData = {};
-      actorUpdateData['data.attributes.mp.value'] = curUses + value;
-      return this.parentActor.update(actorUpdateData);
-    }  else {
+      const updateData = {};
+      updateData['data.attributes.mp.value'] = curUses + value;
+      return this.parentActor.update(updateData);
+    } else {
       if (this.data.data.level === 0) return;
       const newCharges = isSpontaneous
         ? Math.max(0, (getProperty(spellbook, `spells.spell${spellLevel}.value`) || 0) + value)
@@ -3026,6 +3092,7 @@ export class ItemFFd20 extends Item {
   async _onLevelChange(curLevel, newLevel) {
     if (!this.parentActor) return;
 
+    const selfUpdateData = {};
     // Add items associated to this class
     if (newLevel > curLevel) {
       const classAssociations = (getProperty(this.data, "data.links.classAssociations") || []).filter((o, index) => {
@@ -3044,7 +3111,8 @@ export class ItemFFd20 extends Item {
         const newItemData = await this.parentActor.createOwnedItem(itemData);
         const newItem = this.parentActor.items.find((o) => o._id === newItemData._id);
 
-        await this.setFlag("ffd20lnrw", `links.classAssociations.${newItemData._id}`, co.level);
+        // await this.setFlag("ffd20lnrw", `links.classAssociations.${newItemData._id}`, co.level);
+        selfUpdateData[`flags.ffd20lnrw.links.classAssociations.${newItemData._id}`] = co.level;
         await this.createItemLink("children", "data", newItem, newItem._id);
       }
     }
@@ -3066,6 +3134,8 @@ export class ItemFFd20 extends Item {
       }
       await this.setFlag("ffd20lnrw", "links.classAssociations", associations);
     }
+
+    await this.update(selfUpdateData);
   }
 
   /**
@@ -3090,7 +3160,7 @@ export class ItemFFd20 extends Item {
     const targetLinks = getProperty(targetItem.data, `data.links.${linkType}`);
     if (["children", "charges", "ammunition"].includes(linkType) && sameActor) {
       if (linkType === "charges") {
-        // Try to limit charge pool linking to a depth of 1
+        // Prevent the closing of charge link loops
         if (targetLinks.length > 0) {
           ui.notifications.warn(
             game.i18n.localize("ffd20lnrw.WarningCannotCreateChargeLink").format(this.name, targetItem.name)
@@ -3319,7 +3389,7 @@ export class ItemFFd20 extends Item {
     // Add static subtargets
     else if (hasProperty(CONFIG.ffd20lnrw.buffTargets, target)) {
       for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.buffTargets[target])) {
-        if (!k.startsWith("_")) result[k] = v;
+        if (!k.startsWith("_") && !k.startsWith("~")) result[k] = v;
       }
     }
 
@@ -3328,7 +3398,7 @@ export class ItemFFd20 extends Item {
 
   /**
    * Generates a list of targets this modifier can have.
-   * @param {ItemFFd20} item - The item for which the modifier is to be created.
+   * @param {Itemffd20lnrw} item - The item for which the modifier is to be created.
    * @returns {Object.<string, string>} A list of targets
    */
   getConditionalTargets() {
@@ -3354,7 +3424,7 @@ export class ItemFFd20 extends Item {
     // Add static targets
     if (hasProperty(CONFIG.ffd20lnrw.conditionalTargets, target)) {
       for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.conditionalTargets[target])) {
-        if (!k.startsWith("_")) result[k] = v;
+        if (!k.startsWith("_") && !k.startsWith("~")) result[k] = v;
       }
     }
     // Add subtargets depending on attacks
@@ -3455,7 +3525,7 @@ export class ItemFFd20 extends Item {
     // Add static subtargets
     else if (hasProperty(CONFIG.ffd20lnrw.contextNoteTargets, target)) {
       for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.contextNoteTargets[target])) {
-        if (!k.startsWith("_")) result[k] = v;
+        if (!k.startsWith("_") && !k.startsWith("~")) result[k] = v;
       }
     }
 

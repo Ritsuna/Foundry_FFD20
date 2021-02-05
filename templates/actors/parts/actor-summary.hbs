@@ -13,26 +13,38 @@
       <div class="hd-level character tooltip">
         <span class="tooltipcontent">
           @attributes.hd.total : {{data.attributes.hd.total}}
+          {{#if data.details.mythicTier}}
+          <br />
+          @details.mythicTier : {{data.details.mythicTier}}
+          {{/if}}
         </span>
 
         <table>
           <thead>
             <tr>
-              <th>{{localize "ffd20lnrw.Level"}}</th>
+              <th class="level">{{localize "ffd20lnrw.Level"}}</th>
+              {{#if data.details.mythicTier}}
+              <th class="tier">{{localize "ffd20lnrw.Tier"}}</th>
+              {{/if}}
               {{#unless disableExperience}}
-              <th>{{localize "ffd20lnrw.Experience"}}</th>
+              <th class="experience">{{localize "ffd20lnrw.Experience"}}</th>
               {{/unless}}
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
+              <td class="level">
                 {{data.details.level.value}}
               </td>
+              {{#if data.details.mythicTier}}
+              <td class="tier">
+                {{data.details.mythicTier}}
+              </td>
+              {{/if}}
               {{#unless disableExperience}}
-              <td>
-                <div class="flexrow experience">
-                  <span class="text-box direct allow-relative" name="data.details.xp.value" data-dtype="Number">{{data.details.xp.value}}</span>
+              <td class="experience">
+                <div class="flexrow">
+                  <span class="text-box direct allow-relative" name="data.details.xp.value" data-dtype="String">{{data.details.xp.value}}</span>
                   <span class="separator"> / </span>
                   <span class="text-box max readonly">{{data.details.xp.max}}</span>
                 </div>
@@ -55,20 +67,28 @@
         <table>
           <thead>
             <tr>
-              <th>{{localize "ffd20lnrw.HitDieShort"}}</th>
+              <th class="level">{{localize "ffd20lnrw.HitDieShort"}}</th>
+              {{#if data.details.mythicTier}}
+              <th class="tier">{{localize "ffd20lnrw.Tier"}}</th>
+              {{/if}}
               <th>{{localize "ffd20lnrw.ChallengeRatingShort"}}</th>
               <th>{{localize "ffd20lnrw.Experience"}}</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
+              <td class="level">
                 {{data.attributes.hd.total}}
               </td>
+              {{#if data.details.mythicTier}}
+              <td class="tier">
+                {{data.details.mythicTier}}
+              </td>
+              {{/if}}
               <td>
                 <span class="text-box cr-input" name="data.details.cr.base">{{labels.cr}}</span>
               </td>
-              <td>
+              <td class="experience">
                 {{data.details.xp.value}}
               </td>
             </tr>
@@ -79,6 +99,10 @@
           @attributes.hd.total : {{data.attributes.hd.total}}<br/>
           @details.cr.base : {{data.details.cr.base}}<br/>
           @details.cr.total : {{data.details.cr.total}}
+          {{#if data.details.mythicTier}}
+          <br />
+          @details.mythicTier : {{data.details.mythicTier}}
+          {{/if}}
         </span>
       </div>
       {{/if}}
@@ -185,7 +209,7 @@
         <tbody>
           <tr>
             <td>
-              <span class="text-box direct allow-relative hp-current-input" name="data.attributes.hp.value" data-dtype="Number">{{data.attributes.hp.value}}</span>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.attributes.hp.value" data-dtype="Number">{{data.attributes.hp.value}}</span>
             </td>
             <td>
               <span class="text-box readonly">{{data.attributes.hp.max}}</span>
@@ -376,59 +400,59 @@
         <tbody>
           <td class="tooltip">
             <span class="text-box direct speed" name="data.attributes.speed.land.base" data-dtype="Number">
-              {{#if data.attributes.speed.land.total}}{{data.attributes.speed.land.total}}{{/if}}
+            {{#if data.attributes.speed.land.total}}{{convertDistance data.attributes.speed.land.total}}{{/if}}
             </span>
 
             <div class="tooltipcontent">
-              @attributes.speed.land.total : {{data.attributes.speed.land.total}}
+            @attributes.speed.land.total : {{convertDistance data.attributes.speed.land.total}}
               {{#if sourceDetails.data.attributes.speed.land.total.length}}
                 <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
-                {{#each sourceDetails.data.attributes.speed.land.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{#each sourceDetails.data.attributes.speed.land.total as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
               {{/if}}
             </div>
           </td>
           <td class="tooltip">
             <span class="text-box direct speed" name="data.attributes.speed.climb.base" data-dtype="Number">
-              {{#if data.attributes.speed.climb.total}}{{data.attributes.speed.climb.total}}{{/if}}
+            {{#if data.attributes.speed.climb.total}}{{convertDistance data.attributes.speed.climb.total}}{{/if}}
             </span>
 
             <div class="tooltipcontent">
-              @attributes.speed.climb.total : {{data.attributes.speed.climb.total}}
+            @attributes.speed.climb.total : {{convertDistance data.attributes.speed.climb.total}}
               {{#if sourceDetails.data.attributes.speed.climb.total.length}}
                 <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
-                {{#each sourceDetails.data.attributes.speed.climb.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{#each sourceDetails.data.attributes.speed.climb.total as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
               {{/if}}
            </div>
           </td>
           <td class="tooltip">
             <span class="text-box direct speed" name="data.attributes.speed.swim.base" data-dtype="Number">
-              {{#if data.attributes.speed.swim.total}}{{data.attributes.speed.swim.total}}{{/if}}
+            {{#if data.attributes.speed.swim.total}}{{convertDistance data.attributes.speed.swim.total}}{{/if}}
             </span>
 
             <div class="tooltipcontent">
-              @attributes.speed.swim.total : {{data.attributes.speed.swim.total}}
+            @attributes.speed.swim.total : {{convertDistance data.attributes.speed.swim.total}}
               {{#if sourceDetails.data.attributes.speed.swim.total.length}}
                 <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
-                {{#each sourceDetails.data.attributes.speed.swim.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{#each sourceDetails.data.attributes.speed.swim.total as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
               {{/if}}
             </div>
           </td>
           <td class="tooltip">
             <span class="text-box direct speed" name="data.attributes.speed.burrow.base" data-dtype="Number">
-              {{#if data.attributes.speed.burrow.total}}{{data.attributes.speed.burrow.total}}{{/if}}
+            {{#if data.attributes.speed.burrow.total}}{{convertDistance data.attributes.speed.burrow.total}}{{/if}}
             </span>
 
             <div class="tooltipcontent">
-              @attributes.speed.burrow.total : {{data.attributes.speed.burrow.total}}
+            @attributes.speed.burrow.total : {{convertDistance data.attributes.speed.burrow.total}}
               {{#if sourceDetails.data.attributes.speed.burrow.total.length}}
                 <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
-                {{#each sourceDetails.data.attributes.speed.burrow.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{#each sourceDetails.data.attributes.speed.burrow.total as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
               {{/if}}
             </div>
           </td>
           <td class="tooltip">
             <span class="text-box direct speed" name="data.attributes.speed.fly.base" data-dtype="Number">
-              {{#if data.attributes.speed.fly.total}}{{data.attributes.speed.fly.total}}{{/if}}
+            {{#if data.attributes.speed.fly.total}}{{convertDistance data.attributes.speed.fly.total}}{{/if}}
             </span>
 
             <div class="tooltipcontent">
@@ -436,7 +460,7 @@
               @attributes.speed.fly.maneuverability : "{{data.attributes.speed.fly.maneuverability}}"
               {{#if sourceDetails.data.attributes.speed.fly.total.length}}
                 <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
-                {{#each sourceDetails.data.attributes.speed.fly.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{#each sourceDetails.data.attributes.speed.fly.total as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
               {{/if}}
             </div>
           </td>
@@ -454,7 +478,7 @@
     </li>
 </ul>
 
-{{!-- This is for adding classes and seeing quickj information --}}
+{{!-- This is for adding classes and seeing quick information --}}
 <nav class="sheet-navigation tabs subtabs subdetails" data-group="subdetails">
   <a class="item active" data-tab="quick-info">{{localize "ffd20lnrw.QuickInfo"}}</a>
   <a class="item" data-tab="classes">{{localize "ffd20lnrw.ClassPlural"}}</a>
@@ -474,13 +498,13 @@
       <table>
         <thead>
           <tr>
-            <th class="attribute bab" data-attribute="bab" rowspan="2">
+            <th class="attribute bab" data-attribute="bab">
               <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.BABAbbr"}}</span></a>
             </th>
-            <th class="attribute cmb" data-attribute="cmb" rowspan="2">
+            <th class="attribute cmb" data-attribute="cmb">
               <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.CMBAbbr"}}</span></a>
             </th>
-            <th class="attribute initiative" data-attribute="initiative" colspan="2">
+            <th class="attribute initiative" data-attribute="initiative">
               <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "ffd20lnrw.Initiative"}}</span></a>
             </th>
           </tr>

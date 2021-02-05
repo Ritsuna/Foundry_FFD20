@@ -39,6 +39,7 @@ export class ChatAttack {
       parts: [],
     };
     this.hasDamage = false;
+    this.hasRange = item.hasRange;
     this.minimumDamage = false;
     this.damageRows = 0;
 
@@ -59,7 +60,7 @@ export class ChatAttack {
 
   /**
    * Sets the attack's item reference.
-   * @param {ItemFFd20} item - The item to reference.
+   * @param {Itemffd20lnrw} item - The item to reference.
    */
   setItem(item) {
     if (item == null) {
@@ -225,9 +226,6 @@ export class ChatAttack {
     let rollData = duplicate(this.rollData);
     // Enforce critical multiplier
     rollData.critCount = 0;
-    if (!critical) {
-      rollData.critMult = 1;
-    }
 
     // Roll damage
     const repeatCount = critical ? Math.max(1, rollData.critMult) : 1;

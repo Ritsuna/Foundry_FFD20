@@ -1,13 +1,15 @@
-import { ItemFFd20 } from "./item/entity.js";
+import { Itemffd20lnrw } from "./item/entity.js";
 import { ExperienceConfig } from "./config/experience.js";
 import { createTag } from "./lib.js";
 import { ItemChange } from "./item/components/change.js";
+import { getChangeFlat } from "./actor/apply-changes.js";
 
 /**
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
 export const migrateWorld = async function () {
+  game.ffd20lnrw.isMigrating = true;
   if (!game.user.isGM) {
     const msg = game.i18n.localize("ffd20lnrw.ErrorUnauthorizedAction");
     console.error(msg);
@@ -67,6 +69,7 @@ export const migrateWorld = async function () {
   game.settings.set("ffd20lnrw", "systemMigrationVersion", game.system.data.version);
   ui.notifications.info(`ffd20lnrw System Migration to version ${game.system.data.version} succeeded!`);
   console.log("System Migration completed.");
+  game.ffd20lnrw.isMigrating = false;
 };
 
 /* -------------------------------------------- */
@@ -129,6 +132,7 @@ const _migrateWorldSettings = async function () {
  * @return {Object}       The updateData to apply
  */
 export const migrateActorData = async function (actor) {
+  if (!(actor instanceof Actor)) return {};
   const updateData = {};
 
   _migrateCharacterLevel(actor, updateData);
@@ -143,13 +147,14 @@ export const migrateActorData = async function (actor) {
   _migrateActorSpellbookDCFormula(actor, updateData);
   _migrateActorHPAbility(actor, updateData);
   _migrateActorCR(actor, updateData);
-  _migrateCMBAbility(actor, updateData);
+  _migrateAttackAbility(actor, updateData);
   _migrateActorTokenVision(actor, updateData);
   _migrateActorSpellbookUsage(actor, updateData);
   _migrateActorNullValues(actor, updateData);
   _migrateActorSpellbookDomainSlots(actor, updateData);
   _migrateActorStatures(actor, updateData);
   _migrateActorInitAbility(actor, updateData);
+  _migrateActorChangeRevamp(actor, updateData);
 
   if (!actor.items) return updateData;
 
@@ -234,11 +239,26 @@ export const migrateSceneData = async function (scene) {
       t.actorId = null;
       t.actorData = {};
     } else {
-      const updateData = await migrateActorData(token.data.actorData);
-      t.actorData = mergeObject(token.data.actorData, updateData);
+      // console.log(token.data);
+      let originalData = {};
+      if (token.data.actorId) {
+        const originalActor = game.actors.entities.find((o) => o._id === token.data.actorId);
+        if (originalActor) {
+          originalData = originalActor.data;
     }
   }
-  return result;
+  const combinedData = mergeObject(originalData, token.data.actorData, { inplace: false });
+  const tA = await Actor.create(combinedData);
+  const updateData = await migrateActorData(tA);
+  const newData = diffObject(combinedData, expandObject(updateData));
+  // console.log(tA, combinedData, updateData, newData);
+  // t.actorData = mergeObject(token.data.actorData, updateData);
+  await tA.delete();
+  t.actorData = newData;
+}
+}
+// console.log(result);
+return result;
 };
 
 /* -------------------------------------------- */
@@ -297,7 +317,7 @@ const _migrateAddValues = function (ent, updateData, toAdd) {
 /* -------------------------------------------- */
 
 const _migrateCharacterLevel = function (ent, updateData) {
-  const arr = ["details.level.value", "details.level.min", "details.level.max"];
+  const arr = ["details.level.value", "details.level.min", "details.level.max", "details.mythicTier"];
   for (let k of arr) {
     const value = getProperty(ent.data.data, k);
     if (value == null) {
@@ -390,9 +410,9 @@ const _migrateActorBaseStats = function (ent, updateData) {
     "attributes.savingThrows.will.value",
   ];
   for (let k of keys) {
-    if (k === "attributes.hp.base" && !(getProperty(ent, "items") ||  []).filter((o) => o.type === "class").length)
+    if (k === "attributes.hp.base" && !(getProperty(ent, "items") || []).filter((o) => o.type === "class").length)
       continue;
-    if (k === "attributes.mp.base" && !(getProperty(ent, "items") ||  []).filter((o) => o.type === "class").length)
+      if (k === "attributes.mp.base" && !(getProperty(ent, "items") || []).filter((o) => o.type === "class").length)
       continue;
     if (getProperty(ent.data.data, k) != null) {
       let kList = k.split(".");
@@ -674,7 +694,7 @@ const _migrateItemChanges = function (ent, updateData) {
     for (let n of notes) {
       if (n instanceof Array) {
         newNotes.push(
-          mergeObject(ItemFFd20.defaultChange, { text: n[0], target: n[1], subTarget: n[2] }, { inplace: false })
+          mergeObject(Itemffd20lnrw.defaultChange, { text: n[0], target: n[1], subTarget: n[2] }, { inplace: false })
         );
       } else {
         newNotes.push(n);
@@ -771,7 +791,7 @@ const _migrateItemRange = function (ent, updateData) {
 };
 
 const _migrateItemLinks = function (ent, updateData) {
-  if (["attack", "consumable"].includes(ent.type) && !hasProperty(ent.data, "data.links.charges")) {
+  if (["attack", "consumable", "equipment"].includes(ent.type) && !hasProperty(ent.data, "data.links.charges")) {
     updateData["data.links.charges"] = [];
   }
 };
@@ -801,11 +821,15 @@ const _migrateActorCR = function (ent, updateData) {
   }
 };
 
-const _migrateCMBAbility = function (ent, updateData) {
+const _migrateAttackAbility = function (ent, updateData) {
   const cmbAbl = getProperty(ent.data, "data.attributes.cmbAbility");
-  if (cmbAbl == null) {
-    updateData["data.attributes.cmbAbility"] = "str";
-  }
+  if (cmbAbl == null) updateData["data.attributes.cmbAbility"] = "str";
+
+  const meleeAbl = getProperty(ent.data, "data.attributes.attack.meleeAbility");
+  if (meleeAbl == null) updateData["data.attributes.attack.meleeAbility"] = "str";
+
+  const rangedAbl = getProperty(ent.data, "data.attributes.attack.rangedAbility");
+  if (rangedAbl == null) updateData["data.attributes.attack.rangedAbility"] = "dex";
 };
 
 const _migrateActorTokenVision = function (ent, updateData) {
@@ -877,6 +901,33 @@ const _migrateActorInitAbility = function (ent, updateData) {
   }
 };
 
+const _migrateActorChangeRevamp = function (ent, updateData) {
+  const keys = {
+    "data.attributes.ac.normal.total": 10,
+    "data.attributes.ac.touch.total": 10,
+    "data.attributes.ac.flatFooted.total": 10,
+    "data.attributes.cmd.total": 10,
+    "data.attributes.cmd.flatFootedTotal": 10,
+    "data.attributes.sr.total": 0,
+    "data.attributes.init.total": 0,
+    "data.attributes.cmb.total": 0,
+    "data.attributes.hp.max": 0,
+  };
+
+  try {
+    const skillKeys = getChangeFlat.call(ent, "skills", "skills");
+    for (let k of skillKeys) {
+      keys[k] = 0;
+    }
+  } catch (err) {
+    console.warn("Could not determine skills for an unknown actor in the migration process", ent);
+  }
+
+  for (const [k, v] of Object.entries(keys)) {
+    updateData[k] = v;
+  }
+};
+
 /* -------------------------------------------- */
 
 const migrateTokenVision = function (token, updateData) {
@@ -892,7 +943,7 @@ const migrateTokenStatuses = function (token, updateData) {
   if (token.data.effects.length) {
     var effects = token.data.effects;
     effects = effects.filter((e) => {
-      const [key, tex] = Object.entries(CONFIG.PF1.conditionTextures).find((t) => e === t[1]) ?? [];
+      const [key, tex] = Object.entries(CONFIG.ffd20lnrw.conditionTextures).find((t) => e === t[1]) ?? [];
       if (key && token.actor.data.data.attributes.conditions[key]) return false;
       if (token.actor.items.find((i) => i.type === "buff" && i.data.data.active && i.img === e)) return false;
       return true;

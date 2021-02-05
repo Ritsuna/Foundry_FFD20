@@ -2,7 +2,7 @@
 	"name": "ffd20lnrw",
 	"title": "FFd20 for LNRW",
 	"description": "FFd20 for use by the LNRW group using Pathfinder 1 as a base in the Foundry VTT environment.",
-	"version": "0.0.10",
+	"version": "0.1.0",
 	"author": "Ritsu Voices",
 	"templateVersion": 2,
 	"scripts": [],
@@ -10,49 +10,64 @@
 	"styles": ["ffd20lnrw.css"],
 	"packs": [
 		{
-			"name": "class-pack-black-mage",
+			"name": "ffd20-class-pack-black-mage",
 			"label": "Class Pack - Black Mage",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-class-pack-black-mage.db",
 			"entity": "Item"
 		},
 		{
-			"name": "class-pack-engineer",
+			"name": "ffd20-class-pack-black-mage-skills",
+			"label": "Class Pack - Black Mage Skills",
+			"system": "ffd20lnrw",
+			"path": "./packs/ffd20-class-pack-black-mage-skills.db",
+			"entity": "Item"
+		},
+
+		{
+			"name": "ffd20-class-pack-engineer",
 			"label": "Class Pack - Engineer",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-class-pack-engineer.db",
 			"entity": "Item"
 		},
 		{
-			"name": "class-pack-gunbreaker",
+			"name": "ffd20-class-pack-gunbreaker",
 			"label": "Class Pack - Gunbreaker",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-class-pack-gunbreaker.db",
 			"entity": "Item"
 		},
 		{
-			"name": "class-pack-summoner",
+			"name": "ffd20-class-pack-summoner",
 			"label": "Class Pack - Summoner",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-class-pack-summoner.db",
 			"entity": "Item"
 		},
 		{
-			"name": "class-pack-time-mage",
+			"name": "ffd20-class-pack-time-mage",
 			"label": "Class Pack - Time Mage",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-class-pack-time-mage.db",
 			"entity": "Item"
 		},
 		{
-			"name": "class-pack-white-mage",
+			"name": "ffd20-class-pack-white-mage",
 			"label": "Class Pack - White Mage",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-class-pack-white-mage.db",
 			"entity": "Item"
 		},
 		{
-			"name": "commonbuffs",
+			"name": "mythicpaths",
+			"label": "Mythic Paths",
+			"system": "ffd20lnrw",
+			"path": "./packs/mythic-paths.db",
+			"entity": "Item"
+		  },
+		  {
+				  "name": "commonbuffs",
 			"label": "Common Buffs",
 			"system": "ffd20lnrw",
 			"path": "./packs/commonbuffs.db",
@@ -60,7 +75,7 @@
 		},
 		{
 			"name": "ffd20-spells",
-			"label": "FFD20 Spells",
+			"label": "FFd20 Spells",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-spells.db",
 			"entity": "Item"
@@ -74,7 +89,7 @@
 		},
 		{
 			"name": "ffd20-feats",
-			"label": "FFD20 Feats",
+			"label": "FFd20 Feats",
 			"system": "ffd20lnrw",
 			"path": "./packs/ffd20-feats.db",
 			"entity": "Item"
@@ -230,5 +245,5 @@
 	"compatibleCoreVersion": "0.7.9",
 	"url": "https://github.com/Ritsuna/FFd20-foundry-LNRW",
 	"manifest": "https://raw.githubusercontent.com/Ritsuna/FFd20-foundry-LNRW/master/system.json",
-	"download": "https://github.com/Ritsuna/FFd20-foundry-LNRW/releases/download/0.0.10/FFd20-foundry-LNRW-master.zip"
+	"download": "https://github.com/Ritsuna/FFd20-foundry-LNRW/releases/download/0.1.0/FFd20-foundry-LNRW-master.zip"
 }

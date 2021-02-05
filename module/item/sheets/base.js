@@ -1,6 +1,6 @@
 import { createTabs } from "../../lib.js";
 import { EntrySelector } from "../../apps/entry-selector.js";
-import { ItemFFd20 } from "../entity.js";
+import { Itemffd20lnrw } from "../entity.js";
 import { ItemChange } from "../components/change.js";
 import { ScriptEditor } from "../../apps/script-editor.js";
 import { ActorTraitSelector } from "../../apps/trait-selector.js";
@@ -9,7 +9,7 @@ import { ActorTraitSelector } from "../../apps/trait-selector.js";
  * Override and extend the core ItemSheet implementation to handle D&D5E specific item types
  * @type {ItemSheet}
  */
-export class ItemSheetFFd20 extends ItemSheet {
+export class ItemSheetffd20lnrw extends ItemSheet {
   constructor(...args) {
     super(...args);
 
@@ -393,7 +393,7 @@ export class ItemSheetFFd20 extends ItemSheet {
     });
 
     // Add charges link type
-    if (["feat", "consumable", "attack"].includes(this.item.type)) {
+    if (["feat", "consumable", "attack", "equipment"].includes(this.item.type)) {
       data.links.list.push({
         id: "charges",
         label: game.i18n.localize("ffd20lnrw.LinkTypeCharges"),
@@ -599,7 +599,7 @@ export class ItemSheetFFd20 extends ItemSheet {
     // let change = Object.entries(formData).filter(e => e[0].startsWith("data.changes"));
     // formData["data.changes"] = change.reduce((arr, entry) => {
     // let [i, j] = entry[0].split(".").slice(2);
-    // if ( !arr[i] ) arr[i] = ItemFFd20.defaultChange;
+    // if ( !arr[i] ) arr[i] = Itemffd20lnrw.defaultChange;
     // arr[i][j] = entry[1];
     // // Reset subtarget (if necessary)
     // if (j === "subTarget") {
@@ -622,10 +622,10 @@ export class ItemSheetFFd20 extends ItemSheet {
     let conditionals = Object.entries(formData).filter((e) => e[0].startsWith("data.conditionals"));
     formData["data.conditionals"] = conditionals.reduce((arr, entry) => {
       let [i, j, k] = entry[0].split(".").slice(2);
-      if (!arr[i]) arr[i] = ItemFFd20.defaultConditional;
+      if (!arr[i]) arr[i] = Itemffd20lnrw.defaultConditional;
       if (k) {
         const target = formData[`data.conditionals.${i}.${j}.target`];
-        if (!arr[i].modifiers[j]) arr[i].modifiers[j] = ItemFFd20.defaultConditionalModifier;
+        if (!arr[i].modifiers[j]) arr[i].modifiers[j] = Itemffd20lnrw.defaultConditionalModifier;
         arr[i].modifiers[j][k] = entry[1];
         // Target dependent keys
         if (["subTarget", "critical", "type"].includes(k)) {
@@ -1119,7 +1119,7 @@ export class ItemSheetFFd20 extends ItemSheet {
     if (a.classList.contains("add-conditional")) {
       await this._onSubmit(event); // Submit any unsaved changes
       const conditionals = this.item.data.data.conditionals || [];
-      return this.item.update({ "data.conditionals": conditionals.concat([ItemFFd20.defaultConditional]) });
+      return this.item.update({ "data.conditionals": conditionals.concat([Itemffd20lnrw.defaultConditional]) });
     }
 
     // Remove a conditional
@@ -1136,7 +1136,7 @@ export class ItemSheetFFd20 extends ItemSheet {
       await this._onSubmit(event);
       const li = a.closest(".conditional");
       const conditionals = this.item.data.data.conditionals;
-      conditionals[Number(li.dataset.conditional)].modifiers.push(ItemFFd20.defaultConditionalModifier);
+      conditionals[Number(li.dataset.conditional)].modifiers.push(Itemffd20lnrw.defaultConditionalModifier);
       // duplicate object to ensure update
       return this.item.update({ "data.conditionals": duplicate(conditionals) });
     }
@@ -1159,7 +1159,7 @@ export class ItemSheetFFd20 extends ItemSheet {
     if (a.classList.contains("add-note")) {
       await this._onSubmit(event); // Submit any unsaved changes
       const contextNotes = this.item.data.data.contextNotes || [];
-      return this.item.update({ "data.contextNotes": contextNotes.concat([ItemFFd20.defaultContextNote]) });
+      return this.item.update({ "data.contextNotes": contextNotes.concat([Itemffd20lnrw.defaultContextNote]) });
     }
 
     // Remove a note

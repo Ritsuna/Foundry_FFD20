@@ -1,15 +1,14 @@
 import { linkData } from "../lib.js";
-import { ActorFFd20 } from "./entity.js";
-import { ItemFFd20 } from "../item/entity.js";
+import { Actorffd20lnrw } from "./entity.js";
 import { ItemChange } from "../item/components/change.js";
 
-export const updateChanges = async function ({ data = null } = {}) {
+export const updateChanges = function ({ data = null } = {}) {
   let updateData = {};
   let srcData1 = mergeObject(this.data, expandObject(data || {}), { inplace: false });
   let changeObjects = [];
 
-  // Populate actor's changeItems, then add to chengeObjects
-  this.updateChangeEvals();
+  // Populate actor's changeItems, then add to changeObjects
+  this.updateChangeEvals(srcData1);
   if (this.changeItems && this.changeItems.length) {
     changeObjects = this.changeItems.map((o) => {
       return o.data;
@@ -77,7 +76,7 @@ export const updateChanges = async function ({ data = null } = {}) {
   // Create an array of changes
   let allChanges = [];
   changeObjects.forEach((item) => {
-    item.data.changes.forEach((change) => {
+    item.changes.forEach((change) => {
       allChanges.push({
         raw: change,
         source: {
@@ -100,8 +99,8 @@ export const updateChanges = async function ({ data = null } = {}) {
 
   // Check flags
   for (let obj of changeObjects) {
-    if (!obj.data.changeFlags) continue;
-    for (let [flagKey, flagValue] of Object.entries(obj.data.changeFlags)) {
+    if (!obj.changeFlags) continue;
+    for (let [flagKey, flagValue] of Object.entries(obj.changeFlags)) {
       if (flagValue === true) {
         flags[flagKey] = true;
 
@@ -454,7 +453,7 @@ export const updateChanges = async function ({ data = null } = {}) {
         srcData1,
         updateData,
         "data.attributes.maxDexBonus",
-        Math.min(updateData["data.attributes.maxDexBonus"] || Number.POSITIVE_INFINITY, 3)
+        Math.min(updateData["data.attributes.maxDexBonus"] ?? Number.POSITIVE_INFINITY, 3)
       );
       getSourceInfo(sourceInfo, "data.attributes.acp.total").negative.push({
         name: game.i18n.localize("ffd20lnrw.Encumbrance"),
@@ -471,7 +470,7 @@ export const updateChanges = async function ({ data = null } = {}) {
         srcData1,
         updateData,
         "data.attributes.maxDexBonus",
-        Math.min(updateData["data.attributes.maxDexBonus"] || Number.POSITIVE_INFINITY, 1)
+        Math.min(updateData["data.attributes.maxDexBonus"] ?? Number.POSITIVE_INFINITY, 1)
       );
       getSourceInfo(sourceInfo, "data.attributes.acp.total").negative.push({
         name: game.i18n.localize("ffd20lnrw.Encumbrance"),
@@ -508,20 +507,20 @@ export const updateChanges = async function ({ data = null } = {}) {
       srcData1,
       updateData,
       "data.attributes.ac.normal.total",
-      ac.normal + (maxDex != null ? Math.min(maxDex, dex) : dex)
+      ac.normal + (maxDex !== null ? Math.min(maxDex, dex) : dex)
     );
     linkData(
       srcData1,
       updateData,
       "data.attributes.ac.touch.total",
-      ac.touch + (maxDex != null ? Math.min(maxDex, dex) : dex)
+      ac.touch + (maxDex !== null ? Math.min(maxDex, dex) : dex)
     );
     linkData(srcData1, updateData, "data.attributes.ac.flatFooted.total", ac.ff + Math.min(0, dex));
     linkData(
       srcData1,
       updateData,
       "data.attributes.cmd.total",
-      cmd.normal + (maxDex != null ? Math.min(maxDex, dex) : dex)
+      cmd.normal + (maxDex !== null ? Math.min(maxDex, dex) : dex)
     );
     linkData(srcData1, updateData, "data.attributes.cmd.flatFootedTotal", cmd.ff + Math.min(0, dex));
   }
@@ -556,7 +555,7 @@ export const updateChanges = async function ({ data = null } = {}) {
           srcData1,
           updateData,
           `data.attributes.speed.${speedKey}.total`,
-          ActorFFd20.getReducedMovementSpeed(value)
+          Actorffd20lnrw.getReducedMovementSpeed(value)
         );
         if (value > 0) {
           sourceInfo[`data.attributes.speed.${speedKey}.total`].negative.push(sInfo);
@@ -652,7 +651,7 @@ export const updateChanges = async function ({ data = null } = {}) {
         if (getProperty(srcData1, `data.attributes.spells.spellbooks.${spellbookKey}.autoSpellLevels`)) {
           const value =
             typeof spellbookAbilityMod === "number"
-              ? base + ActorFFd20.getSpellSlotIncrease(spellbookAbilityMod, a)
+              ? base + Actorffd20lnrw.getSpellSlotIncrease(spellbookAbilityMod, a)
               : base;
           linkData(
             srcData1,
@@ -723,8 +722,16 @@ export const updateChanges = async function ({ data = null } = {}) {
       const rollData = this.getRollData(srcData1.data);
       rollData.cl = getProperty(srcData1, `data.attributes.spells.spellbooks.${spellbookKey}.cl.total`);
       rollData.ablMod = spellbookAbilityMod;
+      const spellClass = getProperty(srcData1, `data.attributes.spells.spellbooks.${spellbookKey}.class`) ?? "";
+      rollData.classLevel =
+        spellClass === "_hd"
+          ? rollData.attributes.hd.total
+          : spellClass?.length > 0
+          ? getProperty(rollData, `classes.${spellClass}.level`) || 0
+          : 0;
       const roll = new Roll(formula, rollData).roll();
-      linkData(srcData1, updateData, `data.attributes.mp.max`, roll.total);
+      linkData(srcData1, updateData, `data.attributes.spells.spellbooks.${spellbookKey}.spellPoints.max`, roll.total);
+    }
     }*/
   } 
 
@@ -791,6 +798,19 @@ export const updateChanges = async function ({ data = null } = {}) {
 
   // Apply wound thresholds
   updateWoundThreshold.call(this, srcData1, updateData);
+
+  // Shared attack bonuses
+  {
+    // Size
+    let sizeMod = CONFIG.ffd20lnrw.sizeMods[srcData1.data.traits.size];
+    // Total
+    const totalAtk =
+      updateData["data.attributes.bab.total"] -
+      updateData["data.attributes.acp.attackPenalty"] -
+      updateData["data.attributes.energyDrain"] +
+      sizeMod;
+    linkData(srcData1, updateData, "data.attributes.attack.shared", totalAtk);
+  }
 
   // Refresh source info
   for (let [bt, change] of Object.entries(changeData)) {
@@ -930,25 +950,25 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
     data,
     updateData,
     "data.attributes.woundThresholds.level",
-    getProperty(data, "data.attributes.woundThresholds.level") || 0
+    getProperty(data, "data.attributes.woundThresholds.level") ?? 0
   );
   linkData(
     data,
     updateData,
     "data.attributes.woundThresholds.override",
-    getProperty(data, "data.attributes.woundThresholds.override") || -1
+    getProperty(data, "data.attributes.woundThresholds.override") ?? -1
   );
   linkData(
     data,
     updateData,
     "data.attributes.woundThresholds.mod",
-    getProperty(data, "data.attributes.woundThresholds.mod") || 0
+    getProperty(data, "data.attributes.woundThresholds.mod") ?? 0
   );
   linkData(
     data,
     updateData,
     "data.attributes.woundThresholds.penalty",
-    getProperty(data, "data.attributes.woundThresholds.penalty") || 0
+    getProperty(data, "data.attributes.woundThresholds.penalty") ?? 0
   );
 
   /* Reset MP
@@ -1097,7 +1117,6 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
   linkData(data, updateData, "data.traits.languages.total", []);
   linkData(data, updateData, "data.traits.languages.customTotal", "");
 
-
   // Reset ACP and Max Dex bonus
   linkData(data, updateData, "data.attributes.acp.gear", 0);
   linkData(data, updateData, "data.attributes.acp.armorBonus", 0);
@@ -1154,6 +1173,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
       );
     }
   }
+  linkData(data, updateData, "data.attributes.attack.shared", 0);
   linkData(data, updateData, "data.attributes.cmb.total", 0);
   linkData(data, updateData, "data.attributes.cmd.total", 10);
   linkData(data, updateData, "data.attributes.cmd.flatFootedTotal", 10);
@@ -1176,8 +1196,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
 
   // Reset Spell Resistance
   linkData(data, updateData, "data.attributes.sr.total", 0);
-}
-;
+};
 
 const _addDynamicData = function ({
   updateData = {},
@@ -1217,7 +1236,7 @@ const _addDynamicData = function ({
     const name = item.name.toLowerCase(),
       tag = item.data.tag;
     return (
-      data.data.traits.armorProf.value.includes(proficiencyName) ||
+      data.data.traits.armorProf.total.includes(proficiencyName) ||
       customProficiencies.find((prof) => prof.includes(name) || prof.includes(tag)) != undefined
     );
   };
@@ -1227,8 +1246,8 @@ const _addDynamicData = function ({
     let armorACP = 0;
     let shieldACP = 0;
     let attackACPPenalty = 0; // ACP to attack penalty from lacking proficiency. Stacks infinitely.
-    let armorMDex = null;
-    let shieldMDex = null;
+    let armorMDexWorst = null;
+    let shieldMDexWorst = null;
 
     data.items
       .filter((obj) => {
@@ -1275,12 +1294,14 @@ const _addDynamicData = function ({
             break;
         }
 
-        if (obj.data.armor.dex != null) {
+        if (obj.data.armor.dex !== null) {
+          const mDex = Number.parseInt(obj.data.armor.dex);
           switch (obj.data.equipmentType) {
             case "armor":
-              if (obj.data.armor.dex) {
-                armorMDex = Math.max(0, obj.data.armor.dex + updateData["data.attributes.mDex.armorBonus"]);
-                if (armorMDex && sourceInfo) {
+              if (Number.isInteger(mDex)) {
+                const armorMDex = mDex + updateData["data.attributes.mDex.armorBonus"];
+                armorMDexWorst = Math.min(armorMDex, armorMDexWorst ?? Number.POSITIVE_INFINITY);
+                if (!Number.isNaN(armorMDex) && sourceInfo) {
                   const sInfo = getSourceInfo(sourceInfo, "data.attributes.maxDexBonus").negative.find(
                     (o) => o.name === obj.name
                   );
@@ -1295,9 +1316,10 @@ const _addDynamicData = function ({
               }
               break;
             case "shield":
-              if (obj.data.armor.dex) {
-                shieldMDex = Math.max(0, obj.data.armor.dex + updateData["data.attributes.mDex.shieldBonus"]);
-                if (shieldMDex && sourceInfo) {
+              if (Number.isInteger(mDex)) {
+                const shieldMDex = mDex + updateData["data.attributes.mDex.shieldBonus"];
+                shieldMDexWorst = Math.min(shieldMDex, shieldMDexWorst ?? Number.POSITIVE_INFINITY);
+                if (!Number.isNaN(shieldMDex) && sourceInfo) {
                   const sInfo = getSourceInfo(sourceInfo, "data.attributes.maxDexBonus").negative.find(
                     (o) => o.name === obj.name
                   );
@@ -1316,20 +1338,16 @@ const _addDynamicData = function ({
       });
 
     // Update
+    linkData(data, updateData, "data.attributes.acp.gear", (armorACP ?? 0) + (shieldACP ?? 0));
+    if (armorMDexWorst !== null || shieldMDexWorst !== null) {
     linkData(
       data,
       updateData,
-      "data.attributes.acp.gear",
-      (armorACP == null ? 0 : armorACP) + (shieldACP == null ? 0 : shieldACP)
-    );
-    if (armorMDex != null || shieldMDex != null) {
-      linkData(
-        data,
-        updateData,
         "data.attributes.maxDexBonus",
-        Math.min(armorMDex == null ? 999 : armorMDex, shieldMDex == null ? 999 : shieldMDex)
+        Math.min(armorMDexWorst ?? Number.POSITIVE_INFINITY, shieldMDexWorst ?? Number.POSITIVE_INFINITY)
       );
     }
+
     linkData(data, updateData, "data.attributes.acp.attackPenalty", attackACPPenalty);
   }
 
@@ -1632,7 +1650,44 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
     });
   }
 
-  // Add variables to CMD and CMD
+  // Add base attack modifiers shared by all attacks
+  {
+    // BAB to attack
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        { formula: "@attributes.bab.total", target: "attack", subTarget: "~attackCore", modifier: "untypedPerm" },
+        { inplace: false }
+      ),
+      source: { name: game.i18n.localize("ffd20lnrw.BAB") },
+    });
+    // Energy Drain to attack
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        { formula: "-@attributes.energyDrain", target: "attack", subTarget: "~attackCore", modifier: "untypedPerm" },
+        { inplace: false }
+      ),
+      source: { name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain") },
+    });
+    // ACP to attack
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        {
+          formula: "-@attributes.acp.attackPenalty",
+          target: "attack",
+          subTarget: "~attackCore",
+          modifier: "penalty",
+          priority: -100,
+        },
+        { inplace: false }
+      ),
+      source: { name: game.i18n.localize("ffd20lnrw.ArmorCheckPenalty") },
+    });
+  }
+
+  // Add variables to CMB and CMD
   {
     // BAB to CMB
     changes.push({
@@ -1937,6 +1992,22 @@ const _addDefaultChanges = function (data, changes, flags, sourceInfo) {
           formula: CONFIG.ffd20lnrw.sizeFlyMods[sizeKey].toString(),
           target: "skill",
           subTarget: "skill.fly",
+          modifier: "size",
+        },
+        { inplace: false }
+      ),
+      source: {
+        type: "size",
+      },
+    });
+    // Attack
+    changes.push({
+      raw: mergeObject(
+        ItemChange.defaultData,
+        {
+          formula: CONFIG.ffd20lnrw.sizeMods[sizeKey].toString(),
+          target: "attack",
+          subTarget: "~attackCore",
           modifier: "size",
         },
         { inplace: false }
@@ -2280,7 +2351,7 @@ export const isStackingModifier = function (modifier) {
 };
 
 export const getChangeFlat = function (changeTarget, changeType, curData) {
-  if (curData == null) curData = this.data.data;
+  curData = curData ?? this.data.data;
   let result = [];
 
   switch (changeTarget) {
@@ -2325,7 +2396,9 @@ export const getChangeFlat = function (changeTarget, changeType, curData) {
       return ["data.attributes.ac.normal.total", "data.attributes.ac.flatFooted.total"];
     case "attack":
       return "data.attributes.attack.general";
-    case "mattack":
+      case "~attackCore":
+        return "data.attributes.attack.shared";
+      case "mattack":
       return "data.attributes.attack.melee";
     case "rattack":
       return "data.attributes.attack.ranged";
@@ -2563,7 +2636,8 @@ const _blacklistChangeData = function (data, changeTarget) {
       result.attributes.ac = null;
       break;
     case "attack":
-    case "mattack":
+      case "~attackCore":
+        case "mattack":
     case "rattack":
       result.attributes.attack = null;
       break;
@@ -2645,6 +2719,7 @@ const getSortChangePriority = function () {
       "sac",
       "nac",
       "attack",
+      "~attackCore",
       "mattack",
       "rattack",
       "damage",
@@ -2772,7 +2847,7 @@ const _applySetChanges = function (updateData, data, changes) {
   }
 };
 
-const getSourceInfo = function (obj, key) {
+export const getSourceInfo = function (obj, key) {
   if (!obj[key]) {
     obj[key] = { negative: [], positive: [] };
   }
@@ -2822,7 +2897,7 @@ const updateWoundThreshold = function (expandedData = {}, data = {}) {
   linkData(expandedData, data, "data.attributes.woundThresholds.penalty", level * wtMult + wtMod);
 
   const penalty = getProperty(expandedData, "data.attributes.woundThresholds.penalty");
-  const changeFlatKeys = ["cmb", "cmd", "init", "allSavingThrows", "ac", "skills", "abilityChecks"];
+  const changeFlatKeys = ["cmb", "cmd", "init", "allSavingThrows", "ac", "skills", "allChecks"];
   for (let fk of changeFlatKeys) {
     let flats = getChangeFlat.call(this, fk, "penalty", expandedData.data);
     if (!(flats instanceof Array)) flats = [flats];

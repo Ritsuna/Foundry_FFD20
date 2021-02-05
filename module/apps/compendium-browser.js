@@ -1,15 +1,15 @@
 import { CR, naturalSort } from "../lib.js"; // Monster CR information 
-import { ItemFFd20 } from "../item/entity.js"; // pulls item formating
+import { Itemffd20lnrw } from "../item/entity.js"; // pulls item formating
 import { SemanticVersion } from "../semver.js"; // formats versioning correctly
 
 // deals with compendium versioning
 const NEED_NEW_VERSION = {
-  spells: "0.0.8",
-  items: "0.0.8",
-  bestiary: "0.0.8",
-  feats: "0.0.8",
-  classes: "0.0.8",
-  races: "0.0.8",
+  spells: "0.1.0",
+  items: "0.1.0",
+  bestiary: "0.1.0",
+  feats: "0.1.0",
+  classes: "0.1.0",
+  races: "0.1.0",
 };
 
 export const COMPENDIUM_TYPES = {
@@ -195,7 +195,12 @@ export class CompendiumBrowser extends Application {
       promise.then(async () => {
         this._data.loaded = true;
         this._data.promise = null;
-        await this.saveEntries();
+        try {
+          await this.saveEntries();
+        } catch (err) {
+          console.error(err);
+          await this.clearEntries();
+        }
         resolve(this._data.data);
       });
     });
@@ -375,7 +380,7 @@ export class CompendiumBrowser extends Application {
 
   _filterItems(item) {
     if (this.type === "spells" && item.type !== "spell") return false;
-    if (this.type === "items" && !ItemFFd20.isInventoryItem(item.type)) return false;
+    if (this.type === "items" && !Itemffd20lnrw.isInventoryItem(item.type)) return false;
     if (this.type === "feats" && item.type !== "feat") return false;
     if (this.type === "classes" && item.type !== "class") return false;
     if (this.type === "races" && item.type !== "race") return false;
@@ -385,7 +390,7 @@ export class CompendiumBrowser extends Application {
   /* ------------------------------------- */
   /*  Mapping Functions                    */
   /* ------------------------------------- */
-  _mapFeats(result, item) {
+  _mapfeats(result, item) {
     this.extraFilters = this.extraFilters || {
       tags: {},
       associations: {
@@ -1369,6 +1374,13 @@ export class CompendiumBrowser extends Application {
 
     const settings = game.settings.get("ffd20lnrw", "compendiumItems") || {};
     settings[this.type] = entries;
+
+    return game.settings.set("ffd20lnrw", "compendiumItems", settings);
+  }
+
+  clearEntries() {
+    const settings = game.settings.get("ffd20lnrw", "compendiumItems") || {};
+    settings[this.type] = [];
 
     return game.settings.set("ffd20lnrw", "compendiumItems", settings);
   }

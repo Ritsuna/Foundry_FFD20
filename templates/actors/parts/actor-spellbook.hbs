@@ -158,6 +158,15 @@
   </div>
 </div>
 
+{{!-- Spellbook Navigation --}}
+<div class="inventory-filters flexrow">  
+  <ul class="filter-list flexrow" data-filter="spellbook-{{spellbookIndex}}">
+    {{#each spellbook.data as |section sid|}}
+    <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
+    {{/each}}
+  </ul>
+</div>
+
 <div class="spell-points-current flexrow">
   {{#if spellbook.orig.spellPoints.useSystem}}
   <h3>{{localize "ffd20lnrw.SpellPoints"}}</h3>
@@ -182,15 +191,6 @@
     <span class="text-box">{{data.attributes.mp.max}}</span>
   </div>
   {{/if}}
-</div>
-
-{{!-- Spellbook Navigation --}}
-<div class="inventory-filters flexrow">  
-  <ul class="filter-list flexrow" data-filter="spellbook-{{spellbookIndex}}">
-    {{#each spellbook.data as |section sid|}}
-    <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
-    {{/each}}
-  </ul>
 </div>
 
 <section class="spells_{{spellbookIndex}}-body">

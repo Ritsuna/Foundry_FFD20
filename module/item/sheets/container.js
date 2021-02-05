@@ -1,10 +1,10 @@
-import { ItemSheetFFd20 } from "./base.js";
-import { ItemFFd20 } from "../entity.js";
+import { ItemSheetffd20lnrw } from "./base.js";
+import { Itemffd20lnrw } from "../entity.js";
 import { convertWeight } from "../../lib.js";
 import { getSkipActionPrompt } from "../../settings.js";
 import { createConsumableSpellDialog } from "../../lib.js";
 
-export class ItemSheetFFd20_Container extends ItemSheetFFd20 {
+export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
   constructor(...args) {
     super(...args);
 
@@ -46,6 +46,7 @@ export class ItemSheetFFd20_Container extends ItemSheetFFd20 {
       i.data.hasAttack = i.hasAttack;
       i.data.hasMultiAttack = i.hasMultiAttack;
       i.data.hasDamage = i.hasDamage;
+      i.data.hasRange = i.hasRange;
       i.data.hasEffect = i.hasEffect;
       i.data.hasAction = i.hasAction || i.isCharged;
       i.data.showUnidentifiedData = i.showUnidentifiedData;
@@ -430,7 +431,7 @@ export class ItemSheetFFd20_Container extends ItemSheetFFd20 {
       actor = game.actors.entities.find((o) => o._id === data.actorId);
     }
 
-    const item = await ItemFFd20.fromDropData(data);
+    const item = await Itemffd20lnrw.fromDropData(data);
     const itemData = duplicate(item.data);
 
     // Sort item
@@ -444,7 +445,7 @@ export class ItemSheetFFd20_Container extends ItemSheetFFd20 {
     }
 
     // Create or transfer item
-    if (ItemFFd20.isInventoryItem(item.data.type)) {
+    if (Itemffd20lnrw.isInventoryItem(item.data.type)) {
       await this.item.createContainerContent(itemData);
 
       if (actor) {
@@ -634,7 +635,7 @@ export class ItemSheetFFd20_Container extends ItemSheetFFd20 {
    */
   _getSortSiblings(source) {
     return this.item.items.filter((i) => {
-      if (ItemFFd20.isInventoryItem(source.data.type)) return ItemFFd20.isInventoryItem(i.data.type);
+      if (Itemffd20lnrw.isInventoryItem(source.data.type)) return Itemffd20lnrw.isInventoryItem(i.data.type);
       return i.data.type === source.data.type && i.data._id !== source.data._id;
     });
   }

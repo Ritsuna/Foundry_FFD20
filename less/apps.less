@@ -484,6 +484,18 @@
         padding: 0 1px 0 1px;
       }
 
+      &.item-attacks {
+        flex: 0 0 56px;
+      }
+
+      &.item-damage {
+        flex: 0 0 100px;
+      }
+
+      &.item-range {
+        flex: 0 1 56px;
+      }
+
       &:nth-child(2) {
         border-left: 1px solid @colorBeige;
       }
@@ -602,6 +614,29 @@
     .tox-toolbar-overlord,
     .tox-toolbar__primary {
       background: none;
+    }
+  }
+
+  .notImp {
+    text-decoration: firebrick dotted underline;
+    text-decoration-skip-ink: none;
+    &::after {
+      color: firebrick;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f071";
+      text-shadow: 0 0 4px white;
+    }
+  }
+
+  .needSteps {
+    text-decoration: goldenrod double underline;
+    &::after {
+      color: goldenrod;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      content: "\f14a";
+      text-shadow: 0 0 4px black;
     }
   }
 
@@ -1036,6 +1071,10 @@
   .content {
     overflow-y: auto;
     max-height: 640px;
+
+    li > ul {
+      margin: 0;
+    }
   }
 }
 

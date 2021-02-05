@@ -1,7 +1,7 @@
 import { _rollInitiative, _getInitiativeFormula } from "./combat.js";
 import { _preProcessDiceFormula } from "./dice.js";
 import "./misc/vision-permission.js";
-import { ActorFFd20 } from "./actor/entity.js";
+import { Actorffd20lnrw } from "./actor/entity.js";
 import { addCombatTrackerContextOptions } from "./combat.js";
 
 const FormApplication_close = FormApplication.prototype.close;
@@ -58,30 +58,6 @@ export async function PatchCore() {
     terms = this.constructor.cleanTerms(terms);
     return terms;
   };
-
-  if (isMinimumCoreVersion("0.7.7") && !isMinimumCoreVersion("0.7.8")) {
-    //Override null values throwing warnings
-    const Roll_replaceFormulaData = Roll.replaceFormulaData;
-    Roll.replaceFormulaData = function (formula, data, { missing, warn = false } = {}) {
-      let dataRgx = new RegExp(/@([a-z.0-9_-]+)/gi);
-      return formula.replace(dataRgx, (match, term) => {
-        let value = getProperty(data, term);
-        if (value !== undefined) return String(value).trim();
-        if (warn) ui.notifications.warn(game.i18n.format("DICE.WarnMissingData", { match }));
-        if (missing !== undefined) return String(missing);
-        else return match;
-      });
-    };
-
-    //Override null values not being treated as 0 for Roll#total
-    const Roll__safeEval = Roll.prototype._safeEval;
-    Roll.prototype._safeEval = function (expression) {
-      const src = "with (sandbox) { return " + expression + "}";
-      const evl = new Function("sandbox", src);
-      const evld = evl(this.constructor.MATH_PROXY);
-      return evld === null ? 0 : evld;
-    };
-  }
 
   if (isMinimumCoreVersion("0.7.8")) {
     const Roll__splitParentheticalTerms = Roll.prototype._splitParentheticalTerms;
@@ -171,7 +147,7 @@ export async function PatchCore() {
       return ActorTokenHelpers_update.call(this, data, options);
     }
 
-    const diff = await ActorFFd20.prototype.update.call(
+    const diff = await Actorffd20lnrw.prototype.update.call(
       this,
       data,
       mergeObject(options, { recursive: true, skipUpdate: true })
@@ -194,15 +170,16 @@ export async function PatchCore() {
     if (item) {
       let promises = [];
       if (item.type === "buff" && item.data.data.active) {
-        const tokens = this.getActiveTokens();
+        const isLinkedToken = getProperty(this.data, "token.actorLink");
+        const tokens = isLinkedToken ? this.getActiveTokens() : [this.token].filter((o) => o != null);
         for (const token of tokens) {
-          promises.push(token.toggleEffect(item.data.img));
+          promises.push(token.toggleEffect(item.data.img, { active: false }));
         }
       }
       await Promise.all(promises);
     }
 
-    // return ActorFFd20.prototype.update.call(this, {});
+    // return Actorffd20lnrw.prototype.update.call(this, {});
   };
 
   // Workaround for unlinked token in first initiative on reload problem. No core issue number at the moment.

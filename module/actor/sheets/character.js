@@ -1,11 +1,11 @@
-import { ActorSheetFFd20 } from "./base.js";
+import { ActorSheetffd20lnrw } from "./base.js";
 
 /**
- * An Actor sheet for player character type actors in the FFd20 system.
- * Extends the base ActorSheetFFd20 class.
- * @type {ActorSheetFFd20}
+ * An Actor sheet for player character type actors in the ffd20lnrw system.
+ * Extends the base ActorSheetffd20lnrw class.
+ * @type {ActorSheetffd20lnrw}
  */
-export class ActorSheetFFd20Character extends ActorSheetFFd20 {
+export class ActorSheetffd20lnrwCharacter extends ActorSheetffd20lnrw {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
@@ -19,7 +19,7 @@ export class ActorSheetFFd20Character extends ActorSheetFFd20 {
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetFFd20Character");
+  //   return game.i18n.localize("ffd20lnrw.ActorSheetffd20lnrwCharacter");
   // }
 
   /* -------------------------------------------- */
@@ -51,6 +51,15 @@ export class ActorSheetFFd20Character extends ActorSheetFFd20 {
 
     const hpSettings = game.settings.get("ffd20lnrw", "healthConfig");
     data["woundThresholds"] = hpSettings.variants.pc;
+
+    // BAB iteratives
+    const iteratives = game.settings.get("ffd20lnrw", "displayIteratives");
+    const bab = data.data.attributes.bab.total;
+    if (iteratives) {
+      let iters = [bab];
+      for (let i = bab - 5; i > 0; i -= 5) iters.push(i);
+      data["iteratives"] = `+${iters.join(" / +")}`;
+    }
 
     // Return data for rendering
     return data;
