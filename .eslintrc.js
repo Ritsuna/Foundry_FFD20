@@ -122,6 +122,7 @@ module.exports = {
     Folder: "readonly",
     Items: "readonly",
     Item: "readonly",
+    ActiveEffect: "readonly",
     Journal: "readonly",
     JournalEntry: "readonly",
     Macros: "readonly",
@@ -461,5 +462,6 @@ module.exports = {
     DEFAULT_TOKEN: "readonly",
     DiceTerm: "readonly",
     GRID_TYPES: "readonly",
+    dragRuler: "readonly",
   },
 };

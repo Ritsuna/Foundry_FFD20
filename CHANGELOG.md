@@ -6,7 +6,7 @@
 - database error fixed
 
 ### Changelog
-- updated from the Pathfinder 1 github
+- updated from the Pathfinder 1 github on 3/6/2021
 
 ## 0.0.9
 

@@ -1,14 +1,15 @@
 import { _rollInitiative, _getInitiativeFormula } from "./combat.js";
 import { _preProcessDiceFormula } from "./dice.js";
 import "./misc/vision-permission.js";
-import { Actorffd20lnrw } from "./actor/entity.js";
+import { ActorFFD20 } from "./actor/entity.js";
 import { addCombatTrackerContextOptions } from "./combat.js";
+import { customRolls } from "./sidebar/chat-message.js";
 
 const FormApplication_close = FormApplication.prototype.close;
 
 export async function PatchCore() {
   // Patch getTemplate to prevent unwanted indentation in things things like <textarea> elements.
-  async function ffd20lnrw_getTemplate(path) {
+  async function FFD20_getTemplate(path) {
     if (!Object.prototype.hasOwnProperty.call(_templateCache, path)) {
       await new Promise((resolve) => {
         game.socket.emit("template", path, (resp) => {
@@ -37,9 +38,9 @@ export async function PatchCore() {
 
   // const Roll__identifyTerms = Roll.prototype._identifyTerms;
   Roll.prototype._identifyTerms = function (formula, { step = 0 } = {}) {
+    if (typeof formula !== "string") throw new Error("The formula provided to a Roll instance must be a string");
     formula = _preProcessDiceFormula(formula, this.data);
     var warned;
-    if (typeof formula !== "string") throw new Error("The formula provided to a Roll instance must be a string");
 
     // Step 1 - Update the Roll formula using provided data
     [formula, warned] = this.constructor.replaceFormulaData(formula, this.data, { missing: "0", warn: false });
@@ -59,7 +60,7 @@ export async function PatchCore() {
     return terms;
   };
 
-  if (isMinimumCoreVersion("0.7.8")) {
+  {
     const Roll__splitParentheticalTerms = Roll.prototype._splitParentheticalTerms;
     Roll.prototype._splitParentheticalTerms = function (formula) {
       // Augment parentheses with semicolons and split into terms
@@ -147,7 +148,7 @@ export async function PatchCore() {
       return ActorTokenHelpers_update.call(this, data, options);
     }
 
-    const diff = await Actorffd20lnrw.prototype.update.call(
+    const diff = await ActorFFD20.prototype.update.call(
       this,
       data,
       mergeObject(options, { recursive: true, skipUpdate: true })
@@ -162,9 +163,9 @@ export async function PatchCore() {
   // Patch ActorTokenHelpers.deleteEmbeddedEntity
   const ActorTokenHelpers_deleteEmbeddedEntity = ActorTokenHelpers.prototype.deleteEmbeddedEntity;
   ActorTokenHelpers.prototype.deleteEmbeddedEntity = async function (embeddedName, id, options = {}) {
-    const item = this.items.find((o) => o._id === id);
+    const item = this.items.get(id);
 
-    await ActorTokenHelpers_deleteEmbeddedEntity.call(this, embeddedName, id, options);
+    const deleted = await ActorTokenHelpers_deleteEmbeddedEntity.call(this, embeddedName, id, options);
 
     // Remove token effects for deleted buff
     if (item) {
@@ -179,7 +180,31 @@ export async function PatchCore() {
       await Promise.all(promises);
     }
 
-    // return Actorffd20lnrw.prototype.update.call(this, {});
+    return deleted;
+  };
+
+  const ActorTokenHelpers_createEmbeddedEntity = ActorTokenHelpers.prototype.createEmbeddedEntity;
+  ActorTokenHelpers.prototype.createEmbeddedEntity = async function (embeddedName, data, options = {}) {
+    const created = await ActorTokenHelpers_createEmbeddedEntity.call(this, embeddedName, data, options);
+    if (embeddedName === "OwnedItem") {
+      if (data.type === "buff" && getProperty(data, "data.active") === true) {
+        this.toggleConditionStatusIcons();
+      }
+    }
+
+    return created;
+  };
+
+  const ActorTokenHelpers_updateEmbeddedEntity = ActorTokenHelpers.prototype.updateEmbeddedEntity;
+  ActorTokenHelpers.prototype.updateEmbeddedEntity = async function (embeddedName, data, options = {}) {
+    const updates = await ActorTokenHelpers_updateEmbeddedEntity.call(this, embeddedName, data, options);
+    if (embeddedName === "OwnedItem") {
+      if (updates.type === "buff" && data["data.active"] !== undefined) {
+        this.toggleConditionStatusIcons();
+      }
+    }
+
+    return updates;
   };
 
   // Workaround for unlinked token in first initiative on reload problem. No core issue number at the moment.
@@ -202,13 +227,61 @@ export async function PatchCore() {
     };
   }
 
+  // Add inline support for extra /commands
+  {
+    const origParse = ChatLog.parse;
+    ChatLog.parse = function (message) {
+      const match = message.match(/^\/(\w+)(?: +([^#]+))(?:#(.+))?/),
+        type = match?.[1];
+      if (["HEAL", "DAMAGE"].includes(type?.toUpperCase())) {
+        match[2] = match[0].slice(1);
+        return ["custom", match];
+      } else return origParse.call(this, message);
+    };
+
+    const origClick = TextEditor._onClickInlineRoll;
+    TextEditor._onClickInlineRoll = function (event) {
+      event.preventDefault();
+      const a = event.currentTarget;
+      if (!a.classList.contains("custom")) return origClick.call(this, event);
+
+      const chatMessage = `/${a.dataset.formula}`;
+      const cMsg = CONFIG.ChatMessage.entityClass;
+      const speaker = cMsg.getSpeaker();
+      let actor = cMsg.getSpeakerActor(speaker);
+      let rollData = actor ? actor.getRollData() : {};
+
+      const sheet = a.closest(".sheet");
+      if (sheet) {
+        const app = ui.windows[sheet.dataset.appid];
+        if (["Actor", "Item"].includes(app?.object?.entity)) rollData = app.object.getRollData();
+      }
+      return customRolls(chatMessage, speaker, rollData);
+    };
+
+    // Fix for race condition
+    if ($._data($("body").get(0), "events")?.click.find((o) => o.selector === "a.inline-roll")) {
+      $("body").off("click", "a.inline-roll", origClick);
+      $("body").on("click", "a.inline-roll", TextEditor._onClickInlineRoll);
+    }
+  }
+
+  // Change tooltip showing on alt
+  {
+    const fn = KeyboardManager.prototype._onAlt;
+    KeyboardManager.prototype._onAlt = function (event, up, modifiers) {
+      if (!up) game.FFD20.tooltip.lock.new = true;
+      fn.call(this, event, up, modifiers);
+      if (!up) game.FFD20.tooltip.lock.new = false;
+    };
+  }
+
   // Patch, patch, patch
   Combat.prototype._getInitiativeFormula = _getInitiativeFormula;
   Combat.prototype.rollInitiative = _rollInitiative;
-  window.getTemplate = ffd20lnrw_getTemplate;
+  window.getTemplate = FFD20_getTemplate;
 
   await import("./low-light-vision.js");
 }
 
-import { isMinimumCoreVersion } from "./lib.js";
 import "./measure.js";

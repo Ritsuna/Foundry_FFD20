@@ -1,5 +1,4 @@
-import { Actorffd20lnrw } from "./actor/entity.js";
-import { isMinimumCoreVersion } from "./lib.js";
+import { ActorFFD20 } from "./actor/entity.js";
 
 /* -------------------------------------------- */
 
@@ -18,7 +17,7 @@ export const _getInitiativeFormula = function (actor) {
 
 Combat.showInitiativeDialog = function (formula = null) {
   return new Promise((resolve) => {
-    let template = "systems/ffd20lnrw/templates/chat/roll-dialog.hbs";
+    let template = "systems/ffd20/templates/chat/roll-dialog.hbs";
     let rollMode = game.settings.get("core", "rollMode");
     let dialogData = {
       formula: formula ? formula : "",
@@ -40,7 +39,7 @@ Combat.showInitiativeDialog = function (formula = null) {
     renderTemplate(template, dialogData).then((dlg) => {
       new Dialog(
         {
-          title: game.i18n.localize("ffd20lnrw.InitiativeBonus"),
+          title: game.i18n.localize("FFD20.InitiativeBonus"),
           content: dlg,
           buttons: buttons,
           default: "normal",
@@ -58,7 +57,7 @@ export const _rollInitiative = async function (ids, { formula = null, updateTurn
   // Structure input data
   ids = typeof ids === "string" ? [ids] : ids;
   const currentId = this.combatant._id;
-  if (formula ?? true) formula = _getInitiativeFormula(this.combatant.actor);
+  if (!formula) formula = _getInitiativeFormula(this.combatant.actor);
 
   let overrideRollMode = null,
     bonus = "",
@@ -126,9 +125,9 @@ export const _rollInitiative = async function (ids, { formula = null, updateTurn
             token: c.token._id,
             alias: c.token.name,
           },
-          flavor: game.i18n.localize("ffd20lnrw.RollsForInitiative").format(c.token.name),
+          flavor: game.i18n.localize("FFD20.RollsForInitiative").format(c.token.name),
           roll: roll,
-          content: await renderTemplate("systems/ffd20lnrw/templates/chat/roll-ext.hbs", rollData),
+          content: await renderTemplate("systems/ffd20/templates/chat/roll-ext.hbs", rollData),
         },
         messageOptions
       );
@@ -185,28 +184,28 @@ export const addChatMessageContextOptions = function (html, options) {
   let canApplyCritical = (li) => canvas.tokens.controlled.length && li.find(".crit-damage-roll .dice-total").length;
   options.push(
     {
-      name: game.i18n.localize("ffd20lnrw.ApplyDamage"),
+      name: game.i18n.localize("FFD20.ApplyDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
-      callback: (li) => Actorffd20lnrw.applyDamage(li, 1),
+      callback: (li) => ActorFFD20.applyDamage(li, 1),
     },
     {
-      name: game.i18n.localize("ffd20lnrw.ApplyHealing"),
+      name: game.i18n.localize("FFD20.ApplyHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
-      callback: (li) => Actorffd20lnrw.applyDamage(li, -1),
+      callback: (li) => ActorFFD20.applyDamage(li, -1),
     },
     {
-      name: game.i18n.localize("ffd20lnrw.ApplyCriticalDamage"),
+      name: game.i18n.localize("FFD20.ApplyCriticalDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
-      callback: (li) => Actorffd20lnrw.applyDamage(li, 1, true),
+      callback: (li) => ActorFFD20.applyDamage(li, 1, true),
     },
     {
-      name: game.i18n.localize("ffd20lnrw.ApplyCriticalHealing"),
+      name: game.i18n.localize("FFD20.ApplyCriticalHealing"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApplyCritical,
-      callback: (li) => Actorffd20lnrw.applyDamage(li, -1, true),
+      callback: (li) => ActorFFD20.applyDamage(li, -1, true),
     }
   );
   return options;
@@ -215,19 +214,19 @@ export const addChatMessageContextOptions = function (html, options) {
 const duplicateCombatantInitiativeDialog = function (combat, combatantId) {
   const combatant = combat.combatants.filter((o) => o._id === combatantId)[0];
   if (!combatant) {
-    ui.notifications.warn(game.i18n.localize("ffd20lnrw.WarningNoCombatantFound"));
+    ui.notifications.warn(game.i18n.localize("FFD20.WarningNoCombatantFound"));
     return;
   }
 
   new Dialog({
-    title: `${game.i18n.localize("ffd20lnrw.DuplicateInitiative")}: ${combatant.actor.name}`,
+    title: `${game.i18n.localize("FFD20.DuplicateInitiative")}: ${combatant.actor.name}`,
     content: `<div class="flexrow form-group">
-      <label>${game.i18n.localize("ffd20lnrw.InitiativeOffset")}</label>
+      <label>${game.i18n.localize("FFD20.InitiativeOffset")}</label>
       <input type="number" name="initiativeOffset" value="0"/>
     </div>`,
     buttons: {
       confirm: {
-        label: game.i18n.localize("ffd20lnrw.Confirm"),
+        label: game.i18n.localize("FFD20.Confirm"),
         callback: (html) => {
           const offset = parseFloat(html.find('input[name="initiativeOffset"]').val());
           const prevInitiative = combatant.initiative != null ? combatant.initiative : 0;
@@ -250,7 +249,7 @@ export const duplicateCombatantInitiative = function (combat, combatant, initiat
 
 export const addCombatTrackerContextOptions = function (result) {
   result.push({
-    name: "ffd20lnrw.DuplicateInitiative",
+    name: "FFD20.DuplicateInitiative",
     icon: '<i class="fas fa-dice-d20"></i>',
     callback: (li) => duplicateCombatantInitiativeDialog.call(this, this.combat, li.data("combatant-id")),
   });

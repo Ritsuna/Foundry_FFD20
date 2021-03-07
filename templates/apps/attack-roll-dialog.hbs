@@ -1,17 +1,17 @@
 <form>
   {{#if hasAttack}}
   <div class="form-group">
-      <label>{{localize "ffd20lnrw.AttackRollDice"}}</label>
+      <label>{{localize "FFD20.AttackRollDice"}}</label>
       <input type="text" name="d20" value="{{data.d20}}" placeholder="e.g. 2d20kl"/>
   </div>
   <div class="form-group">
-    <label>{{localize "ffd20lnrw.AttackRollBonus"}}</label>
+    <label>{{localize "FFD20.AttackRollBonus"}}</label>
     <input type="text" name="attack-bonus" value="" placeholder="e.g. +1d4"/>
   </div>
   {{/if}}
   {{#if hasDamage}}
   <div class="form-group">
-    <label>{{localize "ffd20lnrw.DamageBonus"}}</label>
+    <label>{{localize "FFD20.DamageBonus"}}</label>
     <input type="text" name="damage-bonus" value="" placeholder="e.g. +1d4"/>
   </div>
   {{/if}}
@@ -19,19 +19,29 @@
   {{!-- Flags --}}
   {{#if (or hasAttack hasDamage)}}
   <div class="form-group stacked">
-    <label>{{localize "ffd20lnrw.Misc"}}</label>
+    <label>{{localize "FFD20.Misc"}}</label>
     <label class="checkbox">
-      <input type="checkbox" name="power-attack"/> {{localize "ffd20lnrw.PowerAttack"}}/{{localize "ffd20lnrw.DeadlyAim"}}
+      <input type="checkbox" name="haste-attack"/> {{localize "FFD20.Haste"}}
+    </label>
+    {{#if isMeleeWeaponAttackAction}}
+    <label class="checkbox">
+      <input type="checkbox" name="power-attack"/> {{localize "FFD20.PowerAttack"}}
+    </label>
+    {{/if}}
+    {{#if isRangedWeaponAttackAction}}
+    <label class="checkbox">
+      <input type="checkbox" name="power-attack"/> {{localize "FFD20.DeadlyAim"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="rapid-shot"/> {{localize "ffd20lnrw.RapidShot"}}
+      <input type="checkbox" name="rapid-shot"/> {{localize "FFD20.RapidShot"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="point-blank-shot"/> {{localize "ffd20lnrw.PointBlankShot"}}
+      <input type="checkbox" name="point-blank-shot"/> {{localize "FFD20.PointBlankShot"}}
     </label>
+    {{/if}}
     {{#if isNaturalAttack}}
     <label class="checkbox">
-      <input type="checkbox" {{checked item.primaryAttack}} name="primary-attack"/> {{localize "ffd20lnrw.PrimaryAttack"}}
+      <input type="checkbox" {{checked item.primaryAttack}} name="primary-attack"/> {{localize "FFD20.PrimaryAttack"}}
     </label>
     {{/if}}
   </div>
@@ -40,7 +50,7 @@
   {{!-- Conditionals --}}
   {{#if item.conditionals}}
   <div class="form-group stacked">
-    <label>{{localize "ffd20lnrw.Conditionals"}}</label>
+    <label>{{localize "FFD20.Conditionals"}}</label>
     {{#each item.conditionals as |conditional a|}}
     <label class="checkbox">
       <input type="checkbox" name="conditional.{{a}}" class="conditional" {{checked this.default}}> {{lookup this "name"}}
@@ -51,7 +61,7 @@
 
   {{#if hasDamage}}{{#if hasDamageAbility}}
   <div class="form-group select">
-    <label>{{localize "ffd20lnrw.DamageAbility"}}</label>
+    <label>{{localize "FFD20.DamageAbility"}}</label>
     <select name="damage-ability-multiplier">
       {{#select data.item.ability.damageMult}}
       <option value="0.5">x0.5</option>
@@ -67,7 +77,7 @@
   {{#if isAttack}}
   {{#unless isNaturalAttack}}
   <div class="form-group select">
-    <label>{{localize "ffd20lnrw.Held"}}</label>
+    <label>{{localize "FFD20.Held"}}</label>
     <select name="held">
       {{#select data.item.held}}
       {{#each config.weaponHoldTypes as |name type|}}
@@ -81,12 +91,12 @@
 
   {{#if isSpell}}
   <div class="form-group">
-    <label>{{localize "ffd20lnrw.CasterLevelOffset"}}</label>
+    <label>{{localize "FFD20.CasterLevelOffset"}}</label>
     <input type="number" data-dtype="Number" value="0" name="cl-offset" />
   </div>
 
   <div class="form-group">
-    <label>{{localize "ffd20lnrw.SpellLevelOffset"}}</label>
+    <label>{{localize "FFD20.SpellLevelOffset"}}</label>
     <input type="number" data-dtype="Number" value="0" name="sl-offset" />
   </div>
   {{/if}}
@@ -94,13 +104,13 @@
   <div class="form-group stacked">
     {{#if hasTemplate}}
     <label class="checkbox">
-      <input type="checkbox" name="measure-template" checked/> {{localize "ffd20lnrw.MeasureTemplate"}}
+      <input type="checkbox" name="measure-template" checked/> {{localize "FFD20.MeasureTemplate"}}
     </label>
     {{/if}}
   </div>
 
   <div class="form-group">
-    <label>{{localize "ffd20lnrw.RollMode"}}</label>
+    <label>{{localize "FFD20.RollMode"}}</label>
     <select name="rollMode">
       {{#select rollMode}}
       {{#each rollModes as |label mode|}}

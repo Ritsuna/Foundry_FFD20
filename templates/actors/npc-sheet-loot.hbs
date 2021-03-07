@@ -1,8 +1,8 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
 
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="inventory">{{ localize "ffd20lnrw.Inventory" }}</a>
-    <a class="item" data-tab="notes">{{ localize "ffd20lnrw.Notes" }}</a>
+    <a class="item active" data-tab="inventory">{{ localize "FFD20.Inventory" }}</a>
+    <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
   </nav>
   
   <section class="primary-body">
@@ -15,7 +15,7 @@
         <div class="header-details flexcol">
           <div class="header-top flexrow">
             <h1 class="charname">
-              <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "ffd20lnrw.CharacterName"}}"/>
+              <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}"/>
             </h1>
           </div>
 
@@ -24,15 +24,15 @@
             <ul class="summary options">
               {{!-- Sell Multiplier --}}
               <li>
-                <input type="text" name="flags.ffd20lnrw.sellMultiplier" value="{{sellMultiplier}}" placeholder="{{localize "ffd20lnrw.HelpSellMultiplierN"}}" data-dtype="Number"
-                  title="{{localize "ffd20lnrw.HelpSellMultiplier"}}" />
+                <input type="text" name="flags.FFD20.sellMultiplier" value="{{sellMultiplier}}" placeholder="{{localize "FFD20.HelpSellMultiplierN"}}" data-dtype="Number"
+                  title="{{localize "FFD20.HelpSellMultiplier"}}" />
               </li>
             </ul>
           </div>
         </div>
       </header>
 
-      {{> "systems/ffd20lnrw/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
+      {{> "systems/ffd20/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
     </div>
 
     {{!-- Notes Tab --}}

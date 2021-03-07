@@ -53,7 +53,7 @@ export class SquareHighlight {
 /**
  * Highlights the reach of an attack for a token.
  * @param {Token} token
- * @param {Itemffd20lnrw} attack
+ * @param {ItemFFD20} attack
  * @returns SquareHighlight
  */
 export const showAttackReach = function (token, attack) {
@@ -162,7 +162,7 @@ export const addReachCallback = function (data, html) {
   let results = [];
 
   // Don't do anything under certain circumstances
-  const itemID = getProperty(data, "flags.ffd20lnrw.metadata.item");
+  const itemID = getProperty(data, "flags.FFD20.metadata.item");
   if (!itemID) return results;
 
   const speakerData = data.speaker;
@@ -178,7 +178,7 @@ export const addReachCallback = function (data, html) {
   // Add mouse enter callback
   const mouseEnterCallback = function () {
     if (token._destroyed) return;
-    if (!game.settings.get("ffd20lnrw", "hideReachMeasurements")) highlight = showAttackReach(token, item);
+    if (!game.settings.get("FFD20", "hideReachMeasurements")) highlight = showAttackReach(token, item);
 
     if (!highlight) return;
 

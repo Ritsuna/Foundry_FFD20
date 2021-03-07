@@ -1,6 +1,6 @@
 import { createTabs } from "../../lib.js";
 import { EntrySelector } from "../../apps/entry-selector.js";
-import { Itemffd20lnrw } from "../entity.js";
+import { ItemFFD20 } from "../entity.js";
 import { ItemChange } from "../components/change.js";
 import { ScriptEditor } from "../../apps/script-editor.js";
 import { ActorTraitSelector } from "../../apps/trait-selector.js";
@@ -9,7 +9,7 @@ import { ActorTraitSelector } from "../../apps/trait-selector.js";
  * Override and extend the core ItemSheet implementation to handle D&D5E specific item types
  * @type {ItemSheet}
  */
-export class ItemSheetffd20lnrw extends ItemSheet {
+export class ItemSheetFFD20 extends ItemSheet {
   constructor(...args) {
     super(...args);
 
@@ -29,7 +29,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 580,
-      classes: ["ffd20lnrw", "sheet", "item"],
+      classes: ["FFD20", "sheet", "item"],
       scrollY: [".tab.details", ".buff-flags"],
     });
   }
@@ -41,7 +41,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
    * @return {string}
    */
   get template() {
-    const path = "systems/ffd20lnrw/templates/items/";
+    const path = "systems/ffd20/templates/items/";
     return `${path}/${this.item.data.type}.hbs`;
   }
 
@@ -73,7 +73,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
         if (ed.mce && ed.changed) {
           let d = Dialog.confirm({
             title: this.object.name + " : " + ed.target,
-            content: `<p>${game.i18n.localize("ffd20lnrw.UnsavedTinyMCE")}</p>`,
+            content: `<p>${game.i18n.localize("FFD20.UnsavedTinyMCE")}</p>`,
             yes: () => this.saveEditor(ed.target),
             no: () => ed.mce.destroy(),
             defaultYes: true,
@@ -106,7 +106,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     }
 
     // Include CONFIG values
-    data.config = CONFIG.ffd20lnrw;
+    data.config = CONFIG.FFD20;
 
     // Item Type, Status, and Details
     data.itemType = this._getItemType(data.item);
@@ -121,21 +121,21 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     data.isGM = game.user.isGM;
     data.showIdentifyDescription = data.isGM && data.isPhysical;
     data.showUnidentifiedData = this.item.showUnidentifiedData;
-    data.unchainedActionEconomy = game.settings.get("ffd20lnrw", "unchainedActionEconomy");
+    data.unchainedActionEconomy = game.settings.get("FFD20", "unchainedActionEconomy");
     data.hasActivationType =
-      (game.settings.get("ffd20lnrw", "unchainedActionEconomy") &&
+      (game.settings.get("FFD20", "unchainedActionEconomy") &&
         getProperty(data.item, "data.unchainedAction.activation.type")) ||
-      (!game.settings.get("ffd20lnrw", "unchainedActionEconomy") && getProperty(data.item, "data.activation.type"));
+      (!game.settings.get("FFD20", "unchainedActionEconomy") && getProperty(data.item, "data.activation.type"));
     if (rollData.item.auraStrength != null) {
       const auraStrength = rollData.item.auraStrength;
       data.auraStrength = auraStrength;
 
-      if (CONFIG.ffd20lnrw.auraStrengths[auraStrength] != null) {
-        const auraStrength_name = CONFIG.ffd20lnrw.auraStrengths[auraStrength];
+      if (CONFIG.FFD20.auraStrengths[auraStrength] != null) {
+        const auraStrength_name = CONFIG.FFD20.auraStrengths[auraStrength];
         data.auraStrength_name = auraStrength_name;
 
-        data.labels.identify = game.i18n.localize("ffd20lnrw.IdentifyDCNumber").format(15 + rollData.item.cl);
-        // const auraSchool = CONFIG.ffd20lnrw.spellSchools[rollData.item.aura.school];
+        data.labels.identify = game.i18n.localize("FFD20.IdentifyDCNumber").format(15 + rollData.item.cl);
+        // const auraSchool = CONFIG.FFD20.spellSchools[rollData.item.aura.school];
         // data.labels.aura = `${auraStrength_name} ${auraSchool}`;
       }
     }
@@ -182,12 +182,12 @@ export class ItemSheetffd20lnrw extends ItemSheet {
 
       // Prepare categories for weapons
       data.weaponCategories = { types: {}, subTypes: {} };
-      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.weaponTypes)) {
+      for (let [k, v] of Object.entries(CONFIG.FFD20.weaponTypes)) {
         if (typeof v === "object") data.weaponCategories.types[k] = v._label;
       }
       const type = data.item.data.weaponType;
-      if (hasProperty(CONFIG.ffd20lnrw.weaponTypes, type)) {
-        for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.weaponTypes[type])) {
+      if (hasProperty(CONFIG.FFD20.weaponTypes, type)) {
+        for (let [k, v] of Object.entries(CONFIG.FFD20.weaponTypes[type])) {
           // Add static targets
           if (!k.startsWith("_")) data.weaponCategories.subTypes[k] = v;
         }
@@ -198,19 +198,19 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     if (data.item.type === "equipment") {
       // Prepare categories for equipment
       data.equipmentCategories = { types: {}, subTypes: {} };
-      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.equipmentTypes)) {
+      for (let [k, v] of Object.entries(CONFIG.FFD20.equipmentTypes)) {
         if (typeof v === "object") data.equipmentCategories.types[k] = v._label;
       }
       const type = data.item.data.equipmentType;
-      if (hasProperty(CONFIG.ffd20lnrw.equipmentTypes, type)) {
-        for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.equipmentTypes[type])) {
+      if (hasProperty(CONFIG.FFD20.equipmentTypes, type)) {
+        for (let [k, v] of Object.entries(CONFIG.FFD20.equipmentTypes[type])) {
           // Add static targets
           if (!k.startsWith("_")) data.equipmentCategories.subTypes[k] = v;
         }
       }
 
       // Prepare slots for equipment
-      data.equipmentSlots = CONFIG.ffd20lnrw.equipmentSlots[type];
+      data.equipmentSlots = CONFIG.FFD20.equipmentSlots[type];
 
       // Whether the equipment should show armor data
       data.showArmorData = ["armor", "shield"].includes(type);
@@ -253,17 +253,17 @@ export class ItemSheetffd20lnrw extends ItemSheet {
       data.isMythicPath = data.data.classType === "mythic";
 
       for (let [a, s] of Object.entries(data.data.savingThrows)) {
-        s.label = CONFIG.ffd20lnrw.savingThrows[a];
+        s.label = CONFIG.FFD20.savingThrows[a];
       }
       for (let [a, s] of Object.entries(data.data.fc)) {
-        s.label = CONFIG.ffd20lnrw.favouredClassBonuses[a];
+        s.label = CONFIG.FFD20.favouredClassBonuses[a];
       }
 
       data.isBaseClass = data.data.classType === "base";
       data.isRacialHD = data.data.classType === "racial";
 
       if (this.actor != null) {
-        let healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
+        let healthConfig = game.settings.get("FFD20", "healthConfig");
         data.healthConfig = data.isRacialHD
           ? healthConfig.hitdice.Racial
           : this.actor.data.type === "character"
@@ -273,14 +273,16 @@ export class ItemSheetffd20lnrw extends ItemSheet {
 
       // Add skill list
       if (!this.actor) {
-        data.skills = Object.entries(CONFIG.ffd20lnrw.skills).reduce((cur, o) => {
+        data.skills = Object.entries(CONFIG.FFD20.skills).reduce((cur, o) => {
           cur[o[0]] = { name: o[1], classSkill: getProperty(this.item.data, `data.classSkills.${o[0]}`) === true };
           return cur;
         }, {});
       } else {
-        data.skills = Object.entries(this.actor.data.data.skills).reduce((cur, o) => {
+        // Get sorted skill list from config, custom skills get appended to bottom of list
+        const skills = mergeObject(duplicate(CONFIG.FFD20.skills), this.actor.data.data.skills);
+        data.skills = Object.entries(skills).reduce((cur, o) => {
           const key = o[0];
-          const name = CONFIG.ffd20lnrw.skills[key] != null ? CONFIG.ffd20lnrw.skills[key] : o[1].name;
+          const name = CONFIG.FFD20.skills[key] != null ? CONFIG.FFD20.skills[key] : o[1].name;
           cur[o[0]] = { name: name, classSkill: getProperty(this.item.data, `data.classSkills.${o[0]}`) === true };
           return cur;
         }, {});
@@ -289,9 +291,9 @@ export class ItemSheetffd20lnrw extends ItemSheet {
 
     // Prepare proficiencies
     const profs = {
-      languages: CONFIG.ffd20lnrw.languages,
-      armorProf: CONFIG.ffd20lnrw.armorProficiencies,
-      weaponProf: CONFIG.ffd20lnrw.weaponProficiencies,
+      languages: CONFIG.FFD20.languages,
+      armorProf: CONFIG.FFD20.armorProficiencies,
+      weaponProf: CONFIG.FFD20.weaponProficiencies,
     };
     for (let [t, choices] of Object.entries(profs)) {
       if (hasProperty(data.item.data, t)) {
@@ -309,7 +311,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
         // Add custom entry
         if (trait.custom) {
           trait.custom
-            .split(CONFIG.ffd20lnrw.re.traitSeparator)
+            .split(CONFIG.FFD20.re.traitSeparator)
             .forEach((c, i) => (trait.selected[`custom${i + 1}`] = c.trim()));
         }
         trait.cssClass = !isObjectEmpty(trait.selected) ? "" : "inactive";
@@ -320,9 +322,9 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     if (this.item.changes) {
       data.changeGlobals = {
         targets: {},
-        modifiers: CONFIG.ffd20lnrw.bonusModifiers,
+        modifiers: CONFIG.FFD20.bonusModifiers,
       };
-      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.buffTargets)) {
+      for (let [k, v] of Object.entries(CONFIG.FFD20.buffTargets)) {
         if (typeof v === "object") data.changeGlobals.targets[k] = v._label;
       }
 
@@ -357,7 +359,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     // Prepare stuff for items with context notes
     if (data.item.data.contextNotes) {
       data.contextNotes = { targets: {} };
-      for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.contextNoteTargets)) {
+      for (let [k, v] of Object.entries(CONFIG.FFD20.contextNoteTargets)) {
         if (typeof v === "object") data.contextNotes.targets[k] = v._label;
       }
       data.item.data.contextNotes.forEach((item) => {
@@ -366,7 +368,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     }
 
     // Add distance units
-    data.distanceUnits = duplicate(CONFIG.ffd20lnrw.distanceUnits);
+    data.distanceUnits = duplicate(CONFIG.FFD20.distanceUnits);
     if (this.item.type !== "spell") {
       for (let d of ["close", "medium", "long"]) {
         delete data.distanceUnits[d];
@@ -387,8 +389,8 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     // Add children link type
     data.links.list.push({
       id: "children",
-      label: game.i18n.localize("ffd20lnrw.LinkTypeChildren"),
-      help: game.i18n.localize("ffd20lnrw.LinkHelpChildren"),
+      label: game.i18n.localize("FFD20.LinkTypeChildren"),
+      help: game.i18n.localize("FFD20.LinkHelpChildren"),
       items: [],
     });
 
@@ -396,8 +398,8 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     if (["feat", "consumable", "attack", "equipment"].includes(this.item.type)) {
       data.links.list.push({
         id: "charges",
-        label: game.i18n.localize("ffd20lnrw.LinkTypeCharges"),
-        help: game.i18n.localize("ffd20lnrw.LinkHelpCharges"),
+        label: game.i18n.localize("FFD20.LinkTypeCharges"),
+        help: game.i18n.localize("FFD20.LinkHelpCharges"),
         items: [],
       });
     }
@@ -406,12 +408,12 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     if (this.item.type === "class") {
       data.links.list.push({
         id: "classAssociations",
-        label: game.i18n.localize("ffd20lnrw.LinkTypeClassAssociations"),
-        help: game.i18n.localize("ffd20lnrw.LinkHelpClassAssociations"),
+        label: game.i18n.localize("FFD20.LinkTypeClassAssociations"),
+        help: game.i18n.localize("FFD20.LinkHelpClassAssociations"),
         fields: {
           level: {
             type: "Number",
-            label: game.i18n.localize("ffd20lnrw.Level"),
+            label: game.i18n.localize("FFD20.Level"),
           },
         },
         items: [],
@@ -422,12 +424,12 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     if (this.item.type === "attack") {
       data.links.list.push({
         id: "ammunition",
-        label: game.i18n.localize("ffd20lnrw.LinkTypeAmmunition"),
-        help: game.i18n.localize("ffd20lnrw.LinkHelpAmmunition"),
+        label: game.i18n.localize("FFD20.LinkTypeAmmunition"),
+        help: game.i18n.localize("FFD20.LinkHelpAmmunition"),
         fields: {
           recoverChance: {
             type: "Number",
-            label: game.i18n.localize("ffd20lnrw.RecoverChancePercentage"),
+            label: game.i18n.localize("FFD20.RecoverChancePercentage"),
           },
         },
         items: [],
@@ -464,10 +466,10 @@ export class ItemSheetffd20lnrw extends ItemSheet {
    * @private
    */
   _getItemType(item) {
-    let typeKeys = Object.keys(CONFIG.ffd20lnrw.itemTypes);
+    let typeKeys = Object.keys(CONFIG.FFD20.itemTypes);
     let itemType = item.type;
     if (!typeKeys.includes(itemType)) itemType = typeKeys[0];
-    return game.i18n.localize(CONFIG.ffd20lnrw.itemTypes[itemType]);
+    return game.i18n.localize(CONFIG.FFD20.itemTypes[itemType]);
   }
 
   /**
@@ -481,17 +483,17 @@ export class ItemSheetffd20lnrw extends ItemSheet {
       if (item.data.preparation.mode === "prepared") {
         if (item.data.preparation.preparedAmount > 0) {
           if (spellbook != null && spellbook.spontaneous) {
-            return game.i18n.localize("ffd20lnrw.SpellPrepPrepared");
+            return game.i18n.localize("FFD20.SpellPrepPrepared");
           } else {
-            return game.i18n.localize("ffd20lnrw.AmountPrepared").format(item.data.preparation.preparedAmount);
+            return game.i18n.localize("FFD20.AmountPrepared").format(item.data.preparation.preparedAmount);
           }
         }
-        return game.i18n.localize("ffd20lnrw.Unprepared");
+        return game.i18n.localize("FFD20.Unprepared");
       } else if (item.data.preparation.mode) {
         return item.data.preparation.mode.titleCase();
       } else return "";
     } else if (["weapon", "equipment"].includes(item.type) || (item.type === "loot" && item.data.subType === "gear")) {
-      return item.data.equipped ? game.i18n.localize("ffd20lnrw.Equipped") : game.i18n.localize("ffd20lnrw.NotEquipped");
+      return item.data.equipped ? game.i18n.localize("FFD20.Equipped") : game.i18n.localize("FFD20.NotEquipped");
     }
   }
 
@@ -510,12 +512,12 @@ export class ItemSheetffd20lnrw extends ItemSheet {
       props.push(
         ...Object.entries(item.data.properties)
           .filter((e) => e[1] === true)
-          .map((e) => CONFIG.ffd20lnrw.weaponProperties[e[0]])
+          .map((e) => CONFIG.FFD20.weaponProperties[e[0]])
       );
     } else if (item.type === "spell") {
       props.push(labels.components, labels.materials);
     } else if (item.type === "equipment") {
-      props.push(CONFIG.ffd20lnrw.equipmentTypes[item.data.armor.type]);
+      props.push(CONFIG.FFD20.equipmentTypes[item.data.armor.type]);
       props.push(labels.armor);
     } else if (item.type === "feat") {
       props.push(labels.featType);
@@ -523,7 +525,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
 
     // Action type
     if (item.data.actionType) {
-      props.push(CONFIG.ffd20lnrw.itemActionTypes[item.data.actionType]);
+      props.push(CONFIG.FFD20.itemActionTypes[item.data.actionType]);
     }
 
     // Action usage
@@ -599,7 +601,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     // let change = Object.entries(formData).filter(e => e[0].startsWith("data.changes"));
     // formData["data.changes"] = change.reduce((arr, entry) => {
     // let [i, j] = entry[0].split(".").slice(2);
-    // if ( !arr[i] ) arr[i] = Itemffd20lnrw.defaultChange;
+    // if ( !arr[i] ) arr[i] = ItemFFD20.defaultChange;
     // arr[i][j] = entry[1];
     // // Reset subtarget (if necessary)
     // if (j === "subTarget") {
@@ -622,10 +624,10 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     let conditionals = Object.entries(formData).filter((e) => e[0].startsWith("data.conditionals"));
     formData["data.conditionals"] = conditionals.reduce((arr, entry) => {
       let [i, j, k] = entry[0].split(".").slice(2);
-      if (!arr[i]) arr[i] = Itemffd20lnrw.defaultConditional;
+      if (!arr[i]) arr[i] = ItemFFD20.defaultConditional;
       if (k) {
         const target = formData[`data.conditionals.${i}.${j}.target`];
-        if (!arr[i].modifiers[j]) arr[i].modifiers[j] = Itemffd20lnrw.defaultConditionalModifier;
+        if (!arr[i].modifiers[j]) arr[i].modifiers[j] = ItemFFD20.defaultConditionalModifier;
         arr[i].modifiers[j][k] = entry[1];
         // Target dependent keys
         if (["subTarget", "critical", "type"].includes(k)) {
@@ -968,7 +970,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     const options = {
       name: label.getAttribute("for"),
       title: label.innerText,
-      choices: CONFIG.ffd20lnrw[a.dataset.options],
+      choices: CONFIG.FFD20[a.dataset.options],
     };
     new ActorTraitSelector(this.object, options).render(true);
   }
@@ -1119,7 +1121,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     if (a.classList.contains("add-conditional")) {
       await this._onSubmit(event); // Submit any unsaved changes
       const conditionals = this.item.data.data.conditionals || [];
-      return this.item.update({ "data.conditionals": conditionals.concat([Itemffd20lnrw.defaultConditional]) });
+      return this.item.update({ "data.conditionals": conditionals.concat([ItemFFD20.defaultConditional]) });
     }
 
     // Remove a conditional
@@ -1136,7 +1138,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
       await this._onSubmit(event);
       const li = a.closest(".conditional");
       const conditionals = this.item.data.data.conditionals;
-      conditionals[Number(li.dataset.conditional)].modifiers.push(Itemffd20lnrw.defaultConditionalModifier);
+      conditionals[Number(li.dataset.conditional)].modifiers.push(ItemFFD20.defaultConditionalModifier);
       // duplicate object to ensure update
       return this.item.update({ "data.conditionals": duplicate(conditionals) });
     }
@@ -1159,7 +1161,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
     if (a.classList.contains("add-note")) {
       await this._onSubmit(event); // Submit any unsaved changes
       const contextNotes = this.item.data.data.contextNotes || [];
-      return this.item.update({ "data.contextNotes": contextNotes.concat([Itemffd20lnrw.defaultContextNote]) });
+      return this.item.update({ "data.contextNotes": contextNotes.concat([ItemFFD20.defaultContextNote]) });
     }
 
     // Remove a note
@@ -1189,13 +1191,13 @@ export class ItemSheetffd20lnrw extends ItemSheet {
       updateData[`data.links.${group.dataset.tab}`] = links;
 
       // Call hook for deleting a link
-      Hooks.call("deleteItemLink", this.item, link, group.dataset.tab);
+      Hooks.callAll("deleteItemLink", this.item, link, group.dataset.tab);
 
       await this.item.update(updateData);
 
       // Clean link
       this.item._cleanLink(link, group.dataset.tab);
-      game.socket.emit("system.ffd20lnrw", {
+      game.socket.emit("system.FFD20", {
         eventType: "cleanItemLink",
         actorUUID: this.item.actor.uuid,
         itemUUID: this.item.uuid,
@@ -1253,7 +1255,7 @@ export class ItemSheetffd20lnrw extends ItemSheet {
   }
 
   async _createAttack(event) {
-    if (this.item.actor == null) throw new Error(game.i18n.localize("ffd20lnrw.ErrorItemNoOwner"));
+    if (this.item.actor == null) throw new Error(game.i18n.localize("FFD20.ErrorItemNoOwner"));
 
     await this._onSubmit(event);
 

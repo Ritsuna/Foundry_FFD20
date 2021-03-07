@@ -1,25 +1,25 @@
-import { ActorSheetffd20lnrwNPC } from "./npc.js";
+import { ActorSheetFFD20NPC } from "./npc.js";
 
-export class ActorSheetffd20lnrwNPCLite extends ActorSheetffd20lnrwNPC {
+export class ActorSheetFFD20NPCLite extends ActorSheetFFD20NPC {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["ffd20lnrw", "sheet", "actor", "npc", "lite"],
+      classes: ["FFD20", "sheet", "actor", "npc", "lite"],
       width: 440,
       height: "auto",
     });
   }
 
   get template() {
-    if (!game.user.isGM && this.actor.limited) return "systems/ffd20lnrw/templates/actors/limited-sheet.hbs";
-    return "systems/ffd20lnrw/templates/actors/npc-sheet-lite.hbs";
+    if (!game.user.isGM && this.actor.limited) return "systems/ffd20/templates/actors/limited-sheet.hbs";
+    return "systems/ffd20/templates/actors/npc-sheet-lite.hbs";
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetffd20lnrwNPCLite");
+  //   return game.i18n.localize("FFD20.ActorSheetFFD20NPCLite");
   // }
 
   _prepareItems(data) {
@@ -39,7 +39,7 @@ export class ActorSheetffd20lnrwNPCLite extends ActorSheetffd20lnrwNPC {
 
     const attackSections = {
       all: {
-        label: game.i18n.localize("ffd20lnrw.Attacks"),
+        label: game.i18n.localize("FFD20.Attacks"),
         items: [],
         canCreate: true,
         initial: true,

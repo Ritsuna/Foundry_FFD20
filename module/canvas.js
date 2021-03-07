@@ -82,10 +82,10 @@ Token.prototype.getBarAttribute = function (barName, { alternative = null } = {}
  */
 export const getConditions = function () {
   var core = CONFIG.statusEffects,
-    sys = Object.keys(CONFIG.ffd20lnrw.conditions).map((c) => {
-      return { id: c, label: CONFIG.ffd20lnrw.conditions[c], icon: CONFIG.ffd20lnrw.conditionTextures[c] };
+    sys = Object.keys(CONFIG.FFD20.conditions).map((c) => {
+      return { id: c, label: CONFIG.FFD20.conditions[c], icon: CONFIG.FFD20.conditionTextures[c] };
     });
-  if (game.settings.get("ffd20lnrw", "coreEffects")) sys.push(...core);
+  if (game.settings.get("FFD20", "coreEffects")) sys.push(...core);
   else sys = [core[0]].concat(sys);
   return sys;
 };
@@ -130,7 +130,7 @@ Token.prototype.toggleEffect = async function (effect, { active, overlay = false
     if (buffItem) {
       call = await buffItem.update({ "data.active": !buffItem.data.data.active });
     } else call = await Token_toggleEffect.call(this, effect, { active, overlay });
-  } else if (!midUpdate && Object.keys(CONFIG.ffd20lnrw.conditions).includes(effect.id)) {
+  } else if (!midUpdate && Object.keys(CONFIG.FFD20.conditions).includes(effect.id)) {
     const updates = {};
     updates["data.attributes.conditions." + effect.id] = !this.actor.data.data.attributes.conditions[effect.id];
     call = await this.actor.update(updates);
@@ -164,15 +164,25 @@ TokenHUD.prototype._onAttributeUpdate = function (event) {
   // For attribute bar values, update the associated Actor
   // TODO: Switch to Actor#modifyTokenAttribute
   if (bar) {
-    const actor = this.object?.actor;
-    if (!actor) return;
+    if (!this.object) return;
+    const actor = this.object.actor;
+    let entity = actor;
     const data = this.object.getBarAttribute(bar);
+    if (data.attribute.startsWith("resources.")) {
+      const itemTag = data.attribute.split(".").slice(-1)[0];
+      entity = actor.items.find((item) => item.data.data.tag === itemTag);
+    }
+    if (!actor || !entity) return;
     const current = getProperty(actor.data.data, data.attribute);
     const updateData = {};
 
     // Set to specified negative value
     if (operator === "--" || (!isDelta && operator == "-")) {
-      updateData[`data.${data.attribute}.value`] = -value;
+      if (entity instanceof Actor) {
+        updateData[`data.${data.attribute}.value`] = -value;
+      } else {
+        updateData["data.uses.value"] = -value;
+      }
     }
 
     // Add relative value
@@ -189,16 +199,21 @@ TokenHUD.prototype._onAttributeUpdate = function (event) {
         if (data.attribute === "attributes.hp") value = Math.min(current.value + dt, current.max);
         else value = Math.clamped(current.min || 0, current.value + dt, current.max);
       }
-      updateData[`data.${data.attribute}.value`] = value;
+      if (entity instanceof Actor) {
+        updateData[`data.${data.attribute}.value`] = value;
+      } else {
+        updateData["data.uses.value"] = value;
+      }
     }
 
-    actor.update(updateData);
+    entity.update(updateData);
+    this.object.update({ [input.name]: value });
   }
 
   // Otherwise update the Token
-  else {
+  else if (this.object) {
     if (operator === "--" || (!isDelta && operator == "-")) value = -value;
-    else if (isDelta) {
+    else if (isDelta && this.object) {
       const current = getProperty(this.object.data, input.name);
       if (operator === "-") value = current - value;
       else if (operator === "+") value = current + value;

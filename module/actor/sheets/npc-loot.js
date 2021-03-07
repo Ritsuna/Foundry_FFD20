@@ -1,21 +1,21 @@
-import { ActorSheetffd20lnrwNPC } from "./npc.js";
+import { ActorSheetFFD20NPC } from "./npc.js";
 import { createTabs } from "../../lib.js";
 
-export class ActorSheetffd20lnrwNPCLoot extends ActorSheetffd20lnrwNPC {
+export class ActorSheetFFD20NPCLoot extends ActorSheetFFD20NPC {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["ffd20lnrw", "sheet", "actor", "npc", "loot"],
+      classes: ["FFD20", "sheet", "actor", "npc", "loot"],
       width: 620,
       height: 420,
     });
   }
 
   get template() {
-    return "systems/ffd20lnrw/templates/actors/npc-sheet-loot.hbs";
+    return "systems/ffd20/templates/actors/npc-sheet-loot.hbs";
   }
 
   get currentPrimaryTab() {
@@ -26,7 +26,7 @@ export class ActorSheetffd20lnrwNPCLoot extends ActorSheetffd20lnrwNPC {
     const data = await super.getData();
 
     data.isLootSheet = true;
-    data.sellMultiplier = this.actor.getFlag("ffd20lnrw", "sellMultiplier");
+    data.sellMultiplier = this.actor.getFlag("FFD20", "sellMultiplier");
 
     // Get total value
     const gilValue = this.calculateTotalItemValue() + this.actor.mergeCurrency();
@@ -41,10 +41,10 @@ export class ActorSheetffd20lnrwNPCLoot extends ActorSheetffd20lnrwNPC {
     // Set labels
     if (!data.labels) data.labels = {};
     data.labels.totalValue = game.i18n
-      .localize("ffd20lnrw.ItemContainerTotalValue")
+      .localize("FFD20.ItemContainerTotalValue")
       .format(data.totalValue.gp, data.totalValue.sp, data.totalValue.cp);
     data.labels.sellValue = game.i18n
-      .localize("ffd20lnrw.ItemContainerSellValue")
+      .localize("FFD20.ItemContainerSellValue")
       .format(data.sellValue.gp, data.sellValue.sp, data.sellValue.cp);
 
     // Alter inventory columns

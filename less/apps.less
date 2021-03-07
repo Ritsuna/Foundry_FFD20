@@ -5,10 +5,10 @@
 @detailsHeight: 30px;
 
 /* ----------------------------------------- */
-/*  All ffd20lnrw Apps                           */
+/*  All FFD20 Apps                           */
 /* ----------------------------------------- */
 
-.ffd20lnrw {
+.ffd20 {
   input[type="text"]::placeholder,
   .placeholder {
     color: @colorTan;
@@ -262,6 +262,17 @@
     flex: 0;
   }
 
+  .help-text {
+    background-color: rgba(10, 0, 0, 0.05);
+    border: dotted rgba(0, 0, 0, 0.2);
+    flex: 1 3 2em;
+    padding: 3px;
+  }
+
+  .item-links {
+    flex: 10 1 100%;
+  }
+
   .fake-inline-roll {
     background: #ddd;
     padding: 1px 4px;
@@ -276,7 +287,7 @@
 /*  Trait Selectors Specifically             */
 /* ----------------------------------------- */
 
-.ffd20lnrw.trait-selector {
+.ffd20.trait-selector {
   max-height: 720px;
 
   .window-content {
@@ -288,7 +299,7 @@
 /*  Entity Sheets Specifically               */
 /* ----------------------------------------- */
 
-.ffd20lnrw.sheet {
+.ffd20.sheet {
   .window-content {
     overflow-y: hidden;
     padding: 5px;
@@ -865,7 +876,7 @@
 /* Trait Selector
 /* ----------------------------------------- */
 
-#trait-selector {
+.trait-selector {
   .trait-list {
     list-style: none;
     margin: 0;
@@ -878,7 +889,7 @@
   }
 }
 
-.ffd20lnrw.entry {
+.ffd20.entry {
   table {
     border: 1px solid rgb(136, 136, 136);
     font-weight: normal;
@@ -1000,6 +1011,13 @@
         h4 {
           margin-left: 4px;
         }
+
+        .entry-source {
+          color: rgba(0, 0, 0, 0.5);
+          flex: 1 2 0;
+          text-align: right;
+          margin-right: 4px;
+        }
       }
     }
   }
@@ -1013,7 +1031,7 @@
   opacity: 1;
 }
 
-.ffd20lnrw.pointbuy-calculator {
+.ffd20.pointbuy-calculator {
   ol.item-list {
     li {
       background-color: rgba(155, 155, 155, 0.3);
@@ -1067,7 +1085,7 @@
 /* Changelog
 /* ----------------------------------------- */
 
-.ffd20lnrw.changelog {
+.ffd20.changelog {
   .content {
     overflow-y: auto;
     max-height: 640px;
@@ -1082,7 +1100,7 @@
 /* Help Browser
 /* ----------------------------------------- */
 
-.ffd20lnrw.help-browser {
+.ffd20.help-browser {
   section.window-content {
     padding: 0;
 
@@ -1148,7 +1166,7 @@
 /* Script Editor
 /* ----------------------------------------- */
 
-.ffd20lnrw.script-editor {
+.ffd20.script-editor {
   .form-group.command {
     flex: 1;
     flex-direction: column;

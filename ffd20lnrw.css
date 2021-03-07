@@ -61,13 +61,13 @@
 .strikethrough-text {
   text-decoration: line-through;
 }
-.ffd20lnrw-sheet-group {
+.ffd20-sheet-group {
   padding: 2px;
   margin: 2px;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 2px;
 }
-.ffd20lnrw-sheet-group:hover {
+.ffd20-sheet-group:hover {
   border-color: #666;
 }
 /* ----------------------------------------- */
@@ -79,176 +79,176 @@
   }
 }
 /* ----------------------------------------- */
-/*  All ffd20lnrw Apps                           */
+/*  All FFD20 Apps                           */
 /* ----------------------------------------- */
-.ffd20lnrw {
+.ffd20 {
   /* ----------------------------------------- */
   /*  Element Styles                           */
   /* ----------------------------------------- */
   /* Form Groups */
   /* Tags */
 }
-.ffd20lnrw input[type="text"]::placeholder,
-.ffd20lnrw .placeholder {
+.ffd20 input[type="text"]::placeholder,
+.ffd20 .placeholder {
   color: #7a7971;
 }
-.ffd20lnrw .align-left {
+.ffd20 .align-left {
   text-align: start;
 }
-.ffd20lnrw .align-center {
+.ffd20 .align-center {
   text-align: center;
 }
-.ffd20lnrw .align-right {
+.ffd20 .align-right {
   text-align: end;
 }
-.ffd20lnrw li {
+.ffd20 li {
   align-items: center;
 }
-.ffd20lnrw .window-content {
+.ffd20 .window-content {
   background: url("ui/parchment.jpg") repeat;
   font-size: 13px;
   color: #191813;
   overflow: hidden;
 }
-.ffd20lnrw input[type="text"],
-.ffd20lnrw input[type="number"],
-.ffd20lnrw select {
+.ffd20 input[type="text"],
+.ffd20 input[type="number"],
+.ffd20 select {
   border: 1px solid #7a7971;
   background: rgba(0, 0, 0, 0.05);
   color: #191813;
 }
-.ffd20lnrw input[type="text"]:hover,
-.ffd20lnrw input[type="number"]:hover,
-.ffd20lnrw input[type="text"]:focus,
-.ffd20lnrw input[type="number"]:focus {
+.ffd20 input[type="text"]:hover,
+.ffd20 input[type="number"]:hover,
+.ffd20 input[type="text"]:focus,
+.ffd20 input[type="number"]:focus {
   border: 1px solid #111;
   box-shadow: 0 0 8px red;
 }
-.ffd20lnrw input:disabled,
-.ffd20lnrw select:disabled,
-.ffd20lnrw textarea:disabled,
-.ffd20lnrw input:readonly {
+.ffd20 input:disabled,
+.ffd20 select:disabled,
+.ffd20 textarea:disabled,
+.ffd20 input:readonly {
   color: #4b4a44;
 }
-.ffd20lnrw input:disabled:hover,
-.ffd20lnrw select:disabled:hover,
-.ffd20lnrw textarea:disabled:hover,
-.ffd20lnrw input:readonly:hover,
-.ffd20lnrw input:disabled:focus,
-.ffd20lnrw select:disabled:focus,
-.ffd20lnrw textarea:disabled:focus,
-.ffd20lnrw input:readonly:focus {
+.ffd20 input:disabled:hover,
+.ffd20 select:disabled:hover,
+.ffd20 textarea:disabled:hover,
+.ffd20 input:readonly:hover,
+.ffd20 input:disabled:focus,
+.ffd20 select:disabled:focus,
+.ffd20 textarea:disabled:focus,
+.ffd20 input:readonly:focus {
   box-shadow: none !important;
 }
-.ffd20lnrw button {
+.ffd20 button {
   background: rgba(0, 0, 0, 0.1);
   border: 2px groove #eeede0;
 }
-.ffd20lnrw button:active {
+.ffd20 button:active {
   background: rgba(0, 0, 0, 0.3);
 }
-.ffd20lnrw label.checkbox {
+.ffd20 label.checkbox {
   flex: auto;
   margin: 0;
   line-height: 20px;
   font-size: 11px;
 }
-.ffd20lnrw label.checkbox input[type="checkbox"] {
+.ffd20 label.checkbox input[type="checkbox"] {
   height: auto;
   margin: 0 5px 0;
   position: relative;
   top: 3px;
 }
-.ffd20lnrw .form-group {
+.ffd20 .form-group {
   flex: 0 0 24px;
 }
-.ffd20lnrw .form-group label.header {
+.ffd20 .form-group label.header {
   flex: 0 0 100%;
 }
-.ffd20lnrw .form-group label:nth-child(1n + 1) {
+.ffd20 .form-group label:nth-child(1n + 1) {
   margin-left: 4px;
 }
-.ffd20lnrw .form-group .buff-flags {
+.ffd20 .form-group .buff-flags {
   display: flex;
   flex-wrap: wrap;
   min-width: 100%;
   max-height: 76px;
   overflow-y: auto;
 }
-.ffd20lnrw .form-group .buff-flags label.checkbox {
+.ffd20 .form-group .buff-flags label.checkbox {
   flex: 0 0 50%;
   text-align: left;
 }
-.ffd20lnrw .form-group label {
+.ffd20 .form-group label {
   flex: 0 0 200px;
   color: #4b4a44;
   font-weight: bold;
   white-space: nowrap;
 }
-.ffd20lnrw .form-group label.checkbox {
+.ffd20 .form-group label.checkbox {
   flex: 0;
 }
-.ffd20lnrw .form-group label.aura-strength {
+.ffd20 .form-group label.aura-strength {
   text-align: right;
   margin-right: 4px;
 }
-.ffd20lnrw .form-group span {
+.ffd20 .form-group span {
   flex: 0 0 1px;
 }
-.ffd20lnrw .form-group .form-fields {
+.ffd20 .form-group .form-fields {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-.ffd20lnrw .form-group .form-fields > * {
+.ffd20 .form-group .form-fields > * {
   flex: 1;
 }
-.ffd20lnrw .form-group .form-fields .flex1 {
+.ffd20 .form-group .form-fields .flex1 {
   flex: 1;
 }
-.ffd20lnrw .form-group .form-fields .flex2 {
+.ffd20 .form-group .form-fields .flex2 {
   flex: 2;
 }
-.ffd20lnrw .form-group .form-fields .flex3 {
+.ffd20 .form-group .form-fields .flex3 {
   flex: 3;
 }
-.ffd20lnrw .form-group .form-fields .flex4 {
+.ffd20 .form-group .form-fields .flex4 {
   flex: 4;
 }
-.ffd20lnrw .form-group .form-fields > * {
+.ffd20 .form-group .form-fields > * {
   margin: 0 3px 0 0;
 }
-.ffd20lnrw .form-group .form-fields > *:last-child {
+.ffd20 .form-group .form-fields > *:last-child {
   margin-right: 0;
 }
-.ffd20lnrw .form-group .group {
+.ffd20 .form-group .group {
   flex: 1 1 96px;
 }
-.ffd20lnrw .form-group .group label {
+.ffd20 .form-group .group label {
   flex: 1;
   font-weight: normal;
 }
-.ffd20lnrw .form-group .group a {
+.ffd20 .form-group .group a {
   flex: 0 0 16px;
 }
-.ffd20lnrw .form-group.stacked label {
+.ffd20 .form-group.stacked label {
   flex: 0 0 100%;
 }
-.ffd20lnrw .form-group.stacked label.checkbox {
+.ffd20 .form-group.stacked label.checkbox {
   text-align: left;
 }
-.ffd20lnrw .form-group.stacked .data-selector {
+.ffd20 .form-group.stacked .data-selector {
   flex: 1;
 }
-.ffd20lnrw .form-group.stacked .data-selector label {
+.ffd20 .form-group.stacked .data-selector label {
   font-weight: normal;
   flex: 1;
 }
-.ffd20lnrw .form-group.stacked .data-selector .entry-selector {
+.ffd20 .form-group.stacked .data-selector .entry-selector {
   flex: 0 0 16px;
 }
-.ffd20lnrw .form-header {
+.ffd20 .form-header {
   margin: 0 0 0.25em 0;
   padding: 0 2px;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
@@ -258,7 +258,7 @@
   border-top: 2px groove #eeede0;
   border-bottom: 2px groove #eeede0;
 }
-.ffd20lnrw .tag {
+.ffd20 .tag {
   display: inline-block;
   margin: 0 2px 1px 0;
   padding: 0 3px;
@@ -268,45 +268,45 @@
   border-radius: 3px;
   background: rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw .tag.type1 {
+.ffd20 .tag.type1 {
   background: rgba(255, 0, 0, 0.1);
 }
-.ffd20lnrw .tag.type2 {
+.ffd20 .tag.type2 {
   background: rgba(0, 255, 0, 0.1);
 }
-.ffd20lnrw .tag.type3 {
+.ffd20 .tag.type3 {
   background: rgba(0, 0, 255, 0.1);
 }
-.ffd20lnrw div.links-body table .links-item-extra-field {
+.ffd20 div.links-body table .links-item-extra-field {
   width: 128px;
 }
-.ffd20lnrw div.links-body table .links-controls {
+.ffd20 div.links-body table .links-controls {
   width: 48px;
 }
-.ffd20lnrw div.links-body table .links-controls > div {
+.ffd20 div.links-body table .links-controls > div {
   display: flex;
   justify-content: center;
 }
-.ffd20lnrw div.links-body table .links-item .links-item-name img {
+.ffd20 div.links-body table .links-item .links-item-name img {
   vertical-align: middle;
 }
-.ffd20lnrw div.links-body table .links-item .links-item-name span {
+.ffd20 div.links-body table .links-item .links-item-name span {
   vertical-align: middle;
 }
-.ffd20lnrw div.links-body table th {
+.ffd20 div.links-body table th {
   background-color: #747474;
 }
-.ffd20lnrw div.links-body table tr:not(:last-child) {
+.ffd20 div.links-body table tr:not(:last-child) {
   border-bottom: 1px solid #888888;
 }
-.ffd20lnrw div.links-body table td:not(:last-child),
-.ffd20lnrw div.links-body table th:not(:last-child) {
+.ffd20 div.links-body table td:not(:last-child),
+.ffd20 div.links-body table th:not(:last-child) {
   border-right: 1px solid #888888;
 }
-.ffd20lnrw .help-icon {
+.ffd20 .help-icon {
   flex: 0;
 }
-.ffd20lnrw .fake-inline-roll {
+.ffd20 .fake-inline-roll {
   background: #ddd;
   padding: 1px 4px;
   border: 1px solid #4b4a44;
@@ -317,16 +317,16 @@
 /* ----------------------------------------- */
 /*  Trait Selectors Specifically             */
 /* ----------------------------------------- */
-.ffd20lnrw.trait-selector {
+.ffd20.trait-selector {
   max-height: 720px;
 }
-.ffd20lnrw.trait-selector .window-content {
+.ffd20.trait-selector .window-content {
   overflow: auto;
 }
 /* ----------------------------------------- */
 /*  Entity Sheets Specifically               */
 /* ----------------------------------------- */
-.ffd20lnrw.sheet {
+.ffd20.sheet {
   /* ----------------------------------------- */
   /*  Element Styles                           */
   /* ----------------------------------------- */
@@ -346,86 +346,86 @@
   /*  List Filters                             */
   /* ----------------------------------------- */
 }
-.ffd20lnrw.sheet .window-content {
+.ffd20.sheet .window-content {
   overflow-y: hidden;
   padding: 5px;
   background: url("ui/parchment.jpg") repeat;
   font-size: 13px;
   color: #191813;
 }
-.ffd20lnrw.sheet .window-content form {
+.ffd20.sheet .window-content form {
   height: 100%;
   overflow: hidden;
 }
-.ffd20lnrw.sheet .window-content .tab {
+.ffd20.sheet .window-content .tab {
   height: 100%;
   overflow-y: auto;
   align-content: flex-start;
 }
-.ffd20lnrw.sheet .inventory-list {
+.ffd20.sheet .inventory-list {
   list-style: none;
   margin: 0;
   padding: 0 5px;
   overflow-y: auto;
 }
-.ffd20lnrw.sheet .inventory-list.flexcol {
+.ffd20.sheet .inventory-list.flexcol {
   height: 100%;
 }
-.ffd20lnrw.sheet .inventory-list .item {
+.ffd20.sheet .inventory-list .item {
   line-height: 24px;
   padding: 0 2px;
   border-bottom: 1px solid #c9c7b8;
   background-color: rgba(155, 155, 155, 0.3);
 }
-.ffd20lnrw.sheet .inventory-list .item:last-child {
+.ffd20.sheet .inventory-list .item:last-child {
   border-bottom: none;
 }
-.ffd20lnrw.sheet .inventory-list .item:nth-child(2n + 1) {
+.ffd20.sheet .inventory-list .item:nth-child(2n + 1) {
   background-color: rgba(210, 210, 210, 0.3);
 }
-.ffd20lnrw.sheet .inventory-list .item:hover {
+.ffd20.sheet .inventory-list .item:hover {
   background-color: rgba(64, 64, 192, 0.3);
 }
-.ffd20lnrw.sheet .inventory-list .item .item-name {
+.ffd20.sheet .inventory-list .item .item-name {
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
 }
-.ffd20lnrw.sheet .inventory-list .item .item-name .item-image {
+.ffd20.sheet .inventory-list .item .item-name .item-image {
   flex: 0 0 24px;
   background-size: 24px;
   margin-right: 5px;
 }
-.ffd20lnrw.sheet .inventory-list .item .item-name h4 {
+.ffd20.sheet .inventory-list .item .item-name h4 {
   margin: 0;
   min-width: 0;
 }
-.ffd20lnrw.sheet .inventory-list .item .item-name .item-image:hover {
+.ffd20.sheet .inventory-list .item .item-name .item-image:hover {
   background-image: url("/icons/svg/d20-black.svg") !important;
 }
-.ffd20lnrw.sheet .inventory-list .item input[type="checkbox"] {
+.ffd20.sheet .inventory-list .item input[type="checkbox"] {
   height: 12px;
 }
-.ffd20lnrw.sheet .inventory-list .item .item-properties {
+.ffd20.sheet .inventory-list .item .item-properties {
   margin-top: 3px;
 }
-.ffd20lnrw.sheet .inventory-list .item .item-recharge {
+.ffd20.sheet .inventory-list .item .item-recharge {
   flex: 0 0 80px;
   text-align: right;
   font-size: 14px;
   color: #7a7971;
 }
-.ffd20lnrw.sheet .inventory-list .item .item-actions > div a {
+.ffd20.sheet .inventory-list .item .item-actions > div a {
   display: flex;
   flex: 0 0 16px;
   padding: 0;
   margin-right: 1px;
   height: 16px;
 }
-.ffd20lnrw.sheet .inventory-list .item .item-actions > div a:last-child {
+.ffd20.sheet .inventory-list .item .item-actions > div a:last-child {
   margin-right: 0;
 }
-.ffd20lnrw.sheet .inventory-list .inventory-header {
+.ffd20.sheet .inventory-list .inventory-header {
   margin: 2px 0;
   padding: 0;
   background: rgba(0, 0, 0, 0.05);
@@ -433,16 +433,16 @@
   line-height: 24px;
   flex: 0 0 24px;
 }
-.ffd20lnrw.sheet .inventory-list .inventory-header h3 {
+.ffd20.sheet .inventory-list .inventory-header h3 {
   margin: 0;
   padding-left: 5px;
   font-size: 14px;
   font-weight: bold;
 }
-.ffd20lnrw.sheet .inventory-list .inventory-header .item-controls {
+.ffd20.sheet .inventory-list .inventory-header .item-controls {
   justify-content: space-evenly;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail {
+.ffd20.sheet .inventory-list .item-detail {
   height: 24px;
   flex: 0 0 80px;
   font-size: 14px;
@@ -458,110 +458,110 @@
   justify-content: flex-end;
   align-items: center;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail > * {
+.ffd20.sheet .inventory-list .item-detail > * {
   flex: 1;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail .flex1 {
+.ffd20.sheet .inventory-list .item-detail .flex1 {
   flex: 1;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail .flex2 {
+.ffd20.sheet .inventory-list .item-detail .flex2 {
   flex: 2;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail .flex3 {
+.ffd20.sheet .inventory-list .item-detail .flex3 {
   flex: 3;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail .flex4 {
+.ffd20.sheet .inventory-list .item-detail .flex4 {
   flex: 4;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail .icon {
+.ffd20.sheet .inventory-list .item-detail .icon {
   background-color: #7a7971;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-actions {
+.ffd20.sheet .inventory-list .item-detail.item-actions {
   flex: 0 0 32px;
   padding: 0 1px 0 1px;
   justify-content: center;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-actions > div {
+.ffd20.sheet .inventory-list .item-detail.item-actions > div {
   flex: 0 0 16px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-slot {
+.ffd20.sheet .inventory-list .item-detail.item-slot {
   flex: 0 0 64px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-usage {
+.ffd20.sheet .inventory-list .item-detail.item-usage {
   flex: 0 0 120px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-type {
+.ffd20.sheet .inventory-list .item-detail.item-type {
   flex: 0 0 120px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-value {
+.ffd20.sheet .inventory-list .item-detail.item-value {
   flex: 0 0 72px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-weight {
+.ffd20.sheet .inventory-list .item-detail.item-weight {
   flex: 0 0 56px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-identified {
+.ffd20.sheet .inventory-list .item-detail.item-identified {
   flex: 0 0 32px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-carried {
+.ffd20.sheet .inventory-list .item-detail.item-carried {
   flex: 0 0 32px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-equipped {
+.ffd20.sheet .inventory-list .item-detail.item-equipped {
   flex: 0 0 32px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-uses {
+.ffd20.sheet .inventory-list .item-detail.item-uses {
   flex: 0 0 64px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-attacks {
+.ffd20.sheet .inventory-list .item-detail.item-attacks {
   flex: 0 0 56px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-damage {
+.ffd20.sheet .inventory-list .item-detail.item-damage {
   flex: 0 0 100px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail.item-range {
+.ffd20.sheet .inventory-list .item-detail.item-range {
   flex: 0 1 56px;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail:nth-child(2) {
+.ffd20.sheet .inventory-list .item-detail:nth-child(2) {
   border-left: 1px solid #b5b3a4;
 }
-.ffd20lnrw.sheet .inventory-list .item-detail:last-child {
+.ffd20.sheet .inventory-list .item-detail:last-child {
   border-right: none;
 }
-.ffd20lnrw.sheet .inventory-list a.item-control {
+.ffd20.sheet .inventory-list a.item-control {
   height: 100%;
 }
-.ffd20lnrw.sheet .inventory-list a.item-control.item-toggle-data {
+.ffd20.sheet .inventory-list a.item-control.item-toggle-data {
   color: rgba(75, 75, 75, 0.3);
 }
-.ffd20lnrw.sheet .inventory-list a.item-control.item-toggle-data.enabled {
+.ffd20.sheet .inventory-list a.item-control.item-toggle-data.enabled {
   color: #4b4b4b;
 }
-.ffd20lnrw.sheet .inventory-list .item-level {
+.ffd20.sheet .inventory-list .item-level {
   flex: 0 0 40px;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet .inventory-list .item-feat-level {
+.ffd20.sheet .inventory-list .item-feat-level {
   flex: 0 0 60px;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet .inventory-list .item-active {
+.ffd20.sheet .inventory-list .item-active {
   flex: 0 0 60px;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet .inventory-list .item-list {
+.ffd20.sheet .inventory-list .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.ffd20lnrw.sheet .inventory-list .item-controls {
+.ffd20.sheet .inventory-list .item-controls {
   flex: 0 0 96px;
   display: flex;
   flex-direction: row;
@@ -571,46 +571,46 @@
   white-space: nowrap;
   justify-content: center;
 }
-.ffd20lnrw.sheet .inventory-list .item-controls > * {
+.ffd20.sheet .inventory-list .item-controls > * {
   flex: 1;
 }
-.ffd20lnrw.sheet .inventory-list .item-controls .flex1 {
+.ffd20.sheet .inventory-list .item-controls .flex1 {
   flex: 1;
 }
-.ffd20lnrw.sheet .inventory-list .item-controls .flex2 {
+.ffd20.sheet .inventory-list .item-controls .flex2 {
   flex: 2;
 }
-.ffd20lnrw.sheet .inventory-list .item-controls .flex3 {
+.ffd20.sheet .inventory-list .item-controls .flex3 {
   flex: 3;
 }
-.ffd20lnrw.sheet .inventory-list .item-controls .flex4 {
+.ffd20.sheet .inventory-list .item-controls .flex4 {
   flex: 4;
 }
-.ffd20lnrw.sheet .inventory-list .item-controls a {
+.ffd20.sheet .inventory-list .item-controls a {
   flex: 0 0 16px;
   font-size: 14px;
   text-align: center;
   color: #666;
 }
-.ffd20lnrw.sheet .inventory-list .item-summary {
+.ffd20.sheet .inventory-list .item-summary {
   flex: 0 0 100%;
   font-size: 14px;
   line-height: 16px;
   padding: 0.25em 0.5em;
   border-top: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet input[type="text"],
-.ffd20lnrw.sheet input[type="number"] {
+.ffd20.sheet input[type="text"],
+.ffd20.sheet input[type="number"] {
   background: none;
   border: 1px solid transparent;
 }
-.ffd20lnrw.sheet input[type="text"]:hover,
-.ffd20lnrw.sheet input[type="number"]:hover,
-.ffd20lnrw.sheet input[type="text"]:focus,
-.ffd20lnrw.sheet input[type="number"]:focus {
+.ffd20.sheet input[type="text"]:hover,
+.ffd20.sheet input[type="number"]:hover,
+.ffd20.sheet input[type="text"]:focus,
+.ffd20.sheet input[type="number"]:focus {
   border: 1px solid #111;
 }
-.ffd20lnrw.sheet textarea {
+.ffd20.sheet textarea {
   font-family: sans-serif;
   padding: 1px 5px;
   resize: none;
@@ -618,49 +618,49 @@
   background: rgba(0, 0, 0, 0.05);
   white-space: nowrap;
 }
-.ffd20lnrw.sheet textarea:hover {
+.ffd20.sheet textarea:hover {
   border: 1px solid #111;
 }
-.ffd20lnrw.sheet select {
+.ffd20.sheet select {
   flex: 1;
   font-size: 12px;
   height: 24px;
   background: transparent;
 }
-.ffd20lnrw.sheet .editable .rollable:hover {
+.ffd20.sheet .editable .rollable:hover {
   color: #000;
   text-shadow: 0 0 10px red;
   cursor: pointer;
 }
-.ffd20lnrw.sheet .editor {
+.ffd20.sheet .editor {
   height: 100%;
 }
-.ffd20lnrw.sheet .editor .tox-toolbar-overlord,
-.ffd20lnrw.sheet .editor .tox-toolbar__primary {
+.ffd20.sheet .editor .tox-toolbar-overlord,
+.ffd20.sheet .editor .tox-toolbar__primary {
   background: none;
 }
-.ffd20lnrw.sheet .notImp {
+.ffd20.sheet .notImp {
   text-decoration: firebrick dotted underline;
   text-decoration-skip-ink: none;
 }
-.ffd20lnrw.sheet .notImp::after {
+.ffd20.sheet .notImp::after {
   color: firebrick;
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f071";
   text-shadow: 0 0 4px white;
 }
-.ffd20lnrw.sheet .needSteps {
+.ffd20.sheet .needSteps {
   text-decoration: goldenrod double underline;
 }
-.ffd20lnrw.sheet .needSteps::after {
+.ffd20.sheet .needSteps::after {
   color: goldenrod;
   font-family: "Font Awesome 5 Free";
   font-weight: 900;
   content: "\f14a";
   text-shadow: 0 0 4px black;
 }
-.ffd20lnrw.sheet .sheet-header {
+.ffd20.sheet .sheet-header {
   flex: 0 0 100px;
   border-bottom: 2px groove #eeede0;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
@@ -671,20 +671,20 @@
   /* Profile Image */
   /* Header Summary Details */
 }
-.ffd20lnrw.sheet .sheet-header h1 {
+.ffd20.sheet .sheet-header h1 {
   flex: 1;
   border-bottom: none;
   height: 60px;
   margin: 0;
   padding: 5px;
 }
-.ffd20lnrw.sheet .sheet-header h1 input {
+.ffd20.sheet .sheet-header h1 input {
   height: 50px;
   font-size: 36px;
   font-variant-caps: small-caps;
   margin: 0;
 }
-.ffd20lnrw.sheet .sheet-header img.profile {
+.ffd20.sheet .sheet-header img.profile {
   flex: 0 0 100px;
   width: 100px;
   height: 100px;
@@ -692,7 +692,7 @@
   border: none;
   border-right: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet .sheet-header .summary {
+.ffd20.sheet .sheet-header .summary {
   flex: 0 0 100%;
   height: 36px;
   margin: 0;
@@ -701,7 +701,7 @@
   border-top: 2px groove #eeede0;
   border-bottom: none;
 }
-.ffd20lnrw.sheet .sheet-header .summary li {
+.ffd20.sheet .sheet-header .summary li {
   width: 33.33%;
   float: left;
   height: 24px;
@@ -711,13 +711,13 @@
   line-height: 24px;
   color: #4b4a44;
 }
-.ffd20lnrw.sheet .sheet-header .summary li input {
+.ffd20.sheet .sheet-header .summary li input {
   vertical-align: top;
 }
-.ffd20lnrw.sheet .sheet-header .header-details .summary input[type="checkbox"] {
+.ffd20.sheet .sheet-header .header-details .summary input[type="checkbox"] {
   margin: 0;
 }
-.ffd20lnrw.sheet .sheet-navigation {
+.ffd20.sheet .sheet-navigation {
   flex: 0 0 30px;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 22px;
@@ -727,7 +727,7 @@
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 6px 6px 0 0;
 }
-.ffd20lnrw.sheet .sheet-navigation .item {
+.ffd20.sheet .sheet-navigation .item {
   height: 30px;
   line-height: 32px;
   margin: 0 2px;
@@ -735,87 +735,87 @@
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 12px 12px 0 0;
 }
-.ffd20lnrw.sheet .sheet-navigation .item.active {
+.ffd20.sheet .sheet-navigation .item.active {
   background: rgba(155, 155, 155, 0.5);
 }
-.ffd20lnrw.sheet .sheet-navigation .item:hover {
+.ffd20.sheet .sheet-navigation .item:hover {
   background: rgba(155, 155, 155, 0.2);
 }
-.ffd20lnrw.sheet .sheet-navigation.tabs {
+.ffd20.sheet .sheet-navigation.tabs {
   border-bottom: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet .sheet-navigation.subtabs {
+.ffd20.sheet .sheet-navigation.subtabs {
   font-size: 18px;
 }
-.ffd20lnrw.sheet .primary-body {
+.ffd20.sheet .primary-body {
   flex: 1;
   overflow: hidden;
 }
-.ffd20lnrw.sheet .filter-list {
+.ffd20.sheet .filter-list {
   list-style: none;
   margin: 0;
   padding: 0;
   line-height: 16px;
 }
-.ffd20lnrw.sheet .filter-list .filter-title {
+.ffd20.sheet .filter-list .filter-title {
   flex: 3;
 }
-.ffd20lnrw.sheet .filter-list .filter-item {
+.ffd20.sheet .filter-list .filter-item {
   text-align: center;
   font-size: 12px;
   margin: 0 6px;
   border-bottom: 3px solid #b5b3a4;
   white-space: nowrap;
 }
-.ffd20lnrw.sheet .filter-list .filter-item:hover {
+.ffd20.sheet .filter-list .filter-item:hover {
   text-shadow: 0 0 4px red;
   border-bottom: 3px solid #7a7971;
 }
-.ffd20lnrw.sheet .filter-list .filter-item.active {
+.ffd20.sheet .filter-list .filter-item.active {
   border-bottom: 3px solid #44191a;
 }
-.ffd20lnrw.sheet a > .icon:hover {
+.ffd20.sheet a > .icon:hover {
   opacity: 0.5;
 }
-.ffd20lnrw.sheet .icon {
+.ffd20.sheet .icon {
   border: none;
   display: inline-block;
   width: 16px;
   height: 16px;
 }
-.ffd20lnrw.sheet .icon.large {
+.ffd20.sheet .icon.large {
   width: 24px;
   height: 24px;
 }
-.ffd20lnrw.sheet div.info {
+.ffd20.sheet div.info {
   text-align: center;
   justify-content: center;
 }
-.ffd20lnrw.sheet div.info span {
+.ffd20.sheet div.info span {
   color: #7a7971;
   flex: 0;
 }
-.ffd20lnrw.sheet div.info span a {
+.ffd20.sheet div.info span a {
   color: #7e78dc;
 }
-.ffd20lnrw.sheet .currency {
+.ffd20.sheet .currency {
   list-style: none;
   margin: 4px 0 8px;
   padding: 0;
   font-size: 14px;
 }
-.ffd20lnrw.sheet .currency h3 {
+.ffd20.sheet .currency h3 {
   flex: 0 0 160px;
 }
-.ffd20lnrw.sheet .currency label {
+.ffd20.sheet .currency label {
   flex: 0;
   margin-left: 8px;
   text-align: right;
   line-height: 20px;
   color: #7a7971;
 }
-.ffd20lnrw.sheet .currency input[type="text"],
-.ffd20lnrw.sheet .currency span.text-box {
+.ffd20.sheet .currency input[type="text"],
+.ffd20.sheet .currency span.text-box {
   flex: 1;
   text-align: center;
   margin-left: 8px;
@@ -825,7 +825,7 @@
   height: auto;
   line-height: 20px;
 }
-.ffd20lnrw.sheet .currency .convert-currency {
+.ffd20.sheet .currency .convert-currency {
   flex: 0;
 }
 /* ----------------------------------------- */
@@ -840,24 +840,24 @@
   height: 24px;
   margin: 2px;
 }
-.ffd20lnrw.entry table {
+.ffd20.entry table {
   border: 1px solid #888888;
   font-weight: normal;
   table-layout: fixed;
 }
-.ffd20lnrw.entry table th.entry-control {
+.ffd20.entry table th.entry-control {
   width: 16px;
 }
-.ffd20lnrw.entry table tr {
+.ffd20.entry table tr {
   height: 16px;
 }
-.ffd20lnrw.entry table thead {
+.ffd20.entry table thead {
   background-color: #cfe2f3;
 }
-.ffd20lnrw.entry table tbody tr {
+.ffd20.entry table tbody tr {
   background-color: white;
 }
-.ffd20lnrw.entry table tbody tr:nth-child(even) {
+.ffd20.entry table tbody tr:nth-child(even) {
   background-color: #f3f3f3;
 }
 .compendium-browser {
@@ -946,17 +946,17 @@
   color: #888888;
   opacity: 1;
 }
-.ffd20lnrw.pointbuy-calculator ol.item-list li {
+.ffd20.pointbuy-calculator ol.item-list li {
   background-color: rgba(155, 155, 155, 0.3);
 }
-.ffd20lnrw.pointbuy-calculator ol.item-list li:nth-child(2n + 1) {
+.ffd20.pointbuy-calculator ol.item-list li:nth-child(2n + 1) {
   background-color: rgba(210, 210, 210, 0.3);
 }
-.ffd20lnrw.pointbuy-calculator ol.item-list .ability-controls {
+.ffd20.pointbuy-calculator ol.item-list .ability-controls {
   flex: 0 0 32px;
   padding: 0 1px 0 1px;
 }
-.ffd20lnrw.pointbuy-calculator ol.item-list .item-detail.ability-value {
+.ffd20.pointbuy-calculator ol.item-list .item-detail.ability-value {
   flex: 0 0 32px;
   padding: 0 1px 0 1px;
 }
@@ -985,81 +985,81 @@
 /* ----------------------------------------- */
 /* Changelog
 /* ----------------------------------------- */
-.ffd20lnrw.changelog .content {
+.ffd20.changelog .content {
   overflow-y: auto;
   max-height: 640px;
 }
-.ffd20lnrw.changelog .content li > ul {
+.ffd20.changelog .content li > ul {
   margin: 0;
 }
 /* ----------------------------------------- */
 /* Help Browser
 /* ----------------------------------------- */
-.ffd20lnrw.help-browser section.window-content {
+.ffd20.help-browser section.window-content {
   padding: 0;
 }
-.ffd20lnrw.help-browser section.window-content .top-bar {
+.ffd20.help-browser section.window-content .top-bar {
   padding: 6px;
   flex: 0 0 24px;
   border-bottom: 2px groove #eeede0;
 }
-.ffd20lnrw.help-browser section.window-content .top-bar > * {
+.ffd20.help-browser section.window-content .top-bar > * {
   margin-right: 8px;
 }
-.ffd20lnrw.help-browser section.window-content .top-bar i {
+.ffd20.help-browser section.window-content .top-bar i {
   font-size: 24px;
 }
-.ffd20lnrw.help-browser section.window-content .top-bar i.gray {
+.ffd20.help-browser section.window-content .top-bar i.gray {
   color: gray;
 }
-.ffd20lnrw.help-browser section.window-content .content a,
-.ffd20lnrw.help-browser section.window-content nav a {
+.ffd20.help-browser section.window-content .content a,
+.ffd20.help-browser section.window-content nav a {
   color: #ff6400;
   text-decoration: underline;
 }
-.ffd20lnrw.help-browser section.window-content .primary {
+.ffd20.help-browser section.window-content .primary {
   height: calc(100% - 32px);
 }
-.ffd20lnrw.help-browser section.window-content nav {
+.ffd20.help-browser section.window-content nav {
   flex: 0 0 200px;
   border-right: 2px groove #eeede0;
   height: 100%;
   overflow: auto;
 }
-.ffd20lnrw.help-browser section.window-content .content {
+.ffd20.help-browser section.window-content .content {
   height: 100%;
   overflow: auto;
   padding-bottom: 32px;
 }
-.ffd20lnrw.help-browser section.window-content .content code {
+.ffd20.help-browser section.window-content .content code {
   padding: 2px;
   background-color: black;
   color: white;
 }
-.ffd20lnrw.help-browser section.window-content .content img {
+.ffd20.help-browser section.window-content .content img {
   margin-left: 8px;
 }
-.ffd20lnrw.help-browser section.window-content .content h2 {
+.ffd20.help-browser section.window-content .content h2 {
   margin-top: 1em;
 }
 /* ----------------------------------------- */
 /* Script Editor
 /* ----------------------------------------- */
-.ffd20lnrw.script-editor .form-group.command {
+.ffd20.script-editor .form-group.command {
   flex: 1;
   flex-direction: column;
   align-items: unset;
 }
-.ffd20lnrw.script-editor .form-group.command label {
+.ffd20.script-editor .form-group.command label {
   flex: 0;
 }
-.ffd20lnrw.script-editor .form-group.command textarea {
+.ffd20.script-editor .form-group.command textarea {
   flex: 1;
 }
-.ffd20lnrw.script-editor footer {
+.ffd20.script-editor footer {
   flex: 0 0 32px;
 }
-.ffd20lnrw.sheet.actor {
+.ffd20.sheet.actor {
   /* ----------------------------------------- */
   /*  Sheet Header                             */
   /* ----------------------------------------- */
@@ -1108,60 +1108,60 @@
   /*  Misc                                     */
   /* ----------------------------------------- */
 }
-.ffd20lnrw.sheet.actor .warning {
+.ffd20.sheet.actor .warning {
   flex: 0;
   background-color: #cece00;
   border: 1px solid #909000;
   border-radius: 2px;
 }
-.ffd20lnrw.sheet.actor .tab-footer {
+.ffd20.sheet.actor .tab-footer {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary {
+.ffd20.sheet.actor .tab.summary {
   border-left: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header {
+.ffd20.sheet.actor .tab.summary .summary-header {
   flex: 0;
   border-bottom: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .name-xp {
+.ffd20.sheet.actor .tab.summary .summary-header .name-xp {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .name-xp h1.charname input {
+.ffd20.sheet.actor .tab.summary .summary-header .name-xp h1.charname input {
   height: 32px;
   padding: 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .character-summary {
+.ffd20.sheet.actor .tab.summary .summary-header .character-summary {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .character-summary > div {
+.ffd20.sheet.actor .tab.summary .summary-header .character-summary > div {
   flex: 0 0 33%;
   height: 32px;
   line-height: 28px;
   border-right: 2px groove #eeede0;
   border-bottom: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .character-summary > div:nth-child(3n + 0) {
+.ffd20.sheet.actor .tab.summary .summary-header .character-summary > div:nth-child(3n + 0) {
   border-right: none;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .character-summary > div.alignment {
+.ffd20.sheet.actor .tab.summary .summary-header .character-summary > div.alignment {
   padding: 1px 3px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .race-container {
+.ffd20.sheet.actor .tab.summary .summary-header .race-container {
   flex: 1;
   margin: 3px 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .race-container .item-controls {
+.ffd20.sheet.actor .tab.summary .summary-header .race-container .item-controls {
   flex: 0;
   align-items: flex-start;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .race-container .item-controls a {
+.ffd20.sheet.actor .tab.summary .summary-header .race-container .item-controls a {
   flex: 0 0 12px;
   font-size: 12px;
   text-align: center;
   color: #666;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .race-container .race {
+.ffd20.sheet.actor .tab.summary .summary-header .race-container .race {
   flex: 0 0 32px;
   background-size: contain;
   line-height: 32px;
@@ -1171,24 +1171,24 @@
   height: 32px;
   color: #7a7971;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .race-container .race.rollable:hover {
+.ffd20.sheet.actor .tab.summary .summary-header .race-container .race.rollable:hover {
   background-image: url("/icons/svg/d20-black.svg") !important;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .race-container .race-info {
+.ffd20.sheet.actor .tab.summary .summary-header .race-container .race-info {
   margin-left: 8px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .hp-ability {
+.ffd20.sheet.actor .tab.summary .summary-header .hp-ability {
   flex: 1;
   justify-content: flex-end;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .hp-ability > label {
+.ffd20.sheet.actor .tab.summary .summary-header .hp-ability > label {
   flex: 0;
   margin-right: 4px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .summary-header .hp-ability > select {
+.ffd20.sheet.actor .tab.summary .summary-header .hp-ability > select {
   flex: 0 0 96px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .attributes > .attribute {
+.ffd20.sheet.actor .tab.summary .attributes > .attribute {
   margin: 0;
   border-left: none;
   border-bottom: none;
@@ -1197,7 +1197,7 @@
   border-radius: 0;
   height: auto;
 }
-.ffd20lnrw.sheet.actor .tab.summary img.profile {
+.ffd20.sheet.actor .tab.summary img.profile {
   flex: 0 0 160px;
   width: 160px;
   height: 160px;
@@ -1206,60 +1206,60 @@
   border: none;
   border-right: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .misc-header-items {
+.ffd20.sheet.actor .tab.summary .misc-header-items {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .misc-header-items > * {
+.ffd20.sheet.actor .tab.summary .misc-header-items > * {
   margin-right: 8px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .misc-header-items .actor-quick-actions button {
+.ffd20.sheet.actor .tab.summary .misc-header-items .actor-quick-actions button {
   min-height: 24px;
   width: calc(50% - 6px);
   height: calc(50% - 6px);
   line-height: 50%;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level {
+.ffd20.sheet.actor .tab.summary .hd-level {
   flex: 0 0 256px;
   overflow-x: hidden;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table {
+.ffd20.sheet.actor .tab.summary .hd-level table {
   margin: 0 0 4px 8px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table:hover a.config-icon {
+.ffd20.sheet.actor .tab.summary .hd-level table:hover a.config-icon {
   color: #b5b3a4;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr td {
+.ffd20.sheet.actor .tab.summary .hd-level table tr td {
   padding: 0;
   text-align: center;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr td.experience,
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr th.experience {
+.ffd20.sheet.actor .tab.summary .hd-level table tr td.experience,
+.ffd20.sheet.actor .tab.summary .hd-level table tr th.experience {
   width: 50%;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr a.config-icon {
+.ffd20.sheet.actor .tab.summary .hd-level table tr a.config-icon {
   flex: 0 0 16px;
   width: 16px;
   font-size: 16px;
   color: rgba(0, 0, 0, 0);
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr a.config-icon:hover {
+.ffd20.sheet.actor .tab.summary .hd-level table tr a.config-icon:hover {
   color: #191813;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr input[type="text"] {
+.ffd20.sheet.actor .tab.summary .hd-level table tr input[type="text"] {
   flex: 1 0 32px;
   height: auto;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr div.experience input[type="text"],
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr div.experience span.text-box,
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr div.experience .max {
+.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience input[type="text"],
+.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience span.text-box,
+.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience .max {
   padding: 0;
   flex: 1;
   text-align: center;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level table tr div.experience .separator {
+.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience .separator {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level .xpbar {
+.ffd20.sheet.actor .tab.summary .hd-level .xpbar {
   width: 100%;
   height: 12px;
   font-size: 16px;
@@ -1268,33 +1268,33 @@
   border: 1px solid #191813;
   border-radius: 4px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .hd-level .xpbar span.bar {
+.ffd20.sheet.actor .tab.summary .hd-level .xpbar span.bar {
   background: #63ff00;
   border: 1px solid #d0ffb2;
   border-radius: 2px;
   height: 10px;
   display: block;
 }
-.ffd20lnrw.sheet.actor .tab.summary .attributes {
+.ffd20.sheet.actor .tab.summary .attributes {
   border-bottom: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .attributes li {
+.ffd20.sheet.actor .tab.summary .attributes li {
   padding: 0;
   border-top: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .attributes li:not(:last-child) {
+.ffd20.sheet.actor .tab.summary .attributes li:not(:last-child) {
   border-right: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .tab.quick-info ul.attributes {
+.ffd20.sheet.actor .tab.summary .tab.quick-info ul.attributes {
   margin: 2px 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .tab.quick-info .quick-actions {
+.ffd20.sheet.actor .tab.summary .tab.quick-info .quick-actions {
   display: flex;
   flex-direction: row;
   padding: 0;
   margin: 0;
 }
-.ffd20lnrw.sheet.actor .tab.summary .tab.quick-info .quick-actions li {
+.ffd20.sheet.actor .tab.summary .tab.quick-info .quick-actions li {
   cursor: pointer;
   flex: 0 0 52px;
   border-width: 2px;
@@ -1304,128 +1304,128 @@
   margin: 2px;
   overflow: hidden;
 }
-.ffd20lnrw.sheet.actor .tab.summary .tab.quick-info .quick-actions li:hover {
+.ffd20.sheet.actor .tab.summary .tab.quick-info .quick-actions li:hover {
   filter: brightness(150%);
 }
-.ffd20lnrw.sheet.actor .tab.summary .tab.quick-info .quick-actions li:hover .icon-label {
+.ffd20.sheet.actor .tab.summary .tab.quick-info .quick-actions li:hover .icon-label {
   visibility: initial;
 }
-.ffd20lnrw.sheet.actor .tab.summary .tab.quick-info .quick-actions li img {
+.ffd20.sheet.actor .tab.summary .tab.quick-info .quick-actions li img {
   border: none;
   width: 48px;
   height: 48px;
 }
-.ffd20lnrw.sheet.actor .tab.summary .tab.quick-info .quick-actions li .icon-label {
+.ffd20.sheet.actor .tab.summary .tab.quick-info .quick-actions li .icon-label {
   visibility: hidden;
 }
-.ffd20lnrw.sheet.actor .alignment {
+.ffd20.sheet.actor .alignment {
   color: black;
 }
-.ffd20lnrw.sheet.actor .controls .control {
+.ffd20.sheet.actor .controls .control {
   flex: 0;
   visibility: hidden;
   margin-right: 4px;
 }
-.ffd20lnrw.sheet.actor .controls:hover .control {
+.ffd20.sheet.actor .controls:hover .control {
   visibility: visible;
 }
-.ffd20lnrw.sheet.actor .attributes input[type="text"] {
+.ffd20.sheet.actor .attributes input[type="text"] {
   height: 24px;
 }
-.ffd20lnrw.sheet.actor .attributes input.temphp {
+.ffd20.sheet.actor .attributes input.temphp {
   width: 48%;
 }
-.ffd20lnrw.sheet.actor h4.box-title {
+.ffd20.sheet.actor h4.box-title {
   line-height: 16px;
   margin: 4px 8px 2px;
   font-size: 20px;
   border-bottom: 1px solid #b5b3a4;
 }
-.ffd20lnrw.sheet.actor .primary-body section {
+.ffd20.sheet.actor .primary-body section {
   overflow-y: hidden;
 }
-.ffd20lnrw.sheet.actor .attributes .traits {
+.ffd20.sheet.actor .attributes .traits {
   overflow-y: scroll;
   height: 100%;
 }
-.ffd20lnrw.sheet.actor .attributes .traits > * {
+.ffd20.sheet.actor .attributes .traits > * {
   flex: 0 0 24px;
   background-color: rgba(170, 170, 170, 0.3);
 }
-.ffd20lnrw.sheet.actor .attributes .traits > *:nth-child(even) {
+.ffd20.sheet.actor .attributes .traits > *:nth-child(even) {
   background-color: rgba(210, 210, 210, 0.3);
 }
-.ffd20lnrw.sheet.actor .attributes .traits > *:hover {
+.ffd20.sheet.actor .attributes .traits > *:hover {
   background-color: rgba(64, 64, 192, 0.3);
 }
-.ffd20lnrw.sheet.actor .attributes table {
+.ffd20.sheet.actor .attributes table {
   margin: 0;
 }
-.ffd20lnrw.sheet.actor ul.attributes.misc-base .attribute-footer input,
-.ffd20lnrw.sheet.actor ul.attributes.misc-defenses .attribute-footer input {
+.ffd20.sheet.actor ul.attributes.misc-base .attribute-footer input,
+.ffd20.sheet.actor ul.attributes.misc-defenses .attribute-footer input {
   width: 100%;
 }
-.ffd20lnrw.sheet.actor .attributes-root {
+.ffd20.sheet.actor .attributes-root {
   flex: 0 0 30%;
 }
-.ffd20lnrw.sheet.actor ul.attributes {
+.ffd20.sheet.actor ul.attributes {
   list-style: none;
   margin: 0;
   padding: 0;
   flex: 0;
 }
-.ffd20lnrw.sheet.actor ul.attributes h3 {
+.ffd20.sheet.actor ul.attributes h3 {
   margin: 0;
 }
-.ffd20lnrw.sheet.actor ul.attributes table span.text-box,
-.ffd20lnrw.sheet.actor ul.attributes table input[type="text"] {
+.ffd20.sheet.actor ul.attributes table span.text-box,
+.ffd20.sheet.actor ul.attributes table input[type="text"] {
   height: 20px;
   padding: 1px 3px;
 }
-.ffd20lnrw.sheet.actor .defenses .attributes {
+.ffd20.sheet.actor .defenses .attributes {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .defenses .attribute .attribute-footer input {
+.ffd20.sheet.actor .defenses .attribute .attribute-footer input {
   width: 32px;
 }
-.ffd20lnrw.sheet.actor .defenses .defense-rolls label,
-.ffd20lnrw.sheet.actor .defenses .defense-notes label {
+.ffd20.sheet.actor .defenses .defense-rolls label,
+.ffd20.sheet.actor .defenses .defense-notes label {
   line-height: 20px;
   white-space: nowrap;
 }
-.ffd20lnrw.sheet.actor .defenses .defense-rolls label h3,
-.ffd20lnrw.sheet.actor .defenses .defense-notes label h3 {
+.ffd20.sheet.actor .defenses .defense-rolls label h3,
+.ffd20.sheet.actor .defenses .defense-notes label h3 {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 22px;
   font-variant: small-caps;
   font-size: 24px;
 }
-.ffd20lnrw.sheet.actor .defenses .defense-notes {
+.ffd20.sheet.actor .defenses .defense-notes {
   margin-top: 5px;
   overflow-y: scroll;
   flex: 1;
 }
-.ffd20lnrw.sheet.actor .defenses .defense-notes label {
+.ffd20.sheet.actor .defenses .defense-notes label {
   flex: 1;
 }
-.ffd20lnrw.sheet.actor .defenses .defense-notes textarea {
+.ffd20.sheet.actor .defenses .defense-notes textarea {
   flex: 3;
 }
-.ffd20lnrw.sheet.actor .ability-scores {
+.ffd20.sheet.actor .ability-scores {
   flex: 0;
   margin-bottom: 4px;
 }
-.ffd20lnrw.sheet.actor .bottom {
+.ffd20.sheet.actor .bottom {
   overflow-y: auto;
 }
-.ffd20lnrw.sheet.actor div.skill-rank {
+.ffd20.sheet.actor div.skill-rank {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor div.skill-rank ol,
-.ffd20lnrw.sheet.actor div.skill-rank ul {
+.ffd20.sheet.actor div.skill-rank ol,
+.ffd20.sheet.actor div.skill-rank ul {
   padding-inline-start: 0;
 }
-.ffd20lnrw.sheet.actor ul.skills-list {
+.ffd20.sheet.actor ul.skills-list {
   flex: 1;
   overflow-y: auto;
   list-style: none;
@@ -1434,113 +1434,113 @@
   border: 2px groove #eeede0;
   border-radius: 3px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill {
+.ffd20.sheet.actor ul.skills-list li.skill,
+.ffd20.sheet.actor ul.skills-list li.sub-skill {
   height: 28px;
   padding: 3px 0;
   align-items: end;
   background-color: rgba(170, 170, 170, 0.3);
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill:nth-child(even),
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill:nth-child(even) {
+.ffd20.sheet.actor ul.skills-list li.skill:nth-child(even),
+.ffd20.sheet.actor ul.skills-list li.sub-skill:nth-child(even) {
   background-color: rgba(210, 210, 210, 0.3);
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill:hover,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill:hover {
+.ffd20.sheet.actor ul.skills-list li.skill:hover,
+.ffd20.sheet.actor ul.skills-list li.sub-skill:hover {
   background-color: rgba(64, 64, 192, 0.3);
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name.untrained,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name.untrained,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained {
   color: rgba(0, 0, 0, 0.6);
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name.untrained .rollable img,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained .rollable img {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name.untrained .rollable img,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained .rollable img {
   opacity: 60%;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name.untrained .rollable img:hover,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained .rollable img:hover {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name.untrained .rollable img:hover,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name.untrained .rollable img:hover {
   animation: 0;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name {
   display: flex;
   flex: 180px;
   margin: 0;
   font-size: 14px;
   align-items: start;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .untrained-label,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .untrained-label {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .untrained-label,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .untrained-label {
   vertical-align: super;
   font-size: 14px;
   flex: 0;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .rollable,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .rollable,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable {
   display: inline-block;
   flex: 0 0 16px;
   margin-right: 2px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .rollable img,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable img {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .rollable img,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable img {
   width: 24px;
   height: 24px;
   border: unset;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .rollable img:hover,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable img:hover {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .rollable img:hover,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .rollable img:hover {
   animation: dice-spin 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045) 1 forwards;
   transform-origin: 50% 40%;
   filter: invert(16%) sepia(51.5%) saturate(4012%) hue-rotate(345deg) brightness(100%) contrast(86%);
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name h4,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name h4,
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name input[type="text"],
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name input[type="text"] {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name h4,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name h4,
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name input[type="text"],
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name input[type="text"] {
   display: inline-block;
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .compendium-entry > h4,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-entry > h4 {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .compendium-entry > h4,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-entry > h4 {
   border-bottom: 1px #111 dotted;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .compendium-entry:hover .compendium-icon,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-entry:hover .compendium-icon {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .compendium-entry:hover .compendium-icon,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-entry:hover .compendium-icon {
   visibility: visible;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .compendium-icon,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-icon {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .compendium-icon,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .compendium-icon {
   visibility: hidden;
   flex: 0 0 24px;
   margin-left: 5px;
   position: relative;
   top: -4px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .skill-control,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .skill-control {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .skill-control,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .skill-control {
   display: flex;
   align-items: center;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-name .skill-control .fas,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name .skill-control .fas {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-name .skill-control .fas,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name .skill-control .fas {
   display: inline-block;
   text-align: center;
   width: 24px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .checkbox,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .checkbox {
+.ffd20.sheet.actor ul.skills-list li.skill .checkbox,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .checkbox {
   flex: 0 0 64px;
   font-size: 14px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-ability,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-ability {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-ability,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-ability {
   flex: 0 0 48px;
   margin: 0 2px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-mod,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-mod {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-mod,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-mod {
   flex: 0 0 28px;
   line-height: 22px;
   font-weight: bold;
@@ -1549,33 +1549,33 @@
   border: 1px dotted #111;
   cursor: initial;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-rank,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-rank {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-rank,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-rank {
   flex: 0 0 48px;
   border-bottom: 2px groove #eeede0;
   margin-right: 12px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill .skill-controls,
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-controls {
+.ffd20.sheet.actor ul.skills-list li.skill .skill-controls,
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-controls {
   flex: 0 0 24px;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.skill input[type="text"],
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill input[type="text"] {
+.ffd20.sheet.actor ul.skills-list li.skill input[type="text"],
+.ffd20.sheet.actor ul.skills-list li.sub-skill input[type="text"] {
   height: auto;
 }
-.ffd20lnrw.sheet.actor ul.skills-list li.sub-skill .skill-name input[type="text"] {
+.ffd20.sheet.actor ul.skills-list li.sub-skill .skill-name input[type="text"] {
   padding-left: 8px;
 }
-.ffd20lnrw.sheet.actor .counters {
+.ffd20.sheet.actor .counters {
   flex: 0 0 100%;
   border-bottom: 2px groove #eeede0;
   margin-bottom: 5px;
 }
-.ffd20lnrw.sheet.actor .counters .counter {
+.ffd20.sheet.actor .counters .counter {
   padding: 0 3px;
   line-height: 32px;
 }
-.ffd20lnrw.sheet.actor .counters .counter h4 {
+.ffd20.sheet.actor .counters .counter h4 {
   flex: auto;
   margin: 0;
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
@@ -1583,30 +1583,30 @@
   font-variant: small-caps;
   font-size: 16px;
 }
-.ffd20lnrw.sheet.actor .counters .counter .counter-value {
+.ffd20.sheet.actor .counters .counter .counter-value {
   flex: 0 0 50px;
   text-align: right;
 }
-.ffd20lnrw.sheet.actor .counters .counter .counter-value > * {
+.ffd20.sheet.actor .counters .counter .counter-value > * {
   display: inline;
 }
-.ffd20lnrw.sheet.actor .counters .counter input[type="text"] {
+.ffd20.sheet.actor .counters .counter input[type="text"] {
   height: 20px;
   max-width: 20px;
   margin: 0;
   padding: 0;
   text-align: center;
 }
-.ffd20lnrw.sheet.actor .counters .counter input[type="checkbox"] {
+.ffd20.sheet.actor .counters .counter input[type="checkbox"] {
   position: relative;
   margin: 0;
   top: 6px;
 }
-.ffd20lnrw.sheet.actor .counters .counter span.sep {
+.ffd20.sheet.actor .counters .counter span.sep {
   margin: 0 -2px;
   font-size: 14px;
 }
-.ffd20lnrw.sheet.actor .condition {
+.ffd20.sheet.actor .condition {
   flex: 0;
   display: flex;
   flex-direction: row;
@@ -1615,64 +1615,64 @@
   margin: 2px;
   flex-basis: calc(20% - 4px);
 }
-.ffd20lnrw.sheet.actor .condition label {
+.ffd20.sheet.actor .condition label {
   line-height: 20px;
   flex: 0;
   white-space: nowrap;
 }
-.ffd20lnrw.sheet.actor .condition label span {
+.ffd20.sheet.actor .condition label span {
   font-size: 14px;
 }
-.ffd20lnrw.sheet.actor .traits {
+.ffd20.sheet.actor .traits {
   overflow-x: hidden;
   overflow-y: hidden;
   margin: 0 5px;
 }
-.ffd20lnrw.sheet.actor .traits .form-group,
-.ffd20lnrw.sheet.actor .traits .form-group-stacked {
+.ffd20.sheet.actor .traits .form-group,
+.ffd20.sheet.actor .traits .form-group-stacked {
   margin: 0;
   justify-content: space-between;
 }
-.ffd20lnrw.sheet.actor .traits .trait-selector {
+.ffd20.sheet.actor .traits .trait-selector {
   flex: 0 0 16px;
   padding: 2px 0;
   color: #666;
   font-size: 14px;
 }
-.ffd20lnrw.sheet.actor .traits .configure-flags {
+.ffd20.sheet.actor .traits .configure-flags {
   flex: 1;
 }
-.ffd20lnrw.sheet.actor .traits .traits-list {
+.ffd20.sheet.actor .traits .traits-list {
   list-style: none;
   margin: 0;
   padding: 0;
   text-align: right;
 }
-.ffd20lnrw.sheet.actor .traits select {
+.ffd20.sheet.actor .traits select {
   flex: 0 0 180px;
 }
-.ffd20lnrw.sheet.actor .traits label {
+.ffd20.sheet.actor .traits label {
   flex: 0 0 150px;
   line-height: 20px;
   font-weight: bold;
   margin: 0;
   text-align: right;
 }
-.ffd20lnrw.sheet.actor .traits input {
+.ffd20.sheet.actor .traits input {
   text-align: right;
 }
-.ffd20lnrw.sheet.actor .traits i.fas {
+.ffd20.sheet.actor .traits i.fas {
   float: right;
   margin-right: 3px;
   text-align: right;
 }
-.ffd20lnrw.sheet.actor .traits i.fas:hover {
+.ffd20.sheet.actor .traits i.fas:hover {
   text-shadow: 0 0 10px red;
 }
-.ffd20lnrw.sheet.actor .traits .inactive {
+.ffd20.sheet.actor .traits .inactive {
   color: #7a7971;
 }
-.ffd20lnrw.sheet.actor .encumbrance {
+.ffd20.sheet.actor .encumbrance {
   height: 12px;
   background: #7a7971;
   margin: 1px 15px 0 1px;
@@ -1680,7 +1680,7 @@
   border-radius: 3px;
   position: relative;
 }
-.ffd20lnrw.sheet.actor .encumbrance .encumbrance-bar {
+.ffd20.sheet.actor .encumbrance .encumbrance-bar {
   position: absolute;
   top: 1px;
   left: 1px;
@@ -1689,7 +1689,7 @@
   border: 1px solid #cde4ff;
   border-radius: 2px;
 }
-.ffd20lnrw.sheet.actor .encumbrance .encumbrance-label {
+.ffd20.sheet.actor .encumbrance .encumbrance-label {
   height: 10px;
   padding: 0 5px;
   position: absolute;
@@ -1701,15 +1701,15 @@
   color: #eee;
   text-shadow: 0 0 5px #000;
 }
-.ffd20lnrw.sheet.actor .encumbrance.encumbered .encumbrance-bar {
+.ffd20.sheet.actor .encumbrance.encumbered .encumbrance-bar {
   background: #a80d0d;
   border-color: #e14949;
 }
-.ffd20lnrw.sheet.actor .encumbrance .encumbrance-breakpoint {
+.ffd20.sheet.actor .encumbrance .encumbrance-breakpoint {
   position: absolute;
   left: 66%;
 }
-.ffd20lnrw.sheet.actor .encumbrance .arrow-up {
+.ffd20.sheet.actor .encumbrance .arrow-up {
   bottom: 0;
   width: 0;
   height: 0;
@@ -1717,7 +1717,7 @@
   border-right: 4px solid transparent;
   border-bottom: 4px solid #666;
 }
-.ffd20lnrw.sheet.actor .encumbrance .arrow-down {
+.ffd20.sheet.actor .encumbrance .arrow-down {
   top: 0;
   width: 0;
   height: 0;
@@ -1725,89 +1725,89 @@
   border-right: 4px solid transparent;
   border-top: 4px solid #666;
 }
-.ffd20lnrw.sheet.actor .encumbrance.encumbered .arrow-up {
+.ffd20.sheet.actor .encumbrance.encumbered .arrow-up {
   border-bottom: 4px solid #000;
 }
-.ffd20lnrw.sheet.actor .encumbrance.encumbered .arrow-down {
+.ffd20.sheet.actor .encumbrance.encumbered .arrow-down {
   border-top: 4px solid #000;
 }
-.ffd20lnrw.sheet.actor .tab-footer .tag {
+.ffd20.sheet.actor .tab-footer .tag {
   flex: 0 1 auto;
 }
-.ffd20lnrw.sheet.actor .tab.features,
-.ffd20lnrw.sheet.actor .tab.inventory,
-.ffd20lnrw.sheet.actor .tab.spellbook,
-.ffd20lnrw.sheet.actor .tab.attributes,
-.ffd20lnrw.sheet.actor .tab.combat,
-.ffd20lnrw.sheet.actor .tab.buffs {
+.ffd20.sheet.actor .tab.features,
+.ffd20.sheet.actor .tab.inventory,
+.ffd20.sheet.actor .tab.spellbook,
+.ffd20.sheet.actor .tab.attributes,
+.ffd20.sheet.actor .tab.combat,
+.ffd20.sheet.actor .tab.buffs {
   overflow-y: hidden;
 }
-.ffd20lnrw.sheet.actor .tab.features label.checkbox,
-.ffd20lnrw.sheet.actor .tab.inventory label.checkbox,
-.ffd20lnrw.sheet.actor .tab.spellbook label.checkbox,
-.ffd20lnrw.sheet.actor .tab.attributes label.checkbox,
-.ffd20lnrw.sheet.actor .tab.combat label.checkbox,
-.ffd20lnrw.sheet.actor .tab.buffs label.checkbox {
+.ffd20.sheet.actor .tab.features label.checkbox,
+.ffd20.sheet.actor .tab.inventory label.checkbox,
+.ffd20.sheet.actor .tab.spellbook label.checkbox,
+.ffd20.sheet.actor .tab.attributes label.checkbox,
+.ffd20.sheet.actor .tab.combat label.checkbox,
+.ffd20.sheet.actor .tab.buffs label.checkbox {
   text-align: left;
   flex: 0;
   margin: 0 0 0 4px;
 }
-.ffd20lnrw.sheet.actor .tab.features label.checkbox:first-child,
-.ffd20lnrw.sheet.actor .tab.inventory label.checkbox:first-child,
-.ffd20lnrw.sheet.actor .tab.spellbook label.checkbox:first-child,
-.ffd20lnrw.sheet.actor .tab.attributes label.checkbox:first-child,
-.ffd20lnrw.sheet.actor .tab.combat label.checkbox:first-child,
-.ffd20lnrw.sheet.actor .tab.buffs label.checkbox:first-child {
+.ffd20.sheet.actor .tab.features label.checkbox:first-child,
+.ffd20.sheet.actor .tab.inventory label.checkbox:first-child,
+.ffd20.sheet.actor .tab.spellbook label.checkbox:first-child,
+.ffd20.sheet.actor .tab.attributes label.checkbox:first-child,
+.ffd20.sheet.actor .tab.combat label.checkbox:first-child,
+.ffd20.sheet.actor .tab.buffs label.checkbox:first-child {
   margin-top: 4px;
 }
-.ffd20lnrw.sheet.actor .tab.features .buffs-conditions,
-.ffd20lnrw.sheet.actor .tab.inventory .buffs-conditions,
-.ffd20lnrw.sheet.actor .tab.spellbook .buffs-conditions,
-.ffd20lnrw.sheet.actor .tab.attributes .buffs-conditions,
-.ffd20lnrw.sheet.actor .tab.combat .buffs-conditions,
-.ffd20lnrw.sheet.actor .tab.buffs .buffs-conditions {
+.ffd20.sheet.actor .tab.features .buffs-conditions,
+.ffd20.sheet.actor .tab.inventory .buffs-conditions,
+.ffd20.sheet.actor .tab.spellbook .buffs-conditions,
+.ffd20.sheet.actor .tab.attributes .buffs-conditions,
+.ffd20.sheet.actor .tab.combat .buffs-conditions,
+.ffd20.sheet.actor .tab.buffs .buffs-conditions {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .tab.features .combat-attacks,
-.ffd20lnrw.sheet.actor .tab.inventory .combat-attacks,
-.ffd20lnrw.sheet.actor .tab.spellbook .combat-attacks,
-.ffd20lnrw.sheet.actor .tab.attributes .combat-attacks,
-.ffd20lnrw.sheet.actor .tab.combat .combat-attacks,
-.ffd20lnrw.sheet.actor .tab.buffs .combat-attacks {
+.ffd20.sheet.actor .tab.features .combat-attacks,
+.ffd20.sheet.actor .tab.inventory .combat-attacks,
+.ffd20.sheet.actor .tab.spellbook .combat-attacks,
+.ffd20.sheet.actor .tab.attributes .combat-attacks,
+.ffd20.sheet.actor .tab.combat .combat-attacks,
+.ffd20.sheet.actor .tab.buffs .combat-attacks {
   flex: 1 1 320px;
   overflow-y: scroll;
 }
-.ffd20lnrw.sheet.actor .tab.features .inventory-group,
-.ffd20lnrw.sheet.actor .tab.inventory .inventory-group,
-.ffd20lnrw.sheet.actor .tab.spellbook .inventory-group,
-.ffd20lnrw.sheet.actor .tab.attributes .inventory-group,
-.ffd20lnrw.sheet.actor .tab.combat .inventory-group,
-.ffd20lnrw.sheet.actor .tab.buffs .inventory-group {
+.ffd20.sheet.actor .tab.features .inventory-group,
+.ffd20.sheet.actor .tab.inventory .inventory-group,
+.ffd20.sheet.actor .tab.spellbook .inventory-group,
+.ffd20.sheet.actor .tab.attributes .inventory-group,
+.ffd20.sheet.actor .tab.combat .inventory-group,
+.ffd20.sheet.actor .tab.buffs .inventory-group {
   height: 100%;
 }
-.ffd20lnrw.sheet.actor .tab.features .inventory-body .inventory-list,
-.ffd20lnrw.sheet.actor .tab.inventory .inventory-body .inventory-list,
-.ffd20lnrw.sheet.actor .tab.spellbook .inventory-body .inventory-list,
-.ffd20lnrw.sheet.actor .tab.attributes .inventory-body .inventory-list,
-.ffd20lnrw.sheet.actor .tab.combat .inventory-body .inventory-list,
-.ffd20lnrw.sheet.actor .tab.buffs .inventory-body .inventory-list {
+.ffd20.sheet.actor .tab.features .inventory-body .inventory-list,
+.ffd20.sheet.actor .tab.inventory .inventory-body .inventory-list,
+.ffd20.sheet.actor .tab.spellbook .inventory-body .inventory-list,
+.ffd20.sheet.actor .tab.attributes .inventory-body .inventory-list,
+.ffd20.sheet.actor .tab.combat .inventory-body .inventory-list,
+.ffd20.sheet.actor .tab.buffs .inventory-body .inventory-list {
   height: 100%;
   overflow-y: scroll;
 }
-.ffd20lnrw.sheet.actor .tab.settings {
+.ffd20.sheet.actor .tab.settings {
   overflow-x: hidden;
 }
-.ffd20lnrw.sheet.actor div.attributes-traits {
+.ffd20.sheet.actor div.attributes-traits {
   align-items: flex-start;
   margin: 0;
   overflow-y: hidden;
 }
-.ffd20lnrw.sheet.actor .inventory-filters {
+.ffd20.sheet.actor .inventory-filters {
   margin: 0 8px;
   flex: 0 0 20px;
 }
-.ffd20lnrw.sheet.actor .inventory-filters h3,
-.ffd20lnrw.sheet.actor .inventory-filters .filter-title {
+.ffd20.sheet.actor .inventory-filters h3,
+.ffd20.sheet.actor .inventory-filters .filter-title {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-size: 22px;
   font-variant: small-caps;
@@ -1815,24 +1815,24 @@
   font-size: 24px;
   margin: 0;
 }
-.ffd20lnrw.sheet.actor .inventory-filters.spellbook-filters {
+.ffd20.sheet.actor .inventory-filters.spellbook-filters {
   flex: 0 0 40px;
 }
-.ffd20lnrw.sheet.actor .tab.inventory .tab-footer > * {
+.ffd20.sheet.actor .tab.inventory .tab-footer > * {
   flex: 0 0 100%;
 }
-.ffd20lnrw.sheet.actor .tab.inventory .inventory-tags,
-.ffd20lnrw.sheet.actor .tab.inventory .carry-bonus {
+.ffd20.sheet.actor .tab.inventory .inventory-tags,
+.ffd20.sheet.actor .tab.inventory .carry-bonus {
   flex-basis: 50%;
   align-self: center;
 }
-.ffd20lnrw.sheet.actor .tab.inventory .inventory-tags {
+.ffd20.sheet.actor .tab.inventory .inventory-tags {
   justify-content: flex-end;
 }
-.ffd20lnrw.sheet.actor .carry-label {
+.ffd20.sheet.actor .carry-label {
   flex: 0 0 24px;
 }
-.ffd20lnrw.sheet.actor .carry-bonus label {
+.ffd20.sheet.actor .carry-bonus label {
   flex: 0;
   margin-left: 8px;
   text-align: right;
@@ -1840,43 +1840,43 @@
   color: #7a7971;
   white-space: nowrap;
 }
-.ffd20lnrw.sheet.actor .carry-bonus input[type="text"],
-.ffd20lnrw.sheet.actor .carry-bonus span.text-box {
+.ffd20.sheet.actor .carry-bonus input[type="text"],
+.ffd20.sheet.actor .carry-bonus span.text-box {
   height: 20px;
   flex: 0 0 48px;
   text-align: center;
   margin-left: 8px;
   border-bottom: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.actor section.feats-body {
+.ffd20.sheet.actor section.feats-body {
   overflow-y: scroll;
 }
-.ffd20lnrw.sheet.actor section.feats-body .feats-group .item-detail.item-type {
+.ffd20.sheet.actor section.feats-body .feats-group .item-detail.item-type {
   flex: 0 0 40px;
 }
-.ffd20lnrw.sheet.actor .spellbook-group label {
+.ffd20.sheet.actor .spellbook-group label {
   margin: 0;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-points-current {
+.ffd20.sheet.actor .spellbook-group .spell-points-current {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-points-current h3 {
+.ffd20.sheet.actor .spellbook-group .spell-points-current h3 {
   font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
   font-variant: small-caps;
   font-size: 22px;
   flex: 0 0 160px;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-points-current .value,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-points-current .max {
+.ffd20.sheet.actor .spellbook-group .spell-points-current .value,
+.ffd20.sheet.actor .spellbook-group .spell-points-current .max {
   display: flex;
   flex: 0 0 32px;
   text-align: center;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-points-current .sep {
+.ffd20.sheet.actor .spellbook-group .spell-points-current .sep {
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-comps,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses {
+.ffd20.sheet.actor .spellbook-group .spell-comps,
+.ffd20.sheet.actor .spellbook-group .spell-uses {
   white-space: nowrap;
   overflow: hidden;
   flex: 0 0 96px;
@@ -1887,8 +1887,8 @@
   align-items: center;
   justify-content: center;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-comps input[type="number"],
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses input[type="number"] {
+.ffd20.sheet.actor .spellbook-group .spell-comps input[type="number"],
+.ffd20.sheet.actor .spellbook-group .spell-uses input[type="number"] {
   width: calc(100% - 2px);
   min-width: 40px;
   height: 24px;
@@ -1903,26 +1903,26 @@
   -ms-user-select: text;
   user-select: text;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-comps input[type="text"].base,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses input[type="text"].base,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-comps input[type="number"].base,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses input[type="number"].base {
+.ffd20.sheet.actor .spellbook-group .spell-comps input[type="text"].base,
+.ffd20.sheet.actor .spellbook-group .spell-uses input[type="text"].base,
+.ffd20.sheet.actor .spellbook-group .spell-comps input[type="number"].base,
+.ffd20.sheet.actor .spellbook-group .spell-uses input[type="number"].base {
   flex: 1;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-comps input,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses input,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-comps span.sep,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses span.sep {
+.ffd20.sheet.actor .spellbook-group .spell-comps input,
+.ffd20.sheet.actor .spellbook-group .spell-uses input,
+.ffd20.sheet.actor .spellbook-group .spell-comps span.sep,
+.ffd20.sheet.actor .spellbook-group .spell-uses span.sep {
   text-align: center;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-comps span.sep,
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses span.sep {
+.ffd20.sheet.actor .spellbook-group .spell-comps span.sep,
+.ffd20.sheet.actor .spellbook-group .spell-uses span.sep {
   flex: 0 0 8px;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-uses input {
+.ffd20.sheet.actor .spellbook-group .spell-uses input {
   flex: 0 0 24px;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-school {
+.ffd20.sheet.actor .spellbook-group .spell-school {
   white-space: nowrap;
   overflow: hidden;
   flex: 0 0 96px;
@@ -1931,7 +1931,7 @@
   text-align: center;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-activation {
+.ffd20.sheet.actor .spellbook-group .spell-activation {
   white-space: nowrap;
   overflow: hidden;
   flex: 0 0 120px;
@@ -1940,7 +1940,7 @@
   text-align: center;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-components {
+.ffd20.sheet.actor .spellbook-group .spell-components {
   white-space: nowrap;
   overflow: hidden;
   flex: 0 0 80px;
@@ -1949,70 +1949,70 @@
   text-align: center;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spellbook-empty .item-controls {
+.ffd20.sheet.actor .spellbook-group .spellbook-empty .item-controls {
   flex: 1;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-failure input[type="text"] {
+.ffd20.sheet.actor .spellbook-group .spell-failure input[type="text"] {
   flex: 1;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-range label {
+.ffd20.sheet.actor .spellbook-group .spell-range label {
   flex: 1 1 48px;
   text-align: right;
   margin-right: 8px;
   white-space: nowrap;
 }
-.ffd20lnrw.sheet.actor .spellbook-group .spell-range input[type="text"] {
+.ffd20.sheet.actor .spellbook-group .spell-range input[type="text"] {
   flex: 1 1 48px;
 }
-.ffd20lnrw.sheet.actor a.rollable span {
+.ffd20.sheet.actor a.rollable span {
   margin: 0 2px;
 }
-.ffd20lnrw.sheet.actor .rollable.image-d20 {
+.ffd20.sheet.actor .rollable.image-d20 {
   flex: 0 0 24px;
   display: inline-block;
   background-image: url(../../icons/dice/d20black.svg);
   background-size: 100%;
   height: 24px;
 }
-.ffd20lnrw.sheet.actor .editor {
+.ffd20.sheet.actor .editor {
   padding: 0 8px;
 }
-.ffd20lnrw.sheet.actor hr {
+.ffd20.sheet.actor hr {
   margin: 4px 0 4px 0;
   flex: 0;
 }
-.ffd20lnrw.sheet.actor .actor-notes .primary-content {
+.ffd20.sheet.actor .actor-notes .primary-content {
   flex: 1 0 320px;
 }
-.ffd20lnrw.sheet.actor table {
+.ffd20.sheet.actor table {
   table-layout: fixed;
   overflow: hidden;
 }
-.ffd20lnrw.sheet.actor table.ability-table input[type="text"] {
+.ffd20.sheet.actor table.ability-table input[type="text"] {
   height: 20px;
 }
-.ffd20lnrw.sheet.actor table td img {
+.ffd20.sheet.actor table td img {
   vertical-align: middle;
   margin-right: 2px;
 }
-.ffd20lnrw.sheet.actor .table .header {
+.ffd20.sheet.actor .table .header {
   background: rgba(0, 0, 0, 0.5);
 }
-.ffd20lnrw.sheet.actor .table .sub-header {
+.ffd20.sheet.actor .table .sub-header {
   background: rgba(0, 0, 0, 0.2);
 }
-.ffd20lnrw.sheet.actor .table .header label,
-.ffd20lnrw.sheet.actor .table .sub-header label {
+.ffd20.sheet.actor .table .header label,
+.ffd20.sheet.actor .table .sub-header label {
   color: #f0f0e0;
   text-shadow: #000000 1px 1px 0px;
 }
-.ffd20lnrw.sheet.actor .table .cell {
+.ffd20.sheet.actor .table .cell {
   background: rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.actor .table .cell .midsize {
+.ffd20.sheet.actor .table .cell .midsize {
   flex-basis: 40%;
 }
-.ffd20lnrw.sheet.actor .table .cell .left-label {
+.ffd20.sheet.actor .table .cell .left-label {
   flex-basis: 60%;
 }
 .locked img.sheet-profile {
@@ -2020,7 +2020,7 @@
   max-width: 240px;
   float: left;
 }
-.ffd20lnrw.sheet.item {
+.ffd20.sheet.item {
   min-width: 580px;
   min-height: 620px;
   max-height: calc(100% - 24px);
@@ -2040,10 +2040,10 @@
   /*  Loot Sheet (No Tabs)                     */
   /* ----------------------------------------- */
 }
-.ffd20lnrw.sheet.item .sheet-header img.profile {
+.ffd20.sheet.item .sheet-header img.profile {
   border: 1px solid #000;
 }
-.ffd20lnrw.sheet.item .sheet-header .item-subtitle {
+.ffd20.sheet.item .sheet-header .item-subtitle {
   flex: 0 0 80px;
   height: 60px;
   margin: 0;
@@ -2051,49 +2051,49 @@
   text-align: right;
   color: #7a7971;
 }
-.ffd20lnrw.sheet.item .sheet-header .item-subtitle .item-type {
+.ffd20.sheet.item .sheet-header .item-subtitle .item-type {
   font-size: 24px;
   line-height: 26px;
   margin: 0;
 }
-.ffd20lnrw.sheet.item .sheet-header .item-subtitle .item-status {
+.ffd20.sheet.item .sheet-header .item-subtitle .item-status {
   font-size: 16px;
   line-height: 24px;
 }
-.ffd20lnrw.sheet.item .sheet-navigation {
+.ffd20.sheet.item .sheet-navigation {
   margin-bottom: 5px;
 }
-.ffd20lnrw.sheet.item .sheet-navigation .item {
+.ffd20.sheet.item .sheet-navigation .item {
   font-size: 18px;
 }
-.ffd20lnrw.sheet.item .primary-body {
+.ffd20.sheet.item .primary-body {
   overflow: hidden;
 }
-.ffd20lnrw.sheet.item .primary-body .tab {
+.ffd20.sheet.item .primary-body .tab {
   padding: 0 5px;
 }
-.ffd20lnrw.sheet.item .primary-body .item-properties {
+.ffd20.sheet.item .primary-body .item-properties {
   flex: 0 0 120px;
   margin: 5px 5px 5px 0;
   padding-right: 5px;
   border-right: 2px groove #eeede0;
 }
-.ffd20lnrw.sheet.item .primary-body .item-properties .form-group {
+.ffd20.sheet.item .primary-body .item-properties .form-group {
   margin: 0;
 }
-.ffd20lnrw.sheet.item .primary-body .item-properties .form-group label {
+.ffd20.sheet.item .primary-body .item-properties .form-group label {
   line-height: 20px;
   flex: 0;
 }
-.ffd20lnrw.sheet.item .primary-body .item-properties .form-group input {
+.ffd20.sheet.item .primary-body .item-properties .form-group input {
   text-align: right;
 }
-.ffd20lnrw.sheet.item .primary-body .item-properties .properties-list {
+.ffd20.sheet.item .primary-body .item-properties .properties-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.ffd20lnrw.sheet.item .primary-body .item-properties .properties-list li {
+.ffd20.sheet.item .primary-body .item-properties .properties-list li {
   margin: 3px 0;
   padding: 0 2px;
   background: rgba(0, 0, 0, 0.05);
@@ -2102,86 +2102,86 @@
   font-size: 12px;
   line-height: 18px;
 }
-.ffd20lnrw.sheet.item .details input[type="text"],
-.ffd20lnrw.sheet.item .details select {
+.ffd20.sheet.item .details input[type="text"],
+.ffd20.sheet.item .details select {
   border: 1px solid #7a7971;
   background: rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .details .trait-selector {
+.ffd20.sheet.item .details .trait-selector {
   flex: 0 0 16px;
   padding: 2px 0;
   color: #666;
   font-size: 14px;
 }
-.ffd20lnrw.sheet.item .details .traits-list {
+.ffd20.sheet.item .details .traits-list {
   list-style: none;
   margin: 0;
   padding: 0;
   text-align: right;
 }
-.ffd20lnrw.sheet.item .details .form-group .entry-selector {
+.ffd20.sheet.item .details .form-group .entry-selector {
   flex: 1;
   height: 28px;
   overflow: hidden;
 }
-.ffd20lnrw.sheet.item .details .form-group.input-select select {
+.ffd20.sheet.item .details .form-group.input-select select {
   flex: 1.8;
 }
-.ffd20lnrw.sheet.item .details .form-group.input-select-select select {
+.ffd20.sheet.item .details .form-group.input-select-select select {
   flex: 1.5;
 }
-.ffd20lnrw.sheet.item .details .form-group.uses-per input {
+.ffd20.sheet.item .details .form-group.uses-per input {
   flex: 1;
 }
-.ffd20lnrw.sheet.item .details .form-group.uses-per span {
+.ffd20.sheet.item .details .form-group.uses-per span {
   text-align: center;
   flex: 0 0 16px;
   line-height: 24px;
 }
-.ffd20lnrw.sheet.item .details .form-group.uses-per select {
+.ffd20.sheet.item .details .form-group.uses-per select {
   flex: 3;
 }
-.ffd20lnrw.sheet.item .details span.sep {
+.ffd20.sheet.item .details span.sep {
   flex: 0 0 8px;
   line-height: 24px;
   text-align: center;
 }
-.ffd20lnrw.sheet.item .details .prepared {
+.ffd20.sheet.item .details .prepared {
   flex: 1.3 !important;
   text-align: right;
   padding-right: 10px;
 }
-.ffd20lnrw.sheet.item .details .spell-materials {
+.ffd20.sheet.item .details .spell-materials {
   flex: 0 0 100%;
   margin: 0.25em 0;
   justify-content: flex-end;
 }
-.ffd20lnrw.sheet.item .details .spell-materials label {
+.ffd20.sheet.item .details .spell-materials label {
   flex: 0 0 64px;
   text-align: right;
   margin-right: 5px;
   font-size: 12px;
   line-height: 24px;
 }
-.ffd20lnrw.sheet.item .details .spell-materials input[type="text"] {
+.ffd20.sheet.item .details .spell-materials input[type="text"] {
   flex: 0 0 48px;
   margin-right: 10px;
 }
-.ffd20lnrw.sheet.item .details .item-list .item {
+.ffd20.sheet.item .details .item-list .item {
   line-height: 24px;
   border-bottom: 1px solid #c9c7b8;
   background-color: rgba(155, 155, 155, 0.3);
 }
-.ffd20lnrw.sheet.item .details .item-list .item:last-child {
+.ffd20.sheet.item .details .item-list .item:last-child {
   border-bottom: none;
 }
-.ffd20lnrw.sheet.item .details .item-list .item:nth-child(2n + 1) {
+.ffd20.sheet.item .details .item-list .item:nth-child(2n + 1) {
   background-color: rgba(210, 210, 210, 0.3);
 }
-.ffd20lnrw.sheet.item .details .item-list .item .checkbox {
+.ffd20.sheet.item .details .item-list .item .checkbox {
   flex: 0;
 }
-.ffd20lnrw.sheet.item .tab .inventory-header {
+.ffd20.sheet.item .tab .inventory-header {
   margin: 2px 0;
   padding: 0;
   background: rgba(0, 0, 0, 0.05);
@@ -2189,269 +2189,269 @@
   font-weight: bold;
   line-height: 24px;
 }
-.ffd20lnrw.sheet.item .tab .inventory-header h3 {
+.ffd20.sheet.item .tab .inventory-header h3 {
   margin: 0 -5px 0 0;
   padding-left: 5px;
   font-size: 13px;
   font-weight: bold;
 }
-.ffd20lnrw.sheet.item .tab .inventory-header .item-controls a.item-create {
+.ffd20.sheet.item .tab .inventory-header .item-controls a.item-create {
   flex: 0 0 100%;
 }
-.ffd20lnrw.sheet.item .tab .item-detail {
+.ffd20.sheet.item .tab .item-detail {
   flex: 0 0 80px;
   font-size: 12px;
   color: #7a7971;
   text-align: center;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet.item .tab .item-detail:last-child {
+.ffd20.sheet.item .tab .item-detail:last-child {
   border-right: none;
 }
-.ffd20lnrw.sheet.item .tab .item-weight {
+.ffd20.sheet.item .tab .item-weight {
   flex: 0 0 60px;
   border-left: 1px solid #c9c7b8;
   border-right: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet.item .tab .item-list {
+.ffd20.sheet.item .tab .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.ffd20lnrw.sheet.item .tab .item-summary {
+.ffd20.sheet.item .tab .item-summary {
   flex: 0 0 100%;
   font-size: 12px;
   line-height: 16px;
   padding: 0.25em 0.5em;
   border-top: 1px solid #c9c7b8;
 }
-.ffd20lnrw.sheet.item h4.damage-header,
-.ffd20lnrw.sheet.item h4.change-header,
-.ffd20lnrw.sheet.item h4.context-notes-header,
-.ffd20lnrw.sheet.item h4.attack-header,
-.ffd20lnrw.sheet.item h4.conditional-header {
+.ffd20.sheet.item h4.damage-header,
+.ffd20.sheet.item h4.change-header,
+.ffd20.sheet.item h4.context-notes-header,
+.ffd20.sheet.item h4.attack-header,
+.ffd20.sheet.item h4.conditional-header {
   margin: 0;
   padding: 0;
   font-weight: bold;
   line-height: 24px;
   color: #4b4a44;
 }
-.ffd20lnrw.sheet.item h4.attack-header {
+.ffd20.sheet.item h4.attack-header {
   margin-left: 4px;
 }
-.ffd20lnrw.sheet.item .damage-parts,
-.ffd20lnrw.sheet.item .attack-parts {
+.ffd20.sheet.item .damage-parts,
+.ffd20.sheet.item .attack-parts {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-.ffd20lnrw.sheet.item .damage-parts .damage-part,
-.ffd20lnrw.sheet.item .attack-parts .damage-part,
-.ffd20lnrw.sheet.item .damage-parts .attack-part,
-.ffd20lnrw.sheet.item .attack-parts .attack-part {
+.ffd20.sheet.item .damage-parts .damage-part,
+.ffd20.sheet.item .attack-parts .damage-part,
+.ffd20.sheet.item .damage-parts .attack-part,
+.ffd20.sheet.item .attack-parts .attack-part {
   flex: 0 0 100%;
   padding: 2px;
 }
-.ffd20lnrw.sheet.item .damage-parts .damage-part .damage-type,
-.ffd20lnrw.sheet.item .attack-parts .damage-part .damage-type,
-.ffd20lnrw.sheet.item .damage-parts .attack-part .damage-type,
-.ffd20lnrw.sheet.item .attack-parts .attack-part .damage-type {
+.ffd20.sheet.item .damage-parts .damage-part .damage-type,
+.ffd20.sheet.item .attack-parts .damage-part .damage-type,
+.ffd20.sheet.item .damage-parts .attack-part .damage-type,
+.ffd20.sheet.item .attack-parts .attack-part .damage-type {
   flex: 0 0 80px;
 }
-.ffd20lnrw.sheet.item .damage-parts .damage-part input,
-.ffd20lnrw.sheet.item .attack-parts .damage-part input,
-.ffd20lnrw.sheet.item .damage-parts .attack-part input,
-.ffd20lnrw.sheet.item .attack-parts .attack-part input {
+.ffd20.sheet.item .damage-parts .damage-part input,
+.ffd20.sheet.item .attack-parts .damage-part input,
+.ffd20.sheet.item .damage-parts .attack-part input,
+.ffd20.sheet.item .attack-parts .attack-part input {
   flex: 3;
 }
-.ffd20lnrw.sheet.item .damage-parts .damage-part input:not(:first-child),
-.ffd20lnrw.sheet.item .attack-parts .damage-part input:not(:first-child),
-.ffd20lnrw.sheet.item .damage-parts .attack-part input:not(:first-child),
-.ffd20lnrw.sheet.item .attack-parts .attack-part input:not(:first-child) {
+.ffd20.sheet.item .damage-parts .damage-part input:not(:first-child),
+.ffd20.sheet.item .attack-parts .damage-part input:not(:first-child),
+.ffd20.sheet.item .damage-parts .attack-part input:not(:first-child),
+.ffd20.sheet.item .attack-parts .attack-part input:not(:first-child) {
   margin-left: 5px;
 }
-.ffd20lnrw.sheet.item .damage-parts .damage-part select,
-.ffd20lnrw.sheet.item .attack-parts .damage-part select,
-.ffd20lnrw.sheet.item .damage-parts .attack-part select,
-.ffd20lnrw.sheet.item .attack-parts .attack-part select {
+.ffd20.sheet.item .damage-parts .damage-part select,
+.ffd20.sheet.item .attack-parts .damage-part select,
+.ffd20.sheet.item .damage-parts .attack-part select,
+.ffd20.sheet.item .attack-parts .attack-part select {
   margin-left: 5px;
   flex: 1;
 }
-.ffd20lnrw.sheet.item .changes,
-.ffd20lnrw.sheet.item .context-notes,
-.ffd20lnrw.sheet.item .conditionals {
+.ffd20.sheet.item .changes,
+.ffd20.sheet.item .context-notes,
+.ffd20.sheet.item .conditionals {
   list-style: none;
   margin: 0;
   padding: 0;
   display: block;
 }
-.ffd20lnrw.sheet.item .changes .change,
-.ffd20lnrw.sheet.item .context-notes .change,
-.ffd20lnrw.sheet.item .conditionals .change,
-.ffd20lnrw.sheet.item .changes .context-note,
-.ffd20lnrw.sheet.item .context-notes .context-note,
-.ffd20lnrw.sheet.item .conditionals .context-note {
+.ffd20.sheet.item .changes .change,
+.ffd20.sheet.item .context-notes .change,
+.ffd20.sheet.item .conditionals .change,
+.ffd20.sheet.item .changes .context-note,
+.ffd20.sheet.item .context-notes .context-note,
+.ffd20.sheet.item .conditionals .context-note {
   flex: 0 0 100%;
   padding: 1px;
 }
-.ffd20lnrw.sheet.item .changes .change input,
-.ffd20lnrw.sheet.item .context-notes .change input,
-.ffd20lnrw.sheet.item .conditionals .change input,
-.ffd20lnrw.sheet.item .changes .context-note input,
-.ffd20lnrw.sheet.item .context-notes .context-note input,
-.ffd20lnrw.sheet.item .conditionals .context-note input {
+.ffd20.sheet.item .changes .change input,
+.ffd20.sheet.item .context-notes .change input,
+.ffd20.sheet.item .conditionals .change input,
+.ffd20.sheet.item .changes .context-note input,
+.ffd20.sheet.item .context-notes .context-note input,
+.ffd20.sheet.item .conditionals .context-note input {
   flex: 3;
   border: 1px solid #7a7971;
   background: rgba(0, 0, 0, 0.05);
   height: 24px;
 }
-.ffd20lnrw.sheet.item .changes .change input[type="text"]:invalid,
-.ffd20lnrw.sheet.item .context-notes .change input[type="text"]:invalid,
-.ffd20lnrw.sheet.item .conditionals .change input[type="text"]:invalid,
-.ffd20lnrw.sheet.item .changes .context-note input[type="text"]:invalid,
-.ffd20lnrw.sheet.item .context-notes .context-note input[type="text"]:invalid,
-.ffd20lnrw.sheet.item .conditionals .context-note input[type="text"]:invalid {
+.ffd20.sheet.item .changes .change input[type="text"]:invalid,
+.ffd20.sheet.item .context-notes .change input[type="text"]:invalid,
+.ffd20.sheet.item .conditionals .change input[type="text"]:invalid,
+.ffd20.sheet.item .changes .context-note input[type="text"]:invalid,
+.ffd20.sheet.item .context-notes .context-note input[type="text"]:invalid,
+.ffd20.sheet.item .conditionals .context-note input[type="text"]:invalid {
   border: 2px solid #782e22;
   background: url(icons/misc/hazard-sign.svg) no-repeat 95% 50% rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .changes .change input[type="text"]:not(:first-child),
-.ffd20lnrw.sheet.item .context-notes .change input[type="text"]:not(:first-child),
-.ffd20lnrw.sheet.item .conditionals .change input[type="text"]:not(:first-child),
-.ffd20lnrw.sheet.item .changes .context-note input[type="text"]:not(:first-child),
-.ffd20lnrw.sheet.item .context-notes .context-note input[type="text"]:not(:first-child),
-.ffd20lnrw.sheet.item .conditionals .context-note input[type="text"]:not(:first-child) {
+.ffd20.sheet.item .changes .change input[type="text"]:not(:first-child),
+.ffd20.sheet.item .context-notes .change input[type="text"]:not(:first-child),
+.ffd20.sheet.item .conditionals .change input[type="text"]:not(:first-child),
+.ffd20.sheet.item .changes .context-note input[type="text"]:not(:first-child),
+.ffd20.sheet.item .context-notes .context-note input[type="text"]:not(:first-child),
+.ffd20.sheet.item .conditionals .context-note input[type="text"]:not(:first-child) {
   margin-left: 5px;
 }
-.ffd20lnrw.sheet.item .changes .change select,
-.ffd20lnrw.sheet.item .context-notes .change select,
-.ffd20lnrw.sheet.item .conditionals .change select,
-.ffd20lnrw.sheet.item .changes .context-note select,
-.ffd20lnrw.sheet.item .context-notes .context-note select,
-.ffd20lnrw.sheet.item .conditionals .context-note select {
+.ffd20.sheet.item .changes .change select,
+.ffd20.sheet.item .context-notes .change select,
+.ffd20.sheet.item .conditionals .change select,
+.ffd20.sheet.item .changes .context-note select,
+.ffd20.sheet.item .context-notes .context-note select,
+.ffd20.sheet.item .conditionals .context-note select {
   flex: 0 0 80px;
   width: 80px;
   background: rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .changes .change select.change-sub-target,
-.ffd20lnrw.sheet.item .context-notes .change select.change-sub-target,
-.ffd20lnrw.sheet.item .conditionals .change select.change-sub-target,
-.ffd20lnrw.sheet.item .changes .context-note select.change-sub-target,
-.ffd20lnrw.sheet.item .context-notes .context-note select.change-sub-target,
-.ffd20lnrw.sheet.item .conditionals .context-note select.change-sub-target {
+.ffd20.sheet.item .changes .change select.change-sub-target,
+.ffd20.sheet.item .context-notes .change select.change-sub-target,
+.ffd20.sheet.item .conditionals .change select.change-sub-target,
+.ffd20.sheet.item .changes .context-note select.change-sub-target,
+.ffd20.sheet.item .context-notes .context-note select.change-sub-target,
+.ffd20.sheet.item .conditionals .context-note select.change-sub-target {
   flex: 0 0 128px;
   width: 128px;
 }
-.ffd20lnrw.sheet.item .changes .change select:invalid,
-.ffd20lnrw.sheet.item .context-notes .change select:invalid,
-.ffd20lnrw.sheet.item .conditionals .change select:invalid,
-.ffd20lnrw.sheet.item .changes .context-note select:invalid,
-.ffd20lnrw.sheet.item .context-notes .context-note select:invalid,
-.ffd20lnrw.sheet.item .conditionals .context-note select:invalid {
+.ffd20.sheet.item .changes .change select:invalid,
+.ffd20.sheet.item .context-notes .change select:invalid,
+.ffd20.sheet.item .conditionals .change select:invalid,
+.ffd20.sheet.item .changes .context-note select:invalid,
+.ffd20.sheet.item .context-notes .context-note select:invalid,
+.ffd20.sheet.item .conditionals .context-note select:invalid {
   border: 2px solid #782e22;
   background: url(icons/misc/hazard-sign.svg) no-repeat 75% 50% rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .changes .change select:not(:first-child),
-.ffd20lnrw.sheet.item .context-notes .change select:not(:first-child),
-.ffd20lnrw.sheet.item .conditionals .change select:not(:first-child),
-.ffd20lnrw.sheet.item .changes .context-note select:not(:first-child),
-.ffd20lnrw.sheet.item .context-notes .context-note select:not(:first-child),
-.ffd20lnrw.sheet.item .conditionals .context-note select:not(:first-child) {
+.ffd20.sheet.item .changes .change select:not(:first-child),
+.ffd20.sheet.item .context-notes .change select:not(:first-child),
+.ffd20.sheet.item .conditionals .change select:not(:first-child),
+.ffd20.sheet.item .changes .context-note select:not(:first-child),
+.ffd20.sheet.item .context-notes .context-note select:not(:first-child),
+.ffd20.sheet.item .conditionals .context-note select:not(:first-child) {
   margin-left: 5px;
 }
-.ffd20lnrw.sheet.item .changes .change .change-priority,
-.ffd20lnrw.sheet.item .context-notes .change .change-priority,
-.ffd20lnrw.sheet.item .conditionals .change .change-priority,
-.ffd20lnrw.sheet.item .changes .context-note .change-priority,
-.ffd20lnrw.sheet.item .context-notes .context-note .change-priority,
-.ffd20lnrw.sheet.item .conditionals .context-note .change-priority {
+.ffd20.sheet.item .changes .change .change-priority,
+.ffd20.sheet.item .context-notes .change .change-priority,
+.ffd20.sheet.item .conditionals .change .change-priority,
+.ffd20.sheet.item .changes .context-note .change-priority,
+.ffd20.sheet.item .context-notes .context-note .change-priority,
+.ffd20.sheet.item .conditionals .context-note .change-priority {
   flex: 0 0 24px;
 }
-.ffd20lnrw.sheet.item .changes .change .change-operator,
-.ffd20lnrw.sheet.item .context-notes .change .change-operator,
-.ffd20lnrw.sheet.item .conditionals .change .change-operator,
-.ffd20lnrw.sheet.item .changes .context-note .change-operator,
-.ffd20lnrw.sheet.item .context-notes .context-note .change-operator,
-.ffd20lnrw.sheet.item .conditionals .context-note .change-operator {
+.ffd20.sheet.item .changes .change .change-operator,
+.ffd20.sheet.item .context-notes .change .change-operator,
+.ffd20.sheet.item .conditionals .change .change-operator,
+.ffd20.sheet.item .changes .context-note .change-operator,
+.ffd20.sheet.item .context-notes .context-note .change-operator,
+.ffd20.sheet.item .conditionals .context-note .change-operator {
   flex: 0 0 24px;
 }
-.ffd20lnrw.sheet.item .changes .change .conditional-default,
-.ffd20lnrw.sheet.item .context-notes .change .conditional-default,
-.ffd20lnrw.sheet.item .conditionals .change .conditional-default,
-.ffd20lnrw.sheet.item .changes .context-note .conditional-default,
-.ffd20lnrw.sheet.item .context-notes .context-note .conditional-default,
-.ffd20lnrw.sheet.item .conditionals .context-note .conditional-default {
+.ffd20.sheet.item .changes .change .conditional-default,
+.ffd20.sheet.item .context-notes .change .conditional-default,
+.ffd20.sheet.item .conditionals .change .conditional-default,
+.ffd20.sheet.item .changes .context-note .conditional-default,
+.ffd20.sheet.item .context-notes .context-note .conditional-default,
+.ffd20.sheet.item .conditionals .context-note .conditional-default {
   flex: 0 0 18px;
 }
-.ffd20lnrw.sheet.item .changes .change .conditional-modifier,
-.ffd20lnrw.sheet.item .context-notes .change .conditional-modifier,
-.ffd20lnrw.sheet.item .conditionals .change .conditional-modifier,
-.ffd20lnrw.sheet.item .changes .context-note .conditional-modifier,
-.ffd20lnrw.sheet.item .context-notes .context-note .conditional-modifier,
-.ffd20lnrw.sheet.item .conditionals .context-note .conditional-modifier {
+.ffd20.sheet.item .changes .change .conditional-modifier,
+.ffd20.sheet.item .context-notes .change .conditional-modifier,
+.ffd20.sheet.item .conditionals .change .conditional-modifier,
+.ffd20.sheet.item .changes .context-note .conditional-modifier,
+.ffd20.sheet.item .context-notes .context-note .conditional-modifier,
+.ffd20.sheet.item .conditionals .context-note .conditional-modifier {
   display: flex;
 }
-.ffd20lnrw.sheet.item .conditionals .conditional,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier {
+.ffd20.sheet.item .conditionals .conditional,
+.ffd20.sheet.item .conditionals .conditional-modifier {
   padding: 1px;
 }
-.ffd20lnrw.sheet.item .conditionals .conditional select,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier select {
+.ffd20.sheet.item .conditionals .conditional select,
+.ffd20.sheet.item .conditionals .conditional-modifier select {
   max-width: max-content;
   min-width: 80px;
   flex: 1;
   border: 1px solid #7a7971;
   background: rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .conditionals .conditional select:not(:first-child),
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier select:not(:first-child) {
+.ffd20.sheet.item .conditionals .conditional select:not(:first-child),
+.ffd20.sheet.item .conditionals .conditional-modifier select:not(:first-child) {
   margin-left: 5px;
 }
-.ffd20lnrw.sheet.item .conditionals .conditional select:invalid,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier select:invalid {
+.ffd20.sheet.item .conditionals .conditional select:invalid,
+.ffd20.sheet.item .conditionals .conditional-modifier select:invalid {
   border: 2px solid #782e22;
   background: url(icons/misc/hazard-sign.svg) no-repeat 80% 50% rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .conditionals .conditional input[type="text"],
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier input[type="text"] {
+.ffd20.sheet.item .conditionals .conditional input[type="text"],
+.ffd20.sheet.item .conditionals .conditional-modifier input[type="text"] {
   height: 24px;
   border: 1px solid #7a7971;
   background: rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .conditionals .conditional input[type="text"]:invalid,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier input[type="text"]:invalid {
+.ffd20.sheet.item .conditionals .conditional input[type="text"]:invalid,
+.ffd20.sheet.item .conditionals .conditional-modifier input[type="text"]:invalid {
   border: 2px solid #782e22;
   background: url(icons/misc/hazard-sign.svg) no-repeat 100% 50% rgba(0, 0, 0, 0.05);
 }
-.ffd20lnrw.sheet.item .conditionals .conditional input[type="text"]:not(:first-child),
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier input[type="text"]:not(:first-child) {
+.ffd20.sheet.item .conditionals .conditional input[type="text"]:not(:first-child),
+.ffd20.sheet.item .conditionals .conditional-modifier input[type="text"]:not(:first-child) {
   margin-left: 5px;
 }
-.ffd20lnrw.sheet.item .conditionals .conditional input[class*="conditional-name"]:not(:first-child),
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier input[class*="conditional-name"]:not(:first-child) {
+.ffd20.sheet.item .conditionals .conditional input[class*="conditional-name"]:not(:first-child),
+.ffd20.sheet.item .conditionals .conditional-modifier input[class*="conditional-name"]:not(:first-child) {
   margin-left: 0;
 }
-.ffd20lnrw.sheet.item .conditionals .conditional .conditional-name,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier .conditional-name,
-.ffd20lnrw.sheet.item .conditionals .conditional .conditional-formula,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier .conditional-formula {
+.ffd20.sheet.item .conditionals .conditional .conditional-name,
+.ffd20.sheet.item .conditionals .conditional-modifier .conditional-name,
+.ffd20.sheet.item .conditionals .conditional .conditional-formula,
+.ffd20.sheet.item .conditionals .conditional-modifier .conditional-formula {
   min-width: 140px;
 }
-.ffd20lnrw.sheet.item .conditionals .conditional .conditional-damage-type,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier .conditional-damage-type {
+.ffd20.sheet.item .conditionals .conditional .conditional-damage-type,
+.ffd20.sheet.item .conditionals .conditional-modifier .conditional-damage-type {
   min-width: 90px;
   max-width: 200px;
 }
-.ffd20lnrw.sheet.item .conditionals .conditional .form-group,
-.ffd20lnrw.sheet.item .conditionals .conditional-modifier .form-group {
+.ffd20.sheet.item .conditionals .conditional .form-group,
+.ffd20.sheet.item .conditionals .conditional-modifier .form-group {
   padding-left: 30px;
 }
-.ffd20lnrw.sheet.item .delete-damage,
-.ffd20lnrw.sheet.item .crit-damage-control,
-.ffd20lnrw.sheet.item .delete-attack,
-.ffd20lnrw.sheet.item .delete-change,
-.ffd20lnrw.sheet.item .delete-note,
-.ffd20lnrw.sheet.item .delete-conditional,
-.ffd20lnrw.sheet.item .delete-conditional-modifier {
+.ffd20.sheet.item .delete-damage,
+.ffd20.sheet.item .crit-damage-control,
+.ffd20.sheet.item .delete-attack,
+.ffd20.sheet.item .delete-change,
+.ffd20.sheet.item .delete-note,
+.ffd20.sheet.item .delete-conditional,
+.ffd20.sheet.item .delete-conditional-modifier {
   width: 18px;
   flex: 0 0 18px;
   line-height: 24px;
@@ -2459,61 +2459,61 @@
   text-align: right;
   color: #7a7971;
 }
-.ffd20lnrw.sheet.item .add-attack,
-.ffd20lnrw.sheet.item .add-damage,
-.ffd20lnrw.sheet.item .add-change,
-.ffd20lnrw.sheet.item .add-note,
-.ffd20lnrw.sheet.item .add-conditional,
-.ffd20lnrw.sheet.item .add-conditional-modifier {
+.ffd20.sheet.item .add-attack,
+.ffd20.sheet.item .add-damage,
+.ffd20.sheet.item .add-change,
+.ffd20.sheet.item .add-note,
+.ffd20.sheet.item .add-conditional,
+.ffd20.sheet.item .add-conditional-modifier {
   flex: 0 0 auto;
   line-height: 24px;
   color: #7a7971;
   margin-left: 2px;
 }
-.ffd20lnrw.sheet.item .recharge span {
+.ffd20.sheet.item .recharge span {
   line-height: 24px;
   flex: 0 0 80px;
 }
-.ffd20lnrw.sheet.item .recharge label.checkbox {
+.ffd20.sheet.item .recharge label.checkbox {
   flex: 0 0 80px;
   text-align: right;
 }
-.ffd20lnrw.sheet.item .weapon-properties label.checkbox {
+.ffd20.sheet.item .weapon-properties label.checkbox {
   flex: 0 0 98px;
 }
-.ffd20lnrw.sheet.item .loot-header {
+.ffd20.sheet.item .loot-header {
   margin-bottom: 10px;
 }
-.ffd20lnrw.sheet.item div[data-tab="description"][data-group="primary"] nav {
+.ffd20.sheet.item div[data-tab="description"][data-group="primary"] nav {
   flex: 0;
 }
-.ffd20lnrw.sheet.item div[data-tab="description"][data-group="primary"] .description-container {
+.ffd20.sheet.item div[data-tab="description"][data-group="primary"] .description-container {
   flex: 1;
   height: 100%;
 }
-.ffd20lnrw.sheet.item section.inventory-body {
+.ffd20.sheet.item section.inventory-body {
   overflow-y: auto;
 }
-.ffd20lnrw.sheet.item footer {
+.ffd20.sheet.item footer {
   flex: 0;
 }
 /* ----------------------------------------- */
 /*  Chat Cards
 /* ----------------------------------------- */
-.ffd20lnrw.chat-card {
+.ffd20.chat-card {
   font-style: normal;
   font-size: 12px;
 }
-.ffd20lnrw.chat-card .card-header {
+.ffd20.chat-card .card-header {
   padding: 3px 0;
   border-top: 2px groove #fff;
   border-bottom: 2px groove #fff;
 }
-.ffd20lnrw.chat-card .card-header img {
+.ffd20.chat-card .card-header img {
   flex: 0 0 36px;
   margin-right: 5px;
 }
-.ffd20lnrw.chat-card .card-header h3 {
+.ffd20.chat-card .card-header h3 {
   flex: 1;
   margin: 0;
   line-height: 28px;
@@ -2522,21 +2522,21 @@
   font-variant: small-caps;
   color: #4b4a44;
 }
-.ffd20lnrw.chat-card .card-content {
+.ffd20.chat-card .card-content {
   margin: 5px 0;
 }
-.ffd20lnrw.chat-card .card-content h3 {
+.ffd20.chat-card .card-content h3 {
   font-size: 12px;
   margin: 0;
   font-weight: bold;
 }
-.ffd20lnrw.chat-card .card-content > * {
+.ffd20.chat-card .card-content > * {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
 }
-.ffd20lnrw.chat-card .card-range {
+.ffd20.chat-card .card-range {
   display: block;
   margin: 0 2px 1px 0;
   padding: 1px 3px;
@@ -2548,89 +2548,89 @@
   flex: 0 1 auto;
   text-align: center;
 }
-.ffd20lnrw.chat-card .card-range:hover {
+.ffd20.chat-card .card-range:hover {
   border-color: blue;
 }
-.ffd20lnrw.chat-card .card-buttons {
+.ffd20.chat-card .card-buttons {
   margin: 2px 0;
 }
-.ffd20lnrw.chat-card .card-buttons .card-button-group label {
+.ffd20.chat-card .card-buttons .card-button-group label {
   text-align: center;
 }
-.ffd20lnrw.chat-card .card-buttons .card-button-group button {
+.ffd20.chat-card .card-buttons .card-button-group button {
   font-size: 12px;
   height: 20px;
   line-height: 16px;
   margin: 2px 0;
 }
-.ffd20lnrw.chat-card .card-buttons span {
+.ffd20.chat-card .card-buttons span {
   display: block;
   line-height: 20px;
   text-align: center;
   border: 1px solid #ccc;
 }
-.ffd20lnrw.chat-card .card-footer {
+.ffd20.chat-card .card-footer {
   padding: 3px 0 0;
   border-top: 2px groove #fff;
 }
-.ffd20lnrw.chat-card .card-footer .spell-failure {
+.ffd20.chat-card .card-footer .spell-failure {
   padding: 4px;
   margin-bottom: 4px;
   border: 1px solid #999;
   border-radius: 3px;
 }
-.ffd20lnrw.chat-card .card-footer .spell-failure h3 {
+.ffd20.chat-card .card-footer .spell-failure h3 {
   color: #4c6d9f;
   font-size: 16px;
   text-align: center;
 }
-.ffd20lnrw.chat-card .card-footer .spell-failure .dice-roll,
-.ffd20lnrw.chat-card .card-footer .spell-failure .dice-total {
+.ffd20.chat-card .card-footer .spell-failure .dice-roll,
+.ffd20.chat-card .card-footer .spell-failure .dice-total {
   padding: 0;
 }
-.ffd20lnrw.chat-card .attack-row,
-.ffd20lnrw.chat-card .damage-row {
+.ffd20.chat-card .attack-row,
+.ffd20.chat-card .damage-row {
   align-items: baseline;
 }
-.ffd20lnrw.chat-card .attack-row a.inline-result,
-.ffd20lnrw.chat-card .damage-row a.inline-result {
+.ffd20.chat-card .attack-row a.inline-result,
+.ffd20.chat-card .damage-row a.inline-result {
   border-radius: 2px 2px 2px 0;
 }
-.ffd20lnrw.chat-card .attack-row h1,
-.ffd20lnrw.chat-card .damage-row h1 {
+.ffd20.chat-card .attack-row h1,
+.ffd20.chat-card .damage-row h1 {
   margin-bottom: 4px;
   font-size: 1.5em;
   font-weight: bold;
   border-bottom: unset;
   box-shadow: inset 0px -2px 0px 0px #782e22;
 }
-.ffd20lnrw.chat-card .attack-row h2,
-.ffd20lnrw.chat-card .damage-row h2 {
+.ffd20.chat-card .attack-row h2,
+.ffd20.chat-card .damage-row h2 {
   font-size: 1em;
   margin-bottom: 4px;
   margin-top: 4px;
 }
-.ffd20lnrw.chat-card .fake-inline-roll {
+.ffd20.chat-card .fake-inline-roll {
   padding: 1px 4px 0 4px;
   color: black;
   text-shadow: none;
   font-weight: normal;
 }
-.ffd20lnrw.chat-card .inline-roll,
-.ffd20lnrw.chat-card .fake-inline-roll {
+.ffd20.chat-card .inline-roll,
+.ffd20.chat-card .fake-inline-roll {
   flex: 0;
   height: 100%;
 }
-.ffd20lnrw.chat-card .inline-roll .dice-tooltip,
-.ffd20lnrw.chat-card .fake-inline-roll .dice-tooltip {
+.ffd20.chat-card .inline-roll .dice-tooltip,
+.ffd20.chat-card .fake-inline-roll .dice-tooltip {
   z-index: 1;
 }
-.ffd20lnrw.chat-card .inline-roll.success,
-.ffd20lnrw.chat-card .fake-inline-roll.success {
+.ffd20.chat-card .inline-roll.success,
+.ffd20.chat-card .fake-inline-roll.success {
   background-color: #60c060;
 }
-.ffd20lnrw.chat-card .inline-roll.failure,
-.ffd20lnrw.chat-card .fake-inline-roll.failure {
+.ffd20.chat-card .inline-roll.failure,
+.ffd20.chat-card .fake-inline-roll.failure {
   background-color: #c06060;
 }
 .message .chat-attack {
@@ -2751,7 +2751,7 @@
 /* ----------------------------------------- */
 /*  Basic Structure                          */
 /* ----------------------------------------- */
-.ffd20lnrw.sheet.actor.character {
+.ffd20.sheet.actor.character {
   min-width: 672px;
   min-height: 736px;
   /* ----------------------------------------- */
@@ -2764,24 +2764,24 @@
   /*  Spellbook                                */
   /* ----------------------------------------- */
 }
-.ffd20lnrw.sheet.actor.character .tab.details .charlevel {
+.ffd20.sheet.actor.character .tab.details .charlevel {
   flex: 0 0 180px;
   padding: 0 5px 2px;
 }
-.ffd20lnrw.sheet.actor.character .tab.details .charlevel .level {
+.ffd20.sheet.actor.character .tab.details .charlevel .level {
   height: 28px;
 }
-.ffd20lnrw.sheet.actor.character .tab.details .charlevel .experience input[type="text"] {
+.ffd20.sheet.actor.character .tab.details .charlevel .experience input[type="text"] {
   width: 100px;
 }
-.ffd20lnrw.sheet.actor.character .tab.details .charlevel .xpbar {
+.ffd20.sheet.actor.character .tab.details .charlevel .xpbar {
   width: 100%;
   flex: 0 0 8px;
   background: #666;
   border: 1px solid #000;
   border-radius: 3px;
 }
-.ffd20lnrw.sheet.actor.character .tab.details .charlevel .xpbar .bar {
+.ffd20.sheet.actor.character .tab.details .charlevel .xpbar .bar {
   height: 4px;
   margin: 1px;
   display: block;
@@ -2789,85 +2789,85 @@
   border: 1px solid #000;
   border-radius: 2px;
 }
-.ffd20lnrw.sheet.actor.character .attributes .resource .attribute-name {
+.ffd20.sheet.actor.character .attributes .resource .attribute-name {
   margin: 0 8px;
 }
-.ffd20lnrw.sheet.actor.character .attributes .resource .attribute-name input[type="text"] {
+.ffd20.sheet.actor.character .attributes .resource .attribute-name input[type="text"] {
   height: 20px;
   margin: 2px 0 -2px;
   line-height: 24px;
 }
-.ffd20lnrw.sheet.actor.character .attributes .resource label.checkbox {
+.ffd20.sheet.actor.character .attributes .resource label.checkbox {
   margin: 0 3px;
 }
-.ffd20lnrw.sheet.actor.character .attributes .resource label.checkbox input[type="checkbox"] {
+.ffd20.sheet.actor.character .attributes .resource label.checkbox input[type="checkbox"] {
   transform: scale(1.2);
 }
-.ffd20lnrw.sheet.actor.character div.skill-rank label {
+.ffd20.sheet.actor.character div.skill-rank label {
   flex: 0;
   white-space: nowrap;
   margin-right: 10px;
 }
-.ffd20lnrw.sheet.actor.character div.skill-rank li.skill-rank-formula input[type="text"] {
+.ffd20.sheet.actor.character div.skill-rank li.skill-rank-formula input[type="text"] {
   flex: 3 1 0;
 }
-.ffd20lnrw.sheet.actor.character .counters .death-saves {
+.ffd20.sheet.actor.character .counters .death-saves {
   flex: 2;
 }
-.ffd20lnrw.sheet.actor.character .counters .death-saves .counter-value {
+.ffd20.sheet.actor.character .counters .death-saves .counter-value {
   flex: 0 0 90px;
 }
-.ffd20lnrw.sheet.actor.character .item-detail.player-class {
+.ffd20.sheet.actor.character .item-detail.player-class {
   flex: 0 0 180px;
   text-align: right;
   padding-right: 10px;
 }
-.ffd20lnrw.sheet.actor.character .spellbook .item-controls {
+.ffd20.sheet.actor.character .spellbook .item-controls {
   flex: 0 0 68px;
 }
-.ffd20lnrw.sheet.actor.character .spellbook .item-controls .toggle-prepared {
+.ffd20.sheet.actor.character .spellbook .item-controls .toggle-prepared {
   color: #b5b3a4;
 }
-.ffd20lnrw.sheet.actor.character .spellbook .item-controls .toggle-prepared.prepared {
+.ffd20.sheet.actor.character .spellbook .item-controls .toggle-prepared.prepared {
   color: #4b4a44;
 }
-.ffd20lnrw.sheet.actor.character .spellbook .caster-preferences {
+.ffd20.sheet.actor.character .spellbook .caster-preferences {
   align-items: flex-start;
 }
 /* ----------------------------------------- */
 /*  Basic Structure                          */
 /* ----------------------------------------- */
-.ffd20lnrw.sheet.actor.npc {
+.ffd20.sheet.actor.npc {
   min-width: 600px;
   min-height: 658px;
 }
-.ffd20lnrw.sheet.actor.npc.lite {
+.ffd20.sheet.actor.npc.lite {
   min-width: 440px;
   min-height: 200px;
 }
-.ffd20lnrw.sheet.actor.npc.lite .sheet-header img.profile {
+.ffd20.sheet.actor.npc.lite .sheet-header img.profile {
   flex: 0 0 100px;
   max-width: 100px;
   min-height: 100px;
   max-height: 100px;
 }
-.ffd20lnrw.sheet.actor.npc.lite .sheet-header .header-top {
+.ffd20.sheet.actor.npc.lite .sheet-header .header-top {
   max-height: 40px;
 }
-.ffd20lnrw.sheet.actor.npc.lite .sheet-header .header-top .charname {
+.ffd20.sheet.actor.npc.lite .sheet-header .header-top .charname {
   padding: 0;
   margin: 0;
 }
-.ffd20lnrw.sheet.actor.npc.lite .sheet-header .header-top .charname input[type="text"] {
+.ffd20.sheet.actor.npc.lite .sheet-header .header-top .charname input[type="text"] {
   padding: 0;
   margin: 0;
   font-size: 24px;
   height: 24px;
 }
-.ffd20lnrw.sheet.actor.npc.lite .sheet-header .header-top .charlevel {
+.ffd20.sheet.actor.npc.lite .sheet-header .header-top .charlevel {
   flex: 0 0 128px;
 }
-.ffd20lnrw.sheet.actor.npc.lite .sheet-header .attribute.health {
+.ffd20.sheet.actor.npc.lite .sheet-header .attribute.health {
   border-right: 0;
 }
 .icon.gladius {
@@ -3018,38 +3018,38 @@ span.text-box:hover {
 input.text-box {
   text-align: center;
 }
-.ffd20lnrw table {
+.ffd20 table {
   margin: 4px 0;
 }
-.ffd20lnrw table thead .icon {
+.ffd20 table thead .icon {
   background-color: white;
 }
-.ffd20lnrw table tbody th {
+.ffd20 table tbody th {
   background: rgba(127, 127, 127, 0.5);
   color: white;
   text-shadow: 1px 1px black;
 }
-.ffd20lnrw table tr td:not(.nocenter),
-.ffd20lnrw table tr th:not(.nocenter) {
+.ffd20 table tr td:not(.nocenter),
+.ffd20 table tr th:not(.nocenter) {
   text-align: center;
 }
-.ffd20lnrw table td:not(:last-child),
-.ffd20lnrw table th:not(:last-child) {
+.ffd20 table td:not(:last-child),
+.ffd20 table th:not(:last-child) {
   border-right: 1px solid black;
 }
-.ffd20lnrw table.magic-items-table .name {
+.ffd20 table.magic-items-table .name {
   width: auto;
 }
-.ffd20lnrw table.magic-items-table .aura {
+.ffd20 table.magic-items-table .aura {
   width: 20%;
 }
-.ffd20lnrw table.magic-items-table .cl {
+.ffd20 table.magic-items-table .cl {
   width: 15%;
 }
-.ffd20lnrw table.magic-items-table .identify-dc {
+.ffd20 table.magic-items-table .identify-dc {
   width: 15%;
 }
-.ffd20lnrw table.magic-items-table .identify {
+.ffd20 table.magic-items-table .identify {
   width: 40px;
 }
 #token-hud .col.actions {

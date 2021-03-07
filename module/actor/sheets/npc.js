@@ -1,19 +1,19 @@
-import { ActorSheetffd20lnrw } from "../sheets/base.js";
+import { ActorSheetFFD20 } from "../sheets/base.js";
 import { CR } from "../../lib.js";
 
 /**
  * An Actor sheet for NPC type characters in the D&D5E system.
- * Extends the base ActorSheetffd20lnrw class.
- * @type {ActorSheetffd20lnrw}
+ * Extends the base ActorSheetFFD20 class.
+ * @type {ActorSheetFFD20}
  */
-export class ActorSheetffd20lnrwNPC extends ActorSheetffd20lnrw {
+export class ActorSheetFFD20NPC extends ActorSheetFFD20 {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["ffd20lnrw", "sheet", "actor", "npc"],
+      classes: ["FFD20", "sheet", "actor", "npc"],
       width: 800,
       height: 840,
     });
@@ -28,12 +28,12 @@ export class ActorSheetffd20lnrwNPC extends ActorSheetffd20lnrw {
    * @type {String}
    */
   get template() {
-    if (!game.user.isGM && this.actor.limited) return "systems/ffd20lnrw/templates/actors/limited-sheet.hbs";
-    return "systems/ffd20lnrw/templates/actors/npc-sheet.hbs";
+    if (!game.user.isGM && this.actor.limited) return "systems/ffd20/templates/actors/limited-sheet.hbs";
+    return "systems/ffd20/templates/actors/npc-sheet.hbs";
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetffd20lnrwNPC");
+  //   return game.i18n.localize("FFD20.ActorSheetFFD20NPC");
   // }
 
   /* -------------------------------------------- */
@@ -55,7 +55,7 @@ export class ActorSheetffd20lnrwNPC extends ActorSheetffd20lnrw {
       }
     }
 
-    const hpSettings = game.settings.get("ffd20lnrw", "healthConfig");
+    const hpSettings = game.settings.get("FFD20", "healthConfig");
     data["woundThresholds"] = hpSettings.variants.npc;
 
     return data;

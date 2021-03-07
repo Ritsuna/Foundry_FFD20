@@ -1,221 +1,221 @@
 {
-	"name": "ffd20lnrw",
-	"title": "FFd20 for LNRW",
-	"description": "FFd20 for use by the LNRW group using Pathfinder 1 as a base in the Foundry VTT environment.",
+	"name": "FFD20",
+	"title": "FFd20",
+	"description": "FFd20 using Pathfinder 1 as a base in the Foundry VTT environment.",
 	"version": "0.1.0",
 	"author": "Ritsu Voices",
 	"templateVersion": 2,
 	"scripts": [],
-	"esmodules": ["ffd20lnrw.js"],
-	"styles": ["ffd20lnrw.css"],
+	"esmodules": ["ffd20.js"],
+	"styles": ["ffd20.css"],
 	"packs": [
 		{
-			"name": "ffd20-class-pack-black-mage",
+			"name": "FFD20-class-pack-black-mage",
 			"label": "Class Pack - Black Mage",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-class-pack-black-mage.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-class-pack-engineer",
+			"name": "FFD20-class-pack-engineer",
 			"label": "Class Pack - Engineer",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-class-pack-engineer.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-class-pack-gunbreaker",
+			"name": "FFD20-class-pack-gunbreaker",
 			"label": "Class Pack - Gunbreaker",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-class-pack-gunbreaker.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-class-pack-summoner",
+			"name": "FFD20-class-pack-summoner",
 			"label": "Class Pack - Summoner",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-class-pack-summoner.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-class-pack-time-mage",
+			"name": "FFD20-class-pack-time-mage",
 			"label": "Class Pack - Time Mage",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-class-pack-time-mage.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-class-pack-white-mage",
+			"name": "FFD20-class-pack-white-mage",
 			"label": "Class Pack - White Mage",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-class-pack-white-mage.db",
 			"entity": "Item"
 		},
 		{
 			"name": "mythicpaths",
 			"label": "Mythic Paths",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/mythic-paths.db",
 			"entity": "Item"
 		  },
 		  {
 				  "name": "commonbuffs",
 			"label": "Common Buffs",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/commonbuffs.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-spells",
+			"name": "FFD20-spells",
 			"label": "FFd20 Spells",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-spells.db",
 			"entity": "Item"
 		},
 		{
 			"name": "feats",
 			"label": "Feats",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/feats.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-feats",
+			"name": "FFD20-feats",
 			"label": "FFd20 Feats",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-feats.db",
 			"entity": "Item"
 		},
 		{
 			"name": "items",
 			"label": "Items",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/items.db",
 			"entity": "Item"
 		},
 		{
 			"name": "armors-and-shields",
 			"label": "Armor and Shields",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/armors-and-shields.db",
 			"entity": "Item"
 		},
 		{
 			"name": "weapons-and-ammo",
 			"label": "Weapons and Ammo",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/weapons-and-ammo.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-items",
+			"name": "FFD20-items",
 			"label": "FFD20 Items",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-items.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-armors-and-shields",
+			"name": "FFD20-armors-and-shields",
 			"label": "FFD20 Armor and Shields",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-armors-and-shields.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-weapons-and-ammo",
+			"name": "FFD20-weapons-and-ammo",
 			"label": "FFD20 Weapons and Ammo",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-weapons-and-ammo.db",
 			"entity": "Item"
 		},
 		{
 			"name": "racialhd",
 			"label": "Racial HD",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/racial-hd.db",
 			"entity": "Item"
 		},
 		{
-			"name": "ffd20-races",
+			"name": "FFD20-races",
 			"label": "FFD20 Races",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ffd20-races.db",
 			"entity": "Item"
 		},
 		{
 			"name": "monster-templates",
 			"label": "Monster Templates",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/monster-templates.db",
 			"entity": "Item"
 		},
 		{
 			"name": "sample-macros",
 			"label": "Sample Macros",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/sample-macros.db",
 			"entity": "Macro"
 		},
 		{
 			"name": "roll-tables",
 			"label": "Roll Tables",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/roll-tables.db",
 			"entity": "RollTable"
 		},
 		{
 			"name": "ultimate-equipment",
 			"label": "Ultimate Equipment",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/ultimate-equipment.db",
 			"entity": "RollTable"
 		},
 		{
 			"name": "bestiary_1",
 			"label": "Bestiary - Part 1",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/bestiary_1.db",
 			"entity": "Actor"
 		  },
 		  {
 			"name": "bestiary_2",
 			"label": "Bestiary - Part 2",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/bestiary_2.db",
 			"entity": "Actor"
 		  },
 		  {
 			"name": "bestiary_3",
 			"label": "Bestiary - Part 3",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/bestiary_3.db",
 			"entity": "Actor"
 		  },
 		  {
 			"name": "bestiary_4",
 			"label": "Bestiary - Part 4",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/bestiary_4.db",
 			"entity": "Actor"
 		  },
 		  {
 			"name": "bestiary_5",
 			"label": "Bestiary - Part 5",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/bestiary_5.db",
 			"entity": "Actor"
 		  },
 		  {
 			"name": "conditions",
 			"label": "Conditions",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/conditions.db",
 			"entity": "JournalEntry"
 		},
 		{
 			"name": "skills",
 			"label": "Skills",
-			"system": "ffd20lnrw",
+			"system": "FFD20",
 			"path": "./packs/skills.db",
 			"entity": "JournalEntry"
 		}
@@ -235,7 +235,9 @@
 	"secondaryTokenAttribute": "attributes.mp",
 	"minimumCoreVersion": "0.7.8",
 	"compatibleCoreVersion": "0.7.9",
-	"url": "https://github.com/Ritsuna/FFd20-foundry-LNRW",
-	"manifest": "https://raw.githubusercontent.com/Ritsuna/FFd20-foundry-LNRW/master/system.json",
-	"download": "https://github.com/Ritsuna/FFd20-foundry-LNRW/releases/download/0.1.0/FFd20-foundry-LNRW-master.zip"
+	"bugs": "https://gitlab.com/Ritsuna/Foundry_FFD20/-/issues",
+	"allowBugReporter": true,
+	"url": "https://github.com/Ritsuna/Foundry_FFD20",
+	"manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
+	"download": "https://github.com/Ritsuna/Foundry_FFD20/releases/download/0.1.0/Foundry_FFD20-master.zip"
 }

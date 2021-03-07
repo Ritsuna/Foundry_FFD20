@@ -1,10 +1,10 @@
-import { ItemSheetffd20lnrw } from "./base.js";
-import { Itemffd20lnrw } from "../entity.js";
+import { ItemSheetFFD20 } from "./base.js";
+import { ItemFFD20 } from "../entity.js";
 import { convertWeight } from "../../lib.js";
 import { getSkipActionPrompt } from "../../settings.js";
 import { createConsumableSpellDialog } from "../../lib.js";
 
-export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
+export class ItemSheetFFD20_Container extends ItemSheetFFD20 {
   constructor(...args) {
     super(...args);
 
@@ -18,7 +18,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 800,
-      classes: ["ffd20lnrw", "sheet", "item"],
+      classes: ["FFD20", "sheet", "item"],
       scrollY: ["section.inventory-body"],
     });
   }
@@ -28,7 +28,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
    * @return {string}
    */
   get template() {
-    return "systems/ffd20lnrw/templates/items/container.hbs";
+    return "systems/ffd20/templates/items/container.hbs";
   }
 
   /* -------------------------------------------- */
@@ -70,7 +70,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
         isNumber: true,
         name: "data.baseWeight",
         fakeName: true,
-        label: game.i18n.localize("ffd20lnrw.Weight"),
+        label: game.i18n.localize("FFD20.Weight"),
         value: data.item.data.weightConverted,
         id: "data-baseWeight",
       });
@@ -82,7 +82,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
             isNumber: true,
             name: "data.basePrice",
             fakeName: true,
-            label: game.i18n.localize("ffd20lnrw.Price"),
+            label: game.i18n.localize("FFD20.Price"),
             value: data.item.data.price,
             id: "data-basePrice",
           },
@@ -90,7 +90,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
             isNumber: true,
             name: "data.unidentified.basePrice",
             fakeName: true,
-            label: game.i18n.localize("ffd20lnrw.UnidentifiedPriceShort"),
+            label: game.i18n.localize("FFD20.UnidentifiedPriceShort"),
             value: getProperty(data.item, "data.unidentified.price"),
             id: "data-unidentifiedBasePrice",
           }
@@ -101,7 +101,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
             isNumber: true,
             name: "data.unidentified.basePrice",
             fakeName: true,
-            label: game.i18n.localize("ffd20lnrw.Price"),
+            label: game.i18n.localize("FFD20.Price"),
             value: getProperty(data.item, "data.unidentified.price"),
             id: "data-basePrice",
           });
@@ -110,7 +110,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
             isNumber: true,
             name: "data.basePrice",
             fakeName: true,
-            label: game.i18n.localize("ffd20lnrw.Price"),
+            label: game.i18n.localize("FFD20.Price"),
             value: data.item.data.price,
             id: "data-basePrice",
           });
@@ -121,7 +121,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
       data.descriptionAttributes.push({
         isBoolean: true,
         name: "data.carried",
-        label: game.i18n.localize("ffd20lnrw.Carried"),
+        label: game.i18n.localize("FFD20.Carried"),
         value: data.item.data.carried,
       });
     }
@@ -133,7 +133,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
     data.contentsWeight += this.item._calculateCoinWeight(this.item.data);
     data.contentsWeight = Math.round(convertWeight(data.contentsWeight) * 10) / 10;
     data.weightUnits =
-      game.settings.get("ffd20lnrw", "units") === "metric" ? game.i18n.localize("ffd20lnrw.Kgs") : game.i18n.localize("ffd20lnrw.Lbs");
+      game.settings.get("FFD20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
 
     // Get contents value
     const gilValue = this.item.getValue({ sellValue: 1 }) - this.item.getValue({ recursive: false, sellValue: 1 });
@@ -148,10 +148,10 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
     // Set labels
     if (!data.labels) data.labels = {};
     data.labels.totalValue = game.i18n
-      .localize("ffd20lnrw.ItemContainerTotalValue")
+      .localize("FFD20.ItemContainerTotalValue")
       .format(data.totalValue.gp, data.totalValue.sp, data.totalValue.cp);
     data.labels.sellValue = game.i18n
-      .localize("ffd20lnrw.ItemContainerSellValue")
+      .localize("FFD20.ItemContainerSellValue")
       .format(data.sellValue.gp, data.sellValue.sp, data.sellValue.cp);
 
     return data;
@@ -161,7 +161,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
     // Categorize items as inventory, spellbook, features, and classes
     const inventory = {
       weapon: {
-        label: game.i18n.localize("ffd20lnrw.InventoryWeapons"),
+        label: game.i18n.localize("FFD20.InventoryWeapons"),
         canCreate: true,
         hasActions: false,
         items: [],
@@ -169,7 +169,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
         dataset: { type: "weapon" },
       },
       equipment: {
-        label: game.i18n.localize("ffd20lnrw.InventoryArmorEquipment"),
+        label: game.i18n.localize("FFD20.InventoryArmorEquipment"),
         canCreate: true,
         hasActions: true,
         items: [],
@@ -178,7 +178,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
         hasSlots: true,
       },
       consumable: {
-        label: game.i18n.localize("ffd20lnrw.InventoryConsumables"),
+        label: game.i18n.localize("FFD20.InventoryConsumables"),
         canCreate: true,
         hasActions: true,
         items: [],
@@ -186,43 +186,43 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
         dataset: { type: "consumable" },
       },
       gear: {
-        label: CONFIG.ffd20lnrw.lootTypes["gear"],
+        label: CONFIG.FFD20.lootTypes["gear"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: false,
-        dataset: { type: "loot", "type-name": game.i18n.localize("ffd20lnrw.LootTypeGearSingle"), "sub-type": "gear" },
+        dataset: { type: "loot", "type-name": game.i18n.localize("FFD20.LootTypeGearSingle"), "sub-type": "gear" },
       },
       ammo: {
-        label: CONFIG.ffd20lnrw.lootTypes["ammo"],
+        label: CONFIG.FFD20.lootTypes["ammo"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: false,
-        dataset: { type: "loot", "type-name": game.i18n.localize("ffd20lnrw.LootTypeAmmoSingle"), "sub-type": "ammo" },
+        dataset: { type: "loot", "type-name": game.i18n.localize("FFD20.LootTypeAmmoSingle"), "sub-type": "ammo" },
       },
       misc: {
-        label: CONFIG.ffd20lnrw.lootTypes["misc"],
+        label: CONFIG.FFD20.lootTypes["misc"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: false,
-        dataset: { type: "loot", "type-name": game.i18n.localize("ffd20lnrw.Misc"), "sub-type": "misc" },
+        dataset: { type: "loot", "type-name": game.i18n.localize("FFD20.Misc"), "sub-type": "misc" },
       },
       tradeGoods: {
-        label: CONFIG.ffd20lnrw.lootTypes["tradeGoods"],
+        label: CONFIG.FFD20.lootTypes["tradeGoods"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: false,
         dataset: {
           type: "loot",
-          "type-name": game.i18n.localize("ffd20lnrw.LootTypeTradeGoodsSingle"),
+          "type-name": game.i18n.localize("FFD20.LootTypeTradeGoodsSingle"),
           "sub-type": "tradeGoods",
         },
       },
       container: {
-        label: game.i18n.localize("ffd20lnrw.InventoryContainers"),
+        label: game.i18n.localize("FFD20.InventoryContainers"),
         canCreate: true,
         hasActions: false,
         items: [],
@@ -252,7 +252,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
       i.data.weight = i.data.weight || 0;
       i.totalWeight = Math.round(convertWeight(i.data.quantity * i.data.weight) * 10) / 10;
       i.units =
-        game.settings.get("ffd20lnrw", "units") === "metric" ? game.i18n.localize("ffd20lnrw.Kgs") : game.i18n.localize("ffd20lnrw.Lbs");
+        game.settings.get("FFD20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
       if (inventory[i.type] != null) inventory[i.type].items.push(i);
       if (subType != null && inventory[subType] != null) inventory[subType].items.push(i);
     }
@@ -358,9 +358,9 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
     } else {
       button.disabled = true;
 
-      const msg = `<p>${game.i18n.localize("ffd20lnrw.DeleteItemConfirmation")}</p>`;
+      const msg = `<p>${game.i18n.localize("FFD20.DeleteItemConfirmation")}</p>`;
       Dialog.confirm({
-        title: game.i18n.localize("ffd20lnrw.DeleteItem"),
+        title: game.i18n.localize("FFD20.DeleteItem"),
         content: msg,
         yes: () => {
           this.item.deleteContainerContent(li.dataset.itemId);
@@ -395,6 +395,14 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
       containerId: this.item.id,
       data: item.data,
     };
+
+    // Add actor to drag data
+    const actor = this.item.parentActor;
+    if (actor) {
+      dragData.actorId = actor.id;
+      dragData.sceneId = actor.isToken ? canvas.scene?.id : null;
+      dragData.tokenId = actor.isToken ? actor.token.id : null;
+    }
 
     // Set data transfer
     event.dataTransfer.setData("text/plain", JSON.stringify(dragData));
@@ -431,7 +439,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
       actor = game.actors.entities.find((o) => o._id === data.actorId);
     }
 
-    const item = await Itemffd20lnrw.fromDropData(data);
+    const item = await ItemFFD20.fromDropData(data);
     const itemData = duplicate(item.data);
 
     // Sort item
@@ -445,11 +453,18 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
     }
 
     // Create or transfer item
-    if (Itemffd20lnrw.isInventoryItem(item.data.type)) {
+    if (ItemFFD20.isInventoryItem(item.data.type)) {
       await this.item.createContainerContent(itemData);
 
-      if (actor) {
-        await actor.deleteOwnedItem(data.data._id);
+      if (actor && actor === this.item.parentActor) {
+        if (actor.items.get(data.data._id)) {
+          await actor.deleteOwnedItem(data.data._id);
+        } else {
+          const containerItem = actor.containerItems.find((i) => i._id === data.data._id);
+          if (containerItem) {
+            await containerItem.parentItem.deleteContainerContent(data.data._id);
+          }
+        }
       }
     }
   }
@@ -457,7 +472,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
   async _quickIdentifyItem(event) {
     event.preventDefault();
     if (!game.user.isGM) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorCantIdentify");
+      const msg = game.i18n.localize("FFD20.ErrorCantIdentify");
       console.error(msg);
       return ui.notifications.error(msg);
     }
@@ -635,7 +650,7 @@ export class ItemSheetffd20lnrw_Container extends ItemSheetffd20lnrw {
    */
   _getSortSiblings(source) {
     return this.item.items.filter((i) => {
-      if (Itemffd20lnrw.isInventoryItem(source.data.type)) return Itemffd20lnrw.isInventoryItem(i.data.type);
+      if (ItemFFD20.isInventoryItem(source.data.type)) return ItemFFD20.isInventoryItem(i.data.type);
       return i.data.type === source.data.type && i.data._id !== source.data._id;
     });
   }

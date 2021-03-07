@@ -1,25 +1,25 @@
-import { ActorSheetffd20lnrw } from "./base.js";
+import { ActorSheetFFD20 } from "./base.js";
 
 /**
- * An Actor sheet for player character type actors in the ffd20lnrw system.
- * Extends the base ActorSheetffd20lnrw class.
- * @type {ActorSheetffd20lnrw}
+ * An Actor sheet for player character type actors in the FFD20 system.
+ * Extends the base ActorSheetFFD20 class.
+ * @type {ActorSheetFFD20}
  */
-export class ActorSheetffd20lnrwCharacter extends ActorSheetffd20lnrw {
+export class ActorSheetFFD20Character extends ActorSheetFFD20 {
   /**
    * Define default rendering options for the NPC sheet
    * @return {Object}
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["ffd20lnrw", "sheet", "actor", "character"],
+      classes: ["FFD20", "sheet", "actor", "character"],
       width: 800,
       height: 840,
     });
   }
 
   // static get name() {
-  //   return game.i18n.localize("ffd20lnrw.ActorSheetffd20lnrwCharacter");
+  //   return game.i18n.localize("FFD20.ActorSheetFFD20Character");
   // }
 
   /* -------------------------------------------- */
@@ -31,8 +31,8 @@ export class ActorSheetffd20lnrwCharacter extends ActorSheetffd20lnrw {
    * @type {String}
    */
   get template() {
-    if (!game.user.isGM && this.actor.limited) return "systems/ffd20lnrw/templates/actors/limited-sheet.hbs";
-    return "systems/ffd20lnrw/templates/actors/character-sheet.hbs";
+    if (!game.user.isGM && this.actor.limited) return "systems/ffd20/templates/actors/limited-sheet.hbs";
+    return "systems/ffd20/templates/actors/character-sheet.hbs";
   }
 
   /* -------------------------------------------- */
@@ -42,18 +42,18 @@ export class ActorSheetffd20lnrwCharacter extends ActorSheetffd20lnrw {
    */
   async getData() {
     const data = await super.getData();
-    const xpSettings = game.settings.get("ffd20lnrw", "experienceConfig");
+    const xpSettings = game.settings.get("FFD20", "experienceConfig");
 
     // Experience Tracking
     data["disableExperience"] = xpSettings.disableExperienceTracking;
 
     data.hasClasses = this.actor.items.filter((o) => o.type === "class").length > 0;
 
-    const hpSettings = game.settings.get("ffd20lnrw", "healthConfig");
+    const hpSettings = game.settings.get("FFD20", "healthConfig");
     data["woundThresholds"] = hpSettings.variants.pc;
 
     // BAB iteratives
-    const iteratives = game.settings.get("ffd20lnrw", "displayIteratives");
+    const iteratives = game.settings.get("FFD20", "displayIteratives");
     const bab = data.data.attributes.bab.total;
     if (iteratives) {
       let iters = [bab];

@@ -1,9 +1,9 @@
-export class PointBuyCalculator extends FormApplication {
+export class PointBuyCalculator extends BaseEntitySheet {
   constructor(...args) {
     super(...args);
 
     this.abilities = [];
-    for (let [k, name] of Object.entries(CONFIG.ffd20lnrw.abilities)) {
+    for (let [k, name] of Object.entries(CONFIG.FFD20.abilities)) {
       this.abilities.push({
         key: k,
         name: name,
@@ -14,10 +14,9 @@ export class PointBuyCalculator extends FormApplication {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      id: "pointbuy-calculator",
-      classes: ["ffd20lnrw", "pointbuy-calculator"],
+      classes: ["FFD20", "pointbuy-calculator"],
       title: "Point Buy Calculator",
-      template: "systems/ffd20lnrw/templates/apps/pointbuy-calculator.hbs",
+      template: "systems/ffd20/templates/apps/pointbuy-calculator.hbs",
       width: 320,
       height: "auto",
       closeOnSubmit: false,
@@ -25,8 +24,12 @@ export class PointBuyCalculator extends FormApplication {
     });
   }
 
+  get title() {
+    return `${this.options.title}: ${this.object.name}`;
+  }
+
   get actor() {
-    return this.object.actor;
+    return this.entity;
   }
 
   getData() {
@@ -42,7 +45,7 @@ export class PointBuyCalculator extends FormApplication {
     let result = 0;
 
     for (let a of this.abilities) {
-      result += CONFIG.ffd20lnrw.abilityCost[a.value];
+      result += CONFIG.FFD20.abilityCost[a.value];
     }
     return result;
   }

@@ -6,7 +6,7 @@
 
     <div class="header-details flexrow">
       <h1 class="charname">
-        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "ffd20lnrw.ItemName"}}"/>
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
       </h1>
 
       <div class="item-subtitle">
@@ -20,7 +20,7 @@
         </li>
         <li class="tooltip">
           <span class="tooltipcontent">@classes.{{item.data.tag}}.level : {{data.level}}</span>
-          <input type="text" name="data.level" value="{{data.level}}" placeholder="{{#if isMythicPath}}{{localize "ffd20lnrw.Tier"}}{{else}}{{localize "ffd20lnrw.Level"}}{{/if}}" data-dtype="Number"/>
+          <input type="text" name="data.level" value="{{data.level}}" placeholder="{{#if isMythicPath}}{{localize "FFD20.Tier"}}{{else}}{{localize "FFD20.Level"}}{{/if}}" data-dtype="Number"/>
         </li>
       </ul>
     </div>
@@ -28,10 +28,10 @@
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="description">{{ localize "ffd20lnrw.Description" }}</a>
-    <a class="item" data-tab="details">{{ localize "ffd20lnrw.Details" }}</a>
-    <a class="item" data-tab="changes">{{localize "ffd20lnrw.Changes"}}</a>
-    <a class="item" data-tab="links">{{localize "ffd20lnrw.Links"}}</a>
+    <a class="item active" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
+    <a class="item" data-tab="changes">{{localize "FFD20.Changes"}}</a>
+    <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
   </nav>
 
   {{!-- Item Sheet Body --}}
@@ -47,7 +47,7 @@
 
       {{!-- Class Type --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ClassType"}}</label>
+        <label>{{localize "FFD20.ClassType"}}</label>
         <select name="data.classType">
           {{#select data.classType}}
           {{#each config.classTypes as |name type|}}
@@ -59,7 +59,7 @@
 
       {{!-- Class sub Type --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ClassSubType"}}</label>
+        <label>{{localize "FFD20.ClassSubType"}}</label>
         <select name="data.classSubType">
           {{#select data.classSubType}}
           {{#each config.classSubTypes as |name type|}}
@@ -71,13 +71,13 @@
 
       {{!-- Parent class --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ParentClass"}}</label>
+        <label>{{localize "FFD20.ParentClass"}}</label>
         <input type="text" name="data.parentclass" value="{{data.parentclass}}" data-dtype="String" />
       </div>
 
       {{!-- count for exp  --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.countforexp"}}</label>
+        <label>{{localize "FFD20.countforexp"}}</label>
         <select name="data.countforexp">
           {{#select data.countforexp}}
           {{#each config.countforexp as |name value|}}
@@ -89,21 +89,21 @@
 
       {{!-- HD --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.HitDie"}}</label>
+        <label>{{localize "FFD20.HitDie"}}</label>
         <input type="text" name="data.hd" value="{{data.hd}}" data-dtype="Number" />
       </div>
 
       {{!-- Hit Points --}}
       {{#unless healthConfig.auto}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.HitPoints"}}</label>
+        <label>{{localize "FFD20.HitPoints"}}</label>
         <input type="text" name="data.hp" value="{{data.hp}}" data-dtype="Number" />
       </div>
       {{/unless}}
 
       {{!-- mp type --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ClassManaType"}}</label>
+        <label>{{localize "FFD20.ClassManaType"}}</label>
         <select name="data.classBaseMPType">
           {{#select data.classBaseMPType}}
           {{#each config.classBaseMPTypes as |name value|}}
@@ -115,7 +115,7 @@
 
       {{!-- Spell progression --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ClassSpellProgression"}}</label>
+        <label>{{localize "FFD20.ClassSpellProgression"}}</label>
         <select name="data.ClassSpellProgression">
           {{#select data.ClassSpellProgression}}
           {{#each config.ClassSpellProgression as |name value|}}
@@ -127,7 +127,7 @@
 
       {{!-- Casting stat type --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.SpellcastingAbility"}}</label>
+        <label>{{localize "FFD20.SpellcastingAbility"}}</label>
         <select name="data.classCastingStat">
           {{#select data.classCastingStat}}
           {{#each config.classCastingStats as |name value|}}
@@ -139,7 +139,7 @@
 
       {{!-- mp auto  --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.classBaseMPauto"}}</label>
+        <label>{{localize "FFD20.classBaseMPauto"}}</label>
         <select name="data.classBaseMPauto">
           {{#select data.classBaseMPauto}}
           {{#each config.classBaseMPauto as |name value|}}
@@ -151,16 +151,16 @@
 
       {{!-- MP --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ManaPoints"}}</label>
+        <label>{{localize "FFD20.ManaPoints"}}</label>
         <input type="text" name="data.mp" value="{{data.mp}}" data-dtype="Number" />
       </div>
 
       {{!-- BAB --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.BABAbbr"}}</label>
+        <label>{{localize "FFD20.BABAbbr"}}</label>
         <select name="data.bab">
           {{#select data.bab}}
-          <option value="">{{localize "ffd20lnrw.None"}}</option>
+          <option value="">{{localize "FFD20.None"}}</option>
           {{#each config.classBAB as |name value|}}
           <option value="{{value}}">{{name}}</option>
           {{/each}}
@@ -170,13 +170,13 @@
 
       {{!-- Skills/Level --}}
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.SkillsPerLevel"}}</label>
+        <label>{{localize "FFD20.SkillsPerLevel"}}</label>
         <input type="text" name="data.skillsPerLevel" value="{{data.skillsPerLevel}}" data-dtype="Number" />
       </div>
 
       {{!-- Proficiencies --}}
       <div class="form-group {{data.armorProf.cssClass}}">
-        <label for="data.weaponProf">{{localize "ffd20lnrw.TraitWeaponProf"}}</label>
+        <label for="data.weaponProf">{{localize "FFD20.TraitWeaponProf"}}</label>
         <ul class="traits-list">
           {{#each data.weaponProf.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
@@ -186,7 +186,7 @@
       </div>
 
       <div class="form-group {{data.armorProf.cssClass}}">
-        <label for="data.armorProf">{{localize "ffd20lnrw.TraitArmorProf"}}</label>
+        <label for="data.armorProf">{{localize "FFD20.TraitArmorProf"}}</label>
         <ul class="traits-list">
           {{#each data.armorProf.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
@@ -195,7 +195,7 @@
         <a class="trait-selector" data-options="armorProficiencies"><i class="fas fa-edit"></i></a>
       </div>
 
-      <h4 class="form-header">{{localize "ffd20lnrw.SavingThrowPlural"}}</h4>
+      <h4 class="form-header">{{localize "FFD20.SavingThrowPlural"}}</h4>
 
       {{!-- Saving Throws --}}
       {{#each data.savingThrows as |savingThrow id|}}
@@ -203,7 +203,7 @@
         <label>{{savingThrow.label}}</label>
         <select name="data.savingThrows.{{id}}.value">
           {{#select savingThrow.value}}
-          <option value="">{{localize "ffd20lnrw.None"}}</option>
+          <option value="">{{localize "FFD20.None"}}</option>
           {{#each ../config.classSavingThrows as |name value|}}
           <option value="{{value}}">{{name}}</option>
           {{/each}}
@@ -212,17 +212,17 @@
       </div>
       {{/each}}
 
-      <h4 class="form-header">{{localize "ffd20lnrw.Advanced"}}</h4>
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
 
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.Tag"}}</label>
-        <input {{#unless data.useCustomTag}}disabled{{/unless}} type="text" name="data.tag" value="{{data.tag}}" placeholder="{{localize "ffd20lnrw.Tag"}}" />
-        <label>{{localize "ffd20lnrw.Custom"}}</label>
+        <label>{{localize "FFD20.Tag"}}</label>
+        <input {{#unless data.useCustomTag}}disabled{{/unless}} type="text" name="data.tag" value="{{data.tag}}" placeholder="{{localize "FFD20.Tag"}}" />
+        <label>{{localize "FFD20.Custom"}}</label>
         <input type="checkbox" name="data.useCustomTag" {{checked data.useCustomTag}} />
       </div>
 
       {{#if isBaseClass}}
-      <h4 class="form-header">{{localize "ffd20lnrw.FavouredClassBonuses"}}</h4>
+      <h4 class="form-header">{{localize "FFD20.FavouredClassBonuses"}}</h4>
 
       {{!-- Favoured Class Bonuses --}}
       {{#each data.fc as |fc id|}}
@@ -233,7 +233,7 @@
       {{/each}}
       {{/if}}
 
-      <h4 class="form-header">{{localize "ffd20lnrw.ClassSkills"}}</h4>
+      <h4 class="form-header">{{localize "FFD20.ClassSkills"}}</h4>
 
       <div class="form-group">
         <ol class="item-list">
@@ -250,13 +250,13 @@
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="changes">
-      {{> "systems/ffd20lnrw/templates/items/parts/item-changes.hbs"}}
+      {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
 
-      {{> "systems/ffd20lnrw/templates/items/parts/item-notes.hbs"}}
+      {{> "systems/ffd20/templates/items/parts/item-notes.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">
-      {{> "systems/ffd20lnrw/templates/items/parts/item-links.hbs"}}
+      {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
   </section>
 </form>

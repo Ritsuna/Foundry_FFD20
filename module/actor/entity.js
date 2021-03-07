@@ -1,6 +1,6 @@
-import { Diceffd20lnrw } from "../dice.js";
-import { Itemffd20lnrw } from "../item/entity.js";
-import { createTag, linkData, isMinimumCoreVersion, convertDistance, convertWeight } from "../lib.js";
+import { DiceFFD20 } from "../dice.js";
+import { ItemFFD20 } from "../item/entity.js";
+import { createTag, linkData, convertDistance, convertWeight } from "../lib.js";
 import { createCustomChatMessage } from "../chat.js";
 import { _getInitiativeFormula } from "../combat.js";
 import { LinkFunctions } from "../misc/links.js";
@@ -10,7 +10,7 @@ import { applyChanges, addDefaultChanges, getChangeFlat, getSourceInfo } from ".
 /**
  * Extend the base Actor class to implement additional logic specialized for D&D5e.
  */
-export class Actorffd20lnrw extends Actor {
+export class ActorFFD20 extends Actor {
   constructor(...args) {
     super(...args);
 
@@ -19,7 +19,7 @@ export class Actorffd20lnrw extends Actor {
      * @property
      * @type {Array}
      */
-    this.changeItems = [];
+    if (this.changeItems === undefined) this.changeItems = [];
 
     /**
      * Stores all ItemChanges from carried items.
@@ -27,7 +27,7 @@ export class Actorffd20lnrw extends Actor {
      * @public
      * @type {Object}
      */
-    this.changes = new Collection();
+    if (this.changes === undefined) this.changes = new Collection();
 
     /**
      * Stores cancellable tokens for pending update promises.
@@ -35,19 +35,31 @@ export class Actorffd20lnrw extends Actor {
      * @private
      * @type {Array.<Object>}
      */
-    this._pendingUpdateTokens = [];
+    if (this._pendingUpdateTokens === undefined) this._pendingUpdateTokens = [];
 
     /**
      * @property {Object} _rollData
      * Cached roll data for this item.
      */
-    this._rollData = null;
+    if (this._rollData === undefined) this._rollData = null;
 
     /**
      * @property {Array.<String>} _runningFunctions
      * Keeps track of currently running async functions that shouldn't run multiple times simultaneously.
      */
-    this._runningFunctions = [];
+    if (this._runningFunctions === undefined) this._runningFunctions = [];
+
+    /**
+     * @property {Object} _queuedItemUpdates
+     * A dictionary of item IDs and the data to update. Will be called once this actor has been updated, and immediately cleared.
+     */
+    if (this._queuedItemUpdates === undefined) this._queuedItemUpdates = {};
+
+    /**
+     * @property {ItemFFD20[]} containerItems
+     * All items this actor is holding in containers.
+     */
+    if (this.containerItems === undefined) this.containerItems = [];
   }
 
   /* -------------------------------------------- */
@@ -66,11 +78,11 @@ export class Actorffd20lnrw extends Actor {
 
     // Roll saving throw
     if (action === "defense-save") {
-      const actor = Itemffd20lnrw._getChatCardActor(card);
+      const actor = ItemFFD20._getChatCardActor(card);
       const saveId = button.dataset.save;
       if (actor) actor.rollSavingThrow(saveId, { event: event, skipPrompt: getSkipActionPrompt() });
     } else if (action === "save") {
-      const actors = Actorffd20lnrw.getSelectedActors();
+      const actors = ActorFFD20.getSelectedActors();
       const saveId = button.dataset.type;
       let noSound = false;
       for (let a of actors) {
@@ -105,7 +117,7 @@ export class Actorffd20lnrw extends Actor {
 
   /**
    * Returns an array of all selected tokens, along with their actors.
-   * @returns {Array.<Actorffd20lnrw, Token>[]}
+   * @returns {Array.<ActorFFD20, Token>[]}
    */
   static getSelectedActors() {
     let result = [];
@@ -139,26 +151,26 @@ export class Actorffd20lnrw extends Actor {
 
   static _translateSourceInfo(type, subtype, name) {
     let result = "";
-    if (type === "size") result = game.i18n.localize("ffd20lnrw.SourceInfoSize");
+    if (type === "size") result = game.i18n.localize("FFD20.SourceInfoSize");
     if (type === "buff") {
-      result = game.i18n.localize("ffd20lnrw.SourceInfoBuffs");
-      if (subtype === "temp") result = game.i18n.localize("ffd20lnrw.SourceInfoTemporaryBuffs");
-      if (subtype === "perm") result = game.i18n.localize("ffd20lnrw.SourceInfoPermanentBuffs");
-      if (subtype === "item") result = game.i18n.localize("ffd20lnrw.SourceInfoItemBuffs");
-      if (subtype === "misc") result = game.i18n.localize("ffd20lnrw.SourceInfoMiscBuffs");
+      result = game.i18n.localize("FFD20.SourceInfoBuffs");
+      if (subtype === "temp") result = game.i18n.localize("FFD20.SourceInfoTemporaryBuffs");
+      if (subtype === "perm") result = game.i18n.localize("FFD20.SourceInfoPermanentBuffs");
+      if (subtype === "item") result = game.i18n.localize("FFD20.SourceInfoItemBuffs");
+      if (subtype === "misc") result = game.i18n.localize("FFD20.SourceInfoMiscBuffs");
     }
-    if (type === "equipment") result = game.i18n.localize("ffd20lnrw.SourceInfoEquipment");
-    if (type === "weapon") result = game.i18n.localize("ffd20lnrw.SourceInfoWeapons");
+    if (type === "equipment") result = game.i18n.localize("FFD20.SourceInfoEquipment");
+    if (type === "weapon") result = game.i18n.localize("FFD20.SourceInfoWeapons");
     if (type === "feat") {
-      result = game.i18n.localize("ffd20lnrw.SourceInfoFeats");
-      if (subtype === "classFeat") result = game.i18n.localize("ffd20lnrw.SourceInfoClassFeatures");
-      if (subtype === "trait") result = game.i18n.localize("ffd20lnrw.SourceInfoTraits");
-      if (subtype === "racial") result = game.i18n.localize("ffd20lnrw.SourceInfoRacialTraits");
-      if (subtype === "misc") result = game.i18n.localize("ffd20lnrw.SourceInfoMiscFeatures");
-      if (subtype === "template") result = game.i18n.localize("ffd20lnrw.SourceInfoTemplate");
-        }
+      result = game.i18n.localize("FFD20.SourceInfoFeats");
+      if (subtype === "classFeat") result = game.i18n.localize("FFD20.SourceInfoClassFeatures");
+      if (subtype === "trait") result = game.i18n.localize("FFD20.SourceInfoTraits");
+      if (subtype === "racial") result = game.i18n.localize("FFD20.SourceInfoRacialTraits");
+      if (subtype === "misc") result = game.i18n.localize("FFD20.SourceInfoMiscFeatures");
+      if (subtype === "template") result = game.i18n.localize("FFD20.SourceInfoTemplate");
+    }
     if (type === "race") {
-      result = game.i18n.localize("ffd20lnrw.SourceInfoRace");
+      result = game.i18n.localize("FFD20.SourceInfoRace");
     }
 
     if (!name || name.length === 0) return result;
@@ -194,13 +206,33 @@ export class Actorffd20lnrw extends Actor {
         return data.permission[u._id] >= CONST.ENTITY_PERMISSIONS["OWNER"];
       });
     }
-    const hasPlayerOwner = isMinimumCoreVersion("0.7.2") ? this.hasPlayerOwner : this.isPC;
+    const hasPlayerOwner = this.hasPlayerOwner;
     return hasPlayerOwner;
   }
 
   prepareEmbeddedEntities() {
     super.prepareEmbeddedEntities();
+    this.containerItems = this._prepareContainerItems(this.items);
     this._prepareChanges();
+  }
+
+  _prepareContainerItems(items) {
+    let collection = [];
+
+    const getContainerContents = function (item) {
+      if (item.type !== "container") return;
+
+      item.items.forEach((i) => {
+        collection.push(i);
+        getContainerContents(i);
+      });
+    };
+
+    items.forEach((item) => {
+      getContainerContents(item);
+    });
+
+    return collection;
   }
 
   _prepareChanges() {
@@ -247,10 +279,11 @@ export class Actorffd20lnrw extends Actor {
     this.sourceInfo = {};
     this.flags = {};
 
+    // Prepare data
     super.prepareData();
 
     // Send queued updates
-    if (this._initialized) {
+    if (this._initialized && this.hasPerm(game.user, "OWNER")) {
       const diff = diffObject(duplicate(this._data), expandObject(this._queuedUpdates), { inner: true });
       if (!isObjectEmpty(diff)) {
         this.update(diff);
@@ -261,24 +294,33 @@ export class Actorffd20lnrw extends Actor {
   }
 
   prepareBaseData() {
-    super.prepareBaseData();
+    // Refresh roll data
+    this.getRollData({ refresh: true });
 
-    const classes = this.data.items.filter((obj) => {
-      return obj.type === "class";
+    // Update item resource values
+    this.data.items.forEach((item) => {
+      this.updateItemResources(item);
     });
 
-    {
-      const highestArmorEnhBonus = this.data.items
-        .filter((o) => o.type === "equipment" && o.data.equipmentType === "armor" && o.data.equipped)
-        .reduce((cur, o) => {
-          return Math.max(cur, o.data.armor.enh);
-        }, 0);
-      const highestShieldEnhBonus = this.data.items
-        .filter((o) => o.type === "equipment" && o.data.equipmentType === "shield" && o.data.equipped)
-        .reduce((cur, o) => {
-          return Math.max(cur, o.data.armor.enh);
-        }, 0);
+    Hooks.callAll("FFD20.prepareBaseActorData", this);
+    super.prepareBaseData();
+    this._resetInherentTotals();
 
+    // Update total level and mythic tier
+    const classes = this.data.items.filter((o) => o.type === "class");
+    const level = classes.filter((o) => o.data.classType !== "mythic").reduce((cur, o) => cur + o.data.level, 0);
+    setProperty(this.data, "data.details.level.value", level);
+
+    const mythicTier = classes.filter((o) => o.data.classType === "mythic").reduce((cur, o) => cur + o.data.level, 0);
+    setProperty(this.data, "data.details.mythicTier", mythicTier);
+
+    // The following is not for NPCs
+    if (this.data.type === "character") {
+      const maxExp = this.getLevelExp(level);
+      setProperty(this.data, "data.details.xp.max", maxExp);
+    }
+
+    {
       // Handle armor and weapon proficiencies for PCs
       // NPCs are considered proficient with their armor
       if (this.data.type === "character") {
@@ -286,7 +328,7 @@ export class Actorffd20lnrw extends Actor {
         for (const prof of ["armorProf", "weaponProf"]) {
           // Custom proficiency baseline from actor
           const customProficiencies =
-            this.data.data.traits[prof]?.custom.split(CONFIG.ffd20lnrw.re.traitSeparator).filter((item) => item.length > 0) ||
+            this.data.data.traits[prof]?.custom.split(CONFIG.FFD20.re.traitSeparator).filter((item) => item.length > 0) ||
             [];
 
           // Iterate over all items to create one array of non-custom proficiencies
@@ -296,31 +338,34 @@ export class Actorffd20lnrw extends Actor {
               if (hasProperty(item, `data.${prof}`)) {
                 // Get existing sourceInfo for item with this name, create sourceInfo if none is found
                 // Remember whether sourceInfo can be modified or has to be pushed at the end
-                let [sInfo, hasInfo] = getSourceInfo(this.sourceInfo, `data.traits.${prof}`).positive.find(
-                  (o) => o.name === item.name
-                ) ?? [{ name: item.name, value: [] }, false];
+                let sInfo = getSourceInfo(this.sourceInfo, `data.traits.${prof}`).positive.find(
+                    (o) => o.name === item.name
+                  ),
+                  hasInfo = !!sInfo;
+                if (!sInfo) sInfo = { name: item.name, value: [] };
+                else if (typeof sInfo.value === "string") sInfo.value = sInfo.value.split(", ");
 
                 // Regular proficiencies
                 for (const proficiency of item.data[prof].value) {
                   // Add localized source info if item's info does not have this proficiency already
-                  if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.ffd20lnrw[`${prof}iciencies`][proficiency]);
+                  if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.FFD20[`${prof}iciencies`][proficiency]);
                   // Add raw proficiency key
                   if (!profs.includes(proficiency)) profs.push(proficiency);
                 }
 
-                // Custom proficiencies
-                if (item.data.armorProf.custom) {
-                  // Collect trimmed but otherwise original strings, dedupe array for actor's total
-                  const customProfs =
-                    item.data[prof].custom
-                      .split(CONFIG.ffd20lnrw.re.traitSeparator)
-                      .map((i) => i.trim())
-                      .filter((el, i, arr) => el.length > 0 && arr.indexOf(el) === i) || [];
-                  // Add readable custom profs to sources and overall collection
-                  sInfo.value.push(...customProfs);
-                  customProficiencies.push(...customProfs);
-                }
+                // Collect trimmed but otherwise original proficiency strings, dedupe array for actor's total
+                const customProfs =
+                  item.data[prof].custom
+                    ?.split(CONFIG.FFD20.re.traitSeparator)
+                    .map((i) => i.trim())
+                    .filter((el, i, arr) => el.length > 0 && arr.indexOf(el) === i) || [];
+                // Add readable custom profs to sources and overall collection
+                sInfo.value.push(...customProfs);
+                customProficiencies.push(...customProfs);
+
                 if (sInfo.value.length > 0) {
+                  // Dedupe if adding to existing sourceInfo
+                  if (hasInfo) sInfo.value = [...new Set(sInfo.value)];
                   // Transform arrays into presentable strings
                   sInfo.value = sInfo.value.join(", ");
                   // If sourceInfo was not a reference to existing info, push it now
@@ -343,18 +388,29 @@ export class Actorffd20lnrw extends Actor {
     {
       const abs = Object.keys(this.data.data.abilities);
       for (let ab of abs) {
-        setProperty(
-          this.data,
-          `data.abilities.${ab}.total`,
-          getProperty(this.data, `data.abilities.${ab}.value`) - getProperty(this.data, `data.abilities.${ab}.drain`)
-        );
+        const value = getProperty(this.data, `data.abilities.${ab}.value`);
+        if (value == null) {
+          setProperty(this.data, `data.abilities.${ab}.total`, null);
+        } else {
+          setProperty(
+            this.data,
+            `data.abilities.${ab}.total`,
+            value - getProperty(this.data, `data.abilities.${ab}.drain`)
+          );
+          setProperty(
+            this.data,
+            `data.abilities.${ab}.penalty`,
+            (getProperty(this.data, `data.abilities.${ab}.penalty`) || 0) +
+              (getProperty(this.data, `data.abilities.${ab}.userPenalty`) || 0)
+          );
+        }
       }
       this.refreshAbilityModifiers();
     }
 
     // Reset BAB
     {
-      const useFractionalBaseBonuses = game.settings.get("ffd20lnrw", "useFractionalBaseBonuses") === true;
+      const useFractionalBaseBonuses = game.settings.get("FFD20", "useFractionalBaseBonuses") === true;
       const k = "data.attributes.bab.total";
       if (useFractionalBaseBonuses) {
         setProperty(
@@ -374,7 +430,7 @@ export class Actorffd20lnrw extends Actor {
         const v = getProperty(this.data, k);
         if (v !== 0) {
           getSourceInfo(this.sourceInfo, k).positive.push({
-            name: game.i18n.localize("ffd20lnrw.Base"),
+            name: game.i18n.localize("FFD20.Base"),
             value: v,
           });
         }
@@ -384,7 +440,7 @@ export class Actorffd20lnrw extends Actor {
           k,
           classes.reduce((cur, obj) => {
             const formula =
-              CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] != null ? CONFIG.ffd20lnrw.classBABFormulas[obj.data.bab] : "0";
+              CONFIG.FFD20.classBABFormulas[obj.data.bab] != null ? CONFIG.FFD20.classBABFormulas[obj.data.bab] : "0";
             const v = new Roll(formula, { level: obj.data.level }).roll().total;
 
             if (v !== 0) {
@@ -399,8 +455,6 @@ export class Actorffd20lnrw extends Actor {
         );
       }
     }
-
-    this._updateExp();
 
     // Prepare Character data
     if (this.data.type === "character") this._prepareCharacterData(this.data.data);
@@ -429,7 +483,7 @@ export class Actorffd20lnrw extends Actor {
     // Custom proficiencies
     const customProficiencies =
       this.data.data.traits.armorProf?.customTotal
-        ?.split(CONFIG.ffd20lnrw.re.traitSeparator)
+        ?.split(CONFIG.FFD20.re.traitSeparator)
         .map((item) => item.trim().toLowerCase())
         .filter((item) => item.length > 0) || [];
 
@@ -574,20 +628,49 @@ export class Actorffd20lnrw extends Actor {
         setProperty(this.data, `data.skills.${k}.subSkills.${k2}.cs`, isClassSkill);
       }
     }
+
+    // Add base initiative (for NPC Lite sheets)
+    {
+      setProperty(this.data, "data.attributes.init.total", getProperty(this.data, "data.attributes.init.value"));
+    }
+  }
+
+  /**
+   * Called just before the first change is applied, and after every change is applied.
+   * Sets additional variables (such as spellbook range)
+   */
+  refreshDerivedData() {
+    // Set spellbook info
+    for (let spellbook of Object.values(getProperty(this.data, "data.attributes.spells.spellbooks"))) {
+      const cl = spellbook.cl.total;
+      spellbook.range = {
+        close: convertDistance(25 + 5 * Math.floor(cl / 2))[0],
+        medium: convertDistance(100 + 10 * cl)[0],
+        long: convertDistance(400 + 40 * cl)[0],
+      };
+    }
   }
 
   /**
    * Augment the basic actor data with additional dynamic data.
    */
   prepareDerivedData() {
+    Hooks.callAll("FFD20.prepareDerivedActorData", this);
     super.prepareDerivedData();
 
     const actorData = this.data;
     const data = actorData.data;
     const rollData = this.getRollData();
 
+    // Round health
+    const healthConfig = game.settings.get("FFD20", "healthConfig");
+    const round = { up: Math.ceil, nearest: Math.round, down: Math.floor }[healthConfig.rounding];
+    for (const k of ["data.attributes.hp.max", "data.attributes.vigor.max"]) {
+      setProperty(this.data, `${k}`, round(getProperty(this.data, `${k}`)));
+    }
+
     // Refresh HP
-    if (!game.ffd20lnrw.isMigrating) {
+    if (!game.FFD20.isMigrating && this._initialized) {
       for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor"]) {
         const prevMax = this._prevAttributes[k] || 0;
         const newMax = getProperty(this.data, `${k}.max`) || 0;
@@ -596,6 +679,9 @@ export class Actorffd20lnrw extends Actor {
         this._queuedUpdates[`${k}.value`] = newValue;
       }
     }
+
+    // Update wound threshold
+    this.updateWoundThreshold();
 
     // Reset spell slots and spell points
     for (let spellbookKey of Object.keys(getProperty(this.data, "data.attributes.spells.spellbooks"))) {
@@ -621,13 +707,13 @@ export class Actorffd20lnrw extends Actor {
         if (this.data.type === "npc") {
           const value = getProperty(spellbook, "cl.base") || 0;
           total += value;
-          getSourceInfo(this.sourceInfo, key).positive.push({ name: game.i18n.localize("ffd20lnrw.Base"), value: value });
+          getSourceInfo(this.sourceInfo, key).positive.push({ name: game.i18n.localize("FFD20.Base"), value: value });
         }
         // Add HD
         if (spellbook.class === "_hd") {
           const value = getProperty(this.data, "data.attributes.hd.total");
           total += value;
-          getSourceInfo(this.sourceInfo, key).positive.push({ name: game.i18n.localize("ffd20lnrw.HitDie"), value: value });
+          getSourceInfo(this.sourceInfo, key).positive.push({ name: game.i18n.localize("FFD20.HitDie"), value: value });
         }
         // Add class levels
         else if (spellbook.class && rollData.classes[spellbook.class]) {
@@ -643,12 +729,12 @@ export class Actorffd20lnrw extends Actor {
         total += clBonus;
         if (clBonus > 0) {
           getSourceInfo(this.sourceInfo, key).positive.push({
-            name: game.i18n.localize("ffd20lnrw.CasterLevelBonusFormula"),
+            name: game.i18n.localize("FFD20.CasterLevelBonusFormula"),
             value: clBonus,
           });
         } else if (clBonus < 0) {
           getSourceInfo(this.sourceInfo, key).negative.push({
-            name: game.i18n.localize("ffd20lnrw.CasterLevelBonusFormula"),
+            name: game.i18n.localize("FFD20.CasterLevelBonusFormula"),
             value: clBonus,
           });
         }
@@ -658,7 +744,7 @@ export class Actorffd20lnrw extends Actor {
           if (rollData.attributes.woundThresholds.penalty > 0 && total > 1) {
             total = Math.max(1, total - rollData.attributes.woundThresholds.penalty);
             getSourceInfo(this.sourceInfo, key).negative.push({
-              name: game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level]),
+              name: game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]),
               value: -rollData.attributes.woundThresholds.penalty,
             });
           }
@@ -668,7 +754,7 @@ export class Actorffd20lnrw extends Actor {
         if (rollData.attributes.energyDrain) {
           total = Math.max(0, total - rollData.attributes.energyDrain);
           getSourceInfo(this.sourceInfo, key).negative.push({
-            name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain"),
+            name: game.i18n.localize("FFD20.CondTypeEnergyDrain"),
             value: -Math.abs(rollData.attributes.energyDrain),
           });
         }
@@ -688,7 +774,7 @@ export class Actorffd20lnrw extends Actor {
           if (getProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.autoSpellLevels`)) {
             const value =
               typeof spellbookAbilityMod === "number"
-                ? base + Actorffd20lnrw.getSpellSlotIncrease(spellbookAbilityMod, a)
+                ? base + ActorFFD20.getSpellSlotIncrease(spellbookAbilityMod, a)
                 : base;
             setProperty(this.data, `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${a}.max`, value);
           } else {
@@ -722,7 +808,7 @@ export class Actorffd20lnrw extends Actor {
           const sbKey = i.data.data.spellbook;
           const isDomain = getProperty(i.data, "data.domain") === true;
           const a = i.data.data.level;
-          const slotCost = i.data.data.slotCost || 1;
+          const slotCost = i.data.data.slotCost ?? 1;
           let dSlots = getProperty(slots, `${sbKey}.${a}.domainSlots`);
           let uses = getProperty(slots, `${sbKey}.${a}.value`);
           if (Number.isFinite(i.maxCharges)) {
@@ -763,7 +849,7 @@ export class Actorffd20lnrw extends Actor {
     // Shared attack bonuses
     {
       // Size
-      const sizeMod = CONFIG.ffd20lnrw.sizeMods[this.data.data.traits.size];
+      const sizeMod = CONFIG.FFD20.sizeMods[this.data.data.traits.size];
       // Total
       const totalAtk =
         getProperty(this.data, "data.attributes.bab.total") -
@@ -774,7 +860,7 @@ export class Actorffd20lnrw extends Actor {
     }
 
     // Create arbitrary skill slots
-    for (let skillId of CONFIG.ffd20lnrw.arbitrarySkills) {
+    for (let skillId of CONFIG.FFD20.arbitrarySkills) {
       if (data.skills[skillId] == null) continue;
       let skill = data.skills[skillId];
       skill.subSkills = skill.subSkills || {};
@@ -805,11 +891,11 @@ export class Actorffd20lnrw extends Actor {
           Math.min(getProperty(this.data, "data.attributes.maxDexBonus") ?? Number.POSITIVE_INFINITY, 3)
         );
         getSourceInfo(this.sourceInfo, "data.attributes.acp.total").negative.push({
-          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          name: game.i18n.localize("FFD20.Encumbrance"),
           value: 3,
         });
         getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.push({
-          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          name: game.i18n.localize("FFD20.Encumbrance"),
           value: 3,
         });
         break;
@@ -821,11 +907,11 @@ export class Actorffd20lnrw extends Actor {
           Math.min(getProperty(this.data, "data.attributes.maxDexBonus") ?? Number.POSITIVE_INFINITY, 1)
         );
         getSourceInfo(this.sourceInfo, "data.attributes.acp.total").negative.push({
-          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          name: game.i18n.localize("FFD20.Encumbrance"),
           value: 6,
         });
         getSourceInfo(this.sourceInfo, "data.attributes.maxDexBonus").negative.push({
-          name: game.i18n.localize("ffd20lnrw.Encumbrance"),
+          name: game.i18n.localize("FFD20.Encumbrance"),
           value: 1,
         });
         break;
@@ -846,14 +932,14 @@ export class Actorffd20lnrw extends Actor {
     // Set labels
     this.labels = {};
     this.labels.race =
-      this.race == null ? game.i18n.localize("ffd20lnrw.Race") : game.i18n.localize("ffd20lnrw.RaceTitle").format(this.race.name);
-    this.labels.alignment = CONFIG.ffd20lnrw.alignments[this.data.data.details.alignment];
+      this.race == null ? game.i18n.localize("FFD20.Race") : game.i18n.localize("FFD20.RaceTitle").format(this.race.name);
+    this.labels.alignment = CONFIG.FFD20.alignments[this.data.data.details.alignment];
 
     // Set speed labels
     this.labels.speed = {};
     for (const [key, obj] of Object.entries(getProperty(this.data, "data.attributes.speed") || {})) {
       const dist = convertDistance(obj.total);
-      this.labels.speed[key] = `${dist[0]} ${CONFIG.ffd20lnrw.measureUnitsShort[dist[1]]}`;
+      this.labels.speed[key] = `${dist[0]} ${CONFIG.FFD20.measureUnitsShort[dist[1]]}`;
     }
 
     // Combine AC types
@@ -881,7 +967,7 @@ export class Actorffd20lnrw extends Actor {
         flatFooted: Math.min(0, dex),
       };
       const cmd = {
-        total: maxDex !== null ? Math.min(maxDex, dex) : dex,
+        total: dex,
         flatFootedTotal: Math.min(0, dex),
       };
       for (const [k, v] of Object.entries(ac)) {
@@ -892,14 +978,14 @@ export class Actorffd20lnrw extends Actor {
         );
         getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).positive.push({
           value: v,
-          name: CONFIG.ffd20lnrw.abilities["dex"],
+          name: CONFIG.FFD20.abilities["dex"],
         });
       }
       for (const [k, v] of Object.entries(cmd)) {
         setProperty(this.data, `data.attributes.cmd.${k}`, getProperty(this.data, `data.attributes.cmd.${k}`) + v);
         getSourceInfo(this.sourceInfo, `data.attributes.cmd.${k}`).positive.push({
           value: v,
-          name: CONFIG.ffd20lnrw.abilities["dex"],
+          name: CONFIG.FFD20.abilities["dex"],
         });
       }
     }
@@ -908,10 +994,10 @@ export class Actorffd20lnrw extends Actor {
     {
       const armorItems = this.items.filter((o) => o.data.type === "equipment");
       let reducedSpeed = false;
-      let sInfo = { name: "", value: game.i18n.localize("ffd20lnrw.ReducedMovementSpeed") };
+      let sInfo = { name: "", value: game.i18n.localize("FFD20.ReducedMovementSpeed") };
       if (this.data.data.attributes.encumbrance.level >= 1 && !this.flags["noEncumbrance"]) {
         reducedSpeed = true;
-        sInfo.name = game.i18n.localize("ffd20lnrw.Encumbrance");
+        sInfo.name = game.i18n.localize("FFD20.Encumbrance");
       }
       if (
         armorItems.filter((o) => getProperty(o.data.data, "equipmentSubtype") === "mediumArmor" && o.data.data.equipped)
@@ -919,7 +1005,7 @@ export class Actorffd20lnrw extends Actor {
         !this.flags["mediumArmorFullSpeed"]
       ) {
         reducedSpeed = true;
-        sInfo.name = game.i18n.localize("ffd20lnrw.EquipTypeMedium");
+        sInfo.name = game.i18n.localize("FFD20.EquipTypeMedium");
       }
       if (
         armorItems.filter((o) => getProperty(o.data.data, "equipmentSubtype") === "heavyArmor" && o.data.data.equipped)
@@ -927,7 +1013,7 @@ export class Actorffd20lnrw extends Actor {
         !this.flags["heavyArmorFullSpeed"]
       ) {
         reducedSpeed = true;
-        sInfo.name = game.i18n.localize("ffd20lnrw.EquipTypeHeavy");
+        sInfo.name = game.i18n.localize("FFD20.EquipTypeHeavy");
       }
       if (reducedSpeed) {
         for (const speedKey of Object.keys(this.data.data.attributes.speed)) {
@@ -941,8 +1027,26 @@ export class Actorffd20lnrw extends Actor {
       }
     }
 
+    this.refreshDerivedData();
+
     // Setup links
     this.prepareItemLinks();
+
+    // Update item resources
+    this.items.forEach((item) => {
+      item.prepareDerivedData();
+      this.updateItemResources(item.data);
+
+      // Update tokens for resources
+      const tokens = this.isToken ? [this.token] : this.getActiveTokens();
+      tokens.forEach((t) => {
+        try {
+          t.drawBars();
+        } catch (err) {
+          // Drop the harmless error
+        }
+      });
+    });
   }
 
   prepareItemLinks() {
@@ -963,7 +1067,7 @@ export class Actorffd20lnrw extends Actor {
     const actorData = this.data;
     let sourceDetails = {};
     // Get empty source arrays
-    for (let obj of Object.values(CONFIG.ffd20lnrw.buffTargets)) {
+    for (let obj of Object.values(CONFIG.FFD20.buffTargets)) {
       for (let b of Object.keys(obj)) {
         if (!b.startsWith("_")) {
           let buffTargets = getChangeFlat.call(this, b, null);
@@ -978,23 +1082,23 @@ export class Actorffd20lnrw extends Actor {
     sourceDetails["data.attributes.bab.total"] = [];
 
     // Add base values to certain bonuses
-    sourceDetails["data.attributes.ac.normal.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
-    sourceDetails["data.attributes.ac.touch.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
-    sourceDetails["data.attributes.ac.flatFooted.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
-    sourceDetails["data.attributes.cmd.total"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
-    sourceDetails["data.attributes.cmd.flatFootedTotal"].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: 10 });
+    sourceDetails["data.attributes.ac.normal.total"].push({ name: game.i18n.localize("FFD20.Base"), value: 10 });
+    sourceDetails["data.attributes.ac.touch.total"].push({ name: game.i18n.localize("FFD20.Base"), value: 10 });
+    sourceDetails["data.attributes.ac.flatFooted.total"].push({ name: game.i18n.localize("FFD20.Base"), value: 10 });
+    sourceDetails["data.attributes.cmd.total"].push({ name: game.i18n.localize("FFD20.Base"), value: 10 });
+    sourceDetails["data.attributes.cmd.flatFootedTotal"].push({ name: game.i18n.localize("FFD20.Base"), value: 10 });
     for (let [a, abl] of Object.entries(actorData.data.abilities)) {
-      sourceDetails[`data.abilities.${a}.total`].push({ name: game.i18n.localize("ffd20lnrw.Base"), value: abl.value });
+      sourceDetails[`data.abilities.${a}.total`].push({ name: game.i18n.localize("FFD20.Base"), value: abl.value });
       // Add ability penalty, damage and drain
       if (abl.damage != null && abl.damage !== 0) {
         sourceDetails[`data.abilities.${a}.total`].push({
-          name: game.i18n.localize("ffd20lnrw.AbilityDamage"),
+          name: game.i18n.localize("FFD20.AbilityDamage"),
           value: `-${Math.floor(Math.abs(abl.damage) / 2)} (Mod only)`,
         });
       }
       if (abl.drain != null && abl.drain !== 0) {
         sourceDetails[`data.abilities.${a}.total`].push({
-          name: game.i18n.localize("ffd20lnrw.AbilityDrain"),
+          name: game.i18n.localize("FFD20.AbilityDrain"),
           value: -Math.abs(abl.drain),
         });
       }
@@ -1002,7 +1106,7 @@ export class Actorffd20lnrw extends Actor {
 
     // Add wound threshold data
     {
-      const hpconf = game.settings.get("ffd20lnrw", "healthConfig").variants;
+      const hpconf = game.settings.get("FFD20", "healthConfig").variants;
       const wtUsage = this.data.type === "npc" ? hpconf.npc.useWoundThresholds : hpconf.pc.useWoundThresholds;
       if (wtUsage > 0) {
         const wtData = this.getWoundThresholdData(actorData);
@@ -1015,7 +1119,7 @@ export class Actorffd20lnrw extends Actor {
             for (let k of flats) {
               if (!k) continue;
               sourceDetails[k].push({
-                name: game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wtData.level]),
+                name: game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[wtData.level]),
                 value: -wtData.penalty,
               });
             }
@@ -1033,20 +1137,69 @@ export class Actorffd20lnrw extends Actor {
           for (let src of grp) {
             if (!src.operator) src.operator = "add";
             let srcInfo = this.constructor._translateSourceInfo(src.type, src.subtype, src.name);
-            let srcValue = src.value != null ? src.value : new Roll(src.formula || "0", rollData).roll().total;
-            if (src.operator === "set") srcValue = game.i18n.localize("ffd20lnrw.SetTo").format(srcValue);
+            let srcValue = 0;
+            try {
+              srcValue = src.value != null ? src.value : new Roll(src.formula || "0", rollData).roll().total;
+            } catch (err) {
+              console.error(err, changeTarget, src, this);
+            }
+            if (src.operator === "set") srcValue = game.i18n.localize("FFD20.SetTo").format(srcValue);
             if (!(src.operator === "add" && srcValue === 0)) {
-            sourceDetails[changeTarget].push({
-              name: srcInfo,
-              value: srcValue,
-            });
+              sourceDetails[changeTarget].push({
+                name: srcInfo,
+                value: srcValue,
+              });
+            }
           }
         }
       }
     }
-  }
 
     this.sourceDetails = sourceDetails;
+  }
+
+  _resetInherentTotals() {
+    const keys = {
+      "data.attributes.ac.normal.total": 10,
+      "data.attributes.ac.touch.total": 10,
+      "data.attributes.ac.flatFooted.total": 10,
+      "data.attributes.cmd.total": 10,
+      "data.attributes.cmd.flatFootedTotal": 10,
+      "temp.ac.armor": 0,
+      "temp.ac.shield": 0,
+      "temp.ac.natural": 0,
+      "data.attributes.sr.total": 0,
+      "data.attributes.init.bonus": 0,
+      "data.attributes.init.total": 0,
+      "data.attributes.cmb.total": 0,
+      "data.attributes.hp.max": getProperty(this.data, "data.attributes.hp.base") ?? 0,
+      "data.attributes.vigor.max": getProperty(this.data, "data.attributes.vigor.base") ?? 0,
+      "data.attributes.wounds.max": getProperty(this.data, "data.attributes.wounds.base") ?? 0,
+      "data.attributes.mp.max": getProperty(this.data, "data.attributes.mp.base") ?? 0,
+      "data.attributes.attack.general": 0,
+      "data.attributes.attack.melee": 0,
+      "data.attributes.attack.ranged": 0,
+      "data.attributes.damage.general": 0,
+      "data.attributes.damage.weapon": 0,
+      "data.attributes.damage.spell": 0,
+      "data.attributes.damage.shared": 0,
+      "data.attributes.woundThresholds.level": 0,
+      "data.attributes.woundThresholds.penaltyBase": 0,
+      "data.attributes.woundThresholds.penalty": 0,
+    };
+
+    try {
+      const skillKeys = getChangeFlat.call(this, "skills", "skills");
+      for (let k of skillKeys) {
+        keys[k] = 0;
+      }
+    } catch (err) {
+      console.warn("Could not determine skills for an unknown actor in the creation process", this);
+    }
+
+    for (const [k, v] of Object.entries(keys)) {
+      setProperty(this.data, k, v);
+    }
   }
 
   async refresh() {
@@ -1126,11 +1279,11 @@ export class Actorffd20lnrw extends Actor {
 
 
   getMaxMP(level) {
-    const expConfig = game.settings.get("ffd20lnrw", "experienceConfig");
+    const expConfig = game.settings.get("FFD20", "experienceConfig");
     const expTrack = expConfig.track;
     // Preset experience tracks
     if (["fast", "medium", "slow"].includes(expTrack)) {
-      const levels = CONFIG.ffd20lnrw.CHARACTER_EXP_LEVELS[expTrack];
+      const levels = CONFIG.FFD20.CHARACTER_EXP_LEVELS[expTrack];
       return levels[Math.min(level, levels.length - 1)];
     }
    */
@@ -1144,11 +1297,11 @@ export class Actorffd20lnrw extends Actor {
    * @return {Number}       The XP required
    */
   getLevelExp(level) {
-    const expConfig = game.settings.get("ffd20lnrw", "experienceConfig");
+    const expConfig = game.settings.get("FFD20", "experienceConfig");
     const expTrack = expConfig.track;
     // Preset experience tracks
     if (["fast", "medium", "slow"].includes(expTrack)) {
-      const levels = CONFIG.ffd20lnrw.CHARACTER_EXP_LEVELS[expTrack];
+      const levels = CONFIG.FFD20.CHARACTER_EXP_LEVELS[expTrack];
       return levels[Math.min(level, levels.length - 1)];
     }
     // Custom formula experience track
@@ -1170,11 +1323,11 @@ export class Actorffd20lnrw extends Actor {
    * @return {Number}       The XP required
    *
    *  getLevelMP(level) {
-   *              const mpConfig = game.settings.get("ffd20lnrw", "experienceConfig"); change to looking at casting classes
+   *              const mpConfig = game.settings.get("FFD20", "experienceConfig"); change to looking at casting classes
    *              const MPTrack = mpConfig.track;
    *
    *    if (["low", "med", "high"].includes(MPTrack)) {
-   *      const levels = CONFIG.ffd20lnrw.CHARACTER_MP_LEVELS[MPTrack];
+   *      const levels = CONFIG.FFD20.CHARACTER_MP_LEVELS[MPTrack];
    *      return levels[Math.min(level, levels.length - 1)];
    *    }
    *    // Custom formula experience track
@@ -1193,14 +1346,15 @@ export class Actorffd20lnrw extends Actor {
    */
   getCRExp(cr) {
     if (cr < 1.0) return Math.max(400 * cr, 10);
-    return CONFIG.ffd20lnrw.CR_EXP_LEVELS[cr];
+    return CONFIG.FFD20.CR_EXP_LEVELS[cr];
   }
 
   /* -------------------------------------------- */
   /*  Socket Listeners and Handlers
   /* -------------------------------------------- */
 
-  preUpdate(data) {
+  async preUpdate(data) {
+    const fullData = mergeObject(this.data, data, { inplace: false });
     data = flattenObject(data);
 
     // Apply settings
@@ -1228,7 +1382,7 @@ export class Actorffd20lnrw extends Actor {
         else if (o.inUse === false && usedSpellbooks.includes(o.spellbook))
           usedSpellbooks.splice(usedSpellbooks.indexOf(o.spellbook), 1);
       }
-      data["data.attributes.spells.usedSpellbooks"] = usedSpellbooks;
+      linkData(fullData, data, "data.attributes.spells.usedSpellbooks", usedSpellbooks);
     }
 
     // Make certain variables absolute
@@ -1242,83 +1396,53 @@ export class Actorffd20lnrw extends Actor {
         return data[k] != null;
       });
     for (const k of _absoluteKeys) {
-      data[k] = Math.abs(data[k]);
+      linkData(fullData, data, k, Math.abs(data[k]));
     }
 
     // Apply changes in Actor size to Token width/height
     if (data["data.traits.size"] && this.data.data.traits.size !== data["data.traits.size"]) {
-      let size = CONFIG.ffd20lnrw.tokenSizes[data["data.traits.size"]];
-      let tokens = this.isToken ? [this.token] : [];
-      if (this.data.token.actorLink) {
-        tokens = this.getActiveTokens();
-      }
-      tokens = tokens.filter((o) => !getProperty(o.data, "flags.ffd20lnrw.staticSize"));
+      let size = CONFIG.FFD20.tokenSizes[data["data.traits.size"]];
+      let tokens = this.isToken ? [this.token] : this.getActiveTokens();
+      tokens = tokens.filter((o) => !getProperty(o.data, "flags.FFD20.staticSize"));
       tokens.forEach((o) => {
         o.update({ width: size.w, height: size.h, scale: size.scale });
       });
       if (!this.isToken) {
-        data["token.width"] = size.w;
-        data["token.height"] = size.h;
-        data["token.scale"] = size.scale;
+        linkData(fullData, data, "token.width", size.w);
+        linkData(fullData, data, "token.height", size.h);
+        linkData(fullData, data, "token.scale", size.scale);
       }
     }
 
-    // Send resource updates to item
-    let updatedResources = [];
-    for (let key of Object.keys(data)) {
-      if (key.match(/^data\.resources\.([a-zA-Z0-9]+)/)) {
-        const resourceTag = RegExp.$1;
-        if (updatedResources.includes(resourceTag)) continue;
-        updatedResources.push(resourceTag);
-
-        const resource = this.data.data.resources[resourceTag];
-        if (resource != null) {
-          const itemId = resource._id;
-          const item = this.getOwnedItem(itemId);
-          if (item == null) continue;
-
-          const itemUpdateData = {};
-          let key = `data.resources.${resourceTag}.value`;
-          if (data[key] != null && data[key] !== item.data.data.uses.value) {
-            itemUpdateData["data.uses.value"] = data[key];
-          }
-          key = `data.resources.${resourceTag}.max`;
-          if (data[key] != null && data[key] !== item.data.data.uses.max) {
-            itemUpdateData["data.uses.max"] = data[key];
-          }
-          if (Object.keys(itemUpdateData).length > 0) item.update(itemUpdateData);
+    // Apply changes in resources
+    for (let [k, v] of Object.entries(data)) {
+      if (k.match(/^data\.resources\.([a-zA-Z0-9]+)\.value$/)) {
+        const resKey = RegExp.$1;
+        const itemId = getProperty(this.data, `data.resources.${resKey}._id`);
+        if (itemId && itemId.length) {
+          this._queuedItemUpdates[itemId] = mergeObject(this._queuedItemUpdates[itemId] ?? {}, {
+            "data.uses.value": v,
+          });
         }
       }
     }
 
-    // Clean up old item resources
-    for (let [tag, res] of Object.entries(getProperty(this.data, "data.resources") || {})) {
-      if (!res) continue;
-      if (!res._id) continue;
-      const itemId = res._id;
-      const item = this.getOwnedItem(itemId);
-      // Remove resource from token bars
-      if (item == null) {
-        const tokens = this.getActiveTokens();
-        tokens.forEach((token) => {
-          ["bar1", "bar2"].forEach((b) => {
-            const barAttr = token.getBarAttribute(b);
-            if (barAttr == null) {
-              return;
-            }
-            if (barAttr.attribute === `resources.${tag}`) {
-              const tokenUpdateData = {};
-              tokenUpdateData[`${b}.attribute`] = null;
-              token.update(token.scene._id, tokenUpdateData);
-            }
-          });
-        });
-      }
-      // Remove resource
-      if (item == null || (item.data.data.useCustomTag ? item.data.tag : createTag(item.name)) !== tag) {
-        data[`data.resources.-=${tag}`] = null;
+    // Make only 1 fear condition active at most
+    {
+      const keys = ["shaken", "frightened", "panicked"];
+      for (let k of keys) {
+        k = `data.attributes.conditions.${k}`;
+        if (data[k] === true) {
+          for (let k2 of keys) {
+            k2 = `data.attributes.conditions.${k2}`;
+            if (k2 !== k) data[k2] = false;
+          }
+        }
       }
     }
+
+    // Update experience
+    this._updateExp(data, fullData);
 
     return data;
   }
@@ -1342,8 +1466,7 @@ export class Actorffd20lnrw extends Actor {
       return super.update(data, options);
     }
 
-    this.getRollData({ forceRefresh: true });
-    data = this.preUpdate(data);
+    data = await this.preUpdate(data);
 
     // Update changes
     let diff = data;
@@ -1389,7 +1512,20 @@ export class Actorffd20lnrw extends Actor {
               for (let t of tokens) {
                 this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(t), 1);
               }
-              resolve();
+
+              // Update items
+              let itemUpdates = Object.entries(this._queuedItemUpdates).reduce((cur, o) => {
+                const obj = { _id: o[0] };
+                for (let [k, v] of Object.entries(o[1])) {
+                  obj[k] = v;
+                }
+                cur.push(obj);
+                return cur;
+              }, []);
+              this.updateEmbeddedEntity("OwnedItem", itemUpdates).then(() => {
+                this._queuedItemUpdates = {};
+                resolve();
+              });
             });
           });
         });
@@ -1404,29 +1540,31 @@ export class Actorffd20lnrw extends Actor {
         token.cancel = function () {
           resolve();
         };
-  }
-
-    const items = Array.from(this.items);
-    const updates = items.map((o) => o.update({}, { skipUpdate: true }));
-    Promise.all(updates).then((results) => {
-      const values = results.filter((o) => Object.keys(o).length > 1);
-
-    if (values.length > 0) {
-      this.updateOwnedItem(values).then(() => {
-        if (token) {
-          this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
-        }
-        resolve();
-      });
-    } else {
-      if (token) {
-        this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
       }
-      resolve();
-    }
-  });
-});
-}
+
+      const items = Array.from(this.items);
+      const updates = items.map((o) => o.update({}, { skipUpdate: true }));
+      Promise.all(updates).then((results) => {
+        const values = results.filter((o) => {
+          return o != null ? Object.keys(o).length > 1 : false;
+        });
+
+        if (values.length > 0) {
+          this.updateOwnedItem(values).then(() => {
+            if (token) {
+              this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
+            }
+            resolve();
+          });
+        } else {
+          if (token) {
+            this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
+          }
+          resolve();
+        }
+      });
+    });
+  }
 
   _onUpdate(data, options, userId, context) {
     for (let k of Object.keys(data)) {
@@ -1435,65 +1573,51 @@ export class Actorffd20lnrw extends Actor {
       }
     }
 
-    for (let i of this.items.values()) {
-      let itemUpdateData = {};
-
-      i._updateMaxUses(itemUpdateData, { actorData: data });
-      if (isObjectEmpty(itemUpdateData)) continue;
-
-      const itemDiff = diffObject(flattenObject(i.data), itemUpdateData);
-      if (Object.keys(itemDiff).length > 0 && i.hasPerm(game.user, "OWNER")) i.update(itemDiff);
-    }
-
     super._onUpdate(data, options, userId, context);
   }
 
   /**
    * Makes sure experience values are correct in update data.
-   * @param {Object} data - The update data, as per Actorffd20lnrw.update()
+   * @param {Object} data - The update data, as per ActorFFD20.update()
    */
-  _updateExp() {
-    const classes = this.data.items.filter((o) => o.type === "class" && o.data.countforexp === "exp");
+  _updateExp(updateData, fullData) {
+    // Get total level
+    const classes = fullData.items.filter((o) => o.type === "class" && o.data.countforexp === "exp");
     const level = classes.filter((o) => o.data.classType !== "mythic").reduce((cur, o) => cur + o.data.level, 0);
-    setProperty(this.data, "data.details.level.value", level);
-
-    const mythicTier = classes.filter((o) => o.data.classType === "mythic").reduce((acc, o) => acc + o.data.level, 0);
-    setProperty(this.data, "data.details.mythicTier", mythicTier);
 
     // The following is not for NPCs
     if (this.data.type !== "character") return;
 
+    if (updateData["data.details.xp.value"] == null) return;
+
     // Translate update exp value to number
-    let newExp = getProperty(this.data, "data.details.xp.value"),
+    let newExp = updateData["data.details.xp.value"],
       resetExp = false;
     if (typeof newExp === "string") {
+      const curExp =
+        typeof this.data.data.details.xp.value === "number"
+          ? this.data.data.details.xp.value
+          : parseInt(this.data.data.details.xp.value);
       if (newExp.match(/^\+([0-9]+)$/)) {
-        newExp = this.data.data.details.xp.value + parseInt(RegExp.$1);
+        newExp = curExp + parseInt(RegExp.$1);
       } else if (newExp.match(/^-([0-9]+)$/)) {
-        newExp = this.data.data.details.xp.value - parseInt(RegExp.$1);
+        newExp = curExp - parseInt(RegExp.$1);
       } else if (newExp === "") {
         resetExp = true;
-      } else {
+      } else if (newExp.match(/^([0-9]+)$/)) {
         newExp = parseInt(newExp);
-        if (Number.isNaN(newExp)) newExp = this.data.data.details.xp.value;
+      } else {
+        newExp = curExp;
       }
 
-      setProperty(this.data, "data.details.xp.value", newExp);
-      }
-    const maxExp = this.getLevelExp(level);
-    setProperty(this.data, "data.details.xp.max", maxExp);
-
-    const minExp = level > 0 ? this.getLevelExp(level - 1) : 0;
-    if (resetExp) {
-      setProperty(this.data, "data.details.xp.value", minExp);
+      updateData["data.details.xp.value"] = newExp;
     }
+    const maxExp = this.getLevelExp(level);
+    updateData["data.details.xp.max"] = maxExp;
 
-    // Make sure experience ends as a number
-    if (typeof getProperty(this.data, "data.details.xp.value") === "string") {
-      const xpValue = parseInt(getProperty(this.data, "data.details.xp.value"));
-      if (!Number.isNaN(xpValue)) {
-        setProperty(this.data, "data.details.xp.value", xpValue);
-      }
+    if (resetExp) {
+      const minExp = level > 0 ? this.getLevelExp(level - 1) : 0;
+      updateData["data.details.xp.value"] = minExp;
     }
   }
 
@@ -1503,35 +1627,23 @@ export class Actorffd20lnrw extends Actor {
     super._onCreate(data, options, userId, context);
   }
 
-  async updateItemResources(item) {
-    if (!(item instanceof Item)) return;
+  updateItemResources(itemData) {
     if (!this.hasPerm(game.user, "OWNER")) return;
 
-    const activationType = game.settings.get("ffd20lnrw", "unchainedActionEconomy")
-      ? item.data.data.unchainedAction?.activation?.type
-      : item.data.data.activation?.type;
-    if (item.data.data.uses?.per && activationType) {
-      const itemTag = !item.data.data.useCustomTag ? createTag(item.data.name) : item.data.data.tag;
-      let curUses = item.data.data.uses;
+    const activationType = game.settings.get("FFD20", "unchainedActionEconomy")
+      ? itemData.data.unchainedAction?.activation?.type
+      : itemData.data.activation?.type;
+    if (itemData.data.uses?.per && activationType) {
+      const itemTag = !itemData.data.useCustomTag ? createTag(itemData.name) : itemData.data.tag;
+      const resKey = `data.resources.${itemTag}`;
+      let curUses = itemData.data.uses;
 
-      const res = getProperty(this.data, `data.resources.${itemTag}`);
-      if (!res || (res && !res._id)) {
-        const updateData = {
-          [`data.resources.${itemTag}.value`]: curUses.value,
-          [`data.resources.${itemTag}.max`]: curUses.max,
-          [`data.resources.${itemTag}._id`]: item._id,
-        };
-        return this.update(updateData);
-      } else if (res._id === item._id) {
-        const updateData = {};
-        if (this.data.data.resources[itemTag].value !== curUses.value) {
-          updateData[`data.resources.${itemTag}.value`] = curUses.value;
-        }
-        if (this.data.data.resources[itemTag].max !== curUses.max) {
-          updateData[`data.resources.${itemTag}.max`] = curUses.max;
-        }
-        if (Object.keys(updateData).length > 0) return this.update(updateData);
-      }
+      const res = { value: 0, max: 0, _id: null };
+      setProperty(this.data, resKey, res);
+      res.value = curUses.value;
+      res.max = curUses.max;
+      res._id = itemData._id;
+      return true;
     }
 
     return false;
@@ -1546,7 +1658,7 @@ export class Actorffd20lnrw extends Actor {
     let t = itemData.type;
     let initial = {};
     // Assume NPCs are always proficient with weapons and always have spells prepared
-    const hasPlayerOwner = isMinimumCoreVersion("0.7.2") ? this.hasPlayerOwner : this.isPC;
+    const hasPlayerOwner = this.hasPlayerOwner;
     if (!hasPlayerOwner) {
       if (t === "weapon") initial["data.proficient"] = true;
       if (["weapon", "equipment"].includes(t)) initial["data.equipped"] = true;
@@ -1555,6 +1667,11 @@ export class Actorffd20lnrw extends Actor {
       if (this.sheet != null && this.sheet._spellbookTab != null) {
         initial["data.spellbook"] = this.sheet._spellbookTab;
       }
+    }
+
+    // Alter change ids
+    for (const c of getProperty(itemData, "data.changes") || []) {
+      c._id = randomID(8);
     }
 
     mergeObject(itemData, initial);
@@ -1567,19 +1684,23 @@ export class Actorffd20lnrw extends Actor {
 
   /**
    * Cast a Spell, consuming a spell slot of a certain level
-   * @param {Itemffd20lnrw} item   The spell being cast by the actor
+   * @param {ItemFFD20} item   The spell being cast by the actor
    * @param {MouseEvent} ev The click event
    */
   async useSpell(item, ev, { skipDialog = false } = {}) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
     if (item.data.type !== "spell") throw new Error("Wrong Item type");
 
-    if (getProperty(item.data, "data.preparation.mode") !== "atwill" && item.getSpellUses() < item.chargeCost) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoMPLeft");
+    if (
+      getProperty(item.data, "data.preparation.mode") !== "atwill" &&
+      item.getSpellUses() < item.chargeCost &&
+      item.autoDeductCharges
+    ) {
+      const msg = game.i18n.localize("FFD20.ErrorNoSpellsLeft");
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1590,7 +1711,7 @@ export class Actorffd20lnrw extends Actor {
 
   async createAttackFromWeapon(item) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1640,7 +1761,7 @@ export class Actorffd20lnrw extends Actor {
     // Add additional attacks
     let extraAttacks = [];
     for (let a = 5; a < this.data.data.attributes.bab.total; a += 5) {
-      extraAttacks = extraAttacks.concat([[`-${a}`, `${game.i18n.localize("ffd20lnrw.Attack")} ${Math.floor((a + 5) / 5)}`]]);
+      extraAttacks = extraAttacks.concat([[`-${a}`, `${game.i18n.localize("FFD20.Attack")} ${Math.floor((a + 5) / 5)}`]]);
     }
     if (extraAttacks.length > 0) attackData["data.attackParts"] = extraAttacks;
 
@@ -1653,7 +1774,7 @@ export class Actorffd20lnrw extends Actor {
       if (die.match(/^([0-9]+)d([0-9]+)$/)) {
         dieCount = parseInt(RegExp.$1);
         dieSides = parseInt(RegExp.$2);
-        // const weaponSize = Object.keys(CONFIG.ffd20lnrw.sizeChart).indexOf(item.data.data.weaponData.size) - 4;
+        // const weaponSize = Object.keys(CONFIG.FFD20.sizeChart).indexOf(item.data.data.weaponData.size) - 4;
         part = `sizeRoll(${dieCount}, ${dieSides}, @size)`;
       }
       const bonusFormula = getProperty(item.data, "data.weaponData.damageFormula");
@@ -1691,7 +1812,7 @@ export class Actorffd20lnrw extends Actor {
       }
     }
 
-    ui.notifications.info(game.i18n.localize("ffd20lnrw.NotificationCreatedAttack").format(item.data.name));
+    ui.notifications.info(game.i18n.localize("FFD20.NotificationCreatedAttack").format(item.data.name));
   }
 
   /* -------------------------------------------- */
@@ -1707,7 +1828,7 @@ export class Actorffd20lnrw extends Actor {
       skillId = skillParts[0];
       if (!this.data.data.skills[skillId].subSkills[skillParts[2]]) return null;
       skl = this.data.data.skills[skillId].subSkills[skillParts[2]];
-      sklName = `${CONFIG.ffd20lnrw.skills[skillId]} (${skl.name})`;
+      sklName = `${CONFIG.FFD20.skills[skillId]} (${skl.name})`;
       parentSkill = this.getSkillInfo(skillId);
     } else {
       skl = this.data.data.skills[skillId];
@@ -1715,7 +1836,7 @@ export class Actorffd20lnrw extends Actor {
       if (skl.name != null) {
         sklName = skl.name;
         isCustom = true;
-      } else sklName = CONFIG.ffd20lnrw.skills[skillId];
+      } else sklName = CONFIG.FFD20.skills[skillId];
     }
 
     const result = {
@@ -1742,7 +1863,7 @@ export class Actorffd20lnrw extends Actor {
    */
   rollSkill(skillId, options = { event: null, skipDialog: false, staticRoll: null, noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1754,17 +1875,14 @@ export class Actorffd20lnrw extends Actor {
     const data = this.data.data,
       skillParts = skillId.split("."),
       isSubSkill = skillParts[1] === "subSkills" && skillParts.length === 3;
-    let sources = [];
     if (isSubSkill) {
       skillId = skillParts[0];
       skl = data.skills[skillId].subSkills[skillParts[2]];
-      sklName = `${CONFIG.ffd20lnrw.skills[skillId]} (${skl.name})`;
-      sources = this.sourceDetails[`data.skills.${skillId}.subSkills.${skillParts[2]}.changeBonus`];
+      sklName = `${CONFIG.FFD20.skills[skillId]} (${skl.name})`;
     } else {
       skl = data.skills[skillId];
       if (skl.name != null) sklName = skl.name;
-      else sklName = CONFIG.ffd20lnrw.skills[skillId];
-      sources = this.sourceDetails[`data.skills.${skillId}.changeBonus`];
+      else sklName = CONFIG.FFD20.skills[skillId];
     }
 
     // Add contextual attack string
@@ -1781,41 +1899,27 @@ export class Actorffd20lnrw extends Actor {
     }
     // Add untrained note
     if (skl.rt && skl.rank === 0) {
-      notes.push(game.i18n.localize("ffd20lnrw.Untrained"));
+      notes.push(game.i18n.localize("FFD20.Untrained"));
     }
 
     // Build base modifiers, but don't include all if they're zeroed.
-    let mods = [skl.rank];
-    if (skl.cs && skl.rank > 0) mods.push(3);
-    mods.push(data.abilities[skl.ability].mod);
-    const acp = data.attributes.acp.total;
-    if (skl.acp && acp > 0) mods.push(-acp);
-    const energyDrain = Math.abs(data.attributes.energyDrain);
-    if (energyDrain > 0) mods.push(-energyDrain);
-
-    // Wound Threshold penalty
-    const wT = this.getWoundThresholdData();
-    if (wT.multiplier > 0 && wT.penalty > 0) {
-      notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]));
-    }
-
-    let changes = sources.map((item) => item.value).filter((item) => Number.isInteger(item));
+    let mods = [skl.mod];
 
     let props = [];
     if (notes.length > 0) props.push({ header: "Notes", value: notes });
-    return Diceffd20lnrw.d20Roll({
+    return DiceFFD20.d20Roll({
       event: options.event,
       fastForward: options.skipDialog === true,
       staticRoll: options.staticRoll,
-      parts: [...mods, ...changes],
+      parts: mods.filter((m) => !!m),
       dice: options.dice,
       data: {},
-      title: game.i18n.localize("ffd20lnrw.SkillCheck").format(sklName),
+      title: game.i18n.localize("FFD20.SkillCheck").format(sklName),
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
-      compendiumEntry: CONFIG.ffd20lnrw.skillCompendiumEntries[skillId],
+      compendiumEntry: CONFIG.FFD20.skillCompendiumEntries[skillId],
     });
   }
 
@@ -1833,7 +1937,7 @@ export class Actorffd20lnrw extends Actor {
 
   rollBAB(options = { noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1841,12 +1945,12 @@ export class Actorffd20lnrw extends Actor {
     const allowed = Hooks.call("actorRoll", this, "bab", null, options);
     if (allowed === false) return;
 
-    return Diceffd20lnrw.d20Roll({
+    return DiceFFD20.d20Roll({
       event: options.event,
       parts: ["@mod"],
       dice: options.dice,
       data: { mod: this.data.data.attributes.bab.total },
-      title: game.i18n.localize("ffd20lnrw.BAB"),
+      title: game.i18n.localize("FFD20.BAB"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
       noSound: options.noSound,
@@ -1855,7 +1959,7 @@ export class Actorffd20lnrw extends Actor {
 
   rollCMB(options = { noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -1881,16 +1985,16 @@ export class Actorffd20lnrw extends Actor {
     }
 
     let props = [];
-    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    return Diceffd20lnrw.d20Roll({
+    if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
+    return DiceFFD20.d20Roll({
       event: options.event,
       parts: ["@mod"],
       dice: options.dice,
       data: { mod: this.data.data.attributes.cmb.total },
-      title: game.i18n.localize("ffd20lnrw.CMB"),
+      title: game.i18n.localize("FFD20.CMB"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
-      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1898,15 +2002,15 @@ export class Actorffd20lnrw extends Actor {
 
   rollAttack(options = { melee: true, noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
 
     const sources = [
       ...this.sourceDetails["data.attributes.attack.shared"],
-      ...this.sourceDetails["data.attributes.attack.general"],
-      ...this.sourceDetails[`data.attributes.attack.${options.melee ? "melee" : "ranged"}`],
+      // ...this.sourceDetails["data.attributes.attack.general"],
+      // ...this.sourceDetails[`data.attributes.attack.${options.melee ? "melee" : "ranged"}`],
     ];
 
     // Add contextual notes
@@ -1925,21 +2029,33 @@ export class Actorffd20lnrw extends Actor {
 
     let changes = sources.map((item) => item.value).filter((item) => Number.isInteger(item));
 
+    // Add attack bonuses from changes
+    const attackTargets = ["attack"].concat(options.melee ? ["mattack"] : ["rattack"]);
+    const attackChanges = this.changes.filter((c) => {
+      return attackTargets.includes(c.subTarget);
+    });
+    changes.push(
+      ...attackChanges.map((c) => {
+        c.applyChange(this);
+        return c.value;
+      })
+    );
+
     // Add ability modifier
     const atkAbl = getProperty(this.data, `data.attributes.attack.${options.melee ? "melee" : "ranged"}Ability`);
     changes.push(getProperty(this.data, `data.abilities.${atkAbl}.mod`));
 
     let props = [];
-    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    return Diceffd20lnrw.d20Roll({
+    if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
+    return DiceFFD20.d20Roll({
       event: options.event,
       parts: changes,
       dice: options.dice,
       data: rollData,
-      title: game.i18n.localize(`ffd20lnrw.${options.melee ? "Melee" : "Ranged"}`),
+      title: game.i18n.localize(`FFD20.${options.melee ? "Melee" : "Ranged"}`),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
-      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1947,7 +2063,7 @@ export class Actorffd20lnrw extends Actor {
 
   rollCL(spellbookKey, options = { noSound: false, dice: "1d20" }) {
     const spellbook = this.data.data.attributes.spells.spellbooks[spellbookKey];
-    const rollData = this.getRollData();
+    const rollData = duplicate(this.getRollData());
     rollData.cl = spellbook.cl.total;
 
     const allowed = Hooks.call("actorRoll", this, "cl", spellbookKey, options);
@@ -1958,18 +2074,18 @@ export class Actorffd20lnrw extends Actor {
 
     // Wound Threshold penalty
     const wT = this.getWoundThresholdData();
-    if (wT.valid) notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]));
+    if (wT.valid) notes.push(game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[wT.level]));
 
     let props = [];
-    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    return Diceffd20lnrw.d20Roll({
+    if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
+    return DiceFFD20.d20Roll({
       event: event,
       parts: [`@cl`],
       data: rollData,
-      title: game.i18n.localize("ffd20lnrw.CasterLevelCheck"),
+      title: game.i18n.localize("FFD20.CasterLevelCheck"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
-      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -1977,7 +2093,7 @@ export class Actorffd20lnrw extends Actor {
 
   rollConcentration(spellbookKey, options = { noSound: false, dice: "1d20" }) {
     const spellbook = this.data.data.attributes.spells.spellbooks[spellbookKey];
-    const rollData = this.getRollData();
+    const rollData = duplicate(this.getRollData());
     rollData.cl = spellbook.cl.total;
     rollData.mod = this.data.data.abilities[spellbook.ability].mod;
     rollData.concentrationBonus = spellbook.concentration;
@@ -1990,26 +2106,26 @@ export class Actorffd20lnrw extends Actor {
 
     // Wound Threshold penalty
     const wT = this.getWoundThresholdData();
-    if (wT.valid) notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]));
+    if (wT.valid) notes.push(game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[wT.level]));
     // TODO: Make the penalty show separate of the CL.total.
 
     let props = [];
-    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
+    if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
 
     let formulaRoll = 0;
     if (spellbook.concentrationFormula.length)
       formulaRoll = new Roll(spellbook.concentrationFormula, rollData).roll().total;
     rollData.formulaBonus = formulaRoll;
 
-    return Diceffd20lnrw.d20Roll({
+    return DiceFFD20.d20Roll({
       event: event,
       parts: ["@cl + @mod + @concentrationBonus + @formulaBonus"],
       dice: options.dice,
       data: rollData,
-      title: game.i18n.localize("ffd20lnrw.ConcentrationCheck"),
+      title: game.i18n.localize("FFD20.ConcentrationCheck"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
-      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -2019,30 +2135,30 @@ export class Actorffd20lnrw extends Actor {
     const data = this.data.data;
     const headers = [];
 
-    const reSplit = CONFIG.ffd20lnrw.re.traitSeparator;
+    const reSplit = CONFIG.FFD20.re.traitSeparator;
     let misc = [];
 
     // Damage reduction
     if (data.traits.dr.length) {
-      headers.push({ header: game.i18n.localize("ffd20lnrw.DamRed"), value: data.traits.dr.split(reSplit) });
+      headers.push({ header: game.i18n.localize("FFD20.DamRed"), value: data.traits.dr.split(reSplit) });
     }
     // Energy resistance
     if (data.traits.eres.length) {
-      headers.push({ header: game.i18n.localize("ffd20lnrw.EnRes"), value: data.traits.eres.split(reSplit) });
+      headers.push({ header: game.i18n.localize("FFD20.EnRes"), value: data.traits.eres.split(reSplit) });
     }
     // Damage vulnerabilities
     if (data.traits.dv.value.length || data.traits.dv.custom.length) {
       const value = [].concat(
         data.traits.dv.value.map((obj) => {
-          return CONFIG.ffd20lnrw.damageTypes[obj];
+          return CONFIG.FFD20.damageTypes[obj];
         }),
         data.traits.dv.custom.length > 0 ? data.traits.dv.custom.split(";") : []
       );
-      headers.push({ header: game.i18n.localize("ffd20lnrw.DamVuln"), value: value });
+      headers.push({ header: game.i18n.localize("FFD20.DamVuln"), value: value });
     }
     // Condition resistance
     if (data.traits.cres.length) {
-      headers.push({ header: game.i18n.localize("ffd20lnrw.ConRes"), value: data.traits.cres.split(reSplit) });
+      headers.push({ header: game.i18n.localize("FFD20.ConRes"), value: data.traits.cres.split(reSplit) });
     }
     // Immunities
     if (
@@ -2053,23 +2169,23 @@ export class Actorffd20lnrw extends Actor {
     ) {
       const value = [].concat(
         data.traits.di.value.map((obj) => {
-          return CONFIG.ffd20lnrw.damageTypes[obj];
+          return CONFIG.FFD20.damageTypes[obj];
         }),
         data.traits.di.custom.length > 0 ? data.traits.di.custom.split(";") : [],
         data.traits.ci.value.map((obj) => {
-          return CONFIG.ffd20lnrw.conditionTypes[obj];
+          return CONFIG.FFD20.conditionTypes[obj];
         }),
         data.traits.ci.custom.length > 0 ? data.traits.ci.custom.split(";") : []
       );
-      headers.push({ header: game.i18n.localize("ffd20lnrw.ImmunityPlural"), value: value });
+      headers.push({ header: game.i18n.localize("FFD20.ImmunityPlural"), value: value });
     }
     // Spell Resistance
     if (data.attributes.sr.total > 0) {
-      misc.push(game.i18n.localize("ffd20lnrw.SpellResistanceNote").format(data.attributes.sr.total));
+      misc.push(game.i18n.localize("FFD20.SpellResistanceNote").format(data.attributes.sr.total));
     }
 
     if (misc.length > 0) {
-      headers.push({ header: game.i18n.localize("ffd20lnrw.MiscShort"), value: misc });
+      headers.push({ header: game.i18n.localize("FFD20.MiscShort"), value: misc });
     }
 
     return headers;
@@ -2088,7 +2204,7 @@ export class Actorffd20lnrw extends Actor {
       notes.forEach((note) => notesHTMLParts.push(`<span class="tag">${note}</span>`));
       notesHTML =
         '<div class="flexcol property-group gm-sensitive"><label>' +
-        game.i18n.localize("ffd20lnrw.Notes") +
+        game.i18n.localize("FFD20.Notes") +
         '</label> <div class="flexrow">' +
         notesHTMLParts.join("") +
         "</div></div>";
@@ -2132,7 +2248,7 @@ export class Actorffd20lnrw extends Actor {
 
   rollSavingThrow(savingThrowId, options = { event: null, noSound: false, skipPrompt: true, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -2161,24 +2277,24 @@ export class Actorffd20lnrw extends Actor {
 
     // Wound Threshold penalty
     if (rollData.attributes.woundThresholds.penalty > 0)
-      notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
+      notes.push(game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
 
     // Roll saving throw
     let props = this.getDefenseHeaders();
-    if (notes.length > 0) props.push({ header: game.i18n.localize("ffd20lnrw.Notes"), value: notes });
-    const label = CONFIG.ffd20lnrw.savingThrows[savingThrowId];
+    if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
+    const label = CONFIG.FFD20.savingThrows[savingThrowId];
     const savingThrow = this.data.data.attributes.savingThrows[savingThrowId];
-    return Diceffd20lnrw.d20Roll({
+    return DiceFFD20.d20Roll({
       event: options.event,
       parts: mods,
       dice: options.dice,
       situational: true,
       data: {},
-      title: game.i18n.localize("ffd20lnrw.SavingThrowRoll").format(label),
+      title: game.i18n.localize("FFD20.SavingThrowRoll").format(label),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
       fastForward: options.skipPrompt !== false ? true : false,
-      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -2194,7 +2310,7 @@ export class Actorffd20lnrw extends Actor {
    */
   rollAbilityTest(abilityId, options = { noSound: false, dice: "1d20" }) {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -2215,7 +2331,7 @@ export class Actorffd20lnrw extends Actor {
       }
     }
 
-    const label = CONFIG.ffd20lnrw.abilities[abilityId];
+    const label = CONFIG.FFD20.abilities[abilityId];
     const abl = this.data.data.abilities[abilityId];
 
     let formula = `@abilities.${abilityId}.mod`;
@@ -2228,19 +2344,19 @@ export class Actorffd20lnrw extends Actor {
 
     // Wound Threshold penalty
     if (rollData.attributes.woundThresholds.penalty > 0)
-      notes.push(game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
+      notes.push(game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
 
     let props = this.getDefenseHeaders();
     if (notes.length > 0) props.push({ header: "Notes", value: notes });
 
-    return Diceffd20lnrw.d20Roll({
+    return DiceFFD20.d20Roll({
       event: options.event,
       parts: [formula],
       dice: options.dice,
       data: rollData,
-      title: game.i18n.localize("ffd20lnrw.AbilityTest").format(label),
+      title: game.i18n.localize("FFD20.AbilityTest").format(label),
       speaker: ChatMessage.getSpeaker({ actor: this }),
-      chatTemplate: "systems/ffd20lnrw/templates/chat/roll-ext.hbs",
+      chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
       chatTemplateData: { hasProperties: props.length > 0, properties: props },
       noSound: options.noSound,
     });
@@ -2251,7 +2367,7 @@ export class Actorffd20lnrw extends Actor {
    */
   async rollDefenses() {
     if (!this.hasPerm(game.user, "OWNER")) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
     }
@@ -2297,7 +2413,7 @@ export class Actorffd20lnrw extends Actor {
     }
 
     // Add misc data
-    const reSplit = CONFIG.ffd20lnrw.re.traitSeparator;
+    const reSplit = CONFIG.FFD20.re.traitSeparator;
     // Damage Reduction
     let drNotes = [];
     if (this.data.data.traits.dr.length) {
@@ -2312,27 +2428,27 @@ export class Actorffd20lnrw extends Actor {
     if (this.data.data.traits.di.value.length || this.data.data.traits.di.custom.length) {
       const values = [
         ...this.data.data.traits.di.value.map((obj) => {
-          return CONFIG.ffd20lnrw.damageTypes[obj];
+          return CONFIG.FFD20.damageTypes[obj];
         }),
         ...(this.data.data.traits.di.custom.length > 0 ? this.data.data.traits.di.custom.split(reSplit) : []),
       ];
-      energyResistance.push(...values.map((o) => game.i18n.localize("ffd20lnrw.ImmuneTo").format(o)));
+      energyResistance.push(...values.map((o) => game.i18n.localize("FFD20.ImmuneTo").format(o)));
     }
     // Damage Vulnerability
     if (this.data.data.traits.dv.value.length || this.data.data.traits.dv.custom.length) {
       const values = [
         ...this.data.data.traits.dv.value.map((obj) => {
-          return CONFIG.ffd20lnrw.damageTypes[obj];
+          return CONFIG.FFD20.damageTypes[obj];
         }),
         ...(this.data.data.traits.dv.custom.length > 0 ? this.data.data.traits.dv.custom.split(reSplit) : []),
       ];
-      energyResistance.push(...values.map((o) => game.i18n.localize("ffd20lnrw.VulnerableTo").format(o)));
+      energyResistance.push(...values.map((o) => game.i18n.localize("FFD20.VulnerableTo").format(o)));
     }
 
     // Wound Threshold penalty
     const wT = this.getWoundThresholdData();
     if (wT.valid) {
-      const wTlabel = game.i18n.localize(CONFIG.ffd20lnrw.woundThresholdConditions[wT.level]);
+      const wTlabel = game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[wT.level]);
       acNotes.push(wTlabel);
       cmdNotes.push(wTlabel);
     }
@@ -2368,7 +2484,7 @@ export class Actorffd20lnrw extends Actor {
         fastHealing: d.traits.fastHealing,
       };
     }
-    const msg = await createCustomChatMessage("systems/ffd20lnrw/templates/chat/defenses.hbs", data, {
+    const msg = await createCustomChatMessage("systems/ffd20/templates/chat/defenses.hbs", data, {
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
   }
@@ -2425,7 +2541,7 @@ export class Actorffd20lnrw extends Actor {
         let dt = value > 0 ? Math.min(tmp, value) : 0;
 
         if (!a.hasPerm(game.user, "OWNER")) {
-          const msg = game.i18n.localize("ffd20lnrw.ErrorNoActorPermissionAlt").format(this.name);
+          const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
           console.warn(msg);
           ui.notifications.warn(msg);
           continue;
@@ -2459,7 +2575,7 @@ export class Actorffd20lnrw extends Actor {
       reductionDefault = reductionDefault ?? "";
 
       // Dialog configuration and callbacks
-      let template = "systems/ffd20lnrw/templates/apps/damage-dialog.hbs";
+      let template = "systems/ffd20/templates/apps/damage-dialog.hbs";
       let dialogData = {
         damage: value,
         healing: healingInvert == -1 ? true : false,
@@ -2472,16 +2588,16 @@ export class Actorffd20lnrw extends Actor {
       return new Promise((resolve) => {
         const buttons = {};
         buttons.normal = {
-          label: game.i18n.localize("ffd20lnrw.Apply"),
+          label: game.i18n.localize("FFD20.Apply"),
           callback: (html) => resolve(_submit.call(this, html, 1 * healingInvert)),
         };
         buttons.half = {
-          label: game.i18n.localize("ffd20lnrw.ApplyHalf"),
+          label: game.i18n.localize("FFD20.ApplyHalf"),
           callback: (html) => resolve(_submit.call(this, html, 0.5 * healingInvert)),
         };
 
         var d = new Dialog({
-          title: healingInvert > 0 ? game.i18n.localize("ffd20lnrw.ApplyDamage") : game.i18n.localize("ffd20lnrw.ApplyHealing"),
+          title: healingInvert > 0 ? game.i18n.localize("FFD20.ApplyDamage") : game.i18n.localize("FFD20.ApplyHealing"),
           content: html,
           buttons: buttons,
           default: "normal",
@@ -2525,7 +2641,7 @@ export class Actorffd20lnrw extends Actor {
   getWoundThresholdMultiplier(data = null) {
     data = data ?? this.data;
 
-    const hpconf = game.settings.get("ffd20lnrw", "healthConfig").variants;
+    const hpconf = game.settings.get("FFD20", "healthConfig").variants;
     const conf = this.data.type === "npc" ? hpconf.npc : hpconf.pc;
     const override = getProperty(data, "data.attributes.woundThresholds.override") ?? -1;
     return override >= 0 && conf.allowWoundThresholdOverride ? override : conf.useWoundThresholds;
@@ -2548,6 +2664,45 @@ export class Actorffd20lnrw extends Actor {
       multiplier: woundMult,
       valid: woundLevel > 0 && woundMult > 0,
     };
+  }
+
+  /**
+   * Updates attributes.woundThresholds.level variable.
+   */
+  updateWoundThreshold() {
+    const hpconf = game.settings.get("FFD20", "healthConfig").variants;
+    const usage = this.data.type === "npc" ? hpconf.npc.useWoundThresholds : hpconf.pc.useWoundThresholds;
+    if (!usage) {
+      setProperty(this.data, "data.attributes.woundThresholds.level", 0);
+      setProperty(this.data, "data.attributes.woundThresholds.penaltyBase", 0);
+      setProperty(this.data, "data.attributes.woundThresholds.penalty", 0);
+      return;
+    }
+    const curHP = getProperty(this.data, "data.attributes.hp.value"),
+      maxHP = getProperty(this.data, "data.attributes.hp.max");
+
+    let level = usage > 0 ? Math.min(3, 4 - Math.ceil((curHP / maxHP) * 4)) : 0;
+    if (Number.isNaN(level)) level = 0; // BUG: This shouldn't happen, but it does.
+    level = Math.max(0, level);
+
+    const wtMult = this.getWoundThresholdMultiplier();
+    const wtMod = getProperty(this.data, "data.attributes.woundThresholds.mod") ?? 0;
+
+    setProperty(this.data, "data.attributes.woundThresholds.level", level);
+    setProperty(this.data, "data.attributes.woundThresholds.penaltyBase", level * wtMult); // To aid relevant formulas
+    setProperty(this.data, "data.attributes.woundThresholds.penalty", level * wtMult + wtMod);
+
+    const penalty = getProperty(this.data, "data.attributes.woundThresholds.penalty");
+    const changeFlatKeys = ["cmb", "cmd", "init", "allSavingThrows", "ac", "skills", "allChecks"];
+    for (let fk of changeFlatKeys) {
+      let flats = getChangeFlat.call(this, fk, "penalty", this.data.data);
+      if (!(flats instanceof Array)) flats = [flats];
+      for (let k of flats) {
+        if (!k) continue;
+        const curValue = getProperty(this.data, k);
+        setProperty(this.data, k, curValue - penalty);
+      }
+    }
   }
 
   getSkill(key) {
@@ -2779,14 +2934,15 @@ export class Actorffd20lnrw extends Actor {
     // Determine load level
     let encLevel = 0;
     if (carriedWeight > 0) {
-      if (carriedWeight >= this.data.data.attributes.encumbrance.levels.light) encLevel++;
-      if (carriedWeight >= this.data.data.attributes.encumbrance.levels.medium) encLevel++;
+      if (carriedWeight > this.data.data.attributes.encumbrance.levels.light) encLevel++;
+      if (carriedWeight > this.data.data.attributes.encumbrance.levels.medium) encLevel++;
     }
     setProperty(this.data, "data.attributes.encumbrance.level", encLevel);
   }
 
   _calculateCoinWeight() {
-    const coinWeightDivisor = game.settings.get("ffd20lnrw", "coinWeight");
+    const coinWeightDivisor = game.settings.get("FFD20", "coinWeight");
+    if (!coinWeightDivisor) return 0;
     return (
       Object.values(this.data.data.currency).reduce((cur, amount) => {
         return cur + amount;
@@ -2799,9 +2955,9 @@ export class Actorffd20lnrw extends Actor {
     const carryStr = this.data.data.abilities.str.total + this.data.data.abilities.str.carryBonus;
     let carryMultiplier = this.data.data.abilities.str.carryMultiplier;
     const size = this.data.data.traits.size;
-    if (this.data.data.attributes.quadruped) carryMultiplier *= CONFIG.ffd20lnrw.encumbranceMultipliers.quadruped[size];
-    else carryMultiplier *= CONFIG.ffd20lnrw.encumbranceMultipliers.normal[size];
-    const table = CONFIG.ffd20lnrw.encumbranceLoads;
+    if (this.data.data.attributes.quadruped) carryMultiplier *= CONFIG.FFD20.encumbranceMultipliers.quadruped[size];
+    else carryMultiplier *= CONFIG.FFD20.encumbranceMultipliers.normal[size];
+    const table = CONFIG.FFD20.encumbranceLoads;
 
     let heavy = Math.floor(table[carryStr] * carryMultiplier);
     if (carryStr >= table.length) {
@@ -2903,12 +3059,26 @@ export class Actorffd20lnrw extends Actor {
     });
   }
 
-  getRollData(data = null) {
-    if (data == null) data = this.data.data;
-    let result = duplicate(data);
+  getRollData(options = { refresh: false }) {
+    if (!options.refresh && this._rollData) {
+      let result = this._rollData;
+
+      // Clear certain fields
+      const clearFields = CONFIG.FFD20.temporaryRollDataFields.actor;
+      for (let k of clearFields) {
+        setProperty(result, k, undefined);
+      }
+
+      return result;
+    }
+
+    let result = this.data.data;
 
     // Set size index
-    result.size = Object.keys(CONFIG.ffd20lnrw.sizeChart).indexOf(getProperty(data, "traits.size")) - 4;
+    {
+      const sizeChart = Object.keys(CONFIG.FFD20.sizeChart);
+      result.size = sizeChart.indexOf(getProperty(result, "traits.size"));
+    }
 
     // Set class data
     result.classes = {};
@@ -2920,9 +3090,8 @@ export class Actorffd20lnrw extends Actor {
         const tag = cls.data.tag;
         if (!tag) return;
 
-        let healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
-        let manaConfig = cls.data.classBaseMPauto;
-        const hasPlayerOwner = isMinimumCoreVersion("0.7.2") ? this.hasPlayerOwner : this.isPC;
+        let healthConfig = game.settings.get("FFD20", "healthConfig");
+        const hasPlayerOwner = this.hasPlayerOwner;
         healthConfig =
           cls.data.classType === "racial"
             ? healthConfig.hitdice.Racial
@@ -2933,7 +3102,7 @@ export class Actorffd20lnrw extends Actor {
         result.classes[tag] = {
           level: cls.data.level,
           name: cls.name,
-          hd: cls.data.countforexp === "exp" ? cls.data.hd : 0, // account for nonexp calls
+          hd: cls.data.countforexp === "exp" ? cls.data.hd : 0, // account for nonexp
           bab: cls.data.countforexp === "exp" ? cls.data.bab : 0,
           hp: cls.data.countforexp === "exp" ? healthConfig.auto : 0,
           mp: cls.data.mp,
@@ -2950,34 +3119,34 @@ export class Actorffd20lnrw extends Actor {
         };
 
         for (let k of Object.keys(result.classes[tag].savingThrows)) {
-          let formula = CONFIG.ffd20lnrw.classSavingThrowFormulas[classType][cls.data.savingThrows[k].value];
+          let formula = CONFIG.FFD20.classSavingThrowFormulas[classType][cls.data.savingThrows[k].value];
           if (formula == null) formula = "0";
           result.classes[tag].savingThrows[k] = new Roll(formula, { level: cls.data.level }).roll().total;
         }
       });
 
     // Add more info for formulas
-    if (this.items) {
+    if (this.data.items) {
       result.armor = { type: 0 };
       result.shield = { type: 0 };
 
       // Determine equipped armor type
-      const armor = this.items.filter(
-        (o) => o.type === "equipment" && o.data.data.equipmentType === "armor" && o.data.data.equipped
+      const armor = this.data.items.filter(
+        (o) => o.type === "equipment" && o.data.equipmentType === "armor" && o.data.equipped
       );
       for (let o of armor) {
-        const subtype = o.data.data.equipmentSubtype;
+        const subtype = o.data.equipmentSubtype;
         if (subtype === "lightArmor" && result.armor.type < 1) result.armor.type = 1;
         else if (subtype === "mediumArmor" && result.armor.type < 2) result.armor.type = 2;
         else if (subtype === "heavyArmor" && result.armor.type < 3) result.armor.type = 3;
       }
 
       // Determine equipped shield type
-      const shields = this.items.filter(
-        (o) => o.type === "equipment" && o.data.data.equipmentType === "shield" && o.data.data.equipped
+      const shields = this.data.items.filter(
+        (o) => o.type === "equipment" && o.data.equipmentType === "shield" && o.data.equipped
       );
       for (let o of shields) {
-        const subtype = o.data.data.equipmentSubtype;
+        const subtype = o.data.equipmentSubtype;
         if (subtype === "other" && result.shield.type < 1) result.shield.type = 1;
         else if (subtype === "lightShield" && result.shield.type < 2) result.shield.type = 2;
         else if (subtype === "heavyShield" && result.shield.type < 3) result.shield.type = 3;
@@ -2988,12 +3157,6 @@ export class Actorffd20lnrw extends Actor {
     // Add spellbook info
     for (let [k, spellbook] of Object.entries(getProperty(result, "attributes.spells.spellbooks"))) {
       setProperty(result, `spells.${k}`, spellbook);
-      const cl = spellbook.cl.total;
-      spellbook.range = {
-        close: convertDistance(25 + 5 * Math.floor(cl / 2))[0],
-        medium: convertDistance(100 + 10 * cl)[0],
-        long: convertDistance(400 + 40 * cl)[0],
-      };
     }
 
     // Add range info
@@ -3044,6 +3207,13 @@ export class Actorffd20lnrw extends Actor {
           result.range.reach = 40;
         }
         break;
+    }
+
+    // Add combat round, if in combat
+    if (game.combats?.viewed) {
+      result.combat = {
+        round: game.combat.round || 0,
+      };
     }
 
     this._rollData = result;
@@ -3110,8 +3280,8 @@ export class Actorffd20lnrw extends Actor {
       .map((o) => {
         return {
           item: o,
-          color1: Itemffd20lnrw.getTypeColor(o.type, 0),
-          color2: Itemffd20lnrw.getTypeColor(o.type, 1),
+          color1: ItemFFD20.getTypeColor(o.type, 0),
+          color2: ItemFFD20.getTypeColor(o.type, 1),
         };
       });
   }
@@ -3128,40 +3298,51 @@ export class Actorffd20lnrw extends Actor {
       }
 
       (async () => {
-    const isLinkedToken = getProperty(this.data, "token.actorLink");
-    const tokens = isLinkedToken ? this.getActiveTokens() : [this.token].filter((o) => o != null);
-    const buffTextures = this._calcBuffTextures();
+        const isLinkedToken = getProperty(this.data, "token.actorLink");
+        const tokens = isLinkedToken ? this.getActiveTokens() : [this.token].filter((o) => o != null);
+        const buffTextures = this._calcBuffTextures();
 
-    let promises = [];
-    const fx = [...this.effects];
+        let promises = [];
+        const fx = [...this.effects];
 
-    for (let [id, obj] of Object.entries(buffTextures)) {
-      if (obj.active) await obj.item.toEffect();
-      else await fx.find((f) => f.data.origin === id)?.delete();
-    }
+        for (let [id, obj] of Object.entries(buffTextures)) {
+          if (obj.active) await obj.item.toEffect();
+          else await fx.find((f) => f.data.origin === id)?.delete();
+        }
 
-    for (let ae of fx) {
-      let item = this.items.get(ae.data.origin?.split(".")[3]);
-      if (!item && ae.data.origin) await ae.delete();
-    }
+        for (let ae of fx) {
+          let item = this.items.get(ae.data.origin?.split(".")[3]);
+          if (!item && ae.data.origin) await ae.delete();
+        }
 
-    for (let token of tokens) {
-      CONFIG.statusEffects.forEach((con) => {
-        const idx = fx.findIndex((e) => e.getFlag("core", "statusId") === con.id);
-        if (CONFIG.ffd20lnrw.conditions[con.id] && (idx !== -1) != this.data.data.attributes.conditions[con.id])
-          promises.push(token.toggleEffect(con, { midUpdate: true }));
+        let token = tokens[0];
+        if (!token) return;
+        for (let con of CONFIG.statusEffects) {
+          // Don't toggle non-condition effects
+          if (CONFIG.FFD20.conditions[con.id] == null) continue;
+
+          const idx = fx.findIndex((e) => e.getFlag("core", "statusId") === con.id);
+          const hasCondition = this.data.data.attributes.conditions[con.id] === true;
+          const hasEffectIcon = idx >= 0;
+
+          if (hasCondition !== hasEffectIcon) {
+            promises.push(
+              token.toggleEffect(con, {
+                midUpdate: true,
+              })
+            );
+          }
+        }
+        await Promise.all(promises);
+      })().then(() => {
+        if (token) {
+          this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
+        }
+        this._runningFunctions.splice(this._runningFunctions.indexOf("toggleConditionStatusIcons"), 1);
+        resolve();
       });
-    }
-    await Promise.all(promises);
-  })().then(() => {
-    if (token) {
-      this._pendingUpdateTokens.splice(this._pendingUpdateTokens.indexOf(token), 1);
-    }
-    this._runningFunctions.splice(this._runningFunctions.indexOf("toggleConditionStatusIcons"), 1);
-    resolve();
-  });
-});
-}
+    });
+  }
 
   // @Object { id: { title: String, type: buff/string, img: imgPath, active: true/false }, ... }
   _calcBuffTextures() {
@@ -3180,17 +3361,22 @@ export class Actorffd20lnrw extends Actor {
   refreshAbilityModifiers() {
     for (let k of Object.keys(this.data.data.abilities)) {
       const total = getProperty(this.data, `data.abilities.${k}.total`);
-      const penalty =
-        Math.abs(getProperty(this.data, `data.abilities.${k}.penalty`) || 0) +
-        (getProperty(this.data, `data.abilities.${k}.userPenalty`) || 0);
-      const damage = getProperty(this.data, `data.abilities.${k}.damage`);
-
-      const result = Math.max(-5, Math.floor((total - 10) / 2) - Math.floor(penalty / 2) - Math.floor(damage / 2));
-      setProperty(this.data, `data.abilities.${k}.mod`, result);
+      if (total == null) {
+        setProperty(this.data, `data.abilities.${k}.mod`, 0);
+      } else {
+        const penalty = Math.abs(getProperty(this.data, `data.abilities.${k}.penalty`) || 0);
+        const damage = getProperty(this.data, `data.abilities.${k}.damage`);
+        const result = Math.max(-5, Math.floor((total - 10) / 2) - Math.floor(penalty / 2) - Math.floor(damage / 2));
+        setProperty(this.data, `data.abilities.${k}.mod`, result);
+      }
     }
   }
 
   importFromJSON(json) {
+    // Set _initialized flag to prevent faults (such as HP changing incorrectly)
+    this._initialized = false;
+
+    // Import from JSON
     const data = JSON.parse(json);
     delete data._id;
     data.effects = [];

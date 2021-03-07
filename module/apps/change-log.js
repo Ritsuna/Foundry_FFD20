@@ -12,8 +12,8 @@ export class ChangeLogWindow extends FormApplication {
     const options = super.defaultOptions;
     return mergeObject(options, {
       id: "changelog",
-      classes: ["ffd20lnrw", "changelog"],
-      template: "systems/ffd20lnrw/templates/apps/changelog.hbs",
+      classes: ["FFD20", "changelog"],
+      template: "systems/ffd20/templates/apps/changelog.hbs",
       width: 500,
       submitOnChange: true,
       closeOnSubmit: false,
@@ -21,16 +21,16 @@ export class ChangeLogWindow extends FormApplication {
   }
 
   get title() {
-    return `${game.i18n.localize("ffd20lnrw.title")} ~ ${game.i18n.localize("ffd20lnrw.Changelog")}`;
+    return `${game.i18n.localize("FFD20.title")} ~ ${game.i18n.localize("FFD20.Changelog")}`;
   }
 
   async getData() {
     let data = await super.getData();
 
-    data.dontShowAgain = game.settings.get("ffd20lnrw", "dontShowChangelog");
+    data.dontShowAgain = game.settings.get("FFD20", "dontShowChangelog");
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "systems/ffd20lnrw/CHANGELOG.md");
+    xhr.open("GET", "systems/ffd20/CHANGELOG.md");
 
     let promise = new Promise((resolve) => {
       xhr.onload = () => {
@@ -68,7 +68,7 @@ export class ChangeLogWindow extends FormApplication {
 
   async _updateObject(event, formData) {
     if (formData.dontShowAgain != null) {
-      await game.settings.set("ffd20lnrw", "dontShowChangelog", formData.dontShowAgain);
+      await game.settings.set("FFD20", "dontShowChangelog", formData.dontShowAgain);
     }
   }
 }

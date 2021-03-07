@@ -1,9 +1,9 @@
 import { CompendiumBrowser } from "../apps/compendium-browser.js";
 
-export class CompendiumDirectoryffd20lnrw extends CompendiumDirectory {
+export class CompendiumDirectoryFFD20 extends CompendiumDirectory {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      template: "systems/ffd20lnrw/templates/sidebar/compendium.hbs",
+      template: "systems/ffd20/templates/sidebar/compendium.hbs",
     });
   }
 
@@ -21,6 +21,8 @@ export class CompendiumDirectoryffd20lnrw extends CompendiumDirectory {
   _onBrowseCompendium(event, type) {
     event.preventDefault();
 
-    game.ffd20lnrw.compendiums[type]._render(true);
+    if (game.FFD20.isMigrating) return ui.notifications.warn(game.i18n.localize("FFD20.Migration.Ongoing"));
+
+    game.FFD20.compendiums[type]._render(true);
   }
 }

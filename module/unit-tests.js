@@ -2,7 +2,7 @@ export const runUnitTests = async function () {
   const actorName = "Testy";
   const actor = game.actors.entities.find((o) => o.name === actorName);
   if (!actor) {
-    const msg = game.i18n.localize("ffd20lnrw.ErrorCouldNotFindActorByName").format(actorName);
+    const msg = game.i18n.localize("FFD20.ErrorCouldNotFindActorByName").format(actorName);
     console.error(msg);
     return ui.notifications.error(msg);
   }
@@ -10,9 +10,10 @@ export const runUnitTests = async function () {
   console.log("Running unit tests...");
   let tests = [];
 
-  tests.push(...(await runSkillTests(actor)));
-  tests.push(...(await runAttackTests(actor)));
-  tests.push(...(await runMiscActorTests(actor)));
+  // tests.push(...(await runSkillTests(actor)));
+  // tests.push(...(await runAttackTests(actor)));
+  // tests.push(...(await runMiscActorTests(actor)));
+  tests.push(...(await runSizeRollTests()));
 
   // Finish unit tests
   const successes = tests.filter((o) => !o.failure);
@@ -28,6 +29,7 @@ class UnitTestResult {
     this.name = name;
     this.failure = false;
     this.error = null;
+    this.chatMessages = [];
   }
 
   fail(error) {
@@ -42,6 +44,61 @@ class UnitTestResult {
     console.log(`${this.name} succeeded!`);
   }
 }
+
+const runSizeRollTests = async function () {
+  let result = [];
+
+  await _addSizeRollTest("1d6", "1d6", result);
+  await _addSizeRollTest("1d4", "1d6", result, { targetSize: 5 });
+  await _addSizeRollTest("1d6", "1d8", result, { targetSize: 5 });
+  await _addSizeRollTest("1d8", "1d6", result, { targetSize: 3 });
+  await _addSizeRollTest("1d6", "1d4", result, { targetSize: 3 });
+  await _addSizeRollTest("2d4", "2d6", result, { targetSize: 5 });
+  await _addSizeRollTest("2d6", "6d6", result, { targetSize: 7 });
+  await _addSizeRollTest("6d8", "2d8", result, { targetSize: 4, initialSize: 7 });
+  await _addSizeRollTest("6d8", "3d8", result, { targetSize: 2, initialSize: 5 });
+  await _addSizeRollTest("2d10", "4d8", result, { targetSize: 5 });
+  await _addSizeRollTest("2d10", "2d8", result, { targetSize: 3 });
+  await _addSizeRollTest("4d10", "8d8", result, { targetSize: 5 });
+
+  return result;
+};
+
+const _addSizeRollTest = async function (
+  formula,
+  expectedFormula,
+  resultArr,
+  options = { targetSize: 4, initialSize: 4 }
+) {
+  options = mergeObject({ targetSize: 4, initialSize: 4 }, options);
+  const label = `Size roll: ${formula}, going from size ${options.initialSize} to ${options.targetSize}`;
+  const test = new UnitTestResult(label);
+
+  const re = /^([0-9]+)d([0-9]+)$/;
+  if (!formula.match(re)) {
+    throw new Error(`Unit test (size roll): incorrect input formula: '${formula}'`);
+  }
+  const baseDie = [parseInt(RegExp.$1), parseInt(RegExp.$2)];
+  if (!expectedFormula.match(re)) {
+    throw new Error(`Unit test (size roll): incorrect expected formula: '${expectedFormula}'`);
+  }
+  const expectedDie = [parseInt(RegExp.$1), parseInt(RegExp.$2)];
+  resultArr.push(test);
+
+  try {
+    const roll = new Roll(
+      `sizeRoll(${baseDie[0]}, ${baseDie[1]}, ${options.targetSize}, ${options.initialSize})`
+    ).roll();
+    const term = roll.terms[0];
+    if (term.number !== expectedDie[0] || term.faces !== expectedDie[1])
+      throw new Error(
+        `Incorrect result die. Expected: ${expectedDie[0]}d${expectedDie[1]}, got: ${term.number}d${term.faces}`
+      );
+    test.succeed();
+  } catch (err) {
+    test.fail(err);
+  }
+};
 
 const runSkillTests = async function (actor) {
   let result = [];

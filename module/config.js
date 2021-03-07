@@ -1,7 +1,7 @@
-// Namespace ffd20lnrw Configuration Values
-export const ffd20lnrw = {};
+// Namespace FFD20 Configuration Values
+export const FFD20 = {};
 
-ffd20lnrw.re = {
+FFD20.re = {
   traitSeparator: /\s*[;]\s*/g,
 };
 
@@ -9,25 +9,25 @@ ffd20lnrw.re = {
  * The set of Ability Scores used within the system
  * @type {Object}
  */
-ffd20lnrw.abilities = {
-  str: "ffd20lnrw.AbilityStr",
-  dex: "ffd20lnrw.AbilityDex",
-  con: "ffd20lnrw.AbilityCon",
-  int: "ffd20lnrw.AbilityInt",
-  wis: "ffd20lnrw.AbilityWis",
-  cha: "ffd20lnrw.AbilityCha",
+FFD20.abilities = {
+  str: "FFD20.AbilityStr",
+  dex: "FFD20.AbilityDex",
+  con: "FFD20.AbilityCon",
+  int: "FFD20.AbilityInt",
+  wis: "FFD20.AbilityWis",
+  cha: "FFD20.AbilityCha",
 };
 
-ffd20lnrw.abilitiesShort = {
-  str: "ffd20lnrw.AbilityShortStr",
-  dex: "ffd20lnrw.AbilityShortDex",
-  con: "ffd20lnrw.AbilityShortCon",
-  int: "ffd20lnrw.AbilityShortInt",
-  wis: "ffd20lnrw.AbilityShortWis",
-  cha: "ffd20lnrw.AbilityShortCha",
+FFD20.abilitiesShort = {
+  str: "FFD20.AbilityShortStr",
+  dex: "FFD20.AbilityShortDex",
+  con: "FFD20.AbilityShortCon",
+  int: "FFD20.AbilityShortInt",
+  wis: "FFD20.AbilityShortWis",
+  cha: "FFD20.AbilityShortCha",
 };
 
-ffd20lnrw.abilityCost = {
+FFD20.abilityCost = {
   7: -4,
   8: -2,
   9: -1,
@@ -46,54 +46,54 @@ ffd20lnrw.abilityCost = {
  * The set of Saving Throws
  * @type {Object}
  */
-ffd20lnrw.savingThrows = {
-  fort: "ffd20lnrw.SavingThrowFort",
-  ref: "ffd20lnrw.SavingThrowRef",
-  will: "ffd20lnrw.SavingThrowWill",
+FFD20.savingThrows = {
+  fort: "FFD20.SavingThrowFort",
+  ref: "FFD20.SavingThrowRef",
+  will: "FFD20.SavingThrowWill",
 };
 
-ffd20lnrw.classTypes = {
-  base: "ffd20lnrw.ClassTypeBase",
-  prestige: "ffd20lnrw.ClassTypePrestige",
-  npc: "ffd20lnrw.ClassTypeNPC",
-  racial: "ffd20lnrw.ClassTypeRacial",
-  mythic: "ffd20lnrw.ClassTypeMythic",
+FFD20.classTypes = {
+  base: "FFD20.ClassTypeBase",
+  prestige: "FFD20.ClassTypePrestige",
+  npc: "FFD20.ClassTypeNPC",
+  racial: "FFD20.ClassTypeRacial",
+  mythic: "FFD20.ClassTypeMythic",
 };
 
-ffd20lnrw.classSubTypes = {
-  core: "ffd20lnrw.ClassSubTypeCore",
-  coreArc: "ffd20lnrw.ClassSubTypeCoreArc",
-  base: "ffd20lnrw.ClassSubTypeBase",
-  baseArc: "ffd20lnrw.ClassSubTypeBaseArc",
-  hybrid: "ffd20lnrw.ClassSubTypeHybrid",
-  hybridArc: "ffd20lnrw.ClassSubTypeHybridArc",
+FFD20.classSubTypes = {
+  core: "FFD20.ClassSubTypeCore",
+  coreArc: "FFD20.ClassSubTypeCoreArc",
+  base: "FFD20.ClassSubTypeBase",
+  baseArc: "FFD20.ClassSubTypeBaseArc",
+  hybrid: "FFD20.ClassSubTypeHybrid",
+  hybridArc: "FFD20.ClassSubTypeHybridArc",
 };
 
-ffd20lnrw.countforexp = {
-  exp: "ffd20lnrw.ClassExp",
-  noExp: "ffd20lnrw.ClassNoExp",
+FFD20.countforexp = {
+  exp: "FFD20.ClassExp",
+  noExp: "FFD20.ClassNoExp",
 };
 
-ffd20lnrw.classCastingStats = {
-  noncaster: "ffd20lnrw.NonCaster",
-  int: "ffd20lnrw.AbilityShortInt",
-  wis: "ffd20lnrw.AbilityShortWis",
-  cha: "ffd20lnrw.AbilityShortCha",
-  intAndWis: "ffd20lnrw.AbilityShortIntAndWis",
+FFD20.classCastingStats = {
+  noncaster: "FFD20.NonCaster",
+  int: "FFD20.AbilityShortInt",
+  wis: "FFD20.AbilityShortWis",
+  cha: "FFD20.AbilityShortCha",
+  intAndWis: "FFD20.AbilityShortIntAndWis",
 }; 
 
-ffd20lnrw.classBaseMPTypes = {
-  noncaster: "ffd20lnrw.NonCaster",
-  halfCaster: "ffd20lnrw.HalfCaster",
-  dimPacman: "ffd20lnrw.DimPacman",
-  pacman: "ffd20lnrw.Pacman",
-  dimFullCaster: "ffd20lnrw.DimFullCaster",
-  fullCaster: "ffd20lnrw.FullCaster",
-  advFullCaster: "ffd20lnrw.AdvFullCaster",
+FFD20.classBaseMPTypes = {
+  noncaster: "FFD20.NonCaster",
+  halfCaster: "FFD20.HalfCaster",
+  dimPacman: "FFD20.DimPacman",
+  pacman: "FFD20.Pacman",
+  dimFullCaster: "FFD20.DimFullCaster",
+  fullCaster: "FFD20.FullCaster",
+  advFullCaster: "FFD20.AdvFullCaster",
 }; 
 
 // Max Spell Level
-ffd20lnrw.ClassSpellProgression = {
+FFD20.ClassSpellProgression = {
   noncaster: 0,
   halfCaster: 4,
   pacman: 6,
@@ -101,7 +101,7 @@ ffd20lnrw.ClassSpellProgression = {
 };
 
 // Character MP from levels
-ffd20lnrw.classMPlevels = {
+FFD20.classMPlevels = {
 // level          1   2   3   4   5   6   7   8   9   10   11    12    13    14    15    16    17    18    19    20
 noncaster:     [0],
 halfCaster:    [0,  0,  0,  1,  2,  3,  4,  5,  6,   7,   8,   10,   12,   14,   16,   19,   22,   25,   29,   33,],
@@ -110,7 +110,7 @@ fullCaster:    [3,  4,  5,  6,  8, 11, 15, 20, 26,  32,  39,   47,   56,   65,  
 };
 
 // Character MP from stat
-ffd20lnrw.classMPStatsBonus = {
+FFD20.classMPStatsBonus = {
 // stat mod 0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17
   1:       [0,   1,   1,   1,   1,   2,   2,   2,   2,   3,   3,   3,   3,   4,   4,   4,   4,   5,],
   2:       [0,   1,   3,   3,   3,   4,   6,   6,   6,   7,   9,   9,   9,  10,  12,  12,  12,  13,],
@@ -124,29 +124,29 @@ ffd20lnrw.classMPStatsBonus = {
 };
 
 // to calculate auto mp
-ffd20lnrw.classBaseMPauto = {
-no: "ffd20lnrw.No",
-yes: "ffd20lnrw.Yes",
+FFD20.classBaseMPauto = {
+no: "FFD20.No",
+yes: "FFD20.Yes",
 };
 
-ffd20lnrw.classBAB = {
-  low: "ffd20lnrw.Low",
-  med: "ffd20lnrw.Medium",
-  high: "ffd20lnrw.High",
+FFD20.classBAB = {
+  low: "FFD20.Low",
+  med: "FFD20.Medium",
+  high: "FFD20.High",
 };
 
-ffd20lnrw.classSavingThrows = {
-  low: "ffd20lnrw.Poor",
-  high: "ffd20lnrw.Good",
+FFD20.classSavingThrows = {
+  low: "FFD20.Poor",
+  high: "FFD20.Good",
 };
 
-ffd20lnrw.classBABFormulas = {
+FFD20.classBABFormulas = {
   low: "floor(@level * 0.5)",
   med: "floor(@level * 0.75)",
   high: "@level",
 };
 
-ffd20lnrw.classSavingThrowFormulas = {
+FFD20.classSavingThrowFormulas = {
   base: {
     low: "floor(@level / 3)",
     high: "2 + floor(@level / 2)",
@@ -169,30 +169,30 @@ ffd20lnrw.classSavingThrowFormulas = {
   },
 };
 
-ffd20lnrw.favouredClassBonuses = {
-  hp: "ffd20lnrw.FavouredClassHP",
-  skill: "ffd20lnrw.FavouredClassSkill",
-  alt: "ffd20lnrw.FavouredClassAlt",
+FFD20.favouredClassBonuses = {
+  hp: "FFD20.FavouredClassHP",
+  skill: "FFD20.FavouredClassSkill",
+  alt: "FFD20.FavouredClassAlt",
 };
 
 /**
  * The set of Armor Classes
  * @type {Object}
  */
-ffd20lnrw.ac = {
-  normal: "ffd20lnrw.ACNormal",
-  touch: "ffd20lnrw.ACTouch",
-  flatFooted: "ffd20lnrw.ACFlatFooted",
+FFD20.ac = {
+  normal: "FFD20.ACNormal",
+  touch: "FFD20.ACTouch",
+  flatFooted: "FFD20.ACFlatFooted",
 };
 
 /**
  * The set of Armor Class modifier types
  * @type {Object}
  */
-ffd20lnrw.acValueLabels = {
-  normal: "ffd20lnrw.ACTypeNormal",
-  touch: "ffd20lnrw.ACTypeTouch",
-  flatFooted: "ffd20lnrw.ACTypeFlatFooted",
+FFD20.acValueLabels = {
+  normal: "FFD20.ACTypeNormal",
+  touch: "FFD20.ACTypeTouch",
+  flatFooted: "FFD20.ACTypeFlatFooted",
 };
 
 /* -------------------------------------------- */
@@ -201,28 +201,28 @@ ffd20lnrw.acValueLabels = {
  * Character alignment options
  * @type {Object}
  */
-ffd20lnrw.alignments = {
-  lg: "ffd20lnrw.AlignmentLG",
-  ng: "ffd20lnrw.AlignmentNG",
-  cg: "ffd20lnrw.AlignmentCG",
-  ln: "ffd20lnrw.AlignmentLN",
-  tn: "ffd20lnrw.AlignmentTN",
-  cn: "ffd20lnrw.AlignmentCN",
-  le: "ffd20lnrw.AlignmentLE",
-  ne: "ffd20lnrw.AlignmentNE",
-  ce: "ffd20lnrw.AlignmentCE",
+FFD20.alignments = {
+  lg: "FFD20.AlignmentLG",
+  ng: "FFD20.AlignmentNG",
+  cg: "FFD20.AlignmentCG",
+  ln: "FFD20.AlignmentLN",
+  tn: "FFD20.AlignmentTN",
+  cn: "FFD20.AlignmentCN",
+  le: "FFD20.AlignmentLE",
+  ne: "FFD20.AlignmentNE",
+  ce: "FFD20.AlignmentCE",
 };
 
-ffd20lnrw.alignmentsShort = {
-  lg: "ffd20lnrw.AlignmentShortLG",
-  ng: "ffd20lnrw.AlignmentShortNG",
-  cg: "ffd20lnrw.AlignmentShortCG",
-  ln: "ffd20lnrw.AlignmentShortLN",
-  tn: "ffd20lnrw.AlignmentShortTN",
-  cn: "ffd20lnrw.AlignmentShortCN",
-  le: "ffd20lnrw.AlignmentShortLE",
-  ne: "ffd20lnrw.AlignmentShortNE",
-  ce: "ffd20lnrw.AlignmentShortCE",
+FFD20.alignmentsShort = {
+  lg: "FFD20.AlignmentShortLG",
+  ng: "FFD20.AlignmentShortNG",
+  cg: "FFD20.AlignmentShortCG",
+  ln: "FFD20.AlignmentShortLN",
+  tn: "FFD20.AlignmentShortTN",
+  cn: "FFD20.AlignmentShortCN",
+  le: "FFD20.AlignmentShortLE",
+  ne: "FFD20.AlignmentShortNE",
+  ce: "FFD20.AlignmentShortCE",
 };
 
 /* -------------------------------------------- */
@@ -231,20 +231,20 @@ ffd20lnrw.alignmentsShort = {
  * The set of Armor Proficiencies which a character may have
  * @type {Object}
  */
-ffd20lnrw.armorProficiencies = {
-  lgt: "ffd20lnrw.ArmorProfLight",
-  med: "ffd20lnrw.ArmorProfMedium",
-  hvy: "ffd20lnrw.ArmorProfHeavy",
-  shl: "ffd20lnrw.ArmorProfShield",
-  twr: "ffd20lnrw.ArmorProfTowerShield",
+FFD20.armorProficiencies = {
+  lgt: "FFD20.ArmorProfLight",
+  med: "FFD20.ArmorProfMedium",
+  hvy: "FFD20.ArmorProfHeavy",
+  shl: "FFD20.ArmorProfShield",
+  twr: "FFD20.ArmorProfTowerShield",
 };
 
-ffd20lnrw.weaponProficiencies = {
-  sim: "ffd20lnrw.WeaponProfSimple",
-  mar: "ffd20lnrw.WeaponProfMartial",
-  exo: "ffd20lnrw.WeaponProfExotic",
-  che: "ffd20lnrw.WeaponProfChef",
-  pow: "ffd20lnrw.WeaponProfPower",
+FFD20.weaponProficiencies = {
+  sim: "FFD20.WeaponProfSimple",
+  mar: "FFD20.WeaponProfMartial",
+  exo: "FFD20.WeaponProfExotic",
+  che: "FFD20.WeaponProfChef",
+  pow: "FFD20.WeaponProfPower",
 };
 
 /* -------------------------------------------- */
@@ -253,94 +253,94 @@ ffd20lnrw.weaponProficiencies = {
  * This describes the ways that an ability can be activated
  * @type {Object}
  */
-ffd20lnrw.abilityActivationTypes = {
-  passive: "ffd20lnrw.ActivationTypePassive",
-  free: "ffd20lnrw.ActivationTypeFree",
-  swift: "ffd20lnrw.ActivationTypeSwift",
-  immediate: "ffd20lnrw.ActivationTypeImmediate",
-  move: "ffd20lnrw.ActivationTypeMove",
-  standard: "ffd20lnrw.ActivationTypeStandard",
-  full: "ffd20lnrw.ActivationTypeFullround",
-  attack: "ffd20lnrw.ActivationTypeAttack",
-  round: "ffd20lnrw.ActivationTypeRound",
-  minute: "ffd20lnrw.ActivationTypeMinute",
-  hour: "ffd20lnrw.ActivationTypeHour",
-  special: "ffd20lnrw.ActivationTypeSpecial",
+FFD20.abilityActivationTypes = {
+  passive: "FFD20.ActivationTypePassive",
+  free: "FFD20.ActivationTypeFree",
+  swift: "FFD20.ActivationTypeSwift",
+  immediate: "FFD20.ActivationTypeImmediate",
+  move: "FFD20.ActivationTypeMove",
+  standard: "FFD20.ActivationTypeStandard",
+  full: "FFD20.ActivationTypeFullround",
+  attack: "FFD20.ActivationTypeAttack",
+  round: "FFD20.ActivationTypeRound",
+  minute: "FFD20.ActivationTypeMinute",
+  hour: "FFD20.ActivationTypeHour",
+  special: "FFD20.ActivationTypeSpecial",
 };
 
 /**
  * This describes plurals for activation types.
  */
-ffd20lnrw.abilityActivationTypesPlurals = {
-  free: "ffd20lnrw.ActivationTypeFreePlural",
-  swift: "ffd20lnrw.ActivationTypeSwiftPlural",
-  immediate: "ffd20lnrw.ActivationTypeImmediatePlural",
-  move: "ffd20lnrw.ActivationTypeMovePlural",
-  standard: "ffd20lnrw.ActivationTypeStandardPlural",
-  full: "ffd20lnrw.ActivationTypeFullroundPlural",
-  attack: "ffd20lnrw.ActivationTypeAttackPlural",
-  round: "ffd20lnrw.ActivationTypeRoundPlural",
-  minute: "ffd20lnrw.ActivationTypeMinutePlural",
-  hour: "ffd20lnrw.ActivationTypeHourPlural",
+FFD20.abilityActivationTypesPlurals = {
+  free: "FFD20.ActivationTypeFreePlural",
+  swift: "FFD20.ActivationTypeSwiftPlural",
+  immediate: "FFD20.ActivationTypeImmediatePlural",
+  move: "FFD20.ActivationTypeMovePlural",
+  standard: "FFD20.ActivationTypeStandardPlural",
+  full: "FFD20.ActivationTypeFullroundPlural",
+  attack: "FFD20.ActivationTypeAttackPlural",
+  round: "FFD20.ActivationTypeRoundPlural",
+  minute: "FFD20.ActivationTypeMinutePlural",
+  hour: "FFD20.ActivationTypeHourPlural",
 };
 
-ffd20lnrw.abilityActivationTypes_unchained = {
-  passive: "ffd20lnrw.ActivationTypePassive",
-  free: "ffd20lnrw.ActivationTypeFree",
-  reaction: "ffd20lnrw.ActivationTypeReaction",
-  action: "ffd20lnrw.ActivationTypeAction",
-  minute: "ffd20lnrw.ActivationTypeMinute",
-  hour: "ffd20lnrw.ActivationTypeHour",
-  special: "ffd20lnrw.ActivationTypeSpecial",
+FFD20.abilityActivationTypes_unchained = {
+  passive: "FFD20.ActivationTypePassive",
+  free: "FFD20.ActivationTypeFree",
+  reaction: "FFD20.ActivationTypeReaction",
+  action: "FFD20.ActivationTypeAction",
+  minute: "FFD20.ActivationTypeMinute",
+  hour: "FFD20.ActivationTypeHour",
+  special: "FFD20.ActivationTypeSpecial",
 };
 
-ffd20lnrw.abilityActivationTypesPlurals_unchained = {
-  passive: "ffd20lnrw.ActivationTypePassive",
-  free: "ffd20lnrw.ActivationTypeFreePlural",
-  reaction: "ffd20lnrw.ActivationTypeReactionPlural",
-  action: "ffd20lnrw.ActivationTypeActionPlural",
-  minute: "ffd20lnrw.ActivationTypeMinutePlural",
-  hour: "ffd20lnrw.ActivationTypeHourPlural",
-  special: "ffd20lnrw.ActivationTypeSpecial",
+FFD20.abilityActivationTypesPlurals_unchained = {
+  passive: "FFD20.ActivationTypePassive",
+  free: "FFD20.ActivationTypeFreePlural",
+  reaction: "FFD20.ActivationTypeReactionPlural",
+  action: "FFD20.ActivationTypeActionPlural",
+  minute: "FFD20.ActivationTypeMinutePlural",
+  hour: "FFD20.ActivationTypeHourPlural",
+  special: "FFD20.ActivationTypeSpecial",
 };
 
-ffd20lnrw.woundThresholdConditions = {
-  0: "ffd20lnrw.WoundLevelHealthy",
-  1: "ffd20lnrw.WoundLevelGrazed",
-  2: "ffd20lnrw.WoundLevelWounded",
-  3: "ffd20lnrw.WoundLevelCritical",
+FFD20.woundThresholdConditions = {
+  0: "FFD20.WoundLevelHealthy",
+  1: "FFD20.WoundLevelGrazed",
+  2: "FFD20.WoundLevelWounded",
+  3: "FFD20.WoundLevelCritical",
 };
 
-ffd20lnrw.divineFocus = {
+FFD20.divineFocus = {
   0: "",
-  1: "ffd20lnrw.SpellComponentDivineFocusAlone",
-  2: "ffd20lnrw.SpellComponentDivineFocusMaterial",
-  3: "ffd20lnrw.SpellComponentDivineFocusFocus",
+  1: "FFD20.SpellComponentDivineFocusAlone",
+  2: "FFD20.SpellComponentDivineFocusMaterial",
+  3: "FFD20.SpellComponentDivineFocusFocus",
 };
 
-ffd20lnrw.measureTemplateTypes = {
-  cone: "ffd20lnrw.MeasureTemplateCone",
-  circle: "ffd20lnrw.MeasureTemplateCircle",
-  ray: "ffd20lnrw.MeasureTemplateRay",
-  rect: "ffd20lnrw.MeasureTemplateRectangle",
+FFD20.measureTemplateTypes = {
+  cone: "FFD20.MeasureTemplateCone",
+  circle: "FFD20.MeasureTemplateCircle",
+  ray: "FFD20.MeasureTemplateRay",
+  rect: "FFD20.MeasureTemplateRectangle",
 };
 
 /* -------------------------------------------- */
 
 // Creature Sizes
-ffd20lnrw.actorSizes = {
-  fine: "ffd20lnrw.ActorSizeFine",
-  dim: "ffd20lnrw.ActorSizeDiminutive",
-  tiny: "ffd20lnrw.ActorSizeTiny",
-  sm: "ffd20lnrw.ActorSizeSmall",
-  med: "ffd20lnrw.ActorSizeMedium",
-  lg: "ffd20lnrw.ActorSizeLarge",
-  huge: "ffd20lnrw.ActorSizeHuge",
-  grg: "ffd20lnrw.ActorSizeGargantuan",
-  col: "ffd20lnrw.ActorSizeColossal",
+FFD20.actorSizes = {
+  fine: "FFD20.ActorSizeFine",
+  dim: "FFD20.ActorSizeDiminutive",
+  tiny: "FFD20.ActorSizeTiny",
+  sm: "FFD20.ActorSizeSmall",
+  med: "FFD20.ActorSizeMedium",
+  lg: "FFD20.ActorSizeLarge",
+  huge: "FFD20.ActorSizeHuge",
+  grg: "FFD20.ActorSizeGargantuan",
+  col: "FFD20.ActorSizeColossal",
 };
 
-ffd20lnrw.sizeChart = {
+FFD20.sizeChart = {
   fine: "F",
   dim: "D",
   tiny: "T",
@@ -352,7 +352,7 @@ ffd20lnrw.sizeChart = {
   col: "C",
 };
 
-ffd20lnrw.tokenSizes = {
+FFD20.tokenSizes = {
   fine: { w: 1, h: 1, scale: 0.2 },
   dim: { w: 1, h: 1, scale: 0.4 },
   tiny: { w: 1, h: 1, scale: 0.6 },
@@ -364,7 +364,7 @@ ffd20lnrw.tokenSizes = {
   col: { w: 6, h: 6, scale: 1 },
 };
 
-ffd20lnrw.sizeMods = {
+FFD20.sizeMods = {
   fine: 8,
   dim: 4,
   tiny: 2,
@@ -376,7 +376,7 @@ ffd20lnrw.sizeMods = {
   col: -8,
 };
 
-ffd20lnrw.sizeSpecialMods = {
+FFD20.sizeSpecialMods = {
   fine: -8,
   dim: -4,
   tiny: -2,
@@ -388,7 +388,7 @@ ffd20lnrw.sizeSpecialMods = {
   col: 8,
 };
 
-ffd20lnrw.sizeFlyMods = {
+FFD20.sizeFlyMods = {
   fine: 8,
   dim: 6,
   tiny: 4,
@@ -400,7 +400,7 @@ ffd20lnrw.sizeFlyMods = {
   col: -8,
 };
 
-ffd20lnrw.sizeStealthMods = {
+FFD20.sizeStealthMods = {
   fine: 16,
   dim: 12,
   tiny: 8,
@@ -412,15 +412,15 @@ ffd20lnrw.sizeStealthMods = {
   col: -16,
 };
 
-ffd20lnrw.flyManeuverabilities = {
-  clumsy: "ffd20lnrw.FlyManeuverabilityClumsy",
-  poor: "ffd20lnrw.FlyManeuverabilityPoor",
-  average: "ffd20lnrw.FlyManeuverabilityAverage",
-  good: "ffd20lnrw.FlyManeuverabilityGood",
-  perfect: "ffd20lnrw.FlyManeuverabilityPerfect",
+FFD20.flyManeuverabilities = {
+  clumsy: "FFD20.FlyManeuverabilityClumsy",
+  poor: "FFD20.FlyManeuverabilityPoor",
+  average: "FFD20.FlyManeuverabilityAverage",
+  good: "FFD20.FlyManeuverabilityGood",
+  perfect: "FFD20.FlyManeuverabilityPerfect",
 };
 
-ffd20lnrw.flyManeuverabilityValues = {
+FFD20.flyManeuverabilityValues = {
   clumsy: -8,
   poor: -4,
   average: 0,
@@ -428,7 +428,7 @@ ffd20lnrw.flyManeuverabilityValues = {
   perfect: 8,
 };
 
-ffd20lnrw.speedReduction = {
+FFD20.speedReduction = {
   5: 5,
   15: 10,
   20: 15,
@@ -449,7 +449,7 @@ ffd20lnrw.speedReduction = {
 
 /* -------------------------------------------- */
 
-ffd20lnrw.encumbranceLoads = [
+FFD20.encumbranceLoads = [
   0,
   10,
   20,
@@ -483,7 +483,7 @@ ffd20lnrw.encumbranceLoads = [
   1600,
 ];
 
-ffd20lnrw.encumbranceMultipliers = {
+FFD20.encumbranceMultipliers = {
   normal: {
     fine: 0.125,
     dim: 0.25,
@@ -510,40 +510,40 @@ ffd20lnrw.encumbranceMultipliers = {
 
 /* -------------------------------------------- */
 
-ffd20lnrw.itemTypes = {
-  equipment: "ffd20lnrw.ItemTypeEquipment",
-  weapon: "ffd20lnrw.ItemTypeWeapon",
-  loot: "ffd20lnrw.ItemTypeLoot",
-  consumable: "ffd20lnrw.ItemTypeConsumable",
-  class: "ffd20lnrw.ItemTypeClass",
-  buff: "ffd20lnrw.ItemTypeBuff",
-  spell: "ffd20lnrw.ItemTypeSpell",
-  feat: "ffd20lnrw.ItemTypeFeat",
-  attack: "ffd20lnrw.ItemTypeAttack",
+FFD20.itemTypes = {
+  equipment: "FFD20.ItemTypeEquipment",
+  weapon: "FFD20.ItemTypeWeapon",
+  loot: "FFD20.ItemTypeLoot",
+  consumable: "FFD20.ItemTypeConsumable",
+  class: "FFD20.ItemTypeClass",
+  buff: "FFD20.ItemTypeBuff",
+  spell: "FFD20.ItemTypeSpell",
+  feat: "FFD20.ItemTypeFeat",
+  attack: "FFD20.ItemTypeAttack",
 };
 
 /**
  * Classification types for item action types
  * @type {Object}
  */
-ffd20lnrw.itemActionTypes = {
-  mwak: "ffd20lnrw.ActionMWAK",
-  rwak: "ffd20lnrw.ActionRWAK",
-  msak: "ffd20lnrw.ActionMSAK",
-  rsak: "ffd20lnrw.ActionRSAK",
-  mcman: "ffd20lnrw.ActionMCMan",
-  rcman: "ffd20lnrw.ActionRCMan",
-  spellsave: "ffd20lnrw.ActionSpellSave",
-  save: "ffd20lnrw.ActionSave",
-  heal: "ffd20lnrw.ActionHeal",
-  other: "ffd20lnrw.ActionOther",
+FFD20.itemActionTypes = {
+  mwak: "FFD20.ActionMWAK",
+  rwak: "FFD20.ActionRWAK",
+  msak: "FFD20.ActionMSAK",
+  rsak: "FFD20.ActionRSAK",
+  mcman: "FFD20.ActionMCMan",
+  rcman: "FFD20.ActionRCMan",
+  spellsave: "FFD20.ActionSpellSave",
+  save: "FFD20.ActionSave",
+  heal: "FFD20.ActionHeal",
+  other: "FFD20.ActionOther",
 };
 
 /* -------------------------------------------- */
 
-ffd20lnrw.itemCapacityTypes = {
-  items: "ffd20lnrw.ItemContainerCapacityItems",
-  weight: "ffd20lnrw.ItemContainerCapacityWeight",
+FFD20.itemCapacityTypes = {
+  items: "FFD20.ItemContainerCapacityItems",
+  weight: "FFD20.ItemContainerCapacityWeight",
 };
 
 /* -------------------------------------------- */
@@ -552,68 +552,68 @@ ffd20lnrw.itemCapacityTypes = {
  * Enumerate the lengths of time over which an item can have limited use ability
  * @type {Object}
  */
-ffd20lnrw.limitedUsePeriods = {
-  single: "ffd20lnrw.LimitedUseSingle",
-  unlimited: "ffd20lnrw.Unlimited",
-  day: "ffd20lnrw.LimitedUseDay",
-  week: "ffd20lnrw.LimitedUseWeek",
-  charges: "ffd20lnrw.LimitedUseCharges",
+FFD20.limitedUsePeriods = {
+  single: "FFD20.LimitedUseSingle",
+  unlimited: "FFD20.Unlimited",
+  day: "FFD20.LimitedUseDay",
+  week: "FFD20.LimitedUseWeek",
+  charges: "FFD20.LimitedUseCharges",
 };
 
 /* -------------------------------------------- */
 
 // Equipment Types
-ffd20lnrw.equipmentTypes = {
+FFD20.equipmentTypes = {
   armor: {
-    _label: "ffd20lnrw.EquipTypeArmor",
-    lightArmor: "ffd20lnrw.EquipTypeLight",
-    mediumArmor: "ffd20lnrw.EquipTypeMedium",
-    heavyArmor: "ffd20lnrw.EquipTypeHeavy",
+    _label: "FFD20.EquipTypeArmor",
+    lightArmor: "FFD20.EquipTypeLight",
+    mediumArmor: "FFD20.EquipTypeMedium",
+    heavyArmor: "FFD20.EquipTypeHeavy",
   },
   shield: {
-    _label: "ffd20lnrw.EquipTypeShield",
-    lightShield: "ffd20lnrw.EquipTypeLightShield",
-    heavyShield: "ffd20lnrw.EquipTypeHeavyShield",
-    towerShield: "ffd20lnrw.EquipTypeTowerShield",
-    other: "ffd20lnrw.EquipTypeOtherShield",
+    _label: "FFD20.EquipTypeShield",
+    lightShield: "FFD20.EquipTypeLightShield",
+    heavyShield: "FFD20.EquipTypeHeavyShield",
+    towerShield: "FFD20.EquipTypeTowerShield",
+    other: "FFD20.EquipTypeOtherShield",
   },
   misc: {
-    _label: "ffd20lnrw.Misc",
-    wondrous: "ffd20lnrw.EquipTypeWondrousItem",
-    clothing: "ffd20lnrw.EquipTypeClothing",
-    other: "ffd20lnrw.Other",
+    _label: "FFD20.Misc",
+    wondrous: "FFD20.EquipTypeWondrousItem",
+    clothing: "FFD20.EquipTypeClothing",
+    other: "FFD20.Other",
   },
 };
 
-ffd20lnrw.equipmentSlots = {
+FFD20.equipmentSlots = {
   armor: {
-    armor: "ffd20lnrw.EquipSlotArmor",
+    armor: "FFD20.EquipSlotArmor",
   },
   shield: {
-    shield: "ffd20lnrw.EquipSlotShield",
+    shield: "FFD20.EquipSlotShield",
   },
   misc: {
-    slotless: "ffd20lnrw.EquipSlotSlotless",
-    head: "ffd20lnrw.EquipSlotHead",
-    headband: "ffd20lnrw.EquipSlotHeadband",
-    eyes: "ffd20lnrw.EquipSlotEyes",
-    shoulders: "ffd20lnrw.EquipSlotShoulders",
-    neck: "ffd20lnrw.EquipSlotNeck",
-    chest: "ffd20lnrw.EquipSlotChest",
-    body: "ffd20lnrw.EquipSlotBody",
-    belt: "ffd20lnrw.EquipSlotBelt",
-    wrists: "ffd20lnrw.EquipSlotWrists",
-    hands: "ffd20lnrw.EquipSlotHands",
-    ring: "ffd20lnrw.EquipSlotRing",
-    feet: "ffd20lnrw.EquipSlotFeet",
+    slotless: "FFD20.EquipSlotSlotless",
+    head: "FFD20.EquipSlotHead",
+    headband: "FFD20.EquipSlotHeadband",
+    eyes: "FFD20.EquipSlotEyes",
+    shoulders: "FFD20.EquipSlotShoulders",
+    neck: "FFD20.EquipSlotNeck",
+    chest: "FFD20.EquipSlotChest",
+    body: "FFD20.EquipSlotBody",
+    belt: "FFD20.EquipSlotBelt",
+    wrists: "FFD20.EquipSlotWrists",
+    hands: "FFD20.EquipSlotHands",
+    ring: "FFD20.EquipSlotRing",
+    feet: "FFD20.EquipSlotFeet",
   },
 };
 
-ffd20lnrw.lootTypes = {
-  gear: "ffd20lnrw.LootTypeGear",
-  ammo: "ffd20lnrw.LootTypeAmmo",
-  tradeGoods: "ffd20lnrw.LootTypeTradeGoods",
-  misc: "ffd20lnrw.Misc",
+FFD20.lootTypes = {
+  gear: "FFD20.LootTypeGear",
+  ammo: "FFD20.LootTypeAmmo",
+  tradeGoods: "FFD20.LootTypeTradeGoods",
+  misc: "FFD20.Misc",
 };
 
 /* -------------------------------------------- */
@@ -622,46 +622,46 @@ ffd20lnrw.lootTypes = {
  * Enumerate the valid consumable types which are recognized by the system
  * @type {Object}
  */
-ffd20lnrw.consumableTypes = {
-  potion: "ffd20lnrw.ConsumableTypePotion",
-  poison: "ffd20lnrw.ConsumableTypePoison",
-  drug: "ffd20lnrw.ConsumableTypeDrug",
-  scroll: "ffd20lnrw.ConsumableTypeScroll",
-  wand: "ffd20lnrw.ConsumableTypeWand",
-  staff: "ffd20lnrw.ConsumableTypeStaff",
-  misc: "ffd20lnrw.Misc",
+FFD20.consumableTypes = {
+  potion: "FFD20.ConsumableTypePotion",
+  poison: "FFD20.ConsumableTypePoison",
+  drug: "FFD20.ConsumableTypeDrug",
+  scroll: "FFD20.ConsumableTypeScroll",
+  wand: "FFD20.ConsumableTypeWand",
+  staff: "FFD20.ConsumableTypeStaff",
+  misc: "FFD20.Misc",
 };
 
-ffd20lnrw.attackTypes = {
-  weapon: "ffd20lnrw.AttackTypeWeapon",
-  natural: "ffd20lnrw.AttackTypeNatural",
-  ability: "ffd20lnrw.AttackTypeAbility",
-  racialAbility: "ffd20lnrw.AttackTypeRacial",
-  item: "ffd20lnrw.Item",
-  misc: "ffd20lnrw.Misc",
+FFD20.attackTypes = {
+  weapon: "FFD20.AttackTypeWeapon",
+  natural: "FFD20.AttackTypeNatural",
+  ability: "FFD20.AttackTypeAbility",
+  racialAbility: "FFD20.AttackTypeRacial",
+  item: "FFD20.Item",
+  misc: "FFD20.Misc",
 };
 
-ffd20lnrw.featTypes = {
-  feat: "ffd20lnrw.FeatTypeFeat",
-  classFeat: "ffd20lnrw.FeatTypeClassFeat",
-  trait: "ffd20lnrw.FeatTypeTraits",
-  racial: "ffd20lnrw.FeatTypeRacial",
-  misc: "ffd20lnrw.Misc",
-  template: "ffd20lnrw.FeatTypeTemplate",
+FFD20.featTypes = {
+  feat: "FFD20.FeatTypeFeat",
+  classFeat: "FFD20.FeatTypeClassFeat",
+  trait: "FFD20.FeatTypeTraits",
+  racial: "FFD20.FeatTypeRacial",
+  misc: "FFD20.Misc",
+  template: "FFD20.FeatTypeTemplate",
 };
 
-ffd20lnrw.abilityTypes = {
+FFD20.abilityTypes = {
   ex: {
-    short: "ffd20lnrw.AbilityTypeShortExtraordinary",
-    long: "ffd20lnrw.AbilityTypeExtraordinary",
+    short: "FFD20.AbilityTypeShortExtraordinary",
+    long: "FFD20.AbilityTypeExtraordinary",
   },
   su: {
-    short: "ffd20lnrw.AbilityTypeShortSupernatural",
-    long: "ffd20lnrw.AbilityTypeSupernatural",
+    short: "FFD20.AbilityTypeShortSupernatural",
+    long: "FFD20.AbilityTypeSupernatural",
   },
   sp: {
-    short: "ffd20lnrw.AbilityTypeShortSpell-Like",
-    long: "ffd20lnrw.AbilityTypeSpell-Like",
+    short: "FFD20.AbilityTypeShortSpell-Like",
+    long: "FFD20.AbilityTypeSpell-Like",
   },
 };
 
@@ -671,94 +671,94 @@ ffd20lnrw.abilityTypes = {
  * The valid currency denominations supported by the 5e system
  * @type {Object}
  */
-ffd20lnrw.currencies = {
-  gil: "ffd20lnrw.CurrencyGil",
+FFD20.currencies = {
+  gil: "FFD20.CurrencyGil",
 };
 
-ffd20lnrw.acTypes = {
+FFD20.acTypes = {
   armor: "Armor",
   shield: "Shield",
   natural: "Natural Armor",
 };
 
-ffd20lnrw.bonusModifiers = {
-  untyped: "ffd20lnrw.BonusModifierUntyped",
-  untypedPerm: "ffd20lnrw.BonusModifierUntypedPerm",
-  base: "ffd20lnrw.BonusModifierBase",
-  enh: "ffd20lnrw.BonusModifierEnhancement",
-  dodge: "ffd20lnrw.BonusModifierDodge",
-  inherent: "ffd20lnrw.BonusModifierInherent",
-  deflection: "ffd20lnrw.BonusModifierDeflection",
-  morale: "ffd20lnrw.BonusModifierMorale",
-  luck: "ffd20lnrw.BonusModifierLuck",
-  sacred: "ffd20lnrw.BonusModifierSacred",
-  insight: "ffd20lnrw.BonusModifierInsight",
-  resist: "ffd20lnrw.BonusModifierResistance",
-  profane: "ffd20lnrw.BonusModifierProfane",
-  trait: "ffd20lnrw.BonusModifierTrait",
-  racial: "ffd20lnrw.BonusModifierRacial",
-  size: "ffd20lnrw.BonusModifierSize",
-  competence: "ffd20lnrw.BonusModifierCompetence",
-  circumstance: "ffd20lnrw.BonusModifierCircumstance",
-  alchemical: "ffd20lnrw.BonusModifierAlchemical",
-  penalty: "ffd20lnrw.BonusModifierPenalty",
+FFD20.bonusModifiers = {
+  untyped: "FFD20.BonusModifierUntyped",
+  untypedPerm: "FFD20.BonusModifierUntypedPerm",
+  base: "FFD20.BonusModifierBase",
+  enh: "FFD20.BonusModifierEnhancement",
+  dodge: "FFD20.BonusModifierDodge",
+  inherent: "FFD20.BonusModifierInherent",
+  deflection: "FFD20.BonusModifierDeflection",
+  morale: "FFD20.BonusModifierMorale",
+  luck: "FFD20.BonusModifierLuck",
+  sacred: "FFD20.BonusModifierSacred",
+  insight: "FFD20.BonusModifierInsight",
+  resist: "FFD20.BonusModifierResistance",
+  profane: "FFD20.BonusModifierProfane",
+  trait: "FFD20.BonusModifierTrait",
+  racial: "FFD20.BonusModifierRacial",
+  size: "FFD20.BonusModifierSize",
+  competence: "FFD20.BonusModifierCompetence",
+  circumstance: "FFD20.BonusModifierCircumstance",
+  alchemical: "FFD20.BonusModifierAlchemical",
+  penalty: "FFD20.BonusModifierPenalty",
 };
 
-ffd20lnrw.stackingBonusModifiers = ["untyped", "untypedPerm", "dodge", "racial", "penalty"];
+FFD20.stackingBonusModifiers = ["untyped", "untypedPerm", "dodge", "racial", "penalty"];
 
 /* -------------------------------------------- */
 
 // Damage Types
-ffd20lnrw.damageTypes = {
-  bludgeoning: "ffd20lnrw.DamageTypeBludgeoning",
-  piercing: "ffd20lnrw.DamageTypePiercing",
-  slashing: "ffd20lnrw.DamageTypeSlashing",
-  fire: "ffd20lnrw.DamageTypeFire",
-  ice: "ffd20lnrw.DamageTypeIce",
-  wind: "ffd20lnrw.DamageTypeWind",
-  earth: "ffd20lnrw.DamageTypeEarth",
-  lightning: "ffd20lnrw.DamageTypeLightning",
-  water: "ffd20lnrw.DamageTypeWater",
-  light: "ffd20lnrw.DamageTypeLight",
-  dark: "ffd20lnrw.DamageTypeDark",
-  nonelemental: "ffd20lnrw.DamageTypeNonElemental",
+FFD20.damageTypes = {
+  bludgeoning: "FFD20.DamageTypeBludgeoning",
+  piercing: "FFD20.DamageTypePiercing",
+  slashing: "FFD20.DamageTypeSlashing",
+  fire: "FFD20.DamageTypeFire",
+  ice: "FFD20.DamageTypeIce",
+  wind: "FFD20.DamageTypeWind",
+  earth: "FFD20.DamageTypeEarth",
+  lightning: "FFD20.DamageTypeLightning",
+  water: "FFD20.DamageTypeWater",
+  light: "FFD20.DamageTypeLight",
+  dark: "FFD20.DamageTypeDark",
+  nonelemental: "FFD20.DamageTypeNonElemental",
 };
 
 /* -------------------------------------------- */
 
-ffd20lnrw.distanceUnits = {
-  none: "ffd20lnrw.None",
-  personal: "ffd20lnrw.DistPersonal",
-  touch: "ffd20lnrw.DistTouch",
-  melee: "ffd20lnrw.DistMelee",
-  reach: "ffd20lnrw.DistReach",
-  close: "ffd20lnrw.DistClose",
-  medium: "ffd20lnrw.DistMedium",
-  long: "ffd20lnrw.DistLong",
-  ft: "ffd20lnrw.DistFt",
-  mi: "ffd20lnrw.DistMi",
-  spec: "ffd20lnrw.Special",
-  seeText: "ffd20lnrw.SeeText",
-  unlimited: "ffd20lnrw.Unlimited",
+FFD20.distanceUnits = {
+  none: "FFD20.None",
+  personal: "FFD20.DistPersonal",
+  touch: "FFD20.DistTouch",
+  melee: "FFD20.DistMelee",
+  reach: "FFD20.DistReach",
+  close: "FFD20.DistClose",
+  medium: "FFD20.DistMedium",
+  long: "FFD20.DistLong",
+  ft: "FFD20.DistFt",
+  mi: "FFD20.DistMi",
+  spec: "FFD20.Special",
+  seeText: "FFD20.SeeText",
+  unlimited: "FFD20.Unlimited",
 };
 
-ffd20lnrw.measureUnits = {
-  ft: "ffd20lnrw.DistFt",
-  mi: "ffd20lnrw.DistMi",
-  m: "ffd20lnrw.DistM",
-  km: "ffd20lnrw.DistKM",
+FFD20.measureUnits = {
+  ft: "FFD20.DistFt",
+  mi: "FFD20.DistMi",
+  m: "FFD20.DistM",
+  km: "FFD20.DistKM",
 };
 
-ffd20lnrw.measureUnitsShort = {
-  ft: "ffd20lnrw.DistFtShort",
-  mi: "ffd20lnrw.DistMiShort",
-  m: "ffd20lnrw.DistMShort",
-  km: "ffd20lnrw.DistKMShort",
+FFD20.measureUnitsShort = {
+  ft: "FFD20.DistFtShort",
+  mi: "FFD20.DistMiShort",
+  m: "FFD20.DistMShort",
+  km: "FFD20.DistKMShort",
 };
 
-ffd20lnrw.actorStatures = {
-  tall: "ffd20lnrw.StatureTall",
-  long: "ffd20lnrw.StatureLong",
+FFD20.actorStatures = {
+  tall: "FFD20.StatureTall",
+  long: "FFD20.StatureLong",
 };
 
 /* -------------------------------------------- */
@@ -767,50 +767,50 @@ ffd20lnrw.actorStatures = {
  * This Object defines the types of single or area targets which can be applied in D&D5e
  * @type {Object}
  */
-ffd20lnrw.targetTypes = {
-  none: "ffd20lnrw.None",
-  self: "ffd20lnrw.TargetSelf",
-  creature: "ffd20lnrw.TargetCreature",
-  ally: "ffd20lnrw.TargetAlly",
-  enemy: "ffd20lnrw.TargetEnemy",
-  object: "ffd20lnrw.TargetObject",
-  space: "ffd20lnrw.TargetSpace",
-  radius: "ffd20lnrw.TargetRadius",
-  sphere: "ffd20lnrw.TargetSphere",
-  cylinder: "ffd20lnrw.TargetCylinder",
-  cone: "ffd20lnrw.TargetCone",
-  square: "ffd20lnrw.TargetSquare",
-  cube: "ffd20lnrw.TargetCube",
-  line: "ffd20lnrw.TargetLine",
-  wall: "ffd20lnrw.TargetWall",
+FFD20.targetTypes = {
+  none: "FFD20.None",
+  self: "FFD20.TargetSelf",
+  creature: "FFD20.TargetCreature",
+  ally: "FFD20.TargetAlly",
+  enemy: "FFD20.TargetEnemy",
+  object: "FFD20.TargetObject",
+  space: "FFD20.TargetSpace",
+  radius: "FFD20.TargetRadius",
+  sphere: "FFD20.TargetSphere",
+  cylinder: "FFD20.TargetCylinder",
+  cone: "FFD20.TargetCone",
+  square: "FFD20.TargetSquare",
+  cube: "FFD20.TargetCube",
+  line: "FFD20.TargetLine",
+  wall: "FFD20.TargetWall",
 };
 
 /* -------------------------------------------- */
 
 /**
- * This Object defines the various lengths of time which can occur in ffd20lnrw
+ * This Object defines the various lengths of time which can occur in FFD20
  * @type {Object}
  */
-ffd20lnrw.timePeriods = {
-  inst: "ffd20lnrw.TimeInst",
-  turn: "ffd20lnrw.TimeTurn",
-  round: "ffd20lnrw.TimeRound",
-  minute: "ffd20lnrw.TimeMinute",
-  hour: "ffd20lnrw.TimeHour",
-  day: "ffd20lnrw.TimeDay",
-  month: "ffd20lnrw.TimeMonth",
-  year: "ffd20lnrw.TimeYear",
-  perm: "ffd20lnrw.TimePerm",
-  seeText: "ffd20lnrw.SeeText",
-  spec: "ffd20lnrw.Special",
+FFD20.timePeriods = {
+  inst: "FFD20.TimeInst",
+  turn: "FFD20.TimeTurn",
+  round: "FFD20.TimeRound",
+  minute: "FFD20.TimeMinute",
+  hour: "FFD20.TimeHour",
+  day: "FFD20.TimeDay",
+  month: "FFD20.TimeMonth",
+  year: "FFD20.TimeYear",
+  perm: "FFD20.TimePerm",
+  seeText: "FFD20.SeeText",
+  spec: "FFD20.Special",
 };
 
 /* -------------------------------------------- */
 
 // Healing Types
-ffd20lnrw.healingTypes = {
-  healing: "ffd20lnrw.Healing",
-  temphp: "ffd20lnrw.HealingTemp",
+FFD20.healingTypes = {
+  healing: "FFD20.Healing",
+  temphp: "FFD20.HealingTemp",
 };
 
 /* -------------------------------------------- */
@@ -831,18 +831,18 @@ ffd20lnrw.healingTypes = {
  tremorsense
  * @type {Object}
  */
-ffd20lnrw.senses = {
-  bs: "ffd20lnrw.SenseBS",/* Blindsight */
-  dv: "ffd20lnrw.SenseDV",/* Darkvision */
-  ts: "ffd20lnrw.SenseTS",/* Tremorsense */
-  tr: "ffd20lnrw.SenseTR",/* truesight */
-  ll: "ffd20lnrw.SenseLL",/* Lowlight */
+FFD20.senses = {
+  bs: "FFD20.SenseBS",/* Blindsight */
+  dv: "FFD20.SenseDV",/* Darkvision */
+  ts: "FFD20.SenseTS",/* Tremorsense */
+  tr: "FFD20.SenseTR",/* truesight */
+  ll: "FFD20.SenseLL",/* Lowlight */
 };
 
 /* -------------------------------------------- */
 
 /**
- * The set of skill which can be trained in ffd20lnrw
+ * The set of skill which can be trained in FFD20
  
 Craft (Electronic)
 Craft (Explosive)
@@ -850,103 +850,103 @@ Craft (Mechanical)
 Craft (Structural)
  * @type {Object}
  */
-ffd20lnrw.skills = {
-  acr: "ffd20lnrw.SkillAcr",/* Acrobatics */
-  apr: "ffd20lnrw.SkillApr",/* Appraise */
-  blf: "ffd20lnrw.SkillBlf",/* Bluff */
-  clm: "ffd20lnrw.SkillClm",/* Climb */
-  crf: "ffd20lnrw.SkillCrf",/* craft skills */
-  dip: "ffd20lnrw.SkillDip",/* Diplomacy */
-  dev: "ffd20lnrw.SkillDev",/* Disable Device */
-  dis: "ffd20lnrw.SkillDis",/* Disguise */
-  dri: "ffd20lnrw.SkillDri",/* Drive */
-  esc: "ffd20lnrw.SkillEsc",/* Escape Artist */
-  fly: "ffd20lnrw.SkillFly",/* Fly */
-  han: "ffd20lnrw.SkillHan",/* Handle Animal */
-  hea: "ffd20lnrw.SkillHea",/* Heal */
-  int: "ffd20lnrw.SkillInt",/* Intimidate */
-  kar: "ffd20lnrw.SkillKAr",/* Knowledge (arcana) */
-  kdu: "ffd20lnrw.SkillKDu",/* Knowledge (dungeoneering) */
-  ken: "ffd20lnrw.SkillKEn",/* Knowledge (engineering) */
-  kge: "ffd20lnrw.SkillKGe",/* Knowledge (geography) */
-  khi: "ffd20lnrw.SkillKHi",/* Knowledge (history) */
-  klo: "ffd20lnrw.SkillKLo",/* Knowledge (local) */
-  kna: "ffd20lnrw.SkillKNa",/* Knowledge (nature) */
-  kno: "ffd20lnrw.SkillKNo",/* Knowledge (nobility) */
-  kpl: "ffd20lnrw.SkillKPl",/* Knowledge (planes) */
-  kre: "ffd20lnrw.SkillKRe",/* Knowledge (religion) */
-  kte: "ffd20lnrw.SkillKTe",/* Knowledge (technology) */
-  lin: "ffd20lnrw.SkillLin",/* Linguistics */
-  nav: "ffd20lnrw.SkillNav",/* Navigate */
-  per: "ffd20lnrw.SkillPer",/* Perception */
-  prf: "ffd20lnrw.SkillPrf",/* Perform */
-  pil: "ffd20lnrw.SkillPil",/* Pilot */
-  pro: "ffd20lnrw.SkillPro",/* Profession */
-  rep: "ffd20lnrw.SkillRep",/* Repair */
-  rid: "ffd20lnrw.SkillRid",/* Ride */
-  sen: "ffd20lnrw.SkillSen",/* Sense Motive */
-  slt: "ffd20lnrw.SkillSlt",/* Sleight of Hand */
-  spl: "ffd20lnrw.SkillSpl",/* Spellcraft */
-  ste: "ffd20lnrw.SkillSte",/* Stealth */
-  sur: "ffd20lnrw.SkillSur",/* Survival */
-  swm: "ffd20lnrw.SkillSwm",/* Swim */
-  umd: "ffd20lnrw.SkillUMD",/* Use Magic Device */
+FFD20.skills = {
+  acr: "FFD20.SkillAcr",/* Acrobatics */
+  apr: "FFD20.SkillApr",/* Appraise */
+  blf: "FFD20.SkillBlf",/* Bluff */
+  clm: "FFD20.SkillClm",/* Climb */
+  crf: "FFD20.SkillCrf",/* craft skills */
+  dip: "FFD20.SkillDip",/* Diplomacy */
+  dev: "FFD20.SkillDev",/* Disable Device */
+  dis: "FFD20.SkillDis",/* Disguise */
+  dri: "FFD20.SkillDri",/* Drive */
+  esc: "FFD20.SkillEsc",/* Escape Artist */
+  fly: "FFD20.SkillFly",/* Fly */
+  han: "FFD20.SkillHan",/* Handle Animal */
+  hea: "FFD20.SkillHea",/* Heal */
+  int: "FFD20.SkillInt",/* Intimidate */
+  kar: "FFD20.SkillKAr",/* Knowledge (arcana) */
+  kdu: "FFD20.SkillKDu",/* Knowledge (dungeoneering) */
+  ken: "FFD20.SkillKEn",/* Knowledge (engineering) */
+  kge: "FFD20.SkillKGe",/* Knowledge (geography) */
+  khi: "FFD20.SkillKHi",/* Knowledge (history) */
+  klo: "FFD20.SkillKLo",/* Knowledge (local) */
+  kna: "FFD20.SkillKNa",/* Knowledge (nature) */
+  kno: "FFD20.SkillKNo",/* Knowledge (nobility) */
+  kpl: "FFD20.SkillKPl",/* Knowledge (planes) */
+  kre: "FFD20.SkillKRe",/* Knowledge (religion) */
+  kte: "FFD20.SkillKTe",/* Knowledge (technology) */
+  lin: "FFD20.SkillLin",/* Linguistics */
+  nav: "FFD20.SkillNav",/* Navigate */
+  per: "FFD20.SkillPer",/* Perception */
+  prf: "FFD20.SkillPrf",/* Perform */
+  pil: "FFD20.SkillPil",/* Pilot */
+  pro: "FFD20.SkillPro",/* Profession */
+  rep: "FFD20.SkillRep",/* Repair */
+  rid: "FFD20.SkillRid",/* Ride */
+  sen: "FFD20.SkillSen",/* Sense Motive */
+  slt: "FFD20.SkillSlt",/* Sleight of Hand */
+  spl: "FFD20.SkillSpl",/* Spellcraft */
+  ste: "FFD20.SkillSte",/* Stealth */
+  sur: "FFD20.SkillSur",/* Survival */
+  swm: "FFD20.SkillSwm",/* Swim */
+  umd: "FFD20.SkillUMD",/* Use Magic Device */
 };
 
-ffd20lnrw.skillCompendiumEntries = {
-  acr: "ffd20lnrw.skills.HPsdXjjRtKNGFGRc",
-  apr: "ffd20lnrw.skills.W5GT9F3euC4aG9zP",
-  blf: "ffd20lnrw.skills.pAB2PYkZO3lsmeaC",
-  clm: "ffd20lnrw.skills.xvua9V5Zggkc77Gt",
-  crf: "ffd20lnrw.skills.L6LEhHRrn53cMuhE",
-  dev: "ffd20lnrw.skills.CCy1fajKKU3K02iQ",
-  dip: "ffd20lnrw.skills.OtfbHJhIQsNzmiTN",
-  dis: "ffd20lnrw.skills.lP3L1RXi9q4ha9Gu",
-  dir: "ffd20lnrw.skills.LqNIXvXeQTxcDeUA",
-  esc: "ffd20lnrw.skills.AOQsMtvLY4V3wFEL",
-  fly: "ffd20lnrw.skills.rR877UB1xVd3Z7z1",
-  han: "ffd20lnrw.skills.fXauAodbOBHBi7Mj",
-  hea: "ffd20lnrw.skills.RtBGttkocvTbySjd",
-  int: "ffd20lnrw.skills.ImjhcPmm02QSCbPg",
-  kar: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  kdu: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  ken: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  kge: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  khi: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  klo: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  kna: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  kno: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  kpl: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  kre: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  kte: "ffd20lnrw.skills.ki0QvL0K7u4YuK0O",
-  lin: "ffd20lnrw.skills.QXIYXqy6ivNHrDrW",
-  nav: "ffd20lnrw.skills.mY5hN2EBEG0zWcSk",
-  per: "ffd20lnrw.skills.YYmmxDgp0g3ltSUG",
-  pil: "ffd20lnrw.skills.RbmyZeLZzFv7YHqF",
-  prf: "ffd20lnrw.skills.HhV5UmaRLTjtB3Xh",
-  pro: "ffd20lnrw.skills.O7Utk8xKbHYDP7Ot",
-  rep: "ffd20lnrw.skills.", //repair
-  rid: "ffd20lnrw.skills.mKO8Q4uMiqpMySOZ",
-  sen: "ffd20lnrw.skills.R8HGxGCKayOl15AO",
-  slt: "ffd20lnrw.skills.zK0CbvpYLZhTN5Wn",
-  spl: "ffd20lnrw.skills.uLZI2uWz0uB8UgBc",
-  ste: "ffd20lnrw.skills.T6nefKotIb5vKE9h",
-  sur: "ffd20lnrw.skills.TXrxgrB2sQjppZFY",
-  swm: "ffd20lnrw.skills.weCPHUuXi9sF5r4E",
-  umd: "ffd20lnrw.skills.WR5lekzyLT6T2CFH",
+FFD20.skillCompendiumEntries = {
+  acr: "FFD20.skills.HPsdXjjRtKNGFGRc",
+  apr: "FFD20.skills.W5GT9F3euC4aG9zP",
+  blf: "FFD20.skills.pAB2PYkZO3lsmeaC",
+  clm: "FFD20.skills.xvua9V5Zggkc77Gt",
+  crf: "FFD20.skills.L6LEhHRrn53cMuhE",
+  dev: "FFD20.skills.CCy1fajKKU3K02iQ",
+  dip: "FFD20.skills.OtfbHJhIQsNzmiTN",
+  dis: "FFD20.skills.lP3L1RXi9q4ha9Gu",
+  dir: "FFD20.skills.LqNIXvXeQTxcDeUA",
+  esc: "FFD20.skills.AOQsMtvLY4V3wFEL",
+  fly: "FFD20.skills.rR877UB1xVd3Z7z1",
+  han: "FFD20.skills.fXauAodbOBHBi7Mj",
+  hea: "FFD20.skills.RtBGttkocvTbySjd",
+  int: "FFD20.skills.ImjhcPmm02QSCbPg",
+  kar: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  kdu: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  ken: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  kge: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  khi: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  klo: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  kna: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  kno: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  kpl: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  kre: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  kte: "FFD20.skills.ki0QvL0K7u4YuK0O",
+  lin: "FFD20.skills.QXIYXqy6ivNHrDrW",
+  nav: "FFD20.skills.mY5hN2EBEG0zWcSk",
+  per: "FFD20.skills.YYmmxDgp0g3ltSUG",
+  pil: "FFD20.skills.RbmyZeLZzFv7YHqF",
+  prf: "FFD20.skills.HhV5UmaRLTjtB3Xh",
+  pro: "FFD20.skills.O7Utk8xKbHYDP7Ot",
+  rep: "FFD20.skills.", //repair
+  rid: "FFD20.skills.mKO8Q4uMiqpMySOZ",
+  sen: "FFD20.skills.R8HGxGCKayOl15AO",
+  slt: "FFD20.skills.zK0CbvpYLZhTN5Wn",
+  spl: "FFD20.skills.uLZI2uWz0uB8UgBc",
+  ste: "FFD20.skills.T6nefKotIb5vKE9h",
+  sur: "FFD20.skills.TXrxgrB2sQjppZFY",
+  swm: "FFD20.skills.weCPHUuXi9sF5r4E",
+  umd: "FFD20.skills.WR5lekzyLT6T2CFH",
 };
 
-ffd20lnrw.arbitrarySkills = ["crf", "prf", "pro"];
+FFD20.arbitrarySkills = ["crf", "prf", "pro"];
 
 /* -------------------------------------------- */
 
-ffd20lnrw.spellPreparationModes = {
-  atwill: "ffd20lnrw.SpellPrepAtWill",
-  prepared: "ffd20lnrw.SpellPrepPrepared",
-  spontaneous: "ffd20lnrw.SpellPrepSpontaneous",
+FFD20.spellPreparationModes = {
+  atwill: "FFD20.SpellPrepAtWill",
+  prepared: "FFD20.SpellPrepPrepared",
+  spontaneous: "FFD20.SpellPrepSpontaneous",
 };
 
-ffd20lnrw.classCasterType = {
+FFD20.classCasterType = {
   astrologian: "high",
   blackmage: "high",
   bluemage: "high",
@@ -965,7 +965,7 @@ ffd20lnrw.classCasterType = {
   holyknight: "low",
 };
 
-ffd20lnrw.magicAuraByLevel = {
+FFD20.magicAuraByLevel = {
   spell: [
     { power: "faint", level: 1 },
     { power: "moderate", level: 4 },
@@ -980,11 +980,11 @@ ffd20lnrw.magicAuraByLevel = {
   ],
 };
 
-ffd20lnrw.auraStrengths = {
-  1: "ffd20lnrw.AuraStrength_Faint",
-  2: "ffd20lnrw.AuraStrength_Moderate",
-  3: "ffd20lnrw.AuraStrength_Strong",
-  4: "ffd20lnrw.AuraStrength_Overwhelming",
+FFD20.auraStrengths = {
+  1: "FFD20.AuraStrength_Faint",
+  2: "FFD20.AuraStrength_Moderate",
+  3: "FFD20.AuraStrength_Strong",
+  4: "FFD20.AuraStrength_Overwhelming",
 };
 
 /* -------------------------------------------- */
@@ -992,54 +992,54 @@ ffd20lnrw.auraStrengths = {
 /* -------------------------------------------- */
 
 // Weapon Types
-ffd20lnrw.weaponTypes = {
+FFD20.weaponTypes = {
   simple: {
-    _label: "ffd20lnrw.WeaponTypeSimple",
-    light: "ffd20lnrw.WeaponPropLight",
-    "1h": "ffd20lnrw.WeaponPropOneHanded",
-    "2h": "ffd20lnrw.WeaponPropTwoHanded",
-    ranged: "ffd20lnrw.WeaponSubtypeRanged",
+    _label: "FFD20.WeaponTypeSimple",
+    light: "FFD20.WeaponPropLight",
+    "1h": "FFD20.WeaponPropOneHanded",
+    "2h": "FFD20.WeaponPropTwoHanded",
+    ranged: "FFD20.WeaponSubtypeRanged",
   },
   martial: {
-    _label: "ffd20lnrw.WeaponTypeMartial",
-    light: "ffd20lnrw.WeaponPropLight",
-    "1h": "ffd20lnrw.WeaponPropOneHanded",
-    "2h": "ffd20lnrw.WeaponPropTwoHanded",
-    ranged: "ffd20lnrw.WeaponSubtypeRanged",
+    _label: "FFD20.WeaponTypeMartial",
+    light: "FFD20.WeaponPropLight",
+    "1h": "FFD20.WeaponPropOneHanded",
+    "2h": "FFD20.WeaponPropTwoHanded",
+    ranged: "FFD20.WeaponSubtypeRanged",
   },
   exotic: {
-    _label: "ffd20lnrw.WeaponTypeExotic",
-    light: "ffd20lnrw.WeaponPropLight",
-    "1h": "ffd20lnrw.WeaponPropOneHanded",
-    "2h": "ffd20lnrw.WeaponPropTwoHanded",
-    ranged: "ffd20lnrw.WeaponSubtypeRanged",
+    _label: "FFD20.WeaponTypeExotic",
+    light: "FFD20.WeaponPropLight",
+    "1h": "FFD20.WeaponPropOneHanded",
+    "2h": "FFD20.WeaponPropTwoHanded",
+    ranged: "FFD20.WeaponSubtypeRanged",
   },
   chef: {
-    _label: "ffd20lnrw.WeaponTypeChef",
-    light: "ffd20lnrw.WeaponPropLight",
-    "1h": "ffd20lnrw.WeaponPropOneHanded",
-    "2h": "ffd20lnrw.WeaponPropTwoHanded",
-    ranged: "ffd20lnrw.WeaponSubtypeRanged",
+    _label: "FFD20.WeaponTypeChef",
+    light: "FFD20.WeaponPropLight",
+    "1h": "FFD20.WeaponPropOneHanded",
+    "2h": "FFD20.WeaponPropTwoHanded",
+    ranged: "FFD20.WeaponSubtypeRanged",
   },
   power: {
-    _label: "ffd20lnrw.WeaponTypePower",
-    light: "ffd20lnrw.WeaponPropLight",
-    "1h": "ffd20lnrw.WeaponPropOneHanded",
-    "2h": "ffd20lnrw.WeaponPropTwoHanded",
-    ranged: "ffd20lnrw.WeaponSubtypeRanged",
+    _label: "FFD20.WeaponTypePower",
+    light: "FFD20.WeaponPropLight",
+    "1h": "FFD20.WeaponPropOneHanded",
+    "2h": "FFD20.WeaponPropTwoHanded",
+    ranged: "FFD20.WeaponSubtypeRanged",
   },
   misc: {
-    _label: "ffd20lnrw.Misc",
-    splash: "ffd20lnrw.WeaponTypeSplash",
-    other: "ffd20lnrw.Other",
+    _label: "FFD20.Misc",
+    splash: "FFD20.WeaponTypeSplash",
+    other: "FFD20.Other",
   },
 };
 
 // Weapon hold types
-ffd20lnrw.weaponHoldTypes = {
-  normal: "ffd20lnrw.WeaponHoldTypeNormal",
-  "2h": "ffd20lnrw.WeaponHoldTypeTwoHanded",
-  oh: "ffd20lnrw.WeaponHoldTypeOffhand",
+FFD20.weaponHoldTypes = {
+  normal: "FFD20.WeaponHoldTypeNormal",
+  "2h": "FFD20.WeaponHoldTypeTwoHanded",
+  oh: "FFD20.WeaponHoldTypeOffhand",
 };
 
 /* -------------------------------------------- */
@@ -1048,64 +1048,64 @@ ffd20lnrw.weaponHoldTypes = {
  * Define the set of weapon property flags which can exist on a weapon
  * @type {Object}
  */
-ffd20lnrw.weaponProperties = {
-  blc: "ffd20lnrw.WeaponPropBlocking",
-  brc: "ffd20lnrw.WeaponPropBrace",
-  dea: "ffd20lnrw.WeaponPropDeadly",
-  dst: "ffd20lnrw.WeaponPropDistracting",
-  dbl: "ffd20lnrw.WeaponPropDouble",
-  dis: "ffd20lnrw.WeaponPropDisarm",
-  fin: "ffd20lnrw.WeaponPropFinesse",
-  frg: "ffd20lnrw.WeaponPropFragile",
-  grp: "ffd20lnrw.WeaponPropGrapple",
-  imp: "ffd20lnrw.WeaponPropImprovised",
-  mnk: "ffd20lnrw.WeaponPropMonk",
-  nnl: "ffd20lnrw.WeaponPropNonLethal",
-  prf: "ffd20lnrw.WeaponPropPerformance",
-  rch: "ffd20lnrw.WeaponPropReach",
-  snd: "ffd20lnrw.WeaponPropSunder",
-  thr: "ffd20lnrw.WeaponPropThrown",
-  trp: "ffd20lnrw.WeaponPropTrip",
+FFD20.weaponProperties = {
+  blc: "FFD20.WeaponPropBlocking",
+  brc: "FFD20.WeaponPropBrace",
+  dea: "FFD20.WeaponPropDeadly",
+  dst: "FFD20.WeaponPropDistracting",
+  dbl: "FFD20.WeaponPropDouble",
+  dis: "FFD20.WeaponPropDisarm",
+  fin: "FFD20.WeaponPropFinesse",
+  frg: "FFD20.WeaponPropFragile",
+  grp: "FFD20.WeaponPropGrapple",
+  imp: "FFD20.WeaponPropImprovised",
+  mnk: "FFD20.WeaponPropMonk",
+  nnl: "FFD20.WeaponPropNonLethal",
+  prf: "FFD20.WeaponPropPerformance",
+  rch: "FFD20.WeaponPropReach",
+  snd: "FFD20.WeaponPropSunder",
+  thr: "FFD20.WeaponPropThrown",
+  trp: "FFD20.WeaponPropTrip",
 };
 
 // Spell Components
-ffd20lnrw.spellComponents = {
-  V: "ffd20lnrw.SpellComponentVerbal",
-  S: "ffd20lnrw.SpellComponentSomatic",
-  M: "ffd20lnrw.SpellComponentMaterial",
-  F: "ffd20lnrw.SpellComponentFocus",
-  DF: "ffd20lnrw.SpellComponentDivineFocus",
+FFD20.spellComponents = {
+  V: "FFD20.SpellComponentVerbal",
+  S: "FFD20.SpellComponentSomatic",
+  M: "FFD20.SpellComponentMaterial",
+  F: "FFD20.SpellComponentFocus",
+  DF: "FFD20.SpellComponentDivineFocus",
 };
 
 // Spell Schools
-ffd20lnrw.spellSchools = {
-  crn: "ffd20lnrw.SpellSchoolChronomancy",
-  drk: "ffd20lnrw.SpellSchoolDark",
-  ele: "ffd20lnrw.SpellSchoolElemental",
-  enc: "ffd20lnrw.SpellSchoolEnhancing",
-  enf: "ffd20lnrw.SpellSchoolEnfeebling",
-  heal: "ffd20lnrw.SpellSchoolHealing",
-  ill: "ffd20lnrw.SpellSchoolIllusion",
-  lit: "ffd20lnrw.SpellSchoolLight",
-  misc: "ffd20lnrw.SpellSchoolMisc",
-  nec: "ffd20lnrw.SpellSchoolNecromancy",
-  nel: "ffd20lnrw.SpellSchoolNonElemental",
-  sum: "ffd20lnrw.SpellSchoolSummoning",
-  uni: "ffd20lnrw.SpellSchoolUniversal",
+FFD20.spellSchools = {
+  crn: "FFD20.SpellSchoolChronomancy",
+  drk: "FFD20.SpellSchoolDark",
+  ele: "FFD20.SpellSchoolElemental",
+  enc: "FFD20.SpellSchoolEnhancing",
+  enf: "FFD20.SpellSchoolEnfeebling",
+  heal: "FFD20.SpellSchoolHealing",
+  ill: "FFD20.SpellSchoolIllusion",
+  lit: "FFD20.SpellSchoolLight",
+  misc: "FFD20.SpellSchoolMisc",
+  nec: "FFD20.SpellSchoolNecromancy",
+  nel: "FFD20.SpellSchoolNonElemental",
+  sum: "FFD20.SpellSchoolSummoning",
+  uni: "FFD20.SpellSchoolUniversal",
 };
 
 // Spell Levels
-ffd20lnrw.spellLevels = {
-  0: "ffd20lnrw.SpellLevel0",
-  1: "ffd20lnrw.SpellLevel1",
-  2: "ffd20lnrw.SpellLevel2",
-  3: "ffd20lnrw.SpellLevel3",
-  4: "ffd20lnrw.SpellLevel4",
-  5: "ffd20lnrw.SpellLevel5",
-  6: "ffd20lnrw.SpellLevel6",
-  7: "ffd20lnrw.SpellLevel7",
-  8: "ffd20lnrw.SpellLevel8",
-  9: "ffd20lnrw.SpellLevel9",
+FFD20.spellLevels = {
+  0: "FFD20.SpellLevel0",
+  1: "FFD20.SpellLevel1",
+  2: "FFD20.SpellLevel2",
+  3: "FFD20.SpellLevel3",
+  4: "FFD20.SpellLevel4",
+  5: "FFD20.SpellLevel5",
+  6: "FFD20.SpellLevel6",
+  7: "FFD20.SpellLevel7",
+  8: "FFD20.SpellLevel8",
+  9: "FFD20.SpellLevel9",
 };
 
 /* -------------------------------------------- */
@@ -1115,393 +1115,401 @@ ffd20lnrw.spellLevels = {
  * Each level provides a proficiency multiplier
  * @type {Object}
  */
-ffd20lnrw.proficiencyLevels = {
+FFD20.proficiencyLevels = {
   "-4": "Not Proficient",
   0: "Proficient",
 };
 
 /* -------------------------------------------- */
 
-ffd20lnrw.conditionTypes = {
-  antagonized: "ffd20lnrw.CondTypeAntagonized",
-  berserk: "ffd20lnrw.CondTypeBerserk",
-  bleed: "ffd20lnrw.CondTypeBleed",
-  blinded: "ffd20lnrw.CondTypeBlinded",
-  burning: "ffd20lnrw.CondTypeBurning",
-  charmed: "ffd20lnrw.CondTypeCharmed",
-  confused: "ffd20lnrw.CondTypeConfused",
-  cowering: "ffd20lnrw.CondTypeCowering",
-  cursed: "ffd20lnrw.CondTypeCursed",
-  dazed: "ffd20lnrw.CondTypeDazed",
-  dazzled: "ffd20lnrw.CondTypeDazzled",
-  deafened: "ffd20lnrw.CondTypeDeafened",
-  deprotect: "ffd20lnrw.CondTypeDeprotect",
-  deshell: "ffd20lnrw.CondTypeDeshell",
-  dimmed: "ffd20lnrw.CondTypeDimmed",
-  disabled: "ffd20lnrw.CondTypeDisabled",
-  diseased: "ffd20lnrw.CondTypeDiseased",
-  doom: "ffd20lnrw.CondTypeDoom",
-  drenched: "ffd20lnrw.CondTypeDrenched",
-  energyDrained: "ffd20lnrw.CondTypeEnergyDrained",
-  entangled: "ffd20lnrw.CondTypeEntangled",
-  exhausted: "ffd20lnrw.CondTypeExhausted",
-  fascinated: "ffd20lnrw.CondTypeFascinated",
-  fatigued: "ffd20lnrw.CondTypeFatigued", 
-  float: "ffd20lnrw.CondTypeFloat",
-  frightened: "ffd20lnrw.CondTypeFrightened",
-  frog: "ffd20lnrw.CondTypeFrog",
-  frozen: "ffd20lnrw.CondTypeFrozen",
-  hasted: "ffd20lnrw.CondTypeHasted",
-  immobilized: "ffd20lnrw.CondTypeImmobilized",
-  imperil: "ffd20lnrw.CondTypeImperil",
-  invisible: "ffd20lnrw.CondTypeInvisible",
-  mini: "ffd20lnrw.CondTypeMini",
-  nauseated: "ffd20lnrw.CondTypeNauseated",
-  panicked: "ffd20lnrw.CondTypePanicked",
-  paralyzed: "ffd20lnrw.CondTypeParalyzed",
-  petrified: "ffd20lnrw.CondTypePetrified",
-  poisoned: "ffd20lnrw.CondTypePoisoned",
-  protect: "ffd20lnrw.CondTypeProtect",
-  reflect: "ffd20lnrw.CondTypeReflect",
-  regen: "ffd20lnrw.CondTypeRegen",
-  reraise: "ffd20lnrw.CondTypeReraise",
-  sapped: "ffd20lnrw.CondTypeSapped",
-  shaken: "ffd20lnrw.CondTypeShaken",
-  shell: "ffd20lnrw.CondTypeShell",
-  sickened: "ffd20lnrw.CondTypeSickened",
-  silenced: "ffd20lnrw.CondTypeSilenced",
-  sleep: "ffd20lnrw.CondTypeSleep",
-  slow: "ffd20lnrw.CondTypeSlow",
-  squalled: "ffd20lnrw.CondTypeSqualled",
-  staggered: "ffd20lnrw.CondTypeStaggered",
-  static: "ffd20lnrw.CondTypeStatic",
-  stop: "ffd20lnrw.CondTypeStop",
-  stunned: "ffd20lnrw.CondTypeStunned",
-  weighted: "ffd20lnrw.CondTypeWeighted",
-  zombie: "ffd20lnrw.CondTypeZombie",
+FFD20.conditionTypes = {
+  antagonized: "FFD20.CondTypeAntagonized",
+  berserk: "FFD20.CondTypeBerserk",
+  bleed: "FFD20.CondTypeBleed",
+  blinded: "FFD20.CondTypeBlinded",
+  burning: "FFD20.CondTypeBurning",
+  charmed: "FFD20.CondTypeCharmed",
+  confused: "FFD20.CondTypeConfused",
+  cowering: "FFD20.CondTypeCowering",
+  cursed: "FFD20.CondTypeCursed",
+  dazed: "FFD20.CondTypeDazed",
+  dazzled: "FFD20.CondTypeDazzled",
+  deafened: "FFD20.CondTypeDeafened",
+  deprotect: "FFD20.CondTypeDeprotect",
+  deshell: "FFD20.CondTypeDeshell",
+  dimmed: "FFD20.CondTypeDimmed",
+  disabled: "FFD20.CondTypeDisabled",
+  diseased: "FFD20.CondTypeDiseased",
+  doom: "FFD20.CondTypeDoom",
+  drenched: "FFD20.CondTypeDrenched",
+  energyDrained: "FFD20.CondTypeEnergyDrained",
+  entangled: "FFD20.CondTypeEntangled",
+  exhausted: "FFD20.CondTypeExhausted",
+  fascinated: "FFD20.CondTypeFascinated",
+  fatigued: "FFD20.CondTypeFatigued", 
+  float: "FFD20.CondTypeFloat",
+  frightened: "FFD20.CondTypeFrightened",
+  frog: "FFD20.CondTypeFrog",
+  frozen: "FFD20.CondTypeFrozen",
+  hasted: "FFD20.CondTypeHasted",
+  immobilized: "FFD20.CondTypeImmobilized",
+  imperil: "FFD20.CondTypeImperil",
+  invisible: "FFD20.CondTypeInvisible",
+  mini: "FFD20.CondTypeMini",
+  nauseated: "FFD20.CondTypeNauseated",
+  panicked: "FFD20.CondTypePanicked",
+  paralyzed: "FFD20.CondTypeParalyzed",
+  petrified: "FFD20.CondTypePetrified",
+  poisoned: "FFD20.CondTypePoisoned",
+  protect: "FFD20.CondTypeProtect",
+  reflect: "FFD20.CondTypeReflect",
+  regen: "FFD20.CondTypeRegen",
+  reraise: "FFD20.CondTypeReraise",
+  sapped: "FFD20.CondTypeSapped",
+  shaken: "FFD20.CondTypeShaken",
+  shell: "FFD20.CondTypeShell",
+  sickened: "FFD20.CondTypeSickened",
+  silenced: "FFD20.CondTypeSilenced",
+  sleep: "FFD20.CondTypeSleep",
+  slow: "FFD20.CondTypeSlow",
+  squalled: "FFD20.CondTypeSqualled",
+  staggered: "FFD20.CondTypeStaggered",
+  static: "FFD20.CondTypeStatic",
+  stop: "FFD20.CondTypeStop",
+  stunned: "FFD20.CondTypeStunned",
+  weighted: "FFD20.CondTypeWeighted",
+  zombie: "FFD20.CondTypeZombie",
 };
 
-ffd20lnrw.conditions = {
-  antagonized: "ffd20lnrw.CondAntagonized",
-  berserk: "ffd20lnrw.CondBerserk",
-  bleed: "ffd20lnrw.CondBleed",
-  blinded: "ffd20lnrw.CondBlinded",
-  burning: "ffd20lnrw.CondBurning",
-  charmed: "ffd20lnrw.CondCharmed",
-  confused: "ffd20lnrw.CondConfused",
-  cowering: "ffd20lnrw.CondCowering",
-  cursed: "ffd20lnrw.CondCursed",
-  dazed: "ffd20lnrw.CondDazed",
-  dazzled: "ffd20lnrw.CondDazzled",
-  deafened: "ffd20lnrw.CondDeafened",
-  deprotect: "ffd20lnrw.CondDeprotect",
-  deshell: "ffd20lnrw.CondDeshell",
-  dimmed: "ffd20lnrw.CondDimmed",
-  disabled: "ffd20lnrw.CondDisabled",
-  diseased: "ffd20lnrw.CondDiseased",
-  doom: "ffd20lnrw.CondDoom",
-  drenched: "ffd20lnrw.CondDrenched",
-  energyDrained: "ffd20lnrw.CondEnergyDrained",
-  entangled: "ffd20lnrw.CondEntangled",
-  exhausted: "ffd20lnrw.CondExhausted",
-  fascinated: "ffd20lnrw.CondFascinated",
-  fatigued: "ffd20lnrw.CondFatigued", 
-  float: "ffd20lnrw.CondFloat",
-  frightened: "ffd20lnrw.CondFrightened",
-  frog: "ffd20lnrw.CondFrog",
-  frozen: "ffd20lnrw.CondFrozen",
-  grappled: "ffd20lnrw.CondGrappled",
-  hasted: "ffd20lnrw.CondHasted",
-  helpless: "ffd20lnrw.CondHelpless",
-  immobilized: "ffd20lnrw.CondImmobilized",
-  imperil: "ffd20lnrw.CondImperil",
-  incorporeal: "ffd20lnrw.CondIncorporeal",
-  invisible: "ffd20lnrw.CondInvisible",
-  mini: "ffd20lnrw.CondMini",
-  nauseated: "ffd20lnrw.CondNauseated",
-  panicked: "ffd20lnrw.CondPanicked",
-  paralyzed: "ffd20lnrw.CondParalyzed",
-  petrified: "ffd20lnrw.CondPetrified",
-  pinned: "ffd20lnrw.CondPinned",
-  poisoned: "ffd20lnrw.CondPoisoned",
-  prone: "ffd20lnrw.CondProne",
-  protect: "ffd20lnrw.CondProtect",
-  reflect: "ffd20lnrw.CondReflect",
-  regen: "ffd20lnrw.CondRegen",
-  reraise: "ffd20lnrw.CondReraise",
-  sapped: "ffd20lnrw.CondSapped",
-  shaken: "ffd20lnrw.CondShaken",
-  shell: "ffd20lnrw.CondShell",
-  sickened: "ffd20lnrw.CondSickened",
-  silenced: "ffd20lnrw.CondSilenced",
-  sleep: "ffd20lnrw.CondSleep",
-  slow: "ffd20lnrw.CondSlow",
-  squalled: "ffd20lnrw.CondSqualled",
-  staggered: "ffd20lnrw.CondStaggered",
-  static: "ffd20lnrw.CondStatic",
-  stop: "ffd20lnrw.CondStop",
-  stunned: "ffd20lnrw.CondStunned",
-  weighted: "ffd20lnrw.CondWeighted",
-  zombie: "ffd20lnrw.CondZombie",
+FFD20.conditions = {
+  antagonized: "FFD20.CondAntagonized",
+  berserk: "FFD20.CondBerserk",
+  bleed: "FFD20.CondBleed",
+  blinded: "FFD20.CondBlinded",
+  burning: "FFD20.CondBurning",
+  charmed: "FFD20.CondCharmed",
+  confused: "FFD20.CondConfused",
+  cowering: "FFD20.CondCowering",
+  cursed: "FFD20.CondCursed",
+  dazed: "FFD20.CondDazed",
+  dazzled: "FFD20.CondDazzled",
+  deafened: "FFD20.CondDeafened",
+  deprotect: "FFD20.CondDeprotect",
+  deshell: "FFD20.CondDeshell",
+  dimmed: "FFD20.CondDimmed",
+  disabled: "FFD20.CondDisabled",
+  diseased: "FFD20.CondDiseased",
+  doom: "FFD20.CondDoom",
+  drenched: "FFD20.CondDrenched",
+  energyDrained: "FFD20.CondEnergyDrained",
+  entangled: "FFD20.CondEntangled",
+  exhausted: "FFD20.CondExhausted",
+  fascinated: "FFD20.CondFascinated",
+  fatigued: "FFD20.CondFatigued", 
+  float: "FFD20.CondFloat",
+  frightened: "FFD20.CondFrightened",
+  frog: "FFD20.CondFrog",
+  frozen: "FFD20.CondFrozen",
+  grappled: "FFD20.CondGrappled",
+  hasted: "FFD20.CondHasted",
+  helpless: "FFD20.CondHelpless",
+  immobilized: "FFD20.CondImmobilized",
+  imperil: "FFD20.CondImperil",
+  incorporeal: "FFD20.CondIncorporeal",
+  invisible: "FFD20.CondInvisible",
+  mini: "FFD20.CondMini",
+  nauseated: "FFD20.CondNauseated",
+  panicked: "FFD20.CondPanicked",
+  paralyzed: "FFD20.CondParalyzed",
+  petrified: "FFD20.CondPetrified",
+  pinned: "FFD20.CondPinned",
+  poisoned: "FFD20.CondPoisoned",
+  prone: "FFD20.CondProne",
+  protect: "FFD20.CondProtect",
+  reflect: "FFD20.CondReflect",
+  regen: "FFD20.CondRegen",
+  reraise: "FFD20.CondReraise",
+  sapped: "FFD20.CondSapped",
+  shaken: "FFD20.CondShaken",
+  shell: "FFD20.CondShell",
+  sickened: "FFD20.CondSickened",
+  silenced: "FFD20.CondSilenced",
+  sleep: "FFD20.CondSleep",
+  slow: "FFD20.CondSlow",
+  squalled: "FFD20.CondSqualled",
+  staggered: "FFD20.CondStaggered",
+  static: "FFD20.CondStatic",
+  stop: "FFD20.CondStop",
+  stunned: "FFD20.CondStunned",
+  weighted: "FFD20.CondWeighted",
+  zombie: "FFD20.CondZombie",
 };
 
-ffd20lnrw.conditionTextures = {
-  bleed: "systems/ffd20lnrw/icons/conditions/bleed.png",
-  blind: "systems/ffd20lnrw/icons/conditions/blind.png",
-  confused: "systems/ffd20lnrw/icons/conditions/confused.png",
-  dazzled: "systems/ffd20lnrw/icons/conditions/dazzled.png",
-  deaf: "systems/ffd20lnrw/icons/conditions/deaf.png",
-  entangled: "systems/ffd20lnrw/icons/conditions/entangled.png",
-  fatigued: "systems/ffd20lnrw/icons/conditions/fatigued.png",
-  exhausted: "systems/ffd20lnrw/icons/conditions/exhausted.png",
-  grappled: "systems/ffd20lnrw/icons/conditions/grappled.png",
-  helpless: "systems/ffd20lnrw/icons/conditions/helpless.png",
-  incorporeal: "systems/ffd20lnrw/icons/conditions/incorporeal.png",
-  invisible: "systems/ffd20lnrw/icons/conditions/invisible.png",
-  paralyzed: "systems/ffd20lnrw/icons/conditions/paralyzed.png",
-  pinned: "systems/ffd20lnrw/icons/conditions/pinned.png",
-  prone: "systems/ffd20lnrw/icons/conditions/prone.png",
-  fear: "systems/ffd20lnrw/icons/conditions/fear.png",
-  sickened: "systems/ffd20lnrw/icons/conditions/sickened.png",
-  staggered: "systems/ffd20lnrw/icons/conditions/staggered.png",
-  stunned: "systems/ffd20lnrw/icons/conditions/stunned.png",
+FFD20.conditionTextures = {
+  bleed: "systems/ffd20/icons/conditions/bleed.png",
+  blind: "systems/ffd20/icons/conditions/blind.png",
+  confused: "systems/ffd20/icons/conditions/confused.png",
+  dazzled: "systems/ffd20/icons/conditions/dazzled.png",
+  deaf: "systems/ffd20/icons/conditions/deaf.png",
+  entangled: "systems/ffd20/icons/conditions/entangled.png",
+  fatigued: "systems/ffd20/icons/conditions/fatigued.png",
+  exhausted: "systems/ffd20/icons/conditions/exhausted.png",
+  grappled: "systems/ffd20/icons/conditions/grappled.png",
+  helpless: "systems/ffd20/icons/conditions/helpless.png",
+  incorporeal: "systems/ffd20/icons/conditions/incorporeal.png",
+  invisible: "systems/ffd20/icons/conditions/invisible.png",
+  paralyzed: "systems/ffd20/icons/conditions/paralyzed.png",
+  pinned: "systems/ffd20/icons/conditions/pinned.png",
+  prone: "systems/ffd20/icons/conditions/prone.png",
+  sickened: "systems/ffd20/icons/conditions/sickened.png",
+  staggered: "systems/ffd20/icons/conditions/staggered.png",
+  stunned: "systems/ffd20/icons/conditions/stunned.png",
+  shaken: "systems/ffd20/icons/conditions/shaken.png",
+  frightened: "systems/ffd20/icons/conditions/frightened.png",
+  panicked: "systems/ffd20/icons/conditions/fear.png",
+  nauseated: "systems/ffd20/icons/conditions/nauseated.png",
+  dazed: "systems/ffd20/icons/conditions/dazed.png",
 };
 
-ffd20lnrw.buffTypes = {
-  temp: "ffd20lnrw.Temporary",
-  perm: "ffd20lnrw.Permanent",
-  item: "ffd20lnrw.Item",
-  misc: "ffd20lnrw.Misc",
+FFD20.buffTypes = {
+  temp: "FFD20.Temporary",
+  perm: "FFD20.Permanent",
+  item: "FFD20.Item",
+  misc: "FFD20.Misc",
 };
 
 // Static conditional modifier targets
-ffd20lnrw.conditionalTargets = {
+FFD20.conditionalTargets = {
   attack: {
-    _label: "ffd20lnrw.AttackRollPlural",
-    allAttack: "ffd20lnrw.All",
-    rapidShotAttack: "ffd20lnrw.RapidShot",
+    _label: "FFD20.AttackRollPlural",
+    allAttack: "FFD20.All",
+    hasteAttack: "FFD20.Haste",
+    rapidShotAttack: "FFD20.RapidShot",
   },
   damage: {
-    _label: "ffd20lnrw.Damage",
-    allDamage: "ffd20lnrw.All",
-    rapidShotDamage: "ffd20lnrw.RapidShot",
+    _label: "FFD20.Damage",
+    allDamage: "FFD20.All",
+    hasteDamage: "FFD20.Haste",
+    rapidShotDamage: "FFD20.RapidShot",
   },
   effect: {
-    _label: "ffd20lnrw.Effects",
+    _label: "FFD20.Effects",
   },
   misc: {
-    _label: "ffd20lnrw.MiscShort",
+    _label: "FFD20.MiscShort",
   },
 };
 
-ffd20lnrw.buffTargets = {
+FFD20.buffTargets = {
   ac: {
-    _label: "ffd20lnrw.BuffTarAC",
-    ac: "ffd20lnrw.BuffTarACGeneric",
-    aac: "ffd20lnrw.BuffTarACArmor",
-    sac: "ffd20lnrw.BuffTarACShield",
-    nac: "ffd20lnrw.BuffTarACNatural",
+    _label: "FFD20.BuffTarAC",
+    ac: "FFD20.BuffTarACGeneric",
+    aac: "FFD20.BuffTarACArmor",
+    sac: "FFD20.BuffTarACShield",
+    nac: "FFD20.BuffTarACNatural",
   },
   attack: {
-    _label: "ffd20lnrw.AttackRollPlural",
-    attack: "ffd20lnrw.All",
-    mattack: "ffd20lnrw.Melee",
-    rattack: "ffd20lnrw.Ranged",
+    _label: "FFD20.AttackRollPlural",
+    attack: "FFD20.All",
+    mattack: "FFD20.Melee",
+    rattack: "FFD20.Ranged",
     "~attackCore": "", // hidden
   },
   damage: {
-    _label: "ffd20lnrw.Damage",
-    damage: "ffd20lnrw.All",
-    wdamage: "ffd20lnrw.WeaponDamage",
-    sdamage: "ffd20lnrw.SpellDamage",
+    _label: "FFD20.Damage",
+    damage: "FFD20.All",
+    wdamage: "FFD20.WeaponDamage",
+    sdamage: "FFD20.SpellDamage",
   },
   ability: {
-    _label: "ffd20lnrw.AbilityScore",
-    str: "ffd20lnrw.AbilityStr",
-    dex: "ffd20lnrw.AbilityDex",
-    con: "ffd20lnrw.AbilityCon",
-    int: "ffd20lnrw.AbilityInt",
-    wis: "ffd20lnrw.AbilityWis",
-    cha: "ffd20lnrw.AbilityCha",
+    _label: "FFD20.AbilityScore",
+    str: "FFD20.AbilityStr",
+    dex: "FFD20.AbilityDex",
+    con: "FFD20.AbilityCon",
+    int: "FFD20.AbilityInt",
+    wis: "FFD20.AbilityWis",
+    cha: "FFD20.AbilityCha",
   },
   savingThrows: {
-    _label: "ffd20lnrw.SavingThrowPlural",
-    allSavingThrows: "ffd20lnrw.All",
-    fort: "ffd20lnrw.SavingThrowFort",
-    ref: "ffd20lnrw.SavingThrowRef",
-    will: "ffd20lnrw.SavingThrowWill",
+    _label: "FFD20.SavingThrowPlural",
+    allSavingThrows: "FFD20.All",
+    fort: "FFD20.SavingThrowFort",
+    ref: "FFD20.SavingThrowRef",
+    will: "FFD20.SavingThrowWill",
   },
   skills: {
-    _label: "ffd20lnrw.Skills",
-    skills: "ffd20lnrw.All",
-    strSkills: "ffd20lnrw.BuffTarStrSkills",
-    dexSkills: "ffd20lnrw.BuffTarDexSkills",
-    conSkills: "ffd20lnrw.BuffTarConSkills",
-    intSkills: "ffd20lnrw.BuffTarIntSkills",
-    wisSkills: "ffd20lnrw.BuffTarWisSkills",
-    chaSkills: "ffd20lnrw.BuffTarChaSkills",
+    _label: "FFD20.Skills",
+    skills: "FFD20.All",
+    strSkills: "FFD20.BuffTarStrSkills",
+    dexSkills: "FFD20.BuffTarDexSkills",
+    conSkills: "FFD20.BuffTarConSkills",
+    intSkills: "FFD20.BuffTarIntSkills",
+    wisSkills: "FFD20.BuffTarWisSkills",
+    chaSkills: "FFD20.BuffTarChaSkills",
   },
   skill: {
-    _label: "ffd20lnrw.BuffTarSpecificSkill",
+    _label: "FFD20.BuffTarSpecificSkill",
   },
   abilityChecks: {
-    _label: "ffd20lnrw.BuffTarAbilityChecks",
-    allChecks: "ffd20lnrw.All",
-    strChecks: "ffd20lnrw.BuffTarStrChecks",
-    dexChecks: "ffd20lnrw.BuffTarDexChecks",
-    conChecks: "ffd20lnrw.BuffTarConChecks",
-    intChecks: "ffd20lnrw.BuffTarIntChecks",
-    wisChecks: "ffd20lnrw.BuffTarWisChecks",
-    chaChecks: "ffd20lnrw.BuffTarChaChecks",
+    _label: "FFD20.BuffTarAbilityChecks",
+    allChecks: "FFD20.All",
+    strChecks: "FFD20.BuffTarStrChecks",
+    dexChecks: "FFD20.BuffTarDexChecks",
+    conChecks: "FFD20.BuffTarConChecks",
+    intChecks: "FFD20.BuffTarIntChecks",
+    wisChecks: "FFD20.BuffTarWisChecks",
+    chaChecks: "FFD20.BuffTarChaChecks",
   },
   speed: {
-    _label: "ffd20lnrw.Speed",
-    allSpeeds: "ffd20lnrw.All",
-    landSpeed: "ffd20lnrw.SpeedLand",
-    climbSpeed: "ffd20lnrw.SpeedClimb",
-    swimSpeed: "ffd20lnrw.SpeedSwim",
-    burrowSpeed: "ffd20lnrw.SpeedBurrow",
-    flySpeed: "ffd20lnrw.SpeedFly",
+    _label: "FFD20.Speed",
+    allSpeeds: "FFD20.All",
+    landSpeed: "FFD20.SpeedLand",
+    climbSpeed: "FFD20.SpeedClimb",
+    swimSpeed: "FFD20.SpeedSwim",
+    burrowSpeed: "FFD20.SpeedBurrow",
+    flySpeed: "FFD20.SpeedFly",
   },
   misc: {
-    _label: "ffd20lnrw.MiscShort",
-    cmb: "ffd20lnrw.CMBAbbr",
-    cmd: "ffd20lnrw.CMDAbbr",
-    init: "ffd20lnrw.Initiative",
-    mhp: "ffd20lnrw.HitPoints",
-    mmp: "ffd20lnrw.ManaPoints",
-    limit: "ffd20lnrw.LimitBreak",
-    acpA: "ffd20lnrw.ACPArmor",
-    acpS: "ffd20lnrw.ACPShield",
-    mDexA: "ffd20lnrw.MaxDexArmor",
-    mDexS: "ffd20lnrw.MaxDexShield",
-    spellResist: "ffd20lnrw.SpellResistance",
+    _label: "FFD20.MiscShort",
+    cmb: "FFD20.CMBAbbr",
+    cmd: "FFD20.CMDAbbr",
+    init: "FFD20.Initiative",
+    mhp: "FFD20.HitPoints",
+    wounds: "FFD20.Wounds",
+    vigor: "FFD20.Vigor",
+    mmp: "FFD20.ManaPoints",
+    limit: "FFD20.LimitBreak",
+    acpA: "FFD20.ACPArmor",
+    acpS: "FFD20.ACPShield",
+    mDexA: "FFD20.MaxDexArmor",
+    mDexS: "FFD20.MaxDexShield",
+    spellResist: "FFD20.SpellResistance",
   },
 };
 
-ffd20lnrw.contextNoteTargets = {
+FFD20.contextNoteTargets = {
   attacks: {
-    _label: "ffd20lnrw.Attacks",
-    attack: "ffd20lnrw.AttackRollPlural",
-    effect: "ffd20lnrw.Effects",
-    melee: "ffd20lnrw.Melee",
-    meleeWeapon: "ffd20lnrw.MeleeWeapon",
-    meleeSpell: "ffd20lnrw.MeleeSpell",
-    ranged: "ffd20lnrw.Ranged",
-    rangedWeapon: "ffd20lnrw.RangedWeapon",
-    rangedSpell: "ffd20lnrw.RangedSpell",
+    _label: "FFD20.Attacks",
+    attack: "FFD20.AttackRollPlural",
+    effect: "FFD20.Effects",
+    melee: "FFD20.Melee",
+    meleeWeapon: "FFD20.MeleeWeapon",
+    meleeSpell: "FFD20.MeleeSpell",
+    ranged: "FFD20.Ranged",
+    rangedWeapon: "FFD20.RangedWeapon",
+    rangedSpell: "FFD20.RangedSpell",
   },
   savingThrows: {
-    _label: "ffd20lnrw.SavingThrowPlural",
-    allSavingThrows: "ffd20lnrw.All",
-    fort: "ffd20lnrw.SavingThrowFort",
-    ref: "ffd20lnrw.SavingThrowRef",
-    will: "ffd20lnrw.SavingThrowWill",
+    _label: "FFD20.SavingThrowPlural",
+    allSavingThrows: "FFD20.All",
+    fort: "FFD20.SavingThrowFort",
+    ref: "FFD20.SavingThrowRef",
+    will: "FFD20.SavingThrowWill",
   },
   skills: {
-    _label: "ffd20lnrw.Skills",
-    skills: "ffd20lnrw.All",
-    strSkills: "ffd20lnrw.BuffTarStrSkills",
-    dexSkills: "ffd20lnrw.BuffTarDexSkills",
-    conSkills: "ffd20lnrw.BuffTarConSkills",
-    intSkills: "ffd20lnrw.BuffTarIntSkills",
-    wisSkills: "ffd20lnrw.BuffTarWisSkills",
-    chaSkills: "ffd20lnrw.BuffTarChaSkills",
+    _label: "FFD20.Skills",
+    skills: "FFD20.All",
+    strSkills: "FFD20.BuffTarStrSkills",
+    dexSkills: "FFD20.BuffTarDexSkills",
+    conSkills: "FFD20.BuffTarConSkills",
+    intSkills: "FFD20.BuffTarIntSkills",
+    wisSkills: "FFD20.BuffTarWisSkills",
+    chaSkills: "FFD20.BuffTarChaSkills",
   },
   skill: {
-    _label: "ffd20lnrw.BuffTarSpecificSkill",
+    _label: "FFD20.BuffTarSpecificSkill",
   },
   abilityChecks: {
-    _label: "ffd20lnrw.BuffTarAbilityChecks",
-    allChecks: "ffd20lnrw.All",
-    strChecks: "ffd20lnrw.BuffTarStrChecks",
-    dexChecks: "ffd20lnrw.BuffTarDexChecks",
-    conChecks: "ffd20lnrw.BuffTarConChecks",
-    intChecks: "ffd20lnrw.BuffTarIntChecks",
-    wisChecks: "ffd20lnrw.BuffTarWisChecks",
-    chaChecks: "ffd20lnrw.BuffTarChaChecks",
+    _label: "FFD20.BuffTarAbilityChecks",
+    allChecks: "FFD20.All",
+    strChecks: "FFD20.BuffTarStrChecks",
+    dexChecks: "FFD20.BuffTarDexChecks",
+    conChecks: "FFD20.BuffTarConChecks",
+    intChecks: "FFD20.BuffTarIntChecks",
+    wisChecks: "FFD20.BuffTarWisChecks",
+    chaChecks: "FFD20.BuffTarChaChecks",
   },
   spell: {
-    _label: "ffd20lnrw.BuffTarSpells",
-    effect: "ffd20lnrw.SpellBuffEffect",
-    concentration: "ffd20lnrw.Concentration",
-    cl: "ffd20lnrw.CasterLevel",
+    _label: "FFD20.BuffTarSpells",
+    effect: "FFD20.SpellBuffEffect",
+    concentration: "FFD20.Concentration",
+    cl: "FFD20.CasterLevel",
   },
   misc: {
-    _label: "ffd20lnrw.MiscShort",
-    ac: "ffd20lnrw.ACNormal",
-    cmb: "ffd20lnrw.CMBAbbr",
-    cmd: "ffd20lnrw.CMDAbbr",
-    sr: "ffd20lnrw.SpellResistance",
-    init: "ffd20lnrw.Initiative",
+    _label: "FFD20.MiscShort",
+    ac: "FFD20.ACNormal",
+    cmb: "FFD20.CMBAbbr",
+    cmd: "FFD20.CMDAbbr",
+    sr: "FFD20.SpellResistance",
+    init: "FFD20.Initiative",
   },
 };
 
 // Languages
-ffd20lnrw.languages = {
-  common: "ffd20lnrw.LanguageCommon",
-  dwarven: "ffd20lnrw.LanguageDwarven",
-  elvaan: "ffd20lnrw.LanguageElvaan",
-  galkan: "ffd20lnrw.LanguageGalkan",
-  lalafellan: "ffd20lnrw.LanguageLalafellan",
-  mithran: "ffd20lnrw.LanguageMithran",
-  moogle: "ffd20lnrw.LanguageMoogle",
-  aegyllan: "ffd20lnrw.LanguageAegyllan",
-  albhedian: "ffd20lnrw.LanguageAlbhedian",
-  banganese: "ffd20lnrw.LanguageBanganese",
-  burmecian: "ffd20lnrw.LanguageBurmecian",
-  draconic: "ffd20lnrw.LanguageDraconic",
-  garif: "ffd20lnrw.LanguageGarif",
-  guado: "ffd20lnrw.LanguageGuado",
-  hypello: "ffd20lnrw.LanguageHypello",
-  lupin: "ffd20lnrw.LanguageLupin",
-  mandragoran: "ffd20lnrw.LanguageMandragoran",
-  numish: "ffd20lnrw.LanguageNumish",
-  qiqirn: "ffd20lnrw.LanguageQiqirn",
-  queran: "ffd20lnrw.LanguageQueran",
-  roegadyn: "ffd20lnrw.LanguageRoegadyn",
-  ronsaur: "ffd20lnrw.LanguageRonsaur",
-  seeq: "ffd20lnrw.LanguageSeeq",
-  tonberry: "ffd20lnrw.LanguageTonberry",
-  vieran: "ffd20lnrw.LanguageVieran",
-  aquan: "ffd20lnrw.LanguageAquan",
-  auran: "ffd20lnrw.LanguageAuran",
-  auroran: "ffd20lnrw.LanguageAuroran",
-  enochian: "ffd20lnrw.LanguageEnochian",
-  ignan: "ffd20lnrw.LanguageIgnan",
-  terran: "ffd20lnrw.LanguageTerran",
-  thorian: "ffd20lnrw.LanguageThorian",
-  umbran: "ffd20lnrw.LanguageUmbran",
-  amaljaa: "ffd20lnrw.LanguageAmaljaa",
-  antican: "ffd20lnrw.LanguageAntican",
-  goblin: "ffd20lnrw.LanguageGoblin",
-  kojin: "ffd20lnrw.LanguageKojin",
-  orcish: "ffd20lnrw.LanguageOrcish",
-  quadav: "ffd20lnrw.LanguageQuadav",
-  sahagin: "ffd20lnrw.LanguageSahagin",
-  sylvan: "ffd20lnrw.LanguageSylvan",
-  undercommon: "ffd20lnrw.LanguageUndercommon",
-  vanu: "ffd20lnrw.LanguageVanu",
-  yagudo: "ffd20lnrw.LanguageYagudo",
+FFD20.languages = {
+  common: "FFD20.LanguageCommon",
+  dwarven: "FFD20.LanguageDwarven",
+  elvaan: "FFD20.LanguageElvaan",
+  galkan: "FFD20.LanguageGalkan",
+  lalafellan: "FFD20.LanguageLalafellan",
+  mithran: "FFD20.LanguageMithran",
+  moogle: "FFD20.LanguageMoogle",
+  aegyllan: "FFD20.LanguageAegyllan",
+  albhedian: "FFD20.LanguageAlbhedian",
+  banganese: "FFD20.LanguageBanganese",
+  burmecian: "FFD20.LanguageBurmecian",
+  draconic: "FFD20.LanguageDraconic",
+  garif: "FFD20.LanguageGarif",
+  guado: "FFD20.LanguageGuado",
+  hypello: "FFD20.LanguageHypello",
+  lupin: "FFD20.LanguageLupin",
+  mandragoran: "FFD20.LanguageMandragoran",
+  numish: "FFD20.LanguageNumish",
+  qiqirn: "FFD20.LanguageQiqirn",
+  queran: "FFD20.LanguageQueran",
+  roegadyn: "FFD20.LanguageRoegadyn",
+  ronsaur: "FFD20.LanguageRonsaur",
+  seeq: "FFD20.LanguageSeeq",
+  tonberry: "FFD20.LanguageTonberry",
+  vieran: "FFD20.LanguageVieran",
+  aquan: "FFD20.LanguageAquan",
+  auran: "FFD20.LanguageAuran",
+  auroran: "FFD20.LanguageAuroran",
+  enochian: "FFD20.LanguageEnochian",
+  ignan: "FFD20.LanguageIgnan",
+  terran: "FFD20.LanguageTerran",
+  thorian: "FFD20.LanguageThorian",
+  umbran: "FFD20.LanguageUmbran",
+  amaljaa: "FFD20.LanguageAmaljaa",
+  antican: "FFD20.LanguageAntican",
+  goblin: "FFD20.LanguageGoblin",
+  kojin: "FFD20.LanguageKojin",
+  orcish: "FFD20.LanguageOrcish",
+  quadav: "FFD20.LanguageQuadav",
+  sahagin: "FFD20.LanguageSahagin",
+  sylvan: "FFD20.LanguageSylvan",
+  undercommon: "FFD20.LanguageUndercommon",
+  vanu: "FFD20.LanguageVanu",
+  yagudo: "FFD20.LanguageYagudo",
 };
 
-ffd20lnrw.creatureTypes = {
-  aberration: "ffd20lnrw.CreatureTypeAberration",
-  animal: "ffd20lnrw.CreatureTypeAnimal",
-  construct: "ffd20lnrw.CreatureTypeConstruct",
-  dragon: "ffd20lnrw.CreatureTypeDragon",
-  fey: "ffd20lnrw.CreatureTypeFey",
-  humanoid: "ffd20lnrw.CreatureTypeHumanoid",
-  magicalBeast: "ffd20lnrw.CreatureTypeMagicalBeast",
-  monstrousHumanoid: "ffd20lnrw.CreatureTypeMonstrousHumanoid",
-  ooze: "ffd20lnrw.CreatureTypeOoze",
-  outsider: "ffd20lnrw.CreatureTypeOutsider",
-  plant: "ffd20lnrw.CreatureTypePlant",
-  undead: "ffd20lnrw.CreatureTypeUndead",
-  vermin: "ffd20lnrw.CreatureTypeVermin",
+FFD20.creatureTypes = {
+  aberration: "FFD20.CreatureTypeAberration",
+  animal: "FFD20.CreatureTypeAnimal",
+  construct: "FFD20.CreatureTypeConstruct",
+  dragon: "FFD20.CreatureTypeDragon",
+  fey: "FFD20.CreatureTypeFey",
+  humanoid: "FFD20.CreatureTypeHumanoid",
+  magicalBeast: "FFD20.CreatureTypeMagicalBeast",
+  monstrousHumanoid: "FFD20.CreatureTypeMonstrousHumanoid",
+  ooze: "FFD20.CreatureTypeOoze",
+  outsider: "FFD20.CreatureTypeOutsider",
+  plant: "FFD20.CreatureTypePlant",
+  undead: "FFD20.CreatureTypeUndead",
+  vermin: "FFD20.CreatureTypeVermin",
 };
 
-ffd20lnrw.sizeDie = [
+FFD20.sizeDie = [
   "1",
   "1d2",
   "1d3",
@@ -1526,7 +1534,7 @@ ffd20lnrw.sizeDie = [
 ];
 
 // Character Level XP Requirements
-ffd20lnrw.CHARACTER_EXP_LEVELS = {
+FFD20.CHARACTER_EXP_LEVELS = {
   slow: [
     0,
     3000,
@@ -1626,7 +1634,7 @@ ffd20lnrw.CHARACTER_EXP_LEVELS = {
 };
 
 // Challenge Rating XP Levels
-ffd20lnrw.CR_EXP_LEVELS = [
+FFD20.CR_EXP_LEVELS = [
   200,
   400,
   600,
@@ -1659,5 +1667,36 @@ ffd20lnrw.CR_EXP_LEVELS = [
   6553600,
   9830400,
 ];
+
+FFD20.temporaryRollDataFields = {
+  actor: [
+    "d20",
+    "attackBonus",
+    "damageBonus",
+    "pointBlankBonus",
+    "rapidShotPenalty",
+    "powerAttackBonus",
+    "powerAttackPenalty",
+    "conditionals",
+    "concentrationBonus",
+    "formulaBonus",
+    "dcBonus",
+    "chargeCostBonus",
+    "chargeCost",
+    "sizeBonus",
+    "bonus",
+    "critMult",
+    "ablMult",
+    "ablDamage",
+    "cl",
+    "sl",
+    "classLevel",
+    "ablMod",
+    "item",
+    "level",
+    "mod",
+    "spells",
+  ],
+};
 
 CONFIG.Combat.initiative.decimals = 2;

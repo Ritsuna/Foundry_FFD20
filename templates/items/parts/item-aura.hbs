@@ -1,14 +1,14 @@
 {{#unless showUnidentifiedData}}
-<h3 class="form-header">{{localize "ffd20lnrw.Aura"}}</h3>
+<h3 class="form-header">{{localize "FFD20.Aura"}}</h3>
 
 {{!-- Caster Level --}}
 <div class="form-group tooltip">
   <div class="tooltipcontent">
     @item.cl : {{data.cl}}
   </div>
-  <label>{{localize "ffd20lnrw.CasterLevel"}}</label>
+  <label>{{localize "FFD20.CasterLevel"}}</label>
   <div class="form-fields">
-    <input type="text" name="data.cl" value="{{data.cl}}" placeholder="{{localize "ffd20lnrw.CasterLevel"}}" data-dtype="Number"/>
+    <input type="text" name="data.cl" value="{{data.cl}}" placeholder="{{localize "FFD20.CasterLevel"}}" data-dtype="Number"/>
   </div>
 </div>
 
@@ -17,11 +17,11 @@
   <div class="tooltipcontent">
     @item.auraStrength : {{auraStrength}}
   </div>
-  <label>{{localize "ffd20lnrw.Aura"}}</label>
+  <label>{{localize "FFD20.Aura"}}</label>
   {{#if data.aura.custom}}
   <div class="form-fields">
     <label class="aura-strength">{{auraStrength_name}}</label>
-    <input type="text" name="data.aura.school" value="{{data.aura.school}}" placeholder="{{localize "ffd20lnrw.Aura"}}"/>
+    <input type="text" name="data.aura.school" value="{{data.aura.school}}" placeholder="{{localize "FFD20.Aura"}}"/>
   </div>
   {{else}}
   <div class="form-fields">
@@ -37,7 +37,7 @@
   </div>
   {{/if}}
   <label class="checkbox">
-    <input type="checkbox" name="data.aura.custom" {{checked data.aura.custom}}/> {{localize "ffd20lnrw.Custom"}}
+    <input type="checkbox" name="data.aura.custom" {{checked data.aura.custom}}/> {{localize "FFD20.Custom"}}
   </label>
 </div>
 

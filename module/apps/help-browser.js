@@ -1,4 +1,4 @@
-export class ffd20lnrw_HelpBrowser extends Application {
+export class FFD20_HelpBrowser extends Application {
   constructor(...args) {
     super(...args);
 
@@ -50,8 +50,8 @@ export class ffd20lnrw_HelpBrowser extends Application {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["ffd20lnrw", "help-browser"],
-      template: "systems/ffd20lnrw/templates/apps/help-browser.hbs",
+      classes: ["FFD20", "help-browser"],
+      template: "systems/ffd20/templates/apps/help-browser.hbs",
       minWidth: 800,
       minHeight: 450,
       width: 960,
@@ -61,7 +61,7 @@ export class ffd20lnrw_HelpBrowser extends Application {
   }
 
   get title() {
-    return game.i18n.localize("ffd20lnrw.Help.Label");
+    return game.i18n.localize("FFD20.Help.Label");
   }
 
   get currentURL() {
@@ -76,7 +76,7 @@ export class ffd20lnrw_HelpBrowser extends Application {
     data.hasHistoryBack = this.history.length > this._historyIndex + 1;
     data.hasHistoryForward = this._historyIndex > 0;
 
-    data.nav = await renderTemplate("systems/ffd20lnrw/help/nav.hbs", data);
+    data.nav = await renderTemplate("systems/ffd20/help/nav.hbs", data);
 
     return data;
   }

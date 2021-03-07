@@ -7,9 +7,9 @@
                 @attributes.ac.{{id}}.total : {{ac.total}}<br/>
                 @armor.type : {{../rollData.armor.type}}<br/>
                 @shield.type : {{../rollData.shield.type}}
-            
+
                 {{#if ac.sourceDetails.length}}
-                <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each ac.sourceDetails as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
@@ -22,30 +22,30 @@
             <th class="tooltip">
                 <div class="tooltipcontent">
                 @attributes.cmd.total : {{data.attributes.cmd.total}}
-            
+
                 {{#if sourceDetails.data.attributes.cmd.total.length}}
-                <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each sourceDetails.data.attributes.cmd.total as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
                 {{/if}}
                 </div>
 
-                {{localize "ffd20lnrw.CMDAbbr"}}
+                {{localize "FFD20.CMDAbbr"}}
             </th>
             <th class="tooltip">
                 <div class="tooltipcontent">
                 @attributes.cmd.flatFootedTotal : {{data.attributes.cmd.flatFootedTotal}}
-            
+
                 {{#if sourceDetails.data.attributes.cmd.flatFootedTotal.length}}
-                <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each sourceDetails.data.attributes.cmd.flatFootedTotal as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
                 {{/if}}
                 </div>
-                
-                {{localize "ffd20lnrw.CMDFFAbbr"}}
+
+                {{localize "FFD20.CMDFFAbbr"}}
             </th>
         </tr>
     </thead>
@@ -75,7 +75,7 @@
                 @attributes.savingThrows.{{id}}.total : {{savingThrow.total}}
 
                 {{#if savingThrow.sourceDetails.length}}
-                <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each savingThrow.sourceDetails as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
@@ -90,14 +90,14 @@
                 @attributes.sr.total : {{data.attributes.sr.total}}
 
                 {{#if sourceDetails.data.attributes.sr.total.length}}
-                  <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                  <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                   {{#each sourceDetails.data.attributes.sr.total as |src|}}
                     {{src.name}}: {{src.value}}<br/>
                   {{/each}}
                 {{/if}}
                 </div>
 
-                {{localize "ffd20lnrw.SpellResistance"}}
+                {{localize "FFD20.SpellResistance"}}
             </th>
         </tr>
     </thead>

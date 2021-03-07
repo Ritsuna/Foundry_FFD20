@@ -60,7 +60,7 @@ export const registerHandlebarsHelpers = function () {
   Handlebars.registerHelper("convertDistance", (value) => (Number.isFinite(value) ? convertDistance(value)[0] : value));
 
   Handlebars.registerHelper("itemRange", (item, rollData) => {
-    // Itemffd20lnrw.range is not accessible here and is thus largely duplicated here
+    // ItemFFD20.range is not accessible here and is thus largely duplicated here
 
     let range = getProperty(item, "data.range.value");
     const rangeType = getProperty(item, "data.range.units");
@@ -68,33 +68,39 @@ export const registerHandlebarsHelpers = function () {
     if (rangeType == null) return null;
 
     const toFeet = () => {
-      switch (rangeType) {
-        case "melee":
-        case "touch":
-          return getProperty(rollData, "range.melee") || 0;
-        case "reach":
-          return getProperty(rollData, "range.reach") || 0;
-        case "close":
-          return new Roll("25 + floor(@cl / 2) * 5", item).roll().total;
-        case "medium":
-          return new Roll("100 + @cl * 10", rollData).roll().total;
-        case "long":
-          return new Roll("400 + @cl * 40", rollData).roll().total;
-        case "mi":
-          return range * 5280; // TODO: Should remain as miles for shortness
-        case "ft":
-          return new Roll(range, rollData)?.roll()?.total ?? range;
-        default:
-          return range;
+      try {
+        switch (rangeType) {
+          case "melee":
+          case "touch":
+            return getProperty(rollData, "range.melee") || 0;
+          case "reach":
+            return getProperty(rollData, "range.reach") || 0;
+          case "close":
+            return new Roll("25 + floor(@cl / 2) * 5", rollData).roll().total;
+          case "medium":
+            return new Roll("100 + @cl * 10", rollData).roll().total;
+          case "long":
+            return new Roll("400 + @cl * 40", rollData).roll().total;
+          case "mi":
+            return range * 5280; // TODO: Should remain as miles for shortness
+          case "ft":
+            return new Roll(range, rollData).roll().total;
+          default:
+            return range;
+        }
+      } catch (err) {
+        console.log(err, item);
+        return "[x]";
       }
     };
 
     const ft = toFeet();
-    if (ft) {
+    if (ft && typeof ft !== "string") {
       const rv = convertDistance(ft);
       return `${rv[0]} ${rv[1]}`;
+    } else {
+      return "" + (ft ?? "");
     }
-    return null;
   });
 
   Handlebars.registerHelper("itemDamage", (item, rollData) => {
@@ -140,7 +146,10 @@ export const registerHandlebarsHelpers = function () {
     return null;
   });
 
-  Handlebars.registerHelper("itemAttacks", (item) => 1 + item.data.attackParts.length);
+  Handlebars.registerHelper(
+    "itemAttacks",
+    (item) => 1 + item.data.attackParts.length + (item.data.formulaicAttacks?.count?.value ?? 0)
+  );
 
   // Fetches ability mod value based on ability key.
   // Avoids contaminating rollData or item data with excess strings.

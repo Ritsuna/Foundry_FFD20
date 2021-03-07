@@ -1,5 +1,3 @@
-import { isMinimumCoreVersion } from "../lib.js";
-
 export class ExperienceConfig extends FormApplication {
   constructor(object, options) {
     super(object || ExperienceConfig.defaultSettings, options);
@@ -12,7 +10,7 @@ export class ExperienceConfig extends FormApplication {
     const data = {};
 
     if (!this._init) {
-      const settings = await game.settings.get("ffd20lnrw", "experienceConfig");
+      const settings = await game.settings.get("FFD20", "experienceConfig");
       this._settings = mergeObject(this.constructor.defaultSettings, settings);
       this._init = true;
     }
@@ -27,9 +25,9 @@ export class ExperienceConfig extends FormApplication {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      title: game.i18n.localize("ffd20lnrw.ExperienceConfigName"),
+      title: game.i18n.localize("FFD20.ExperienceConfigName"),
       id: "experience-config",
-      template: "systems/ffd20lnrw/templates/settings/experience.hbs",
+      template: "systems/ffd20/templates/settings/experience.hbs",
       width: 560,
       height: "auto",
     });
@@ -65,26 +63,8 @@ export class ExperienceConfig extends FormApplication {
   }
 
   _updateApplicationSettings() {
-    let formData;
-    if (isMinimumCoreVersion("0.7.2")) {
-      formData = this._getSubmitData();
-    } else {
-      const FD = this._getFormData(this.form);
-      const dtypes = FD._dtypes;
-
-      // Construct update data object by casting form data
-      formData = Array.from(FD).reduce((obj, [k, v]) => {
-        let dt = dtypes[k];
-        if (dt === "Number") obj[k] = v !== "" ? Number(v) : null;
-        else if (dt === "Boolean") obj[k] = v === "true";
-        else if (dt === "Radio") obj[k] = JSON.parse(v);
-        else obj[k] = v;
-        return obj;
-      }, {});
-    }
-
     // Update settings and re-render
-    this._settings = mergeObject(this._settings, expandObject(formData));
+    this._settings = mergeObject(this._settings, expandObject(this._getSubmitData()));
     this.render();
   }
 
@@ -95,7 +75,7 @@ export class ExperienceConfig extends FormApplication {
   async _updateObject(event, formData) {
     const settings = expandObject(formData);
     // Some mild sanitation for the numeric values.
-    await game.settings.set("ffd20lnrw", "experienceConfig", settings);
+    await game.settings.set("FFD20", "experienceConfig", settings);
     ui.notifications.info("Updated Pathfinder experience configuration.");
   }
 }

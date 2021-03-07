@@ -1,6 +1,6 @@
 import { CompendiumBrowser } from "../apps/compendium-browser.js";
 
-export class Sidebarffd20lnrw extends Sidebar {
+export class SidebarFFD20 extends Sidebar {
   constructor(...args) {
     super(...args);
 
@@ -15,7 +15,7 @@ export class Sidebarffd20lnrw extends Sidebar {
     await super._render(...args);
 
     const parent = this.element.find("#compendium .directory-footer");
-    const child = await renderTemplate("systems/ffd20lnrw/templates/sidebar/compendiums-footer.hbs", {});
+    const child = await renderTemplate("systems/ffd20/templates/sidebar/compendiums-footer.hbs", {});
     parent.append(child);
     this.activateExtraListeners(parent);
   }

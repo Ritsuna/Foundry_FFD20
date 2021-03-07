@@ -14,9 +14,9 @@ export class TokenQuickActions {
       const item = i.item;
       const icon = item.img ?? DEFAULT_TOKEN;
       let title = "";
-      if (item.type === "attack") title = game.i18n.localize("ffd20lnrw.AttackWith").format(item.name);
-      else if (item.type === "spell") title = game.i18n.localize("ffd20lnrw.AttackWithSpell").format(item.name);
-      else if (item.type === "feat") title = game.i18n.localize("ffd20lnrw.AttackWithFeat").format(item.name);
+      if (item.type === "attack") title = game.i18n.localize("FFD20.AttackWith").format(item.name);
+      else if (item.type === "spell") title = game.i18n.localize("FFD20.AttackWithSpell").format(item.name);
+      else if (item.type === "feat") title = game.i18n.localize("FFD20.AttackWithFeat").format(item.name);
       const type = item.type;
       quickActions +=
         `<div id="${type}-${item._id}" class="control-icon token-quick-action" style="border: 2px solid ${i.color1};">` +
@@ -41,7 +41,7 @@ export class TokenQuickActions {
       // Add mouse enter handler
       let highlight;
       elem.on("mouseenter", (event) => {
-        if (!game.settings.get("ffd20lnrw", "hideReachMeasurements")) highlight = showAttackReach(token, item);
+        if (!game.settings.get("FFD20", "hideReachMeasurements")) highlight = showAttackReach(token, item);
 
         if (!highlight) return;
 

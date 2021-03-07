@@ -1,11 +1,10 @@
 import { ActorTraitSelector } from "../../apps/trait-selector.js";
 import { ActorRestDialog } from "../../apps/actor-rest.js";
 import { ActorSheetFlags } from "../../apps/actor-flags.js";
-import { Diceffd20lnrw } from "../../dice.js";
+import { DiceFFD20 } from "../../dice.js";
 import {
   createTag,
   createTabs,
-  isMinimumCoreVersion,
   CR,
   convertWeight,
   createConsumableSpellDialog,
@@ -14,17 +13,17 @@ import {
 import { PointBuyCalculator } from "../../apps/point-buy-calculator.js";
 import { Widget_ItemPicker } from "../../widgets/item-picker.js";
 import { getSkipActionPrompt } from "../../settings.js";
-import { Itemffd20lnrw } from "../../item/entity.js";
+import { ItemFFD20 } from "../../item/entity.js";
 import { dialogGetActor } from "../../dialog.js";
 import { applyAccessibilitySettings } from "../../chat.js";
 
 /**
- * Extend the basic ActorSheet class to do all the ffd20lnrw things!
+ * Extend the basic ActorSheet class to do all the FFD20 things!
  * This sheet is an Abstract layer which is not used.
  *
  * @type {ActorSheet}
  */
-export class ActorSheetffd20lnrw extends ActorSheet {
+export class ActorSheetFFD20 extends ActorSheet {
   constructor(...args) {
     super(...args);
 
@@ -136,7 +135,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         if (ed.mce && ed.changed) {
           let d = Dialog.confirm({
             title: this.object.name + " : " + ed.target,
-            content: `<p>${game.i18n.localize("ffd20lnrw.UnsavedTinyMCE")}</p>`,
+            content: `<p>${game.i18n.localize("FFD20.UnsavedTinyMCE")}</p>`,
             yes: () => this.saveEditor(ed.target),
             no: () => ed.mce.destroy(),
             defaultYes: true,
@@ -164,8 +163,8 @@ export class ActorSheetffd20lnrw extends ActorSheet {
       cssClass: isOwner ? "editable" : "locked",
       isCharacter: this.entity.data.type === "character",
       hasRace: false,
-      config: CONFIG.ffd20lnrw,
-      useBGSkills: game.settings.get("ffd20lnrw", "allowBackgroundSkills"),
+      config: CONFIG.FFD20,
+      useBGSkills: game.settings.get("FFD20", "allowBackgroundSkills"),
       spellFailure: this.entity.spellFailure,
       isGM: game.user.isGM,
       race: this.actor.race != null ? duplicate(this.actor.race.data) : null,
@@ -176,6 +175,8 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
     // The Actor and its Items
     data.actor = duplicate(this.actor.data);
+    if (this.actor.isToken) data.token = duplicate(this.actor.token.data);
+    else data.token = data.actor.token;
     data.items = this.actor.items.map((i) => {
       i.data.labels = i.labels;
       i.data.hasAttack = i.hasAttack;
@@ -205,8 +206,8 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     data.data.attributes.attack.rangedAttackMod = rangedAtkAbl;
     data.meleeAttack = coreAttack + data.data.attributes.attack.melee + (meleeAtkAbl ?? 0);
     data.rangedAttack = coreAttack + data.data.attributes.attack.ranged + (rangedAtkAbl ?? 0);
-    data.data.attributes.attack.meleeAttackLabel = CONFIG.ffd20lnrw.abilities[data.data.attributes.attack.meleeAbility];
-    data.data.attributes.attack.rangedAttackLabel = CONFIG.ffd20lnrw.abilities[data.data.attributes.attack.rangedAbility];
+    data.data.attributes.attack.meleeAttackLabel = CONFIG.FFD20.abilities[data.data.attributes.attack.meleeAbility];
+    data.data.attributes.attack.rangedAttackLabel = CONFIG.FFD20.abilities[data.data.attributes.attack.rangedAbility];
 
     // Add inventory value
     {
@@ -215,13 +216,13 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         gil: Math.max(0, Math.floor(gilValue)),
       };
       data.labels.totalValue = game.i18n
-        .localize("ffd20lnrw.ItemContainerTotalItemValue")
-        .format(totalValue.gil);
+        .localize("FFD20.ItemContainerTotalItemValue")
+      .format(totalValue.gil);
     }
 
     // Race type label
     if (data.race) {
-      data.raceLabel = CONFIG.ffd20lnrw.creatureTypes[data.race.data.creatureType];
+      data.raceLabel = CONFIG.FFD20.creatureTypes[data.race.data.creatureType];
       const subTypes = data.race.data.subTypes;
       if (subTypes && subTypes.length) {
         data.raceLabel = `${data.raceLabel} (${subTypes.join(", ")})`;
@@ -234,20 +235,21 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
     // Ability Scores
     for (let [a, abl] of Object.entries(data.actor.data.abilities)) {
-      abl.label = CONFIG.ffd20lnrw.abilities[a];
+      abl.label = CONFIG.FFD20.abilities[a];
       abl.sourceDetails = data.sourceDetails != null ? data.sourceDetails.data.abilities[a].total : [];
+      abl.totalLabel = abl.total == null ? "-" : abl.total;
     }
 
     // Armor Class
     for (let [a, ac] of Object.entries(data.actor.data.attributes.ac)) {
-      ac.label = CONFIG.ffd20lnrw.ac[a];
-      ac.valueLabel = CONFIG.ffd20lnrw.acValueLabels[a];
+      ac.label = CONFIG.FFD20.ac[a];
+      ac.valueLabel = CONFIG.FFD20.acValueLabels[a];
       ac.sourceDetails = data.sourceDetails != null ? data.sourceDetails.data.attributes.ac[a].total : [];
     }
 
     // Saving Throws
     for (let [a, savingThrow] of Object.entries(data.actor.data.attributes.savingThrows)) {
-      savingThrow.label = CONFIG.ffd20lnrw.savingThrows[a];
+      savingThrow.label = CONFIG.FFD20.savingThrows[a];
       savingThrow.sourceDetails =
         data.sourceDetails != null ? data.sourceDetails.data.attributes.savingThrows[a].total : [];
     }
@@ -255,29 +257,29 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     // Update skill labels
     const acp = getProperty(this.actor.data, "data.attributes.acp.total");
     for (let [s, skl] of Object.entries(data.actor.data.skills)) {
-      skl.label = CONFIG.ffd20lnrw.skills[s];
-      skl.arbitrary = CONFIG.ffd20lnrw.arbitrarySkills.includes(s);
+      skl.label = CONFIG.FFD20.skills[s];
+      skl.arbitrary = CONFIG.FFD20.arbitrarySkills.includes(s);
       skl.sourceDetails = [];
-      skl.compendiumEntry = CONFIG.ffd20lnrw.skillCompendiumEntries[s] ?? null;
+      skl.compendiumEntry = CONFIG.FFD20.skillCompendiumEntries[s] ?? null;
 
       // Add skill rank source
       if (skl.rank > 0) {
-        skl.sourceDetails.push({ name: game.i18n.localize("ffd20lnrw.SkillRankPlural"), value: skl.rank });
+        skl.sourceDetails.push({ name: game.i18n.localize("FFD20.SkillRankPlural"), value: skl.rank });
 
         // Add class skill bonus source
         if (skl.cs) {
-          skl.sourceDetails.push({ name: game.i18n.localize("ffd20lnrw.CSTooltip"), value: 3 });
+          skl.sourceDetails.push({ name: game.i18n.localize("FFD20.CSTooltip"), value: 3 });
         }
       }
 
       // Add ACP source
       if (skl.acp && acp > 0) {
-        skl.sourceDetails.push({ name: game.i18n.localize("ffd20lnrw.ACPLong"), value: -acp });
+        skl.sourceDetails.push({ name: game.i18n.localize("FFD20.ACPLong"), value: -acp });
       }
 
       // Add ability modifier source
       skl.sourceDetails.push({
-        name: CONFIG.ffd20lnrw.abilities[skl.ability],
+        name: CONFIG.FFD20.abilities[skl.ability],
         value: data.actor.data.abilities[skl.ability].mod,
       });
 
@@ -292,7 +294,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         const energyDrain = getProperty(data.data, "data.attributes.energyDrain");
         if (energyDrain) {
           skl.sourceDetails.push({
-            name: game.i18n.localize("ffd20lnrw.CondTypeEnergyDrain"),
+            name: game.i18n.localize("FFD20.CondTypeEnergyDrain"),
             value: -Math.abs(energyDrain),
           });
         }
@@ -303,13 +305,13 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         for (let [s2, skl2] of Object.entries(skl.subSkills)) {
           skl2.sourceDetails = [];
           if (skl2.rank > 0) {
-            skl2.sourceDetails.push({ name: game.i18n.localize("ffd20lnrw.SkillRankPlural"), value: skl2.rank });
+            skl2.sourceDetails.push({ name: game.i18n.localize("FFD20.SkillRankPlural"), value: skl2.rank });
             if (skl2.cs) {
-              skl2.sourceDetails.push({ name: game.i18n.localize("ffd20lnrw.CSTooltip"), value: 3 });
+              skl2.sourceDetails.push({ name: game.i18n.localize("FFD20.CSTooltip"), value: 3 });
             }
           }
           skl2.sourceDetails.push({
-            name: CONFIG.ffd20lnrw.abilities[skl2.ability],
+            name: CONFIG.FFD20.abilities[skl2.ability],
             value: data.actor.data.abilities[skl2.ability].mod,
           });
           if (
@@ -327,7 +329,6 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
     // Update spellbook info
     for (let [k, spellbook] of Object.entries(getProperty(data.data, "attributes.spells.spellbooks"))) {
-      spellbook.range = getProperty(rollData, `spells.${k}.range`);
       setProperty(
         data.data,
         `attributes.spells.spellbooks.${k}.inUse`,
@@ -412,7 +413,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         (o) => o.type === "feat" && o.data.data.featType === "feat"
       ).length;
       const totalLevels = this.actor.items
-        .filter((o) => o.type === "class" && ["base", "prestige", "racial"].includes(o.data.data.classType))
+        .filter((o) => o.type === "class" && ["base", "npc", "prestige", "racial"].includes(o.data.data.classType))
         .reduce((cur, o) => {
           return cur + o.data.data.level;
         }, 0);
@@ -423,8 +424,8 @@ export class ActorSheetffd20lnrw extends ActorSheet {
           : 0;
       } catch (e) {
         const msg = game.i18n
-          .localize("ffd20lnrw.ErrorActorFormula")
-          .format(game.i18n.localize("ffd20lnrw.BonusFeatFormula"), this.actor.name);
+          .localize("FFD20.ErrorActorFormula")
+          .format(game.i18n.localize("FFD20.BonusFeatFormula"), this.actor.name);
         console.error(msg);
         ui.notifications.error(msg);
         data.featCount.byFormula = 0;
@@ -433,7 +434,11 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     }
 
     // Fetch the game settings relevant to sheet rendering.
-    data.healthConfig = game.settings.get("ffd20lnrw", "healthConfig");
+    {
+      const actorType = { character: "pc", npc: "npc" }[this.actor.data.type];
+      data.healthConfig = game.settings.get("FFD20", "healthConfig");
+      data.useWoundsAndVigor = data.healthConfig.variants[actorType].useWoundsAndVigor;
+    }
 
     // Get classes
     data.data.classes = rollData.classes;
@@ -461,10 +466,10 @@ export class ActorSheetffd20lnrw extends ActorSheet {
           data._id = o._id;
           data.cl = getProperty(o.data, "data.cl");
           data.school = getProperty(o.data, "data.aura.school");
-          if (CONFIG.ffd20lnrw.spellSchools[data.school] != null) {
-            data.school = CONFIG.ffd20lnrw.spellSchools[data.school];
+          if (CONFIG.FFD20.spellSchools[data.school] != null) {
+            data.school = CONFIG.FFD20.spellSchools[data.school];
           }
-          data.school = `${CONFIG.ffd20lnrw.auraStrengths[o.auraStrength]} <b>${data.school}</b>`;
+          data.school = `${CONFIG.FFD20.auraStrengths[o.auraStrength]} <b>${data.school}</b>`;
           data.identifyDC = 15 + data.cl;
           {
             const quantity = getProperty(o.data, "data.quantity") || 0;
@@ -475,7 +480,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
           return data;
         });
       if (magicItems.length > 0) {
-        data.table_magicItems = await renderTemplate("systems/ffd20lnrw/templates/internal/table_magic-items.hbs", {
+        data.table_magicItems = await renderTemplate("systems/ffd20/templates/internal/table_magic-items.hbs", {
           items: magicItems,
           isGM: game.user.isGM,
         });
@@ -485,11 +490,11 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     // Prepare (interactive) labels
     {
       data.labels.firstClass = game.i18n
-        .localize("ffd20lnrw.Info_FirstClass")
+        .localize("FFD20.Info_FirstClass")
         .format(
           `<a data-action="compendium" data-action-target="classes" title="${game.i18n.localize(
-            "ffd20lnrw.OpenCompendium"
-          )}">${game.i18n.localize("ffd20lnrw.Info_FirstClass_Compendium")}</a>`
+            "FFD20.OpenCompendium"
+          )}">${game.i18n.localize("FFD20.Info_FirstClass_Compendium")}</a>`
         )
         .replace(/[\n\r]+/, "<br>");
     }
@@ -511,13 +516,13 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
   _prepareTraits(traits) {
     const map = {
-      // "dr": CONFIG.ffd20lnrw.damageTypes,
-      di: CONFIG.ffd20lnrw.damageTypes,
-      dv: CONFIG.ffd20lnrw.damageTypes,
-      ci: CONFIG.ffd20lnrw.conditionTypes,
-      languages: CONFIG.ffd20lnrw.languages,
-      armorProf: CONFIG.ffd20lnrw.armorProficiencies,
-      weaponProf: CONFIG.ffd20lnrw.weaponProficiencies,
+      // "dr": CONFIG.FFD20.damageTypes,
+      di: CONFIG.FFD20.damageTypes,
+      dv: CONFIG.FFD20.damageTypes,
+      ci: CONFIG.FFD20.conditionTypes,
+      languages: CONFIG.FFD20.languages,
+      armorProf: CONFIG.FFD20.armorProficiencies,
+      weaponProf: CONFIG.FFD20.weaponProficiencies,
     };
     for (let [t, choices] of Object.entries(map)) {
       const trait = traits[t];
@@ -537,12 +542,12 @@ export class ActorSheetffd20lnrw extends ActorSheet {
       // Prefer total over value for dynamically collected proficiencies
       if (trait.customTotal) {
         trait.customTotal
-          .split(CONFIG.ffd20lnrw.re.traitSeparator)
+          .split(CONFIG.FFD20.re.traitSeparator)
           .forEach((c, i) => (trait.selected[`custom${i + 1}`] = c.trim()));
       } else if (trait.custom) {
         // Add custom entry
         trait.custom
-          .split(CONFIG.ffd20lnrw.re.traitSeparator)
+          .split(CONFIG.FFD20.re.traitSeparator)
           .forEach((c, i) => (trait.selected[`custom${i + 1}`] = c.trim()));
       }
       trait.cssClass = !isObjectEmpty(trait.selected) ? "" : "inactive";
@@ -571,13 +576,13 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         spontaneous: book.spontaneous,
         canCreate: owner === true,
         canPrepare: data.actor.type === "character",
-        label: CONFIG.ffd20lnrw.spellLevels[a],
+        label: CONFIG.FFD20.spellLevels[a],
         items: [],
         uses: getProperty(book, `spells.spell${a}.value`) || 0,
         baseSlots: getProperty(book, `spells.spell${a}.base`) || 0,
         slots: getProperty(book, `spells.spell${a}.max`) || 0,
         dataset: { type: "spell", level: a, spellbook: bookKey },
-        name: game.i18n.localize(`ffd20lnrw.SpellLevel${a}`),
+        name: game.i18n.localize(`FFD20.SpellLevel${a}`),
       };
     }
     spells.forEach((spell) => {
@@ -664,7 +669,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         if (hasTypeFilter && !filters.has(`type-${data.featType}`)) return false;
       }
 
-      if (Itemffd20lnrw.isInventoryItem(item.type)) {
+      if (ItemFFD20.isInventoryItem(item.type)) {
         if (hasTypeFilter && item.type !== "loot" && !filters.has(`type-${item.type}`)) return false;
         else if (hasTypeFilter && item.type === "loot" && !filters.has(`type-${data.subType}`)) return false;
       }
@@ -718,12 +723,12 @@ export class ActorSheetffd20lnrw extends ActorSheet {
       heavy: actorData.data.attributes.encumbrance.levels.heavy,
     };
     let carryLabel;
-    switch (game.settings.get("ffd20lnrw", "units")) {
+    switch (game.settings.get("FFD20", "units")) {
       case "metric":
-        carryLabel = game.i18n.localize("ffd20lnrw.CarryLabelKg").format(carriedWeight);
+        carryLabel = game.i18n.localize("FFD20.CarryLabelKg").format(carriedWeight);
         break;
       default:
-        carryLabel = game.i18n.localize("ffd20lnrw.CarryLabel").format(carriedWeight);
+        carryLabel = game.i18n.localize("FFD20.CarryLabel").format(carriedWeight);
         break;
     }
     const enc = {
@@ -923,9 +928,6 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
     // Trait Selector
     html.find(".trait-selector").click(this._onTraitSelector.bind(this));
-
-    // Configure Special Flags
-    html.find(".configure-flags").click(this._onConfigureFlags.bind(this));
 
     // Roll defenses
     html.find(".generic-defenses .rollable").click((ev) => {
@@ -1252,17 +1254,13 @@ export class ActorSheetffd20lnrw extends ActorSheet {
   /*  Event Listeners and Handlers                */
   /* -------------------------------------------- */
 
-  /**
-   * Handle click events for the Traits tab button to configure special Character Flags
-   */
-  _onConfigureFlags(event) {
-    event.preventDefault();
-    new ActorSheetFlags(this.actor).render(true);
-  }
-
   _onRest(event) {
     event.preventDefault();
-    new ActorRestDialog(this.actor).render(true);
+    const app = Object.values(this.actor.apps).find((o) => {
+      return o instanceof ActorRestDialog && o._element;
+    });
+    if (app) app.bringToTop();
+    else new ActorRestDialog(this.actor).render(true);
   }
 
   /* -------------------------------------------- */
@@ -1365,11 +1363,20 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     const el = event.currentTarget;
 
     this._mouseWheelAdd(event.originalEvent, el);
+    // Get base value
     let value = el.tagName.toUpperCase() === "INPUT" ? Number(el.value) : Number(el.innerText);
     if (el.dataset.dtype && el.dataset.dtype.toUpperCase() === "STRING") {
       value = el.tagName.toUpperCase() === "INPUT" ? el.value : el.innerText;
     }
+
+    // Adjust value if needed
     const name = el.getAttribute("name");
+    if (name.match(/data\.abilities\.([a-zA-Z0-9]+)\.value$/)) {
+      if (Number.isNaN(parseInt(value))) value = null;
+      else value = parseInt(value);
+    }
+
+    // Add pending update
     if (name) {
       this._pendingUpdates[name] = value;
     }
@@ -1432,7 +1439,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     const a = event.currentTarget;
     const target = a.dataset.actionTarget;
 
-    game.ffd20lnrw.compendiums[target].render(true);
+    game.FFD20.compendiums[target].render(true);
   }
 
   _onRollConcentration(event) {
@@ -1668,14 +1675,18 @@ export class ActorSheetffd20lnrw extends ActorSheet {
   async _onPointBuyCalculator(event) {
     event.preventDefault();
 
-    new PointBuyCalculator(this).render(true);
+    const app = Object.values(this.actor.apps).find((o) => {
+      return o instanceof PointBuyCalculator && o._element;
+    });
+    if (app) app.bringToTop();
+    else new PointBuyCalculator(this.actor).render(true);
   }
 
   async _onControlAlignment(event) {
     event.preventDefault();
     const a = event.currentTarget;
 
-    const items = Object.entries(CONFIG.ffd20lnrw.alignmentsShort).reduce((cur, o) => {
+    const items = Object.entries(CONFIG.FFD20.alignmentsShort).reduce((cur, o) => {
       cur.push({ value: o[0], label: game.i18n.localize(o[1]) });
       return cur;
     }, []);
@@ -1706,7 +1717,10 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     const item = this.actor.getOwnedItem(itemId);
 
     const curQuantity = getProperty(item.data, "data.quantity") || 0;
-    const newQuantity = Math.max(0, curQuantity + add);
+    let newQuantity = Math.max(0, curQuantity + add);
+
+    if (item.type === "container") newQuantity = Math.min(newQuantity, 1);
+
     this.setItemUpdate(item._id, "data.quantity", newQuantity);
     this._updateItems();
   }
@@ -1735,7 +1749,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
   async _quickIdentifyItem(event) {
     event.preventDefault();
     if (!game.user.isGM) {
-      const msg = game.i18n.localize("ffd20lnrw.ErrorCantIdentify");
+      const msg = game.i18n.localize("FFD20.ErrorCantIdentify");
       console.error(msg);
       return ui.notifications.error(msg);
     }
@@ -1782,7 +1796,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     const item = this.actor.items.find((o) => o._id === itemId);
     if (!item) return;
 
-    game.ffd20lnrw.rollItemMacro(item.name, { itemId: item._id, itemType: item.type, actorId: this.actor._id });
+    game.FFD20.rollItemMacro(item.name, { itemId: item._id, itemType: item.type, actorId: this.actor._id });
   }
 
   _convertCurrency(event) {
@@ -1823,7 +1837,12 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     event.preventDefault();
     const li = event.currentTarget.closest(".item");
     const item = this.actor.getOwnedItem(li.dataset.itemId);
-    item.sheet.render(true);
+
+    const app = Object.values(this.actor.apps).find((o) => {
+      return o instanceof ItemSheet && o.object === item && o._element;
+    });
+    if (app) app.bringToTop();
+    else item.sheet.render(true);
   }
 
   /**
@@ -1844,9 +1863,9 @@ export class ActorSheetffd20lnrw extends ActorSheet {
       button.disabled = true;
 
       const item = this.actor.items.find((o) => o._id === li.dataset.itemId);
-      const msg = `<p>${game.i18n.localize("ffd20lnrw.DeleteItemConfirmation")}</p>`;
+      const msg = `<p>${game.i18n.localize("FFD20.DeleteItemConfirmation")}</p>`;
       Dialog.confirm({
-        title: game.i18n.localize("ffd20lnrw.DeleteItemTitle").format(item.name),
+        title: game.i18n.localize("FFD20.DeleteItemTitle").format(item.name),
         content: msg,
         yes: () => {
           this.actor.deleteOwnedItem(li.dataset.itemId);
@@ -1966,7 +1985,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     // Categorize items as inventory, spellbook, features, and classes
     const inventory = {
       weapon: {
-        label: game.i18n.localize("ffd20lnrw.InventoryWeapons"),
+        label: game.i18n.localize("FFD20.InventoryWeapons"),
         canCreate: true,
         hasActions: false,
         items: [],
@@ -1974,7 +1993,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "weapon" },
       },
       equipment: {
-        label: game.i18n.localize("ffd20lnrw.InventoryArmorEquipment"),
+        label: game.i18n.localize("FFD20.InventoryArmorEquipment"),
         canCreate: true,
         hasActions: true,
         items: [],
@@ -1983,7 +2002,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         hasSlots: true,
       },
       consumable: {
-        label: game.i18n.localize("ffd20lnrw.InventoryConsumables"),
+        label: game.i18n.localize("FFD20.InventoryConsumables"),
         canCreate: true,
         hasActions: true,
         items: [],
@@ -1991,43 +2010,43 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "consumable" },
       },
       gear: {
-        label: CONFIG.ffd20lnrw.lootTypes["gear"],
+        label: CONFIG.FFD20.lootTypes["gear"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: true,
-        dataset: { type: "loot", "type-name": game.i18n.localize("ffd20lnrw.LootTypeGearSingle"), "sub-type": "gear" },
+        dataset: { type: "loot", "type-name": game.i18n.localize("FFD20.LootTypeGearSingle"), "sub-type": "gear" },
       },
       ammo: {
-        label: CONFIG.ffd20lnrw.lootTypes["ammo"],
+        label: CONFIG.FFD20.lootTypes["ammo"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: false,
-        dataset: { type: "loot", "type-name": game.i18n.localize("ffd20lnrw.LootTypeAmmoSingle"), "sub-type": "ammo" },
+        dataset: { type: "loot", "type-name": game.i18n.localize("FFD20.LootTypeAmmoSingle"), "sub-type": "ammo" },
       },
       misc: {
-        label: CONFIG.ffd20lnrw.lootTypes["misc"],
+        label: CONFIG.FFD20.lootTypes["misc"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: false,
-        dataset: { type: "loot", "type-name": game.i18n.localize("ffd20lnrw.Misc"), "sub-type": "misc" },
+        dataset: { type: "loot", "type-name": game.i18n.localize("FFD20.Misc"), "sub-type": "misc" },
       },
       tradeGoods: {
-        label: CONFIG.ffd20lnrw.lootTypes["tradeGoods"],
+        label: CONFIG.FFD20.lootTypes["tradeGoods"],
         canCreate: true,
         hasActions: false,
         items: [],
         canEquip: false,
         dataset: {
           type: "loot",
-          "type-name": game.i18n.localize("ffd20lnrw.LootTypeTradeGoodsSingle"),
+          "type-name": game.i18n.localize("FFD20.LootTypeTradeGoodsSingle"),
           "sub-type": "tradeGoods",
         },
       },
       container: {
-        label: game.i18n.localize("ffd20lnrw.InventoryContainers"),
+        label: game.i18n.localize("FFD20.InventoryContainers"),
         canCreate: true,
         hasActions: false,
         items: [],
@@ -2051,7 +2070,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         else if (item.type === "feat") arr[2].push(item);
         else if (item.type === "class") arr[3].push(item);
         else if (item.type === "attack") arr[4].push(item);
-        else if (Itemffd20lnrw.isInventoryItem(item.type)) arr[0].push(item);
+        else if (ItemFFD20.isInventoryItem(item.type)) arr[0].push(item);
         return arr;
       },
       [[], [], [], [], []]
@@ -2085,16 +2104,16 @@ export class ActorSheetffd20lnrw extends ActorSheet {
       i.data.weight = i.data.weight || 0;
       i.totalWeight = Math.round(convertWeight(i.data.quantity * i.data.weight) * 10) / 10;
       i.units =
-        game.settings.get("ffd20lnrw", "units") === "metric" ? game.i18n.localize("ffd20lnrw.Kgs") : game.i18n.localize("ffd20lnrw.Lbs");
+        game.settings.get("FFD20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
       if (inventory[i.type] != null) inventory[i.type].items.push(i);
       if (subType != null && inventory[subType] != null) inventory[subType].items.push(i);
     }
 
     // Organize Features
     const features = {
-      // classes: { label: game.i18n.localize("ffd20lnrw.ClassPlural"), items: [], canCreate: true, hasActions: false, dataset: { type: "class" }, isClass: true },
+      // classes: { label: game.i18n.localize("FFD20.ClassPlural"), items: [], canCreate: true, hasActions: false, dataset: { type: "class" }, isClass: true },
       feat: {
-        label: game.i18n.localize("ffd20lnrw.FeatPlural"),
+        label: game.i18n.localize("FFD20.FeatPlural"),
         items: [],
         canCreate: true,
         hasActions: true,
@@ -2102,47 +2121,47 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "feat", "feat-type": "feat" },
       },
       classFeat: {
-        label: game.i18n.localize("ffd20lnrw.ClassFeaturePlural"),
+        label: game.i18n.localize("FFD20.ClassFeaturePlural"),
         items: [],
         canCreate: true,
         hasActions: true,
-        dataset: { type: "feat", "type-name": game.i18n.localize("ffd20lnrw.FeatTypeClassFeat"), "feat-type": "classFeat" },
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeClassFeat"), "feat-type": "classFeat" },
       },
       trait: {
-        label: game.i18n.localize("ffd20lnrw.TraitPlural"),
+        label: game.i18n.localize("FFD20.TraitPlural"),
         items: [],
         canCreate: true,
         hasActions: true,
-        dataset: { type: "feat", "type-name": game.i18n.localize("ffd20lnrw.FeatTypeTraits"), "feat-type": "trait" },
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeTraits"), "feat-type": "trait" },
       },
       racial: {
-        label: game.i18n.localize("ffd20lnrw.RacialTraitPlural"),
+        label: game.i18n.localize("FFD20.RacialTraitPlural"),
         items: [],
         canCreate: true,
         hasActions: true,
-        dataset: { type: "feat", "type-name": game.i18n.localize("ffd20lnrw.FeatTypeRacial"), "feat-type": "racial" },
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeRacial"), "feat-type": "racial" },
       },
       misc: {
-        label: game.i18n.localize("ffd20lnrw.Misc"),
+        label: game.i18n.localize("FFD20.Misc"),
         items: [],
         canCreate: true,
         hasActions: true,
-        dataset: { type: "feat", "type-name": game.i18n.localize("ffd20lnrw.Misc"), "feat-type": "misc" },
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.Misc"), "feat-type": "misc" },
       },
       template: {
-        label: game.i18n.localize("ffd20lnrw.TemplatePlural"),
+        label: game.i18n.localize("FFD20.TemplatePlural"),
         items: [],
         canCreate: true,
         hasActions: false,
-        dataset: { type: "feat", "type-name": game.i18n.localize("ffd20lnrw.FeatTypeTemplate"), "feat-type": "template" },
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeTemplate"), "feat-type": "template" },
       },
     };
 
     for (let f of feats) {
       let k = f.data.featType;
       if (f.data.abilityType && f.data.abilityType !== "none") {
-        f.abilityType = game.i18n.localize(CONFIG.ffd20lnrw.abilityTypes[f.data.abilityType].long);
-        f.abilityTypeShort = game.i18n.localize(CONFIG.ffd20lnrw.abilityTypes[f.data.abilityType].short);
+        f.abilityType = game.i18n.localize(CONFIG.FFD20.abilityTypes[f.data.abilityType].long);
+        f.abilityTypeShort = game.i18n.localize(CONFIG.FFD20.abilityTypes[f.data.abilityType].short);
       } else {
         f.abilityType = "";
         f.abilityTypeShort = "";
@@ -2158,25 +2177,25 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     buffs = this._filterItems(buffs, this._filters.buffs);
     const buffSections = {
       temp: {
-        label: game.i18n.localize("ffd20lnrw.Temporary"),
+        label: game.i18n.localize("FFD20.Temporary"),
         items: [],
         hasActions: false,
         dataset: { type: "buff", "buff-type": "temp" },
       },
       perm: {
-        label: game.i18n.localize("ffd20lnrw.Permanent"),
+        label: game.i18n.localize("FFD20.Permanent"),
         items: [],
         hasActions: false,
         dataset: { type: "buff", "buff-type": "perm" },
       },
       item: {
-        label: game.i18n.localize("ffd20lnrw.Item"),
+        label: game.i18n.localize("FFD20.Item"),
         items: [],
         hasActions: false,
         dataset: { type: "buff", "buff-type": "item" },
       },
       misc: {
-        label: game.i18n.localize("ffd20lnrw.Misc"),
+        label: game.i18n.localize("FFD20.Misc"),
         items: [],
         hasActions: false,
         dataset: { type: "buff", "buff-type": "misc" },
@@ -2193,7 +2212,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     attacks = this._filterItems(attacks, this._filters.attacks);
     const attackSections = {
       weapon: {
-        label: game.i18n.localize("ffd20lnrw.AttackTypeWeaponPlural"),
+        label: game.i18n.localize("FFD20.AttackTypeWeaponPlural"),
         items: [],
         canCreate: true,
         initial: false,
@@ -2201,7 +2220,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "attack", "attack-type": "weapon" },
       },
       natural: {
-        label: game.i18n.localize("ffd20lnrw.AttackTypeNaturalPlural"),
+        label: game.i18n.localize("FFD20.AttackTypeNaturalPlural"),
         items: [],
         canCreate: true,
         initial: false,
@@ -2209,7 +2228,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "attack", "attack-type": "natural" },
       },
       ability: {
-        label: game.i18n.localize("ffd20lnrw.AttackTypeAbilityPlural"),
+        label: game.i18n.localize("FFD20.AttackTypeAbilityPlural"),
         items: [],
         canCreate: true,
         initial: false,
@@ -2217,7 +2236,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "attack", "attack-type": "ability" },
       },
       racialAbility: {
-        label: game.i18n.localize("ffd20lnrw.AttackTypeRacialPlural"),
+        label: game.i18n.localize("FFD20.AttackTypeRacialPlural"),
         items: [],
         canCreate: true,
         initial: false,
@@ -2225,7 +2244,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "attack", "attack-type": "racialAbility" },
       },
       item: {
-        label: game.i18n.localize("ffd20lnrw.Items"),
+        label: game.i18n.localize("FFD20.Items"),
         items: [],
         canCreate: true,
         initial: false,
@@ -2233,7 +2252,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
         dataset: { type: "attack", "attack-type": "item" },
       },
       misc: {
-        label: game.i18n.localize("ffd20lnrw.Misc"),
+        label: game.i18n.localize("FFD20.Misc"),
         items: [],
         canCreate: true,
         initial: false,
@@ -2331,7 +2350,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     const filter = li.dataset.filter;
     const typeFilterCount = this._typeFilterCount(set);
 
-    const tabLikeFilters = game.settings.get("ffd20lnrw", "invertSectionFilterShiftBehaviour")
+    const tabLikeFilters = game.settings.get("FFD20", "invertSectionFilterShiftBehaviour")
       ? !event.shiftKey
       : event.shiftKey;
     if (tabLikeFilters) {
@@ -2361,9 +2380,14 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     const options = {
       name: label.getAttribute("for"),
       title: label.innerText,
-      choices: CONFIG.ffd20lnrw[a.dataset.options],
+      choices: CONFIG.FFD20[a.dataset.options],
     };
-    new ActorTraitSelector(this.actor, options).render(true);
+
+    const app = Object.values(this.actor.apps).find((o) => {
+      return o instanceof ActorTraitSelector && o.options.name === options.name && o._element;
+    });
+    if (app) app.bringToTop();
+    else new ActorTraitSelector(this.actor, options).render(true);
   }
 
   setItemUpdate(id, key, value) {
@@ -2390,7 +2414,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     this._createPlaceholders(this.element);
 
     // Apply accessibility settings
-    applyAccessibilitySettings(this, this.element, {}, game.settings.get("ffd20lnrw", "accessibilityConfig"));
+    applyAccessibilitySettings(this, this.element, {}, game.settings.get("FFD20", "accessibilityConfig"));
 
     return result;
   }
@@ -2455,7 +2479,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
     // Case 2 - Data explicitly provided
     else if (data.data) {
-      let sameActor = data.actorId === actor._id;
+      let sameActor = data.actorId === actor._id && !data.containerId;
       if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
       if (sameActor) return this._onSortItem(event, data.data); // Sort existing items
 
@@ -2473,11 +2497,21 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
     return this.importItem(mergeObject(itemData, this.getDropData(itemData), { inplace: false }), dataType)
       .then((item) => {
-        // Remove from container if destination is parent actor
+        // Try to remove from container
         if (item && fromContainer) {
-          const sourceActor = game.actors.get(actor._id);
-          const container = sourceActor?.getOwnedItem(data.containerId);
-          if (container) container.deleteContainerContent(itemData._id);
+          // Search for actor
+          let sourceActor = data.tokenId
+            ? canvas.tokens.placeables.find((o) => o.id === data.tokenId)?.actor
+            : game.actors.get(actor._id);
+          // Only remove if actor is the same
+          if (sourceActor === item.parentActor) {
+            const allItems = sourceActor
+              ? [...Array.from(sourceActor.items), ...Array.from(sourceActor.containerItems)]
+              : [];
+            let container = allItems.find((o) => o._id === data.containerId);
+            // Remove from container
+            if (container) container.deleteContainerContent(itemData._id);
+          }
         }
       })
       .catch((err) => {
@@ -2534,7 +2568,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
    */
   _getSortSiblings(source) {
     return this.actor.items.filter((i) => {
-      if (Itemffd20lnrw.isInventoryItem(source.data.type)) return Itemffd20lnrw.isInventoryItem(i.data.type);
+      if (ItemFFD20.isInventoryItem(source.data.type)) return ItemFFD20.isInventoryItem(i.data.type);
       return i.data.type === source.data.type && i.data._id !== source.data._id;
     });
   }
@@ -2547,11 +2581,10 @@ export class ActorSheetffd20lnrw extends ActorSheet {
     }
 
     if (itemData._id) delete itemData._id;
-    var actorRef = this.actor;
+    let actorRef = this.actor;
     return this.actor.createEmbeddedEntity("OwnedItem", itemData).then((createdItem) => {
-      var fullItem = actorRef.items.get(createdItem._id);
-      if (fullItem.isCharged) return actorRef.updateItemResources(fullItem);
-      else return fullItem;
+      let fullItem = actorRef.items.get(createdItem._id);
+      return fullItem;
     });
   }
 
@@ -2645,7 +2678,7 @@ export class ActorSheetffd20lnrw extends ActorSheet {
 
   calculateSellItemValue() {
     const items = this.actor.items.filter((o) => o.data.data.price != null);
-    const sellMultiplier = this.actor.getFlag("ffd20lnrw", "sellMultiplier") || 0.5;
+    const sellMultiplier = this.actor.getFlag("FFD20", "sellMultiplier") || 0.5;
     return items.reduce((cur, i) => {
       return cur + i.getValue({ sellValue: sellMultiplier });
     }, 0);

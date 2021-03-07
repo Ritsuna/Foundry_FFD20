@@ -1,21 +1,24 @@
-import { Itemffd20lnrw } from "./item/entity.js";
+import { ItemFFD20 } from "./item/entity.js";
 import { ExperienceConfig } from "./config/experience.js";
 import { createTag } from "./lib.js";
 import { ItemChange } from "./item/components/change.js";
 import { getChangeFlat } from "./actor/apply-changes.js";
+import { SemanticVersion } from "./semver.js";
 
 /**
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
 export const migrateWorld = async function () {
-  game.ffd20lnrw.isMigrating = true;
   if (!game.user.isGM) {
-    const msg = game.i18n.localize("ffd20lnrw.ErrorUnauthorizedAction");
+    const msg = game.i18n.localize("FFD20.ErrorUnauthorizedAction");
     console.error(msg);
     return ui.notifications.error(msg);
   }
-  ui.notifications.info(`Applying ffd20lnrw System Migration for version ${game.system.data.version}. Please stand by.`);
+  game.FFD20.isMigrating = true;
+  ui.notifications.info(game.i18n.format("FFD20.Migration.Start", { version: game.system.data.version }), {
+    permanent: true,
+  });
   console.log("System Migration starting.");
 
   await _migrateWorldSettings();
@@ -56,7 +59,7 @@ export const migrateWorld = async function () {
   // Migrate World Compendium Packs
   const packs = game.packs.filter((p) => {
     return (
-      (["world", "ffd20lnrw"].includes(p.metadata.package) || p.metadata.system === "ffd20lnrw") &&
+      (["world", "FFD20"].includes(p.metadata.package) || p.metadata.system === "FFD20") &&
       ["Actor", "Item", "Scene"].includes(p.metadata.entity) &&
       !p.locked
     );
@@ -66,10 +69,18 @@ export const migrateWorld = async function () {
   }
 
   // Set the migration as complete
-  game.settings.set("ffd20lnrw", "systemMigrationVersion", game.system.data.version);
-  ui.notifications.info(`ffd20lnrw System Migration to version ${game.system.data.version} succeeded!`);
+  game.settings.set("FFD20", "systemMigrationVersion", game.system.data.version);
+  ui.notifications.active
+    .find(
+      (o) =>
+        o.hasClass("permanent") &&
+        o[0].innerText === game.i18n.format("FFD20.Migration.Start", { version: game.system.data.version })
+    )
+    ?.click();
+  ui.notifications.info(game.i18n.format("FFD20.Migration.End", { version: game.system.data.version }));
   console.log("System Migration completed.");
-  game.ffd20lnrw.isMigrating = false;
+  game.FFD20.isMigrating = false;
+  Hooks.callAll("FFD20.migrationFinished");
 };
 
 /* -------------------------------------------- */
@@ -110,14 +121,14 @@ export const migrateCompendium = async function (pack) {
  * Migrates world settings.
  */
 const _migrateWorldSettings = async function () {
-  const oldXPTrack = game.settings.get("ffd20lnrw", "experienceRate");
+  const oldXPTrack = game.settings.get("FFD20", "experienceRate");
   if (oldXPTrack !== "" && oldXPTrack != null) {
     // Set new config style
-    const config = game.settings.get("ffd20lnrw", "experienceConfig") || ExperienceConfig.defaultSettings;
+    const config = game.settings.get("FFD20", "experienceConfig") || ExperienceConfig.defaultSettings;
     config.track = oldXPTrack;
-    await game.settings.set("ffd20lnrw", "experienceConfig", config);
+    await game.settings.set("FFD20", "experienceConfig", config);
     // Remove old config style
-    await game.settings.set("ffd20lnrw", "experienceRate", "");
+    await game.settings.set("FFD20", "experienceRate", "");
   }
 };
 
@@ -155,6 +166,7 @@ export const migrateActorData = async function (actor) {
   _migrateActorStatures(actor, updateData);
   _migrateActorInitAbility(actor, updateData);
   _migrateActorChangeRevamp(actor, updateData);
+  _migrateActorConditions(actor, updateData);
 
   if (!actor.items) return updateData;
 
@@ -182,6 +194,7 @@ export const migrateActorData = async function (actor) {
 export const migrateItemData = function (item) {
   const updateData = {};
 
+  _migrateItemArrayTypes(item, updateData);
   _migrateItemSpellUses(item, updateData);
   _migrateWeaponDamage(item, updateData);
   _migrateWeaponImprovised(item, updateData);
@@ -239,26 +252,13 @@ export const migrateSceneData = async function (scene) {
       t.actorId = null;
       t.actorData = {};
     } else {
-      // console.log(token.data);
-      let originalData = {};
-      if (token.data.actorId) {
-        const originalActor = game.actors.entities.find((o) => o._id === token.data.actorId);
-        if (originalActor) {
-          originalData = originalActor.data;
+      const a = Actor.fromToken(token);
+      const updateData = await migrateActorData(a.data);
+      t.actorData = mergeObject(a.data, updateData);
     }
   }
-  const combinedData = mergeObject(originalData, token.data.actorData, { inplace: false });
-  const tA = await Actor.create(combinedData);
-  const updateData = await migrateActorData(tA);
-  const newData = diffObject(combinedData, expandObject(updateData));
-  // console.log(tA, combinedData, updateData, newData);
-  // t.actorData = mergeObject(token.data.actorData, updateData);
-  await tA.delete();
-  t.actorData = newData;
-}
-}
-// console.log(result);
-return result;
+  // console.log(result);
+  return result;
 };
 
 /* -------------------------------------------- */
@@ -271,13 +271,13 @@ return result;
  */
 const _migrateActorTraits = function (actor, updateData) {
   if (!actor.data.traits) return;
-  const dt = invertObject(CONFIG.ffd20lnrw.damageTypes);
+  const dt = invertObject(CONFIG.FFD20.damageTypes);
   const map = {
     dr: dt,
     di: dt,
     dv: dt,
-    ci: invertObject(CONFIG.ffd20lnrw.conditionTypes),
-    languages: invertObject(CONFIG.ffd20lnrw.languages),
+    ci: invertObject(CONFIG.FFD20.conditionTypes),
+    languages: invertObject(CONFIG.FFD20.languages),
   };
   for (let [t, choices] of Object.entries(map)) {
     const trait = actor.data.traits[t];
@@ -472,6 +472,19 @@ const _migrateActorHPAbility = function (ent, updateData) {
   // Set Will save ability
   if (getProperty(ent.data, "data.attributes.savingThrows.will.ability") === undefined) {
     updateData["data.attributes.savingThrows.will.ability"] = "wis";
+  }
+};
+
+const _migrateItemArrayTypes = function (ent, updateData) {
+  const conditionals = getProperty(ent.data, "data.conditionals");
+  if (conditionals != null && !(conditionals instanceof Array)) {
+    updateData["data.conditionals"] = [];
+  }
+
+  const contextNotes = getProperty(ent.data, "data.contextNotes");
+  if (contextNotes != null && !(contextNotes instanceof Array)) {
+    if (contextNotes instanceof Object) updateData["data.contextNotes"] = Object.values(contextNotes);
+    else updateData["data.contextNotes"] = [];
   }
 };
 
@@ -694,7 +707,7 @@ const _migrateItemChanges = function (ent, updateData) {
     for (let n of notes) {
       if (n instanceof Array) {
         newNotes.push(
-          mergeObject(Itemffd20lnrw.defaultChange, { text: n[0], target: n[1], subTarget: n[2] }, { inplace: false })
+          mergeObject(ItemFFD20.defaultChange, { text: n[0], target: n[1], subTarget: n[2] }, { inplace: false })
         );
       } else {
         newNotes.push(n);
@@ -741,6 +754,14 @@ const _migrateSpellCosts = function (ent, updateData) {
   if (slotCost == null) {
     updateData["data.slotCost"] = 1;
   }
+
+  // Migrate level 0 spell charge deduction in a specific version
+  if (
+    !SemanticVersion.fromString(game.system.data.version).isHigherThan(SemanticVersion.fromString("0.77.11")) &&
+    getProperty(ent.data, "data.level") === 0
+  ) {
+    updateData["data.preparation.autoDeductCharges"] = false;
+  }
 };
 
 const _migrateLootEquip = function (ent, updateData) {
@@ -757,7 +778,7 @@ const _migrateUnchainedActionEconomy = function (ent, updateData) {
   if (unchainedAction && unchainedAction.type) return;
 
   // Create unchained action economy data
-  if (CONFIG.ffd20lnrw.abilityActivationTypes_unchained[curAction.type] != null) {
+  if (CONFIG.FFD20.abilityActivationTypes_unchained[curAction.type] != null) {
     updateData["data.unchainedAction.activation.cost"] = curAction.cost;
     updateData["data.unchainedAction.activation.type"] = curAction.type;
   }
@@ -837,8 +858,8 @@ const _migrateActorTokenVision = function (ent, updateData) {
   if (!vision) return;
 
   updateData["data.attributes.-=vision"] = null;
-  updateData["token.flags.ffd20lnrw.lowLightVision"] = vision.lowLight;
-  if (!getProperty(ent.data, "token.brightSight")) updateData["token.brightSight"] = vision.darkvision;
+  updateData["token.flags.FFD20.lowLightVision"] = vision.lowLight;
+  if (!getProperty(ent.data, "token.brightSight")) updateData["token.brightSight"] = vision.darkvision ?? 0;
 };
 
 const _migrateActorSpellbookUsage = function (ent, updateData) {
@@ -928,12 +949,23 @@ const _migrateActorChangeRevamp = function (ent, updateData) {
   }
 };
 
+const _migrateActorConditions = function (ent, updateData) {
+  // Migrate fear to shaken
+  {
+    const cond = getProperty(ent.data, "data.conditions.fear");
+    if (cond === true) {
+      updateData["data.conditions.shaken"] = true;
+      updateData["data.conditions.-=fear"] = null;
+    }
+  }
+};
+
 /* -------------------------------------------- */
 
 const migrateTokenVision = function (token, updateData) {
   if (!token.actor) return;
 
-  setProperty(updateData, "flags.ffd20lnrw.lowLightVision", getProperty(token.actor.data, "token.flags.ffd20lnrw.lowLightVision"));
+  setProperty(updateData, "flags.FFD20.lowLightVision", getProperty(token.actor.data, "token.flags.FFD20.lowLightVision"));
   setProperty(updateData, "brightSight", getProperty(token.actor.data, "token.brightSight"));
 };
 
@@ -943,7 +975,7 @@ const migrateTokenStatuses = function (token, updateData) {
   if (token.data.effects.length) {
     var effects = token.data.effects;
     effects = effects.filter((e) => {
-      const [key, tex] = Object.entries(CONFIG.ffd20lnrw.conditionTextures).find((t) => e === t[1]) ?? [];
+      const [key, tex] = Object.entries(CONFIG.FFD20.conditionTextures).find((t) => e === t[1]) ?? [];
       if (key && token.actor.data.data.attributes.conditions[key]) return false;
       if (token.actor.items.find((i) => i.type === "buff" && i.data.data.active && i.img === e)) return false;
       return true;
@@ -961,7 +993,7 @@ const migrateTokenStatuses = function (token, updateData) {
 const _migrateCastTime = function (item, updateData) {
   const value = getProperty(item.data, "time.value");
   if (!value) return;
-  const ATS = invertObject(CONFIG.ffd20lnrw.abilityActivationTypes);
+  const ATS = invertObject(CONFIG.FFD20.abilityActivationTypes);
   let match = value.match(/([\d]+\s)?([\w\s]+)/);
   if (!match) return;
   let type = ATS[match[2]] || "none";
@@ -1001,7 +1033,7 @@ const _migrateDamage = function (item, updateData) {
  * @private
  */
 const _migrateDuration = function (item, updateData) {
-  const TIME = invertObject(CONFIG.ffd20lnrw.timePeriods);
+  const TIME = invertObject(CONFIG.FFD20.timePeriods);
   const dur = item.data.duration;
   if (dur && dur.value && !dur.units) {
     let match = dur.value.match(/([\d]+\s)?([\w\s]+)/);
@@ -1104,7 +1136,7 @@ const _migrateTarget = function (item, updateData) {
   if (target.value && !Number.isNumeric(target.value)) {
     // Target Type
     let type = null;
-    for (let t of Object.keys(CONFIG.ffd20lnrw.targetTypes)) {
+    for (let t of Object.keys(CONFIG.FFD20.targetTypes)) {
       let rgx = new RegExp(t, "i");
       if (rgx.test(target.value)) {
         type = t;
@@ -1227,7 +1259,7 @@ const _migrateWeaponProperties = function (item, updateData) {
   // Map weapon property strings to boolean flags
   const props = item.data.properties;
   if (props.value) {
-    const labels = invertObject(CONFIG.ffd20lnrw.weaponProperties);
+    const labels = invertObject(CONFIG.FFD20.weaponProperties);
     for (let k of props.value.split(",").map((p) => p.trim())) {
       if (labels[k]) updateData[`data.properties.${labels[k]}`] = true;
     }

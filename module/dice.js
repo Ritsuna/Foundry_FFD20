@@ -1,11 +1,10 @@
-import { ChatMessageffd20lnrw } from "./sidebar/chat-message.js";
-import { isMinimumCoreVersion } from "./lib.js";
+import { ChatMessageFFD20 } from "./sidebar/chat-message.js";
 
 export const formulaHasDice = function (formula) {
   return formula.match(/[0-9)][dD]/) || formula.match(/[dD][0-9(]/);
 };
 
-export class Diceffd20lnrw {
+export class DiceFFD20 {
   /**
    * A standardized helper function for managing core 5e "d20 rolls"
    *
@@ -89,7 +88,7 @@ export class Diceffd20lnrw {
         // Convert the roll to a chat message
         if (chatTemplate) {
           // Create roll template data
-          const d20 = isMinimumCoreVersion("0.7.2") ? roll.terms[0] : roll.parts[0];
+          const d20 = roll.terms[0];
           const rollData = mergeObject(
             {
               user: game.user._id,
@@ -112,14 +111,14 @@ export class Diceffd20lnrw {
             speaker: speaker,
             content: await renderTemplate(chatTemplate, rollData),
             rollMode: rollMode,
-            "flags.ffd20lnrw.noRollRender": true,
+            "flags.FFD20.noRollRender": true,
           };
 
           // Send message
           rolled = true;
           chatData = mergeObject(roll.toMessage({}, { create: false }), chatData);
 
-          await ChatMessageffd20lnrw.create(chatData);
+          await ChatMessageFFD20.create(chatData);
         } else {
           rolled = true;
           await roll.toMessage({
@@ -139,7 +138,7 @@ export class Diceffd20lnrw {
     else parts = parts.concat(["@bonus"]);
 
     // Render modal dialog
-    template = template || "systems/ffd20lnrw/templates/chat/roll-dialog.hbs";
+    template = template || "systems/ffd20/templates/chat/roll-dialog.hbs";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -285,7 +284,7 @@ export class Diceffd20lnrw {
 
         // Send message
         rolled = true;
-        ChatMessageffd20lnrw.create(chatData);
+        ChatMessageFFD20.create(chatData);
       } else {
         rolled = true;
         roll.toMessage({
@@ -304,7 +303,7 @@ export class Diceffd20lnrw {
     else parts = parts.concat(["@bonus"]);
 
     // Construct dialog data
-    template = template || "systems/ffd20lnrw/templates/chat/roll-dialog.hbs";
+    template = template || "systems/ffd20/templates/chat/roll-dialog.hbs";
     let dialogData = {
       formula: parts.join(" + "),
       data: data,
@@ -355,7 +354,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
   // Replace parentheses with semicolons to use for splitting
   let toSplit = formula
     .replace(/([A-z]+)?\(/g, (match, prefix) => {
-      return prefix in game.ffd20lnrw.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
+      return prefix in game.FFD20.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
     })
     .replace(/\)/g, ";);");
   let terms = toSplit.split(";");
@@ -365,7 +364,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
     nOpenPreProcess = [];
   terms = terms.reduce((arr, t) => {
     // Handle cases where the prior term is a math function
-    const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.ffd20lnrw.rollPreProcess;
+    const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.FFD20.rollPreProcess;
     if (beginPreProcessFn) nOpenPreProcess.push([arr.length - 1, nOpen]);
     const beginMathFn = t[0] === "(" && arr[arr.length - 1] in Math;
     if (beginMathFn && nOpenPreProcess.length > 0) nOpenPreProcess.push([arr.length - 1, nOpen]);
@@ -397,7 +396,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
           if (fn in Math) {
             arr.push(Math[fn](...fnParams).toString());
           } else {
-            arr.push(game.ffd20lnrw.rollPreProcess[fn](...fnParams).toString());
+            arr.push(game.FFD20.rollPreProcess[fn](...fnParams).toString());
           }
 
           nOpenPreProcess.splice(a, 1);

@@ -1,18 +1,19 @@
 # Final Fantasy D20 for Foundry VTT
 
-An implementation of the Final Fantasy d20 (ffd20lnrw) system for for Foundry Virtual
-Tabletop (http://foundryvtt.com), based on the Pathfinder 1 implementation by Furyspark [https://gitlab.com/Furyspark/foundryvtt-pathfinder1](https://gitlab.com/Furyspark/foundryvtt-pathfinder1).
+An implementation of the Final Fantasy d20 (ffd20) system for for Foundry 
+Virtual Tabletop (http://foundryvtt.com), based on the Pathfinder 1 
+implementation by Furyspark [https://gitlab.com/Furyspark/foundryvtt-pathfinder1](https://gitlab.com/Furyspark/foundryvtt-pathfinder1).
 
 The software component of this system is distributed under the GNUv3 license
 while the game content is distributed under the Open Gaming License v1.0a.
 
 ## Installation
 
-Install the following game system in FoundryVTT's game system tab: [https://github.com/Ritsuna/ffd20lnrw-foundry-LNRW/raw/master/system.json](https://github.com/Ritsuna/ffd20lnrw-foundry-LNRW/raw/master/system.json)
+Install the following game system in FoundryVTT's game system tab: [https://github.com/Ritsuna/ffd20-foundry/raw/master/system.json](https://github.com/Ritsuna/ffd20-foundry/raw/master/system.json)
 
 If you wish to manually install the system, you must clone or extract it into
-the Data/systems/ffd20lnrw folder. You may do this by cloning the repository or
-downloading a zip archive from the [Releases Page](https://github.com/Ritsuna/ffd20lnrw-foundry-LNRW/releases).
+the Data/systems/ffd20 folder. You may do this by cloning the repository or
+downloading a zip archive from the [Releases Page](https://github.com/Ritsuna/ffd20-foundry/releases).
 
 ## Building
 

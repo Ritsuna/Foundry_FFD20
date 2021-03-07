@@ -1,4 +1,4 @@
-<div class="ffd20lnrw chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="ffd20 chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
   <header class="card-header flexrow">
     <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
     {{#if name}}<h3 class="item-name">{{name}}</h3>{{/if}}
@@ -10,7 +10,7 @@
 
   {{#if range}}
   <div class="card-range" data-range="{{range}}" {{#if rangeFormula}}title="{{rangeFormula}}"{{/if}}>
-    {{localize "ffd20lnrw.Range"}}: {{rangeLabel}}
+    {{localize "FFD20.Range"}}: {{rangeLabel}}
   </div>
   {{/if}}
 
@@ -21,21 +21,24 @@
       <thead>
         {{#if atk.hasAttack}}
         <tr>
-          <th {{#if atk.hasCritConfirm}}colspan="4"{{else}}colspan="2"{{/if}}>
+          <th class="attack-flavor" {{#if atk.hasCritConfirm}}colspan="4"{{else}}colspan="2"{{/if}}>
             {{atk.attack.flavor}}
+            {{#if atk.rollData.d20}}
+            <i class="fas fa-dice-d20" title="{{localize "FFD20.CustomRollDesc"}}"></i>
+            {{/if}}
           </th>
         </tr>
         {{#if atk.hasCritConfirm}}
         <tr>
-          <th colspan="2">{{atk.attack.flavor}}</th>
-          <th colspan="2">{{atk.critConfirm.flavor}}</th>
+          <th class="attack-flavor alt" colspan="2">{{atk.attack.flavor}}</th>
+          <th class="attack-flavor crit-confirm" colspan="2">{{atk.critConfirm.flavor}}</th>
         </tr>
         {{/if}}
         {{else}}
         <tr>
-          <th colspan="2">
+          <th class="attack-damage" colspan="2">
             {{atk.damage.flavor}}
-            <a class="fake-inline-roll inline-result" title="{{localize "ffd20lnrw.Total"}}">
+            <a class="attack-damage total fake-inline-roll inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.damage.total}}
             </a>
           </th>
@@ -66,14 +69,14 @@
         <tr>
           <th colspan="2">
             {{atk.damage.flavor}}
-            <a class="fake-inline-roll inline-result" title="{{localize "ffd20lnrw.Total"}}">
+            <a class="fake-inline-roll inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.damage.total}}
             </a>
           </th>
           {{#if atk.hasCritConfirm}}
           <th colspan="2">
             {{atk.critDamage.flavor}}
-            <a class="fake-inline-roll inline-result" title="{{localize "ffd20lnrw.Total"}}">
+            <a class="fake-inline-roll inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.critDamage.total}}
             </a>
           </th>
@@ -161,16 +164,16 @@
         </div>
       </div>
       {{/each}}
-      {{#if ../save.hasSave}}
+      {{#if ../hasSave}}
       <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}" data-tags="{{item.tags}}">{{../save.label}}</button>
       {{/if}}
     </div>
     {{else}}
     <div class="card-button-group flexcol">
-      {{#if ../save.hasSave}}
+      {{#if ../hasSave}}
       <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}">{{../save.label}}</button>
-    </div>
       {{/if}}
+    </div>
     {{/if}}
 
     {{{atk.effectNotesHTML}}}
@@ -184,7 +187,7 @@
 
     {{#if spellFailure}}
       <div class="spell-failure">
-        <h3>{{localize "ffd20lnrw.ArcaneSpellFailure"}}</h3>
+        <h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3>
         <div class="dice-roll">
           <div class="dice-result">
             <h4 class="dice-total spell-failure {{#unless spellFailureSuccess}}failure{{/unless}}">{{spellFailure}}</h4>

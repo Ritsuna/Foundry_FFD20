@@ -2,9 +2,8 @@ export class ActorRestDialog extends BaseEntitySheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
     return mergeObject(options, {
-      id: "actor-flags",
-      classes: ["ffd20lnrw", "actor-rest"],
-      template: "systems/ffd20lnrw/templates/apps/actor-rest.hbs",
+      classes: ["FFD20", "actor-rest"],
+      template: "systems/ffd20/templates/apps/actor-rest.hbs",
       width: 500,
       closeOnSubmit: true,
     });
@@ -17,7 +16,7 @@ export class ActorRestDialog extends BaseEntitySheet {
    * @type {String}
    */
   get title() {
-    return `${game.i18n.localize("ffd20lnrw.Rest")}: ${this.object.name}`;
+    return `${game.i18n.localize("FFD20.Rest")}: ${this.object.name}`;
   }
 
   /* -------------------------------------------- */

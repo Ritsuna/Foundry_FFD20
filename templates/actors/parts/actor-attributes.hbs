@@ -3,12 +3,12 @@
     <table class="ability-table">
         <thead>
             <tr>
-                <th>{{localize "ffd20lnrw.Ability"}}</th>
-                <th>{{localize "ffd20lnrw.Total"}}</th>
-                <th>{{localize "ffd20lnrw.Modifier"}}</th>
-                <th>{{localize "ffd20lnrw.Damage"}}</th>
-                <th>{{localize "ffd20lnrw.Drain"}}</th>
-                <th>{{localize "ffd20lnrw.Penalty"}}</th>
+                <th>{{localize "FFD20.Ability"}}</th>
+                <th>{{localize "FFD20.Total"}}</th>
+                <th>{{localize "FFD20.Modifier"}}</th>
+                <th>{{localize "FFD20.Damage"}}</th>
+                <th>{{localize "FFD20.Drain"}}</th>
+                <th>{{localize "FFD20.Penalty"}}</th>
             </tr>
         </thead>
         
@@ -28,7 +28,7 @@
                         @abilities.{{id}}.baseMod : {{ability.baseMod}}
                         
                         {{#if ability.sourceDetails.length}}
-                        <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                        <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                         {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                         {{/if}}
                     </span>
@@ -41,7 +41,7 @@
                 
                 {{!-- Total --}}
                 <td>
-                    <span class="text-box direct" name="data.abilities.{{id}}.value" data-dtype="Number">{{ability.total}}</span>
+                    <span class="text-box direct" name="data.abilities.{{id}}.value" data-dtype="String">{{ability.totalLabel}}</span>
                 </td>
                 
                 {{!-- Modifier --}}
@@ -69,23 +69,23 @@
     <table>
         <thead>
             <th class="tooltip">
-                {{localize "ffd20lnrw.ACP"}}
+                {{localize "FFD20.ACP"}}
                 <div class="tooltipcontent">
                     @attributes.acp.total : {{data.attributes.acp.total}}
                     
                     {{#if sourceDetails.data.attributes.acp.total.length}}
-                    <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                    <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                     {{#each sourceDetails.data.attributes.acp.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                     {{/if}}
                 </div>
             </th>
             <th class="tooltip">
-                {{localize "ffd20lnrw.MaxDexShort"}}
+                {{localize "FFD20.MaxDexShort"}}
                 <div class="tooltipcontent">
                     @attributes.maxDexBonus : {{data.attributes.maxDexBonus}}
                     
                     {{#if sourceDetails.data.attributes.maxDexBonus.length}}
-                    <br/><br/>{{localize "ffd20lnrw.FromSources"}}:<br/>
+                    <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                     {{#each sourceDetails.data.attributes.maxDexBonus as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                     {{/if}}
                 </div>
@@ -100,4 +100,4 @@
 </div>
 
 {{!-- Traits --}}
-{{> "systems/ffd20lnrw/templates/actors/parts/actor-traits.hbs"}}
+{{> "systems/ffd20/templates/actors/parts/actor-traits.hbs"}}

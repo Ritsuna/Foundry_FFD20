@@ -1,5 +1,5 @@
 /**
- * A helper class for building MeasuredTemplates for ffd20lnrw spells and abilities
+ * A helper class for building MeasuredTemplates for FFD20 spells and abilities
  * @extends {MeasuredTemplate}
  */
 export class AbilityTemplate extends MeasuredTemplate {
@@ -33,7 +33,7 @@ export class AbilityTemplate extends MeasuredTemplate {
     // Additional type-specific data
     switch (type) {
       case "cone":
-        if (game.settings.get("ffd20lnrw", "measureStyle") === true) templateData.angle = 90;
+        if (game.settings.get("FFD20", "measureStyle") === true) templateData.angle = 90;
         else templateData.angle = 53.13;
         break;
       case "rect":
@@ -78,7 +78,7 @@ export class AbilityTemplate extends MeasuredTemplate {
       const handlers = {};
       let moveTime = 0;
 
-      const ffd20lnrwStyle = game.settings.get("ffd20lnrw", "measureStyle") === true;
+      const FFD20Style = game.settings.get("FFD20", "measureStyle") === true;
 
       // Update placement (mouse-move)
       handlers.mm = (event) => {
@@ -137,7 +137,7 @@ export class AbilityTemplate extends MeasuredTemplate {
           }
           this.data.distance += delta * -Math.sign(event.deltaY);
         } else {
-          if (ffd20lnrwStyle && this.data.t === "cone") {
+          if (FFD20Style && this.data.t === "cone") {
             delta = 90;
             snap = event.shiftKey ? delta : 45;
           } else {

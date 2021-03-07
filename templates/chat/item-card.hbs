@@ -1,4 +1,4 @@
-<div class="ffd20lnrw chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+<div class="ffd20 chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
   <header class="card-header flexrow">
     <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
     <h3 class="item-name">{{item.name}}</h3>
@@ -12,7 +12,7 @@
     {{#if isSpell}}
     {{#if spellFailure}}
     <div class="spell-failure">
-      <h3>{{localize "ffd20lnrw.ArcaneSpellFailure"}}</h3>
+      <h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3>
       <div class="dice-roll">
         <div class="dice-result">
           <h4 class="dice-total spell-failure {{#unless spellFailureSuccess}}failure{{/unless}}">{{spellFailure}}</h4>
@@ -22,12 +22,12 @@
     {{/if}}
     {{/if}}
     {{#if data.materials.value}}
-    <p><strong>{{ localize "ffd20lnrw.ChatReqMats" }}.</strong> {{data.materials.value}}</p>
+    <p><strong>{{ localize "FFD20.ChatReqMats" }}.</strong> {{data.materials.value}}</p>
     {{/if}}
 
     {{#if data.properties.length}}
     <div class="flexcol property-group gm-sensitive">
-      <label>{{localize "ffd20lnrw.Tags"}}</label>
+      <label>{{localize "FFD20.Tags"}}</label>
       <div class="flexrow">
         {{#each data.properties}}
         <span class="tag">{{{this}}}</span>

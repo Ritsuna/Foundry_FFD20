@@ -1,20 +1,20 @@
 {{!-- Conditionals --}}
 <h4 class="conditional-header">
-  {{localize "ffd20lnrw.Conditionals"}}
+  {{localize "FFD20.Conditionals"}}
 </h4>
 <ol class="conditionals form-group">
   {{#each data.conditionals as |conditional a|}}
   <li class="conditional flexcolumn" data-conditional="{{a}}"><div class="conditional flexrow" data-conditional="{{a}}">
-      <input class="conditional-default" type="checkbox" title="{{localize "ffd20lnrw.Default"}}" name="data.conditionals.{{a}}.default" {{checked this.default}}/>
+      <input class="conditional-default" type="checkbox" title="{{localize "FFD20.Default"}}" name="data.conditionals.{{a}}.default" {{checked this.default}}/>
       <input class="conditional-name" type="text" name="data.conditionals.{{a}}.name" value="{{lookup this "name"}}"
-      placeholder="{{localize "ffd20lnrw.Name"}}"/>
+      placeholder="{{localize "FFD20.Name"}}"/>
       <a class="delete-conditional conditional-control delete-conditional"><i class="fas fa-trash"></i></a>
     </div>
     <ol class="conditionals form-group">
       {{#each this.modifiers as |modifier m|}}
       <li class="conditional-modifier flexrow" data-conditional="{{a}}" data-modifier="{{m}}">
-        <input class="conditional-formula" type="text" name="data.conditionals.{{a}}.{{m}}.formula" value="{{lookup this "formula"}}"
-        placeholder="{{localize "ffd20lnrw.Formula"}}" required/>
+        <input class="conditional-formula formula" type="text" name="data.conditionals.{{a}}.{{m}}.formula" value="{{lookup this "formula"}}"
+        placeholder="{{localize "FFD20.Formula"}}" required/>
 
         <select class="conditional-target" name="data.conditionals.{{a}}.{{m}}.target" required>
           {{#select (lookup this "target") }}
@@ -52,7 +52,7 @@
         {{/if}}
 
         {{#if modifier.isDamage}}
-        <input class="conditional-damage-type" type="text" list="types" name="data.conditionals.{{a}}.{{m}}.type" value="{{lookup this "type"}}" placeholder="{{localize "ffd20lnrw.DamageType"}}"/>
+        <input class="conditional-damage-type" type="text" list="types" name="data.conditionals.{{a}}.{{m}}.type" value="{{lookup this "type"}}" placeholder="{{localize "FFD20.DamageType"}}"/>
           <datalist id="types">
             {{#each conditionalModifierTypes as |modifierType mt|}}
             <option value="{{modifierType}}">
@@ -77,10 +77,10 @@
         <a class="conditional-control delete-conditional-modifier"><i class="fas fa-trash"></i></a>{{/if}}
       </li>
       {{/each}}
-      <li class="flexrow"><a class="conditional-control add-conditional-modifier"><i class="fas fa-plus"></i> {{localize "ffd20lnrw.AddEffect"}}</a></li>
+      <li class="flexrow"><a class="conditional-control add-conditional-modifier"><i class="fas fa-plus"></i> {{localize "FFD20.AddEffect"}}</a></li>
     </ol>
   </li>
   {{/each}}
-  <li class="conditional flexrow"><a class="conditional-control add-conditional"><i class="fas fa-plus"></i> {{localize "ffd20lnrw.AddConditional"}}</a></li>
+  <li class="conditional flexrow"><a class="conditional-control add-conditional"><i class="fas fa-plus"></i> {{localize "FFD20.AddConditional"}}</a></li>
 </ol>
 </div>

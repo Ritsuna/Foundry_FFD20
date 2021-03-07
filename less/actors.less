@@ -1,5 +1,5 @@
 @import "./variables.less";
-.ffd20lnrw.sheet.actor {
+.ffd20.sheet.actor {
   /* ----------------------------------------- */
   /*  Sheet Header                             */
   /* ----------------------------------------- */
@@ -148,14 +148,19 @@
     .hd-level {
       flex: 0 0 256px;
       overflow-x: hidden;
+      margin: 0 0 4px 8px;
 
       table {
-        margin: 0 0 4px 8px;
+        margin-bottom: 4px;
 
         &:hover {
           a.config-icon {
             color: @colorBeige;
           }
+        }
+
+        th.level {
+          width: 32px;
         }
 
         tr {
@@ -184,7 +189,7 @@
             height: auto;
           }
 
-          div.experience {
+          td.experience {
             input[type="text"],
             span.text-box,
             .max {
@@ -235,6 +240,10 @@
     .tab.quick-info {
       ul.attributes {
         margin: 2px 0;
+      }
+
+      table {
+        margin-bottom: 4px;
       }
 
       .quick-actions {
@@ -425,6 +434,10 @@
   .ability-scores {
     flex: 0;
     margin-bottom: 4px;
+
+    table {
+      margin-bottom: 4px;
+    }
   }
 
   .bottom {
@@ -833,11 +846,6 @@
       flex: 0;
     }
 
-    .combat-attacks {
-      flex: 1 1 320px;
-      overflow-y: scroll;
-    }
-
     .inventory-group {
       height: 100%;
     }
@@ -846,6 +854,19 @@
       .inventory-list {
         height: 100%;
         overflow-y: scroll;
+      }
+    }
+  }
+
+  .tab.combat {
+    .combat-attacks {
+      flex: 1 1 320px;
+      overflow-y: scroll;
+    }
+
+    .combat-defenses {
+      table {
+        margin-bottom: 4px;
       }
     }
   }
@@ -880,6 +901,12 @@
   .tab.inventory {
     .tab-footer > * {
       flex: 0 0 100%;
+    }
+
+    .tab-footer {
+      table {
+        margin-top: 4px;
+      }
     }
 
     .inventory-tags,
@@ -1064,6 +1091,10 @@
 
       input[type="text"] {
         flex: 1 1 48px;
+      }
+
+      table {
+        margin-bottom: 4px;
       }
     }
   }

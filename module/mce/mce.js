@@ -1,19 +1,19 @@
 export const tinyMCEInit = function () {
-  CONFIG.TinyMCE.content_css.push("/systems/ffd20lnrw/module/mce/mce.css");
+  CONFIG.TinyMCE.content_css.push("/systems/ffd20/module/mce/mce.css");
 
   CONFIG.TinyMCE.style_formats[0].items.push(
     {
-      title: game.i18n.localize("ffd20lnrw.NotImplemented"),
+      title: game.i18n.localize("FFD20.NotImplemented"),
       inline: "span",
       classes: "notImp",
-      attributes: { title: game.i18n.localize("ffd20lnrw.NotImplemented") },
+      attributes: { title: game.i18n.localize("FFD20.NotImplemented") },
       remove: "all",
     },
     {
-      title: game.i18n.localize("ffd20lnrw.StepsRequired"),
+      title: game.i18n.localize("FFD20.StepsRequired"),
       inline: "span",
       classes: "needSteps",
-      attributes: { title: game.i18n.localize("ffd20lnrw.StepsRequired") },
+      attributes: { title: game.i18n.localize("FFD20.StepsRequired") },
       remove: "all",
     }
   );
@@ -28,6 +28,7 @@ export const tinyMCEInit = function () {
 
 function registerContextMenu(editor) {
   var isInfoElement = function (node) {
+    if (node.nodeName.toLowerCase() !== "span") node = node.parentNode;
     return (
       node.nodeName.toLowerCase() === "span" &&
       (node.classList.contains("notImp") || node.classList.contains("needSteps"))
@@ -36,7 +37,7 @@ function registerContextMenu(editor) {
 
   var getInfoElement = function () {
     var node = editor.selection.getNode();
-    return isInfoElement(node) ? node : null;
+    return isInfoElement(node) ? node.closest("span.notImp,span.needSteps") : null;
   };
 
   editor.ui.registry.addContextForm("info-form", {
@@ -54,7 +55,7 @@ function registerContextMenu(editor) {
       {
         type: "contextformtogglebutton",
         icon: "warning",
-        tooltip: game.i18n.localize("ffd20lnrw.NotImplemented"),
+        tooltip: game.i18n.localize("FFD20.NotImplemented"),
         onSetup: function (buttonApi) {
           buttonApi.setActive(!!getInfoElement()?.classList.contains("notImp"));
           var nodeChangeHandler = function () {
@@ -76,7 +77,7 @@ function registerContextMenu(editor) {
       {
         type: "contextformtogglebutton",
         icon: "selected",
-        tooltip: game.i18n.localize("ffd20lnrw.StepsRequired"),
+        tooltip: game.i18n.localize("FFD20.StepsRequired"),
         onSetup: function (buttonApi) {
           buttonApi.setActive(!!getInfoElement()?.classList.contains("needSteps"));
           var nodeChangeHandler = function () {
@@ -98,7 +99,7 @@ function registerContextMenu(editor) {
       {
         type: "contextformtogglebutton",
         icon: "close",
-        tooltip: game.i18n.localize("ffd20lnrw.RemoveInfo"),
+        tooltip: game.i18n.localize("FFD20.RemoveInfo"),
         onAction: function (formApi) {
           var node = getInfoElement();
           editor.setDirty(true);

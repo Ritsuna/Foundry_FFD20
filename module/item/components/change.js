@@ -114,8 +114,6 @@ export class ItemChange {
 
     const overrides = actor.changeOverrides;
     for (let t of targets) {
-      if (!t) continue;
-
       if (overrides[t]) {
         let operator = this.operator;
         if (operator === "+") operator = "add";
@@ -123,8 +121,8 @@ export class ItemChange {
 
         let value = 0;
         if (operator === "script") {
-          const fn = this.createFunction(this.formula, ["d"]);
-          const result = fn(rollData);
+          const fn = this.createFunction(this.formula, ["d", "item"]);
+          const result = fn(rollData, this.parent);
           value = result.value;
           operator = result.operator;
         } else {
@@ -132,55 +130,63 @@ export class ItemChange {
             value = new Roll(this.formula || "0", rollData).roll().total;
           } catch (err) {
             value = 0;
-            console.error(err);
+            console.error(err, t, this, rollData);
           }
         }
 
+        this.data.value = value;
+
+        if (!t) continue;
         const prior = overrides[t][operator][this.modifier];
 
         switch (operator) {
           case "add":
-            if (CONFIG.ffd20lnrw.stackingBonusModifiers.indexOf(this.modifier) !== -1) {
-              setProperty(actor.data, t, (getProperty(actor.data, t) ?? 0) + value);
-              overrides[t][operator][this.modifier] = (prior ?? 0) + value;
+            {
+              const base = getProperty(actor.data, t);
+              if (typeof base === "number") {
+                if (CONFIG.FFD20.stackingBonusModifiers.indexOf(this.modifier) !== -1) {
+                  setProperty(actor.data, t, base + value);
+                  overrides[t][operator][this.modifier] = (prior ?? 0) + value;
 
-              if (this.parent && !addedSourceInfo) {
-                for (let si of sourceInfoTargets) {
-                  getSourceInfo(actor.sourceInfo, si).positive.push({
-                    value: value,
-                    name: this.parent.name,
-                    type: this.parent.type,
-                  });
-                }
-                addedSourceInfo = true;
-              }
-            } else {
-              const diff = !prior ? value : Math.max(0, value - (prior ?? 0));
-              setProperty(actor.data, t, (getProperty(actor.data, t) ?? 0) + diff);
-              overrides[t][operator][this.modifier] = Math.max(prior ?? 0, value);
+                  if (this.parent && !addedSourceInfo) {
+                    for (let si of sourceInfoTargets) {
+                      getSourceInfo(actor.sourceInfo, si).positive.push({
+                        value: value,
+                        name: this.parent.name,
+                        type: this.parent.type,
+                      });
+                    }
+                    addedSourceInfo = true;
+                  }
+                } else {
+                  const diff = !prior ? value : Math.max(0, value - (prior ?? 0));
+                  setProperty(actor.data, t, base + diff);
+                  overrides[t][operator][this.modifier] = Math.max(prior ?? 0, value);
 
-              if (this.parent) {
-                for (let si of sourceInfoTargets) {
-                  const sInfo = getSourceInfo(actor.sourceInfo, si).positive;
+                  if (this.parent) {
+                    for (let si of sourceInfoTargets) {
+                      const sInfo = getSourceInfo(actor.sourceInfo, si).positive;
 
-                  let doAdd = true;
-                  sInfo.forEach((o) => {
-                    if (o.modifier === this.modifier) {
-                      if (o.value < value) {
-                        sInfo.splice(sInfo.indexOf(o), 1);
-                      } else {
-                        doAdd = false;
+                      let doAdd = true;
+                      sInfo.forEach((o) => {
+                        if (o.modifier === this.modifier) {
+                          if (o.value < value) {
+                            sInfo.splice(sInfo.indexOf(o), 1);
+                          } else {
+                            doAdd = false;
+                          }
+                        }
+                      });
+
+                      if (doAdd) {
+                        sInfo.push({
+                          value: value,
+                          name: this.parent.name,
+                          type: this.parent.type,
+                          modifier: this.modifier,
+                        });
                       }
                     }
-                  });
-
-                  if (doAdd) {
-                    sInfo.push({
-                      value: value,
-                      name: this.parent.name,
-                      type: this.parent.type,
-                      modifier: this.modifier,
-                    });
                   }
                 }
               }
@@ -215,7 +221,7 @@ export class ItemChange {
 
   createFunction(funcDef, funcArgs = []) {
     try {
-      const preDef = `const result = { operator: "add", value: 0, };`;
+      const preDef = `const actor = item.actor; const result = { operator: "add", value: 0, };`;
       const postDef = `return result;`;
       const fullDef = `return function(${funcArgs.join(",")}) {${preDef}${funcDef}${postDef}};`;
       return new Function(fullDef)();

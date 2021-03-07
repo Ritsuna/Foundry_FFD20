@@ -1,10 +1,10 @@
 <form>
   <div class="form-group">
-      <label>{{#if nonlethal}}{{localize "ffd20lnrw.Nonlethal"}} {{/if}}{{#if healing}}{{localize "ffd20lnrw.Healing"}}{{else}}{{localize "ffd20lnrw.Damage"}}{{/if}}</label>
+      <label>{{#if nonlethal}}{{localize "FFD20.Nonlethal"}} {{/if}}{{#if healing}}{{localize "FFD20.Healing"}}{{else}}{{localize "FFD20.Damage"}}{{/if}}</label>
       <input type="text" name="damage" data-dtype="Number" value="{{damage}}"/>
   </div>
   <div class="form-group">
-    <label>{{localize "ffd20lnrw.ReduceBy"}}</label>
+    <label>{{localize "FFD20.ReduceBy"}}</label>
     <input type="text" name="damage-reduction" data-dtype="Number" value="{{damageReduction}}"/>
   </div>
 
@@ -12,8 +12,8 @@
   <div class="form-group">
     <label>{{localize "TOKEN.Update"}}</label>
     <div class="form-fields">
-      <a name="swap-selected"><i class="fas fa-sync"></i> {{localize "ffd20lnrw.SwapSelected"}}</a>
-      <a name="clear-reduction"><i class="fas fa-times"></i> {{localize "ffd20lnrw.ClearReduction"}}</a>
+      <a name="swap-selected"><i class="fas fa-sync"></i> {{localize "FFD20.SwapSelected"}}</a>
+      <a name="clear-reduction"><i class="fas fa-times"></i> {{localize "FFD20.ClearReduction"}}</a>
     </div>
   </div>
   <div class="form-group stacked selected-tokens">
@@ -28,13 +28,13 @@
     <p class="notes" style="display: flex; justify-content: space-around;">
         {{#if dr}}
         <span>
-          <u>{{localize "ffd20lnrw.DamRed"}}</u><br>
+          <u>{{localize "FFD20.DamRed"}}</u><br>
           {{#each dr}}<a style="padding: 0 0.5em;">{{this}}</a>{{/each}}
         </span>
         {{/if}}
         {{#if eres}}
         <span>
-          <u>{{localize "ffd20lnrw.EnRes"}}</u><br>
+          <u>{{localize "FFD20.EnRes"}}</u><br>
           {{#each eres}}<a style="padding: 0 0.5em;">{{this}}</a>{{/each}}
         </span>
         {{/if}}

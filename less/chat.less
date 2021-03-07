@@ -4,7 +4,7 @@
 /*  Chat Cards
 /* ----------------------------------------- */
 
-.ffd20lnrw.chat-card {
+.ffd20.chat-card {
   font-style: normal;
   font-size: 12px;
 
@@ -134,6 +134,9 @@
   .fake-inline-roll {
     padding: 1px 4px 0 4px;
     color: black;
+    i {
+      color: #7a7971;
+    }
     text-shadow: none;
     font-weight: normal;
   }
@@ -159,6 +162,12 @@
 .message {
   .chat-attack {
     margin-bottom: 2px;
+
+    .attack-flavor {
+      i.fas {
+        color: red;
+      }
+    }
 
     .dice-roll {
       overflow: hidden;

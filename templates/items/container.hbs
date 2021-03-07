@@ -4,20 +4,20 @@
   <header class="sheet-header flexrow">
     <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
 
-    {{> "systems/ffd20lnrw/templates/items/parts/item-name.hbs"}}
+    {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
   </header>
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item" data-tab="description">{{ localize "ffd20lnrw.Description" }}</a>
-    <a class="item active" data-tab="contents">{{ localize "ffd20lnrw.ItemContainerContents" }}</a>
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item active" data-tab="contents">{{ localize "FFD20.ItemContainerContents" }}</a>
   </nav>
 
   {{!-- Item Sheet Body --}}
   <section class="primary-body">
 
     {{!-- Description Tab --}}
-    {{> "systems/ffd20lnrw/templates/items/parts/item-description.hbs"}}
+    {{> "systems/ffd20/templates/items/parts/item-description.hbs"}}
 
     {{!-- Contents Tab --}}
     <div class="tab active flexcol" data-group="primary" data-tab="contents">
@@ -25,40 +25,40 @@
       {{!-- Equipment Status --}}
       {{#if isGM}}
       <div class="form-group stacked">
-        <label>{{localize "ffd20lnrw.EquipmentStatus"}}</label>
+        <label>{{localize "FFD20.EquipmentStatus"}}</label>
         <label class="checkbox">
-          <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{localize "ffd20lnrw.Identified"}}
+          <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{localize "FFD20.Identified"}}
         </label>
       </div>
       {{/if}}
 
       <div class="form-group">
-        <label>{{localize "ffd20lnrw.ItemContainerWeightReduction"}} %</label>
+        <label>{{localize "FFD20.ItemContainerWeightReduction"}} %</label>
         <input type="number" class="select-on-click" value="{{data.weightReduction}}" name="data.weightReduction"/>
       </div>
 
       <div class="form-group">
         <ol class="currency flexrow">
           <h3>
-            {{localize "ffd20lnrw.Currency"}}
+            {{localize "FFD20.Currency"}}
           </h3>
           {{#each config.currencies as |l k|}}
           <label class="denomination {{k}}">{{l}}</label>
           <input type="text" class="select-on-click" name="data.currency.{{k}}" value="{{lookup ../data.currency k}}" data-dtype="String"/>
-          <a class="convert-currency" data-type="{{k}}" data-category="currency" title="{{localize "ffd20lnrw.ConvertCurrency"}}"><i class="fas fa-long-arrow-alt-left"></i></a>
+          <a class="convert-currency" data-type="{{k}}" data-category="currency" title="{{localize "FFD20.ConvertCurrency"}}"><i class="fas fa-long-arrow-alt-left"></i></a>
           {{/each}}
         </ol>
       </div>
 
-      {{> "systems/ffd20lnrw/templates/items/parts/item-contents.hbs" sections=inventory}}
+      {{> "systems/ffd20/templates/items/parts/item-contents.hbs" sections=inventory}}
 
       <footer>
         <table>
           <thead>
             <tr>
-              <th>{{localize "ffd20lnrw.ItemContainerContentsWeight"}}</th>
-              <th>{{localize "ffd20lnrw.ItemContainerContentsValue"}}</th>
-              <th>{{localize "ffd20lnrw.ItemContainerContentsSellValue"}}</th>
+              <th>{{localize "FFD20.ItemContainerContentsWeight"}}</th>
+              <th>{{localize "FFD20.ItemContainerContentsValue"}}</th>
+              <th>{{localize "FFD20.ItemContainerContentsSellValue"}}</th>
             </tr>
           </thead>
           

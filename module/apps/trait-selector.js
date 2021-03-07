@@ -1,14 +1,13 @@
 /**
  * A specialized form used to select damage or condition types which apply to an Actor
- * @type {FormApplication}
+ * @type {BaseEntitySheet}
  */
-export class ActorTraitSelector extends FormApplication {
+export class ActorTraitSelector extends BaseEntitySheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.id = "trait-selector";
-    options.classes = ["ffd20lnrw", "trait-selector"];
+    options.classes = ["FFD20", "trait-selector"];
     options.title = "Actor Trait Selection";
-    options.template = "systems/ffd20lnrw/templates/apps/trait-selector.hbs";
+    options.template = "systems/ffd20/templates/apps/trait-selector.hbs";
     options.width = 320;
     options.height = "auto";
     return options;
@@ -44,7 +43,7 @@ export class ActorTraitSelector extends FormApplication {
     }
 
     // Object type
-    const updateButton = this.object instanceof Actor ? "ffd20lnrw.UpdateActor" : "ffd20lnrw.UpdateItem";
+    const updateButton = this.object instanceof Actor ? "FFD20.UpdateActor" : "FFD20.UpdateItem";
 
     // Return data
     return {

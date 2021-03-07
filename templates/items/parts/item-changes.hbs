@@ -1,33 +1,33 @@
 {{!-- Flags --}}
 <div class="form-group">
-  <label class="header">{{localize "ffd20lnrw.CheckFlags"}}</label>
+  <label class="header">{{localize "FFD20.CheckFlags"}}</label>
   <div class="buff-flags flexcol">
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.noEncumbrance" {{checked data.changeFlags.noEncumbrance}}/> {{localize "ffd20lnrw.ChangeFlagDwarflikeEncumbrance"}}
+      <input type="checkbox" name="data.changeFlags.noEncumbrance" {{checked data.changeFlags.noEncumbrance}}/> {{localize "FFD20.ChangeFlagDwarflikeEncumbrance"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.mediumArmorFullSpeed" {{checked data.changeFlags.mediumArmorFullSpeed}}/> {{localize "ffd20lnrw.ChangeFlagMediumArmorFullSpeed"}}
+      <input type="checkbox" name="data.changeFlags.mediumArmorFullSpeed" {{checked data.changeFlags.mediumArmorFullSpeed}}/> {{localize "FFD20.ChangeFlagMediumArmorFullSpeed"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.heavyArmorFullSpeed" {{checked data.changeFlags.heavyArmorFullSpeed}}/> {{localize "ffd20lnrw.ChangeFlagHeavyArmorFullSpeed"}}
+      <input type="checkbox" name="data.changeFlags.heavyArmorFullSpeed" {{checked data.changeFlags.heavyArmorFullSpeed}}/> {{localize "FFD20.ChangeFlagHeavyArmorFullSpeed"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.loseDexToAC" {{checked data.changeFlags.loseDexToAC}}/> {{localize "ffd20lnrw.ChangeFlagLoseDexToAC"}}
+      <input type="checkbox" name="data.changeFlags.loseDexToAC" {{checked data.changeFlags.loseDexToAC}}/> {{localize "FFD20.ChangeFlagLoseDexToAC"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.noDex" {{checked data.changeFlags.noDex}}/> {{localize "ffd20lnrw.ChangeFlagNoDex"}}
+      <input type="checkbox" name="data.changeFlags.noDex" {{checked data.changeFlags.noDex}}/> {{localize "FFD20.ChangeFlagNoDex"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.noStr" {{checked data.changeFlags.noStr}}/> {{localize "ffd20lnrw.ChangeFlagNoStr"}}
+      <input type="checkbox" name="data.changeFlags.noStr" {{checked data.changeFlags.noStr}}/> {{localize "FFD20.ChangeFlagNoStr"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.oneInt" {{checked data.changeFlags.oneInt}}/> {{localize "ffd20lnrw.ChangeFlagOneInt"}}
+      <input type="checkbox" name="data.changeFlags.oneInt" {{checked data.changeFlags.oneInt}}/> {{localize "FFD20.ChangeFlagOneInt"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.oneWis" {{checked data.changeFlags.oneWis}}/> {{localize "ffd20lnrw.ChangeFlagOneWis"}}
+      <input type="checkbox" name="data.changeFlags.oneWis" {{checked data.changeFlags.oneWis}}/> {{localize "FFD20.ChangeFlagOneWis"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.oneCha" {{checked data.changeFlags.oneCha}}/> {{localize "ffd20lnrw.ChangeFlagOneCha"}}
+      <input type="checkbox" name="data.changeFlags.oneCha" {{checked data.changeFlags.oneCha}}/> {{localize "FFD20.ChangeFlagOneCha"}}
     </label>
   </div>
 </div>
@@ -35,7 +35,7 @@
 <div>
   {{!-- Changes --}}
   <h4 class="change-header">
-    {{localize "ffd20lnrw.Changes"}}
+    {{localize "FFD20.Changes"}}
   </h4>
   <ol class="changes form-group">
     {{#each changes as |change a|}}
@@ -48,11 +48,11 @@
         {{/select}}
       </select>
       {{#unless isScript}}
-      <input class="change-formula" type="text" name="data.changes.{{a}}.formula" value="{{lookup this.data "formula"}}"
-                                                                                  placeholder="{{localize "ffd20lnrw.Formula"}}"
+      <input class="change-formula formula" type="text" name="data.changes.{{a}}.formula" value="{{lookup this.data "formula"}}"
+                                                                                  placeholder="{{localize "FFD20.Formula"}}"
                                                                                   required/>
       {{else}}
-      <button type="button" class="edit-change-contents"><i class="fas fa-edit"></i> {{localize "ffd20lnrw.Edit"}}</button>
+      <button type="button" class="edit-change-contents"><i class="fas fa-edit"></i> {{localize "FFD20.Edit"}}</button>
       {{/unless}}
       <select class="change-target" name="data.changes.{{a}}.target" required>
         {{#select (lookup this.data "target") }}
@@ -81,10 +81,10 @@
         {{/select}}
       </select>
       <input class="change-priority" type="text" data-dtype="Number" name="data.changes.{{a}}.priority" value="{{lookup this.data "priority"}}"
-                                                                                    placeholder="{{localize "ffd20lnrw.Priority"}}" title="{{localize "ffd20lnrw.Priority"}}" />
+                                                                                    placeholder="{{localize "FFD20.Priority"}}" title="{{localize "FFD20.Priority"}}" />
       <a class="change-control delete-change"><i class="fas fa-trash"></i></a>
     </li>
     {{/each}}
-    <li class="change flexrow"><a class="change-control add-change"><i class="fas fa-plus"></i> {{localize "ffd20lnrw.AddChange"}}</a></li>
+    <li class="change flexrow"><a class="change-control add-change"><i class="fas fa-plus"></i> {{localize "FFD20.AddChange"}}</a></li>
   </ol>
 </div>

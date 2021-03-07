@@ -1,13 +1,15 @@
 import { HealthConfig } from "./config/health.js";
 import { ExperienceConfig } from "./config/experience.js";
 import { AccessibilityConfig } from "./config/accessibility.js";
+import { TooltipConfig } from "./config/tooltip.js";
+import { TooltipWorldConfig } from "./config/tooltip_world.js";
 import { CompendiumBrowser } from "./apps/compendium-browser.js";
 
 export const registerSystemSettings = function () {
   /**
    * Track the system version upon which point a migration was last applied
    */
-  game.settings.register("ffd20lnrw", "systemMigrationVersion", {
+  game.settings.register("FFD20", "systemMigrationVersion", {
     name: "System Migration Version",
     scope: "world",
     config: false,
@@ -17,14 +19,14 @@ export const registerSystemSettings = function () {
   /**
    * Track when the last changelog was shown
    */
-  game.settings.register("ffd20lnrw", "changelogVersion", {
+  game.settings.register("FFD20", "changelogVersion", {
     name: "Changelog Version",
     scope: "client",
     config: false,
     type: String,
     default: "0.1.0",
   });
-  game.settings.register("ffd20lnrw", "dontShowChangelog", {
+  game.settings.register("FFD20", "dontShowChangelog", {
     name: "Don't Automatically Show Changelog",
     scope: "client",
     config: false,
@@ -33,16 +35,16 @@ export const registerSystemSettings = function () {
   });
 
   // Health configuration
-  game.settings.registerMenu("ffd20lnrw", "healthConfig", {
-    name: "SETTINGS.ffd20lnrwHealthConfigName",
-    label: "SETTINGS.ffd20lnrwHealthConfigLabel",
-    hint: "SETTINGS.ffd20lnrwHealthConfigHint",
+  game.settings.registerMenu("FFD20", "healthConfig", {
+    name: "SETTINGS.FFD20HealthConfigName",
+    label: "SETTINGS.FFD20HealthConfigLabel",
+    hint: "SETTINGS.FFD20HealthConfigHint",
     icon: "fas fa-heartbeat",
     type: HealthConfig,
     restricted: true,
   });
-  game.settings.register("ffd20lnrw", "healthConfig", {
-    name: "SETTINGS.ffd20lnrwHealthConfigName",
+  game.settings.register("FFD20", "healthConfig", {
+    name: "SETTINGS.FFD20HealthConfigName",
     scope: "world",
     default: HealthConfig.defaultSettings,
     type: Object,
@@ -60,16 +62,16 @@ export const registerSystemSettings = function () {
   });
 
   // Experience configuration
-  game.settings.registerMenu("ffd20lnrw", "experienceConfig", {
-    name: "ffd20lnrw.ExperienceConfigName",
-    label: "ffd20lnrw.ExperienceConfigLabel",
-    hint: "ffd20lnrw.ExperienceConfigHint",
+  game.settings.registerMenu("FFD20", "experienceConfig", {
+    name: "FFD20.ExperienceConfigName",
+    label: "FFD20.ExperienceConfigLabel",
+    hint: "FFD20.ExperienceConfigHint",
     icon: "fas fa-book",
     type: ExperienceConfig,
     restricted: true,
   });
-  game.settings.register("ffd20lnrw", "experienceConfig", {
-    name: "ffd20lnrw.ExperienceConfigName",
+  game.settings.register("FFD20", "experienceConfig", {
+    name: "FFD20.ExperienceConfigName",
     scope: "world",
     default: ExperienceConfig.defaultSettings,
     type: Object,
@@ -87,16 +89,16 @@ export const registerSystemSettings = function () {
   });
 
   // Accessibility configuration
-  game.settings.registerMenu("ffd20lnrw", "accessibilityConfig", {
-    name: "ffd20lnrw.AccessibilityConfigName",
-    label: "ffd20lnrw.AccessibilityConfigLabel",
-    hint: "ffd20lnrw.AccessibilityConfigHint",
+  game.settings.registerMenu("FFD20", "accessibilityConfig", {
+    name: "FFD20.AccessibilityConfigName",
+    label: "FFD20.AccessibilityConfigLabel",
+    hint: "FFD20.AccessibilityConfigHint",
     restricted: false,
     icon: "fas fa-wheelchair",
     type: AccessibilityConfig,
   });
-  game.settings.register("ffd20lnrw", "accessibilityConfig", {
-    name: "ffd20lnrw.AccessibilityConfigName",
+  game.settings.register("FFD20", "accessibilityConfig", {
+    name: "FFD20.AccessibilityConfigName",
     scope: "client",
     default: AccessibilityConfig.defaultSettings,
     type: Object,
@@ -106,19 +108,59 @@ export const registerSystemSettings = function () {
     },
   });
 
+  // Tooltip configuration
+  game.settings.registerMenu("FFD20", "tooltipConfig", {
+    name: "FFD20.TooltipConfigName",
+    label: "FFD20.TooltipConfigLabel",
+    hint: "FFD20.TooltipConfigHint",
+    restricted: false,
+    icon: "fas fa-window-maximize",
+    type: TooltipConfig,
+  });
+  game.settings.register("FFD20", "tooltipConfig", {
+    name: "FFD20.TooltipConfigName",
+    scope: "client",
+    default: TooltipConfig.defaultSettings,
+    type: Object,
+    config: false,
+    onChange: () => {
+      game.FFD20.tooltip?.setPosition();
+    },
+  });
+
+  // Tooltip World configuration
+  /* game.settings.registerMenu("FFD20", "tooltipWorldConfig", {
+    name: "FFD20.TooltipWorldConfigName",
+    label: "FFD20.TooltipWorldConfigLabel",
+    hint: "FFD20.TooltipWorldConfigHint",
+    restricted: true,
+    icon: "fas fa-window-maximize",
+    type: TooltipWorldConfig,
+  }); */
+  game.settings.register("FFD20", "tooltipWorldConfig", {
+    name: "FFD20.TooltipWorldConfigName",
+    scope: "world",
+    default: TooltipWorldConfig.defaultSettings,
+    type: Object,
+    config: false,
+    onChange: () => {
+      game.FFD20.tooltip?.setPosition();
+    },
+  });
+
   /**
    * Register diagonal movement rule setting
    */
-  game.settings.register("ffd20lnrw", "diagonalMovement", {
-    name: "SETTINGS.ffd20lnrwDiagN",
-    hint: "SETTINGS.ffd20lnrwDiagL",
+  game.settings.register("FFD20", "diagonalMovement", {
+    name: "SETTINGS.FFD20DiagN",
+    hint: "SETTINGS.FFD20DiagL",
     scope: "world",
     config: true,
     default: "5105",
     type: String,
     choices: {
-      555: "SETTINGS.ffd20lnrwDiagPHB",
-      5105: "SETTINGS.ffd20lnrwDiagDMG",
+      555: "SETTINGS.FFD20DiagPHB",
+      5105: "SETTINGS.FFD20DiagDMG",
     },
     onChange: (rule) => (canvas.grid.diagonalRule = rule),
   });
@@ -127,9 +169,9 @@ export const registerSystemSettings = function () {
    * Experience rate
    * @deprecated
    */
-  game.settings.register("ffd20lnrw", "experienceRate", {
-    name: "SETTINGS.ffd20lnrwExpRateN",
-    hint: "SETTINGS.ffd20lnrwExpRateL",
+  game.settings.register("FFD20", "experienceRate", {
+    name: "SETTINGS.FFD20ExpRateN",
+    hint: "SETTINGS.FFD20ExpRateL",
     scope: "world",
     config: false,
     default: "",
@@ -149,9 +191,9 @@ export const registerSystemSettings = function () {
   /**
    * System of Units
    */
-  game.settings.register("ffd20lnrw", "units", {
-    name: "SETTINGS.ffd20lnrwUnitsN",
-    hint: "SETTINGS.ffd20lnrwUnitsL",
+  game.settings.register("FFD20", "units", {
+    name: "SETTINGS.FFD20UnitsN",
+    hint: "SETTINGS.FFD20UnitsL",
     scope: "world",
     config: true,
     default: "imperial",
@@ -175,9 +217,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to allow the background skills optional ruleset.
    */
-  game.settings.register("ffd20lnrw", "allowBackgroundSkills", {
-    name: "SETTINGS.ffd20lnrwBackgroundSkillsN",
-    hint: "SETTINGS.ffd20lnrwBackgroundSkillsH",
+  game.settings.register("FFD20", "allowBackgroundSkills", {
+    name: "SETTINGS.FFD20BackgroundSkillsN",
+    hint: "SETTINGS.FFD20BackgroundSkillsH",
     scope: "world",
     config: true,
     default: false,
@@ -195,9 +237,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to use the Fractional Base Bonuses optional ruleset.
    */
-  game.settings.register("ffd20lnrw", "useFractionalBaseBonuses", {
-    name: "SETTINGS.ffd20lnrwFractionalBaseBonusesN",
-    hint: "SETTINGS.ffd20lnrwFractionalBaseBonusesH",
+  game.settings.register("FFD20", "useFractionalBaseBonuses", {
+    name: "SETTINGS.FFD20FractionalBaseBonusesN",
+    hint: "SETTINGS.FFD20FractionalBaseBonusesH",
     scope: "world",
     config: true,
     default: false,
@@ -215,9 +257,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to automatically collapse Item Card descriptions
    */
-  game.settings.register("ffd20lnrw", "autoCollapseItemCards", {
-    name: "SETTINGS.ffd20lnrwAutoCollapseCardN",
-    hint: "SETTINGS.ffd20lnrwAutoCollapseCardL",
+  game.settings.register("FFD20", "autoCollapseItemCards", {
+    name: "SETTINGS.FFD20AutoCollapseCardN",
+    hint: "SETTINGS.FFD20AutoCollapseCardL",
     scope: "client",
     config: true,
     default: false,
@@ -230,9 +272,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to hide chat buttons
    */
-  game.settings.register("ffd20lnrw", "hideChatButtons", {
-    name: "SETTINGS.ffd20lnrwHideChatButtonsN",
-    hint: "SETTINGS.ffd20lnrwHideChatButtonsH",
+  game.settings.register("FFD20", "hideChatButtons", {
+    name: "SETTINGS.FFD20HideChatButtonsN",
+    hint: "SETTINGS.FFD20HideChatButtonsH",
     scope: "client",
     config: true,
     default: false,
@@ -245,9 +287,9 @@ export const registerSystemSettings = function () {
   /**
    * Option to change measure style
    */
-  game.settings.register("ffd20lnrw", "measureStyle", {
-    name: "SETTINGS.ffd20lnrwMeasureStyleN",
-    hint: "SETTINGS.ffd20lnrwMeasureStyleL",
+  game.settings.register("FFD20", "measureStyle", {
+    name: "SETTINGS.FFD20MeasureStyleN",
+    hint: "SETTINGS.FFD20MeasureStyleL",
     scope: "world",
     config: true,
     default: true,
@@ -257,37 +299,37 @@ export const registerSystemSettings = function () {
   /**
    * Low-light Vision Mode
    */
-  game.settings.register("ffd20lnrw", "lowLightVisionMode", {
-    name: "SETTINGS.ffd20lnrwLowLightVisionModeN",
-    hint: "SETTINGS.ffd20lnrwLowLightVisionModeH",
+  game.settings.register("FFD20", "lowLightVisionMode", {
+    name: "SETTINGS.FFD20LowLightVisionModeN",
+    hint: "SETTINGS.FFD20LowLightVisionModeH",
     scope: "world",
     config: true,
     default: false,
     type: Boolean,
   });
 
-  game.settings.register("ffd20lnrw", "sharedVisionMode", {
-    name: "SETTINGS.ffd20lnrwSharedVisionModeN",
-    hint: "SETTINGS.ffd20lnrwSharedVisionModeH",
+  game.settings.register("FFD20", "sharedVisionMode", {
+    name: "SETTINGS.FFD20SharedVisionModeN",
+    hint: "SETTINGS.FFD20SharedVisionModeH",
     scope: "world",
     config: true,
     default: "0",
     type: String,
     choices: {
-      0: "SETTINGS.ffd20lnrwSharedVisionWithoutSelection",
-      1: "SETTINGS.ffd20lnrwSharedVisionWithSelection",
+      0: "SETTINGS.FFD20SharedVisionWithoutSelection",
+      1: "SETTINGS.FFD20SharedVisionWithSelection",
     },
     onChange: () => {
-      game.socket.emit("system.ffd20lnrw", { eventType: "redrawCanvas" });
+      game.socket.emit("system.FFD20", { eventType: "redrawCanvas" });
     },
   });
 
   /**
    * Set coin weight
    */
-  game.settings.register("ffd20lnrw", "coinWeight", {
-    name: "SETTINGS.ffd20lnrwCoinWeightN",
-    hint: "SETTINGS.ffd20lnrwCoinWeightH",
+  game.settings.register("FFD20", "coinWeight", {
+    name: "SETTINGS.FFD20CoinWeightN",
+    hint: "SETTINGS.FFD20CoinWeightH",
     scope: "world",
     config: true,
     default: 50,
@@ -305,9 +347,9 @@ export const registerSystemSettings = function () {
   /**
    * Hide token conditions
    */
-  game.settings.register("ffd20lnrw", "hideTokenConditions", {
-    name: "SETTINGS.ffd20lnrwHideTokenConditionsN",
-    hint: "SETTINGS.ffd20lnrwHideTokenConditionsH",
+  game.settings.register("FFD20", "hideTokenConditions", {
+    name: "SETTINGS.FFD20HideTokenConditionsN",
+    hint: "SETTINGS.FFD20HideTokenConditionsH",
     scope: "world",
     config: true,
     default: false,
@@ -328,9 +370,9 @@ export const registerSystemSettings = function () {
   /**
    * Display default token conditions alongside system ones
    */
-  game.settings.register("ffd20lnrw", "coreEffects", {
-    name: "SETTINGS.ffd20lnrwCoreEffectsN",
-    hint: "SETTINGS.ffd20lnrwCoreEffectsH",
+  game.settings.register("FFD20", "coreEffects", {
+    name: "SETTINGS.FFD20CoreEffectsN",
+    hint: "SETTINGS.FFD20CoreEffectsH",
     scope: "world",
     config: true,
     default: false,
@@ -343,9 +385,9 @@ export const registerSystemSettings = function () {
   /**
    * Skip action dialog prompts
    */
-  game.settings.register("ffd20lnrw", "skipActionDialogs", {
-    name: "SETTINGS.ffd20lnrwSkipActionDialogsN",
-    hint: "SETTINGS.ffd20lnrwSkipActionDialogsH",
+  game.settings.register("FFD20", "skipActionDialogs", {
+    name: "SETTINGS.FFD20SkipActionDialogsN",
+    hint: "SETTINGS.FFD20SkipActionDialogsH",
     scope: "client",
     config: true,
     default: false,
@@ -355,7 +397,7 @@ export const registerSystemSettings = function () {
   /*
    * When skipping an action dialog prompt still place the template if one is configured
    */
-  game.settings.register("ffd20lnrw", "placeMeasureTemplateOnQuickRolls", {
+  game.settings.register("FFD20", "placeMeasureTemplateOnQuickRolls", {
     name: "SETTINGS.placeMeasureTemplateOnQuickRollsN",
     hint: "SETTINGS.placeMeasureTemplateOnQuickRollsH",
     scope: "client",
@@ -367,25 +409,25 @@ export const registerSystemSettings = function () {
   /**
    * Attack chat card template
    */
-  game.settings.register("ffd20lnrw", "attackChatCardTemplate", {
-    name: "SETTINGS.ffd20lnrwAttackChatCardTemplateN",
-    hint: "SETTINGS.ffd20lnrwAttackChatCardTemplateH",
+  game.settings.register("FFD20", "attackChatCardTemplate", {
+    name: "SETTINGS.FFD20AttackChatCardTemplateN",
+    hint: "SETTINGS.FFD20AttackChatCardTemplateH",
     scope: "world",
     config: true,
-    default: "systems/ffd20lnrw/templates/chat/attack-roll.hbs",
+    default: "systems/ffd20/templates/chat/attack-roll.hbs",
     type: String,
     choices: {
-      "systems/ffd20lnrw/templates/chat/attack-roll.hbs": "ffd20lnrw.Primary",
-      "systems/ffd20lnrw/templates/chat/attack-roll2.hbs": "ffd20lnrw.Alternate",
+      "systems/ffd20/templates/chat/attack-roll.hbs": "FFD20.Primary",
+      "systems/ffd20/templates/chat/attack-roll2.hbs": "FFD20.Alternate",
     },
   });
 
   /**
    * Unchained action economy
    */
-  game.settings.register("ffd20lnrw", "unchainedActionEconomy", {
-    name: "SETTINGS.ffd20lnrwUnchainedActionEconomyN",
-    hint: "SETTINGS.ffd20lnrwUnchainedActionEconomyH",
+  game.settings.register("FFD20", "unchainedActionEconomy", {
+    name: "SETTINGS.FFD20UnchainedActionEconomyN",
+    hint: "SETTINGS.FFD20UnchainedActionEconomyH",
     scope: "world",
     config: true,
     default: false,
@@ -406,9 +448,9 @@ export const registerSystemSettings = function () {
   /**
    * Invert filter Shift-clicking
    */
-  game.settings.register("ffd20lnrw", "invertSectionFilterShiftBehaviour", {
-    name: "SETTINGS.ffd20lnrwInvertSectionFilterBehaviourN",
-    hint: "SETTINGS.ffd20lnrwInvertSectionFilterBehaviourH",
+  game.settings.register("FFD20", "invertSectionFilterShiftBehaviour", {
+    name: "SETTINGS.FFD20InvertSectionFilterBehaviourN",
+    hint: "SETTINGS.FFD20InvertSectionFilterBehaviourH",
     scope: "client",
     config: true,
     default: false,
@@ -418,9 +460,9 @@ export const registerSystemSettings = function () {
   /**
    * Hide reach measurements
    */
-  game.settings.register("ffd20lnrw", "hideReachMeasurements", {
-    name: "SETTINGS.ffd20lnrwHideReachMeasurementsN",
-    hint: "SETTINGS.ffd20lnrwHideReachMeasurementsH",
+  game.settings.register("FFD20", "hideReachMeasurements", {
+    name: "SETTINGS.FFD20HideReachMeasurementsN",
+    hint: "SETTINGS.FFD20HideReachMeasurementsH",
     scope: "client",
     config: true,
     default: false,
@@ -430,9 +472,9 @@ export const registerSystemSettings = function () {
   /**
    * Display BAB iteratives instead of simply total
    */
-  game.settings.register("ffd20lnrw", "displayIteratives", {
-    name: "SETTINGS.ffd20lnrwDisplayIterativesN",
-    hint: "SETTINGS.ffd20lnrwDisplayIterativesH",
+  game.settings.register("FFD20", "displayIteratives", {
+    name: "SETTINGS.FFD20DisplayIterativesN",
+    hint: "SETTINGS.FFD20DisplayIterativesH",
     scope: "client",
     config: true,
     default: false,
@@ -444,7 +486,7 @@ export const registerClientSettings = function () {
   /**
    * Compendium filters
    */
-  game.settings.register("ffd20lnrw", "compendiumFilters", {
+  game.settings.register("FFD20", "compendiumFilters", {
     name: "Compendium Filters",
     hint: "Stores compendium filters",
     scope: "client",
@@ -456,7 +498,7 @@ export const registerClientSettings = function () {
   /**
    * Compendium items
    */
-  game.settings.register("ffd20lnrw", "compendiumItems", {
+  game.settings.register("FFD20", "compendiumItems", {
     name: "Compendium Items",
     hint: "Cache compendium entries",
     scope: "client",
@@ -468,7 +510,7 @@ export const registerClientSettings = function () {
   /**
    * Compendium save versions
    */
-  game.settings.register("ffd20lnrw", "compendiumSaveVersions", {
+  game.settings.register("FFD20", "compendiumSaveVersions", {
     name: "Compendium Save Versions",
     hint: "Versions of compendium caches",
     scope: "client",
@@ -487,7 +529,7 @@ export const registerClientSettings = function () {
   /*
    * Compendium difference data
    */
-  game.settings.register("ffd20lnrw", "compendiumForceRefresh", {
+  game.settings.register("FFD20", "compendiumForceRefresh", {
     name: "Compendium Force Refresh Data",
     hint: "Data needed to determine whether to force refresh compendiums",
     scope: "client",
@@ -506,23 +548,22 @@ export const registerClientSettings = function () {
   });
 };
 
-/***/
 export const migrateSystemSettings = async function () {
   if (!game.user.isGM) return;
 
   // Migrate attack template
   {
-    const template = game.settings.get("ffd20lnrw", "attackChatCardTemplate");
+    const template = game.settings.get("FFD20", "attackChatCardTemplate");
     if (template.endsWith(".html")) {
       const newTemplate = template.slice(0, template.length - "html".length) + "hbs";
-      await game.settings.set("ffd20lnrw", "attackChatCardTemplate", newTemplate);
+      await game.settings.set("FFD20", "attackChatCardTemplate", newTemplate);
     }
   }
 };
 
 export const getSkipActionPrompt = function () {
   return (
-    (game.settings.get("ffd20lnrw", "skipActionDialogs") && !game.keyboard.isDown("Shift")) ||
-    (!game.settings.get("ffd20lnrw", "skipActionDialogs") && game.keyboard.isDown("Shift"))
+    (game.settings.get("FFD20", "skipActionDialogs") && !game.keyboard.isDown("Shift")) ||
+    (!game.settings.get("FFD20", "skipActionDialogs") && game.keyboard.isDown("Shift"))
   );
 };

@@ -3,8 +3,8 @@ export class ActorSheetFlags extends BaseEntitySheet {
     const options = super.defaultOptions;
     return mergeObject(options, {
       id: "actor-flags",
-      classes: ["ffd20lnrw"],
-      template: "systems/ffd20lnrw/templates/apps/actor-flags.hbs",
+      classes: ["FFD20"],
+      template: "systems/ffd20/templates/apps/actor-flags.hbs",
       width: 500,
       closeOnSubmit: true,
     });
@@ -17,7 +17,7 @@ export class ActorSheetFlags extends BaseEntitySheet {
    * @type {String}
    */
   get title() {
-    return `${game.i18n.localize("ffd20lnrw.FlagsTitle")}: ${this.object.name}`;
+    return `${game.i18n.localize("FFD20.FlagsTitle")}: ${this.object.name}`;
   }
 
   /* -------------------------------------------- */
@@ -41,13 +41,13 @@ export class ActorSheetFlags extends BaseEntitySheet {
    */
   _getFlags() {
     const flags = {};
-    for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.characterFlags)) {
+    for (let [k, v] of Object.entries(CONFIG.FFD20.characterFlags)) {
       if (!Object.prototype.hasOwnProperty.call(flags, v.section)) flags[v.section] = {};
       let flag = duplicate(v);
       flag.type = v.type.name;
       flag.isCheckbox = v.type === Boolean;
       flag.isSelect = Object.prototype.hasOwnProperty.call(v, "choices");
-      flag.value = this.entity.getFlag("ffd20lnrw", k);
+      flag.value = this.entity.getFlag("FFD20", k);
       flags[v.section][k] = flag;
     }
     return flags;
@@ -64,13 +64,13 @@ export class ActorSheetFlags extends BaseEntitySheet {
 
     // Iterate over the flags which may be configured
     const updateData = {};
-    for (let [k, v] of Object.entries(CONFIG.ffd20lnrw.characterFlags)) {
+    for (let [k, v] of Object.entries(CONFIG.FFD20.characterFlags)) {
       if ([undefined, null, "", false].includes(formData[k])) updateData[`-=${k}`] = null;
       else if (v.type === Number && formData[k] === 0) updateData[`-=${k}`] = null;
       else updateData[k] = formData[k];
     }
 
     // Set the new flags in bulk
-    actor.update({ "flags.ffd20lnrw": updateData });
+    actor.update({ "flags.FFD20": updateData });
   }
 }
