@@ -18,7 +18,7 @@ export class ItemSheetFFD20_Container extends ItemSheetFFD20 {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 800,
-      classes: ["FFD20", "sheet", "item"],
+      classes: ["ffd20", "sheet", "item"],
       scrollY: ["section.inventory-body"],
     });
   }
@@ -133,7 +133,7 @@ export class ItemSheetFFD20_Container extends ItemSheetFFD20 {
     data.contentsWeight += this.item._calculateCoinWeight(this.item.data);
     data.contentsWeight = Math.round(convertWeight(data.contentsWeight) * 10) / 10;
     data.weightUnits =
-      game.settings.get("FFD20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+      game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
 
     // Get contents value
     const gilValue = this.item.getValue({ sellValue: 1 }) - this.item.getValue({ recursive: false, sellValue: 1 });
@@ -252,7 +252,7 @@ export class ItemSheetFFD20_Container extends ItemSheetFFD20 {
       i.data.weight = i.data.weight || 0;
       i.totalWeight = Math.round(convertWeight(i.data.quantity * i.data.weight) * 10) / 10;
       i.units =
-        game.settings.get("FFD20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+        game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
       if (inventory[i.type] != null) inventory[i.type].items.push(i);
       if (subType != null && inventory[subType] != null) inventory[subType].items.push(i);
     }

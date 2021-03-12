@@ -12,7 +12,7 @@ export class ChangeLogWindow extends FormApplication {
     const options = super.defaultOptions;
     return mergeObject(options, {
       id: "changelog",
-      classes: ["FFD20", "changelog"],
+      classes: ["ffd20", "changelog"],
       template: "systems/ffd20/templates/apps/changelog.hbs",
       width: 500,
       submitOnChange: true,
@@ -27,7 +27,7 @@ export class ChangeLogWindow extends FormApplication {
   async getData() {
     let data = await super.getData();
 
-    data.dontShowAgain = game.settings.get("FFD20", "dontShowChangelog");
+    data.dontShowAgain = game.settings.get("ffd20", "dontShowChangelog");
 
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "systems/ffd20/CHANGELOG.md");
@@ -68,7 +68,7 @@ export class ChangeLogWindow extends FormApplication {
 
   async _updateObject(event, formData) {
     if (formData.dontShowAgain != null) {
-      await game.settings.set("FFD20", "dontShowChangelog", formData.dontShowAgain);
+      await game.settings.set("ffd20", "dontShowChangelog", formData.dontShowAgain);
     }
   }
 }

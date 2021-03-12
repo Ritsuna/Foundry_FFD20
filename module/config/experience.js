@@ -10,7 +10,7 @@ export class ExperienceConfig extends FormApplication {
     const data = {};
 
     if (!this._init) {
-      const settings = await game.settings.get("FFD20", "experienceConfig");
+      const settings = await game.settings.get("ffd20", "experienceConfig");
       this._settings = mergeObject(this.constructor.defaultSettings, settings);
       this._init = true;
     }
@@ -75,7 +75,7 @@ export class ExperienceConfig extends FormApplication {
   async _updateObject(event, formData) {
     const settings = expandObject(formData);
     // Some mild sanitation for the numeric values.
-    await game.settings.set("FFD20", "experienceConfig", settings);
+    await game.settings.set("ffd20", "experienceConfig", settings);
     ui.notifications.info("Updated Pathfinder experience configuration.");
   }
 }

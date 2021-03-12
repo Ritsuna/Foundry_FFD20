@@ -1,0 +1,75 @@
+<form autocomplete="off">
+    {{!-- Disable Tooltips globally --}}
+    <div class="form-group">
+        <label>{{localize "FFD20.TooltipWorldConfigDisable"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="disable" data-dtype="Boolean" {{checked data.disable}}/>
+        </div>
+    </div>
+
+    {{!-- Hide Portraits globally --}}
+    <div class="form-group">
+        <label>{{localize "FFD20.TooltipWorldConfigHidePortraits"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="portrait.hide" data-dtype="Boolean" {{checked data.portrait.hide}}/>
+        </div>
+    </div>
+
+    {{!-- Hide Held items globally --}}
+    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideHeld_Hint"}}">
+        <label>{{localize "FFD20.TooltipWorldConfigHideHeld"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="hideHeld" data-dtype="Boolean" {{checked data.hideHeld}}/>
+        </div>
+    </div>
+
+    {{!-- Hide Armor globally --}}
+    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideArmor_Hint"}}">
+        <label>{{localize "FFD20.TooltipWorldConfigHideArmor"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="hideArmor" data-dtype="Boolean" {{checked data.hideArmor}}/>
+        </div>
+    </div>
+
+    {{!-- Hide Buffs globally --}}
+    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideBuffs_Hint"}}">
+        <label>{{localize "FFD20.TooltipWorldConfigHideBuffs"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="hideBuffs" data-dtype="Boolean" {{checked data.hideBuffs}}/>
+        </div>
+    </div>
+
+    {{!-- Hide Conditions globally --}}
+    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideConditions_Hint"}}">
+        <label>{{localize "FFD20.TooltipWorldConfigHideConditions"}}</label>
+        <div class="form-fields">
+            <input type="checkbox" name="hideConditions" data-dtype="Boolean" {{checked data.hideConditions}}/>
+        </div>
+    </div>
+
+    {{!-- Hide Name globally --}}
+    <div class="form-fields">
+        <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideActorName_Hint"}}">
+            <label>{{localize "FFD20.TooltipWorldConfigHideActorName"}}</label>
+            <div class="form-fields">
+                <input type="checkbox" name="hideActorName" data-dtype="Boolean" {{checked data.hideActorName}}/>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>{{localize "FFD20.TooltipWorldConfigHideActorNameReplacement"}}</label>
+            <div class="form-fields">
+                <input type="text" name="hideActorNameReplacement" value="{{data.hideActorNameReplacement}}"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <button type="button" name="reset">
+            <i class="fas fa-undo"></i> {{localize 'SETTINGS.Reset'}}
+        </button>
+        <button type="submit" name="submit" >
+            <i class="far fa-save"></i> {{localize 'SETTINGS.Save'}}
+        </button>
+    </div>
+</form>

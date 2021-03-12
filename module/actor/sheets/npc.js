@@ -13,7 +13,7 @@ export class ActorSheetFFD20NPC extends ActorSheetFFD20 {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["FFD20", "sheet", "actor", "npc"],
+      classes: ["ffd20", "sheet", "actor", "npc"],
       width: 800,
       height: 840,
     });
@@ -55,7 +55,7 @@ export class ActorSheetFFD20NPC extends ActorSheetFFD20 {
       }
     }
 
-    const hpSettings = game.settings.get("FFD20", "healthConfig");
+    const hpSettings = game.settings.get("ffd20", "healthConfig");
     data["woundThresholds"] = hpSettings.variants.npc;
 
     return data;

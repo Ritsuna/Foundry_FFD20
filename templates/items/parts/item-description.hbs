@@ -10,6 +10,8 @@
     <div class="item-properties">
       {{#if isPhysical}}
       {{#unless descriptionAttributes}}
+      {{#if isMateria}}
+      {{else}}
       {{!-- Quantity --}}
       <div class="form-group">
         <label>{{localize "FFD20.Quantity"}}</label>
@@ -20,7 +22,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.Weight"}} ({{data.weightUnits}})</label>
         <input class="select-on-click" type="text" name="data.weightConverted" value="{{data.weightConverted}}" data-dtype="Number"/>
-      </div>
+      </div>{{/if}}
 
       {{!-- Price --}}
       {{#if showIdentifyDescription}}
@@ -60,6 +62,35 @@
         <label>{{localize "FFD20.Hardness"}}</label>
         <input class="select-on-click" type="text" name="data.hardness" value="{{data.hardness}}" data-dtype="Number"/>
       </div>
+      {{!-- Materia level --}}
+      {{#if isMateria}}
+      <div class="form-group">
+        <label>{{localize "FFD20.MateriaLevel"}}</label>
+        <span style="padding-left: 5px;">{{data.materiaLevel}}</span>
+        {{!--<input class="select-on-click" type="text" name="data.materiaLevel" value="{{data.materiaLevel}}" data-dtype="Number" style="flex: 0 0 60px"/> --}}
+      </div>
+      {{!-- Materia exp --}}
+      <div class="form-group">
+        <label>{{localize "FFD20.MateriaCombatXp"}}</label>
+        <input class="select-on-click" type="text" name="data.materiaCombatXp.value" value="{{data.materiaCombatXp.value}}" data-dtype="Number" style="flex: 0 0 40px"/>
+        <span>/ </span><span style="padding-left: 5px;">{{data.materiaCombatXp.next}}</span>
+        {{!-- <input type="text" name="data.materiaCombatXp.next" style="flex: 0 0 40px" value="{{data.materiaCombatXp.next}}"/> --}}
+      </div>
+      {{!-- Materia Slot --}}
+      <div class="form-group">
+        <label>{{localize "FFD20.MateriaSlot"}}</label>
+        <select name="data.materiaSlot">
+          {{#select data.materiaSlot}}
+          {{#each config.materiaSlot as |name type|}}
+          <option value="{{type}}">{{localize name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
+
+      {{/if}}
+
 
       {{!-- Carried Flag --}}
       <div class="form-group">

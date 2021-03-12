@@ -453,7 +453,7 @@ export class ItemFFD20 extends Item {
       // Convert weight according metric system (lb vs kg)
       itemData.data.weightConverted = convertWeight(itemData.data.weight);
       itemData.data.weightUnits =
-        game.settings.get("FFD20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+        game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
       itemData.data.priceUnits = game.i18n.localize("FFD20.CurrencyGil").toLowerCase();
 
       // Set basic data
@@ -484,7 +484,7 @@ export class ItemFFD20 extends Item {
         const equipmentType = getProperty(this.data, "data.equipmentType") || null;
         if (equipmentType != null) {
           const equipmentSlot = getProperty(this.data, "data.slot") || null;
-          labels.slot = equipmentSlot == null ? null : CONFIG.FFD20.equipmentSlots[equipmentType][equipmentSlot];
+          labels.slot = equipmentSlot == null ? null : C.equipmentSlots[equipmentType][equipmentSlot];
         } else labels.slot = null;
       }
     }
@@ -530,7 +530,7 @@ export class ItemFFD20 extends Item {
       labels.weaponSubtype = C.weaponTypes[wType][wSubtype];
     }
 
-    // Equipment Items
+    // Equipment Items TODO finish
     else if (itemData.type === "equipment") {
       // Type and subtype labels
       let eType = getProperty(this.data, "data.equipmentType");
@@ -540,6 +540,39 @@ export class ItemFFD20 extends Item {
       let eSubtype = getProperty(this.data, "data.equipmentSubtype");
       let subtypeKeys = Object.keys(C.equipmentTypes[eType]).filter((o) => !o.startsWith("_"));
       if (!subtypeKeys.includes(eSubtype)) eSubtype = subtypeKeys[0];
+      if (eType === "materia") {
+        itemData.data.isMateria = true;
+        itemData.data.size = "fine";
+        itemData.data.slot = itemData.data.materiaSlot;
+        if(itemData.data.materiaRarity === "common") { itemData.data.materiaCombatXp.lv1 = 0;
+        } else { itemData.data.materiaCombatXp.lv1 = Math.pow(2,1)*1250*C.materiaRarityMath[itemData.data.materiaRarity]; }
+        itemData.data.materiaCombatXp.lv2 = Math.pow(2,2)*1250*C.materiaRarityMath[itemData.data.materiaRarity];
+        itemData.data.materiaCombatXp.lv3 = Math.pow(2,3)*1250*C.materiaRarityMath[itemData.data.materiaRarity];
+        itemData.data.materiaCombatXp.mastered = Math.pow(2,4)*1250*C.materiaRarityMath[itemData.data.materiaRarity];
+        if(itemData.data.materiaCombatXp.value < itemData.data.materiaCombatXp.lv1) {
+          itemData.data.materiaLevel = "0";
+          itemData.data.materiaCombatXp.next = itemData.data.materiaCombatXp.lv1;
+        } else {
+          if(itemData.data.materiaCombatXp.value < itemData.data.materiaCombatXp.lv2) {
+            itemData.data.materiaLevel = "1";
+            itemData.data.materiaCombatXp.next = itemData.data.materiaCombatXp.lv2;
+          } else {
+            if(itemData.data.materiaCombatXp.value < itemData.data.materiaCombatXp.lv3) {
+              itemData.data.materiaLevel = "2";
+              itemData.data.materiaCombatXp.next = itemData.data.materiaCombatXp.lv3;
+            } else {
+              if(itemData.data.materiaCombatXp.value < itemData.data.materiaCombatXp.mastered) {
+                itemData.data.materiaLevel = "3";
+                itemData.data.materiaCombatXp.next = itemData.data.materiaCombatXp.mastered;
+              } else {
+                itemData.data.materiaLevel = "Mastered";
+                itemData.data.materiaCombatXp.next = "0";
+              };
+            };
+          };
+        };
+      };
+
 
       labels.equipmentType = C.equipmentTypes[eType]._label;
       labels.equipmentSubtype = C.equipmentTypes[eType][eSubtype];
@@ -557,15 +590,15 @@ export class ItemFFD20 extends Item {
 
     // Activated Items
     if (Object.prototype.hasOwnProperty.call(data, "activation")) {
-      const activationTypes = game.settings.get("FFD20", "unchainedActionEconomy")
+      const activationTypes = game.settings.get("ffd20", "unchainedActionEconomy")
         ? CONFIG.FFD20.abilityActivationTypes_unchained
         : CONFIG.FFD20.abilityActivationTypes;
-      const activationTypesPlural = game.settings.get("FFD20", "unchainedActionEconomy")
+      const activationTypesPlural = game.settings.get("ffd20", "unchainedActionEconomy")
         ? CONFIG.FFD20.abilityActivationTypesPlurals_unchained
         : CONFIG.FFD20.abilityActivationTypesPlurals;
 
       // Ability Activation Label
-      let act = game.settings.get("FFD20", "unchainedActionEconomy")
+      let act = game.settings.get("ffd20", "unchainedActionEconomy")
         ? getProperty(data, "unchainedAction.activation") || {}
         : getProperty(data, "activation") || {};
       if (act && act.cost > 1 && activationTypesPlural[act.type] != null) {
@@ -603,15 +636,8 @@ export class ItemFFD20 extends Item {
       if (labels.range.length > 0) labels.range = [game.i18n.localize("FFD20.Range") + ":", labels.range].join(" ");
 
       // Duration Label
-      let dur = duplicate(data.duration || {});
-      if (["inst", "perm", "spec", "seeText"].includes(dur.units)) dur.value = game.i18n.localize("FFD20.Duration") + ":";
-      else if (typeof dur.value === "string") {
-        try {
-          dur.value = new Roll(dur.value || "0", this.getRollData()).roll().total.toString();
-        } catch (err) {
-          console.error(this.name, "- Duration -", err);
-        }
-      }
+      let dur = data.duration || {};
+      if (["inst", "perm", "spec"].includes(dur.units)) dur.value = null;
       labels.duration = [dur.value, C.timePeriods[dur.units]].filterJoin(" ");
     }
 
@@ -1062,7 +1088,7 @@ export class ItemFFD20 extends Item {
           const fx = actor.effects.find((fx) => fx.data.origin === this.uuid);
           if (fx) {
             effectUpdates[fx.id] = effectUpdates[fx.id] || {
-              "flags.FFD20.show": !diff["data.hideFromToken"],
+              "flags.ffd20.show": !diff["data.hideFromToken"],
             };
           }
         }
@@ -1146,7 +1172,7 @@ export class ItemFFD20 extends Item {
 
     // Add a new effect
     const createData = { label: this.name, icon: this.img, origin: this.uuid, disabled: !this.data.data.active };
-    createData["flags.FFD20.show"] = !this.data.data.hideFromToken && !game.settings.get("FFD20", "hideTokenConditions");
+    createData["flags.ffd20.show"] = !this.data.data.hideFromToken && !game.settings.get("ffd20", "hideTokenConditions");
     const effect = ActiveEffect.create(createData, this.parentActor);
     await effect.create();
 
@@ -1244,7 +1270,7 @@ export class ItemFFD20 extends Item {
             core: {
               canPopout: true,
             },
-            FFD20: {
+            ffd20: {
               metadata,
             },
           },
@@ -1570,7 +1596,7 @@ export class ItemFFD20 extends Item {
         primaryAttack = true,
         hasteAttackRequired = false,
         rapidShotAttackRequired = false,
-        useMeasureTemplate = this.hasTemplate && game.settings.get("FFD20", "placeMeasureTemplateOnQuickRolls"),
+        useMeasureTemplate = this.hasTemplate && game.settings.get("ffd20", "placeMeasureTemplateOnQuickRolls"),
         rollMode = game.settings.get("core", "rollMode"),
         conditionals,
         result;
@@ -2086,7 +2112,7 @@ export class ItemFFD20 extends Item {
       let chatData = {
         speaker: ChatMessage.getSpeaker({ actor: this.parentActor }),
         rollMode: rollMode,
-        "flags.FFD20.noRollRender": true,
+        "flags.ffd20.noRollRender": true,
       };
 
       // Set attack sound
@@ -2279,7 +2305,7 @@ export class ItemFFD20 extends Item {
               templateData.rangeFormula = range;
             }
             templateData.rangeLabel = `${templateData.range} ft.`;
-            if (game.settings.get("FFD20", "units") === "metric") {
+            if (game.settings.get("ffd20", "units") === "metric") {
               templateData.rangeLabel = `${templateData.range} m`;
             }
 
@@ -2340,10 +2366,10 @@ export class ItemFFD20 extends Item {
           metadata.rolls.attacks[a] = attackRolls;
         }
 
-        setProperty(chatData, "flags.FFD20.metadata", metadata);
+        setProperty(chatData, "flags.ffd20.metadata", metadata);
         setProperty(chatData, "flags.core.canPopout", true);
         // Create message
-        const t = game.settings.get("FFD20", "attackChatCardTemplate");
+        const t = game.settings.get("ffd20", "attackChatCardTemplate");
         result = await createCustomChatMessage(t, templateData, chatData);
       }
       // Post chat card even without action
@@ -3086,16 +3112,16 @@ export class ItemFFD20 extends Item {
       .join(", ");
 
     // Set casting time label
-    const act = game.settings.get("FFD20", "unchainedActionEconomy")
+    const act = game.settings.get("ffd20", "unchainedActionEconomy")
       ? getProperty(srcData, "data.unchainedAction.activation")
       : getProperty(srcData, "data.activation");
     if (act != null) {
       const activationCost = act.cost;
       const activationType = act.type;
-      const activationTypes = game.settings.get("FFD20", "unchainedActionEconomy")
+      const activationTypes = game.settings.get("ffd20", "unchainedActionEconomy")
         ? CONFIG.FFD20.abilityActivationTypes_unchained
         : CONFIG.FFD20.abilityActivationTypes;
-      const activationTypesPlurals = game.settings.get("FFD20", "unchainedActionEconomy")
+      const activationTypesPlurals = game.settings.get("ffd20", "unchainedActionEconomy")
         ? CONFIG.FFD20.abilityActivationTypesPlurals_unchained
         : CONFIG.FFD20.abilityActivationTypesPlurals;
 
@@ -3135,7 +3161,7 @@ export class ItemFFD20 extends Item {
 
       if (rangeUnit != null && rangeUnit !== "none") {
         label.range = (CONFIG.FFD20.distanceUnits[rangeUnit] || "").toLowerCase();
-        const units = game.settings.get("FFD20", "units");
+        const units = game.settings.get("ffd20", "units");
         if (rangeUnit === "close")
           label.range = `${label.range} ${game.i18n.localize(
             units == "metric" ? "FFD20.SpellRangeShortMetric" : "FFD20.SpellRangeShort"
@@ -3488,15 +3514,15 @@ export class ItemFFD20 extends Item {
         const newItemData = await this.parentActor.createOwnedItem(itemData);
         const newItem = this.parentActor.items.find((o) => o._id === newItemData._id);
 
-        // await this.setFlag("FFD20", `links.classAssociations.${newItemData._id}`, co.level);
-        selfUpdateData[`flags.FFD20.links.classAssociations.${newItemData._id}`] = co.level;
+        // await this.setFlag("ffd20", `links.classAssociations.${newItemData._id}`, co.level);
+        selfUpdateData[`flags.ffd20.links.classAssociations.${newItemData._id}`] = co.level;
         await this.createItemLink("children", "data", newItem, newItem._id);
       }
     }
 
     // Remove items associated to this class
     if (newLevel < curLevel) {
-      let associations = duplicate(this.getFlag("FFD20", "links.classAssociations") || {});
+      let associations = duplicate(this.getFlag("ffd20", "links.classAssociations") || {});
       for (let [id, level] of Object.entries(associations)) {
         const item = this.parentActor.items.find((o) => o._id === id);
         if (!item) {
@@ -3509,7 +3535,7 @@ export class ItemFFD20 extends Item {
           delete associations[id];
         }
       }
-      await this.setFlag("FFD20", "links.classAssociations", associations);
+      await this.setFlag("ffd20", "links.classAssociations", associations);
     }
 
     await this.update(selfUpdateData);
@@ -3597,7 +3623,7 @@ export class ItemFFD20 extends Item {
    * @param {string} dataType - Either "compendium", "data" or "world".
    * @param {Object} targetItem - The target item to link to.
    * @param {string} itemLink - The link identifier for the item.
-   * e.g. "world.NExqvEMCMbDuDxv5" (world item), "FFD20.feats.NExqvEMCMbDuDxv5" (compendium item) or
+   * e.g. "world.NExqvEMCMbDuDxv5" (world item), "ffd20.feats.NExqvEMCMbDuDxv5" (compendium item) or
    * "NExqvEMCMbDuDxv5" (item on same actor)
    * @returns {Boolean} Whether a link was created.
    */
@@ -4134,7 +4160,7 @@ export class ItemFFD20 extends Item {
   }
 
   _calculateCoinWeight(data) {
-    const coinWeightDivisor = game.settings.get("FFD20", "coinWeight");
+    const coinWeightDivisor = game.settings.get("ffd20", "coinWeight");
     if (!coinWeightDivisor) return 0;
     return (
       Object.values(getProperty(data, "data.currency") || {}).reduce((cur, amount) => {

@@ -103,7 +103,7 @@
 
       {{!-- mp type --}}
       <div class="form-group">
-        <label>{{localize "FFD20.ClassManaType"}}</label>
+        <label>{{localize "FFD20.ClassMPType"}}</label>
         <select name="data.classBaseMPType">
           {{#select data.classBaseMPType}}
           {{#each config.classBaseMPTypes as |name value|}}
@@ -182,7 +182,7 @@
             <li class="tag {{k}}">{{v}}</li>
           {{/each}}
         </ul>
-        <a class="trait-selector" data-options="weaponProficiencies"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-options="weaponProf"><i class="fas fa-edit"></i></a>
       </div>
 
       <div class="form-group {{data.armorProf.cssClass}}">
@@ -192,7 +192,7 @@
             <li class="tag {{k}}">{{v}}</li>
           {{/each}}
         </ul>
-        <a class="trait-selector" data-options="armorProficiencies"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-options="armorProf"><i class="fas fa-edit"></i></a>
       </div>
 
       <h4 class="form-header">{{localize "FFD20.SavingThrowPlural"}}</h4>

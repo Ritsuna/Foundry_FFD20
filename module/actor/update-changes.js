@@ -243,7 +243,7 @@ export const updateChanges = function ({ data = null } = {}) {
     // NPCs are considered proficient with their armor
     if (this.data.type === "character") {
       // Collect proficiencies from items, add them to actor's proficiency totals
-      for (const prof of ["armorProf", "weaponProf"]) {
+      for (const prof of ["armorProf", "weaponProf", "languages"]) {
         // Custom proficiency baseline from actor
         const customProficiencies =
           srcData1.data.traits[prof]?.custom.split(CONFIG.FFD20.re.traitSeparator).filter((item) => item.length > 0) ||
@@ -263,13 +263,13 @@ export const updateChanges = function ({ data = null } = {}) {
               // Regular proficiencies
               for (const proficiency of item.data.data[prof].value) {
                 // Add localized source info if item's info does not have this proficiency already
-                if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.FFD20[`${prof}iciencies`][proficiency]);
+                if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.FFD20[`${prof}`][proficiency]);
                 // Add raw proficiency key
                 if (!profs.includes(proficiency)) profs.push(proficiency);
               }
 
               // Custom proficiencies
-              if (item.data.data.armorProf.custom) {
+              if (item.data.data[prof].custom) {
                 // Collect trimmed but otherwise original strings, dedupe array for actor's total
                 const customProfs =
                   item.data.data[prof].custom
@@ -308,7 +308,7 @@ export const updateChanges = function ({ data = null } = {}) {
           item.length > 0) ||
           [];
 
-        // Iterate over all items to create one array of non-custom proficiencies
+        /*/ Iterate over all items to create one array of non-custom proficiencies
         const languages = this.items.reduce(
           (langs, item) => {
             // Check only items able to grant proficiencies
@@ -349,7 +349,7 @@ export const updateChanges = function ({ data = null } = {}) {
             return langs;
           },
           [...srcData1.data.traits.languages.value] // Default languages baseline from actor
-        );
+        );*/
 
         // Save collected languages in actor's data
         linkData(srcData1, updateData, `data.traits.languages.total`, [...languages]);

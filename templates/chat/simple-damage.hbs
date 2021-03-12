@@ -1,0 +1,34 @@
+<div class="ffd20 chat-card" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+    <table>
+        <thead>
+            <th>
+                {{#if isHealing}}{{localize "FFD20.Healing"}}{{else}}{{localize "FFD20.Damage"}}{{/if}}
+            </th>
+        </thead>
+        <tbody>
+            <td>
+                <a class="inline-roll inline-result" title="{{roll.formula}}" data-roll="{{roll.json}}">
+                <i class="fas fa-dice-d20"></i> {{roll.value}}
+                </a>
+            </td>
+        </tbody>
+    </table>
+
+    <div class="flexcol card-buttons">
+        <div class="card-button-group flexcol">
+            {{#if isHealing}}
+            <label>{{localize "FFD20.Healing"}}</label>
+            <div class="flexrow">
+                <button type="button" data-action="applyDamage" data-value="-{{roll.value}}">{{localize "FFD20.Apply"}}</button>
+                <button type="button" data-action="applyDamage" data-value="-{{roll.halfValue}}">{{localize "FFD20.ApplyHalf"}}</button>
+            </div>
+            {{else}}
+            <label>{{localize "FFD20.Damage"}}</label>
+            <div class="flexrow">
+                <button type="button" data-action="applyDamage" data-value="{{roll.value}}">{{localize "FFD20.Apply"}}</button>
+                <button type="button" data-action="applyDamage" data-value="{{roll.halfValue}}">{{localize "FFD20.ApplyHalf"}}</button>
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</div>

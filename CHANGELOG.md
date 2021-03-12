@@ -2,11 +2,23 @@
 
 ## 0.1.0
 
-### Bug Fixes
-- database error fixed
+### WARNINGS and WORKAROUNDS
+- Currently Limitbreaks are fussy, current workaround is to link it to the @attributes.limitbreak.max with charges but this can cause too many charges. please ask your players to remember this and not abuse it
+- Materia exp is using the full value of combat exp gained, this is to reduce the amount of math the player needs to do. I dont know how exp distribution works so im not touching it yet.
 
-### Changelog
+### Bug Fixes
+- character sheet error fixed
+
+### Change Log
+- Got MP calculations to work
+- Added Materia under Equipment
+- cleaned up some 
+
+### Update log
 - updated from the Pathfinder 1 github on 3/6/2021
+
+### Database work
+- cleaned up some possable errors
 
 ## 0.0.9
 

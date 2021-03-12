@@ -111,7 +111,7 @@ export class DiceFFD20 {
             speaker: speaker,
             content: await renderTemplate(chatTemplate, rollData),
             rollMode: rollMode,
-            "flags.FFD20.noRollRender": true,
+            "flags.ffd20.noRollRender": true,
           };
 
           // Send message
@@ -354,7 +354,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
   // Replace parentheses with semicolons to use for splitting
   let toSplit = formula
     .replace(/([A-z]+)?\(/g, (match, prefix) => {
-      return prefix in game.FFD20.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
+      return prefix in game.ffd20.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
     })
     .replace(/\)/g, ";);");
   let terms = toSplit.split(";");
@@ -364,7 +364,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
     nOpenPreProcess = [];
   terms = terms.reduce((arr, t) => {
     // Handle cases where the prior term is a math function
-    const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.FFD20.rollPreProcess;
+    const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.ffd20.rollPreProcess;
     if (beginPreProcessFn) nOpenPreProcess.push([arr.length - 1, nOpen]);
     const beginMathFn = t[0] === "(" && arr[arr.length - 1] in Math;
     if (beginMathFn && nOpenPreProcess.length > 0) nOpenPreProcess.push([arr.length - 1, nOpen]);
@@ -396,7 +396,7 @@ export const _preProcessDiceFormula = function (formula, data = {}) {
           if (fn in Math) {
             arr.push(Math[fn](...fnParams).toString());
           } else {
-            arr.push(game.FFD20.rollPreProcess[fn](...fnParams).toString());
+            arr.push(game.ffd20.rollPreProcess[fn](...fnParams).toString());
           }
 
           nOpenPreProcess.splice(a, 1);

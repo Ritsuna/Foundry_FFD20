@@ -3,7 +3,7 @@ Object.defineProperties(Token.prototype, {
   actorVision: {
     get() {
       return {
-        lowLight: getProperty(this.data, "flags.FFD20.lowLightVision"),
+        lowLight: getProperty(this.data, "flags.ffd20.lowLightVision"),
       };
     },
   },
@@ -11,7 +11,7 @@ Object.defineProperties(Token.prototype, {
 
 Object.defineProperty(Token.prototype, "disableLowLight", {
   get: function () {
-    return getProperty(this.data, "flags.FFD20.disableLowLight") === true;
+    return getProperty(this.data, "flags.ffd20.disableLowLight") === true;
   },
 });
 
@@ -23,7 +23,7 @@ SightLayer.prototype.hasLowLight = function () {
   if (game.user.isGM) {
     return lowLightTokens.filter((o) => o._controlled).length > 0;
   }
-  if (game.settings.get("FFD20", "lowLightVisionMode")) {
+  if (game.settings.get("ffd20", "lowLightVisionMode")) {
     return lowLightTokens.filter((o) => o._controlled).length > 0;
   }
   return (
@@ -112,7 +112,7 @@ Token.prototype.updateSource = function ({ defer = false, deleted = false, noUpd
 
 Object.defineProperty(AmbientLight.prototype, "disableLowLight", {
   get: function () {
-    return getProperty(this.data, "flags.FFD20.disableLowLight") === true;
+    return getProperty(this.data, "flags.ffd20.disableLowLight") === true;
   },
 });
 
@@ -141,8 +141,8 @@ export const RenderLightConfig_LowLightVision = function (app, html) {
   let checkboxStr = `<div class="form-group"><label>${game.i18n.localize(
     "FFD20.DisableLightLowLightVision"
   )}</label><div class="form-group">`;
-  checkboxStr += '<input type="checkbox" name="flags.FFD20.disableLowLight" data-dtype="Boolean"';
-  if (getProperty(obj.data, "flags.FFD20.disableLowLight")) checkboxStr += " checked";
+  checkboxStr += '<input type="checkbox" name="flags.ffd20.disableLowLight" data-dtype="Boolean"';
+  if (getProperty(obj.data, "flags.ffd20.disableLowLight")) checkboxStr += " checked";
   checkboxStr += "/></div></div>";
   const checkbox = $(checkboxStr);
 
@@ -157,8 +157,8 @@ export const RenderTokenConfig_LowLightVision = function (app, html) {
   let checkboxStr = `<div class="form-group"><label>${game.i18n.localize(
     "FFD20.DisableLightLowLightVision"
   )}</label><div class="form-group">`;
-  checkboxStr += '<input type="checkbox" name="flags.FFD20.disableLowLight" data-dtype="Boolean"';
-  if (getProperty(obj.data, "flags.FFD20.disableLowLight")) checkboxStr += " checked";
+  checkboxStr += '<input type="checkbox" name="flags.ffd20.disableLowLight" data-dtype="Boolean"';
+  if (getProperty(obj.data, "flags.ffd20.disableLowLight")) checkboxStr += " checked";
   checkboxStr += "/></div></div>";
   const checkbox = $(checkboxStr);
 
@@ -170,7 +170,7 @@ const Token__onUpdate = Token.prototype._onUpdate;
 Token.prototype._onUpdate = async function (data, options, ...args) {
   await Token__onUpdate.call(this, data, options, ...args);
 
-  if (hasProperty(data, "flags.FFD20.disableLowLight") || hasProperty(data, "flags.FFD20.lowLightVision")) {
+  if (hasProperty(data, "flags.ffd20.disableLowLight") || hasProperty(data, "flags.ffd20.lowLightVision")) {
     canvas.initializeSources();
   }
 };

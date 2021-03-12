@@ -2,7 +2,7 @@ export class ActorRestDialog extends BaseEntitySheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
     return mergeObject(options, {
-      classes: ["FFD20", "actor-rest"],
+      classes: ["ffd20", "actor-rest"],
       template: "systems/ffd20/templates/apps/actor-rest.hbs",
       width: 500,
       closeOnSubmit: true,
@@ -32,11 +32,7 @@ export class ActorRestDialog extends BaseEntitySheet {
     const restOptions = {
       /**
        * add rest options
-       * Natural healing(8 hours rest, once per 24 hours): Restore HP equal to level plus con  and MP equal to caster level plus primary casting stat
-Complete rest(24 hours of rest, no combat or hard training): Double natural healing
-Aided Healing(8 hours with someone trained in heal 5 ranks or more looking after you): double natural healing
-Aided Complete Rest(24 hours with someone trained in heal 5 ranks or more looking after you): 5x natural healing
-There are items that boost natural healing that can be found.
+       * Natural healing(8 hours rest, once per 24 hours): Restore HP equal to level plus con  and MP equal to caster level plus primary casting stat. Complete rest(24 hours of rest, no combat or hard training): Double natural healing Aided Healing(8 hours with someone trained in heal 5 ranks or more looking after you): double natural healing Aided Complete Rest(24 hours with someone trained in heal 5 ranks or more looking after you): 5x natural healing There are items that boost natural healing that can be found.
        */
       restoreHealth: formData["restoreHealth"],
       longTermCare: formData["longTermCare"],

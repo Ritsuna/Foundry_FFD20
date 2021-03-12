@@ -28,13 +28,13 @@ export class VisionPermissionSheet extends FormApplication {
   }
 
   async _updateObject(event, formData) {
-    await this.object.setFlag("FFD20", "visionPermission", formData);
-    game.socket.emit("system.FFD20", { eventType: "redrawCanvas" });
+    await this.object.setFlag("ffd20", "visionPermission", formData);
+    game.socket.emit("system.ffd20", { eventType: "redrawCanvas" });
   }
 
   async getData() {
     let data = super.getData();
-    data = mergeObject(data, this.object.getFlag("FFD20", "visionPermission"));
+    data = mergeObject(data, this.object.getFlag("ffd20", "visionPermission"));
     data.users = data.users || {};
 
     data.defaultLevels = [
@@ -64,7 +64,7 @@ export const hasTokenVision = function (token) {
   if (!token.actor) return false;
   if (token.actor.hasPerm(game.user, "OWNER")) return true;
 
-  const visionFlag = token.actor.getFlag("FFD20", "visionPermission");
+  const visionFlag = token.actor.getFlag("ffd20", "visionPermission");
   if (!visionFlag || !visionFlag.users[game.user._id]) return false;
   if (visionFlag.users[game.user._id].level === "yes") return true;
   if (visionFlag.users[game.user._id].level === "default" && visionFlag.default === "yes") return true;
@@ -120,7 +120,7 @@ SightLayer.prototype._isTokenVisionSource = function (token) {
   const canObserve = token.actor && hasTokenVision(token);
   if (!canObserve) return false;
   const others = canvas.tokens.controlled.filter((t) => !t.data.hidden && t.hasSight);
-  return !others.length || game.settings.get("FFD20", "sharedVisionMode") === "1";
+  return !others.length || game.settings.get("ffd20", "sharedVisionMode") === "1";
 };
 
 Object.defineProperty(Token.prototype, "observer", {

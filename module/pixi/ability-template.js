@@ -33,7 +33,7 @@ export class AbilityTemplate extends MeasuredTemplate {
     // Additional type-specific data
     switch (type) {
       case "cone":
-        if (game.settings.get("FFD20", "measureStyle") === true) templateData.angle = 90;
+        if (game.settings.get("ffd20", "measureStyle") === true) templateData.angle = 90;
         else templateData.angle = 53.13;
         break;
       case "rect":
@@ -78,7 +78,7 @@ export class AbilityTemplate extends MeasuredTemplate {
       const handlers = {};
       let moveTime = 0;
 
-      const FFD20Style = game.settings.get("FFD20", "measureStyle") === true;
+      const FFD20Style = game.settings.get("ffd20", "measureStyle") === true;
 
       // Update placement (mouse-move)
       handlers.mm = (event) => {

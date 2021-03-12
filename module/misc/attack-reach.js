@@ -162,7 +162,7 @@ export const addReachCallback = function (data, html) {
   let results = [];
 
   // Don't do anything under certain circumstances
-  const itemID = getProperty(data, "flags.FFD20.metadata.item");
+  const itemID = getProperty(data, "flags.ffd20.metadata.item");
   if (!itemID) return results;
 
   const speakerData = data.speaker;
@@ -178,7 +178,7 @@ export const addReachCallback = function (data, html) {
   // Add mouse enter callback
   const mouseEnterCallback = function () {
     if (token._destroyed) return;
-    if (!game.settings.get("FFD20", "hideReachMeasurements")) highlight = showAttackReach(token, item);
+    if (!game.settings.get("ffd20", "hideReachMeasurements")) highlight = showAttackReach(token, item);
 
     if (!highlight) return;
 

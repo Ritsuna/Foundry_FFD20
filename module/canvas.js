@@ -85,7 +85,7 @@ export const getConditions = function () {
     sys = Object.keys(CONFIG.FFD20.conditions).map((c) => {
       return { id: c, label: CONFIG.FFD20.conditions[c], icon: CONFIG.FFD20.conditionTextures[c] };
     });
-  if (game.settings.get("FFD20", "coreEffects")) sys.push(...core);
+  if (game.settings.get("ffd20", "coreEffects")) sys.push(...core);
   else sys = [core[0]].concat(sys);
   return sys;
 };

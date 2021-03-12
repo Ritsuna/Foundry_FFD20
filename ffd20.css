@@ -306,6 +306,15 @@
 .ffd20 .help-icon {
   flex: 0;
 }
+.ffd20 .help-text {
+  background-color: rgba(10, 0, 0, 0.05);
+  border: dotted rgba(0, 0, 0, 0.2);
+  flex: 1 3 2em;
+  padding: 3px;
+}
+.ffd20 .item-links {
+  flex: 10 1 100%;
+}
 .ffd20 .fake-inline-roll {
   background: #ddd;
   padding: 1px 4px;
@@ -831,12 +840,12 @@
 /* ----------------------------------------- */
 /* Trait Selector
 /* ----------------------------------------- */
-#trait-selector .trait-list {
+.trait-selector .trait-list {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-#trait-selector input[type="text"] {
+.trait-selector input[type="text"] {
   height: 24px;
   margin: 2px;
 }
@@ -938,6 +947,12 @@
 }
 .compendium-browser .directory-container .directory-list .directory-item h4 {
   margin-left: 4px;
+}
+.compendium-browser .directory-container .directory-list .directory-item .entry-source {
+  color: rgba(0, 0, 0, 0.5);
+  flex: 1 2 0;
+  text-align: right;
+  margin-right: 4px;
 }
 .config .config-icon {
   opacity: 0;
@@ -1221,12 +1236,16 @@
 .ffd20.sheet.actor .tab.summary .hd-level {
   flex: 0 0 256px;
   overflow-x: hidden;
+  margin: 0 0 4px 8px;
 }
 .ffd20.sheet.actor .tab.summary .hd-level table {
-  margin: 0 0 4px 8px;
+  margin-bottom: 4px;
 }
 .ffd20.sheet.actor .tab.summary .hd-level table:hover a.config-icon {
   color: #b5b3a4;
+}
+.ffd20.sheet.actor .tab.summary .hd-level table th.level {
+  width: 32px;
 }
 .ffd20.sheet.actor .tab.summary .hd-level table tr td {
   padding: 0;
@@ -1249,14 +1268,14 @@
   flex: 1 0 32px;
   height: auto;
 }
-.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience input[type="text"],
-.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience span.text-box,
-.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience .max {
+.ffd20.sheet.actor .tab.summary .hd-level table tr td.experience input[type="text"],
+.ffd20.sheet.actor .tab.summary .hd-level table tr td.experience span.text-box,
+.ffd20.sheet.actor .tab.summary .hd-level table tr td.experience .max {
   padding: 0;
   flex: 1;
   text-align: center;
 }
-.ffd20.sheet.actor .tab.summary .hd-level table tr div.experience .separator {
+.ffd20.sheet.actor .tab.summary .hd-level table tr td.experience .separator {
   flex: 0;
 }
 .ffd20.sheet.actor .tab.summary .hd-level .xpbar {
@@ -1287,6 +1306,9 @@
 }
 .ffd20.sheet.actor .tab.summary .tab.quick-info ul.attributes {
   margin: 2px 0;
+}
+.ffd20.sheet.actor .tab.summary .tab.quick-info table {
+  margin-bottom: 4px;
 }
 .ffd20.sheet.actor .tab.summary .tab.quick-info .quick-actions {
   display: flex;
@@ -1413,6 +1435,9 @@
 }
 .ffd20.sheet.actor .ability-scores {
   flex: 0;
+  margin-bottom: 4px;
+}
+.ffd20.sheet.actor .ability-scores table {
   margin-bottom: 4px;
 }
 .ffd20.sheet.actor .bottom {
@@ -1768,15 +1793,6 @@
 .ffd20.sheet.actor .tab.buffs .buffs-conditions {
   flex: 0;
 }
-.ffd20.sheet.actor .tab.features .combat-attacks,
-.ffd20.sheet.actor .tab.inventory .combat-attacks,
-.ffd20.sheet.actor .tab.spellbook .combat-attacks,
-.ffd20.sheet.actor .tab.attributes .combat-attacks,
-.ffd20.sheet.actor .tab.combat .combat-attacks,
-.ffd20.sheet.actor .tab.buffs .combat-attacks {
-  flex: 1 1 320px;
-  overflow-y: scroll;
-}
 .ffd20.sheet.actor .tab.features .inventory-group,
 .ffd20.sheet.actor .tab.inventory .inventory-group,
 .ffd20.sheet.actor .tab.spellbook .inventory-group,
@@ -1793,6 +1809,13 @@
 .ffd20.sheet.actor .tab.buffs .inventory-body .inventory-list {
   height: 100%;
   overflow-y: scroll;
+}
+.ffd20.sheet.actor .tab.combat .combat-attacks {
+  flex: 1 1 320px;
+  overflow-y: scroll;
+}
+.ffd20.sheet.actor .tab.combat .combat-defenses table {
+  margin-bottom: 4px;
 }
 .ffd20.sheet.actor .tab.settings {
   overflow-x: hidden;
@@ -1820,6 +1843,9 @@
 }
 .ffd20.sheet.actor .tab.inventory .tab-footer > * {
   flex: 0 0 100%;
+}
+.ffd20.sheet.actor .tab.inventory .tab-footer table {
+  margin-top: 4px;
 }
 .ffd20.sheet.actor .tab.inventory .inventory-tags,
 .ffd20.sheet.actor .tab.inventory .carry-bonus {
@@ -1964,6 +1990,9 @@
 .ffd20.sheet.actor .spellbook-group .spell-range input[type="text"] {
   flex: 1 1 48px;
 }
+.ffd20.sheet.actor .spellbook-group .spell-range table {
+  margin-bottom: 4px;
+}
 .ffd20.sheet.actor a.rollable span {
   margin: 0 2px;
 }
@@ -2086,6 +2115,9 @@
   flex: 0;
 }
 .ffd20.sheet.item .primary-body .item-properties .form-group input {
+  text-align: right;
+}
+.ffd20.sheet.item .primary-body .item-properties .form-group p {
   text-align: right;
 }
 .ffd20.sheet.item .primary-body .item-properties .properties-list {
@@ -2478,6 +2510,12 @@
   flex: 0 0 80px;
   text-align: right;
 }
+.ffd20.sheet.item .formula {
+  flex: 10 0 80px;
+}
+.ffd20.sheet.item .formula .result .small {
+  flex: 0 10 20px;
+}
 .ffd20.sheet.item .weapon-properties label.checkbox {
   flex: 0 0 98px;
 }
@@ -2616,6 +2654,9 @@
   text-shadow: none;
   font-weight: normal;
 }
+.ffd20.chat-card .fake-inline-roll i {
+  color: #7a7971;
+}
 .ffd20.chat-card .inline-roll,
 .ffd20.chat-card .fake-inline-roll {
   flex: 0;
@@ -2635,6 +2676,9 @@
 }
 .message .chat-attack {
   margin-bottom: 2px;
+}
+.message .chat-attack .attack-flavor i.fas {
+  color: red;
 }
 .message .chat-attack .dice-roll {
   overflow: hidden;
@@ -3019,7 +3063,7 @@ input.text-box {
   text-align: center;
 }
 .ffd20 table {
-  margin: 4px 0;
+  margin: 0;
 }
 .ffd20 table thead .icon {
   background-color: white;
@@ -3143,4 +3187,90 @@ input.text-box {
 }
 .widget.item-picker .row .item:hover {
   border-color: #da0000;
+}
+.ffd20-tooltip {
+  display: flex;
+  flex-flow: column nowrap;
+  position: absolute;
+  pointer-events: none;
+  z-index: 1000;
+  padding: 4px;
+  border: 1px solid black;
+  border-radius: 4px;
+  background: url("/ui/denim075.png") repeat;
+  color: #f0f0e0;
+}
+.ffd20-tooltip .controls {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 4px;
+  z-index: 1;
+}
+.ffd20-tooltip .controls button {
+  pointer-events: auto;
+  flex: 0 0 32px;
+  width: 32px;
+  height: 28px;
+}
+.ffd20-tooltip .portrait {
+  display: flex;
+  justify-content: space-around;
+}
+.ffd20-tooltip .portrait img {
+  border: none;
+}
+.ffd20-tooltip .conditions,
+.ffd20-tooltip .buffs,
+.ffd20-tooltip .held-items {
+  display: grid;
+  grid-template-columns: auto auto;
+}
+.ffd20-tooltip .conditions .condition,
+.ffd20-tooltip .buffs .condition,
+.ffd20-tooltip .held-items .condition,
+.ffd20-tooltip .conditions .held-item,
+.ffd20-tooltip .buffs .held-item,
+.ffd20-tooltip .held-items .held-item {
+  flex: 0 0 50%;
+}
+.ffd20-tooltip .conditions .buff,
+.ffd20-tooltip .buffs .buff,
+.ffd20-tooltip .held-items .buff {
+  flex: 0 0 100%;
+}
+.ffd20-tooltip .conditions .condition,
+.ffd20-tooltip .buffs .condition,
+.ffd20-tooltip .held-items .condition,
+.ffd20-tooltip .conditions .buff,
+.ffd20-tooltip .buffs .buff,
+.ffd20-tooltip .held-items .buff,
+.ffd20-tooltip .conditions .held-item,
+.ffd20-tooltip .buffs .held-item,
+.ffd20-tooltip .held-items .held-item {
+  display: flex;
+  align-items: center;
+  min-width: 220px;
+}
+.ffd20-tooltip .conditions .condition img,
+.ffd20-tooltip .buffs .condition img,
+.ffd20-tooltip .held-items .condition img,
+.ffd20-tooltip .conditions .buff img,
+.ffd20-tooltip .buffs .buff img,
+.ffd20-tooltip .held-items .buff img,
+.ffd20-tooltip .conditions .held-item img,
+.ffd20-tooltip .buffs .held-item img,
+.ffd20-tooltip .held-items .held-item img {
+  width: 16px;
+  height: 16px;
+}
+.ffd20-tooltip .conditions .condition span,
+.ffd20-tooltip .buffs .condition span,
+.ffd20-tooltip .held-items .condition span,
+.ffd20-tooltip .conditions .buff span,
+.ffd20-tooltip .buffs .buff span,
+.ffd20-tooltip .held-items .buff span,
+.ffd20-tooltip .conditions .held-item span,
+.ffd20-tooltip .buffs .held-item span,
+.ffd20-tooltip .held-items .held-item span {
+  margin-left: 4px;
 }

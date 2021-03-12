@@ -8,7 +8,7 @@ export class EntrySelector extends FormApplication {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "entry-selector",
-      classes: ["FFD20", "entry"],
+      classes: ["ffd20", "entry"],
       title: "Entry Selector",
       template: "systems/ffd20/templates/apps/entry-selector.hbs",
       width: 320,

@@ -5,7 +5,7 @@ export class HealthConfig extends FormApplication {
 
   /** Collect data for the template. @override */
   async getData() {
-    let settings = await game.settings.get("FFD20", "healthConfig");
+    let settings = await game.settings.get("ffd20", "healthConfig");
     settings = mergeObject(HealthConfig.defaultSettings, settings);
     return settings;
   }
@@ -13,7 +13,7 @@ export class HealthConfig extends FormApplication {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      title: game.i18n.localize("SETTINGS.FFD20HealthConfigName"),
+      title: game.i18n.localize("SETTINGS.ffd20HealthConfigName"),
       id: "health-config",
       template: "systems/ffd20/templates/settings/health.hbs",
       width: 480,
@@ -62,7 +62,7 @@ export class HealthConfig extends FormApplication {
    */
   async _onReset(event) {
     event.preventDefault();
-    await game.settings.set("FFD20", "healthConfig", HealthConfig.defaultSettings);
+    await game.settings.set("ffd20", "healthConfig", HealthConfig.defaultSettings);
     ui.notifications.info(`Reset Pathfinder health configuration.`);
     return this.render();
   }
@@ -85,7 +85,7 @@ export class HealthConfig extends FormApplication {
 
     settings.variants.npc.allowWoundThresholdOverride = true; // HACK: This setting vanishes otherwise
 
-    await game.settings.set("FFD20", "healthConfig", settings);
+    await game.settings.set("ffd20", "healthConfig", settings);
     ui.notifications.info("Updated Pathfinder health configuration.");
   }
 }

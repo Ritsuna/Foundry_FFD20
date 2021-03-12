@@ -302,13 +302,13 @@ export class ActorFFD20 extends Actor {
       this.updateItemResources(item);
     });
 
-    Hooks.callAll("FFD20.prepareBaseActorData", this);
+    Hooks.callAll("ffd20.prepareBaseActorData", this);
     super.prepareBaseData();
     this._resetInherentTotals();
 
     // Update total level and mythic tier
     const classes = this.data.items.filter((o) => o.type === "class");
-    const level = classes.filter((o) => o.data.classType !== "mythic").reduce((cur, o) => cur + o.data.level, 0);
+    const level = classes.filter((o) => (o.data.classType !== "mythic" && o.data.countforexp === "exp")).reduce((cur, o) => cur + o.data.level, 0);
     setProperty(this.data, "data.details.level.value", level);
 
     const mythicTier = classes.filter((o) => o.data.classType === "mythic").reduce((cur, o) => cur + o.data.level, 0);
@@ -325,7 +325,7 @@ export class ActorFFD20 extends Actor {
       // NPCs are considered proficient with their armor
       if (this.data.type === "character") {
         // Collect proficiencies from items, add them to actor's proficiency totals
-        for (const prof of ["armorProf", "weaponProf"]) {
+        for (const prof of ["armorProf", "weaponProf", "languages"]) {
           // Custom proficiency baseline from actor
           const customProficiencies =
             this.data.data.traits[prof]?.custom.split(CONFIG.FFD20.re.traitSeparator).filter((item) => item.length > 0) ||
@@ -348,7 +348,7 @@ export class ActorFFD20 extends Actor {
                 // Regular proficiencies
                 for (const proficiency of item.data[prof].value) {
                   // Add localized source info if item's info does not have this proficiency already
-                  if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.FFD20[`${prof}iciencies`][proficiency]);
+                  if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.FFD20[`${prof}`][proficiency]);
                   // Add raw proficiency key
                   if (!profs.includes(proficiency)) profs.push(proficiency);
                 }
@@ -410,7 +410,7 @@ export class ActorFFD20 extends Actor {
 
     // Reset BAB
     {
-      const useFractionalBaseBonuses = game.settings.get("FFD20", "useFractionalBaseBonuses") === true;
+      const useFractionalBaseBonuses = game.settings.get("ffd20", "useFractionalBaseBonuses") === true;
       const k = "data.attributes.bab.total";
       if (useFractionalBaseBonuses) {
         setProperty(
@@ -463,12 +463,15 @@ export class ActorFFD20 extends Actor {
     // Reset HD
     setProperty(this.data, "data.attributes.hd.total", getProperty(this.data, "data.details.level.value"));
 
+  // recalulate limitbreaks
+    setProperty(this.data, "data.attributes.limitbreak.max", (1 + Math.floor(getProperty(this.data, "data.details.level.value") / 4)));
+
     // Reset CR
     if (this.data.type === "npc") {
       setProperty(this.data, "data.details.cr.total", this.getCR(this.data.data));
     }
 
-    // Item type to proficiency maps
+    // Armor Item type to proficiency maps
     const armorProficiencyMap = {
       lightArmor: "lgt",
       mediumArmor: "med",
@@ -655,7 +658,7 @@ export class ActorFFD20 extends Actor {
    * Augment the basic actor data with additional dynamic data.
    */
   prepareDerivedData() {
-    Hooks.callAll("FFD20.prepareDerivedActorData", this);
+    Hooks.callAll("ffd20.prepareDerivedActorData", this);
     super.prepareDerivedData();
 
     const actorData = this.data;
@@ -663,14 +666,14 @@ export class ActorFFD20 extends Actor {
     const rollData = this.getRollData();
 
     // Round health
-    const healthConfig = game.settings.get("FFD20", "healthConfig");
+    const healthConfig = game.settings.get("ffd20", "healthConfig");
     const round = { up: Math.ceil, nearest: Math.round, down: Math.floor }[healthConfig.rounding];
     for (const k of ["data.attributes.hp.max", "data.attributes.vigor.max"]) {
       setProperty(this.data, `${k}`, round(getProperty(this.data, `${k}`)));
     }
 
     // Refresh HP
-    if (!game.FFD20.isMigrating && this._initialized) {
+    if (!game.ffd20.isMigrating && this._initialized) {
       for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor"]) {
         const prevMax = this._prevAttributes[k] || 0;
         const newMax = getProperty(this.data, `${k}.max`) || 0;
@@ -1106,7 +1109,7 @@ export class ActorFFD20 extends Actor {
 
     // Add wound threshold data
     {
-      const hpconf = game.settings.get("FFD20", "healthConfig").variants;
+      const hpconf = game.settings.get("ffd20", "healthConfig").variants;
       const wtUsage = this.data.type === "npc" ? hpconf.npc.useWoundThresholds : hpconf.pc.useWoundThresholds;
       if (wtUsage > 0) {
         const wtData = this.getWoundThresholdData(actorData);
@@ -1277,27 +1280,13 @@ export class ActorFFD20 extends Actor {
    * Use this for Max MP
    * @param {} level 
 
-
-  getMaxMP(level) {
-    const expConfig = game.settings.get("FFD20", "experienceConfig");
-    const expTrack = expConfig.track;
-    // Preset experience tracks
-    if (["fast", "medium", "slow"].includes(expTrack)) {
-      const levels = CONFIG.FFD20.CHARACTER_EXP_LEVELS[expTrack];
-      return levels[Math.min(level, levels.length - 1)];
-    }
-   */
-
-
-
-
   /**
    * Return the amount of experience required to gain a certain character level.
    * @param level {Number}  The desired level
    * @return {Number}       The XP required
    */
   getLevelExp(level) {
-    const expConfig = game.settings.get("FFD20", "experienceConfig");
+    const expConfig = game.settings.get("ffd20", "experienceConfig");
     const expTrack = expConfig.track;
     // Preset experience tracks
     if (["fast", "medium", "slow"].includes(expTrack)) {
@@ -1403,7 +1392,7 @@ export class ActorFFD20 extends Actor {
     if (data["data.traits.size"] && this.data.data.traits.size !== data["data.traits.size"]) {
       let size = CONFIG.FFD20.tokenSizes[data["data.traits.size"]];
       let tokens = this.isToken ? [this.token] : this.getActiveTokens();
-      tokens = tokens.filter((o) => !getProperty(o.data, "flags.FFD20.staticSize"));
+      tokens = tokens.filter((o) => !getProperty(o.data, "flags.ffd20.staticSize"));
       tokens.forEach((o) => {
         o.update({ width: size.w, height: size.h, scale: size.scale });
       });
@@ -1630,7 +1619,7 @@ export class ActorFFD20 extends Actor {
   updateItemResources(itemData) {
     if (!this.hasPerm(game.user, "OWNER")) return;
 
-    const activationType = game.settings.get("FFD20", "unchainedActionEconomy")
+    const activationType = game.settings.get("ffd20", "unchainedActionEconomy")
       ? itemData.data.unchainedAction?.activation?.type
       : itemData.data.activation?.type;
     if (itemData.data.uses?.per && activationType) {
@@ -2641,7 +2630,7 @@ export class ActorFFD20 extends Actor {
   getWoundThresholdMultiplier(data = null) {
     data = data ?? this.data;
 
-    const hpconf = game.settings.get("FFD20", "healthConfig").variants;
+    const hpconf = game.settings.get("ffd20", "healthConfig").variants;
     const conf = this.data.type === "npc" ? hpconf.npc : hpconf.pc;
     const override = getProperty(data, "data.attributes.woundThresholds.override") ?? -1;
     return override >= 0 && conf.allowWoundThresholdOverride ? override : conf.useWoundThresholds;
@@ -2670,7 +2659,7 @@ export class ActorFFD20 extends Actor {
    * Updates attributes.woundThresholds.level variable.
    */
   updateWoundThreshold() {
-    const hpconf = game.settings.get("FFD20", "healthConfig").variants;
+    const hpconf = game.settings.get("ffd20", "healthConfig").variants;
     const usage = this.data.type === "npc" ? hpconf.npc.useWoundThresholds : hpconf.pc.useWoundThresholds;
     if (!usage) {
       setProperty(this.data, "data.attributes.woundThresholds.level", 0);
@@ -2941,7 +2930,7 @@ export class ActorFFD20 extends Actor {
   }
 
   _calculateCoinWeight() {
-    const coinWeightDivisor = game.settings.get("FFD20", "coinWeight");
+    const coinWeightDivisor = game.settings.get("ffd20", "coinWeight");
     if (!coinWeightDivisor) return 0;
     return (
       Object.values(this.data.data.currency).reduce((cur, amount) => {
@@ -3090,7 +3079,7 @@ export class ActorFFD20 extends Actor {
         const tag = cls.data.tag;
         if (!tag) return;
 
-        let healthConfig = game.settings.get("FFD20", "healthConfig");
+        let healthConfig = game.settings.get("ffd20", "healthConfig");
         const hasPlayerOwner = this.hasPlayerOwner;
         healthConfig =
           cls.data.classType === "racial"
@@ -3100,9 +3089,10 @@ export class ActorFFD20 extends Actor {
             : healthConfig.hitdice.NPC;
         const classType = cls.data.classType || "base";
         result.classes[tag] = {
-          level: cls.data.level,
+          level: cls.data.countforexp === "exp" ? cls.data.level : 0,
           name: cls.name,
-          hd: cls.data.countforexp === "exp" ? cls.data.hd : 0, // account for nonexp
+          hd: cls.data.countforexp === "exp" ? cls.data.hd : 0,
+           // account for nonexp
           bab: cls.data.countforexp === "exp" ? cls.data.bab : 0,
           hp: cls.data.countforexp === "exp" ? healthConfig.auto : 0,
           mp: cls.data.mp,

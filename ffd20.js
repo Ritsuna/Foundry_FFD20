@@ -29,8 +29,8 @@ import { CompendiumDirectoryFFD20 } from "./module/sidebar/compendium.js";
 import { CompendiumBrowser } from "./module/apps/compendium-browser.js";
 import { PatchCore } from "./module/patch-core.js";
 import { DiceFFD20 } from "./module/dice.js";
-import { getItemOwner, sizeDie, normalDie, getActorFromId, isMinimumCoreVersion } from "./module/lib.js";
-import { ChatMessageFFD20 } from "./module/sidebar/chat-message.js";
+import { getItemOwner, sizeDieExt, normalDie, getActorFromId } from "./module/lib.js";
+import { ChatMessageFFD20, customRolls } from "./module/sidebar/chat-message.js";
 import { TokenQuickActions } from "./module/token-quick-actions.js";
 import { initializeSocket } from "./module/socket.js";
 import { SemanticVersion } from "./module/semver.js";
@@ -38,6 +38,7 @@ import { runUnitTests } from "./module/unit-tests.js";
 import { ChangeLogWindow } from "./module/apps/change-log.js";
 import { FFD20_HelpBrowser } from "./module/apps/help-browser.js";
 import { addReachCallback } from "./module/misc/attack-reach.js";
+import { TooltipPF } from "./module/hud/tooltip.js";
 import * as chat from "./module/chat.js";
 import * as migrations from "./module/migration.js";
 import { RenderLightConfig_LowLightVision, RenderTokenConfig_LowLightVision } from "./module/low-light-vision.js";
@@ -63,7 +64,7 @@ Hooks.once("init", async function () {
   registerClientSettings();
 
   // Create a FFD20 namespace within the game global
-  game.FFD20 = {
+  game.ffd20 = {
     ActorFFD20,
     DiceFFD20,
     ItemFFD20,
@@ -74,13 +75,14 @@ Hooks.once("init", async function () {
     rollActorAttributeMacro,
     CompendiumDirectoryFFD20,
     rollPreProcess: {
-      sizeRoll: sizeDie,
+      sizeRoll: sizeDieExt,
       roll: normalDie,
     },
     migrateWorld: migrations.migrateWorld,
     runUnitTests,
     compendiums: {},
     isMigrating: false,
+    tooltip: null,
   };
 
   // Record Configuration Values
@@ -156,8 +158,8 @@ Hooks.once("setup", function () {
     "spellLevels",
     "conditionTypes",
     "favouredClassBonuses",
-    "armorProficiencies",
-    "weaponProficiencies",
+    "armorProf",
+    "weaponProf",
     "actorSizes",
     "abilityActivationTypes",
     "abilityActivationTypesPlurals",
@@ -192,17 +194,64 @@ Hooks.once("setup", function () {
     "classBaseMPauto",
     "classCastingStats",
     "countforexp",
+    "materiaAdvancement",
+    "materiaRarity",
   ];
 
-  const doLocalize = function (obj) {
-    return Object.entries(obj).reduce((obj, e) => {
-      if (typeof e[1] === "string") obj[e[0]] = game.i18n.localize(e[1]);
-      else if (typeof e[1] === "object") obj[e[0]] = doLocalize(e[1]);
+  // Config (sub-)objects to be sorted
+  const toSort = [
+    "buffTargets",
+    "buffTargets.misc",
+    "contextNoteTargets",
+    "contextNoteTargets.misc",
+    "skills",
+    "conditions",
+    "conditionTypes",
+    "consumableTypes",
+    "creatureTypes",
+    "featTypes",
+    "weaponProperties",
+    "spellSchools",
+    "languages",
+    "damageTypes",
+  ];
+
+  /**
+   * Helper function to recursively localize object entries
+   *
+   * @param {object} obj - The object to be localized
+   * @param {string} cat - The object's name
+   * @returns {object} The localized object
+   */
+  const doLocalize = (obj, cat) => {
+    // Create tuples of (key, localized object/string)
+    const localized = Object.entries(obj).reduce((arr, e) => {
+      if (typeof e[1] === "string") arr.push([e[0], game.i18n.localize(e[1])]);
+      else if (typeof e[1] === "object") arr.push([e[0], doLocalize(e[1], `${cat}.${e[0]}`)]);
+      return arr;
+    }, []);
+    if (toSort.includes(cat)) {
+      // Sort simple strings, fall back to sorting by label for objects/categories
+      localized.sort((a, b) => {
+        const localA = typeof a?.[1] === "string" ? a[1] : a[1]?._label;
+        const localB = typeof b?.[1] === "string" ? b[1] : b[1]?._label;
+        // Move misc to bottom of every list
+        if (a[0] === "misc") return 1;
+        else if (b[0] === "misc") return -1;
+        // Regular sorting of localized strings
+        return localA.localeCompare(localB);
+      });
+    }
+    // Get the localized and sorted object out of tuple
+    return localized.reduce((obj, e) => {
+      obj[e[0]] = e[1];
       return obj;
     }, {});
   };
-  for (let o of toLocalize) {
-    CONFIG.FFD20[o] = doLocalize(CONFIG.FFD20[o]);
+
+  // Localize and sort CONFIG objects
+  for (const o of toLocalize) {
+    CONFIG.FFD20[o] = doLocalize(CONFIG.FFD20[o], o);
   }
 
   // TinyMCE variables and commands
@@ -213,11 +262,43 @@ Hooks.once("setup", function () {
 
 /**
  * Once the entire VTT framework is initialized, check to see if we should perform a data migration
-*/
+ */
 Hooks.once("ready", async function () {
-  /**  Migrate data*/
-  const NEEDS_MIGRATION_VERSION = "0.1.0";
-  let PREVIOUS_MIGRATION_VERSION = game.settings.get("FFD20", "systemMigrationVersion");
+  // Create tooltip
+  game.ffd20.tooltip = new TooltipPF();
+  window.addEventListener("resize", () => {
+    game.ffd20.tooltip.setPosition();
+  });
+  window.addEventListener("keydown", (event) => {
+    const tooltipConfig = game.settings.get("ffd20", "tooltipConfig");
+    if (event.key === "Shift" && game.user.isGM) {
+      game.ffd20.tooltip.forceHideGMInfo = true;
+      game.ffd20.tooltip.render();
+    } else if (event.key === "Control") {
+      if (tooltipConfig.hideWithoutKey) {
+        game.ffd20.tooltip.show();
+      } else {
+        game.ffd20.tooltip.hide();
+      }
+    }
+  });
+  window.addEventListener("keyup", (event) => {
+    const tooltipConfig = game.settings.get("ffd20", "tooltipConfig");
+    if (event.key === "Shift" && game.user.isGM) {
+      game.ffd20.tooltip.forceHideGMInfo = false;
+      game.ffd20.tooltip.render();
+    } else if (event.key === "Control") {
+      if (tooltipConfig.hideWithoutKey) {
+        game.ffd20.tooltip.hide();
+      } else {
+        game.ffd20.tooltip.show();
+      }
+    }
+  });
+
+  // Migrate data
+  const NEEDS_MIGRATION_VERSION = "0.0.9";
+  let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";
   } else if (
@@ -231,13 +312,13 @@ Hooks.once("ready", async function () {
   );
   if (needMigration && game.user.isGM) {
     await migrations.migrateWorld();
-  } 
+  }
 
   // Migrate system settings
-   await migrateSystemSettings();
+  await migrateSystemSettings();
 
   // Create compendium browsers
-  game.FFD20.compendiums = {
+  game.ffd20.compendiums = {
     spells: new CompendiumBrowser({ type: "spells" }),
     items: new CompendiumBrowser({ type: "items" }),
     bestiary: new CompendiumBrowser({ type: "bestiary" }),
@@ -247,15 +328,15 @@ Hooks.once("ready", async function () {
   };
 
   // Show changelog
-  if (!game.settings.get("FFD20", "dontShowChangelog")) {
-    const v = game.settings.get("FFD20", "changelogVersion") || "0.0.1";
+  if (!game.settings.get("ffd20", "dontShowChangelog")) {
+    const v = game.settings.get("ffd20", "changelogVersion") || "0.0.1";
     const changelogVersion = SemanticVersion.fromString(v);
     const curVersion = SemanticVersion.fromString(game.system.data.version);
 
     if (curVersion.isHigherThan(changelogVersion)) {
       const app = new ChangeLogWindow(changelogVersion);
       app.render(true);
-      game.settings.set("FFD20", "changelogVersion", curVersion.toString());
+      game.settings.set("ffd20", "changelogVersion", curVersion.toString());
     }
   }
 
@@ -270,7 +351,7 @@ Hooks.once("ready", async function () {
 
 Hooks.on("canvasInit", function () {
   // Extend Diagonal Measurement
-  canvas.grid.diagonalRule = game.settings.get("FFD20", "diagonalMovement");
+  canvas.grid.diagonalRule = game.settings.get("ffd20", "diagonalMovement");
   SquareGrid.prototype.measureDistances = measureDistances;
 });
 
@@ -290,7 +371,7 @@ Hooks.on("canvasInit", function () {
       const results = addReachCallback(m.data, elem);
       callbacks.push(...results);
     });
-    });
+  });
 
   Hooks.on("renderChatMessage", (app, html, data) => {
     // Wait for setup after this
@@ -314,13 +395,13 @@ Hooks.on("renderChatMessage", (app, html, data) => {
   chat.hideGMSensitiveInfo(app, html, data);
 
   // Optionally collapse the content
-  if (game.settings.get("FFD20", "autoCollapseItemCards")) html.find(".card-content").hide();
+  if (game.settings.get("ffd20", "autoCollapseItemCards")) html.find(".card-content").hide();
 
   // Optionally hide chat buttons
-  if (game.settings.get("FFD20", "hideChatButtons")) html.find(".card-buttons").hide();
+  if (game.settings.get("ffd20", "hideChatButtons")) html.find(".card-buttons").hide();
 
   // Apply accessibility settings to chat message
-  chat.applyAccessibilitySettings(app, html, data, game.settings.get("FFD20", "accessibilityConfig"));
+  chat.applyAccessibilitySettings(app, html, data, game.settings.get("ffd20", "accessibilityConfig"));
 
   // Alter chat card title color
   chat.addChatCardTitleGradient(app, html, data);
@@ -331,10 +412,10 @@ Hooks.on("renderChatMessage", (app, html, data) => {
 
 Hooks.on("renderChatPopout", (app, html, data) => {
   // Optionally collapse the content
-  if (game.settings.get("FFD20", "autoCollapseItemCards")) html.find(".card-content").hide();
+  if (game.settings.get("ffd20", "autoCollapseItemCards")) html.find(".card-content").hide();
 
   // Optionally hide chat buttons
-  if (game.settings.get("FFD20", "hideChatButtons")) html.find(".card-buttons").hide();
+  if (game.settings.get("ffd20", "hideChatButtons")) html.find(".card-buttons").hide();
 });
 
 Hooks.on("renderChatLog", (_, html) => ItemFFD20.chatListeners(html));
@@ -347,19 +428,16 @@ Hooks.on("renderLightConfig", (app, html) => {
   RenderLightConfig_LowLightVision(app, html);
 });
 
-Hooks.on("updateOwnedItem", (actor, itemData, changedData, options, userId) => {
+Hooks.on("updateOwnedItem", async (actor, itemData, changedData, options, userId) => {
   if (userId !== game.user._id) return;
   if (!(actor instanceof Actor)) return;
 
   const item = actor.getOwnedItem(changedData._id);
   if (item == null) return;
 
-  // Merge changed data into item data immediately, to avoid update lag
-  // item.data = mergeObject(item.data, changedData);
-
   // Update level
   {
-    new Promise((resolve) => {
+    await new Promise((resolve) => {
       if (item.type === "class" && hasProperty(changedData, "data.level")) {
         const prevLevel = getProperty(item.data, "data.level");
         const newLevel = getProperty(changedData, "data.level");
@@ -369,32 +447,9 @@ Hooks.on("updateOwnedItem", (actor, itemData, changedData, options, userId) => {
       } else {
         resolve();
       }
-    })
-      .then(actor.updateItemResources(item))
-      .then((result) => {
-        return new Promise((resolve) => {
-          if (!result) {
-            actor.refresh().then(() => {
-              resolve();
-            });
-          }
-        });
-      });
-  }
-});
-
-Hooks.on("updateToken", (scene, token, data, options, userId) => {
-  if (userId !== game.user._id) return;
-
-  const actor = game.actors.tokens[data._id] ?? game.actors.get(token.actorId);
-  if (actor != null && hasProperty(data, "actorData.items")) {
-    if (!actor.hasPerm(game.user, "OWNER")) return;
-    actor.refresh();
-
-    // Update items
-    for (let i of actor.items) {
-      if (!i.hasPerm(game.user, "OWNER")) continue;
-      actor.updateItemResources(i);
+    });
+    if (item.type === "buff" && getProperty(changedData, "data.active") !== undefined) {
+      await actor.toggleConditionStatusIcons();
     }
   }
 });
@@ -412,8 +467,41 @@ Hooks.on("createToken", async (scene, token, options, userId) => {
 
 Hooks.on("preCreateToken", async (scene, token, options, userId) => {
   const actor = game.actors.get(token.actorId),
-    buffTextures = Object.values(actor._calcBuffTextures() ?? []).map((b) => b.icon);
+    buffTextures = Object.values(actor?._calcBuffTextures() ?? []).map((b) => b.icon);
   for (let icon of buffTextures) await loadTexture(icon);
+});
+
+Hooks.on("hoverToken", (token, hovering) => {
+  // Show token tooltip
+  if (hovering && !game.keyboard.isDown("Alt")) {
+    const p = game.ffd20.tooltip.mousePos;
+    const el = document.elementFromPoint(p.x, p.y);
+    // This check is required to prevent hovering over tokens under application windows
+    if (el.id === "board") {
+      game.ffd20.tooltip.bind(token);
+    }
+  }
+  // Hide token tooltip
+  else game.ffd20.tooltip.unbind(token);
+});
+
+Hooks.on("preDeleteToken", (scene, data, options, userId) => {
+  const token = canvas.tokens.placeables.find((t) => t.data._id === data._id);
+  if (!token) return;
+
+  // Hide token tooltip on token deletion
+  game.ffd20.tooltip.unbind(token);
+});
+
+Hooks.on("updateToken", (scene, data, updateData, options, userId) => {
+  const token = canvas.tokens.placeables.find((t) => t.data._id === data._id);
+  if (!token) return;
+
+  // Hide token tooltip on token update
+  game.ffd20.tooltip.unbind(token);
+
+  // Update token's actor sheet (if any)
+  token.actor?.sheet?.render();
 });
 
 // Create race on actor
@@ -442,8 +530,10 @@ Hooks.on("createOwnedItem", (actor, itemData, options, userId) => {
 
   // Refresh item
   item.update({});
-  // Refresh actor
-  // await actor.update({});
+  // Show buff if active
+  if (item.type === "buff" && getProperty(itemData, "data.active") === true) {
+    actor.toggleConditionStatusIcons();
+  }
 });
 
 Hooks.on("deleteOwnedItem", async (actor, itemData, options, userId) => {
@@ -470,7 +560,7 @@ Hooks.on("deleteOwnedItem", async (actor, itemData, options, userId) => {
     for (let [linkType, links] of Object.entries(itemLinks)) {
       for (let link of links) {
         const item = actor.items.find((o) => o._id === link.id);
-        let otherItemLinks = item.links;
+        let otherItemLinks = item?.links || {};
         if (otherItemLinks[linkType]) {
           delete otherItemLinks[linkType];
         }
@@ -480,6 +570,11 @@ Hooks.on("deleteOwnedItem", async (actor, itemData, options, userId) => {
 
   // Refresh actor
   actor.refresh();
+});
+
+Hooks.on("chatMessage", (log, message, chatData) => {
+  const result = customRolls(message, chatData.speaker);
+  return !result;
 });
 
 /* -------------------------------------------- */
@@ -518,8 +613,8 @@ Hooks.on("renderTokenConfig", async (app, html) => {
   // Add static size checkbox
   newHTML = `<div class="form-group"><label>${game.i18n.localize(
     "FFD20.StaticSize"
-  )}</label><input type="checkbox" name="flags.FFD20.staticSize" data-dtype="Boolean"`;
-  if (getProperty(app.object.data, "flags.FFD20.staticSize")) newHTML += " checked";
+  )}</label><input type="checkbox" name="flags.ffd20.staticSize" data-dtype="Boolean"`;
+  if (getProperty(app.object.data, "flags.ffd20.staticSize")) newHTML += " checked";
   newHTML += "/></div>";
   html.find('.tab[data-tab="image"] > *:nth-child(3)').after(newHTML);
 
@@ -556,7 +651,7 @@ Hooks.on("renderSidebarTab", (app, html) => {
 async function createItemMacro(item, slot) {
   const actor = getItemOwner(item);
   const command =
-    `game.FFD20.rollItemMacro("${item.name}", {\n` +
+    `game.ffd20.rollItemMacro("${item.name}", {\n` +
     `  itemId: "${item._id}",\n` +
     `  itemType: "${item.type}",\n` +
     (actor != null ? `  actorId: "${actor._id}",\n` : "") +
@@ -569,7 +664,7 @@ async function createItemMacro(item, slot) {
         type: "script",
         img: item.img,
         command: command,
-        flags: { "FFD20.itemMacro": true },
+        flags: { "ffd20.itemMacro": true },
       },
       { displaySheet: false }
     );
@@ -582,7 +677,7 @@ async function createSkillMacro(skillId, actorId, slot) {
   if (!actor) return;
 
   const skillInfo = actor.getSkillInfo(skillId);
-  const command = `game.FFD20.rollSkillMacro("${actorId}", "${skillId}");`;
+  const command = `game.ffd20.rollSkillMacro("${actorId}", "${skillId}");`;
   const name = game.i18n.localize("FFD20.RollSkillMacroName").format(actor.name, skillInfo.name);
   let macro = game.macros.entities.find((m) => m.name === name && m.command === command);
   if (!macro) {
@@ -592,7 +687,7 @@ async function createSkillMacro(skillId, actorId, slot) {
         type: "script",
         img: "systems/ffd20/icons/items/inventory/dice.jpg",
         command: command,
-        flags: { "FFD20.skillMacro": true },
+        flags: { "ffd20.skillMacro": true },
       },
       { displaySheet: false }
     );
@@ -622,8 +717,8 @@ async function createMiscActorMacro(type, actorId, slot, altType = null) {
   }
 
   const command = altType
-    ? `game.FFD20.rollActorAttributeMacro("${actorId}", "${type}", "${altType}");`
-    : `game.FFD20.rollActorAttributeMacro("${actorId}", "${type}");`;
+    ? `game.ffd20.rollActorAttributeMacro("${actorId}", "${type}", "${altType}");`
+    : `game.ffd20.rollActorAttributeMacro("${actorId}", "${type}");`;
   let name, img;
   switch (type) {
     case "defenses":

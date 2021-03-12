@@ -41,7 +41,7 @@ export class TokenQuickActions {
       // Add mouse enter handler
       let highlight;
       elem.on("mouseenter", (event) => {
-        if (!game.settings.get("FFD20", "hideReachMeasurements")) highlight = showAttackReach(token, item);
+        if (!game.settings.get("ffd20", "hideReachMeasurements")) highlight = showAttackReach(token, item);
 
         if (!highlight) return;
 

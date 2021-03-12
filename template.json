@@ -835,10 +835,6 @@
           "cres": "",
           "regen": "",
           "fastHealing": "",
-          "languages": {
-            "value": [],
-            "custom": ""
-          },
           "di": {
             "value": [],
             "custom": ""
@@ -884,6 +880,10 @@
           "custom": ""
         },
         "armorProf": {
+          "value": [],
+          "custom": ""
+        },
+        "languages": {
           "value": [],
           "custom": ""
         }
@@ -1078,8 +1078,12 @@
         "weaponProf": {
           "value": [],
           "custom": ""
+        },
+        "languages": {
+          "value": [],
+          "custom": ""
         }
-      }
+			}
     },
     "class": {
       "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies"],
@@ -1161,7 +1165,21 @@
       "nonlethal": false,
       "links": {
         "charges": []
+      },
+      "isMateria": false,
+      "materiaRarity": "common",
+      "materiaSlot": "unslotted",
+      "materiaLevel":"0",
+      "materiaCombatXp": {
+        "value": 0,
+        "next": 0,
+        "lv0": 0,
+        "lv1": 0,
+        "lv2": 0,
+        "lv3": 0,
+        "mastered": 0
       }
+
     },
     "feat": {
       "templates": [
@@ -1299,11 +1317,7 @@
     "race": {
       "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies"],
       "creatureType": "humanoid",
-      "subTypes": [],
-      "languages": {
-        "value": [],
-        "custom": ""
-      }
+      "subTypes": []
     },
     "container": {
       "templates": ["itemDescription", "physicalItem", "inventory"],

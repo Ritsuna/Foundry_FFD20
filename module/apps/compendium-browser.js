@@ -76,17 +76,17 @@ export class CompendiumBrowser extends Application {
      */
     {
       this._savedItems = [];
-      const cacheVersions = game.settings.get("FFD20", "compendiumSaveVersions");
+      const cacheVersions = game.settings.get("ffd20", "compendiumSaveVersions");
       const thisVersion = SemanticVersion.fromString(cacheVersions[this.type] || "0.0.1");
       const needVersion = SemanticVersion.fromString(NEED_NEW_VERSION[this.type]);
       if (needVersion.isHigherThan(thisVersion)) {
         game.settings.set(
-          "FFD20",
+          "ffd20",
           "compendiumSaveVersions",
           mergeObject(cacheVersions, { [this.type]: game.system.data.version })
         );
       } else {
-        const settings = game.settings.get("FFD20", "compendiumItems");
+        const settings = game.settings.get("ffd20", "compendiumItems");
         if (settings[this.type]) {
           this._savedItems = settings[this.type];
         }
@@ -97,7 +97,7 @@ export class CompendiumBrowser extends Application {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       template: "systems/ffd20/templates/apps/compendium-browser.hbs",
-      classes: ["FFD20", "app"],
+      classes: ["ffd20", "app"],
       width: 720,
       height: window.innerHeight - 60,
       top: 30,
@@ -112,7 +112,7 @@ export class CompendiumBrowser extends Application {
       this.updateForceRefreshData();
     }
 
-    const forceRefreshData = game.settings.get("FFD20", "compendiumForceRefresh");
+    const forceRefreshData = game.settings.get("ffd20", "compendiumForceRefresh");
     const diff = getProperty(forceRefreshData, `diff.${this.type}`);
 
     // Determine difference in used compendiums
@@ -145,9 +145,9 @@ export class CompendiumBrowser extends Application {
 
     // Save results
     if (options.save) {
-      const forceRefreshData = duplicate(game.settings.get("FFD20", "compendiumForceRefresh"));
+      const forceRefreshData = duplicate(game.settings.get("ffd20", "compendiumForceRefresh"));
       setProperty(forceRefreshData, `diff.${this.type}`, this._currentCompendiums);
-      return game.settings.set("FFD20", "compendiumForceRefresh", forceRefreshData);
+      return game.settings.set("ffd20", "compendiumForceRefresh", forceRefreshData);
     }
   }
 
@@ -261,8 +261,8 @@ export class CompendiumBrowser extends Application {
   async loadCompendium(p) {
     const progress = this._data.progress;
 
-    if ((p.private && !game.user.isGM) || p.metadata.system != "FFD20") {
-      if (p.metadata.system != "FFD20")
+    if ((p.private && !game.user.isGM) || p.metadata.system != "ffd20") {
+      if (p.metadata.system != "ffd20")
         console.warn(p.metadata.label + " is incompatible with this browser and has been skipped.");
       this._onProgress(progress);
       return;
@@ -361,7 +361,7 @@ export class CompendiumBrowser extends Application {
 
     // Merge active filters object with stored settings
     const filterSettings =
-      getProperty(game.settings.get("FFD20", "compendiumFilters") || {}, `${this.type}.activeFilters`) || {};
+      getProperty(game.settings.get("ffd20", "compendiumFilters") || {}, `${this.type}.activeFilters`) || {};
     for (let [k, v] of Object.entries(filterSettings)) {
       if (!this.activeFilters[k]) continue;
       this.activeFilters[k] = v;
@@ -1197,9 +1197,9 @@ export class CompendiumBrowser extends Application {
 
     // Save filter settings
     {
-      const settings = game.settings.get("FFD20", "compendiumFilters");
+      const settings = game.settings.get("ffd20", "compendiumFilters");
       setProperty(settings, `${this.type}.activeFilters`, this.activeFilters);
-      game.settings.set("FFD20", "compendiumFilters", settings);
+      game.settings.set("ffd20", "compendiumFilters", settings);
     }
 
     this._filterResults();
@@ -1375,16 +1375,16 @@ export class CompendiumBrowser extends Application {
   saveEntries() {
     const entries = this.getSaveEntries();
 
-    const settings = game.settings.get("FFD20", "compendiumItems") || {};
+    const settings = game.settings.get("ffd20", "compendiumItems") || {};
     settings[this.type] = entries;
 
-    return game.settings.set("FFD20", "compendiumItems", settings);
+    return game.settings.set("ffd20", "compendiumItems", settings);
   }
 
   clearEntries() {
-    const settings = game.settings.get("FFD20", "compendiumItems") || {};
+    const settings = game.settings.get("ffd20", "compendiumItems") || {};
     settings[this.type] = [];
 
-    return game.settings.set("FFD20", "compendiumItems", settings);
+    return game.settings.set("ffd20", "compendiumItems", settings);
   }
 }

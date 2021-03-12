@@ -270,9 +270,9 @@ export async function PatchCore() {
   {
     const fn = KeyboardManager.prototype._onAlt;
     KeyboardManager.prototype._onAlt = function (event, up, modifiers) {
-      if (!up) game.FFD20.tooltip.lock.new = true;
+      if (!up) game.ffd20.tooltip.lock.new = true;
       fn.call(this, event, up, modifiers);
-      if (!up) game.FFD20.tooltip.lock.new = false;
+      if (!up) game.ffd20.tooltip.lock.new = false;
     };
   }
 

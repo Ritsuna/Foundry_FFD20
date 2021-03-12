@@ -100,33 +100,43 @@ FFD20.ClassSpellProgression = {
   fullCaster: 9,
 };
 
-// Character MP from levels
+// Current Max Spell Level based on lvl
+FFD20.ClassSpellLvlProgression = {
+  noncaster:     '0',
+  halfCaster:    'min(floor(max(@level - 3 ,0) / 3),4)',
+  pacman:        'min(floor((@level + 2) / 3),6)',
+  fullCaster:    'min(floor((@level + 1) / 2),9)',
+};
+
+
+// Character MP from levels TODO add other mp bases
 FFD20.classMPlevels = {
-// level          1   2   3   4   5   6   7   8   9   10   11    12    13    14    15    16    17    18    19    20
+// level        1 2 3 4 5  6  7  8  9 10 11 12 13 14 15 16 17  18  19  20
 noncaster:     [0],
-halfCaster:    [0,  0,  0,  1,  2,  3,  4,  5,  6,   7,   8,   10,   12,   14,   16,   19,   22,   25,   29,   33,],
-pacman:        [2,  3,  4,  5,  6,  8, 10, 13, 16,  20,  24,   29,   34,   39,   45,   51,   57,   64,   71,   79,],
-fullCaster:    [3,  4,  5,  6,  8, 11, 15, 20, 26,  32,  39,   47,   56,   65,   75,   86,   98,  110,  122,  135,],
+halfCaster:    [0,0,0,1,2, 3, 4, 5, 6, 7, 8,10,12,14,16,19,22, 25, 29, 33,],
+pacman:        [2,3,4,5,6, 8,10,13,16,20,24,29,34,39,45,51,57, 64, 71, 79,],
+fullCaster:    [3,4,5,6,8,11,15,20,26,32,39,47,56,65,75,86,98,110,122,135,],
 };
 
 // Character MP from stat
 FFD20.classMPStatsBonus = {
-// stat mod 0    1    2    3    4    5    6    7    8    9   10   11   12   13   14   15   16   17
-  1:       [0,   1,   1,   1,   1,   2,   2,   2,   2,   3,   3,   3,   3,   4,   4,   4,   4,   5,],
-  2:       [0,   1,   3,   3,   3,   4,   6,   6,   6,   7,   9,   9,   9,  10,  12,  12,  12,  13,],
-  3:       [0,   1,   3,   6,   6,   7,   9,  12,  12,  13,  15,  18,  18,  19,  21,  24,  24,  25,],
-  4:       [0,   1,   3,   6,  10,  11,  13,  16,  20,  21,  23,  26,  30,  31,  33,  36,  40,  41,],
-  5:       [0,   1,   3,   6,  10,  16,  18,  21,  25,  31,  33,  36,  40,  46,  48,  51,  55,  61,],
-  6:       [0,   1,   3,   6,  10,  16,  24,  27,  31,  37,  45,  48,  52,  58,  66,  69,  73,  79,],
-  7:       [0,   1,   3,   6,  10,  16,  24,  34,  38,  44,  52,  62,  66,  72,  80,  90,  94, 100,],
-  8:       [0,   1,   3,   6,  10,  16,  24,  34,  46,  52,  60,  70,  82,  88,  96, 106, 118, 124,],
-  9:       [0,   1,   3,   6,  10,  16,  24,  34,  46,  61,  69,  79,  91, 106, 114, 124, 136, 151,],
+// stat mod 0 1 2 3  4  5  6  7  8  9 10 11 12  13  14  15  16  17
+  1:       [0,1,1,1, 1, 2, 2, 2, 2, 3, 3, 3, 3,  4,  4,  4,  4,  5,],
+  2:       [0,1,3,3, 3, 4, 6, 6, 6, 7, 9, 9, 9, 10, 12, 12, 12, 13,],
+  3:       [0,1,3,6, 6, 7, 9,12,12,13,15,18,18, 19, 21, 24, 24, 25,],
+  4:       [0,1,3,6,10,11,13,16,20,21,23,26,30, 31, 33, 36, 40, 41,],
+  5:       [0,1,3,6,10,16,18,21,25,31,33,36,40, 46, 48, 51, 55, 61,],
+  6:       [0,1,3,6,10,16,24,27,31,37,45,48,52, 58, 66, 69, 73, 79,],
+  7:       [0,1,3,6,10,16,24,34,38,44,52,62,66, 72, 80, 90, 94,100,],
+  8:       [0,1,3,6,10,16,24,34,46,52,60,70,82, 88, 96,106,118,124,],
+  9:       [0,1,3,6,10,16,24,34,46,61,69,79,91,106,114,124,136,151,],
 };
 
 // to calculate auto mp
 FFD20.classBaseMPauto = {
 no: "FFD20.No",
 yes: "FFD20.Yes",
+half: "FFD20.Half"
 };
 
 FFD20.classBAB = {
@@ -231,7 +241,7 @@ FFD20.alignmentsShort = {
  * The set of Armor Proficiencies which a character may have
  * @type {Object}
  */
-FFD20.armorProficiencies = {
+FFD20.armorProf = {
   lgt: "FFD20.ArmorProfLight",
   med: "FFD20.ArmorProfMedium",
   hvy: "FFD20.ArmorProfHeavy",
@@ -239,7 +249,7 @@ FFD20.armorProficiencies = {
   twr: "FFD20.ArmorProfTowerShield",
 };
 
-FFD20.weaponProficiencies = {
+FFD20.weaponProf = {
   sim: "FFD20.WeaponProfSimple",
   mar: "FFD20.WeaponProfMartial",
   exo: "FFD20.WeaponProfExotic",
@@ -583,6 +593,14 @@ FFD20.equipmentTypes = {
     clothing: "FFD20.EquipTypeClothing",
     other: "FFD20.Other",
   },
+  materia: {
+    _label: "FFD20.Materia",
+    ability:      "FFD20.MateriaTypeAbility",
+    independent:  "FFD20.MateriaTypeIndependent",
+    spell:        "FFD20.MateriaTypeSpell",
+    summon:       "FFD20.MateriaTypeSummon",
+    support:      "FFD20.MateriaTypeSupport",
+    }
 };
 
 FFD20.equipmentSlots = {
@@ -607,6 +625,13 @@ FFD20.equipmentSlots = {
     ring: "FFD20.EquipSlotRing",
     feet: "FFD20.EquipSlotFeet",
   },
+  materia: {
+    unslotted: "FFD20.MateriaSlotUnslotted",
+    weapon: "FFD20.MateriaSlotWeapon",
+    shield: "FFD20.MateriaSlotShield",
+    armor: "FFD20.MateriaSlotArmor",
+    other: "FFD20.MateriaSlotOther",
+  },  
 };
 
 FFD20.lootTypes = {
@@ -894,46 +919,46 @@ FFD20.skills = {
 };
 
 FFD20.skillCompendiumEntries = {
-  acr: "FFD20.skills.HPsdXjjRtKNGFGRc",
-  apr: "FFD20.skills.W5GT9F3euC4aG9zP",
-  blf: "FFD20.skills.pAB2PYkZO3lsmeaC",
-  clm: "FFD20.skills.xvua9V5Zggkc77Gt",
-  crf: "FFD20.skills.L6LEhHRrn53cMuhE",
-  dev: "FFD20.skills.CCy1fajKKU3K02iQ",
-  dip: "FFD20.skills.OtfbHJhIQsNzmiTN",
-  dis: "FFD20.skills.lP3L1RXi9q4ha9Gu",
-  dir: "FFD20.skills.LqNIXvXeQTxcDeUA",
-  esc: "FFD20.skills.AOQsMtvLY4V3wFEL",
-  fly: "FFD20.skills.rR877UB1xVd3Z7z1",
-  han: "FFD20.skills.fXauAodbOBHBi7Mj",
-  hea: "FFD20.skills.RtBGttkocvTbySjd",
-  int: "FFD20.skills.ImjhcPmm02QSCbPg",
-  kar: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  kdu: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  ken: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  kge: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  khi: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  klo: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  kna: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  kno: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  kpl: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  kre: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  kte: "FFD20.skills.ki0QvL0K7u4YuK0O",
-  lin: "FFD20.skills.QXIYXqy6ivNHrDrW",
-  nav: "FFD20.skills.mY5hN2EBEG0zWcSk",
-  per: "FFD20.skills.YYmmxDgp0g3ltSUG",
-  pil: "FFD20.skills.RbmyZeLZzFv7YHqF",
-  prf: "FFD20.skills.HhV5UmaRLTjtB3Xh",
-  pro: "FFD20.skills.O7Utk8xKbHYDP7Ot",
-  rep: "FFD20.skills.", //repair
-  rid: "FFD20.skills.mKO8Q4uMiqpMySOZ",
-  sen: "FFD20.skills.R8HGxGCKayOl15AO",
-  slt: "FFD20.skills.zK0CbvpYLZhTN5Wn",
-  spl: "FFD20.skills.uLZI2uWz0uB8UgBc",
-  ste: "FFD20.skills.T6nefKotIb5vKE9h",
-  sur: "FFD20.skills.TXrxgrB2sQjppZFY",
-  swm: "FFD20.skills.weCPHUuXi9sF5r4E",
-  umd: "FFD20.skills.WR5lekzyLT6T2CFH",
+  acr: "ffd20.skills.HPsdXjjRtKNGFGRc",
+  apr: "ffd20.skills.W5GT9F3euC4aG9zP",
+  blf: "ffd20.skills.pAB2PYkZO3lsmeaC",
+  clm: "ffd20.skills.xvua9V5Zggkc77Gt",
+  crf: "ffd20.skills.L6LEhHRrn53cMuhE",
+  dev: "ffd20.skills.CCy1fajKKU3K02iQ",
+  dip: "ffd20.skills.OtfbHJhIQsNzmiTN",
+  dis: "ffd20.skills.lP3L1RXi9q4ha9Gu",
+  dir: "ffd20.skills.LqNIXvXeQTxcDeUA",
+  esc: "ffd20.skills.AOQsMtvLY4V3wFEL",
+  fly: "ffd20.skills.rR877UB1xVd3Z7z1",
+  han: "ffd20.skills.fXauAodbOBHBi7Mj",
+  hea: "ffd20.skills.RtBGttkocvTbySjd",
+  int: "ffd20.skills.ImjhcPmm02QSCbPg",
+  kar: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  kdu: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  ken: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  kge: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  khi: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  klo: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  kna: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  kno: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  kpl: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  kre: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  kte: "ffd20.skills.ki0QvL0K7u4YuK0O",
+  lin: "ffd20.skills.QXIYXqy6ivNHrDrW",
+  nav: "ffd20.skills.mY5hN2EBEG0zWcSk",
+  per: "ffd20.skills.YYmmxDgp0g3ltSUG",
+  pil: "ffd20.skills.RbmyZeLZzFv7YHqF",
+  prf: "ffd20.skills.HhV5UmaRLTjtB3Xh",
+  pro: "ffd20.skills.O7Utk8xKbHYDP7Ot",
+  rep: "ffd20.skills.", //repair
+  rid: "ffd20.skills.mKO8Q4uMiqpMySOZ",
+  sen: "ffd20.skills.R8HGxGCKayOl15AO",
+  slt: "ffd20.skills.zK0CbvpYLZhTN5Wn",
+  spl: "ffd20.skills.uLZI2uWz0uB8UgBc",
+  ste: "ffd20.skills.T6nefKotIb5vKE9h",
+  sur: "ffd20.skills.TXrxgrB2sQjppZFY",
+  swm: "ffd20.skills.weCPHUuXi9sF5r4E",
+  umd: "ffd20.skills.WR5lekzyLT6T2CFH",
 };
 
 FFD20.arbitrarySkills = ["crf", "prf", "pro"];
@@ -1700,3 +1725,29 @@ FFD20.temporaryRollDataFields = {
 };
 
 CONFIG.Combat.initiative.decimals = 2;
+FFD20.materiaRarity = {
+  common:    "FFD20.MateriaRarityCommon",
+  uncommon:  "FFD20.MateriaRarityUncommon",
+  rare:      "FFD20.MateriaRarityRare",
+  legendary: "FFD20.MateriaRarityLegendary",
+},
+FFD20.materiaRarityMath = {
+  common:    1,
+  uncommon:  2,
+  rare:      3,
+  legendary: 4,
+},
+FFD20.materiaSlot = {
+  unslotted: "FFD20.MateriaSlotUnslotted",
+  weapon: "FFD20.MateriaSlotWeapon",
+  shield: "FFD20.MateriaSlotShield",
+  armor: "FFD20.MateriaSlotArmor",
+  other: "FFD20.MateriaSlotOther"
+},
+
+FFD20.materiaAdvancement = {
+  common:     [0,0,5000,10000,20000,],
+  uncommon:   [0,5000,10000,20000,40000,],
+  rare:       [0,7500,15000,30000,60000,],
+  legendary:  [0,10000,20000,40000,80000,],
+};

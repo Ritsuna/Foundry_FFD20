@@ -3,7 +3,7 @@ export class ActorSheetFlags extends BaseEntitySheet {
     const options = super.defaultOptions;
     return mergeObject(options, {
       id: "actor-flags",
-      classes: ["FFD20"],
+      classes: ["ffd20"],
       template: "systems/ffd20/templates/apps/actor-flags.hbs",
       width: 500,
       closeOnSubmit: true,
@@ -64,13 +64,13 @@ export class ActorSheetFlags extends BaseEntitySheet {
 
     // Iterate over the flags which may be configured
     const updateData = {};
-    for (let [k, v] of Object.entries(CONFIG.FFD20.characterFlags)) {
+    for (let [k, v] of Object.entries(CONFIG.ffd20.characterFlags)) {
       if ([undefined, null, "", false].includes(formData[k])) updateData[`-=${k}`] = null;
       else if (v.type === Number && formData[k] === 0) updateData[`-=${k}`] = null;
       else updateData[k] = formData[k];
     }
 
     // Set the new flags in bulk
-    actor.update({ "flags.FFD20": updateData });
+    actor.update({ "flags.ffd20": updateData });
   }
 }

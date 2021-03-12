@@ -1,0 +1,133 @@
+<form class="{{cssClass}} flexcol" autocomplete="off">
+
+  {{!-- Item Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+
+    <div class="header-details flexrow">
+      {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
+
+      <ul class="summary">
+        <li>
+          {{itemType}}
+        </li>
+        <li>
+          {{#unless showUnidentifiedData}}{{labels.equipmentSubtype}}{{/unless}}
+        </li>
+        <li>
+          {{#if hasMultipleSlots}}{{#unless showUnidentifiedData}}{{labels.slot}}{{/unless}}{{/if}}
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  {{!-- Item Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item active" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
+    {{#unless showUnidentifiedData}}
+    <a class="item" data-tab="changes">{{ localize "FFD20.Changes" }}</a>
+    {{/unless}}
+    <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
+  </nav>
+
+  {{!-- Item Sheet Body --}}
+  <section class="primary-body">
+
+    {{!-- Description Tab --}}
+    {{> "systems/ffd20/templates/items/parts/item-description.hbs"}}
+
+    {{!-- Details Tab --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
+
+      <h3 class="form-header">{{localize "FFD20.Details"}}</h3>
+
+      {{!-- Equipment Type --}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Category"}}</label>
+        <select name="data.equipmentType">
+          {{#select data.equipmentType}}
+          {{#each equipmentCategories.types as |name type|}}
+          <option value="{{type}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
+      {{!-- Equipment Subtype --}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Type"}}</label>
+        <select name="data.equipmentSubtype">
+          {{#select data.equipmentSubtype}}
+          {{#each equipmentCategories.subTypes as |name type|}}
+          <option value="{{type}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+
+      {{!-- Equipment Slot --}}
+      {{#if hasMultipleSlots}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Slot"}}</label>
+        <select name="data.slot">
+          {{#select data.slot}}
+          {{#each equipmentSlots as |name type|}}
+          <option value="{{type}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+      {{else}}
+      <input type="hidden" name="data.slot" value="{{data.equipmentType}}" />
+      {{/if}}
+
+      {{!-- Equipment Status --}}
+      <div class="form-group stacked">
+        <label>{{localize "FFD20.EquipmentStatus"}}</label>
+        <label class="checkbox">
+          <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{localize "FFD20.Equipped"}}
+        </label>
+        {{#if isGM}}
+        <label class="checkbox">
+          <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{localize "FFD20.Identified"}}
+        </label>
+        {{/if}}
+    </div>
+
+
+      <h3 class="form-header">{{localize "FFD20.EquipmentUsage"}}</h3>
+
+      {{!-- Item Activation Template --}}
+      {{> "systems/ffd20/templates/items/parts/item-activation.hbs"}}
+
+      <h3 class="form-header">{{localize "FFD20.Action"}}</h3>
+
+      {{!-- Item Action Template --}}
+      {{> "systems/ffd20/templates/items/parts/item-action.hbs"}}
+
+      <h3 class="form-header">{{localize "FFD20.MeasureTemplate"}}</h3>
+
+      {{!-- Item Measure Template --}}
+      {{> "systems/ffd20/templates/items/parts/item-template.hbs"}}
+
+      {{!-- Advanced Tag --}}
+      {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{/unless}}
+    </div>
+
+    {{!-- Changes Tab --}}
+    {{#unless showUnidentifiedData}}
+    <div class="tab flexcol" data-group="primary" data-tab="changes">
+      {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
+
+      {{> "systems/ffd20/templates/items/parts/item-notes.hbs"}}
+    </div>
+    {{/unless}}
+
+    <div class="tab flexcol" data-group="primary" data-tab="links">
+      {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
+    </div>
+  </section>
+</form>

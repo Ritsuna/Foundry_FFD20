@@ -1,6 +1,6 @@
 export class ChatMessageFFD20 extends ChatMessage {
   get isRoll() {
-    return this.data.type === CONST.CHAT_MESSAGE_TYPES.ROLL || this.getFlag("FFD20", "noRollRender");
+    return this.data.type === CONST.CHAT_MESSAGE_TYPES.ROLL || this.getFlag("ffd20", "noRollRender");
   }
 
   /**
@@ -8,7 +8,7 @@ export class ChatMessageFFD20 extends ChatMessage {
    * @type {ItemFFD20}
    */
   get itemSource() {
-    let itemId = this.data.flags?.FFD20?.metadata?.item;
+    let itemId = this.data.flags?.ffd20?.metadata?.item;
     let actor = this.constructor.getSpeakerActor(this.data.speaker);
     if (!itemId || !actor) return false;
     return actor.items.get(itemId);

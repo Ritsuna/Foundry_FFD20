@@ -50,7 +50,7 @@ export class FFD20_HelpBrowser extends Application {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["FFD20", "help-browser"],
+      classes: ["ffd20", "help-browser"],
       template: "systems/ffd20/templates/apps/help-browser.hbs",
       minWidth: 800,
       minHeight: 450,

@@ -21,8 +21,8 @@ export class CompendiumDirectoryFFD20 extends CompendiumDirectory {
   _onBrowseCompendium(event, type) {
     event.preventDefault();
 
-    if (game.FFD20.isMigrating) return ui.notifications.warn(game.i18n.localize("FFD20.Migration.Ongoing"));
+    if (game.ffd20.isMigrating) return ui.notifications.warn(game.i18n.localize("FFD20.Migration.Ongoing"));
 
-    game.FFD20.compendiums[type]._render(true);
+    game.ffd20.compendiums[type]._render(true);
   }
 }

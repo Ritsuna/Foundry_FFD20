@@ -5,7 +5,7 @@
 export class ActorTraitSelector extends BaseEntitySheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.classes = ["FFD20", "trait-selector"];
+    options.classes = ["ffd20", "trait-selector"];
     options.title = "Actor Trait Selection";
     options.template = "systems/ffd20/templates/apps/trait-selector.hbs";
     options.width = 320;

@@ -39,6 +39,6 @@ export class ActiveEffectFFD20 extends ActiveEffect {
 
   get isTemporary() {
     const duration = this.data.duration.seconds ?? (this.data.duration.rounds || this.data.duration.turns) ?? 0;
-    return duration > 0 || this.getFlag("core", "statusId") || this.getFlag("FFD20", "show");
+    return duration > 0 || this.getFlag("core", "statusId") || this.getFlag("ffd20", "show");
   }
 }

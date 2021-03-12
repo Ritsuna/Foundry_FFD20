@@ -120,6 +120,8 @@ const getSortChangePriority = function () {
       "mhp",
       "wounds",
       "vigor",
+      "mmp",
+      "limitbreak",
     ],
     modifiers: [
       "untyped",
@@ -173,6 +175,10 @@ export const getChangeFlat = function (changeTarget, changeType, curData = null)
       return "data.attributes.wounds.max";
     case "vigor":
       return "data.attributes.vigor.max";
+    case "mmp":
+      return "data.attributes.mp.max";
+    case "limitbreak":
+      return "data.attributes.limitbreak.max";
     case "str":
     case "dex":
     case "con":
@@ -403,7 +409,7 @@ export const getChangeFlat = function (changeTarget, changeType, curData = null)
   // Try to determine a change flat from hooks
   {
     let result = { keys: [] };
-    Hooks.callAll("FFD20.getChangeFlat", changeTarget, changeType, result);
+    Hooks.callAll("ffd20.getChangeFlat", changeTarget, changeType, result);
     if (result.keys && result.keys.length) return result.keys;
   }
   return null;
@@ -412,7 +418,7 @@ export const getChangeFlat = function (changeTarget, changeType, curData = null)
 export const addDefaultChanges = function (changes) {
   // Call hook
   let tempChanges = [];
-  Hooks.callAll("FFD20.addDefaultChanges", this, tempChanges);
+  Hooks.callAll("ffd20.addDefaultChanges", this, tempChanges);
   changes.push(...tempChanges.filter((c) => c instanceof ItemChange));
 
   // Class hit points
@@ -427,7 +433,7 @@ export const addDefaultChanges = function (changes) {
       return a.sort - b.sort;
     });
 
-  const healthConfig = game.settings.get("FFD20", "healthConfig");
+  const healthConfig = game.settings.get("ffd20", "healthConfig");
   const cls_options = this.data.type === "character" ? healthConfig.hitdice.PC : healthConfig.hitdice.NPC;
   const race_options = healthConfig.hitdice.Racial;
   const round = { up: Math.ceil, nearest: Math.round, down: Math.floor }[healthConfig.rounding];
@@ -494,12 +500,107 @@ export const addDefaultChanges = function (changes) {
   compute_health(racialHD, race_options);
   compute_health(classes, cls_options);
 
+  // Class mana points, call class and race info from above
+
+  const push_mana = (value, source) => {
+    changes.push(
+      ItemChange.create({
+        formula: value.toString(),
+        target: "misc",
+        subTarget: "mmp",
+        modifier: "untypedPerm",
+        source: source.name,
+      })
+    );
+
+    getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
+      value: value,
+      name: source.name,
+    });
+  };
+  const manual_mana = (mana_source) => {
+    let mana = mana_source.data.mp;
+    push_mana(mana, mana_source);
+  };
+
+
+
+  const auto_mana = (mana_source) => {
+    if (mana_source.data.ClassSpellProgression === "noncaster") return ;
+      // use this for current max spell level
+      const  spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mana_source.data.ClassSpellProgression] ;
+
+      const  currentSpellLvl = Math.floor(new Roll(spellMath, { level: mana_source.data.level }).roll().total);
+
+      let bonus_mana = 0;
+      // figure out where bonus mp is coming from
+      if (mana_source.data.classCastingStat === "int") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.int.mod] ;
+      if (mana_source.data.classCastingStat === "wis") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.wis.mod] ;
+      if (mana_source.data.classCastingStat === "cha") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.cha.mod] ;
+      if (mana_source.data.classCastingStat === "intAndWis") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.int.mod] + CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.wis.mod] ;
+
+      // figure out how much mp comes from the class
+      let mult = 1;
+      if (mana_source.data.classBaseMPauto === "half") mult = .5; 
+      const manaChart = CONFIG.FFD20.classMPlevels[mana_source.data.ClassSpellProgression];
+      const level_mana = Math.floor(manaChart[mana_source.data.level - 1]* mult);
+
+
+      let mana = level_mana + bonus_mana;
+    push_mana(mana, mana_source);
+  };
+    // Compute and push mana, tracking the remaining maximized levels.
+    // for each class, check if it is calulating mp or defaulting to manually entered value
+    /**
+     * step 1 - gather all classes
+     * step 2 - check for each if it is auto or manual
+     * step 3 - pass to correct function
+     * step 4 - if manual just add mp to pool
+     * step 5 - for auto follow substeps
+     * the following is for each class passed to it
+     * step 5a - condence relevant variables
+     *          MP type: which mp chart does it look at
+     *            mana_source.data.classBaseMPType
+     *          Max spell lvl: which spell prog does it look at
+     *            mana_source.data.classSpellProgression
+     *          level: level of the class
+     *            mana_source.data.level
+     *          casting stat: what stat(s) are used for it
+     *            mana_source.data.classCastingStat
+     *            this needs a check for int/wis mix
+     * pass result
+     * else
+     * pass manual mp value
+     * 
+     * 
+     * total results
+     * 
+     */
+
+    // TODO adjust for class autos
+const compute_mana = (mana_sources) => {
+  // check each for false or null, do first manual option, if true move to auto
+  mana_sources.forEach((mpsource) => 
+    {if (mpsource.data.classBaseMPauto == "no" || mpsource.data.classBaseMPauto == null) 
+      {manual_mana(mpsource)}
+    else
+      {auto_mana(mpsource)} })
+  };
+
+  compute_mana(racialHD);
+  compute_mana(classes);
+
+
+
+
+
+
   // Add class data to saving throws
   const allClasses = [...classes, ...racialHD];
   for (let a of Object.keys(this.data.data.attributes.savingThrows)) {
     const k = `data.attributes.savingThrows.${a}.total`;
     // Using Fractional Base Bonuses
-    if (game.settings.get("FFD20", "useFractionalBaseBonuses")) {
+    if (game.settings.get("ffd20", "useFractionalBaseBonuses")) {
       let highStart = false;
       setProperty(
         this.data,
@@ -574,6 +675,20 @@ export const addDefaultChanges = function (changes) {
       });
     }
   }
+
+  /*/ Current mp boost
+  if (updateData["data.attributes.mp.max"]) {
+    const mpDiff = updateData["data.attributes.mp.max"] - prevValues.mmp;
+    if (mpDiff !== 0) {
+      linkData(
+        srcData1,
+        updateData,
+        "data.attributes.mp.value",
+        Math.min(updateData["data.attributes.mp.max"], srcData1.data.attributes.mp.value + mpDiff)
+      );
+    }
+  }*/
+
 
   // Add movement speed(s)
   for (let [k, s] of Object.entries(this.data.data.attributes.speed)) {

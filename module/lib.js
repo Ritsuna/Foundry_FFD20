@@ -357,7 +357,7 @@ export const getActorFromId = function (id) {
  * @returns {Array.<Number, String>} An array containing the converted value in index 0 and the new unit key in index 1 (for use in CONFIG.FFD20.measureUnits, for example)
  */
 export const convertDistance = function (value, type = "ft") {
-  switch (game.settings.get("FFD20", "units")) {
+  switch (game.settings.get("ffd20", "units")) {
     case "metric":
       switch (type) {
         case "mi":
@@ -376,7 +376,7 @@ export const convertDistance = function (value, type = "ft") {
  * @returns {Number} The converted value. In the case of the metric system, converts to kg.
  */
 export const convertWeight = function (value) {
-  switch (game.settings.get("FFD20", "units")) {
+  switch (game.settings.get("ffd20", "units")) {
     case "metric":
       return Math.round((value / 2) * 100) / 100; // 1 kg is not exactly 2 lb but this conversion is officially used by Paizo/BBE
     default:
@@ -390,7 +390,7 @@ export const convertWeight = function (value) {
  * @returns {Number} The converted value. In the case of the metric system, converts from kg.
  */
 export const convertWeightBack = function (value) {
-  switch (game.settings.get("FFD20", "units")) {
+  switch (game.settings.get("ffd20", "units")) {
     case "metric":
       return Math.round(value * 2 * 100) / 100; // 1 kg is not exactly 2 lb but this conversion is officially used by Paizo/BBE
     default:

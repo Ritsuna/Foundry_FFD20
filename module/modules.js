@@ -6,9 +6,9 @@
     class FFD20SpeedProvider extends SpeedProvider {
       get colors() {
         return [
-          { id: "walk", default: 0x00ff00, name: "SETTINGS.FFD20DragRulerWalk" },
-          { id: "dash", default: 0xffff00, name: "SETTINGS.FFD20DragRulerDash" },
-          { id: "run", default: 0xff8000, name: "SETTINGS.FFD20DragRulerRun" },
+          { id: "walk", default: 0x00ff00, name: "SETTINGS.ffd20DragRulerWalk" },
+          { id: "dash", default: 0xffff00, name: "SETTINGS.ffd20DragRulerDash" },
+          { id: "run", default: 0xff8000, name: "SETTINGS.ffd20DragRulerRun" },
         ];
       }
 
@@ -34,6 +34,6 @@
         ];
       }
     }
-    dragRuler.registerSystem("FFD20", FFD20SpeedProvider);
+    dragRuler.registerSystem("ffd20", FFD20SpeedProvider);
   });
 }

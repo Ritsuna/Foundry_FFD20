@@ -1,5 +1,5 @@
 export function initializeSocket() {
-  game.socket.on("system.FFD20", async (args) => {
+  game.socket.on("system.ffd20", async (args) => {
     try {
       switch (args.eventType) {
         case "cleanItemLink": {

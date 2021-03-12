@@ -12,7 +12,7 @@ export class ActorSheetFFD20Character extends ActorSheetFFD20 {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["FFD20", "sheet", "actor", "character"],
+      classes: ["ffd20", "sheet", "actor", "character"],
       width: 800,
       height: 840,
     });
@@ -42,18 +42,18 @@ export class ActorSheetFFD20Character extends ActorSheetFFD20 {
    */
   async getData() {
     const data = await super.getData();
-    const xpSettings = game.settings.get("FFD20", "experienceConfig");
+    const xpSettings = game.settings.get("ffd20", "experienceConfig");
 
     // Experience Tracking
     data["disableExperience"] = xpSettings.disableExperienceTracking;
 
     data.hasClasses = this.actor.items.filter((o) => o.type === "class").length > 0;
 
-    const hpSettings = game.settings.get("FFD20", "healthConfig");
+    const hpSettings = game.settings.get("ffd20", "healthConfig");
     data["woundThresholds"] = hpSettings.variants.pc;
 
     // BAB iteratives
-    const iteratives = game.settings.get("FFD20", "displayIteratives");
+    const iteratives = game.settings.get("ffd20", "displayIteratives");
     const bab = data.data.attributes.bab.total;
     if (iteratives) {
       let iters = [bab];

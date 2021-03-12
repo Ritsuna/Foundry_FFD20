@@ -8,7 +8,7 @@ export class ActorSheetFFD20NPCLoot extends ActorSheetFFD20NPC {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["FFD20", "sheet", "actor", "npc", "loot"],
+      classes: ["ffd20", "sheet", "actor", "npc", "loot"],
       width: 620,
       height: 420,
     });
@@ -26,7 +26,7 @@ export class ActorSheetFFD20NPCLoot extends ActorSheetFFD20NPC {
     const data = await super.getData();
 
     data.isLootSheet = true;
-    data.sellMultiplier = this.actor.getFlag("FFD20", "sellMultiplier");
+    data.sellMultiplier = this.actor.getFlag("ffd20", "sellMultiplier");
 
     // Get total value
     const gilValue = this.calculateTotalItemValue() + this.actor.mergeCurrency();

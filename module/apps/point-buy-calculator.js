@@ -14,7 +14,7 @@ export class PointBuyCalculator extends BaseEntitySheet {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["FFD20", "pointbuy-calculator"],
+      classes: ["ffd20", "pointbuy-calculator"],
       title: "Point Buy Calculator",
       template: "systems/ffd20/templates/apps/pointbuy-calculator.hbs",
       width: 320,

@@ -164,7 +164,7 @@ export class ActorSheetFFD20 extends ActorSheet {
       isCharacter: this.entity.data.type === "character",
       hasRace: false,
       config: CONFIG.FFD20,
-      useBGSkills: game.settings.get("FFD20", "allowBackgroundSkills"),
+      useBGSkills: game.settings.get("ffd20", "allowBackgroundSkills"),
       spellFailure: this.entity.spellFailure,
       isGM: game.user.isGM,
       race: this.actor.race != null ? duplicate(this.actor.race.data) : null,
@@ -436,7 +436,7 @@ export class ActorSheetFFD20 extends ActorSheet {
     // Fetch the game settings relevant to sheet rendering.
     {
       const actorType = { character: "pc", npc: "npc" }[this.actor.data.type];
-      data.healthConfig = game.settings.get("FFD20", "healthConfig");
+      data.healthConfig = game.settings.get("ffd20", "healthConfig");
       data.useWoundsAndVigor = data.healthConfig.variants[actorType].useWoundsAndVigor;
     }
 
@@ -521,8 +521,8 @@ export class ActorSheetFFD20 extends ActorSheet {
       dv: CONFIG.FFD20.damageTypes,
       ci: CONFIG.FFD20.conditionTypes,
       languages: CONFIG.FFD20.languages,
-      armorProf: CONFIG.FFD20.armorProficiencies,
-      weaponProf: CONFIG.FFD20.weaponProficiencies,
+      armorProf: CONFIG.FFD20.armorProf,
+      weaponProf: CONFIG.FFD20.weaponProf,
     };
     for (let [t, choices] of Object.entries(map)) {
       const trait = traits[t];
@@ -723,7 +723,7 @@ export class ActorSheetFFD20 extends ActorSheet {
       heavy: actorData.data.attributes.encumbrance.levels.heavy,
     };
     let carryLabel;
-    switch (game.settings.get("FFD20", "units")) {
+    switch (game.settings.get("ffd20", "units")) {
       case "metric":
         carryLabel = game.i18n.localize("FFD20.CarryLabelKg").format(carriedWeight);
         break;
@@ -1439,7 +1439,7 @@ export class ActorSheetFFD20 extends ActorSheet {
     const a = event.currentTarget;
     const target = a.dataset.actionTarget;
 
-    game.FFD20.compendiums[target].render(true);
+    game.ffd20.compendiums[target].render(true);
   }
 
   _onRollConcentration(event) {
@@ -1796,7 +1796,7 @@ export class ActorSheetFFD20 extends ActorSheet {
     const item = this.actor.items.find((o) => o._id === itemId);
     if (!item) return;
 
-    game.FFD20.rollItemMacro(item.name, { itemId: item._id, itemType: item.type, actorId: this.actor._id });
+    game.ffd20.rollItemMacro(item.name, { itemId: item._id, itemType: item.type, actorId: this.actor._id });
   }
 
   _convertCurrency(event) {
@@ -2104,7 +2104,7 @@ export class ActorSheetFFD20 extends ActorSheet {
       i.data.weight = i.data.weight || 0;
       i.totalWeight = Math.round(convertWeight(i.data.quantity * i.data.weight) * 10) / 10;
       i.units =
-        game.settings.get("FFD20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+        game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
       if (inventory[i.type] != null) inventory[i.type].items.push(i);
       if (subType != null && inventory[subType] != null) inventory[subType].items.push(i);
     }
@@ -2350,7 +2350,7 @@ export class ActorSheetFFD20 extends ActorSheet {
     const filter = li.dataset.filter;
     const typeFilterCount = this._typeFilterCount(set);
 
-    const tabLikeFilters = game.settings.get("FFD20", "invertSectionFilterShiftBehaviour")
+    const tabLikeFilters = game.settings.get("ffd20", "invertSectionFilterShiftBehaviour")
       ? !event.shiftKey
       : event.shiftKey;
     if (tabLikeFilters) {
@@ -2414,7 +2414,7 @@ export class ActorSheetFFD20 extends ActorSheet {
     this._createPlaceholders(this.element);
 
     // Apply accessibility settings
-    applyAccessibilitySettings(this, this.element, {}, game.settings.get("FFD20", "accessibilityConfig"));
+    applyAccessibilitySettings(this, this.element, {}, game.settings.get("ffd20", "accessibilityConfig"));
 
     return result;
   }
@@ -2678,7 +2678,7 @@ export class ActorSheetFFD20 extends ActorSheet {
 
   calculateSellItemValue() {
     const items = this.actor.items.filter((o) => o.data.data.price != null);
-    const sellMultiplier = this.actor.getFlag("FFD20", "sellMultiplier") || 0.5;
+    const sellMultiplier = this.actor.getFlag("ffd20", "sellMultiplier") || 0.5;
     return items.reduce((cur, i) => {
       return cur + i.getValue({ sellValue: sellMultiplier });
     }, 0);

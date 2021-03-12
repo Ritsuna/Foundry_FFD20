@@ -7,7 +7,7 @@ export class ActorSheetFFD20NPCLite extends ActorSheetFFD20NPC {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["FFD20", "sheet", "actor", "npc", "lite"],
+      classes: ["ffd20", "sheet", "actor", "npc", "lite"],
       width: 440,
       height: "auto",
     });

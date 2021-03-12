@@ -11,7 +11,7 @@ export class ScriptEditor extends FormApplication {
 
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["FFD20", "script-editor"],
+      classes: ["ffd20", "script-editor"],
       template: "systems/ffd20/templates/apps/script-editor.hbs",
       width: 640,
       height: 560,

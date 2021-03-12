@@ -29,7 +29,7 @@ export class ItemSheetFFD20 extends ItemSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       width: 580,
-      classes: ["FFD20", "sheet", "item"],
+      classes: ["ffd20", "sheet", "item"],
       scrollY: [".tab.details", ".buff-flags"],
     });
   }
@@ -120,12 +120,14 @@ export class ItemSheetFFD20 extends ItemSheet {
     data.owner = this.item.hasPerm(game.user, "OWNER");
     data.isGM = game.user.isGM;
     data.showIdentifyDescription = data.isGM && data.isPhysical;
+    data.isMateria = data.item.data.equipmentType === "materia";
+
     data.showUnidentifiedData = this.item.showUnidentifiedData;
-    data.unchainedActionEconomy = game.settings.get("FFD20", "unchainedActionEconomy");
+    data.unchainedActionEconomy = game.settings.get("ffd20", "unchainedActionEconomy");
     data.hasActivationType =
-      (game.settings.get("FFD20", "unchainedActionEconomy") &&
+      (game.settings.get("ffd20", "unchainedActionEconomy") &&
         getProperty(data.item, "data.unchainedAction.activation.type")) ||
-      (!game.settings.get("FFD20", "unchainedActionEconomy") && getProperty(data.item, "data.activation.type"));
+      (!game.settings.get("ffd20", "unchainedActionEconomy") && getProperty(data.item, "data.activation.type"));
     if (rollData.item.auraStrength != null) {
       const auraStrength = rollData.item.auraStrength;
       data.auraStrength = auraStrength;
@@ -263,7 +265,7 @@ export class ItemSheetFFD20 extends ItemSheet {
       data.isRacialHD = data.data.classType === "racial";
 
       if (this.actor != null) {
-        let healthConfig = game.settings.get("FFD20", "healthConfig");
+        let healthConfig = game.settings.get("ffd20", "healthConfig");
         data.healthConfig = data.isRacialHD
           ? healthConfig.hitdice.Racial
           : this.actor.data.type === "character"
@@ -292,8 +294,8 @@ export class ItemSheetFFD20 extends ItemSheet {
     // Prepare proficiencies
     const profs = {
       languages: CONFIG.FFD20.languages,
-      armorProf: CONFIG.FFD20.armorProficiencies,
-      weaponProf: CONFIG.FFD20.weaponProficiencies,
+      armorProf: CONFIG.FFD20.armorProf,
+      weaponProf: CONFIG.FFD20.weaponProf,
     };
     for (let [t, choices] of Object.entries(profs)) {
       if (hasProperty(data.item.data, t)) {
@@ -1197,7 +1199,7 @@ export class ItemSheetFFD20 extends ItemSheet {
 
       // Clean link
       this.item._cleanLink(link, group.dataset.tab);
-      game.socket.emit("system.FFD20", {
+      game.socket.emit("system.ffd20", {
         eventType: "cleanItemLink",
         actorUUID: this.item.actor.uuid,
         itemUUID: this.item.uuid,
