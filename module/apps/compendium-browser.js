@@ -972,7 +972,7 @@ export class CompendiumBrowser extends Application {
         },
         // TODO MP type
         {
-          path: "data.classBaseMPType",
+          path: "data.classBaseMPTypes",
           label: game.i18n.localize("FFD20.ClassMPType"),
           items: Object.entries(CONFIG.FFD20.classBaseMPTypes).reduce((cur, o) => {
             cur.push({ key: o[0], name: o[1] });
@@ -1333,7 +1333,7 @@ export class CompendiumBrowser extends Application {
           "data.parentClass",
           "data.bab",
           "data.hd",
-          "data.classBaseMPType",
+          "data.classBaseMPTypes",
           "data.classCastingStat",
           "data.skillsPerLevel",
           "data.savingThrows.fort.value",

@@ -104,8 +104,8 @@
       {{!-- mp type --}}
       <div class="form-group">
         <label>{{localize "FFD20.ClassMPType"}}</label>
-        <select name="data.classBaseMPType">
-          {{#select data.classBaseMPType}}
+        <select name="data.classBaseMPTypes">
+          {{#select data.classBaseMPTypes}}
           {{#each config.classBaseMPTypes as |name value|}}
           <option value="{{value}}">{{name}}</option>
           {{/each}}
@@ -113,7 +113,7 @@
         </select>
       </div>
 
-      {{!-- Spell progression --}}
+      {{!-- Spell progression 
       <div class="form-group">
         <label>{{localize "FFD20.ClassSpellProgression"}}</label>
         <select name="data.ClassSpellProgression">
@@ -123,7 +123,7 @@
           {{/each}}
           {{/select}}
         </select>
-      </div>
+      </div>--}}
 
       {{!-- Casting stat type --}}
       <div class="form-group">

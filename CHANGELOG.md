@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+### Bug Fixes
+- corrected some spell casting mp information
+
 ## 0.1.0
 
 ### WARNINGS and WORKAROUNDS

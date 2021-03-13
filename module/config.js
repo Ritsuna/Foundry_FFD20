@@ -98,14 +98,25 @@ FFD20.ClassSpellProgression = {
   halfCaster: 4,
   pacman: 6,
   fullCaster: 9,
+  halfCaster: 4,
+  dimPacman: 6,
+  pacman: 6,
+  dimFullCaster: 9,
+  fullCaster: 9,
+  advFullCaster: 9,
+
 };
 
 // Current Max Spell Level based on lvl
 FFD20.ClassSpellLvlProgression = {
   noncaster:     '0',
   halfCaster:    'min(floor(max(@level - 3 ,0) / 3),4)',
+  dimPacman:     'min(floor((@level + 2) / 3),6)',
   pacman:        'min(floor((@level + 2) / 3),6)',
+  dimFullCaster: 'min(floor((@level + 1) / 2),9)',
   fullCaster:    'min(floor((@level + 1) / 2),9)',
+  advFullCaster: 'min(floor((@level + 1) / 2),9)',
+
 };
 
 
@@ -113,9 +124,13 @@ FFD20.ClassSpellLvlProgression = {
 FFD20.classMPlevels = {
 // level        1 2 3 4 5  6  7  8  9 10 11 12 13 14 15 16 17  18  19  20
 noncaster:     [0],
-halfCaster:    [0,0,0,1,2, 3, 4, 5, 6, 7, 8,10,12,14,16,19,22, 25, 29, 33,],
-pacman:        [2,3,4,5,6, 8,10,13,16,20,24,29,34,39,45,51,57, 64, 71, 79,],
-fullCaster:    [3,4,5,6,8,11,15,20,26,32,39,47,56,65,75,86,98,110,122,135,],
+halfCaster:    [0,0,0,1, 2, 3, 4, 5, 6, 7, 8,10,12,14, 16, 19, 22, 25, 29, 33,],
+dimPacman:     [1,2,3,4, 5, 6, 8,10,12,15,18,21,25,29, 33, 38, 43, 48, 53, 58,],
+pacman:        [2,3,4,5, 6, 8,10,13,16,20,24,29,34,39, 45, 51, 57, 64, 71, 79,],
+dimFullCaster: [2,3,4,5, 6, 8,11,15,20,24,29,35,42,49, 56, 65, 74, 83, 92,101,],
+fullCaster:    [3,4,5,6, 8,11,15,20,26,32,39,47,56,65, 75, 86, 98,110,122,135,],
+advFullCaster: [4,6,8,9,14,17,25,30,41,47,60,68,84,93,111,124,143,155,167,180,],
+
 };
 
 // Character MP from stat

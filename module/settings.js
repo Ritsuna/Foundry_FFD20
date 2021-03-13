@@ -14,7 +14,7 @@ export const registerSystemSettings = function () {
     scope: "world",
     config: false,
     type: String,
-    default: "0.0.0",
+    default: "0.1.0",
   });
   /**
    * Track when the last changelog was shown

@@ -1100,7 +1100,7 @@
       "hp": 8,
       "classSpellProgression": "noncaster",
       "classCastingStat": "noncaster",
-      "classBaseMPType": "noncaster",
+      "classBaseMPTypes": "noncaster",
       "classBaseMPauto": "no",
       "mp": 0,
       "bab": "low",

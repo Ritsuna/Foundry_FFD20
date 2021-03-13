@@ -980,7 +980,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
         k,
         Math.floor(
           classes.reduce((cur, obj) => {
-            const mpScale = getProperty(obj, "data.classBaseMPType") || "";
+            const mpScale = getProperty(obj, "data.classBaseMPTypes") || "";
             if (mpScale === "fullCaster") return cur + obj.data.level;
             if (mpScale === "pacman") return cur + obj.data.level * 0.75;
             if (mpScale === "halfCaster") return cur + obj.data.level * 0.5;
@@ -998,7 +998,7 @@ const _resetData = function (updateData, data, flags, sourceInfo) {
         k,
         classes.reduce((cur, obj) => {
           const formula =
-            CONFIG.FFD20.classBaseMPType[obj.data.bab] != null ? CONFIG.FFD20.classBaseMPType[obj.data.bab] : "0";
+            CONFIG.FFD20.classBaseMPTypes[obj.data.bab] != null ? CONFIG.FFD20.classBaseMPTypes[obj.data.bab] : "0";
           const v = new Roll(formula, { level: obj.data.level }).roll().total;
 
           if (v !== 0) {

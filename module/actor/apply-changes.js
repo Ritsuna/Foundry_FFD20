@@ -526,9 +526,9 @@ export const addDefaultChanges = function (changes) {
 
 
   const auto_mana = (mana_source) => {
-    if (mana_source.data.ClassSpellProgression === "noncaster") return ;
+    if (mana_source.data.classBaseMPTypes === "noncaster") return ;
       // use this for current max spell level
-      const  spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mana_source.data.ClassSpellProgression] ;
+      const  spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mana_source.data.classBaseMPTypes] ;
 
       const  currentSpellLvl = Math.floor(new Roll(spellMath, { level: mana_source.data.level }).roll().total);
 
@@ -542,7 +542,7 @@ export const addDefaultChanges = function (changes) {
       // figure out how much mp comes from the class
       let mult = 1;
       if (mana_source.data.classBaseMPauto === "half") mult = .5; 
-      const manaChart = CONFIG.FFD20.classMPlevels[mana_source.data.ClassSpellProgression];
+      const manaChart = CONFIG.FFD20.classMPlevels[mana_source.data.classBaseMPTypes];
       const level_mana = Math.floor(manaChart[mana_source.data.level - 1]* mult);
 
 
@@ -560,7 +560,7 @@ export const addDefaultChanges = function (changes) {
      * the following is for each class passed to it
      * step 5a - condence relevant variables
      *          MP type: which mp chart does it look at
-     *            mana_source.data.classBaseMPType
+     *            mana_source.data.classBaseMPTypes
      *          Max spell lvl: which spell prog does it look at
      *            mana_source.data.classSpellProgression
      *          level: level of the class
