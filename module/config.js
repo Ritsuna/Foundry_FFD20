@@ -92,21 +92,6 @@ FFD20.classBaseMPTypes = {
   advFullCaster: "FFD20.AdvFullCaster",
 }; 
 
-// Max Spell Level
-FFD20.ClassSpellProgression = {
-  noncaster: 0,
-  halfCaster: 4,
-  pacman: 6,
-  fullCaster: 9,
-  halfCaster: 4,
-  dimPacman: 6,
-  pacman: 6,
-  dimFullCaster: 9,
-  fullCaster: 9,
-  advFullCaster: 9,
-
-};
-
 // Current Max Spell Level based on lvl
 FFD20.ClassSpellLvlProgression = {
   noncaster:     '0',

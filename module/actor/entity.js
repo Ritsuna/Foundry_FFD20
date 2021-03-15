@@ -273,7 +273,7 @@ export class ActorFFD20 extends Actor {
   prepareData() {
     this._queuedUpdates = {};
     this._prevAttributes = {};
-    for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor"]) {
+    for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor", "data.attributes.mp", "data.attributes.limitbreak"]) {
       this._prevAttributes[k] = getProperty(this.data, `${k}.max`);
     }
     this.sourceInfo = {};
@@ -682,6 +682,19 @@ export class ActorFFD20 extends Actor {
         this._queuedUpdates[`${k}.value`] = newValue;
       }
     }
+
+    // Refresh MP
+    if (!game.ffd20.isMigrating && this._initialized) {
+      for (const k of ["data.attributes.mp"]) {
+        const prevMax = this._prevAttributes[k] || 0;
+        const newMax = getProperty(this.data, `${k}.max`) || 0;
+        const prevValue = getProperty(this.data, `${k}.value`);
+        const newValue = prevValue + (newMax - prevMax);
+        this._queuedUpdates[`${k}.value`] = newValue;
+      }
+    }
+
+
 
     // Update wound threshold
     this.updateWoundThreshold();
@@ -1277,10 +1290,6 @@ export class ActorFFD20 extends Actor {
   }
 
   /**
-   * Use this for Max MP
-   * @param {} level 
-
-  /**
    * Return the amount of experience required to gain a certain character level.
    * @param level {Number}  The desired level
    * @return {Number}       The XP required
@@ -1305,26 +1314,6 @@ export class ActorFFD20 extends Actor {
     }
     return Math.max(1, totalXP);
   }
-
-    /**
-   * Return the amount of MP gained by a class
-   * @param level {Number}  The desired level
-   * @return {Number}       The XP required
-   *
-   *  getLevelMP(level) {
-   *              const mpConfig = game.settings.get("FFD20", "experienceConfig"); change to looking at casting classes
-   *              const MPTrack = mpConfig.track;
-   *
-   *    if (["low", "med", "high"].includes(MPTrack)) {
-   *      const levels = CONFIG.FFD20.CHARACTER_MP_LEVELS[MPTrack];
-   *      return levels[Math.min(level, levels.length - 1)];
-   *    }
-   *    // Custom formula experience track
-   *    let totalMP = 0;
-   *
-   *    return Math.min(0, totalMP);
-   *  }
-  */
 
   /* -------------------------------------------- */
 

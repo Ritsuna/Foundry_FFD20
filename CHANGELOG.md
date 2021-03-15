@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2
+
+### Bug Fixes
+- corrected some class information, more work to be done
+- fixed bonus mp to calculate after all modifications to stats are done
+
 ## 0.1.1
 
 ### Bug Fixes

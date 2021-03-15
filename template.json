@@ -1098,7 +1098,6 @@
       "countforexp": "exp",
       "hd": 8,
       "hp": 8,
-      "classSpellProgression": "noncaster",
       "classCastingStat": "noncaster",
       "classBaseMPTypes": "noncaster",
       "classBaseMPauto": "no",

@@ -532,13 +532,6 @@ export const addDefaultChanges = function (changes) {
 
       const  currentSpellLvl = Math.floor(new Roll(spellMath, { level: mana_source.data.level }).roll().total);
 
-      let bonus_mana = 0;
-      // figure out where bonus mp is coming from
-      if (mana_source.data.classCastingStat === "int") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.int.mod] ;
-      if (mana_source.data.classCastingStat === "wis") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.wis.mod] ;
-      if (mana_source.data.classCastingStat === "cha") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.cha.mod] ;
-      if (mana_source.data.classCastingStat === "intAndWis") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.int.mod] + CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.wis.mod] ;
-
       // figure out how much mp comes from the class
       let mult = 1;
       if (mana_source.data.classBaseMPauto === "half") mult = .5; 
@@ -546,8 +539,20 @@ export const addDefaultChanges = function (changes) {
       const level_mana = Math.floor(manaChart[mana_source.data.level - 1]* mult);
 
 
-      let mana = level_mana + bonus_mana;
-    push_mana(mana, mana_source);
+    push_mana(level_mana, mana_source);
+/*
+    let bonus_mana = 0;
+    let classname = mana_source.name;
+    let bonus_source = [];
+    // figure out where bonus mp is coming from
+    if (mana_source.data.classCastingStat === "int") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.int.mod], bonus_source.name = `${classname} Int ${this.data.data.abilities.int.total}` ;
+    if (mana_source.data.classCastingStat === "wis") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.wis.mod], bonus_source.name = `${classname} Wis ${this.data.data.abilities.wis.total}` ;
+    if (mana_source.data.classCastingStat === "cha") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.cha.mod], bonus_source.name = `${classname} Cha ${this.data.data.abilities.cha.total}` ;
+    if (mana_source.data.classCastingStat === "intAndWis") bonus_mana = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.int.mod] + CONFIG.FFD20.classMPStatsBonus[currentSpellLvl][this.data.data.abilities.wis.mod], bonus_source.name = `${classname} Int  ${this.data.data.abilities.int.total} and Wis ${this.data.data.abilities.wis.total}` ;
+
+    push_mana(bonus_mana, bonus_source, "base");*/
+
+
   };
     // Compute and push mana, tracking the remaining maximized levels.
     // for each class, check if it is calulating mp or defaulting to manually entered value
@@ -562,7 +567,7 @@ export const addDefaultChanges = function (changes) {
      *          MP type: which mp chart does it look at
      *            mana_source.data.classBaseMPTypes
      *          Max spell lvl: which spell prog does it look at
-     *            mana_source.data.classSpellProgression
+     *            mana_source.data.classBaseMPTypes
      *          level: level of the class
      *            mana_source.data.level
      *          casting stat: what stat(s) are used for it
@@ -676,19 +681,43 @@ const compute_mana = (mana_sources) => {
     }
   }
 
-  /*/ Current mp boost
-  if (updateData["data.attributes.mp.max"]) {
-    const mpDiff = updateData["data.attributes.mp.max"] - prevValues.mmp;
-    if (mpDiff !== 0) {
-      linkData(
-        srcData1,
-        updateData,
-        "data.attributes.mp.value",
-        Math.min(updateData["data.attributes.mp.max"], srcData1.data.attributes.mp.value + mpDiff)
+  // add bonus mp and does it after all stat mods
+  classes.forEach((mp_source) => {
+  let mpAbility = mp_source.data.classCastingStat ;
+  const  spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mp_source.data.classBaseMPTypes] ;
+  const  currentSpellLvl = Math.floor(new Roll(spellMath, { level: mp_source.data.level }).roll().total);
+  let mpProg = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl]
+  if (mpAbility == null) mpAbility = "noncaster";
+  if (mpAbility !== "") {
+    const arrayStr = JSON.stringify(mpProg);
+    if (mpAbility === "intAndWis"){
+      changes.push(
+        ItemChange.create({
+          formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
+          target: "misc",
+          subTarget: "mmp",
+          modifier: "base",
+        })
       );
-    }
-  }*/
-
+      getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
+        formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
+        name: `${mp_source.name} ${CONFIG.FFD20.abilities["int"]} & ${CONFIG.FFD20.abilities["wis"]}`,
+      });
+    } else {
+      changes.push(
+        ItemChange.create({
+          formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
+          target: "misc",
+          subTarget: "mmp",
+          modifier: "base",
+        })
+      );
+      getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
+        formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
+        name: `${mp_source.name} ${CONFIG.FFD20.abilities[mpAbility]}`,
+      });
+    }}
+  });
 
   // Add movement speed(s)
   for (let [k, s] of Object.entries(this.data.data.attributes.speed)) {
