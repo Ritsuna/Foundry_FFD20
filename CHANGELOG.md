@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3
+
+### Bug Fixes
+- fixed bonus mp for non-casters, you dont get any
+- corrected some of the errors in formatting for time mage
+- fixed error on carbuncle 
+
 ## 0.1.2
 
 ### Bug Fixes

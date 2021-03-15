@@ -683,41 +683,42 @@ const compute_mana = (mana_sources) => {
 
   // add bonus mp and does it after all stat mods
   classes.forEach((mp_source) => {
-  let mpAbility = mp_source.data.classCastingStat ;
-  const  spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mp_source.data.classBaseMPTypes] ;
-  const  currentSpellLvl = Math.floor(new Roll(spellMath, { level: mp_source.data.level }).roll().total);
-  let mpProg = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl]
-  if (mpAbility == null) mpAbility = "noncaster";
-  if (mpAbility !== "") {
-    const arrayStr = JSON.stringify(mpProg);
-    if (mpAbility === "intAndWis"){
-      changes.push(
-        ItemChange.create({
+    let mpAbility = mp_source.data.classCastingStat ;
+    if (mpAbility == null) mpAbility = "noncaster";
+    if (mpAbility === "noncaster") return;
+    const  spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mp_source.data.classBaseMPTypes] ;
+    const  currentSpellLvl = Math.floor(new Roll(spellMath, { level: mp_source.data.level }).roll().total);
+    let mpProg = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl]
+    if (mpAbility !== "") {
+      const arrayStr = JSON.stringify(mpProg);
+      if (mpAbility === "intAndWis"){
+        changes.push(
+          ItemChange.create({
+            formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
+            target: "misc",
+            subTarget: "mmp",
+            modifier: "base",
+          })
+        );
+        getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
           formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
-          target: "misc",
-          subTarget: "mmp",
-          modifier: "base",
-        })
-      );
-      getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-        formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
-        name: `${mp_source.name} ${CONFIG.FFD20.abilities["int"]} & ${CONFIG.FFD20.abilities["wis"]}`,
-      });
-    } else {
-      changes.push(
-        ItemChange.create({
+          name: `${mp_source.name} ${CONFIG.FFD20.abilities["int"]} & ${CONFIG.FFD20.abilities["wis"]}`,
+        });
+      } else {
+        changes.push(
+          ItemChange.create({
+            formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
+            target: "misc",
+            subTarget: "mmp",
+            modifier: "base",
+          })
+        );
+        getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
           formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
-          target: "misc",
-          subTarget: "mmp",
-          modifier: "base",
-        })
-      );
-      getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-        formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
-        name: `${mp_source.name} ${CONFIG.FFD20.abilities[mpAbility]}`,
-      });
-    }}
-  });
+          name: `${mp_source.name} ${CONFIG.FFD20.abilities[mpAbility]}`,
+        });
+      }}
+    });
 
   // Add movement speed(s)
   for (let [k, s] of Object.entries(this.data.data.attributes.speed)) {
