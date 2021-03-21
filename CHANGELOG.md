@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.4
+
+### Bug Fixes
+- handling of currency
+- a few small cleanups of calls
+
+### Change Log
+- got other class compendiums added and renamed
+- some data for consumables added
+
 ## 0.1.3
 
 ### Bug Fixes
