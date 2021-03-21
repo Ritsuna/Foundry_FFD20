@@ -2966,53 +2966,35 @@ export class ActorFFD20 extends Actor {
 
   /**
    * @returns {number} The total amount of currency this actor has, in gold pieces
-
-  mergeCurrency() {
+   */
+   mergeCurrency() {
     return this.getTotalCurrency("currency") + this.getTotalCurrency("altCurrency");
   }
 
   getTotalCurrency(category = "currency") {
     const currencies = getProperty(this.data.data, category);
-    return (currencies.pp * 1000 + currencies.gp * 100 + currencies.sp * 10 + currencies.cp) / 100;
-  }   */
+    return (currencies.gil);
+  }
 
   /**
    * Converts currencies of the given category to the given currency type
    * @param {string} category - Either 'currency' or 'altCurrency'.
    * @param {string} type - Either 'pp', 'gp', 'sp' or 'cp'. Converts as much currency as possible to this type.
-
-  convertCurrency(category = "currency", type = "pp") {
+   */
+  convertCurrency(category = "currency", type = "gil") {
     const totalValue =
       category === "currency" ? this.getTotalCurrency("currency") : this.getTotalCurrency("altCurrency");
-    let values = [0, 0, 0, 0];
+    let values = [0];
     switch (type) {
-      case "pp":
-        values[0] = Math.floor(totalValue / 10);
-        values[1] = Math.max(0, Math.floor(totalValue) - values[0] * 10);
-        values[2] = Math.max(0, Math.floor(totalValue * 10) - values[0] * 100 - values[1] * 10);
-        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[0] * 1000 - values[1] * 100 - values[2] * 10);
-        break;
-      case "gp":
-        values[1] = Math.floor(totalValue);
-        values[2] = Math.max(0, Math.floor(totalValue * 10) - values[1] * 10);
-        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[1] * 100 - values[2] * 10);
-        break;
-      case "sp":
-        values[2] = Math.floor(totalValue * 10);
-        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[2] * 10);
-        break;
-      case "cp":
-        values[3] = Math.floor(totalValue * 100);
+      case "gil":
+        values[0] = Math.floor(totalValue);
         break;
     }
 
     const updateData = {};
-    updateData[`data.${category}.pp`] = values[0];
-    updateData[`data.${category}.gp`] = values[1];
-    updateData[`data.${category}.sp`] = values[2];
-    updateData[`data.${category}.cp`] = values[3];
+    updateData[`data.${category}.gil`] = values[0];
     return this.update(updateData);
-  }   */
+  }
 
   /**
    * Import a new owned Item from a compendium collection
