@@ -1,4 +1,8 @@
 # Changelog
+## 0.1.5 and 0.1.6
+
+### Bug Fixes
+- fixed some backend code
 
 ## 0.1.4
 
@@ -6,21 +10,14 @@
 - handling of currency
 - a few small cleanups of calls
 
-### Change Log
-- got other class compendiums added and renamed
-- some data for consumables added
-
 ## 0.1.3
 
 ### Bug Fixes
 - fixed bonus mp for non-casters, you dont get any
-- corrected some of the errors in formatting for time mage
-- fixed error on carbuncle 
 
 ## 0.1.2
 
 ### Bug Fixes
-- corrected some class information, more work to be done
 - fixed bonus mp to calculate after all modifications to stats are done
 
 ## 0.1.1
@@ -39,7 +36,6 @@
 
 ### Change Log
 - Got MP calculations to work
-- Added Materia under Equipment
 - cleaned up some 
 
 ### Update log
@@ -58,28 +54,7 @@
 ### Changelog
 
 - updated compendium search function for classes
-- Started construction on Class Packs
 
-- Summoner pack added
-- Todo: Add archatypes, add other avatars
-- Added: Carbuncle Avatar
-- White Mage pack added
-- Added: Holy Warden, Blood Lily Acolite
-- Todo: Add other archatypes
-- Black Mage pack added
-- Added: Magus
-- Todo: Add other archatypes
-- Time Mage pack added
-- Todo: Add archatypes
-- Gunbreaker pack added
-- Todo: Add archatypes
-- Added: Sorceress Knight
-- Engineer pack added
-- Todo: Add archatypes, Fix construct elements
-- Added: Gadgeteer 
-
-- Added a number of Feats
-- Added some gear
 
 ## 0.0.8
 
@@ -90,7 +65,6 @@
 ### Changelog
 
 - added other mana progression
-- added Race Data File to core files and removed old file
 - made Verbal and Somatic default true
 - added compendium lookups for skills, need to create and add repair
 
@@ -106,9 +80,6 @@
 
 - fixed exp and non-exp class calclations
 
-### Changelog
-
-- final update before active data entry push
 
 ## 0.0.5
 
