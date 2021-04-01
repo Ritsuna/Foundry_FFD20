@@ -665,12 +665,16 @@
   "FFD20.EquipSlotRing": "Ring",
   "FFD20.EquipSlotFeet": "Feet",
 
-  "FFD20.ConsumableTypePotion": "Potion/Oil",
+  "FFD20.ConsumableTypePotion": "Potion",
+  "FFD20.ConsumableTypeOil": "Oil",
   "FFD20.ConsumableTypePoison": "Poison",
   "FFD20.ConsumableTypeDrug": "Drug",
   "FFD20.ConsumableTypeScroll": "Scroll",
   "FFD20.ConsumableTypeWand": "Wand",
   "FFD20.ConsumableTypeStaff": "Staff",
+  "FFD20.ConsumableTypeAlchContact": "Alchemical Contact",
+  "FFD20.ConsumableTypeAlchIngested": "Alchemical Ingested",
+  "FFD20.ConsumableTypeAlchInhaled": "Alchemical Inhaled",
 
   "FFD20.AttackTypeWeapon": "Weapon Attack",
   "FFD20.AttackTypeWeaponPlural": "Weapon Attacks",

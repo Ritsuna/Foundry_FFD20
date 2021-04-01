@@ -649,8 +649,12 @@ FFD20.lootTypes = {
  */
 FFD20.consumableTypes = {
   potion: "FFD20.ConsumableTypePotion",
+  oil: "FFD20.ConsumableTypeOil",
   poison: "FFD20.ConsumableTypePoison",
   drug: "FFD20.ConsumableTypeDrug",
+  alchContact: "FFD20.ConsumableTypeAlchContact",
+  alchIngested: "FFD20.ConsumableTypeAlchIngested",
+  alchInhaled: "FFD20.ConsumableTypeAlchInhaled",
   scroll: "FFD20.ConsumableTypeScroll",
   wand: "FFD20.ConsumableTypeWand",
   staff: "FFD20.ConsumableTypeStaff",
