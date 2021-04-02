@@ -15,7 +15,7 @@
           {{#unless showUnidentifiedData}}{{labels.equipmentSubtype}}{{/unless}}
         </li>
         <li>
-          {{#if hasMultipleSlots}}{{#unless showUnidentifiedData}}{{labels.slot}}{{/unless}}{{/if}}
+          {{#if isMateria}}{{data.materiaRarity}}{{else}}{{#if hasMultipleSlots}}{{#unless showUnidentifiedData}}{{labels.slot}}{{/unless}}{{/if}}{{/if}}
         </li>
       </ul>
     </div>
@@ -87,7 +87,7 @@
       {{#if isMateria}}
       <div class="form-group">
         <label>{{localize "FFD20.MateriaRarity"}}</label>
-        <select name="data.MateriaRarity">
+        <select name="data.materiaRarity">
           {{#select data.materiaRarity}}
           {{#each config.materiaRarity as |name type|}}
           <option value="{{type}}">{{name}}</option>

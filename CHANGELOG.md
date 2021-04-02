@@ -1,5 +1,20 @@
 # Changelog
-## 0.1.5 and 0.1.6
+## 0.1.8
+
+### Bug Fixes
+- fixed some backend code for meteria
+
+## 0.1.7
+
+### Bug Fixes
+- fixed some backend code for alchemicals
+
+## 0.1.6
+
+### Bug Fixes
+- more fixed  backend code
+
+## 0.1.5 
 
 ### Bug Fixes
 - fixed some backend code

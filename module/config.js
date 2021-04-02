@@ -626,10 +626,12 @@ FFD20.equipmentSlots = {
     feet: "FFD20.EquipSlotFeet",
   },
   materia: {
-    unslotted: "FFD20.MateriaSlotUnslotted",
+    any: "FFD20.MateriaSlotAny",
     weapon: "FFD20.MateriaSlotWeapon",
     shield: "FFD20.MateriaSlotShield",
     armor: "FFD20.MateriaSlotArmor",
+    weaponarmor: "FFD20.MateriaSlotWeaponArmor",
+    armorShield:"FFD20.MateriaSlotArmorShield",
     other: "FFD20.MateriaSlotOther",
   },  
 };

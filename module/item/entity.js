@@ -543,7 +543,6 @@ export class ItemFFD20 extends Item {
       if (eType === "materia") {
         itemData.data.isMateria = true;
         itemData.data.size = "fine";
-        itemData.data.slot = itemData.data.materiaSlot;
         if(itemData.data.materiaRarity === "common") { itemData.data.materiaCombatXp.lv1 = 0;
         } else { itemData.data.materiaCombatXp.lv1 = Math.pow(2,1)*1250*C.materiaRarityMath[itemData.data.materiaRarity]; }
         itemData.data.materiaCombatXp.lv2 = Math.pow(2,2)*1250*C.materiaRarityMath[itemData.data.materiaRarity];
