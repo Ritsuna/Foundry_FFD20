@@ -8,7 +8,7 @@
     </li>
   </ol>
   <ol class="form-group">
-    <li class="flexrow skill-rank-info">
+    <li class="flexrow skill-rank-info tooltip">
       <table>
         <thead>
           <tr>
@@ -34,8 +34,16 @@
       <input class="formula" type="text" name="data.details.bonusSkillRankFormula" value="{{data.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}"/>
     </li>
   </ol>
-  <ol class="form-group">
+  <ol class="form-group tooltip">
     <li class="flexrow skill-rank-info">
+      <span class="tooltipcontent">
+        {{#if sourceData.skillRanks}}
+        {{localize "FFD20.FromSources"}}:<br/>
+        {{#each sourceData.skillRanks as |src|}}
+        {{src.name}}: {{src.value}}<br/>
+        {{/each}}
+        {{/if}}
+      </span>
       <table>
         <thead>
           <tr>

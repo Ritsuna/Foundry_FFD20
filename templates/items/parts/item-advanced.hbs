@@ -1,0 +1,56 @@
+{{!-- Tags --}}
+<div class="flexcol">
+    <div class="tags">
+        <h3 class="form-header">{{localize "FFD20.Flags"}}</h3>
+
+        {{!-- Info --}}
+        <div class="help-text">
+        <i class="help-icon fas fa-info-circle"></i> {{localize "FFD20.AdvancedInfo.Flags.InfoBox"}}
+        </div>
+
+        {{!-- Boolean Flags --}}
+        <div class="form-group">
+            <div class="form-fields boolean-flags">
+                <div class="data-selector">
+                    <a class="entry-selector" for="data.flags.boolean" data-fields="{{localize "FFD20.FlagsBoolean"}}" data-dtypes="String"><i class="fas fa-edit"></i></a>
+                    <label for="data.flags.boolean">{{localize "FFD20.FlagsBoolean"}}</label>
+                </div>
+
+                <div class="tag-list flexrow">
+                    {{#each flags.boolean as |f|}}
+                    <span class="tag">{{f}}</span>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+        {{!-- Dictionary Flags --}}
+        <div class="form-group">
+            <div class="form-fields dictionary-flags">
+                <div class="data-selector">
+                    <a class="entry-selector" for="data.flags.dictionary" data-fields="{{localize "FFD20.Name"}};{{localize "FFD20.Value"}}" data-dtypes="String;String"><i class="fas fa-edit"></i></a>
+                    <label for="data.flags.dictionary">{{localize "FFD20.FlagsDictionary"}}</label>
+                </div>
+            </div>
+
+            {{#if flags.dictionary.length}}
+            <table>
+                <thead>
+                    <tr>
+                        <th>{{localize "FFD20.Name"}}</th>
+                        <th>{{localize "FFD20.Value"}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each flags.dictionary as |d|}}
+                    <tr>
+                        <td>{{d.key}}</td>
+                        <td>{{d.value}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{/if}}
+        </div>
+    </div>
+</div>

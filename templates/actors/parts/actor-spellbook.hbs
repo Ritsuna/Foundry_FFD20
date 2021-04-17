@@ -79,6 +79,13 @@
                              value="{{spellbook.orig.spellSlotAbilityBonusFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
         </div>
 
+        <div class="flexrow alt-name">
+          <label><h3>{{localize "FFD20.AlternativeSpellbookName"}}</h3></label>
+          <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.altName"
+            value="{{spellbook.orig.altName}}" placeholder="{{#if (and spellbook.orig.class (ne spellbook.orig.class "_hd"))}}{{spellbook.orig.class}}
+              {{else}}{{~spellbook.orig.name}}{{/if}}" />
+        </div>
+
         <div class="flexrow domain-slot-value">
           <label><h3>{{localize "FFD20.DomainSlotValue"}}</h3></label>
           <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.domainSlotValue"
@@ -203,45 +210,12 @@
         <div class="item-name flexrow">
           <h3>{{section.name}}</h3>
         </div>
-        
-        {{!-- {{#unless ../spellbook.orig.spellPoints.useSystem}}
-        <div class="item-detail spell-uses">
-          {{#if section.usesSlots}}
-          <div class="tooltip spell-slots{{#if ../spellbook.orig.spontaneous}} spontaneous{{/if}}">
-            <span class="text-box" data-dtype="Number" {{#if ../spellbook.orig.spontaneous}}name="data.attributes.spells.spellbooks.{{../spellbookIndex}}.spells.spell{{section.level}}.value"{{/if}}>
-              {{section.uses}}
-            </span>
-            <span class="tooltipcontent">
-              {{#unless ../spellbook.orig.spontaneous}}
-              {{localize "FFD20.LeftToPrepare"}}
-              {{else}}
-              {{localize "FFD20.CastsLeft"}}
-              {{/unless}}
-            </span>
-          </div>
-          <span class="sep"> / </span>
-          <div class="tooltip spell-max">
-            <span class="text-box" data-dtype="Number" name="data.attributes.spells.spellbooks.{{../spellbookIndex}}.spells.spell{{section.level}}.base">{{section.slots}}</span>
-            <span class="tooltipcontent">
-              {{localize "FFD20.SpellsTotalEachDay"}}
-            </span>
-          </div>
-          {{ else }}
-          <span class="spell-slots">{{{section.uses}}}</span>
-          <span class="sep"> / </span>
-          <span class="spell-max">{{{section.slots}}}</span>
-          {{/if}}
-        </div>
-        {{/unless}} --}}
-        
         <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "FFD20.ActionPlural"}}"></i></div>
 
         <div class="item-detail spell-activation"><i class="icon icon-hand large" title="{{localize "FFD20.Usage"}}"></i></div>
 
         <div class="item-detail spell-components"><i class="icon icon-expense large" title="{{localize "FFD20.Components"}}"></i></div>
-        
         <div class="item-detail spell-school"><i class="icon icon-spell-book large" title="{{localize "FFD20.SpellSchool"}}"></i></div>
-        
         <div class="item-controls">
           {{#if section.canCreate}}
           <a class="item-control item-create" title="{{localize "FFD20.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
@@ -251,7 +225,6 @@
           <a data-action="compendium" data-action-target="spells" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
         </div>
       </li>
-      
       <ol class="item-list">
         {{#each section.items as |item i|}}
         <li class="item flexrow" data-item-id="{{item._id}}">
@@ -259,7 +232,6 @@
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <h4>{{item.name}}</h4>
           </div>
-          
           {{#unless ../../spellbook.orig.spellPoints.useSystem}}
           <div class="item-detail spell-uses flexrow">
             {{#unless item.data.atWill}}
@@ -295,7 +267,6 @@
             {{/unless}}
           </div>
           {{/unless}}
-          
           <div class="item-detail item-actions">
             <div class="item-attack tooltip">
               <span class="tooltipcontent">
@@ -306,11 +277,8 @@
           </div>
 
           <div class="item-detail spell-activation"><span>{{labels.activation}}</span></div>
-          
           <div class="item-detail spell-components"><span>{{labels.components}}</span></div>
-          
           <div class="item-detail spell-school"><span>{{labels.school}}</span></div>
-          
           {{#if ../../owner}}
           <div class="item-controls">
             <a class="item-control item-edit" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>

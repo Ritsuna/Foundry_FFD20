@@ -1,0 +1,43 @@
+<form class="{{cssClass}}" autocomplete="off">
+    {{#unless health.autoHP}}
+    <div class="part">
+        <h4 class="form-header">{{localize "FFD20.LevelUpForm_Health"}}</h4>
+
+        <div class="health">
+            <div class="switch roll-health">
+                <input class="switch-check" type="checkbox" checked name="health.roll" id="{{uuid}}.health.roll">
+                <label class="switch-label" for="{{uuid}}.health.roll">
+                    <span class="switch-primary">{{localize "FFD20.LevelUpForm_Health_Roll"}}</span>
+                    <span class="switch-secondary">{{localize "FFD20.LevelUpForm_Health_Manual"}}</span>
+                </label>
+            </div>
+
+            <input type="text" disabled name="health.manual_value" value="{{health.manualValue}}" />
+        </div>
+    </div>
+    {{/unless}}
+
+    {{#if fc.allowed}}
+    <div class="part">
+        <h4 class="form-header">{{localize "FFD20.FavouredClassBonus.Label"}}</h4>
+
+        <div class="fc">
+            {{#each fc.types as |fc|}}
+                <div class="switch fc-type">
+                    <input class="switch-check" type="radio" {{checked fc.checked}} name="fc.type" value="{{fc.key}}" id="{{uuid}}.fc.type.{{fc.key}}">
+                    <label class="switch-label" for="{{uuid}}.fc.type.{{fc.key}}">
+                        <span class="switch-primary">{{fc.label}}</span>
+                        <span class="switch-secondary">{{fc.label}}</span>
+                    </label>
+                </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
+
+    <div class="form-group">
+        <button type="submit" name="submit" >
+            <i class="far fa-save"></i> {{localize "FFD20.Submit"}}
+        </button>
+    </div>
+</form>

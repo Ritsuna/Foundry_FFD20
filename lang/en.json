@@ -160,6 +160,34 @@
   "FFD20.TooltipWorldConfigHideActorName_Hint": "Hide Actor names from all players",
   "FFD20.TooltipWorldConfigHideActorNameReplacement": "Hidden Replacement Name",
 
+  "FFD20.LevelUpForm_Title": "Level up {className}",
+  "FFD20.LevelUpForm_Health": "Health",
+  "FFD20.LevelUpForm_Health_Roll": "Roll",
+  "FFD20.LevelUpForm_Health_Manual": "Manual",
+  "FFD20.LevelUp": {
+    "Label": "Level Up",
+    "Chat": {
+      "Header": "Level Up Report",
+      "Health": {
+        "Header": "Health",
+        "Roll": "Rolled for health: {add}",
+        "Manual": "Manual health: {add}"
+      },
+      "FC": {
+        "Header": "Favoured Class Bonus"
+      },
+      "Extra": {
+        "Header": "Extra",
+        "NewFeat": "You have 1 new feat to choose",
+        "NewFeats": "You have {newValue} new feats to choose",
+        "NewAbilityScore": "You can increase an ability score by +1"
+      }
+    }
+  },
+
+  "FFD20.Submit": "Submit",
+  "FFD20.Next": "Next",
+  "FFD20.Previous": "Previous",
   "FFD20.General": "General",
 
   "FFD20.Apply": "Apply",
@@ -174,9 +202,17 @@
 
   "FFD20.RollsForInitiative": "{0} rolls for initiative!",
 
+  "FFD20.Flags": "Flags",
   "FFD20.FlagsInstructions": "Configure character features and traits which fine-tune behaviors of the FFD20 system.",
   "FFD20.FlagsTitle": "Configure Special Traits",
   "FFD20.FlagsSave": "Update Special Traits",
+  "FFD20.FlagsBoolean": "Boolean Flags",
+  "FFD20.FlagsDictionary": "Dictionary Flags",
+  "FFD20.AdvancedInfo": {
+    "Flags": {
+      "InfoBox": "Flags can be used by modules and macros, and don't do anything by themselves."
+    }
+  },
 
   "FFD20.AbilityDamage": "Ability Damage",
   "FFD20.AbilityDrain": "Ability Drain",
@@ -289,8 +325,8 @@
   "FFD20.CondTypeExhausted": "Exhausted",
   "FFD20.CondFascinated": "Fascinated",
   "FFD20.CondTypeFascinated": "Fascinated",
-  "FFD20.CondFatigued": "Fatigued", 
-  "FFD20.CondTypeFatigued": "Fatigued", 
+  "FFD20.CondFatigued": "Fatigued",
+  "FFD20.CondTypeFatigued": "Fatigued",
   "FFD20.CondFloat": "Float",
   "FFD20.CondTypeFloat": "Float",
   "FFD20.CondFrightened": "Frightened",
@@ -366,8 +402,7 @@
   "FFD20.CondZombie": "Zombie",
   "FFD20.CondTypeZombie": "Zombie",
 
-
-  "FFD20.CostGP": "Cost (GP)",
+  "FFD20.CostGil": "Cost (Gil)",
 
   "FFD20.ClassType": "Class Type",
   "FFD20.ClassTypeBase": "Base Class",
@@ -498,6 +533,8 @@
   "FFD20.BuffTarIntChecks": "Intelligence Checks",
   "FFD20.BuffTarWisChecks": "Wisdom Checks",
   "FFD20.BuffTarChaChecks": "Charisma Checks",
+  "FFD20.BuffTarBonusSkillRanks": "Bonus Skill Ranks",
+  "FFD20.BuffTarBonusFeats": "Bonus Feats",
 
   "FFD20.BuffTarSpells": "Spells",
   "FFD20.SpellBuffEffect": "Effect",
@@ -526,7 +563,7 @@
   "FFD20.SkillKNo": "Knowledge (Nobility)",
   "FFD20.SkillKPl": "Knowledge (Planes)",
   "FFD20.SkillKRe": "Knowledge (Religion)",
-  "FFD20.SkillKTe": "Knowledge (technology)",
+  "FFD20.SkillKTe": "Knowledge (Technology)",
   "FFD20.SkillLin": "Linguistics",
   "FFD20.SkillNav": "Navigate",
   "FFD20.SkillPer": "Perception",
@@ -764,6 +801,13 @@
   "FFD20.FavouredClassSkill": "Skills",
   "FFD20.FavouredClassAlt": "Alt",
 
+  "FFD20.FavouredClassBonus": {
+    "Label": "Favoured Class Bonus",
+    "HP": "Hit Point",
+    "Skill": "Skill",
+    "Alt": "Alt"
+  },
+
   "FFD20.Key_Control": "Control",
 
   "FFD20.ArmorProfLight": "Light Armor",
@@ -784,11 +828,6 @@
   "FFD20.InventoryContainers": "Containers",
 
   "FFD20.ChangeFlagLoseDexToAC": "Lose Dex to AC",
-  "FFD20.ChangeFlagNoDex": "0 Dex",
-  "FFD20.ChangeFlagNoStr": "0 Str",
-  "FFD20.ChangeFlagOneInt": "1 Int",
-  "FFD20.ChangeFlagOneWis": "1 Wis",
-  "FFD20.ChangeFlagOneCha": "1 Cha",
   "FFD20.ChangeFlagDwarflikeEncumbrance": "Dwarf-like Encumbrance",
   "FFD20.ChangeFlagMediumArmorFullSpeed": "Full Speed in Medium Armor",
   "FFD20.ChangeFlagHeavyArmorFullSpeed": "Full Speed in Heavy Armor",
@@ -984,6 +1023,9 @@
   "FFD20.SourceInfoTemplate": "Template",
   "FFD20.SourceInfoRace": "Race",
 
+  "FFD20.SourceInfoSkillRank_ClassBase": "{className} (Base)",
+  "FFD20.SourceInfoSkillRank_ClassFC": "{className} (Favoured Class)",
+
   "FFD20.CreateItemForSpell": "Create Item for {0}",
   "FFD20.CreateItemWand": "Wand",
   "FFD20.CreateItemScroll": "Scroll",
@@ -995,6 +1037,7 @@
   "FFD20.CombatInfo_Header": "Combat",
   "FFD20.CombatInfo_Round": "Round {0}",
 
+  "FFD20.AddClass": "Add Class",
   "FFD20.Horizontal": "Horizontal",
   "FFD20.Vertical": "Vertical",
   "FFD20.HideHeld": "Hide Held items",
@@ -1025,6 +1068,7 @@
   "FFD20.Attacks": "Attacks",
   "FFD20.Biography": "Biography",
   "FFD20.Buffs": "Buffs",
+  "FFD20.Change": "Change",
   "FFD20.Changes": "Changes",
   "FFD20.Charged": "Charged",
   "FFD20.ChargesSeperator": "of",
@@ -1209,6 +1253,7 @@
   "FFD20.ClassPlural": "Classes",
   "FFD20.FeatPlural": "Feats",
   "FFD20.ClassFeaturePlural": "Class Features",
+  "FFD20.NewClassFeaturePlural": "New Class Features",
   "FFD20.TraitPlural": "Traits",
   "FFD20.RacialTraitPlural": "Racial Traits",
   "FFD20.TemplatePlural": "Templates",
@@ -1407,6 +1452,7 @@
   "FFD20.Confirm": "Confirm",
   "FFD20.CROffset": "Challenge Rating Offset",
   "FFD20.Haste": "Haste",
+  "FFD20.Manyshot": "Manyshot",
   "FFD20.RapidShot": "Rapid Shot",
   "FFD20.PointBlankShot": "Point-Blank Shot",
   "FFD20.AmmoRemaining": "Ammunition Remaining: {0}",
@@ -1464,6 +1510,7 @@
   "FFD20.MaxDexArmor": "Max Dexterity Bonus (Armor)",
   "FFD20.MaxDexShield": "Max Dexterity Bonus (Shield)",
   "FFD20.Encumbrance": "Encumbrance",
+  "FFD20.Raw": "Raw",
   "FFD20.Normal": "Normal",
   "FFD20.Large": "Large",
   "FFD20.ExtraLarge": "Extra Large",
@@ -1490,6 +1537,7 @@
   "FFD20.Settings": "Settings",
   "FFD20.SpellbookUsage": "Spellbook Usage",
   "FFD20.SpellSlotAbilityBonus": "Spell Slot Ability Bonus",
+  "FFD20.AlternativeSpellbookName": "Spellbook Name",
   "FFD20.StaticSize": "Static Size",
   "FFD20.DomainSlotValue": "Domain Slot Value",
   "FFD20.DomainSlotValueDesc": "How many 'free' slots do Domain/School spells provide for a spell level?",
@@ -1506,6 +1554,11 @@
   "FFD20.Migration.Start": "Applying FFD20 System Migration for version {version}. Please stand by.",
   "FFD20.Migration.Ongoing": "Migration is ongoing. Please wait until it finishes.",
   "FFD20.Migration.End": "FFD20 System Migration to version {version} succeeded!",
+
+  "FFD20.Info": {
+    "AddClassDialog": "You can hold Shift to bypass this dialog.",
+    "AddClassDialog_Desc": "Pressing Normal opens a short wizard, while pressing Raw will add the class without any alterations."
+  },
 
   "FFD20.Materia": "Materia",
   "FFD20.MateriaTypeAbility": "Ability Materia",
@@ -1529,7 +1582,6 @@
   "FFD20.MateriaRarityUncommon":"Uncommon",
   "FFD20.MateriaRarityRare":"Rare",
   "FFD20.MateriaRarityLegendary":"Legendary",
-
 
   "FFD20.Help": {
     "Label": "Help",
@@ -1571,6 +1623,12 @@
             },
             "HitDie": {
               "Desc": "The total hit die the actor has. This is a combination of class levels and racial hit die, and it excludes mythic tiers."
+            },
+            "SavingThrows": {
+              "Desc": "The total bonus of the appropriate saving throw for that actor. X can be either 'fort' (Fortitude), 'ref' (Reflex) or 'will' (Will)"
+            },
+            "SavingThrowsBase": {
+              "Desc": "The total base bonus of the appropriate saving throw for that actor, as given by class levels. X can be either 'fort' (Fortitude), 'ref' (Reflex) or 'will' (Will)"
             },
             "EncumbranceLevel": {
               "Desc": "The current encumbrance level of the actor.",

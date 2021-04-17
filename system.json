@@ -2,19 +2,18 @@
   "name": "ffd20",
   "title": "Final Fantasy d20",
   "description": "FFd20 using Pathfinder 1 as a base in the Foundry VTT environment.",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "Ritsu Voices",
+  "authors": [
+    {
+      "name": "Ritsu Voices"
+    }
+  ],
   "templateVersion": 2,
   "scripts": [],
   "esmodules": ["ffd20.js"],
   "styles": ["ffd20.css"],
   "packs": [
-    { "name": "mythicpaths",
-      "label": "Pathfinder Mythic Paths",
-      "system": "ffd20",
-      "path": "./packs/mythic-paths.db",
-      "entity": "Item"
-    },
     { "name": "commonbuffs",
       "label": "Common Buffs",
       "system": "ffd20",
@@ -55,6 +54,12 @@
       "label": "Pathfinder Monster Templates",
       "system": "ffd20",
       "path": "./packs/monster-templates.db",
+      "entity": "Item"
+    },
+    { "name": "spells",
+      "label": "Pathfinder Spells",
+      "system": "ffd20",
+      "path": "./packs/spells.db",
       "entity": "Item"
     },
     { "name": "sample-macros",
@@ -121,7 +126,7 @@
   "languages": [
     {
       "lang": "en",
- "name": "English",
+      "name": "English",
       "path": "lang/en.json"
     }
   ],
@@ -137,5 +142,5 @@
   "allowBugReporter": true,
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.1.8.zip"
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.1.9.zip"
 }

@@ -32,6 +32,7 @@
     <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
     <a class="item" data-tab="changes">{{localize "FFD20.Changes"}}</a>
     <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
+    <a class="item" data-tab="advanced">{{localize "FFD20.Advanced"}}</a>
   </nav>
 
   {{!-- Item Sheet Body --}}
@@ -245,6 +246,10 @@
 
     <div class="tab flexcol" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
+    </div>
+
+    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+      {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
   </section>
 </form>

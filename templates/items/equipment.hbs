@@ -15,7 +15,12 @@
           {{#unless showUnidentifiedData}}{{labels.equipmentSubtype}}{{/unless}}
         </li>
         <li>
-          {{#if isMateria}}{{data.materiaRarity}}{{else}}{{#if hasMultipleSlots}}{{#unless showUnidentifiedData}}{{labels.slot}}{{/unless}}{{/if}}{{/if}}
+          {{#if isMateria}}{{data.materiaRarity}}
+          {{else}}
+          {{#if hasMultipleSlots}}
+          {{#unless showUnidentifiedData}}{{labels.slot}}{{/unless}}
+          {{/if}}
+          {{/if}}
         </li>
       </ul>
     </div>
@@ -29,6 +34,9 @@
     <a class="item" data-tab="changes">{{ localize "FFD20.Changes" }}</a>
     {{/unless}}
     <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
+    {{#unless showUnidentifiedData}}
+    <a class="item" data-tab="advanced">{{localize "FFD20.Advanced"}}</a>
+    {{/unless}}
   </nav>
 
   {{!-- Item Sheet Body --}}
@@ -206,5 +214,11 @@
     <div class="tab flexcol" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
+
+    {{#unless showUnidentifiedData}}
+    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+      {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
+    </div>
+    {{/unless}}
   </section>
 </form>

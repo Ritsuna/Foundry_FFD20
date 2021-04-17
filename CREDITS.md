@@ -149,3 +149,7 @@ People and credits are listed in no particular order.
 ## Grarl
 
 - Made some code contributions
+
+## claudekennilol
+
+- Made some code contributions

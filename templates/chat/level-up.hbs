@@ -1,0 +1,64 @@
+<div class="level-up">
+    <h1>{{localize "FFD20.LevelUp.Chat.Header"}}</h1>
+
+    {{!-- Level name and icon --}}
+    <div class="item">
+        <img src="{{item.img}}" width="24" height="24">
+        <span class="name">{{item.name}}</span>
+    </div>
+
+    {{!-- New level --}}
+    <div class="level-change">
+        {{localize "FFD20.Level"}}
+        <span class="level-previous">{{formData.level.previous}}</span>
+        <i class="fas fa-arrow-right"></i>
+        <span class="level-new">{{formData.level.new}}</span>
+    </div>
+
+    {{!-- New HP --}}
+    {{#if formData.hp}}
+    <div class="part">
+        <h2>{{localize "FFD20.LevelUp.Chat.Health.Header"}}</h2>
+
+        <span>{{{localize formData.hp.label add=formData.hp.add}}}</span>
+    </div>
+    {{/if}}
+
+    {{!-- Chosen favored class bonus --}}
+    {{#if formData.fc}}
+    <div class="part">
+        <h2>{{localize "FFD20.LevelUp.Chat.FC.Header"}}</h2>
+
+        <span><i class="fas {{lookup config.favouredClassBonusIcons formData.fc.type}}"></i> {{localize formData.fc.label}}</span>
+    </div>
+    {{/if}}
+
+    {{!-- New class features --}}
+    {{#if formData.newFeatures}}
+    <div class="part">
+        <h2>{{localize "FFD20.NewClassFeaturePlural"}}</h2>
+
+        {{#each formData.newFeatures as |ft|}}
+        <div class="item">
+            <img src="{{ft.img}}" width="24" height="24">
+            <span class="name">{{ft.name}}</span>
+        </div>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    {{!-- Remainder Summary --}}
+    {{#if formData.extra.enabled}}
+    <div class="part">
+        <h2>{{localize "FFD20.LevelUp.Chat.Extra.Header"}}</h2>
+        
+        {{#if formData.extra.feats.new}}
+        <p class="feats">{{formData.extra.feats.label}}</p>
+        {{/if}}
+
+        {{#if formData.extra.newAbilityScore}}
+        <p>{{formData.extra.newAbilityScore.label}}</p>
+        {{/if}}
+    </div>
+    {{/if}}
+</div>

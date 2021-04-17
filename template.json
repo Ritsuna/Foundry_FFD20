@@ -316,6 +316,7 @@
             "usedSpellbooks": [],
             "spellbooks": {
               "primary": {
+                "altName": "",
                 "name": "Primary",
                 "class": "",
                 "cl": {
@@ -344,6 +345,7 @@
                 "domainSlotValue": 1
               },
               "secondary": {
+                "altName": "",
                 "name": "Secondary",
                 "class": "",
                 "cl": {
@@ -372,6 +374,7 @@
                 "domainSlotValue": 1
               },
               "tertiary": {
+                "altName": "",
                 "name": "Tertiary",
                 "class": "",
                 "cl": {
@@ -400,6 +403,7 @@
                 "domainSlotValue": 1
               },
               "spelllike": {
+                "altName": "",
                 "name": "Spell-likes",
                 "class": "_hd",
                 "cl": {
@@ -729,7 +733,7 @@
           "pil": {"name": "Pilot",
             "value": 0,
             "ability": "dex",
-            "rt": false,
+            "rt": true,
             "acp": false,
             "rank": 0,
             "mod": 0,
@@ -748,7 +752,7 @@
             "value": 0,
             "ability": "int",
             "rt": false,
-            "acp": true,
+            "acp": false,
             "rank": 0,
             "mod": 0,
             "background": false
@@ -934,11 +938,6 @@
         "changes": [],
         "changeFlags": {
           "loseDexToAC": false,
-          "noStr": false,
-          "noDex": false,
-          "oneInt": false,
-          "oneWis": false,
-          "oneCha": false,
           "noEncumbrance": false,
           "mediumArmorFullSpeed": false,
           "heavyArmorFullSpeed": false
@@ -1083,12 +1082,18 @@
           "value": [],
           "custom": ""
         }
-			}
+      },
+      "flags": {
+        "flags": {
+          "boolean": [],
+          "dictionary": []
+        }
+      }
     },
     "class": {
-      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies"],
+      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags"],
       "classType": "base",
-      "classSubType": "",
+      "classSubType": "none",
       "parentClass": "",
       "levels": {
         "value": 0,
@@ -1117,14 +1122,14 @@
       "classSkills": {}
     },
     "buff": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags"],
       "buffType": "temp",
       "active": false,
       "level": 0,
       "hideFromToken": false
     },
     "consumable": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "links", "tagged"],
+      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "links", "tagged", "flags"],
       "consumableType": "potion",
       "uses": {
         "value": 0,
@@ -1145,7 +1150,8 @@
         "contextNotes",
         "action",
         "links",
-        "tagged"
+        "tagged",
+        "flags"
       ],
       "equipped": true,
       "equipmentType": "armor",
@@ -1178,7 +1184,6 @@
         "lv3": 0,
         "mastered": 0
       }
-
     },
     "feat": {
       "templates": [
@@ -1189,7 +1194,8 @@
         "contextNotes",
         "links",
         "tagged",
-        "proficiencies"
+        "proficiencies",
+        "flags"
       ],
       "featType": "feat",
       "associations": {
@@ -1204,12 +1210,12 @@
       }
     },
     "loot": {
-      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged"],
+      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
       "subType": "misc",
       "equipped": true
     },
     "spell": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags"],
       "learnedAt": {
         "class": [],
         "domain": [],
@@ -1260,7 +1266,7 @@
       "slotCost": 1
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged"],
+      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
       "equipped": true,
       "masterwork": false,
       "nonlethal": false,
@@ -1298,7 +1304,7 @@
       }
     },
     "attack": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags"],
       "attackType": "weapon",
       "masterwork": false,
       "nonlethal": false,
@@ -1314,12 +1320,12 @@
       }
     },
     "race": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags"],
       "creatureType": "humanoid",
       "subTypes": []
     },
     "container": {
-      "templates": ["itemDescription", "physicalItem", "inventory"],
+      "templates": ["itemDescription", "physicalItem", "inventory", "flags"],
       "basePrice": 0,
       "unidentified": {
         "basePrice": 0

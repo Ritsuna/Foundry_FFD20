@@ -2,7 +2,8 @@
 <nav class="sheet-navigation tabs spellbooks" data-group="spellbooks">
   {{#each data.attributes.spells.spellbooks as |spellbook a|}}
   {{#if spellbook.inUse}}
-  <a class="item" data-tab="{{a}}">{{spellbook.name}}</a>
+  <a class="item title-case" data-tab="{{a}}">{{#if spellbook.altName}}{{spellbook.altName}}{{else}}
+    {{#if (and spellbook.class (ne spellbook.class "_hd"))}}{{~spellbook.class}}{{else}}{{~spellbook.name}}{{/if}}{{/if}}</a>
   {{/if}}
   {{/each}}
 </nav>
