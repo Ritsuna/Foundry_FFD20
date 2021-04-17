@@ -6,7 +6,7 @@
       <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationFormula"
       value="{{spellbook.orig.concentrationFormula}}" placeholder="{{localize "FFD20.ConcentrationBonusFormula"}}" />
     </div>
-    
+
     <div class="spellcasting-cl flexrow">
       <div class="rollable image-d20"></div>
       <label><h3>{{localize "FFD20.CasterLevel"}}</h3></label>
@@ -23,7 +23,7 @@
       <textarea name="data.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationNotes" placeholder="{{localize "FFD20.ConcentrationNotes"}}">{{spellbook.orig.concentrationNotes}}</textarea>
       <textarea name="data.attributes.spells.spellbooks.{{spellbookIndex}}.clNotes" placeholder="{{localize "FFD20.CasterLevelNotes"}}">{{spellbook.orig.clNotes}}</textarea>
     </div>
-    
+
     <div class="flexrow">
       <div class="flexcol ffd20-sheet-group">
         <div class="form-group spellcasting-class tooltip">
@@ -49,7 +49,7 @@
             {{/select}}
           </select>
         </div>
-        
+
         <div class="form-group spellcasting-ability">
           <label><h3>{{localize "FFD20.SpellcastingAbility"}}</h3></label>
           <select name="data.attributes.spells.spellbooks.{{spellbookIndex}}.ability" data-dtype="String">
@@ -61,7 +61,7 @@
             {{/select}}
           </select>
         </div>
-        
+
         <div class="flexrow spell-failure">
           <label><h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3></label>
           <input type="text" disabled value="{{spellFailure}}%"/>
@@ -72,7 +72,7 @@
           <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.baseDCFormula"
           value="{{spellbook.orig.baseDCFormula}}" placeholder="{{localize "FFD20.BaseDCFormula"}}" />
         </div>
-        
+
         <div class="flexrow spell-slot-ability-bonus">
           <label><h3>{{localize "FFD20.SpellSlotAbilityBonus"}}</h3></label>
           <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellSlotAbilityBonusFormula"
@@ -105,7 +105,6 @@
         </div>
         {{/if}}
       </div>
-      
       <div class="flexcol caster-preferences ffd20-sheet-group">
         <label class="checkbox">
           <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.autoSpellLevels"
@@ -126,7 +125,7 @@
       </div>
     </div>
   </div>
-  
+
   <div class="flexrow spell-range">
     <table>
       <thead>
@@ -166,7 +165,7 @@
 </div>
 
 {{!-- Spellbook Navigation --}}
-<div class="inventory-filters flexrow">  
+<div class="inventory-filters flexrow">
   <ul class="filter-list flexrow" data-filter="spellbook-{{spellbookIndex}}">
     {{#each spellbook.data as |section sid|}}
     <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
@@ -225,6 +224,7 @@
           <a data-action="compendium" data-action-target="spells" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
         </div>
       </li>
+
       <ol class="item-list">
         {{#each section.items as |item i|}}
         <li class="item flexrow" data-item-id="{{item._id}}">
@@ -267,6 +267,7 @@
             {{/unless}}
           </div>
           {{/unless}}
+
           <div class="item-detail item-actions">
             <div class="item-attack tooltip">
               <span class="tooltipcontent">

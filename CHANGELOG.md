@@ -1,5 +1,14 @@
 # Changelog
+## 0.1.10
+
+### Change Log
+- Updated to match PF1 version 0.77.21 4/16/2012 sans step 4.5 as it breaks mp
+- Cleaned a few more errors
+- added status effects to the information
+- updated skills with more correct information
+
 ## 0.1.9
+
 ### Change Log
 - Updated to match PF1 version 0.77.21
 - Cleaned a few errors
