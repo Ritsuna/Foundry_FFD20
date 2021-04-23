@@ -1100,6 +1100,7 @@
         "_deprecated": true
       },
       "level": 1,
+      "lvl": 0,
       "countforexp": "exp",
       "hd": 8,
       "hp": 8,

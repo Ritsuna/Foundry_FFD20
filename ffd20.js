@@ -7625,6 +7625,7 @@ class ActorFFD20 extends Actor {
 
   /**
    * Returns an array of all selected tokens, along with their actors.
+   *
    * @returns {Array.<ActorFFD20, Token>[]}
    */
   static getSelectedActors() {
@@ -7708,6 +7709,7 @@ class ActorFFD20 extends Actor {
 
   /**
    * The VisionPermissionSheet instance for this actor
+   *
    * @type {VisionPermissionSheet}
    */
   get visionPermissionSheet() {
@@ -8040,6 +8042,7 @@ class ActorFFD20 extends Actor {
 
   /**
    * Checks if there's any matching proficiency
+   *
    * @param {ItemFFD20 } item - The item to check for.
    * @param {string} proficiencyName - The proficiency name to look for. e.g. 'lightShield' or 'mediumArmor'.
    * @returns {boolean} Whether the actor is proficient with that item.
@@ -8831,6 +8834,7 @@ class ActorFFD20 extends Actor {
 
   /**
    * Return reduced movement speed.
+   *
    * @param {number} value - The non-reduced movement speed.
    * @returns {number} The reduced movement speed.
    */
@@ -8866,6 +8870,7 @@ class ActorFFD20 extends Actor {
 
   /**
    * Return the amount of experience required to gain a certain character level.
+   *
    * @param level {number}  The desired level
    * @returns {number}       The XP required
    */
@@ -8894,6 +8899,7 @@ class ActorFFD20 extends Actor {
 
   /**
    * Return the amount of experience granted by killing a creature of a certain CR.
+   *
    * @param cr {number}     The creature's challenge rating
    * @returns {number}       The amount of experience granted per kill
    */
@@ -9292,7 +9298,9 @@ class ActorFFD20 extends Actor {
     // Add additional attacks
     let extraAttacks = [];
     for (let a = 5; a < this.data.data.attributes.bab.total; a += 5) {
-      extraAttacks = extraAttacks.concat([[`-${a}`, `${game.i18n.localize("FFD20.Attack")} ${Math.floor((a + 5) / 5)}`]]);
+      extraAttacks = extraAttacks.concat([
+        [`-${a}`, `${game.i18n.localize("FFD20.Attack")} ${Math.floor((a + 5) / 5)}`],
+      ]);
     }
     if (extraAttacks.length > 0) attackData["data.attackParts"] = extraAttacks;
 
@@ -10702,7 +10710,9 @@ class ActorFFD20 extends Actor {
         const classType = cls.data.classType || "base";
         result.classes[tag] = {
           level: cls.data.countforexp === "exp" ? cls.data.level : 0, // account for nonexp
+          lvl: cls.data.level,
           name: cls.name,
+          spellList: cls.data.parentClass,
           hd: cls.data.countforexp === "exp" ? cls.data.hd : 0, // account for nonexp
           bab: cls.data.countforexp === "exp" ? cls.data.bab : 0, // account for nonexp
           hp: cls.data.countforexp === "exp" ? healthConfig.auto : 0, // account for nonexp
@@ -11053,7 +11063,13 @@ class ActorFFD20 extends Actor {
     return getProperty(this, `itemFlags.boolean.${flagName}`) != null;
   }
 
-  async performRest({ restoreHealth = true, longTermCare = false, aidedCare = false, restoreDailyUses = true, hours = 8 } = {}) {
+  async performRest({
+    restoreHealth = true,
+    longTermCare = false,
+    aidedCare = false,
+    restoreDailyUses = true,
+    hours = 8,
+  } = {}) {
     const actorData = this.data.data;
 
     const updateData = {};
@@ -19872,7 +19888,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     /**
      * The scroll position on the active tab
-     * 
+     *
      * @type {number}
      */
     this._scrollTab = {};
@@ -19880,7 +19896,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     /**
      * Track the set of item filters which are applied
-     * 
+     *
      * @type {Set}
      */
     this._filters = {
@@ -19896,7 +19912,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     /**
      * Track item updates from the actor sheet.
-     * 
+     *
      * @property
      * @private
      * @type {object[]}
@@ -19905,28 +19921,28 @@ class ActorSheetFFD20 extends ActorSheet {
 
     /**
      * Track hidden elements of the sheet.
-     * 
+     *
      * @property
      */
     this._hiddenElems = {};
 
     /**
      * Whether a submit has been queued in any way.
-     * 
+     *
      * @property
      */
     this._submitQueued = false;
 
     /**
      * Whether inner part of this sheet has been rendered already.
-     * 
+     *
      * @property
      */
     this._renderedInner = false;
 
     /**
      * A dictionary of additional queued updates, to be added on top of the form's data (and cleared afterwards).
-     * 
+     *
      * @property
      * @private
      */
@@ -20604,8 +20620,8 @@ class ActorSheetFFD20 extends ActorSheet {
   /**
    * Compute the level and percentage of encumbrance for an Actor.
    *
-   * @param {Object} actorData      The data object for the Actor being rendered
-   * @return {Object}               An object describing the character's encumbrance level
+   * @param {object} actorData      The data object for the Actor being rendered
+   * @returns {object}               An object describing the character's encumbrance level
    * @private
    */
   _computeEncumbrance(actorData) {
@@ -20655,6 +20671,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
   /**
    * Activate event listeners using the prepared sheet HTML
+   *
    * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
    */
   activateListeners(html) {
@@ -21140,6 +21157,9 @@ class ActorSheetFFD20 extends ActorSheet {
 
   /**
    * Initialize Item list filters by activating the set of filters which are currently applied
+   *
+   * @param i
+   * @param ul
    * @private
    */
   _initializeFilterItemList(i, ul) {
@@ -21167,6 +21187,8 @@ class ActorSheetFFD20 extends ActorSheet {
 
   /**
    * Handle rolling of an item from the Actor sheet, obtaining the Item instance and dispatching to it's roll method
+   *
+   * @param event
    * @private
    */
   _onItemRoll(event) {
@@ -22427,10 +22449,12 @@ class ActorSheetFFD20 extends ActorSheet {
     // Set spellbook for spell
     if (getProperty(origData, "type") === "spell") {
       setProperty(result, "data.spellbook", this.currentSpellbookKey);
-      let matchedClass = origData.data.learnedAt.class.find((c) => {
-        return c[0].toLowerCase().indexOf(this.actor.data.data.spells["primary"].class.toLowerCase()) > -1;
-      });
-      if (matchedClass) setProperty(result, "data.level", matchedClass[1]);
+      //let matchedClass = origData.data.learnedAt.class.find((c) => {
+        //return (
+          //c[0].toLowerCase().indexOf(this.actor.data.data.spells[this.currentSpellbookKey]?.class.toLowerCase()) > -1
+        //);
+      //});
+      //if (matchedClass) setProperty(result, "data.level", matchedClass[1]);
     }
     return result;
   }
