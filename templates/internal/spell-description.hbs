@@ -1,6 +1,6 @@
 <div class="spell-description">
   <p>
-    <strong>{{localize "FFD20.School"}}</strong>&nbsp;{{label.school}}{{#if label.subschool}}&nbsp;({{label.subschool}}){{/if}}{{#if label.types}}&nbsp;[{{label.types}}]{{/if}};
+    <strong>{{localize "FFD20.School"}}</strong>&nbsp;{{label.school}}{{#if label.multi}}&nbsp;{{label.multischool}}{{/if}}{{#if label.subschool}}&nbsp;({{label.subschool}}){{/if}}{{#if label.types}}&nbsp;[{{label.types}}]{{/if}};
     {{#if learnedAt.class}}<strong>{{localize "FFD20.Level"}}</strong>&nbsp;{{learnedAt.class}};{{/if}}
     {{#if learnedAt.domain}}<strong>{{localize "FFD20.Domain"}}</strong>&nbsp;{{learnedAt.domain}};{{/if}}
     {{#if learnedAt.subDomain}}<strong>{{localize "FFD20.SubDomain"}}</strong>&nbsp;{{learnedAt.subDomain}};{{/if}}

@@ -477,6 +477,136 @@
     </table>
   </li>
 </ul>
+<ul class="attributes flexrow">
+  {{#if data.classResource.res1.on}}
+  <li>
+    <table class="class-resource">
+      <thead class="tooltip">
+        <tr>
+          <th colspan="2">
+            <div class="tooltipcontent">
+              @classResource.res1.value : {{data.classResource.res1.value}}<br/>
+              @classResource.res1.max : {{data.classResource.res1.max}}<br/>
+            </div>
+              <Span>{{data.classResource.res1.name}}</Span>
+          </th>
+        </tr>
+        <tr>
+          <th>{{localize "FFD20.Current"}}</th>
+          <th>{{localize "FFD20.Maximum"}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res1.value" data-dtype="Number">{{data.classResource.res1.value}}</span>
+          </td>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res1.max" data-dtype="Number">{{data.classResource.res1.max}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  {{/if}}
+  {{#if data.classResource.res2.on}}
+  <li>
+    <table class="class-resource">
+      <thead class="tooltip">
+        <tr>
+          <th colspan="2">
+            <div class="tooltipcontent">
+              @classResource.res2.value : {{data.classResource.res2.value}}<br/>
+              @classResource.res2.max : {{data.classResource.res2.max}}<br/>
+            </div>
+              <Span>{{data.classResource.res2.name}}</Span>
+          </th>
+        </tr>
+        <tr>
+          <th>{{localize "FFD20.Current"}}</th>
+          <th>{{localize "FFD20.Maximum"}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res2.value" data-dtype="Number">{{data.classResource.res2.value}}</span>
+          </td>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res2.max" data-dtype="Number">{{data.classResource.res2.max}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  {{/if}}
+  {{#if data.classResource.res3.on}}
+  <li>
+    <table class="class-resource">
+      <thead class="tooltip">
+        <tr>
+          <th colspan="2">
+            <div class="tooltipcontent">
+              @classResource.res3.value : {{data.classResource.res3.value}}<br/>
+              @classResource.res3.max : {{data.classResource.res3.max}}<br/>
+            </div>
+              <Span>{{data.classResource.res3.name}}</Span>
+          </th>
+        </tr>
+        <tr>
+          <th>{{localize "FFD20.Current"}}</th>
+          <th>{{localize "FFD20.Maximum"}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res3.value" data-dtype="Number">{{data.classResource.res3.value}}</span>
+          </td>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res3.max" data-dtype="Number">{{data.classResource.res3.max}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  {{/if}}
+  {{#if data.classResource.res4.on}}
+  <li>
+    <table class="class-resource">
+      <thead class="tooltip">
+        <tr>
+          <th colspan="2">
+            <div class="tooltipcontent">
+              @classResource.res4.value : {{data.classResource.res4.value}}<br/>
+              @classResource.res4.max : {{data.classResource.res4.max}}<br/>
+            </div>
+              <Span>{{data.classResource.res4.name}}</Span>
+          </th>
+        </tr>
+        <tr>
+          <th>{{localize "FFD20.Current"}}</th>
+          <th>{{localize "FFD20.Maximum"}}</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res4.value" data-dtype="Number">{{data.classResource.res4.value}}</span>
+          </td>
+          <td>
+            <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.classResource.res4.max" data-dtype="Number">{{data.classResource.res4.max}}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+{{/if}}
+</ul>
 
 {{!-- This is for adding classes and seeing quick information --}}
 <nav class="sheet-navigation tabs subtabs subdetails" data-group="subdetails">

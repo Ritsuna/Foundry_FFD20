@@ -109,6 +109,24 @@
           {{/select}}
         </select>
       </div>
+      <div class="spell-misc form-group stacked">
+        <label>{{localize "FFD20.multiSchool"}}</label>
+        <label class="checkbox">
+          <input type="checkbox" name="data.multi" {{checked data.multi}}/> {{localize "FFD20.multiSchool"}}
+        </label>
+      </div>
+    {{#if data.multi}}
+      <div class="form-group">
+        <label>{{localize "FFD20.multiSchool"}}</label>
+        <select name="data.multischool">
+          {{#select data.multischool}}
+          {{#each config.multiSchools as |name sch|}}
+          <option value="{{sch}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+    {{/if}}
 
       {{!-- Subschool and type --}}
       <div class="form-group flexrow">

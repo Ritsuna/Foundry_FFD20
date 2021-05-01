@@ -878,7 +878,33 @@
         "deity": "",
         "age": ""
       },
-      "traits": {
+      "classResource": {
+        "res1": {
+          "name": "Resource 1",
+          "value": 0,
+          "max": 0,
+          "on": false
+        },
+        "res2": {
+          "name": "Resource 2",
+          "value": 0,
+          "max": 0,
+          "on": false
+        },
+        "res3": {
+          "name": "Resource 3",
+          "value": 0,
+          "max": 0,
+          "on": false
+        },
+        "res4": {
+          "name": "Resource 4",
+          "value": 0,
+          "max": 0,
+          "on": false
+        }
+      },
+    "traits": {
         "weaponProf": {
           "value": [],
           "custom": ""
@@ -1227,7 +1253,9 @@
       "level": 1,
       "clOffset": 0,
       "slOffset": 0,
+      "multi": false,
       "school": "",
+      "multischool": "",
       "subschool": "",
       "types": "",
       "nonlethal": false,

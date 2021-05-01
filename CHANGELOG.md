@@ -1,4 +1,20 @@
 # Changelog
+## 0.1.13
+
+### Change Log
+- added fields for up to 4 extra resources
+- added information to be entered for multi-school spells
+
+## 0.1.12
+
+### Change Log
+- added ffxiv fan kit inmages
+
+## 0.1.11
+
+### Change Log
+- fixes for a few backend problems
+
 ## 0.1.10
 
 ### Change Log
@@ -28,7 +44,7 @@
 ### Bug Fixes
 - more fixed  backend code
 
-## 0.1.5 
+## 0.1.5
 
 ### Bug Fixes
 - fixed some backend code
@@ -65,7 +81,7 @@
 
 ### Change Log
 - Got MP calculations to work
-- cleaned up some 
+- cleaned up some
 
 ### Update log
 - updated from the Pathfinder 1 github on 3/6/2021
@@ -103,7 +119,7 @@
 
 - localization files updated
 
-## 0.0.6 
+## 0.0.6
 
 ### Bug Fixes
 

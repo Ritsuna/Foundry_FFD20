@@ -12,6 +12,33 @@
     {{/each}}
 </div>
 
+{{!-- Class Resources --}}
+<div class="form-group">
+    <h2>{{localize "FFD20.ClassResources"}}</h2>
+</div>
+    <span>Please change the name of the resource to the correct name</span>
+
+  <div class="form-group stacked">
+    <label class="checkbox">
+      <input type="checkbox" name="data.classResource.res1.on" {{checked data.classResource.res1.on}}/>
+      <input type="text" name="data.classResource.res1.name" value="{{data.classResource.res1.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.classResource.res2.on" {{checked data.classResource.res2.on}}/>
+      <input type="text" name="data.classResource.res2.name" value="{{data.classResource.res2.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.classResource.res3.on" {{checked data.classResource.res3.on}}/>
+      <input type="text" name="data.classResource.res3.name" value="{{data.classResource.res3.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="data.classResource.res4.on" {{checked data.classResource.res4.on}}/>
+      <input type="text" name="data.classResource.res4.name" value="{{data.classResource.res4.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+    </label>
+</div>
+
+
+
 {{!-- Ability Score Linking --}}
 <div class="form-group">
     <h2>{{localize "FFD20.AbilityScoreLinks"}}</h2>

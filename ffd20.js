@@ -1162,11 +1162,45 @@ const FFD20 = {
     heal: "FFD20.SpellSchoolHealing",
     ill: "FFD20.SpellSchoolIllusion",
     lit: "FFD20.SpellSchoolLight",
+    multi: "FFD20.multiSchool",
     misc: "FFD20.SpellSchoolMisc",
     nec: "FFD20.SpellSchoolNecromancy",
     nel: "FFD20.SpellSchoolNonElemental",
     sum: "FFD20.SpellSchoolSummoning",
     uni: "FFD20.SpellSchoolUniversal",
+  },
+
+  /**
+   * Spell multi schools
+   */
+  multiSchools: {
+    blank: "",
+    sumhealenc: "FFD20.SpellSchoolSummoningHealingEnhancing",
+    sumheal: "FFD20.SpellSchoolSummoningHealing",
+    sumenfdrk: "FFD20.SpellSchoolSummoningEnfeeblingDark",
+    sumenflit: "FFD20.SpellSchoolSummoningEnfeeblingLight",
+    sumenfele: "FFD20.SpellSchoolSummoningEnfeeblingElemental",
+    sumenf: "FFD20.SpellSchoolSummoningEnfeebling",
+    sumenc: "FFD20.SpellSchoolSummoningEnhancing",
+    sumlit: "FFD20.SpellSchoolSummoningLight",
+    sumnel: "FFD20.SpellSchoolSummoningNonElemental",
+    sumele: "FFD20.SpellSchoolSummoningElemental",
+    crnheal: "FFD20.SpellSchoolChronomancyHealing",
+    crnnec: "FFD20.SpellSchoolChronomancyNecromancy",
+    crnenf: "FFD20.SpellSchoolChronomancyEnfeebling",
+    crnenc: "FFD20.SpellSchoolChronomancyEnhancing",
+    healenc: "FFD20.SpellSchoolHealingEnhancing",
+    illenc: "FFD20.SpellSchoolIllusionEnhancing",
+    necenc: "FFD20.SpellSchoolNecromancyEnhancing",
+    enfdrkele: "FFD20.SpellSchoolEnfeeblingDarkElemental",
+    enfdrk: "FFD20.SpellSchoolEnfeeblingDark",
+    enflit: "FFD20.SpellSchoolEnfeeblingLight",
+    enfele: "FFD20.SpellSchoolEnfeeblingElemental",
+    encdrk: "FFD20.SpellSchoolEnhancingDark",
+    enclit: "FFD20.SpellSchoolEnhancingLight",
+    encele: "FFD20.SpellSchoolEnhancingElemental",
+    drkele: "FFD20.SpellSchoolDarkElemental",
+    litele: "FFD20.SpellSchoolLightElemental",
   },
 
   /**
@@ -6065,8 +6099,7 @@ const addDefaultChanges = function (changes) {
       } else {
         auto_mana(mpsource);
       }
-    }
-    );
+    });
   };
 
   compute_mana(racialHD);
@@ -12447,7 +12480,8 @@ class ItemFFD20 extends Item {
 
       // Duration Label
       let dur = duplicate(data.duration || {});
-      if (["inst", "perm", "spec", "seeText"].includes(dur.units)) dur.value = game.i18n.localize("FFD20.Duration") + ":";
+      if (["inst", "perm", "spec", "seeText"].includes(dur.units))
+        dur.value = game.i18n.localize("FFD20.Duration") + ":";
       else if (typeof dur.value === "string" && this.parentActor) {
         dur.value = RollFFD20$1.safeRoll(dur.value || "0", this.getRollData(), [this.name, "Duration"], {
           suppressError: !this.hasPerm(game.user, "OWNER"),
@@ -13069,7 +13103,8 @@ class ItemFFD20 extends Item {
       if (combatProps.length > 0) {
         templateData.extraProperties.push({
           header: game.i18n.localize("FFD20.CombatInfo_Header"),
-          value: combatProps });
+          value: combatProps,
+        });
         templateData.hasExtraProperties = true;
       }
     }
@@ -15031,6 +15066,8 @@ class ItemFFD20 extends Item {
 
     const label = {
       school: (CONFIG.FFD20.spellSchools[getProperty(srcData, "data.school")] || "").toLowerCase(),
+      multi: getProperty(srcData, "data.multi"),
+      multischool: (CONFIG.FFD20.multiSchools[getProperty(srcData, "data.multischool")] || "").toLowerCase(),
       subschool: getProperty(srcData, "data.subschool") || "",
       types: "",
     };
@@ -17329,6 +17366,17 @@ class CompendiumBrowser extends Application {
           ),
         },
         {
+          path: "data.multischool",
+          label: game.i18n.localize("FFD20.multiSchool"),
+          items: naturalSort(
+            Object.entries(CONFIG.FFD20.multiSchools).reduce((cur, o) => {
+              cur.push({ key: o[0], name: o[1] });
+              return cur;
+            }, []),
+            "name"
+          ),
+        },
+        {
           path: "data.subschool",
           label: game.i18n.localize("FFD20.SubSchool"),
           items: naturalSort(
@@ -17970,6 +18018,7 @@ class CompendiumBrowser extends Application {
           "data.learnedAt.elementalSchool",
           "data.learnedAt.bloodline",
           "data.school",
+          "data.multischool",
           "data.subschool",
           "data.types"
         );
@@ -40524,6 +40573,7 @@ Hooks.once("setup", function () {
     "weaponProperties",
     "spellComponents",
     "spellSchools",
+    "multiSchools",
     "spellLevels",
     "conditionTypes",
     "favouredClassBonuses",
@@ -40581,6 +40631,7 @@ Hooks.once("setup", function () {
     "featTypes",
     "weaponProperties",
     "spellSchools",
+    "multiSchools",
     "languages",
     "damageTypes",
   ];
