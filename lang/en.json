@@ -812,8 +812,9 @@
   "FFD20.SpellSchoolEnhancingElemental": "Enhancing/Elemental",
   "FFD20.SpellSchoolDarkElemental": "Dark/Elemental",
   "FFD20.SpellSchoolLightElemental": "Light/Elemental",
+  "FFD20.SpellSchoolEnfeeblingEnhancing": "Enfeebling/Enhancing",
 
-  "FFD20.SpellLevel0": "Cantrip",
+  "FFD20.SpellLevel0": "Cantrip/Jingle",
   "FFD20.SpellLevel1": "1st Level",
   "FFD20.SpellLevel2": "2nd Level",
   "FFD20.SpellLevel3": "3rd Level",

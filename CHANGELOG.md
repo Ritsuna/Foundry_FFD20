@@ -1,4 +1,10 @@
 # Changelog
+## 0.1.14
+
+### Change Log
+- Added luck and unluck
+- added another multi-school type
+
 ## 0.1.13
 
 ### Change Log
