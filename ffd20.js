@@ -1156,6 +1156,7 @@ const FFD20 = {
   spellSchools: {
     crn: "FFD20.SpellSchoolChronomancy",
     drk: "FFD20.SpellSchoolDark",
+    div: "FFD20.SpellSchoolDivination",
     ele: "FFD20.SpellSchoolElemental",
     enc: "FFD20.SpellSchoolEnhancing",
     enf: "FFD20.SpellSchoolEnfeebling",
@@ -6741,36 +6742,36 @@ const addDefaultChanges = function (changes) {
           });
         }
         break;
-        case "cowering":
-          changes.push(
-            ItemChange.create({
-              formula: "-2",
-              target: "ac",
-              subTarget: "ac",
-              modifier: "penalty",
-            })
-          );
-          for (const k of Object.keys(this.data.data.attributes.ac)) {
-            getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).negative.push({
-              value: -2,
-              name: game.i18n.localize("FFD20.CondCowering"),
-            });
-          }
-          this.flags["loseDexToAC"] = true;
-          getSourceInfo(this.sourceInfo, "data.attributes.ac.normal.total").negative.push({
+      case "cowering":
+        changes.push(
+          ItemChange.create({
+            formula: "-2",
+            target: "ac",
+            subTarget: "ac",
+            modifier: "penalty",
+          })
+        );
+        for (const k of Object.keys(this.data.data.attributes.ac)) {
+          getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).negative.push({
+            value: -2,
             name: game.i18n.localize("FFD20.CondCowering"),
-            value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
           });
-          getSourceInfo(this.sourceInfo, "data.attributes.ac.touch.total").negative.push({
-            name: game.i18n.localize("FFD20.CondCowering"),
-            value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
-          });
-          getSourceInfo(this.sourceInfo, "data.attributes.cmd.total").negative.push({
-            name: game.i18n.localize("FFD20.CondCowering"),
-            value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
-          });
-          break;
-        case "dazzled":
+        }
+        this.flags["loseDexToAC"] = true;
+        getSourceInfo(this.sourceInfo, "data.attributes.ac.normal.total").negative.push({
+          name: game.i18n.localize("FFD20.CondCowering"),
+          value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
+        });
+        getSourceInfo(this.sourceInfo, "data.attributes.ac.touch.total").negative.push({
+          name: game.i18n.localize("FFD20.CondCowering"),
+          value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
+        });
+        getSourceInfo(this.sourceInfo, "data.attributes.cmd.total").negative.push({
+          name: game.i18n.localize("FFD20.CondCowering"),
+          value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
+        });
+        break;
+      case "dazzled":
         changes.push(
           ItemChange.create({
             formula: "-1",
@@ -6784,8 +6785,8 @@ const addDefaultChanges = function (changes) {
           name: game.i18n.localize("FFD20.CondDazzled"),
         });
         break;
-        case "deafened":
-          changes.push(
+      case "deafened":
+        changes.push(
           ItemChange.create({
             formula: "-4",
             target: "misc",
@@ -6969,135 +6970,135 @@ const addDefaultChanges = function (changes) {
         break;
       case "shaken":
         changes.push(
-        ItemChange.create({
-          formula: "-2",
-          target: "attack",
-          subTarget: "attack",
-          modifier: "penalty",
-        })
-      );
-      getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
-        value: -2,
-        name: game.i18n.localize("FFD20.CondShaken"),
-      });
-
-      changes.push(
-        ItemChange.create({
-          formula: "-2",
-          target: "savingThrows",
-          subTarget: "allSavingThrows",
-          modifier: "penalty",
-        })
-      );
-      for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
-        getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
+          ItemChange.create({
+            formula: "-2",
+            target: "attack",
+            subTarget: "attack",
+            modifier: "penalty",
+          })
+        );
+        getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
           value: -2,
           name: game.i18n.localize("FFD20.CondShaken"),
         });
-      }
 
-      {
         changes.push(
           ItemChange.create({
             formula: "-2",
-            target: "skills",
-            subTarget: "skills",
+            target: "savingThrows",
+            subTarget: "allSavingThrows",
             modifier: "penalty",
           })
         );
-        const flats = getChangeFlat.call(this, "skills", "penalty");
-        for (let f of flats) {
-          getSourceInfo(this.sourceInfo, f).negative.push({
+        for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
+          getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
             value: -2,
             name: game.i18n.localize("FFD20.CondShaken"),
           });
         }
-      }
 
-      {
+        {
+          changes.push(
+            ItemChange.create({
+              formula: "-2",
+              target: "skills",
+              subTarget: "skills",
+              modifier: "penalty",
+            })
+          );
+          const flats = getChangeFlat.call(this, "skills", "penalty");
+          for (let f of flats) {
+            getSourceInfo(this.sourceInfo, f).negative.push({
+              value: -2,
+              name: game.i18n.localize("FFD20.CondShaken"),
+            });
+          }
+        }
+
+        {
+          changes.push(
+            ItemChange.create({
+              formula: "-2",
+              target: "abilityChecks",
+              subTarget: "allChecks",
+              modifier: "penalty",
+            })
+          );
+          const flats = getChangeFlat.call(this, "allChecks", "penalty");
+          for (let f of flats) {
+            getSourceInfo(this.sourceInfo, f).negative.push({
+              value: -2,
+              name: game.i18n.localize("FFD20.CondShaken"),
+            });
+          }
+        }
+        break;
+      case "frightened":
         changes.push(
           ItemChange.create({
             formula: "-2",
-            target: "abilityChecks",
-            subTarget: "allChecks",
+            target: "attack",
+            subTarget: "attack",
             modifier: "penalty",
           })
         );
-        const flats = getChangeFlat.call(this, "allChecks", "penalty");
-        for (let f of flats) {
-          getSourceInfo(this.sourceInfo, f).negative.push({
-            value: -2,
-            name: game.i18n.localize("FFD20.CondShaken"),
-          });
-        }
-      }
-      break;
-    case "frightened":
-      changes.push(
-        ItemChange.create({
-          formula: "-2",
-          target: "attack",
-          subTarget: "attack",
-          modifier: "penalty",
-        })
-      );
-      getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
-        value: -2,
-        name: game.i18n.localize("FFD20.CondFrightened"),
-      });
-
-      changes.push(
-        ItemChange.create({
-          formula: "-2",
-          target: "savingThrows",
-          subTarget: "allSavingThrows",
-          modifier: "penalty",
-        })
-      );
-      for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
-        getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
+        getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
           value: -2,
           name: game.i18n.localize("FFD20.CondFrightened"),
         });
-      }
 
-      {
         changes.push(
           ItemChange.create({
             formula: "-2",
-            target: "skills",
-            subTarget: "skills",
+            target: "savingThrows",
+            subTarget: "allSavingThrows",
             modifier: "penalty",
           })
         );
-        const flats = getChangeFlat.call(this, "skills", "penalty");
-        for (let f of flats) {
-          getSourceInfo(this.sourceInfo, f).negative.push({
+        for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
+          getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
             value: -2,
             name: game.i18n.localize("FFD20.CondFrightened"),
           });
         }
-      }
 
-      {
-        changes.push(
-          ItemChange.create({
-            formula: "-2",
-            target: "abilityChecks",
-            subTarget: "allChecks",
-            modifier: "penalty",
-          })
-        );
-        const flats = getChangeFlat.call(this, "allChecks", "penalty");
-        for (let f of flats) {
-          getSourceInfo(this.sourceInfo, f).negative.push({
-            value: -2,
-            name: game.i18n.localize("FFD20.CondFrightened"),
-          });
+        {
+          changes.push(
+            ItemChange.create({
+              formula: "-2",
+              target: "skills",
+              subTarget: "skills",
+              modifier: "penalty",
+            })
+          );
+          const flats = getChangeFlat.call(this, "skills", "penalty");
+          for (let f of flats) {
+            getSourceInfo(this.sourceInfo, f).negative.push({
+              value: -2,
+              name: game.i18n.localize("FFD20.CondFrightened"),
+            });
+          }
         }
-      }
-      break;
-    case "panicked":
+
+        {
+          changes.push(
+            ItemChange.create({
+              formula: "-2",
+              target: "abilityChecks",
+              subTarget: "allChecks",
+              modifier: "penalty",
+            })
+          );
+          const flats = getChangeFlat.call(this, "allChecks", "penalty");
+          for (let f of flats) {
+            getSourceInfo(this.sourceInfo, f).negative.push({
+              value: -2,
+              name: game.i18n.localize("FFD20.CondFrightened"),
+            });
+          }
+        }
+        break;
+      case "panicked":
         changes.push(
           ItemChange.create({
             formula: "-2",
@@ -7269,50 +7270,50 @@ const addDefaultChanges = function (changes) {
           value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
         });
         break;
-        case "slow":
-          changes.push(
-            ItemChange.create({
-              formula: "-1",
-              target: "attack",
-              subTarget: "attack",
-              modifier: "penalty",
-            })
-          );
-          getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
+      case "slow":
+        changes.push(
+          ItemChange.create({
+            formula: "-1",
+            target: "attack",
+            subTarget: "attack",
+            modifier: "penalty",
+          })
+        );
+        getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
+          value: -1,
+          name: game.i18n.localize("FFD20.Condslow"),
+        });
+
+        changes.push(
+          ItemChange.create({
+            formula: "-1",
+            target: "savingThrows",
+            subTarget: "ref",
+            modifier: "penalty",
+          })
+        );
+        for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
+          getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
             value: -1,
-            name: game.i18n.localize("FFD20.Condslow"),
+            name: game.i18n.localize("FFD20.CondSlow"),
           });
-  
-          changes.push(
-            ItemChange.create({
-              formula: "-1",
-              target: "savingThrows",
-              subTarget: "ref",
-              modifier: "penalty",
-            })
-          );
-          for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
-            getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
-              value: -1,
-              name: game.i18n.localize("FFD20.CondSlow"),
-            });
-          }
-          changes.push(
-            ItemChange.create({
-              formula: "-1",
-              target: "ac",
-              subTarget: "ac",
-              modifier: "penalty",
-            })
-          );
-          for (const k of Object.keys(this.data.data.attributes.ac)) {
-            getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).negative.push({
-              value: -1,
-              name: game.i18n.localize("FFD20.CondSlow"),
-            });
-          }
-          break;
-      }
+        }
+        changes.push(
+          ItemChange.create({
+            formula: "-1",
+            target: "ac",
+            subTarget: "ac",
+            modifier: "penalty",
+          })
+        );
+        for (const k of Object.keys(this.data.data.attributes.ac)) {
+          getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).negative.push({
+            value: -1,
+            name: game.i18n.localize("FFD20.CondSlow"),
+          });
+        }
+        break;
+    }
   }
 
   // Handle fatigue and exhaustion so that they don't stack
@@ -19532,7 +19533,7 @@ class ActorRestDialog extends BaseEntitySheet {
 
   /**
    * Configure the title of the special traits selection window to include the Actor name
-   *
+   * 
    * @type {string}
    */
   get title() {
@@ -22551,7 +22552,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
   /**
    * Handle spawning the ActorTraitSelector application which allows a checkbox of multiple trait options
-   *
+   * 
    * @param {Event} event   The click event which originated the selection
    * @private
    */
