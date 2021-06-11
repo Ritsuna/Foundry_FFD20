@@ -1,4 +1,15 @@
 # Changelog
+## 0.1.16
+
+### Change Log
+- upped Encumbrance limits to STR 50
+- This system will not be getting updated to 0.8.6 for some time
+
+## 0.1.14
+
+### Change Log
+- Added divination school type
+
 ## 0.1.14
 
 ### Change Log
