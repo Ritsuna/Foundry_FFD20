@@ -9,6 +9,14 @@
   </ol>
   <ol class="form-group">
     <li class="flexrow skill-rank-info tooltip">
+      <span class="tooltipcontent">
+        {{#if sourceData.skillRanks}}
+        {{localize "FFD20.FromSources"}}:<br/>
+        {{#each sourceData.skillRanks as |src|}}
+        {{src.name}}: {{src.value}}<br/>
+        {{/each}}
+        {{/if}}
+      </span>
       <table>
         <thead>
           <tr>
@@ -77,6 +85,7 @@
   <div class="tab flexcol" data-group="skillset" data-tab="adventure">
     {{> "systems/ffd20/templates/actors/parts/actor-skills.hbs" skillset=skillsets.adventure.skills isBackgroundSkills="false" skillGroup="adventure"}}
   </div>
+
   <div class="tab flexcol" data-group="skillset" data-tab="background">
     {{> "systems/ffd20/templates/actors/parts/actor-skills.hbs" skillset=skillsets.background.skills isBackgroundSkills="true" skillGroup="background"}}
   </div>

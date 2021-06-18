@@ -2,16 +2,19 @@
 <div class="flexrow buffs-conditions">
   {{#each config.conditions as |value con|}}
   <div class="condition">
-    <label class="checkbox">
-      <input type="checkbox" name="data.attributes.conditions.{{con}}" {{checked (lookup ../data.attributes.conditions con)}}/>
+    <a class="checkbox {{#if (lookup ../data.attributes.conditions con)}}active{{/if}}" name="data.attributes.conditions.{{con}}">
+      <img src="{{lookup ../config.conditionTextures con}}" width="32" height="32">
+      {{!--  <input type="checkbox" name="data.attributes.conditions.{{con}}" {{checked (lookup ../data.attributes.conditions con)}}/>  --}}
       <span>{{lookup ../config.conditions con}}</span>
-    </label>
+    </a>
   </div>
   {{/each}}
 </div>
 
 <hr>
 <div class="inventory-filters flexrow">  
+  {{~> "systems/ffd20/templates/internal/item-search.hbs" category="buffs"}}
+
   <ul class="filter-list flexrow" data-filter="buffs">
     {{#each sections as |section sid|}}
     <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
@@ -40,6 +43,7 @@
           <a class="item-control item-create" title="{{localize "FFD20.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
             <i class="fas fa-plus"></i> {{localize "FFD20.Add"}}
           </a>
+          <a data-action="compendium" data-action-target="buffs" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
         </div>
         {{/if}}
       </li>

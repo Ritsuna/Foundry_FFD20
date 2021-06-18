@@ -22,6 +22,7 @@
           <a class="item-control item-create" title="{{localize "FFD20.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
             <i class="fas fa-plus"></i> {{localize "FFD20.Add"}}
           </a>
+          <a data-action="compendium" data-action-target="items" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
           {{/if}}
         </div>
         {{/if}}
@@ -52,6 +53,7 @@
             </div>
           </div>
           {{/if}}
+          
           {{#if section.showValue}}
           <div class="item-detail item-value">
             <span>{{item.price}} {{localize "FFD20.CurrencyGil"}}</span>

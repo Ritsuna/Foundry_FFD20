@@ -1,4 +1,6 @@
-<div class="inventory-filters flexrow">
+<div class="inventory-filters flexrow">  
+  {{~> "systems/ffd20/templates/internal/item-search.hbs" category="features"}}
+
   <ul class="filter-list flexrow" data-filter="features">
     {{#each sections as |section sid|}}
     <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
@@ -13,17 +15,21 @@
     <ol class="inventory-list sub-scroll scroll-feats">
       <li class="inventory-header flexrow">
         <h3 class="item-name flexrow">{{section.label}}</h3>
+        
         {{#unless section.isClass}}
         <div class="item-detail item-type"><i class="icon icon-magic-palm large" title="{{localize "FFD20.Type"}}"></i></div>
         {{/unless}}
+        
         {{#if section.hasActions}}
         <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "FFD20.ActionPlural"}}"></i></div>
         <div class="item-detail item-uses"><i class="icon icon-battery-pack large" title="{{localize "FFD20.ChargePlural"}}"></i></div>
         <div class="item-detail item-usage"><i class="icon icon-hand large" title="{{localize "FFD20.Usage"}}"></i></div>
         {{/if}}
+        
         {{#if section.isClass}}
         <div class="item-detail item-feat-level"><i class="icon icon-upgrade large" title="{{localize "FFD20.Level"}}"></i></div>
         {{/if}}
+        
         {{#if ../owner}}
         <div class="item-controls">
           {{#if section.canCreate}}
@@ -35,29 +41,35 @@
         </div>
         {{/if}}
       </li>
+      
       <ol class="item-list">
         {{#each section.items as |item iid|}}
-        <li class="item flexrow {{#unless isCharged}}uncharged{{/unless}}" data-item-id="{{item._id}}">
+        <li class="item flexrow{{#unless isCharged}} uncharged{{/unless}}{{#if item.data.disabled}} disabled{{/if}}" data-item-id="{{item._id}}">
           <div class="item-name flexrow rollable">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <h4>{{item.name}}</h4>
           </div>
+          
           {{#unless section.isClass}}
           <div class="item-detail item-type">
             <span>{{item.abilityTypeShort}}</span>
           </div>
           {{/unless}}
+          
           {{#if section.hasActions}}
           <div class="item-detail item-actions">
             <div class="item-attack tooltip">
+              {{#unless item.data.disabled}}
               {{#if item.hasAction}}
               <span class="tooltipcontent">
                 {{localize "FFD20.UseFeat"}}
               </span>
               <a class="item-control item-attack"><img class="icon" src="systems/ffd20/icons/actions/gladius.svg"></a>
               {{/if}}
+              {{/unless}}
             </div>
           </div>
+          
           <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
             {{#if item.isCharged}}
             <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.data.uses.value}}</span>
@@ -80,6 +92,7 @@
             <span class="tooltipcontent">@classes.{{item.data.tag}}.level : {{item.data.level}}</span>
           </div>
           {{/if}}
+          
           {{#if ../../owner}}
           <div class="item-controls">
             <a class="item-control item-edit" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>

@@ -1,0 +1,17 @@
+<div class="widget categorized-item-picker">
+  <div class="item-picker-categories">
+    {{#each categories as |cat|}}
+      <div class="category">
+        <a data-category="{{cat.key}}"><h2>{{cat.label}}</h2></a>
+      </div>
+    {{/each}}
+  </div>
+
+  <div class="item-picker-items">
+    {{#each items as |item|}}
+      <span class="item hidden" style="display: none;" data-category="{{item.category}}" data-value="{{item.key}}">
+          {{item.label}}
+      </span>
+    {{/each}}
+  </div>
+</div>

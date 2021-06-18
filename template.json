@@ -175,14 +175,17 @@
           "quadruped": false,
           "savingThrows": {
             "fort": {
+              "base": 0,
               "total": 0,
               "ability": "con"
             },
             "ref": {
+              "base": 0,
               "total": 0,
               "ability": "dex"
             },
             "will": {
+              "base": 0,
               "total": 0,
               "ability": "wis"
             }
@@ -317,7 +320,10 @@
             "spellbooks": {
               "primary": {
                 "altName": "",
+                "castPerDayAllOffsetFormula": "",
+                "preparedAllOffsetFormula": "",
                 "name": "Primary",
+                "casterType": "high",
                 "class": "",
                 "cl": {
                   "base": 0,
@@ -330,8 +336,11 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "int",
-                "autoSpellLevels": true,
+                "autoSpellLevelCalculation": false,
+                "autoSpellLevels": false,
                 "arcaneSpellFailure": true,
+                "hasCantrips": true,
+                "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
@@ -340,13 +349,58 @@
                   "max": 0,
                   "maxFormula": "",
                   "restoreFormula": ""
+                },
+                "spells": {
+                  "spell0": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell1": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell2": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell3": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell4": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell5": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell6": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell7": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell8": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell9": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  }
                 },
                 "spellSlotAbilityBonusFormula": "",
                 "domainSlotValue": 1
               },
               "secondary": {
                 "altName": "",
+                "castPerDayAllOffsetFormula": "",
+                "preparedAllOffsetFormula": "",
                 "name": "Secondary",
+                "casterType": "high",
                 "class": "",
                 "cl": {
                   "base": 0,
@@ -359,8 +413,11 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "int",
-                "autoSpellLevels": true,
+                "autoSpellLevelCalculation": false,
+                "autoSpellLevels": false,
                 "arcaneSpellFailure": true,
+                "hasCantrips": true,
+                "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
@@ -369,13 +426,58 @@
                   "max": 0,
                   "maxFormula": "",
                   "restoreFormula": ""
+                },
+                "spells": {
+                  "spell0": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell1": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell2": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell3": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell4": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell5": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell6": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell7": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell8": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell9": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  }
                 },
                 "spellSlotAbilityBonusFormula": "",
                 "domainSlotValue": 1
               },
               "tertiary": {
                 "altName": "",
+                "castPerDayAllOffsetFormula": "",
+                "preparedAllOffsetFormula": "",
                 "name": "Tertiary",
+                "casterType": "high",
                 "class": "",
                 "cl": {
                   "base": 0,
@@ -388,8 +490,11 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "int",
-                "autoSpellLevels": true,
+                "autoSpellLevelCalculation": false,
+                "autoSpellLevels": false,
                 "arcaneSpellFailure": true,
+                "hasCantrips": true,
+                "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
@@ -399,12 +504,134 @@
                   "maxFormula": "",
                   "restoreFormula": ""
                 },
+                "spells": {
+                  "spell0": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell1": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell2": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell3": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell4": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell5": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell6": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell7": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell8": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell9": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  }
+                },
+                "spellSlotAbilityBonusFormula": "",
+                "domainSlotValue": 1
+              },
+              "quaternary": {
+                "altName": "",
+                "castPerDayAllOffsetFormula": "",
+                "preparedAllOffsetFormula": "",
+                "name": "Quaternary",
+                "casterType": "high",
+                "class": "",
+                "cl": {
+                  "base": 0,
+                  "value": 0,
+                  "total": 0,
+                  "formula": ""
+                },
+                "concentration": 0,
+                "concentrationFormula": "",
+                "concentrationNotes": "",
+                "clNotes": "",
+                "ability": "int",
+                "autoSpellLevelCalculation": false,
+                "autoSpellLevels": false,
+                "arcaneSpellFailure": true,
+                "hasCantrips": true,
+                "spellPreparationMode": "spontaneous",
+                "baseDCFormula": "10 + @sl + @ablMod",
+                "spontaneous": true,
+                "spellPoints": {
+                  "useSystem": true,
+                  "value": 0,
+                  "max": 0,
+                  "maxFormula": "",
+                  "restoreFormula": ""
+                },
+                "spells": {
+                  "spell0": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell1": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell2": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell3": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell4": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell5": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell6": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell7": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell8": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell9": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  }
+                },
                 "spellSlotAbilityBonusFormula": "",
                 "domainSlotValue": 1
               },
               "spelllike": {
                 "altName": "",
+                "castPerDayAllOffsetFormula": "",
+                "preparedAllOffsetFormula": "",
                 "name": "Spell-likes",
+                "casterType": "high",
                 "class": "_hd",
                 "cl": {
                   "base": 0,
@@ -417,16 +644,61 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "cha",
-                "autoSpellLevels": true,
+                "autoSpellLevelCalculation": false,
+                "autoSpellLevels": false,
                 "arcaneSpellFailure": true,
+                "hasCantrips": true,
+                "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
-                "spontaneous": false,
+                "spontaneous": true,
                 "spellPoints": {
                   "useSystem": false,
                   "value": 0,
                   "max": 0,
                   "maxFormula": "",
                   "restoreFormula": ""
+                },
+                "spells": {
+                  "spell0": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell1": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell2": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell3": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell4": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell5": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell6": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell7": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell8": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  },
+                  "spell9": {
+                    "castPerDayOffsetFormula": "",
+                    "preparedOffsetFormula": ""
+                  }
                 },
                 "spellSlotAbilityBonusFormula": "",
                 "domainSlotValue": 1
@@ -904,7 +1176,7 @@
           "on": false
         }
       },
-    "traits": {
+      "traits": {
         "weaponProf": {
           "value": [],
           "custom": ""
@@ -968,6 +1240,9 @@
           "mediumArmorFullSpeed": false,
           "heavyArmorFullSpeed": false
         }
+      },
+      "scriptCalls": {
+        "scriptCalls": []
       },
       "contextNotes": {
         "contextNotes": []
@@ -1117,7 +1392,7 @@
       }
     },
     "class": {
-      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags"],
+      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags", "scriptCalls"],
       "classType": "base",
       "classSubType": "none",
       "parentClass": "",
@@ -1126,13 +1401,13 @@
         "_deprecated": true
       },
       "level": 1,
-      "lvl": 0,
+      "lvl": 1,
       "countforexp": "exp",
       "hd": 8,
       "hp": 8,
       "classCastingStat": "noncaster",
       "classBaseMPTypes": "noncaster",
-      "classBaseMPauto": "no",
+      "classBaseMPauto": "yes",
       "mp": 0,
       "bab": "low",
       "skillsPerLevel": 0,
@@ -1149,14 +1424,23 @@
       "classSkills": {}
     },
     "buff": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags", "scriptCalls"],
       "buffType": "temp",
       "active": false,
       "level": 0,
       "hideFromToken": false
     },
     "consumable": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "links", "tagged", "flags"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "activatedEffect",
+        "action",
+        "links",
+        "tagged",
+        "flags",
+        "scriptCalls"
+      ],
       "consumableType": "potion",
       "uses": {
         "value": 0,
@@ -1178,7 +1462,8 @@
         "action",
         "links",
         "tagged",
-        "flags"
+        "flags",
+        "scriptCalls"
       ],
       "equipped": true,
       "equipmentType": "armor",
@@ -1222,7 +1507,8 @@
         "links",
         "tagged",
         "proficiencies",
-        "flags"
+        "flags",
+        "scriptCalls"
       ],
       "featType": "feat",
       "associations": {
@@ -1234,15 +1520,25 @@
       "crOffset": "",
       "links": {
         "charges": []
-      }
+      },
+      "disabled": false
     },
     "loot": {
-      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "changes",
+        "contextNotes",
+        "links",
+        "tagged",
+        "flags",
+        "scriptCalls"
+      ],
       "subType": "misc",
       "equipped": true
     },
     "spell": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags", "scriptCalls"],
       "learnedAt": {
         "class": [],
         "domain": [],
@@ -1295,7 +1591,16 @@
       "slotCost": 1
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "changes",
+        "contextNotes",
+        "links",
+        "tagged",
+        "flags",
+        "scriptCalls"
+      ],
       "equipped": true,
       "masterwork": false,
       "nonlethal": false,
@@ -1333,7 +1638,7 @@
       }
     },
     "attack": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags", "scriptCalls"],
       "attackType": "weapon",
       "masterwork": false,
       "nonlethal": false,
@@ -1349,7 +1654,7 @@
       }
     },
     "race": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags", "scriptCalls"],
       "creatureType": "humanoid",
       "subTypes": []
     },

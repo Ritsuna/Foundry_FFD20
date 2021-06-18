@@ -41,6 +41,8 @@
       </div>
 
       <div class="form-group">
+        {{~> "systems/ffd20/templates/internal/item-search.hbs" category="container"}}
+
         <ol class="currency flexrow">
           <h3>
             {{localize "FFD20.Currency"}}
@@ -64,6 +66,7 @@
               <th>{{localize "FFD20.ItemContainerContentsSellValue"}}</th>
             </tr>
           </thead>
+          
           <tbody>
             <tr>
               <td>{{contentsWeight}} {{weightUnits}}</td>

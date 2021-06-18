@@ -13,7 +13,7 @@
   </thead>
   <tbody>
   {{#each items as |item|}}
-    <tr class="item" data-item-id="{{item._id}}">
+    <tr class="item" data-item-id="{{item.id}}">
       <td class="nocenter"><img src="{{item.img}}" width="24" height="24">{{item.name}}{{#if item.quantity}} (x{{item.quantity}}){{/if}}</td>
       <td>{{{item.school}}}</td>
       <td>{{item.cl}}</td>

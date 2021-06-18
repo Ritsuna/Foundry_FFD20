@@ -122,6 +122,8 @@
 
 {{!-- Attack Filters --}}
 <div class="inventory-filters flexrow">
+  {{~> "systems/ffd20/templates/internal/item-search.hbs" category="attacks"}}
+
   <ul class="filter-list flexrow" data-filter="attacks">
     {{#each sections as |section sid|}}
       <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>

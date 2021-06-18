@@ -104,7 +104,7 @@
         </select>
       </div>
       {{else}}
-            {{!-- Equipment Size --}}
+      {{!-- Equipment Size --}}
       <div class="form-group">
         <label>{{localize "FFD20.Size"}}</label>
         <select name="data.size">
@@ -206,8 +206,6 @@
     {{#unless showUnidentifiedData}}
     <div class="tab flexcol" data-group="primary" data-tab="changes">
       {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
-
-      {{> "systems/ffd20/templates/items/parts/item-notes.hbs"}}
     </div>
     {{/unless}}
 

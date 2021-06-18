@@ -18,7 +18,7 @@
       <!-- <a class="currency-convert" title="Convert Currency"><i class="fas fa-coins"></i></a> -->
     </h3>
     {{#each data.altCurrency as |v k|}}
-    <label class="denomination {{k}}">{{ lookup ../config.currencies k }}</label>
+    <label class="denomination {{k}} alt-currency">{{ lookup ../config.currencies k }}</label>
     <span class="text-box direct allow-relative" name="data.altCurrency.{{k}}">{{v}}</span>
     <a class="convert-currency" data-type="{{k}}" data-category="altCurrency" title="{{localize "FFD20.ConvertCurrency"}}"><i class="fas fa-long-arrow-alt-left"></i></a>
     {{/each}}
@@ -29,7 +29,8 @@
 {{!-- Inventory Navigation --}}
 <hr>
 
-<div class="inventory-filters flexrow">
+<div class="inventory-filters flexrow">  
+  {{~> "systems/ffd20/templates/internal/item-search.hbs" category="inventory"}}
   <ul class="filter-list flexrow" data-filter="inventory">
     {{#each sections as |section sid|}}
     <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
@@ -74,10 +75,10 @@
 
     <ol class="item-list">
       {{#each section.items as |item iid|}}
-      <li class="item flexrow" data-item-id="{{item._id}}">
+      <li class="item flexrow{{#if item.empty}} disabled{{/if}}" data-item-id="{{item._id}}">
         <div class="item-name flexrow">
           <div class="item-image rollable" style="background-image: url({{item.img}})"></div>
-          <h4 class="rollable{{#if item.empty}} strikethrough-text{{/if}}">
+          <h4 class="rollable">
             {{~#if item.isStack}}({{item.data.quantity}}) {{/if}}
             {{item.name~}}
           </h4>
@@ -105,6 +106,7 @@
           </div>
         </div>
         {{/if}}
+        
         {{#if section.showValue}}
         <div class="item-detail item-value">
           <span>{{item.price}} {{localize "FFD20.CurrencyGil"}}</span>

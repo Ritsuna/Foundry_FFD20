@@ -686,9 +686,22 @@
 
     <ol class="quick-actions">
       {{#each quickActions as |i|}}
-      <li class="item" data-item-id="{{i.item._id}}" data-type="{{i.item.type}}" style="border-color: {{i.color1}};" title="{{i.item.name}}">
+      <li class="item" data-item-id="{{i.item.id}}" data-type="{{i.item.type}}" style="border-color: {{i.color1}};" title="{{i.item.name}}">
         <img src="{{i.item.img}}">
         <span class="icon-label">{{i.item.name}}</span>
+        {{#if i.haveAnyCharges}}
+        <charges>
+          {{#if i.recharging}}
+          <span class="recharge">+{{i.charges}}</span>
+          {{else}}
+          <span class="remaining">{{i.charges}}</span>
+          {{#if i.maxCharge}}
+          <span class="delimiter">/</span>
+          <span class="max">{{i.maxCharge}}</span>
+          {{/if}}
+          {{/if}}
+        </charges>
+        {{/if}}
       </li>
       {{/each}}
     </ol>
@@ -719,7 +732,7 @@
       {{#if classes.length}}
       <ol class="item-list">
         {{#each classes as |item iid|}}
-        <div class="item flexrow {{#unless isCharged}}uncharged{{/unless}}" data-item-id="{{item._id}}">
+        <li class="item flexrow {{#unless isCharged}}uncharged{{/unless}}" data-item-id="{{item._id}}">
           <div class="item-name flexrow rollable">
             <div class="item-image" style="background-image: url({{item.img}})"></div>
             <h4>{{item.name}}</h4>
@@ -745,7 +758,7 @@
             <a class="item-control item-delete" title="{{localize "FFD20.DeleteItem"}}"><i class="fas fa-trash"></i></a>
           </div>
           {{/if}}
-        </div>
+        </li>
         {{/each}}
       </ol>
       {{else}}

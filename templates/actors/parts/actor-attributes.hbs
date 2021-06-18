@@ -25,12 +25,19 @@
                         @abilities.{{id}}.drain : {{ability.drain}}<br/>
                         @abilities.{{id}}.penalty : {{ability.penalty}}<br/>
                         @abilities.{{id}}.base : {{ability.base}}<br/>
-                        @abilities.{{id}}.baseMod : {{ability.baseMod}}
+                        @abilities.{{id}}.baseMod : {{ability.baseMod}}<br/>
                         
                         {{#if ability.sourceDetails.length}}
-                        <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                        <br/>{{localize "FFD20.FromSources"}} ({{localize "FFD20.AbilityScore"}}):<br/>
                         {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                         {{/if}}
+
+                        {{#with (lookup ../sourceDetails.data.abilities id)}}
+                        {{#if mod.length}}
+                        <br/>{{localize "FFD20.FromSources"}} ({{localize "FFD20.Modifier"}}):<br/>
+                        {{#each mod as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                        {{/if}}
+                        {{/with}}
                     </span>
                     
                     <a class="ability-name rollable">

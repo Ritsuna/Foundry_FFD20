@@ -60,6 +60,8 @@
   "SETTINGS.ffd20HideReachMeasurementsH": "Don't show reach measurements, such as those found when hovering over token quick actions.",
   "SETTINGS.ffd20DisplayIterativesN": "Display iteratives",
   "SETTINGS.ffd20DisplayIterativesH": "Breaks down BAB display to iteratives instead of only the total bonus",
+  "SETTINGS.ffd20AlternativeReachCornerRuleN": "Alternative Reach Rule",
+  "SETTINGS.ffd20AlternativeReachCornerRuleH": "Hides the outer corners from 10-ft reach measurements",
 
   "SETTINGS.ffd20HealthConfigName": "Health Configuration",
   "SETTINGS.ffd20HealthConfigLabel": "Configure Health",
@@ -110,6 +112,7 @@
   "SETTINGS.ffd20UnitsL": "System of units to be used in the world",
 
   "TOKEN.VisionLowLight": "Low-light Vision",
+  "TOKEN.VisionLowLightMultiplier": "Low-light Multiplier",
   "TOKEN.VisionDarkvision": "Darkvision",
 
   "FFD20.ExperienceConfigName": "Experience Configuration",
@@ -208,11 +211,6 @@
   "FFD20.FlagsSave": "Update Special Traits",
   "FFD20.FlagsBoolean": "Boolean Flags",
   "FFD20.FlagsDictionary": "Dictionary Flags",
-  "FFD20.AdvancedInfo": {
-    "Flags": {
-      "InfoBox": "Flags can be used by modules and macros, and don't do anything by themselves."
-    }
-  },
 
   "FFD20.AbilityDamage": "Ability Damage",
   "FFD20.AbilityDrain": "Ability Drain",
@@ -254,13 +252,19 @@
   "FFD20.AbilityWis": "Wisdom",
   "FFD20.AbilityCha": "Charisma",
 
+  "FFD20.AbilityStrMod": "Strength Modifier",
+  "FFD20.AbilityDexMod": "Dexterity Modifier",
+  "FFD20.AbilityConMod": "Constitution Modifier",
+  "FFD20.AbilityIntMod": "Intelligence Modifier",
+  "FFD20.AbilityWisMod": "Wisdom Modifier",
+  "FFD20.AbilityChaMod": "Charisma Modifier",
+
   "FFD20.AbilityShortStr": "Str",
   "FFD20.AbilityShortDex": "Dex",
   "FFD20.AbilityShortCon": "Con",
   "FFD20.AbilityShortInt": "Int",
   "FFD20.AbilityShortWis": "Wis",
   "FFD20.AbilityShortCha": "Cha",
-  "FFD20.AbilityShortIntAndWis": "Int and Wis",
 
   "FFD20.SavingThrowFort": "Fortitude",
   "FFD20.SavingThrowRef": "Reflex",
@@ -414,18 +418,6 @@
   "FFD20.ClassTypeNPC": "NPC Class",
   "FFD20.ClassTypeRacial": "Racial HD",
   "FFD20.ClassTypeMythic": "Mythic Path",
-  "FFD20.ClassSubType": "Class Catagory",
-  "FFD20.ClassSubTypeCore": "Core Class",
-  "FFD20.ClassSubTypeCoreArc": "Core Class Archetype",
-  "FFD20.ClassSubTypeBase": "Base Class",
-  "FFD20.ClassSubTypeBaseArc": "Base Class Archetype",
-  "FFD20.ClassSubTypeHybrid": "Hybrid Class",
-  "FFD20.ClassSubTypeHybridArc": "Hybrid Class Archetype",
-  "FFD20.ParentClass": "Parent Class",
-  "FFD20.countforexp": "Apply to exp and HD",
-  "FFD20.ClassNoExp": "Disable Experience Tracking",
-  "FFD20.ClassExp": "Enable Experience Tracking",
-  "FFD20.classBaseMPauto": "Auto MP",
 
   "FFD20.ActionMWAK": "Melee Weapon Attack",
   "FFD20.ActionRWAK": "Ranged Weapon Attack",
@@ -464,6 +456,11 @@
   "FFD20.Currency": "Currency",
   "FFD20.WeightlessCurrency": "Weightless Currency",
   "FFD20.CurrencyGil": "Gil",
+  "FFD20.CurrencySend": "Send Currency",
+  "FFD20.CurrencyGilP": "Gil Pieces",
+  "FFD20.CurrencyFailed": "Currency Transfer Failed: ",
+  "FFD20.CurrencyGMRequired": "A GM is required to finish the transfer.",
+  "FFD20.CurrencyInsufficient": "Insufficient Currency",
 
   "FFD20.DistPersonal": "Personal",
   "FFD20.DistTouch": "Touch",
@@ -519,10 +516,12 @@
   "FFD20.FlyManeuverabilityPerfect": "Perfect",
 
   "FFD20.BuffTarAC": "AC",
-  "FFD20.BuffTarACGeneric": "Generic",
-  "FFD20.BuffTarACArmor": "Armor",
-  "FFD20.BuffTarACShield": "Shield",
-  "FFD20.BuffTarACNatural": "Natural Armor",
+  "FFD20.BuffTarACGeneric": "Generic AC",
+  "FFD20.BuffTarACArmor": "Armor AC",
+  "FFD20.BuffTarACShield": "Shield AC",
+  "FFD20.BuffTarACNatural": "Natural Armor AC",
+  "FFD20.BuffTarACTouch": "Touch AC",
+  "FFD20.BuffTarACFlatFooted": "Flat-footed AC",
   "FFD20.BuffTarStrSkills": "Strength Skills",
   "FFD20.BuffTarDexSkills": "Dexterity Skills",
   "FFD20.BuffTarConSkills": "Constitution Skills",
@@ -539,9 +538,17 @@
   "FFD20.BuffTarChaChecks": "Charisma Checks",
   "FFD20.BuffTarBonusSkillRanks": "Bonus Skill Ranks",
   "FFD20.BuffTarBonusFeats": "Bonus Feats",
+  "FFD20.BuffTarAllAttackRolls": "All Attack Rolls",
+  "FFD20.BuffTarAllDamageRolls": "All Damage Rolls",
+  "FFD20.BuffTarAllSavingThrows": "All Saving Throws",
+  "FFD20.BuffTarAllSkills": "All Skills",
+  "FFD20.BuffTarAllAbilityChecks": "All Ability Checks",
+  "FFD20.BuffTarAllSpeeds": "All Speeds",
+  "FFD20.BuffTarMeleeAttack": "Melee Attack Rolls",
+  "FFD20.BuffTarRangedAttack": "Ranged Attack Rolls",
 
   "FFD20.BuffTarSpells": "Spells",
-  "FFD20.SpellBuffEffect": "Effect",
+  "FFD20.SpellBuffEffect": "Spell Effect",
 
   "FFD20.SkillAcr": "Acrobatics",
   "FFD20.SkillApr": "Appraise",
@@ -616,6 +623,11 @@
   "FFD20.SpellPrepPrepared": "Prepared",
   "FFD20.SpellPrepSpontaneous": "Spontaneous",
 
+  "FFD20.SpellsKnown": "Spells Known",
+
+  "FFD20.Arcanist": "Arcanist",
+  "FFD20.RedMantisAssassin": "Red Mantis Assassin",
+
   "FFD20.SpellComponentVerbal": "Verbal",
   "FFD20.SpellComponentSomatic": "Somatic",
   "FFD20.SpellComponentMaterial": "Material",
@@ -625,6 +637,18 @@
   "FFD20.SpellComponentDivineFocusAlone": "DF",
   "FFD20.SpellComponentDivineFocusMaterial": "M/DF",
   "FFD20.SpellComponentDivineFocusFocus": "F/DF",
+
+  "FFD20.AutoSpellClassLevelOffset": {
+    "Formula": "Class Level Modification",
+    "InfoBox": "If you have a prestige class that alters your class level, add that here (e.g. @classes.mysticTheurge.level)"
+  },
+
+  "FFD20.LearnMoreSpell": "You can learn 1 more spell",
+  "FFD20.LearnMoreSpells": "You can learn {quantity} more spells",
+  "FFD20.PrepareMoreSpell": "You can prepare 1 more spell",
+  "FFD20.PrepareMoreSpells": "You can prepare {quantity} more spells",
+  "FFD20.SpellScoreTooLow": "Your ability score is too low to cast spells of this level",
+  "FFD20.TooManySpells": "You have {quantity} too many spells",
 
   "FFD20.MeasureTemplateCone": "Cone",
   "FFD20.MeasureTemplateCircle": "Circle",
@@ -733,13 +757,13 @@
   "FFD20.FeatTypeTemplate": "Template",
 
   "FFD20.ActivationTypePassive": "Passive",
-  "FFD20.ActivationTypeFree": "Free Action",
-  "FFD20.ActivationTypeSwift": "Swift Action",
+  "FFD20.ActivationTypeFree": "Free",
+  "FFD20.ActivationTypeSwift": "Swift",
   "FFD20.ActivationTypeImmediate": "Immediate",
-  "FFD20.ActivationTypeMove": "Move Action",
-  "FFD20.ActivationTypeStandard": "Standard Action",
-  "FFD20.ActivationTypeFullround": "Full-round Action",
-  "FFD20.ActivationTypeAttack": "Attack Action",
+  "FFD20.ActivationTypeMove": "Move",
+  "FFD20.ActivationTypeStandard": "Standard",
+  "FFD20.ActivationTypeFullround": "Full-round",
+  "FFD20.ActivationTypeAttack": "Attack",
   "FFD20.ActivationTypeRound": "Round",
   "FFD20.ActivationTypeMinute": "Minute",
   "FFD20.ActivationTypeHour": "Hour",
@@ -808,6 +832,7 @@
   "FFD20.SpellSchoolHealingEnhancing": "Healing/Enhancing",
   "FFD20.SpellSchoolIllusionEnhancing": "Illusion/Enhancing",
   "FFD20.SpellSchoolNecromancyEnhancing": "Necromancy/Enhancing",
+  "FFD20.SpellSchoolNecromancyEnfeebling": "Necromancy/Enfeebling",
   "FFD20.SpellSchoolEnfeeblingDarkElemental": "Enfeebling/Dark/Elemental",
   "FFD20.SpellSchoolEnfeeblingDark": "Enfeebling/Dark",
   "FFD20.SpellSchoolEnfeeblingLight": "Enfeebling/Light",
@@ -876,13 +901,14 @@
   "FFD20.ErrorInsufficientCharges": "There's insufficient charges left in {0}",
   "FFD20.ErrorNoQuantity": "You don't have any more of that item",
   "FFD20.ErrorNoSpellsLeft": "You don't have spells left of that type",
-  "FFD20.ErrorNoMPLeft": "You don't have any MP left",
   "FFD20.ErrorUnauthorizedAction": "You are not authorized to perform that action",
   "FFD20.ErrorActorFormula": "Formula error of type {0} on actor {1}",
   "FFD20.ErrorActorNotFound": "Actor with ID {0} not found",
   "FFD20.ErrorCantIdentify": "You are not allowed to identify items",
   "FFD20.ErrorNoApplicableActorFoundForAction": "No applicable actor found for action '{0}'",
   "FFD20.ErrorCouldNotFindActorByName": "Could not find actor by name '{0}'",
+  "FFD20.ErrorFeatDisabled": "This feat is disabled",
+  "FFD20.ErrorNoMacroID": "No macro with id '{id}' was found",
   "FFD20.WarningNoSizeDie": "Could not determine size-appropriate die for {0}, defaulting to rolling {1}",
   "FFD20.WarningNoDiceAllowedInFormula": "No dice rolls are allowed in formula '{0}' for {1}",
   "FFD20.WarningInsufficientAmmunition": "You have insufficient ammunition of type {0}",
@@ -927,6 +953,7 @@
   "FFD20.BrowseFeats": "Browse Features",
   "FFD20.BrowseClasses": "Browse Classes",
   "FFD20.BrowseRaces": "Browse Races",
+  "FFD20.BrowseBuffs": "Browse Buffs",
 
   "FFD20.LanguageCommon": "Common",
   "FFD20.LanguageDwarven": "Dwarven",
@@ -1071,6 +1098,36 @@
   "FFD20.CombatInfo_Header": "Combat",
   "FFD20.CombatInfo_Round": "Round {0}",
 
+  "FFD20.ScriptCalls": {
+    "Name": "Script Calls",
+    "NewName": "New Script Call",
+
+    "Use": {
+      "Name": "Use",
+      "Info": "Called when the item has been 'used' (attack, drink potion, etc.). Has the extra variable `attacks`, which is an array containing the action's attack rolls, if any."
+    },
+
+    "Equip": {
+      "Name": "Equip",
+      "Info": "Called when the item has been equipped or unequipped. Has the extra variable `equipped`, which is either `true` or `false`."
+    },
+
+    "Toggle": {
+      "Name": "Toggle",
+      "Info": "Called when the item has been enabled or disabled. Has the extra variable `state`, which is either `true` or `false`."
+    },
+
+    "ChangeQuantity": {
+      "Name": "Change Quantity",
+      "Info": "Called when the quantity of the item has been changed. Has the extra variables `quantity.previous` and `quantity.new`, which are both numbers."
+    },
+
+    "ChangeLevel": {
+      "Name": "Change Level",
+      "Info": "Called when the level of the item has been changed. Has the extra variables `quantity.previous` and `quantity.new`, which are both numbers."
+    }
+  },
+
   "FFD20.AddClass": "Add Class",
   "FFD20.Horizontal": "Horizontal",
   "FFD20.Vertical": "Vertical",
@@ -1122,6 +1179,7 @@
   "FFD20.MinimumDamage": "Minimum Damage",
   "FFD20.Drain": "Drain",
   "FFD20.Penalty": "Penalty",
+  "FFD20.Defense": "Defense",
   "FFD20.Defenses": "Defenses",
   "FFD20.Description": "Description",
   "FFD20.Details": "Details",
@@ -1132,6 +1190,7 @@
   "FFD20.NotEquipped": "Not Equipped",
   "FFD20.Carried": "Carried",
   "FFD20.Identified": "Identified",
+  "FFD20.Iterative": "Iterative",
   "FFD20.Unidentified": "Unidentified",
   "FFD20.Exhaustion": "Exhaustion",
   "FFD20.FlyManeuverability": "Fly Maneuverability",
@@ -1155,7 +1214,9 @@
   "FFD20.LevelDrain": "Level Drain",
   "FFD20.None": "None",
   "FFD20.Notes": "Notes",
+  "FFD20.Operator": "Operator",
   "FFD20.Proficiency": "Proficiency",
+  "FFD20.ProficiencyPenalty": "Proficiency Penalty",
   "FFD20.Quadruped": "Quadruped",
   "FFD20.ResourcePrimary": "Resource 1",
   "FFD20.ResourceSecondary": "Resource 2",
@@ -1251,8 +1312,6 @@
   "FFD20.Misc": "Miscellaneous",
   "FFD20.MiscShort": "Misc",
   "FFD20.HitPoints": "Hit Points",
-  "FFD20.ManaPoints": "Mana Points",
-  "FFD20.LimitBreak": "LimitBreak",
   "FFD20.VulnerableTo": "Vulnerable to {0}",
   "FFD20.ImmuneTo": "Immune to {0}",
   "FFD20.AbilityTest": "{0} Ability Test",
@@ -1261,13 +1320,13 @@
   "FFD20.SavingThrowButtonLabel": "{0} DC {1}",
   "FFD20.SpellResistanceNote": "Spell Resistance {0}",
   "FFD20.ImmunityPlural": "Immunities",
-  "FFD20.ClassMPType": "MP Type",
   "FFD20.BABAbbr": "BAB",
   "FFD20.BAB": "Base Attack Bonus",
   "FFD20.CMBAbbr": "CMB",
   "FFD20.CMB": "Combat Maneuver Bonus",
   "FFD20.CMDAbbr": "CMD",
   "FFD20.CMDFFAbbr": "FF CMD",
+  "FFD20.CMD": "Combat Maneuver Defense",
   "FFD20.Untrained": "Untrained",
   "FFD20.DeleteItemConfirmation": "Are you sure you want to delete this item?",
   "FFD20.UnsavedTinyMCE": "You have unsaved text in a field.<br>Would you like to save before closing?",
@@ -1345,6 +1404,11 @@
   "FFD20.MaxDexterityModifier": "Max. Dexterity Modifier",
   "FFD20.ArmorCheckPenalty": "Armor Check Penalty",
   "FFD20.ArcaneSpellFailure": "Arcane Spell Failure",
+  "FFD20.AutoCalculateSpellSlots": "Auto Calculate Spell Slots",
+  "FFD20.HasCantrips": "Has Cantrips/Orisons",
+  "FFD20.Modifications": "Modifications",
+  "FFD20.PreparePerDay": "Prepare Per Day",
+  "FFD20.CastPerDay": "Cast Per Day",
   "FFD20.SkillsPerLevel": "Skills/Level",
   "FFD20.Source": "Source",
   "FFD20.Unlimited": "Unlimited",
@@ -1396,7 +1460,6 @@
   "FFD20.CarryDragPush": "Drag & Push",
   "FFD20.CarryLabel": "Carrying {0} lbs",
   "FFD20.CarryLabelKg": "Carrying {0} kg",
-
   "FFD20.SkillBonusRankFormula": "Bonus Rank Formula",
   "FFD20.Rank": "Rank",
   "FFD20.SkillRankPlural": "Skill Ranks",
@@ -1405,7 +1468,7 @@
   "FFD20.BGSkillRanks": "BG Skill Ranks",
   "FFD20.BGUsed": "BG Used",
   "FFD20.AllSkills": "All Skills",
-  "FFD20.AutomaticSpellSlots": "Automatic Spell Slots",
+  "FFD20.AutomaticSpellSlots": "Ability Score Bonus Slots",
   "FFD20.Uses": "Uses",
   "FFD20.SpellComponentsMisc": "Misc Components",
   "FFD20.SeeText": "See Text",
@@ -1416,16 +1479,12 @@
   "FFD20.PowerAttack": "Power Attack",
   "FFD20.DeadlyAim": "Deadly Aim",
   "FFD20.PrimaryAttack": "Primary Attack",
+  "FFD20.SecondaryAttack": "Secondary Attack",
   "FFD20.Enabled": "Enabled",
   "FFD20.Disabled": "Disabled",
+  "FFD20.Enable": "Enable",
+  "FFD20.Disable": "Disable",
   "FFD20.AttackPenalty": "Attack Penalty",
-  "FFD20.NonCaster": "Non-Caster",
-  "FFD20.HalfCaster": "1/2 Caster",
-  "FFD20.DimPacman": "Dimished 3/4th Caster",
-  "FFD20.Pacman": "3/4th Caster",
-  "FFD20.DimFullCaster": "Dimished Full Caster",
-  "FFD20.FullCaster": "Full Caster",
-  "FFD20.AdvFullCaster": "Advanced Full Caster",
   "FFD20.Low": "Low",
   "FFD20.Medium": "Medium",
   "FFD20.High": "High",
@@ -1449,12 +1508,10 @@
   "FFD20.DMG": "DMG",
   "FFD20.PNL": "PNL",
   "FFD20.DRN": "DRN",
-
   "FFD20.UnidentifiedName": "Unidentified Name",
   "FFD20.UnidentifiedPriceShort": "Unid. Price",
   "FFD20.Yes": "Yes",
   "FFD20.No": "No",
-  "FFD20.Half": "Half",
   "FFD20.YesShort": "Y",
   "FFD20.NoShort": "N",
   "FFD20.IdentifiedShort": "Id.",
@@ -1477,7 +1534,6 @@
   "FFD20.AttackAction": "Attack Action",
   "FFD20.SingleAttack": "Single Attack",
   "FFD20.FullAttack": "Full Attack",
-
   "FFD20.Cast": "Cast",
   "FFD20.Use": "Use",
   "FFD20.Regeneration": "Regeneration",
@@ -1498,6 +1554,7 @@
   "FFD20.Value": "Value",
   "FFD20.TotalItems": "{0} Total Items",
   "FFD20.FilteredItems": "{0} Filtered Items",
+  "FFD20.SearchFilterPlaceholder": "Search filter...",
   "FFD20.QuickInfo": "Quick Info",
   "FFD20.QuickActions": "Quick Actions",
   "FFD20.ConvertCurrency": "Convert Currency",
@@ -1521,6 +1578,7 @@
   "FFD20.MaxFormula": "Maximum Formula",
   "FFD20.SpellPoints": "MP",
   "FFD20.SpellPointsCurrent": "Current MP",
+  "FFD20.SpellPointsTemp": "Temp MP",
   "FFD20.SpellPointsMax": "Maximum MP",
   "FFD20.SpellPointsCost": "MP Cost",
   "FFD20.mpRecovery": "MP Recovery (total caster levels and used casting mods)",
@@ -1584,16 +1642,55 @@
   "FFD20.StepsRequired": "Steps Required",
   "FFD20.RemoveInfo": "Remove Info",
   "FFD20.CustomRollDesc": "This roll uses a non-default formula",
+  "FFD20.Hidden": "Hidden",
+  "FFD20.Bright": "Bright",
+  "FFD20.Dim": "Dim",
 
   "FFD20.Migration.Start": "Applying FFD20 System Migration for version {version}. Please stand by.",
   "FFD20.Migration.Ongoing": "Migration is ongoing. Please wait until it finishes.",
   "FFD20.Migration.End": "FFD20 System Migration to version {version} succeeded!",
+
+  "FFD20.DenyDexBonus": "Deny Dexterity bonus",
+
+  "FFD20.Application": {
+    "ChangeTargetSelector": {
+      "Title": "Select change target"
+    },
+    "ContextNoteTargetSelector": {
+      "Title": "Select context note target"
+    }
+  },
 
   "FFD20.Info": {
     "AddClassDialog": "You can hold Shift to bypass this dialog.",
     "AddClassDialog_Desc": "Pressing Normal opens a short wizard, while pressing Raw will add the class without any alterations."
   },
 
+  "FFD20.AbilityShortIntAndWis": "Int and Wis",
+  "FFD20.ClassSubType": "Class Catagory",
+  "FFD20.ClassSubTypeCore": "Core Class",
+  "FFD20.ClassSubTypeCoreArc": "Core Class Archetype",
+  "FFD20.ClassSubTypeBase": "Base Class",
+  "FFD20.ClassSubTypeBaseArc": "Base Class Archetype",
+  "FFD20.ClassSubTypeHybrid": "Hybrid Class",
+  "FFD20.ClassSubTypeHybridArc": "Hybrid Class Archetype",
+  "FFD20.ParentClass": "Parent Class",
+  "FFD20.countforexp": "Apply to exp and HD",
+  "FFD20.ClassNoExp": "Disable Experience Tracking",
+  "FFD20.ClassExp": "Enable Experience Tracking",
+  "FFD20.classBaseMPauto": "Auto MP",
+  "FFD20.ErrorNoMPLeft": "You don't have any MP left",
+  "FFD20.ManaPoints": "Mana Points",
+  "FFD20.LimitBreak": "LimitBreak",
+  "FFD20.ClassMPType": "MP Type",
+  "FFD20.NonCaster": "Non-Caster",
+  "FFD20.HalfCaster": "1/2 Caster",
+  "FFD20.DimPacman": "Dimished 3/4th Caster",
+  "FFD20.Pacman": "3/4th Caster",
+  "FFD20.DimFullCaster": "Dimished Full Caster",
+  "FFD20.FullCaster": "Full Caster",
+  "FFD20.AdvFullCaster": "Advanced Full Caster",
+  "FFD20.Half": "Half",
   "FFD20.Materia": "Materia",
   "FFD20.MateriaTypeAbility": "Ability Materia",
   "FFD20.MateriaTypeIndependent": "Independent Materia",
@@ -1621,7 +1718,7 @@
   "FFD20.Help": {
     "Label": "Help",
     "WIP": "This section is currently a Work In Progress (WIP).",
-    "Desc": "This is a reference sheet and information panel on various topics of the Pathfinder 1e system for Foundry Virtual Tabletop.",
+    "Desc": "This is a reference sheet and information panel on various topics of the Final Fantasy D20 system for Foundry Virtual Tabletop.",
     "Desc2": "You can select topics on the left, whose contents will appear on the right. On the top of this window are navigational tools.",
     "Img": {
       "Items.Weapons": "systems/ffd20/help/img/en/weapon-details.jpg",
@@ -1641,7 +1738,7 @@
       "Special": {
         "Formulas": {
           "Label": "Formulas",
-          "Desc": "Formulas are an important aspect in the Pathfinder 1e system. They can be as simple as a single numerical value, or as complex as single lines of code. They play a great role in item changes.",
+          "Desc": "Formulas are an important aspect in the Final Fantasy D20 system. They can be as simple as a single numerical value, or as complex as single lines of code. They play a great role in item changes.",
           "Desc2": "For a quick reference, you can find a lot of this information in tooltips on actor sheets as well.",
           "Variables": {
             "Label": "Variables",
@@ -1747,6 +1844,27 @@
                 "0": "Rolls 1d8 for medium actors, and alters the damage formula according to the calling actor's current size.",
                 "1": "Translates a damage roll of 1d4 from a tiny actor (size '2') to a huge actor (size '6')<br/>Output: 3d6"
               }
+            },
+            "SizeReach": {
+              "Desc": "Generates a number equal to the reach of a creature of a certain size and stature.",
+              "Examples": {
+                "0": "Returns the normal melee reach as if the actor was 1 size category higher.",
+                "1": "Returns the reach a huge, long actor would have with a reach weapon."
+              }
+            }
+          }
+        },
+        "CompendiumBrowsers": {
+          "Label": "Compendium Browsers",
+          "Properties": {
+            "Label": "Compendium Properties",
+            "Hidden": {
+              "Label": "Hidden",
+              "Description": "Hidden compendiums will not show up for players in compendium browsers."
+            },
+            "Disabled": {
+              "Label": "Disabled",
+              "Description": "Disabled compendiums will not show up for anyone (including GMs) in compendium browsers."
             }
           }
         }
@@ -1915,6 +2033,83 @@
               "1": {
                 "Name": "result",
                 "Desc": "This contains two more variables, <code>value</code> and <code>operator</code>. Set <code>value</code> to the numeric result you want for the change, and <code>operator</code> to either <code>\"add\"</code> or <code>\"set\"</code>.<br><br><code>value</code> defaults to <code>0</code> and <code>operator</code> defaults to <code>\"add\"</code>."
+              }
+            }
+          }
+        },
+        "Flags": {
+          "Label": "Flags",
+          "Desc": {
+            "Basic": "Flags can be used by modules and macros. Boolean Flags don't do anything by themselves, but Dictionary Flags can be used in rolls, in addition to their use in macros and modules.",
+            "DictionaryFlags": {
+              "Basic": "You can access Dictionary Flags within rolls by using <code>@dFlags.(itemTag).(flagName)</code>, or with <code>@item.dFlags.(flagName)</code> within the current item."
+            }
+          }
+        },
+        "ScriptCalls": {
+          "Label": "Script Calls",
+          "Desc": {
+            "Basic": "Most items have certain categories of script calls, which are a combination of macros and inline scripts which run at specific events for that item."
+          },
+          "Macros": {
+            "Label": "Using Macros as Script Calls",
+            "Desc": {
+              "Basic": "In order to use Macros as Script Calls, simply drag a macro over from somewhere to the category of Script Calls you wish to run them on."
+            }
+          },
+          "Variables": {
+            "Label": "Variables",
+            "Desc": {
+              "Basic": "The variable availability differs somewhat from what's available in regular Macros. Below you will find a list of variables which are present within Script Calls."
+            },
+            "List": {
+              "Item": {
+                "Desc": "The item from which this event was called."
+              },
+              "Actor": {
+                "Desc": "The actor which owns the calling item. Can be <code>null</code> if the item is not on an actor."
+              },
+              "Shared": {
+                "Desc": "An object which starts out as empty, but is shared between all script calls of a single event, after which it is returned to the calling function, which may or may not do something with it."
+              }
+            }
+          },
+
+          "Categories": {
+            "Label": "Categories",
+
+            "Use": {
+              "Name": "Use",
+              "Desc": {
+                "Basic": "Called when an item has been used. If an item has at least one script call under this category, it's usable no matter what."
+              }
+            },
+
+            "Equip": {
+              "Name": "Equip",
+              "Desc": {
+                "Basic": "Called when an item has been equipped or unequipped. This call will have an additional variable <code>{var1}</code> which is either <code>true</code> if it has just been equipped, or <code>false</code> if it has just been unequipped."
+              }
+            },
+
+            "Toggle": {
+              "Name": "Toggle",
+              "Desc": {
+                "Basic": "Called when a buff or feature has been toggled on/off. This call will have an additional variable <code>{var1}</code> which is either <code>true</code> if it has just been enabled or <code>false</code> if it has just been disabled."
+              }
+            },
+
+            "ChangeQuantity": {
+              "Name": "Change Quantity",
+              "Desc": {
+                "Basic": "Called when the quantity of a physical item has been changed. This call will have the additional variables <code>{var1}</code> and <code>{var2}</code>, which contains the quantity numbers before and after the update respectively."
+              }
+            },
+
+            "ChangeLevel": {
+              "Name": "Change Level",
+              "Desc": {
+                "Basic": "Called when the level of a item has been changed. This call will have the additional variables <code>{var1}</code> and <code>{var2}</code>, which contains the numbers before and after the update respectively."
               }
             }
           }
