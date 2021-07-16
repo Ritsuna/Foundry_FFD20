@@ -16,8 +16,9 @@
 {{#if formula}}
 <div class="dice-roll">
   <div class="dice-result">
-      <h4 class="dice-total{{#if isCrit}} success{{/if}}{{#if isFumble}} failure{{/if}}">{{total}}</h4>
+      <div class="dice-formula">{{formula}}</div>
       {{{tooltip}}}
+      <h4 class="dice-total{{#if isCrit}} success{{/if}}{{#if isFumble}} failure{{/if}}">{{total}}</h4>
   </div>
 </div>
 {{/if}}

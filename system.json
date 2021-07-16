@@ -2,14 +2,14 @@
   "name": "ffd20",
   "title": "Final Fantasy d20",
   "description": "FFd20 using Pathfinder 1 as a base in the Foundry VTT environment.",
-  "version": "0.2.0",
-  "minimumCoreVersion": "0.8.4",
-  "compatibleCoreVersion": "0.8.7",
+  "version": "0.1.17",
+  "minimumCoreVersion": "0.7.8",
+  "compatibleCoreVersion": "0.7.10",
   "bugs": "https://gitlab.com/Ritsuna/Foundry_FFD20/-/issues",
   "allowBugReporter": true,
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.2.0.zip",
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.1.17.zip",
   "author": "Ritsu Voices",
   "authors": [
     {
@@ -141,59 +141,38 @@
       "entity": "RollTable"
     },
     {
-      "name": "bestiary-00",
-      "label": "Pathfinder Bestiary - CR 0-1",
+      "name": "bestiary_1",
+      "label": "Pathfinder Bestiary - Part 1",
       "system": "ffd20",
-      "path": "./packs/bestiary-00.db",
+      "path": "./packs/bestiary_1.db",
       "entity": "Actor"
     },
     {
-      "name": "bestiary-02",
-      "label": "Pathfinder Bestiary - CR 2-3",
+      "name": "bestiary_2",
+      "label": "Pathfinder Bestiary - Part 2",
       "system": "ffd20",
-      "path": "./packs/bestiary-02.db",
+      "path": "./packs/bestiary_2.db",
       "entity": "Actor"
     },
     {
-      "name": "bestiary-04",
-      "label": "Pathfinder Bestiary - CR 4-5",
+      "name": "bestiary_3",
+      "label": "Pathfinder Bestiary - Part 3",
       "system": "ffd20",
-      "path": "./packs/bestiary-04.db",
+      "path": "./packs/bestiary_3.db",
       "entity": "Actor"
     },
     {
-      "name": "bestiary-06",
-      "label": "Pathfinder Bestiary - CR 6-7",
+      "name": "bestiary_4",
+      "label": "Pathfinder Bestiary - Part 4",
       "system": "ffd20",
-      "path": "./packs/bestiary-06.db",
+      "path": "./packs/bestiary_4.db",
       "entity": "Actor"
     },
     {
-      "name": "bestiary-08",
-      "label": "Pathfinder Bestiary - CR 8-10",
+      "name": "bestiary_5",
+      "label": "Pathfinder Bestiary - Part 5",
       "system": "ffd20",
-      "path": "./packs/bestiary-08.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary-11",
-      "label": "Pathfinder Bestiary - CR 11-14",
-      "system": "ffd20",
-      "path": "./packs/bestiary-11.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary-15",
-      "label": "Pathfinder Bestiary - CR 15-19",
-      "system": "ffd20",
-      "path": "./packs/bestiary-15.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary-20",
-      "label": "Pathfinder Bestiary - CR 20+",
-      "system": "ffd20",
-      "path": "./packs/bestiary-20.db",
+      "path": "./packs/bestiary_5.db",
       "entity": "Actor"
     },
     {

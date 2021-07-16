@@ -686,7 +686,7 @@
 
     <ol class="quick-actions">
       {{#each quickActions as |i|}}
-      <li class="item" data-item-id="{{i.item.id}}" data-type="{{i.item.type}}" style="border-color: {{i.color1}};" title="{{i.item.name}}">
+      <li class="item" data-item-id="{{i.item._id}}" data-type="{{i.item.type}}" style="border-color: {{i.color1}};" title="{{i.item.name}}">
         <img src="{{i.item.img}}">
         <span class="icon-label">{{i.item.name}}</span>
         {{#if i.haveAnyCharges}}

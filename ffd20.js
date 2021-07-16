@@ -230,12 +230,14 @@ const FFD20 = {
   abilityActivationTypes: {
     passive: "FFD20.ActivationTypePassive",
     free: "FFD20.ActivationTypeFree",
+    nonaction: "FFD20.ActivationTypeNonaction",
     swift: "FFD20.ActivationTypeSwift",
     immediate: "FFD20.ActivationTypeImmediate",
     move: "FFD20.ActivationTypeMove",
     standard: "FFD20.ActivationTypeStandard",
     full: "FFD20.ActivationTypeFullround",
     attack: "FFD20.ActivationTypeAttack",
+    aoo: "FFD20.ActivationTypeAoO",
     round: "FFD20.ActivationTypeRound",
     minute: "FFD20.ActivationTypeMinute",
     hour: "FFD20.ActivationTypeHour",
@@ -265,8 +267,11 @@ const FFD20 = {
   abilityActivationTypes_unchained: {
     passive: "FFD20.ActivationTypePassive",
     free: "FFD20.ActivationTypeFree",
+    nonaction: "FFD20.ActivationTypeNonaction",
     reaction: "FFD20.ActivationTypeReaction",
     action: "FFD20.ActivationTypeAction",
+    attack: "FFD20.ActivationTypeAttack",
+    aoo: "FFD20.ActivationTypeAoO",
     minute: "FFD20.ActivationTypeMinute",
     hour: "FFD20.ActivationTypeHour",
     special: "FFD20.ActivationTypeSpecial",
@@ -723,14 +728,6 @@ const FFD20 = {
     template: "FFD20.FeatTypeTemplate",
   },
 
-  featTypesPlurals: {
-    feat: "FFD20.FeatPlural",
-    classFeat: "FFD20.ClassFeaturePlural",
-    trait: "FFD20.TraitPlural",
-    racial: "FFD20.RacialTraitPlural",
-    template: "FFD20.TemplatePlural",
-  },
-
   /**
    * Ability types, each with their short and their long form
    */
@@ -755,7 +752,10 @@ const FFD20 = {
    * The valid currency denominations supported by the 5e system
    */
   currencies: {
+    pgil: "FFD20.CurrencyPGil",
     gil: "FFD20.CurrencyGil",
+    sgil: "FFD20.CurrencySGil",
+    cgil: "FFD20.CurrencyCGil",
   },
 
   acTypes: {
@@ -1307,9 +1307,7 @@ const FFD20 = {
    * SenseTR = truesight
    *
    * @type {object}
-   *
    */
-
   senses: {
     bs: "FFD20.SenseBS",
     dv: "FFD20.SenseDV",
@@ -1416,6 +1414,11 @@ const FFD20 = {
    * An array of {@link skills} that can have arbitrary subskills
    */
   arbitrarySkills: ["crf", "prf", "pro"],
+
+  /**
+   * An array of {@link skills} that are considered background skills.
+   */
+  backgroundSkills: ["apr", "crf", "han", "ken", "kge", "khi", "kno", "lin", "prf", "pro", "slt"],
 
   /* -------------------------------------------- */
 
@@ -1648,7 +1651,7 @@ const FFD20 = {
     antagonized: "FFD20.CondTypeAntagonized",
     berserk: "FFD20.CondTypeBerserk",
     bleed: "FFD20.CondTypeBleed",
-    blinded: "FFD20.CondTypeBlinded",
+    blind: "FFD20.CondTypeBlinded",
     burning: "FFD20.CondTypeBurning",
     charmed: "FFD20.CondTypeCharmed",
     confused: "FFD20.CondTypeConfused",
@@ -1669,28 +1672,20 @@ const FFD20 = {
     exhausted: "FFD20.CondTypeExhausted",
     fascinated: "FFD20.CondTypeFascinated",
     fatigued: "FFD20.CondTypeFatigued",
-    float: "FFD20.CondTypeFloat",
     frightened: "FFD20.CondTypeFrightened",
     frog: "FFD20.CondTypeFrog",
     frozen: "FFD20.CondTypeFrozen",
-    hasted: "FFD20.CondTypeHasted",
     immobilized: "FFD20.CondTypeImmobilized",
     imperil: "FFD20.CondTypeImperil",
-    invisible: "FFD20.CondTypeInvisible",
-    lucky: "FFD20.CondTypeLucky",
     mini: "FFD20.CondTypeMini",
     nauseated: "FFD20.CondTypeNauseated",
     panicked: "FFD20.CondTypePanicked",
     paralyzed: "FFD20.CondTypeParalyzed",
     petrified: "FFD20.CondTypePetrified",
     poisoned: "FFD20.CondTypePoisoned",
-    protect: "FFD20.CondTypeProtect",
-    reflect: "FFD20.CondTypeReflect",
-    regen: "FFD20.CondTypeRegen",
-    reraise: "FFD20.CondTypeReraise",
+    prone: "FFD20.CondTypeProne",
     sapped: "FFD20.CondTypeSapped",
     shaken: "FFD20.CondTypeShaken",
-    shell: "FFD20.CondTypeShell",
     sickened: "FFD20.CondTypeSickened",
     silenced: "FFD20.CondTypeSilenced",
     sleep: "FFD20.CondTypeSleep",
@@ -1709,7 +1704,7 @@ const FFD20 = {
     antagonized: "FFD20.CondAntagonized",
     berserk: "FFD20.CondBerserk",
     bleed: "FFD20.CondBleed",
-    blinded: "FFD20.CondBlinded",
+    blind: "FFD20.CondBlinded",
     burning: "FFD20.CondBurning",
     charmed: "FFD20.CondCharmed",
     confused: "FFD20.CondConfused",
@@ -1717,7 +1712,7 @@ const FFD20 = {
     cursed: "FFD20.CondCursed",
     dazed: "FFD20.CondDazed",
     dazzled: "FFD20.CondDazzled",
-    deafened: "FFD20.CondDeafened",
+    deaf: "FFD20.CondDeafened",
     deprotect: "FFD20.CondDeprotect",
     deshell: "FFD20.CondDeshell",
     dimmed: "FFD20.CondDimmed",
@@ -1760,22 +1755,13 @@ const FFD20 = {
     unlucky: "FFD20.CondUnlucky",
     weighted: "FFD20.CondWeighted",
     zombie: "FFD20.CondZombie",
-    float: "FFD20.CondFloat",
-    hasted: "FFD20.CondHasted",
-    invisible: "FFD20.CondInvisible",
-    lucky: "FFD20.CondLucky",
-    protect: "FFD20.CondProtect",
-    reflect: "FFD20.CondReflect",
-    regen: "FFD20.CondRegen",
-    reraise: "FFD20.CondReraise",
-    shell: "FFD20.CondShell",
   },
 
   conditionTextures: {
     antagonized: "systems/ffd20/icons/conditions/antagonized.png",
     berserk: "systems/ffd20/icons/conditions/berserk.png",
     bleed: "systems/ffd20/icons/conditions/bleed.png",
-    blinded: "systems/ffd20/icons/conditions/blind.png",
+    blind: "systems/ffd20/icons/conditions/blind.png",
     burning: "systems/ffd20/icons/conditions/burning.png",
     charmed: "systems/ffd20/icons/conditions/charmed.png",
     confused: "systems/ffd20/icons/conditions/confused.png",
@@ -1783,7 +1769,7 @@ const FFD20 = {
     cursed: "systems/ffd20/icons/conditions/cursed.png",
     dazed: "systems/ffd20/icons/conditions/dazed.png",
     dazzled: "systems/ffd20/icons/conditions/dazzled.png",
-    deafened: "systems/ffd20/icons/conditions/deaf.png",
+    deaf: "systems/ffd20/icons/conditions/deaf.png",
     deprotect: "systems/ffd20/icons/conditions/deprotect.png",
     deshell: "systems/ffd20/icons/conditions/deshell.png",
     dimmed: "systems/ffd20/icons/conditions/dimmed.png",
@@ -1793,21 +1779,18 @@ const FFD20 = {
     drenched: "systems/ffd20/icons/conditions/drenched.png",
     energyDrained: "systems/ffd20/icons/conditions/energydrained.png",
     entangled: "systems/ffd20/icons/conditions/entangled.png",
+    fatigued: "systems/ffd20/icons/conditions/fatigued.png",
     exhausted: "systems/ffd20/icons/conditions/exhausted.png",
     fascinated: "systems/ffd20/icons/conditions/fascinated.png",
-    fatigued: "systems/ffd20/icons/conditions/fatigued.png",
-    float: "systems/ffd20/icons/conditions/float.png",
     frightened: "systems/ffd20/icons/conditions/frightened.png",
     frog: "systems/ffd20/icons/conditions/frog.png",
     frozen: "systems/ffd20/icons/conditions/frozen.png",
     grappled: "systems/ffd20/icons/conditions/grappled.png",
-    hasted: "systems/ffd20/icons/conditions/hasted.png",
     helpless: "systems/ffd20/icons/conditions/helpless.png",
     immobilized: "systems/ffd20/icons/conditions/immobilized.png",
     imperil: "systems/ffd20/icons/conditions/imperil.png",
     incorporeal: "systems/ffd20/icons/conditions/incorporeal.png",
     invisible: "systems/ffd20/icons/conditions/invisible.png",
-    lucky: "systems/ffd20/icons/conditions/lucky.png",
     mini: "systems/ffd20/icons/conditions/mini.png",
     nauseated: "systems/ffd20/icons/conditions/nauseated.png",
     panicked: "systems/ffd20/icons/conditions/fear.png",
@@ -1816,13 +1799,8 @@ const FFD20 = {
     pinned: "systems/ffd20/icons/conditions/pinned.png",
     poisoned: "systems/ffd20/icons/conditions/poisoned.png",
     prone: "systems/ffd20/icons/conditions/prone.png",
-    protect: "systems/ffd20/icons/conditions/protect.png",
-    reflect: "systems/ffd20/icons/conditions/reflect.png",
-    regen: "systems/ffd20/icons/conditions/regen.png",
-    reraise: "systems/ffd20/icons/conditions/reraise.png",
     sapped: "systems/ffd20/icons/conditions/sapped.png",
     shaken: "systems/ffd20/icons/conditions/shaken.png",
-    shell: "systems/ffd20/icons/conditions/shell.png",
     sickened: "systems/ffd20/icons/conditions/sickened.png",
     silenced: "systems/ffd20/icons/conditions/silenced.png",
     sleep: "systems/ffd20/icons/conditions/sleep.png",
@@ -1860,9 +1838,6 @@ const FFD20 = {
       hasteDamage: "FFD20.Haste",
       rapidShotDamage: "FFD20.RapidShot",
     },
-    size: {
-      _label: "FFD20.Size",
-    },
     effect: {
       _label: "FFD20.Effects",
     },
@@ -1899,12 +1874,6 @@ const FFD20 = {
     int: { label: "FFD20.AbilityInt", category: "ability" },
     wis: { label: "FFD20.AbilityWis", category: "ability" },
     cha: { label: "FFD20.AbilityCha", category: "ability" },
-    strMod: { label: "FFD20.AbilityStrMod", category: "ability" },
-    dexMod: { label: "FFD20.AbilityDexMod", category: "ability" },
-    conMod: { label: "FFD20.AbilityConMod", category: "ability" },
-    intMod: { label: "FFD20.AbilityIntMod", category: "ability" },
-    wisMod: { label: "FFD20.AbilityWisMod", category: "ability" },
-    chaMod: { label: "FFD20.AbilityChaMod", category: "ability" },
     allSavingThrows: { label: "FFD20.BuffTarAllSavingThrows", category: "savingThrows" },
     fort: { label: "FFD20.SavingThrowFort", category: "savingThrows" },
     ref: { label: "FFD20.SavingThrowRef", category: "savingThrows" },
@@ -2007,7 +1976,7 @@ const FFD20 = {
   },
 
   /**
-   * A list of FFd20's languages
+   * A list of FFD20's languages
    */
   languages: {
     common: "FFD20.LanguageCommon",
@@ -2035,6 +2004,9 @@ const FFD20 = {
     seeq: "FFD20.LanguageSeeq",
     tonberry: "FFD20.LanguageTonberry",
     vieran: "FFD20.LanguageVieran",
+    celestial: "FFD20.LanguageCelestial",
+    infernal: "FFD20.LanguageInfernal",
+    abyssal: "FFD20.LanguageAbyssal",
     aquan: "FFD20.LanguageAquan",
     auran: "FFD20.LanguageAuran",
     auroran: "FFD20.LanguageAuroran",
@@ -2268,11 +2240,11 @@ const FFD20 = {
       "item",
       "level",
       "mod",
-      "spells",
     ],
   },
 
   keepItemLinksOnCopy: ["classAssociations"],
+
   classSubTypes: {
     none: "FFD20.None",
     core: "FFD20.ClassSubTypeCore",
@@ -2375,6 +2347,17 @@ const FFD20 = {
     rare: [0, 7500, 15000, 30000, 60000],
     legendary: [0, 10000, 20000, 40000, 80000],
   },
+};
+
+/**
+ * Non-FFD20 config entries
+ *
+ * These keys are merged into {@link CONFIG} using {@link mergeObject}.
+ */
+const CONFIG_OVERRIDES = {
+  "Combat.initiative.decimals": 2,
+  "debug.roll": false,
+  "debug.template": false,
 };
 
 class HealthConfig extends FormApplication {
@@ -2796,7 +2779,7 @@ class TooltipConfig extends FormApplication {
   }
 
   _openWorldSettings(event) {
-    if (!game.user.can("SETTINGS_MODIFY")) {
+    if (!game.user.isGM) {
       ui.notifications.error("FFD20.ErrorGenericPermission");
       return;
     }
@@ -2952,7 +2935,6 @@ class ChatMessageFFD20 extends ChatMessage {
 
   /**
    * Return linked item or falsey
-   *
    * @type {ItemFFD20}
    */
   get itemSource() {
@@ -2969,7 +2951,7 @@ const customRolls = function (message, speaker, rollData) {
     const type = RegExp.$1?.toUpperCase();
     const value = RegExp.$2;
     const flavor = RegExp.$3;
-    const cMsg = CONFIG.ChatMessage.documentClass;
+    const cMsg = CONFIG.ChatMessage.entityClass;
 
     speaker = speaker ?? cMsg.getSpeaker();
     const actor = cMsg.getSpeakerActor(speaker);
@@ -3023,18 +3005,18 @@ class DiceFFD20 {
    *
    * @param {Event} event           The triggering event which initiated the roll
    * @param {Array} parts           The dice roll component parts, excluding the initial d20
-   * @param {string} dice           The initial d20
+   * @param {String} dice           The initial d20
    * @param {Actor} actor           The Actor making the d20 roll
-   * @param {object} data           Actor or item data against which to parse the roll
-   * @param {string} template       The HTML template used to render the roll dialog
-   * @param {string} title          The dice roll UI window title
-   * @param {object} speaker        The ChatMessage speaker to pass when creating the chat
+   * @param {Object} data           Actor or item data against which to parse the roll
+   * @param {String} template       The HTML template used to render the roll dialog
+   * @param {String} title          The dice roll UI window title
+   * @param {Object} speaker        The ChatMessage speaker to pass when creating the chat
    * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-   * @param {boolean} takeTwenty    Allow rolling with take twenty (and therefore also with take ten)
-   * @param {boolean} situational   Allow for an arbitrary situational bonus field
-   * @param {boolean} fastForward   Allow fast-forward advantage selection
-   * @param {number} critical       The value of d20 result which represents a critical success
-   * @param {number} fumble         The value of d20 result which represents a critical failure
+   * @param {Boolean} takeTwenty    Allow rolling with take twenty (and therefore also with take ten)
+   * @param {Boolean} situational   Allow for an arbitrary situational bonus field
+   * @param {Boolean} fastForward   Allow fast-forward advantage selection
+   * @param {Number} critical       The value of d20 result which represents a critical success
+   * @param {Number} fumble         The value of d20 result which represents a critical failure
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
    * @param {Object} dialogOptions  Modal dialog options
    * @param {Array} extraRolls      An array containing bonuses/penalties for extra rolls
@@ -3101,7 +3083,7 @@ class DiceFFD20 {
           const d20 = roll.terms[0];
           const rollData = mergeObject(
             {
-              user: game.user.id,
+              user: game.user._id,
               formula: roll.formula,
               tooltip: await roll.getTooltip(),
               total: roll.total,
@@ -3115,20 +3097,20 @@ class DiceFFD20 {
 
           // Create chat data
           let chatData = {
-            user: game.user.id,
+            user: game.user._id,
             type: CONST.CHAT_MESSAGE_TYPES.ROLL,
             sound: noSound ? null : a === 0 ? CONFIG.sounds.dice : null,
             speaker: speaker,
             content: await renderTemplate(chatTemplate, rollData),
             rollMode: rollMode,
-            roll: roll.toJSON(),
             "flags.ffd20.noRollRender": true,
           };
 
           // Send message
           rolled = true;
+          chatData = mergeObject(roll.toMessage({}, { create: false }), chatData);
 
-          return await ChatMessageFFD20.create(chatData);
+          await ChatMessageFFD20.create(chatData);
         } else {
           rolled = true;
           await roll.toMessage({
@@ -3201,14 +3183,14 @@ class DiceFFD20 {
    * @param {Event} event           The triggering event which initiated the roll
    * @param {Array} parts           The dice roll component parts, excluding the initial d20
    * @param {Actor} actor           The Actor making the damage roll
-   * @param {object} data           Actor or item data against which to parse the roll
-   * @param {string} template       The HTML template used to render the roll dialog
-   * @param {string} title          The dice roll UI window title
-   * @param {object} speaker        The ChatMessage speaker to pass when creating the chat
+   * @param {Object} data           Actor or item data against which to parse the roll
+   * @param {String} template       The HTML template used to render the roll dialog
+   * @param {String} title          The dice roll UI window title
+   * @param {Object} speaker        The ChatMessage speaker to pass when creating the chat
    * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-   * @param {boolean} critical      Allow critical hits to be chosen
+   * @param {Boolean} critical      Allow critical hits to be chosen
    * @param {Function} onClose      Callback for actions to take when the dialog form is closed
-   * @param {object} dialogOptions  Modal dialog options
+   * @param {Object} dialogOptions  Modal dialog options
    */
   static async damageRoll({
     event = {},
@@ -5338,7 +5320,7 @@ const createCustomChatMessage = async function (
   chatData = mergeObject(
     {
       rollMode: rollMode,
-      user: game.user.id,
+      user: game.user._id,
       type: CONST.CHAT_MESSAGE_TYPES.CHAT,
     },
     chatData
@@ -5373,7 +5355,7 @@ const createCustomChatMessage = async function (
 const hideRollInfo = function (app, html, data) {
   const whisper = app.data.whisper || [];
   const isBlind = whisper.length && app.data.blind;
-  const isVisible = whisper.length ? whisper.includes(game.user.id) || (app.isAuthor && !isBlind) : true;
+  const isVisible = whisper.length ? whisper.includes(game.user._id) || (app.isAuthor && !isBlind) : true;
   if (!isVisible) {
     html.find(".dice-formula").text("???");
     html.find(".dice-total").text("?");
@@ -5397,18 +5379,18 @@ const hideGMSensitiveInfo = function (app, html, data) {
     }
   }
 
-  if (!actor || (actor && actor.testUserPermission(game.user, "LIMITED"))) return;
+  if (!actor || (actor && actor.hasPerm(game.user, "LIMITED"))) return;
 
   // Hide info
   html.find(".gm-sensitive").remove();
 };
 
-const addChatCardTitleGradient = async function (app, html, data) {
+const addChatCardTitleGradient = function (app, html, data) {
   const card = html.find(".chat-card")[0];
   if (!card) return;
-  const actor = await ItemFFD20._getChatCardActor(card);
+  const actor = ItemFFD20._getChatCardActor(card);
   if (!actor) return;
-  const item = actor.items.get(card.dataset.itemId);
+  const item = actor.getOwnedItem(card.dataset.itemId);
   if (!item) return;
   const title = $(card).find(".card-header");
   if (!title.length) return;
@@ -5465,8 +5447,6 @@ const createInlineRollString = function (roll) {
  * Apply advantage, proficiency, or bonuses where appropriate
  * Apply the dexterity score as a decimal tiebreaker if requested
  * See Combat._getInitiativeFormula for more detail.
- *
- * @param actor
  */
 const _getInitiativeFormula = function (actor) {
   if (CONFIG.Combat.initiative.formula) var parts = CONFIG.Combat.initiative.formula.split(/\s*\+\s*/);
@@ -5516,7 +5496,7 @@ Combat.showInitiativeDialog = function (formula = null) {
 const _rollInitiative = async function (ids, { formula = null, updateTurn = true, messageOptions = {} } = {}) {
   // Structure input data
   ids = typeof ids === "string" ? [ids] : ids;
-  const currentId = this.combatant.id;
+  const currentId = this.combatant._id;
   if (!formula) formula = _getInitiativeFormula(this.combatant.actor);
 
   let overrideRollMode = null,
@@ -5538,7 +5518,7 @@ const _rollInitiative = async function (ids, { formula = null, updateTurn = true
       let [updates, messages] = result;
 
       // Get Combatant data
-      const c = this.combatants.get(id);
+      const c = this.getCombatant(id);
       if (!c) return results;
       const actorData = c.actor ? c.actor.data.data : {};
       formula = formula || this._getInitiativeFormula(c.actor ? c.actor : null);
@@ -5565,7 +5545,7 @@ const _rollInitiative = async function (ids, { formula = null, updateTurn = true
       // Create roll template data
       const rollData = mergeObject(
         {
-          user: game.user.id,
+          user: game.user._id,
           formula: roll.formula,
           tooltip: await roll.getTooltip(),
           total: roll.total,
@@ -5576,14 +5556,14 @@ const _rollInitiative = async function (ids, { formula = null, updateTurn = true
       // Create chat data
       let chatData = mergeObject(
         {
-          user: game.user.id,
+          user: game.user._id,
           type: CONST.CHAT_MESSAGE_TYPES.CHAT,
           rollMode: rollMode,
           sound: CONFIG.sounds.dice,
           speaker: {
-            scene: canvas.scene.id,
-            actor: c.actor ? c.actor.id : null,
-            token: c.token.id,
+            scene: canvas.scene._id,
+            actor: c.actor ? c.actor._id : null,
+            token: c.token._id,
             alias: c.token.name,
           },
           flavor: game.i18n.localize("FFD20.RollsForInitiative").format(c.token.name),
@@ -5596,13 +5576,13 @@ const _rollInitiative = async function (ids, { formula = null, updateTurn = true
       // Handle different roll modes
       switch (chatData.rollMode) {
         case "gmroll":
-          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u.id);
+          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
           break;
         case "selfroll":
           chatData["whisper"] = [game.user._id];
           break;
         case "blindroll":
-          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u.id);
+          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
           chatData["blind"] = true;
       }
 
@@ -5617,10 +5597,10 @@ const _rollInitiative = async function (ids, { formula = null, updateTurn = true
   if (!updates.length) return this;
 
   // Update multiple combatants
-  await this.updateEmbeddedDocuments("Combatant", updates);
+  await this.updateEmbeddedEntity("Combatant", updates);
 
   // Ensure the turn order remains with the same combatant
-  if (updateTurn) await this.update({ turn: this.turns.findIndex((t) => t.id === currentId) });
+  if (updateTurn) await this.update({ turn: this.turns.findIndex((t) => t._id === currentId) });
 
   // Create multiple chat messages
   await ChatMessage.create(messages);
@@ -5629,13 +5609,8 @@ const _rollInitiative = async function (ids, { formula = null, updateTurn = true
   return this;
 };
 
-const duplicateCombatantInitiativeDialog = function (combats, combatantId) {
-  const combat = combats.find((c) => c.combatants.filter((o) => o.id === combatantId).length > 0);
-  if (!combat) {
-    ui.notifications.warn(game.i18n.localize("FFD20.WarningNoCombatantFound"));
-    return;
-  }
-  const combatant = combat.combatants.filter((o) => o.id === combatantId)[0];
+const duplicateCombatantInitiativeDialog = function (combat, combatantId) {
+  const combatant = combat.combatants.filter((o) => o._id === combatantId)[0];
   if (!combatant) {
     ui.notifications.warn(game.i18n.localize("FFD20.WarningNoCombatantFound"));
     return;
@@ -5667,23 +5642,21 @@ const duplicateCombatantInitiativeDialog = function (combats, combatantId) {
 
 const duplicateCombatantInitiative = function (combat, combatant, initiative) {
   console.debug("Duplicating combatant:", combatant);
-  combat.createEmbeddedDocuments("Combatant", [
-    mergeObject(duplicate(combatant.data), { initiative: initiative }, { inplace: false }),
-  ]);
+  combat.createEmbeddedEntity("Combatant", mergeObject(combatant, { initiative: initiative }, { inplace: false }));
 };
 
 const addCombatTrackerContextOptions = function (result) {
   result.push({
     name: "FFD20.DuplicateInitiative",
     icon: '<i class="fas fa-dice-d20"></i>',
-    callback: (li) => duplicateCombatantInitiativeDialog.call(this, this.combats, li.data("combatant-id")),
+    callback: (li) => duplicateCombatantInitiativeDialog.call(this, this.combat, li.data("combatant-id")),
   });
 };
 
 const LinkFunctions = {
   charges: function (item, links) {
     for (let l of links) {
-      const otherItem = this.items.find((o) => o.id === l.id);
+      const otherItem = this.items.find((o) => o._id === l.id);
       if (!otherItem) continue;
 
       otherItem.links.charges = item;
@@ -5691,229 +5664,6 @@ const LinkFunctions = {
     }
   },
 };
-
-class RollFFD20$1 extends Roll {
-  static safeRoll(formula, data = {}, context, options = { suppressError: false }) {
-    let roll;
-    try {
-      roll = this.create(formula, data).evaluate({ async: false });
-    } catch (err) {
-      roll = this.create("0", data).evaluate({ async: false });
-      roll.err = err;
-    }
-    if (roll.warning) roll.err = Error("This formula had a value replaced with null.");
-    if (roll.err) {
-      if (context && !options.suppressError) console.error(context, roll.err);
-      else if (CONFIG.debug.roll) console.error(roll.err);
-    }
-    return roll;
-  }
-
-  static safeTotal(formula, data) {
-    return isNaN(+formula) ? RollFFD20$1.safeRoll(formula, data).total : +formula;
-  }
-
-  /**
-   * @override
-   */
-  static simplifyTerms(terms) {
-    // Simplify terms by combining with pending strings
-    let simplified = terms.reduce((terms, term) => {
-      const prior = terms[terms.length - 1];
-      const isOperator = term instanceof OperatorTerm;
-
-      // Combine a non-operator term with prior StringTerm
-      if (!isOperator && prior instanceof StringTerm) {
-        prior.term += term.total;
-        foundry.utils.mergeObject(prior.options, term.options);
-        return terms;
-      }
-
-      // Attach string terms as flavor texts to numeric terms, if appropriate
-      const priorNumeric = prior instanceof NumericTerm;
-      if (prior && priorNumeric && term instanceof StringTerm && term.term.match(/\[(.+)\]/)) {
-        prior.options.flavor = RegExp.$1;
-        return terms;
-      }
-
-      // Combine StringTerm with a prior non-operator term
-      const priorOperator = prior instanceof OperatorTerm;
-      if (prior && !priorOperator && term instanceof StringTerm) {
-        term.term = String(prior.total) + term.term;
-        foundry.utils.mergeObject(term.options, prior.options);
-        terms[terms.length - 1] = term;
-        return terms;
-      }
-
-      // Otherwise continue
-      terms.push(term);
-      return terms;
-    }, []);
-
-    // Convert remaining String terms to a RollTerm which can be evaluated
-    simplified = simplified.map((term) => {
-      if (!(term instanceof StringTerm)) return term;
-      const t = this._classifyStringTerm(term.formula, { intermediate: false });
-      t.options = term.options;
-      return t;
-    });
-
-    // Eliminate leading or trailing arithmetic
-    if (simplified[0] instanceof OperatorTerm && simplified[0].operator !== "-") simplified.shift();
-    if (simplified[terms.length - 1] instanceof OperatorTerm) simplified.pop();
-    return simplified;
-  }
-
-  static _preProcessDiceFormula(formula, data = {}) {
-    // Replace parentheses with semicolons to use for splitting
-    let toSplit = formula
-      .replace(/([A-z]+)?\(/g, (match, prefix) => {
-        return prefix in game.ffd20.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
-      })
-      .replace(/\)/g, ";);");
-    let terms = toSplit.split(";");
-
-    // Match parenthetical groups
-    let nOpen = 0,
-      nOpenPreProcess = [];
-    terms = terms.reduce((arr, t) => {
-      // Handle cases where the prior term is a math function
-      const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.ffd20.rollPreProcess;
-      if (beginPreProcessFn) nOpenPreProcess.push([arr.length - 1, nOpen]);
-      const beginMathFn = t[0] === "(" && arr[arr.length - 1] in Math;
-      if (beginMathFn && nOpenPreProcess.length > 0) nOpenPreProcess.push([arr.length - 1, nOpen]);
-
-      // Add terms to the array
-      arr.push(t);
-
-      // Increment the number of open parentheses
-      if (t === "(") nOpen++;
-      if (nOpen > 0 && t === ")") {
-        nOpen--;
-        for (let a = 0; a < nOpenPreProcess.length; a++) {
-          let obj = nOpenPreProcess[a];
-          // End pre process function
-          if (obj[1] === nOpen) {
-            const sliceLen = arr.length - obj[0];
-            let fnData = arr.splice(obj[0], sliceLen),
-              fn = fnData[0];
-            let fnParams = fnData
-              .slice(2, -1)
-              .reduce((cur, s) => {
-                cur.push(...s.split(/\s*,\s*/));
-                return cur;
-              }, [])
-              .map((o) => {
-                // Return raw string
-                if ((o.startsWith('"') && o.endsWith('"')) || (o.startsWith("'") && o.endsWith("'"))) {
-                  return o.slice(1, -1);
-                }
-                // Return data string
-                else if (o.match(/^@([a-zA-Z0-9-.]+)$/)) {
-                  const value = getProperty(data, RegExp.$1);
-                  if (typeof value === "string") return value;
-                }
-                // Return roll result
-                return RollFFD20$1.safeRoll(o, data).total;
-              })
-              .filter((o) => o !== "" && o != null);
-            if (fn in Math) {
-              arr.push(Math[fn](...fnParams).toString());
-            } else {
-              arr.push(game.ffd20.rollPreProcess[fn](...fnParams).toString());
-            }
-
-            nOpenPreProcess.splice(a, 1);
-            a--;
-          }
-        }
-      }
-      return arr;
-    }, []);
-
-    return terms.join("");
-  }
-
-  /**
-   * @override
-   *
-   * Split a formula by identifying its outer-most parenthetical and math terms
-   * @param {string} _formula      The raw formula to split
-   * @returns {string[]}          An array of terms, split on parenthetical terms
-   * @private
-   */
-  static _splitParentheses(_formula) {
-    return this._splitGroup(_formula, {
-      openRegexp: ParentheticalTerm.OPEN_REGEXP,
-      closeRegexp: ParentheticalTerm.CLOSE_REGEXP,
-      openSymbol: "(",
-      closeSymbol: ")",
-      onClose: (group) => {
-        const fn = group.open.slice(0, -1);
-        const options = { flavor: group.flavor ? group.flavor.slice(1, -1) : undefined };
-        const term = group.terms.join("");
-        const terms = [];
-
-        if (fn in game.ffd20.rollPreProcess) {
-          let fnParams = group.terms
-            // .slice(2, -1)
-            .reduce((cur, s) => {
-              cur.push(...s.split(/\s*,\s*/));
-              return cur;
-            }, [])
-            .map((o) => {
-              // Return raw string
-              if ((o.startsWith('"') && o.endsWith('"')) || (o.startsWith("'") && o.endsWith("'"))) {
-                return o.slice(1, -1);
-              }
-              // Return data string
-              else if (o.match(/^@([a-zA-Z0-9-.]+)$/)) {
-                const value = getProperty(this.data, RegExp.$1);
-                if (typeof value === "string") return value;
-              }
-              // Return roll result
-              return RollFFD20$1.safeRoll(o, this.data).total;
-            })
-            .filter((o) => o !== "" && o != null);
-
-          return game.ffd20.rollPreProcess[fn](...fnParams);
-        } else if (fn in Math) {
-          const args = this._splitMathArgs(term);
-          terms.push(new MathTerm({ fn, terms: args, options }));
-        } else {
-          if (fn) terms.push(new StringTerm({ term: fn }));
-          terms.push(new ParentheticalTerm({ term, options }));
-        }
-        return terms;
-      },
-    });
-  }
-
-  static cleanFlavor(flavor) {
-    return flavor.replace(/\[\];/g, "");
-  }
-
-  /**
-   * Render the tooltip HTML for a RollFFD20 instance
-   *
-   * @returns {Promise<string>} The rendered HTML tooltip as a string
-   */
-  async getTooltip() {
-    const parts = this.dice.map((d) => d.getTooltipData());
-    const numericParts = this.terms.reduce((cur, t, idx, arr) => {
-      const result = t instanceof NumericTerm ? t.getTooltipData() : undefined;
-
-      const prior = arr[idx - 1];
-      if (t instanceof NumericTerm && prior && prior instanceof OperatorTerm && prior.operator === "-") {
-        result.total = -result.total;
-      }
-
-      if (result !== undefined) cur.push(result);
-      return cur;
-    }, []);
-    return renderTemplate("systems/ffd20/templates/dice/tooltip.hbs", { parts, numericParts });
-  }
-}
 
 class ItemChange {
   static create(data, parent) {
@@ -5931,17 +5681,14 @@ class ItemChange {
       _id: randomID(8),
       formula: "",
       operator: "add",
+      target: "",
       subTarget: "",
       modifier: "",
       priority: 0,
       value: 0,
-      flavor: undefined,
     };
   }
 
-  get id() {
-    return this.data._id;
-  }
   get _id() {
     return this.data._id;
   }
@@ -5950,6 +5697,9 @@ class ItemChange {
   }
   get operator() {
     return this.data.operator;
+  }
+  get target() {
+    return this.data.target;
   }
   get subTarget() {
     return this.data.subTarget;
@@ -5962,9 +5712,6 @@ class ItemChange {
   }
   get value() {
     return this.data.value;
-  }
-  get flavor() {
-    return this.data.flavor ?? this.parent?.name ?? this.modifier;
   }
 
   get source() {
@@ -6032,7 +5779,7 @@ class ItemChange {
 
     const overrides = actor.changeOverrides;
     for (let t of targets) {
-      if (!overrides || overrides[t]) {
+      if (overrides[t]) {
         let operator = this.operator;
         if (operator === "+") operator = "add";
         if (operator === "=") operator = "set";
@@ -6044,8 +5791,8 @@ class ItemChange {
           value = result.value;
           operator = result.operator;
         } else {
-          value = RollFFD20$1.safeRoll(this.formula || "0", rollData, [t, this, rollData], {
-            suppressError: this.parent && !this.parent.testUserPermission(game.user, "OWNER"),
+          value = RollFFD20.safeRoll(this.formula || "0", rollData, [t, this, rollData], {
+            suppressError: this.parent && !this.parent.hasPerm(game.user, "OWNER"),
           }).total;
         }
 
@@ -6127,7 +5874,7 @@ class ItemChange {
         }
 
         // Reset ability modifiers
-        if (t.match(/^data\.abilities\.(?:[a-zA-Z0-9]+)\.(?:total|penalty|base)$/)) {
+        if (t.startsWith("data.abilities")) {
           actor.refreshAbilityModifiers();
         }
       }
@@ -6230,12 +5977,6 @@ const getSortChangePriority = function () {
       "int",
       "wis",
       "cha",
-      "strMod",
-      "dexMod",
-      "conMod",
-      "intMod",
-      "wisMod",
-      "chaMod",
       "skills",
       "strSkills",
       "dexSkills",
@@ -6351,13 +6092,6 @@ const getChangeFlat = function (changeTarget, changeType, curData = null) {
       if (["base", "untypedPerm"].includes(changeType))
         return [`data.abilities.${changeTarget}.total`, `data.abilities.${changeTarget}.base`];
       return `data.abilities.${changeTarget}.total`;
-    case "strMod":
-    case "dexMod":
-    case "conMod":
-    case "intMod":
-    case "wisMod":
-    case "chaMod":
-      return `data.abilities.${changeTarget.slice(0, 3)}.mod`;
     case "ac":
       switch (changeType) {
         case "dodge":
@@ -6625,24 +6359,23 @@ const addDefaultChanges = function (changes) {
     );
   };
   const manual_health = (health_source) => {
-    let health =
-      health_source.data.data.hp + (health_source.data.data.classType === "base") * health_source.data.data.fc.hp.value;
+    let health = health_source.data.hp + (health_source.data.classType === "base") * health_source.data.fc.hp.value;
 
     getSourceInfo(this.sourceInfo, "data.attributes.hp.max").positive.push({
-      value: health_source.data.data.hp,
+      value: health_source.data.hp,
       name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassBase", { className: health_source.name }),
     });
     getSourceInfo(this.sourceInfo, "data.attributes.vigor.max").positive.push({
-      value: health_source.data.data.hp,
+      value: health_source.data.hp,
       name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassBase", { className: health_source.name }),
     });
-    if (health_source.data.data.fc.hp.value > 0) {
+    if (health_source.data.fc.hp.value > 0) {
       getSourceInfo(this.sourceInfo, "data.attributes.hp.max").positive.push({
-        value: health_source.data.data.fc.hp.value,
+        value: health_source.data.fc.hp.value,
         name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassFC", { className: health_source.name }),
       });
       getSourceInfo(this.sourceInfo, "data.attributes.vigor.max").positive.push({
-        value: health_source.data.data.fc.hp.value,
+        value: health_source.data.fc.hp.value,
         name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassFC", { className: health_source.name }),
       });
     }
@@ -6653,12 +6386,12 @@ const addDefaultChanges = function (changes) {
   const auto_health = (health_source, options, maximized = 0) => {
     if (health_source.data.hd === 0) return;
 
-    let die_health = 1 + (health_source.data.data.hd - 1) * options.rate;
+    let die_health = 1 + (health_source.data.hd - 1) * options.rate;
     if (!continuous) die_health = round(die_health);
 
-    const maxed_health = Math.min(health_source.data.data.level, maximized) * health_source.data.data.hd;
-    const level_health = Math.max(0, health_source.data.data.level - maximized) * die_health;
-    const favor_health = (health_source.data.data.classType === "base") * health_source.data.data.fc.hp.value;
+    const maxed_health = Math.min(health_source.data.level, maximized) * health_source.data.hd;
+    const level_health = Math.max(0, health_source.data.level - maximized) * die_health;
+    const favor_health = (health_source.data.classType === "base") * health_source.data.fc.hp.value;
     let health = maxed_health + level_health + favor_health;
 
     getSourceInfo(this.sourceInfo, "data.attributes.hp.max").positive.push({
@@ -6669,13 +6402,13 @@ const addDefaultChanges = function (changes) {
       value: maxed_health + level_health,
       name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassBase", { className: health_source.name }),
     });
-    if (health_source.data.data.fc.hp.value > 0) {
+    if (health_source.data.fc.hp.value > 0) {
       getSourceInfo(this.sourceInfo, "data.attributes.hp.max").positive.push({
-        value: health_source.data.data.fc.hp.value,
+        value: health_source.data.fc.hp.value,
         name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassFC", { className: health_source.name }),
       });
       getSourceInfo(this.sourceInfo, "data.attributes.vigor.max").positive.push({
-        value: health_source.data.data.fc.hp.value,
+        value: health_source.data.fc.hp.value,
         name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassFC", { className: health_source.name }),
       });
     }
@@ -6688,7 +6421,7 @@ const addDefaultChanges = function (changes) {
       let maximized = options.maximized;
       for (const hd of health_sources) {
         auto_health(hd, options, maximized);
-        maximized = Math.max(0, maximized - hd.data.data.level);
+        maximized = Math.max(0, maximized - hd.data.level);
       }
     } else health_sources.forEach((race) => manual_health(race));
   };
@@ -6708,60 +6441,54 @@ const addDefaultChanges = function (changes) {
         source: source.name,
       })
     );
-  };
 
-  const manual_mana = (mana_source) => {
-    let mana = mana_source.data.data.mp;
     getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-      value: mana_source.data.data.mp,
-      name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassBase", { className: mana_source.name }),
+      value: value,
+      name: source.name,
     });
+  };
+  const manual_mana = (mana_source) => {
+    let mana = mana_source.data.mp === null ? 0 : mana_source.data.mp;
     push_mana(mana, mana_source);
   };
 
   const auto_mana = (mana_source) => {
-    if (mana_source.data.data.classBaseMPTypes === "noncaster") return;
-    if (mana_source.data.data.level === 0) return;
-      // figure out how much mp comes from the class
-      let mult = 1;
-      if (mana_source.data.data.classBaseMPauto === "half") mult = 0.5;
-      const manaChart = CONFIG.FFD20.classMPlevels[mana_source.data.data.classBaseMPTypes];
-      const level_mana = Math.floor(manaChart[mana_source.data.data.level - 1] * mult);
-      getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-        value: level_mana,
-        name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassBase", { className: mana_source.name }),
-      });
-      push_mana(level_mana, mana_source);
-    };
+    if (mana_source.data.classBaseMPTypes === "noncaster") return;
+    if (mana_source.data.lvl === 0) return;
+    // figure out how much mp comes from the class
+    let mult = 1;
+    if (mana_source.data.classBaseMPauto === "half") mult = 0.5;
+    const manaChart = CONFIG.FFD20.classMPlevels[mana_source.data.classBaseMPTypes];
+    const level_mana = Math.floor(manaChart[mana_source.data.level - 1] * mult);
+    push_mana(level_mana, mana_source);
+  };
+  /* Compute and push mana, tracking the remaining maximized levels.
+   * for each class, check if it is calulating mp or defaulting to manually entered value
+   * step 1 - gather all classes
+   * step 2 - check for each if it is auto or manual
+   * step 3 - pass to correct function
+   * step 4 - if manual just add mp to pool
+   * step 5 - for auto follow substeps
+   * the following is for each class passed to it
+   * step 5a - condence relevant variables
+   *   MP type: which mp chart does it look at - mana_source.data.classBaseMPTypes
+   *   Max spell lvl: which spell prog does it look at - mana_source.data.classBaseMPTypes
+   *   level: level of the class - mana_source.data.level
+   *   casting stat: what stat(s) are used for it - mana_source.data.classCastingStat
+   * pass result
+   * else
+   * pass manual mp value
+   * total results
+   */
 
-    /* Compute and push mana, tracking the remaining maximized levels.
-     * for each class, check if it is calulating mp or defaulting to manually entered value
-     * step 1 - gather all classes
-     * step 2 - check for each if it is auto or manual
-     * step 3 - pass to correct function
-     * step 4 - if manual just add mp to pool
-     * step 5 - for auto follow substeps
-     * the following is for each class passed to it
-     * step 5a - condence relevant variables
-     *   MP type: which mp chart does it look at - mana_source.data.classBaseMPTypes
-     *   Max spell lvl: which spell prog does it look at - mana_source.data.classBaseMPTypes
-     *   level: level of the class - mana_source.data.level
-     *   casting stat: what stat(s) are used for it - mana_source.data.classCastingStat
-     * pass result
-     * else
-     * pass manual mp value
-     * total results
-     */
-
-    // TODO adjust for class autos
-    // check each for false or null, do first manual option, if true move to auto
-
+  // TODO adjust for class autos
+  // check each for false or null, do first manual option, if true move to auto
   const compute_mana = (mana_sources) => {
     mana_sources.forEach((mpsource) => {
-    if (mpsource.data.data.classBaseMPauto == "no" || mpsource.data.data.classBaseMPauto == null) {
-      manual_mana(mpsource);
-    } else {
-      auto_mana(mpsource);
+      if (mpsource.data.classBaseMPauto == "no" || mpsource.data.classBaseMPauto == null) {
+        manual_mana(mpsource);
+      } else {
+        auto_mana(mpsource);
       }
     });
   };
@@ -6773,59 +6500,47 @@ const addDefaultChanges = function (changes) {
   const allClasses = [...classes, ...racialHD];
   for (let a of Object.keys(this.data.data.attributes.savingThrows)) {
     const k = `data.attributes.savingThrows.${a}.total`;
-    setProperty(this.data, k, getProperty(this.data, `data.attributes.savingThrows.${a}.base`) || 0);
     // Using Fractional Base Bonuses
     if (game.settings.get("ffd20", "useFractionalBaseBonuses")) {
       let highStart = false;
-      const total = Math.floor(
+      setProperty(
+        this.data,
+        k,
+        Math.floor(
+          allClasses.reduce((cur, obj) => {
+            const saveScale = getProperty(obj, `data.savingThrows.${a}.value`) || "";
+            if (saveScale === "high") {
+              const acc = highStart ? 0 : 2;
+              highStart = true;
+              return cur + obj.data.level / 2 + acc;
+            }
+            if (saveScale === "low") return cur + obj.data.level / 3;
+            return cur;
+          }, 0)
+        )
+      );
+
+      const v = getProperty(this.data, k);
+      if (v !== 0) {
+        getSourceInfo(this.sourceInfo, k).positive.push({ name: game.i18n.localize("FFD20.Base"), value: v });
+      }
+    } else {
+      setProperty(
+        this.data,
+        k,
         allClasses.reduce((cur, obj) => {
-          const saveScale = getProperty(obj.data, `data.savingThrows.${a}.value`) || "";
-          if (saveScale === "high") {
-            const acc = highStart ? 0 : 2;
-            highStart = true;
-            return cur + obj.data.data.level / 2 + acc;
+          const classType = getProperty(obj.data, "classType") || "base";
+          let formula = CONFIG.FFD20.classSavingThrowFormulas[classType][obj.data.savingThrows[a].value];
+          if (formula == null) formula = "0";
+          const v = Math.floor(RollFFD20.safeRoll(formula, { level: obj.data.level }).total);
+
+          if (v !== 0) {
+            getSourceInfo(this.sourceInfo, k).positive.push({ name: getProperty(obj, "name"), value: v });
           }
-          if (saveScale === "low") return cur + obj.data.data.level / 3;
-          return cur;
+
+          return cur + v;
         }, 0)
       );
-
-      // Add change
-      changes.push(
-        ItemChange.create({
-          formula: total.toString(),
-          target: "savingThrows",
-          subTarget: a,
-          modifier: "untypedPerm",
-          flavor: game.i18n.localize("FFD20.Base"),
-        })
-      );
-      getSourceInfo(this.sourceInfo, k).positive.push({
-        value: total,
-        name: game.i18n.localize("FFD20.Base"),
-      });
-    } else {
-      for (let c of allClasses) {
-        const classType = getProperty(c.data, "classType") || "base";
-        let formula = CONFIG.FFD20.classSavingThrowFormulas[classType][c.data.data.savingThrows[a].value];
-        if (formula == null) formula = "0";
-        const total = Math.floor(RollFFD20.safeRoll(formula, { level: c.data.data.level }).total);
-
-        // Add change
-        changes.push(
-          ItemChange.create({
-            formula: total.toString(),
-            target: "savingThrows",
-            subTarget: a,
-            modifier: "untypedPerm",
-            flavor: getProperty(c, "name"),
-          })
-        );
-        getSourceInfo(this.sourceInfo, k).positive.push({
-          value: total,
-          name: getProperty(c, "name"),
-        });
-      }
     }
   }
 
@@ -6867,36 +6582,48 @@ const addDefaultChanges = function (changes) {
     let mpAbility = mp_source.data.classCastingStat;
     if (mpAbility == null) mpAbility = "noncaster";
     if (mpAbility === "noncaster") return;
-    if (mp_source.data.level === 0) return;
+    if (mp_source.data.lvl === 0) return;
     const spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mp_source.data.classBaseMPTypes];
     const currentSpellLvl = Math.floor(RollFFD20.safeRoll(spellMath, { level: mp_source.data.level }).total);
     let mpProg = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl];
     if (mpAbility !== "") {
-      const arrayStr = JSON.stringify(mpProg);
       if (mpAbility === "intAndWis") {
+        const arrayStr1 = mpProg[this.data.data.abilities.int.mod];
+        const arrayStr2 = mpProg[this.data.data.abilities.wis.mod];
         changes.push(
           ItemChange.create({
-            formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
+            formula: `${arrayStr1} + ${arrayStr2}`,
             target: "misc",
             subTarget: "mmp",
             modifier: "base",
           })
         );
         getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-          formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
+          formula: `${arrayStr1} + ${arrayStr2}`,
           name: `${mp_source.name} ${CONFIG.FFD20.abilities["int"]} & ${CONFIG.FFD20.abilities["wis"]}`,
         });
       } else {
+        var statMod = 0;
+        if (mpAbility === "int") {
+          statMod = this.data.data.abilities.int.mod;
+        } else if (mpAbility === "wis") {
+          statMod = this.data.data.abilities.wis.mod;
+        } else if (mpAbility === "cha") {
+          statMod = this.data.data.abilities.cha.mod;
+        } else {
+          statMod = 0;
+        }
+        const arrayStr = mpProg[statMod];
         changes.push(
           ItemChange.create({
-            formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
+            formula: `${arrayStr}`,
             target: "misc",
             subTarget: "mmp",
             modifier: "base",
           })
         );
         getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-          formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
+          formula: `${arrayStr}`,
           name: `${mp_source.name} ${CONFIG.FFD20.abilities[mpAbility]}`,
         });
       }
@@ -7111,7 +6838,6 @@ const addDefaultChanges = function (changes) {
           target: "savingThrows",
           subTarget: "fort",
           modifier: "untypedPerm",
-          flavor: CONFIG.FFD20.abilities[abl],
         })
       );
       getSourceInfo(this.sourceInfo, "data.attributes.savingThrows.fort.total").positive.push({
@@ -7128,7 +6854,6 @@ const addDefaultChanges = function (changes) {
           target: "savingThrows",
           subTarget: "ref",
           modifier: "untypedPerm",
-          flavor: CONFIG.FFD20.abilities[abl],
         })
       );
       getSourceInfo(this.sourceInfo, "data.attributes.savingThrows.ref.total").positive.push({
@@ -7145,7 +6870,6 @@ const addDefaultChanges = function (changes) {
           target: "savingThrows",
           subTarget: "will",
           modifier: "untypedPerm",
-          flavor: CONFIG.FFD20.abilities[abl],
         })
       );
       getSourceInfo(this.sourceInfo, "data.attributes.savingThrows.will.total").positive.push({
@@ -7160,7 +6884,6 @@ const addDefaultChanges = function (changes) {
         target: "savingThrows",
         subTarget: "allSavingThrows",
         modifier: "penalty",
-        flavor: game.i18n.localize("FFD20.CondTypeEnergyDrain"),
       })
     );
     for (let k of Object.keys(getProperty(this.data, "data.attributes.savingThrows"))) {
@@ -7208,16 +6931,16 @@ const addDefaultChanges = function (changes) {
   // Add armor bonuses from equipment
   this.data.items
     .filter((obj) => {
-      return obj.type === "equipment" && obj.data.data.equipped;
+      return obj.type === "equipment" && obj.data.equipped;
     })
     .forEach((item) => {
       let armorTarget = "aac";
-      if (item.data.data.equipmentType === "shield") armorTarget = "sac";
+      if (item.data.equipmentType === "shield") armorTarget = "sac";
       // Push base armor
-      if (item.data.data.armor.value) {
-        let ac = item.data.data.armor.value;
-        if (item.data.data.broken) ac = Math.floor(ac / 2);
-        ac += item.data.data.armor.enh;
+      if (item.data.armor.value) {
+        let ac = item.data.armor.value;
+        if (item.data.broken) ac = Math.floor(ac / 2);
+        ac += item.data.armor.enh;
         changes.push(
           ItemChange.create({
             formula: ac.toString(),
@@ -7285,26 +7008,6 @@ const addDefaultChanges = function (changes) {
       formula: "@attributes.speed.swim.total > 0 ? 8 : 0",
       name: game.i18n.localize("FFD20.SpeedSwim"),
     });
-  }
-
-  // Add energy drain to skills
-  {
-    changes.push(
-      ItemChange.create({
-        formula: "-@attributes.energyDrain",
-        target: "skills",
-        subTarget: "skills",
-        modifier: "untypedPerm",
-        flavor: game.i18n.localize("FFD20.CondTypeEnergyDrain"),
-      })
-    );
-    const flats = getChangeFlat.call(this, "skills", "untyped");
-    for (let f of flats) {
-      getSourceInfo(this.sourceInfo, f).positive.push({
-        formula: "-@attributes.energyDrain",
-        name: game.i18n.localize("FFD20.CondTypeEnergyDrain"),
-      });
-    }
   }
 
   // Add size bonuses to various attributes
@@ -7399,7 +7102,7 @@ const addDefaultChanges = function (changes) {
     if (!v) continue;
 
     switch (con) {
-      case "blinded":
+      case "blind":
         changes.push(
           ItemChange.create({
             formula: "-2",
@@ -7477,7 +7180,7 @@ const addDefaultChanges = function (changes) {
           name: game.i18n.localize("FFD20.CondDazzled"),
         });
         break;
-      case "deafened":
+      case "deaf":
         changes.push(
           ItemChange.create({
             formula: "-4",
@@ -7574,22 +7277,6 @@ const addDefaultChanges = function (changes) {
           value: game.i18n.localize("FFD20.ChangeFlagNoDex"),
         });
         break;
-      case "sleep":
-        changes.push(
-          ItemChange.create({
-            formula: "0",
-            target: "ability",
-            subTarget: "dex",
-            modifier: "untypedPerm",
-            operator: "set",
-            priority: -1000,
-          })
-        );
-        getSourceInfo(this.sourceInfo, "data.abilities.dex.total").negative.push({
-          name: game.i18n.localize("FFD20.CondSleep"),
-          value: game.i18n.localize("FFD20.ChangeFlagNoDex"),
-        });
-        break;
       case "paralyzed":
         changes.push(
           ItemChange.create({
@@ -7635,22 +7322,7 @@ const addDefaultChanges = function (changes) {
         });
         break;
       case "pinned":
-        changes.push(
-          ItemChange.create({
-            formula: "min(0, @abilities.dex.mod)",
-            target: "ability",
-            subTarget: "dexMod",
-            modifier: "untyped",
-            operator: "set",
-            flavor: game.i18n.localize("FFD20.CondPinned"),
-            priority: -1001,
-          })
-        );
         this.flags["loseDexToAC"] = true;
-        getSourceInfo(this.sourceInfo, "data.abilities.dex.total").negative.push({
-          name: game.i18n.localize("FFD20.CondPinned"),
-          value: game.i18n.localize("FFD20.DenyDexBonus"),
-        });
         for (const k of [
           "data.attributes.ac.normal.total",
           "data.attributes.ac.touch.total",
@@ -7828,7 +7500,6 @@ const addDefaultChanges = function (changes) {
             target: "attack",
             subTarget: "attack",
             modifier: "penalty",
-            flavor: game.i18n.localize("FFD20.CondFear"),
           })
         );
         getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
@@ -7894,7 +7565,6 @@ const addDefaultChanges = function (changes) {
             target: "attack",
             subTarget: "attack",
             modifier: "penalty",
-            flavor: game.i18n.localize("FFD20.CondSickened"),
           })
         );
         getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
@@ -7995,50 +7665,50 @@ const addDefaultChanges = function (changes) {
           value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
         });
         break;
-        case "slow":
-          changes.push(
-            ItemChange.create({
-              formula: "-1",
-              target: "attack",
-              subTarget: "attack",
-              modifier: "penalty",
-            })
-          );
-          getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
-            value: -1,
-            name: game.i18n.localize("FFD20.Condslow"),
-          });
+      case "slow":
+        changes.push(
+          ItemChange.create({
+            formula: "-1",
+            target: "attack",
+            subTarget: "attack",
+            modifier: "penalty",
+          })
+        );
+        getSourceInfo(this.sourceInfo, "data.attributes.attack.general").negative.push({
+          value: -1,
+          name: game.i18n.localize("FFD20.Condslow"),
+        });
 
-          changes.push(
-            ItemChange.create({
-              formula: "-1",
-              target: "savingThrows",
-              subTarget: "ref",
-              modifier: "penalty",
-            })
-          );
-          for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
-            getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
-              value: -1,
-              name: game.i18n.localize("FFD20.CondSlow"),
-            });
-          }
-          changes.push(
-            ItemChange.create({
-              formula: "-1",
-              target: "ac",
-              subTarget: "ac",
-              modifier: "penalty",
-            })
-          );
-          for (const k of Object.keys(this.data.data.attributes.ac)) {
-            getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).negative.push({
-              value: -1,
-              name: game.i18n.localize("FFD20.CondSlow"),
-            });
-          }
-          break;
-      }
+        changes.push(
+          ItemChange.create({
+            formula: "-1",
+            target: "savingThrows",
+            subTarget: "ref",
+            modifier: "penalty",
+          })
+        );
+        for (let k of Object.keys(this.data.data.attributes.savingThrows)) {
+          getSourceInfo(this.sourceInfo, `data.attributes.savingThrows.${k}.total`).negative.push({
+            value: -1,
+            name: game.i18n.localize("FFD20.CondSlow"),
+          });
+        }
+        changes.push(
+          ItemChange.create({
+            formula: "-1",
+            target: "ac",
+            subTarget: "ac",
+            modifier: "penalty",
+          })
+        );
+        for (const k of Object.keys(this.data.data.attributes.ac)) {
+          getSourceInfo(this.sourceInfo, `data.attributes.ac.${k}.total`).negative.push({
+            value: -1,
+            name: game.i18n.localize("FFD20.CondSlow"),
+          });
+        }
+        break;
+    }
   }
 
   // Handle fatigue and exhaustion so that they don't stack
@@ -8130,6 +7800,7 @@ const addDefaultChanges = function (changes) {
 
 const resetSkills = function () {
   const skills = this.data.data.skills;
+  const energyDrain = Math.abs(this.data.data.attributes.energyDrain);
 
   for (const [sklKey, skl] of Object.entries(skills)) {
     if (!skl) continue;
@@ -8139,7 +7810,7 @@ const resetSkills = function () {
     let specificSkillBonus = skl.changeBonus || 0;
 
     // Parse main skills
-    let sklValue = skl.rank + (skl.cs && skl.rank > 0 ? 3 : 0) + ablMod + specificSkillBonus - acpPenalty;
+    let sklValue = skl.rank + (skl.cs && skl.rank > 0 ? 3 : 0) + ablMod + specificSkillBonus - acpPenalty - energyDrain;
     setProperty(this.data, `data.skills.${sklKey}.mod`, sklValue);
 
     // Parse sub-skills
@@ -8150,7 +7821,8 @@ const resetSkills = function () {
       acpPenalty = subSkl.acp ? this.data.data.attributes.acp.total : 0;
       ablMod = this.data.data.abilities[subSkl.ability].mod || 0;
       specificSkillBonus = subSkl.changeBonus || 0;
-      sklValue = subSkl.rank + (subSkl.cs && subSkl.rank > 0 ? 3 : 0) + ablMod + specificSkillBonus - acpPenalty;
+      sklValue =
+        subSkl.rank + (subSkl.cs && subSkl.rank > 0 ? 3 : 0) + ablMod + specificSkillBonus - acpPenalty - energyDrain;
       setProperty(this.data, `data.skills.${sklKey}.subSkills.${subSklKey}.mod`, sklValue);
     }
   }
@@ -8215,6 +7887,210 @@ const getHighestChanges = function (changes, options = { ignoreTarget: false }) 
 
   return changes;
 };
+
+class RollFFD20$1 extends Roll {
+  static get name() {
+    return "Roll";
+  }
+
+  static safeRoll(formula, data = {}, context, options = { suppressError: false }) {
+    let roll;
+    try {
+      roll = this.create(formula, data).evaluate();
+    } catch (err) {
+      roll = this.create("0", data).evaluate();
+      roll.err = err;
+    }
+    if (roll.warning) roll.err = Error("This formula had a value replaced with null.");
+    if (roll.err) {
+      if (context && !options.suppressError) console.error(context, roll.err);
+      else if (CONFIG.debug.roll) console.error(roll.err);
+    }
+    return roll;
+  }
+
+  static safeTotal(formula, data) {
+    return isNaN(+formula) ? RollFFD20$1.safeRoll(formula, data).total : +formula;
+  }
+
+  _identifyTerms(formula, { step = 0 } = {}) {
+    if (typeof formula !== "string") throw new Error("The formula provided to a Roll instance must be a string");
+    formula = this.constructor._preProcessDiceFormula(formula, this.data);
+    var warned;
+
+    // Step 1 - Update the Roll formula using provided data
+    [formula, warned] = this.constructor.replaceFormulaData(formula, this.data, { missing: "0", warn: false });
+    if (warned) this.warning = true;
+
+    // Step 2 - identify separate parenthetical terms
+    let terms = this._splitParentheticalTerms(formula);
+
+    // Step 3 - expand pooled terms
+    terms = this._splitPooledTerms(terms);
+
+    // Step 4 - expand remaining arithmetic terms
+    terms = this._splitDiceTerms(terms, step);
+
+    // Step 4.5 - Strip non-functional term flavor text
+    terms = terms.map((t) => {
+      if (typeof t !== "string") return t;
+      const stripped = t.replace(/\s*\[.*\]\s*/, ""),
+        num = /\D/.test(stripped) ? NaN : parseFloat(stripped);
+      if (isNaN(num)) return stripped;
+      else return num;
+    });
+
+    // Step 5 - clean and de-dupe terms
+    terms = this.constructor.cleanTerms(terms);
+    return terms;
+  }
+
+  _splitParentheticalTerms(formula) {
+    // Augment parentheses with semicolons and split into terms
+    const split = formula.replace(/\(/g, ";(;").replace(/\)/g, ";);");
+
+    // Match outer-parenthetical groups
+    let nOpen = 0;
+    const terms = split.split(";").reduce((arr, t, i, terms) => {
+      if (t === "") return arr;
+
+      // Identify whether the left-parentheses opens a math function
+      let mathFn = false;
+      if (t === "(") {
+        const fn = terms[i - 1].match(/(?:\s)?([A-z0-9]+)$/);
+        mathFn = fn && !!RollFFD20$1.MATH_PROXY[fn[1]];
+      }
+
+      // Combine terms using open parentheses and math expressions
+      if (nOpen > 0 || mathFn) arr[arr.length - 1] += t;
+      else arr.push(t);
+
+      // Increment the count
+      if (t === "(") nOpen++;
+      else if (t === ")" && nOpen > 0) nOpen--;
+      return arr;
+    }, []);
+
+    // Close any un-closed parentheses
+    for (let i = 0; i < nOpen; i++) terms[terms.length - 1] += ")";
+
+    // Substitute parenthetical dice rolls groups to inner Roll objects
+    return terms.reduce((terms, term) => {
+      const prior = terms.length ? terms[terms.length - 1] : null;
+      if (term[0] === "(") {
+        // Handle inner Roll parenthetical groups
+        if (/[dD]/.test(term)) {
+          terms.push(RollFFD20$1.fromTerm(term, this.data));
+          return terms;
+        }
+
+        // Evaluate arithmetic-only parenthetical groups
+        term = this._safeEval(term);
+        /* Changed functionality */
+        /* Allow null/string/true/false as it used to be and crash on undefined */
+        if (typeof term !== "undefined" && typeof term !== "number") term += "";
+        else term = Number.isInteger(term) ? term : term.toFixed(2);
+        /* End changed functionality */
+
+        // Continue wrapping math functions
+        const priorMath = prior && prior.split(" ").pop() in Math;
+        if (priorMath) term = `(${term})`;
+      }
+
+      // Append terms to to non-Rolls
+      if (prior !== null && !(prior instanceof Roll)) terms[terms.length - 1] += term;
+      else terms.push(term);
+      return terms;
+    }, []);
+  }
+
+  static replaceFormulaData(formula, data, { missing, warn = false }) {
+    let dataRgx = new RegExp(/@([a-z.0-9_-]+)/gi);
+    var warned = false;
+    return [
+      formula.replace(dataRgx, (match, term) => {
+        let value = getProperty(data, term);
+        if (value === undefined) {
+          if (warn) ui.notifications.warn(game.i18n.format("DICE.WarnMissingData", { match }));
+          warned = true;
+          return missing !== undefined ? String(missing) : match;
+        }
+        return String(value).trim();
+      }),
+      warned,
+    ];
+  }
+
+  static _preProcessDiceFormula(formula, data = {}) {
+    // Replace parentheses with semicolons to use for splitting
+    let toSplit = formula
+      .replace(/([A-z]+)?\(/g, (match, prefix) => {
+        return prefix in game.ffd20.rollPreProcess || prefix in Math ? `;${prefix};(;` : ";(;";
+      })
+      .replace(/\)/g, ";);");
+    let terms = toSplit.split(";");
+
+    // Match parenthetical groups
+    let nOpen = 0,
+      nOpenPreProcess = [];
+    terms = terms.reduce((arr, t) => {
+      // Handle cases where the prior term is a math function
+      const beginPreProcessFn = t[0] === "(" && arr[arr.length - 1] in game.ffd20.rollPreProcess;
+      if (beginPreProcessFn) nOpenPreProcess.push([arr.length - 1, nOpen]);
+      const beginMathFn = t[0] === "(" && arr[arr.length - 1] in Math;
+      if (beginMathFn && nOpenPreProcess.length > 0) nOpenPreProcess.push([arr.length - 1, nOpen]);
+
+      // Add terms to the array
+      arr.push(t);
+
+      // Increment the number of open parentheses
+      if (t === "(") nOpen++;
+      if (nOpen > 0 && t === ")") {
+        nOpen--;
+        for (let a = 0; a < nOpenPreProcess.length; a++) {
+          let obj = nOpenPreProcess[a];
+          // End pre process function
+          if (obj[1] === nOpen) {
+            const sliceLen = arr.length - obj[0];
+            let fnData = arr.splice(obj[0], sliceLen),
+              fn = fnData[0];
+            let fnParams = fnData
+              .slice(2, -1)
+              .reduce((cur, s) => {
+                cur.push(...s.split(/\s*,\s*/));
+                return cur;
+              }, [])
+              .map((o) => {
+                // Return raw string
+                if ((o.startsWith('"') && o.endsWith('"')) || (o.startsWith("'") && o.endsWith("'"))) {
+                  return o.slice(1, -1);
+                }
+                // Return data string
+                else if (o.match(/^@([a-zA-Z0-9-.]+)$/)) {
+                  const value = getProperty(data, RegExp.$1);
+                  if (typeof value === "string") return value;
+                }
+                // Return roll result
+                return RollFFD20$1.safeRoll(o, data).total;
+              })
+              .filter((o) => o !== "" && o != null);
+            if (fn in Math) {
+              arr.push(Math[fn](...fnParams).toString());
+            } else {
+              arr.push(game.ffd20.rollPreProcess[fn](...fnParams).toString());
+            }
+
+            nOpenPreProcess.splice(a, 1);
+            a--;
+          }
+        }
+      }
+      return arr;
+    }, []);
+
+    return terms.join("");
+  }
+}
 
 class VisionPermissionSheet extends FormApplication {
   constructor(object, options) {
@@ -8282,11 +8158,11 @@ class VisionPermissionSheet extends FormApplication {
  * Check if a Token can be a vison source for the current user (due to shared vision).
  *
  * @param {Token} token - The Token
- * @returns {boolean} Whether token is a possible vision source
+ * @return {boolean} Whether token is a possible vision source
  */
 const hasTokenVision = function (token) {
   if (!token.actor) return false;
-  if (token.actor.testUserPermission(game.user, "OWNER")) return true;
+  if (token.actor.hasPerm(game.user, "OWNER")) return true;
 
   const visionFlag = token.actor.getFlag("ffd20", "visionPermission");
   if (!visionFlag || !visionFlag.users[game.user._id]) return false;
@@ -8345,10 +8221,10 @@ class ActorFFD20 extends Actor {
     if (this._rollData === undefined) this._rollData = null;
 
     /**
-     * @property {object.<string>} _runningFunctions
+     * @property {Array.<string>} _runningFunctions
      * Keeps track of currently running async functions that shouldn't run multiple times simultaneously.
      */
-    if (this._runningFunctions === undefined) this._runningFunctions = {};
+    if (this._runningFunctions === undefined) this._runningFunctions = [];
 
     /**
      * @property {object} _queuedItemUpdates
@@ -8361,12 +8237,6 @@ class ActorFFD20 extends Actor {
      * All items this actor is holding in containers.
      */
     if (this.containerItems === undefined) this.containerItems = [];
-
-    /**
-     * @property {object} _prevAttributes
-     * A list of attributes to remember between updates.
-     */
-    if (this._prevAttributes === undefined) this._prevAttributes = null;
   }
 
   /* -------------------------------------------- */
@@ -8385,7 +8255,7 @@ class ActorFFD20 extends Actor {
 
     // Roll saving throw
     if (action === "defense-save") {
-      const actor = await ItemFFD20._getChatCardActor(card);
+      const actor = ItemFFD20._getChatCardActor(card);
       const saveId = button.dataset.save;
       if (actor) actor.rollSavingThrow(saveId, { event: event, skipPrompt: getSkipActionPrompt() });
     } else if (action === "save") {
@@ -8411,10 +8281,10 @@ class ActorFFD20 extends Actor {
 
   static getActiveActor({ actorName = null, actorId = null } = {}) {
     const speaker = ChatMessage.getSpeaker();
-    let actor = game.actors.contents.filter((o) => {
+    let actor = game.actors.entities.filter((o) => {
       if (!actorName && !actorId) return false;
       if (actorName && o.name !== actorName) return false;
-      if (actorId && o.id !== actorId) return false;
+      if (actorId && o._id !== actorId) return false;
       return true;
     })[0];
     if (speaker.token && !actor) actor = game.actors.tokens[speaker.token];
@@ -8592,6 +8462,7 @@ class ActorFFD20 extends Actor {
     }
     addDefaultChanges.call(this, changes);
 
+    this.changes;
     const c = new Collection();
     for (let e of changes) {
       c.set(e._id, e);
@@ -8615,6 +8486,10 @@ class ActorFFD20 extends Actor {
   }
 
   prepareData() {
+    this._prevAttributes = {};
+    for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor", "data.attributes.mp", "data.attributes.limitbreak"]) {
+      this._prevAttributes[k] = getProperty(this.data, `${k}.max`);
+    }
     this.sourceInfo = {};
     this.flags = {};
 
@@ -8623,8 +8498,6 @@ class ActorFFD20 extends Actor {
 
     this._initialized = true;
     this._setSourceDetails(this.sourceInfo);
-
-    this.doQueuedUpdates();
   }
 
   prepareBaseData() {
@@ -8639,14 +8512,10 @@ class ActorFFD20 extends Actor {
 
     // Update total level and mythic tier
     const classes = this.data.items.filter((o) => o.type === "class");
-    const level = classes
-      .filter((o) => o.data.data.classType !== "mythic" && o.data.data.countforexp === "exp")
-      .reduce((cur, o) => cur + o.data.data.level, 0);
+    const level = classes.filter((o) => o.data.classType !== "mythic" && o.data.countforexp === "exp").reduce((cur, o) => cur + o.data.level, 0);
     setProperty(this.data, "data.details.level.value", level);
 
-    const mythicTier = classes
-      .filter((o) => o.data.data.classType === "mythic")
-      .reduce((cur, o) => cur + o.data.data.level, 0);
+    const mythicTier = classes.filter((o) => o.data.classType === "mythic").reduce((cur, o) => cur + o.data.level, 0);
     setProperty(this.data, "data.details.mythicTier", mythicTier);
 
     // The following is not for NPCs
@@ -8669,7 +8538,7 @@ class ActorFFD20 extends Actor {
           const proficiencies = this.data.items.reduce(
             (profs, item) => {
               // Check only items able to grant proficiencies
-              if (hasProperty(item.data, `data.${prof}`)) {
+              if (hasProperty(item, `data.${prof}`)) {
                 // Get existing sourceInfo for item with this name, create sourceInfo if none is found
                 // Remember whether sourceInfo can be modified or has to be pushed at the end
                 let sInfo = getSourceInfo(this.sourceInfo, `data.traits.${prof}`).positive.find(
@@ -8680,7 +8549,7 @@ class ActorFFD20 extends Actor {
                 else if (typeof sInfo.value === "string") sInfo.value = sInfo.value.split(", ");
 
                 // Regular proficiencies
-                for (const proficiency of item.data.data[prof].value) {
+                for (const proficiency of item.data[prof].value) {
                   // Add localized source info if item's info does not have this proficiency already
                   if (!sInfo.value.includes(proficiency)) sInfo.value.push(CONFIG.FFD20[`${prof}`][proficiency]);
                   // Add raw proficiency key
@@ -8689,7 +8558,7 @@ class ActorFFD20 extends Actor {
 
                 // Collect trimmed but otherwise original proficiency strings, dedupe array for actor's total
                 const customProfs =
-                  item.data.data[prof].custom
+                  item.data[prof].custom
                     ?.split(CONFIG.FFD20.re.traitSeparator)
                     .map((i) => i.trim())
                     .filter((el, i, arr) => el.length > 0 && arr.indexOf(el) === i) || [];
@@ -8755,10 +8624,10 @@ class ActorFFD20 extends Actor {
           k,
           Math.floor(
             classes.reduce((cur, obj) => {
-              const babScale = getProperty(obj, "data.data.bab") || "";
-              if (babScale === "high") return cur + obj.data.data.level;
-              if (babScale === "med") return cur + obj.data.data.level * 0.75;
-              if (babScale === "low") return cur + obj.data.data.level * 0.5;
+              const babScale = getProperty(obj, "data.bab") || "";
+              if (babScale === "high") return cur + obj.data.level;
+              if (babScale === "med") return cur + obj.data.level * 0.75;
+              if (babScale === "low") return cur + obj.data.level * 0.5;
               return cur;
             }, 0)
           )
@@ -8776,8 +8645,7 @@ class ActorFFD20 extends Actor {
           this.data,
           k,
           classes.reduce((cur, obj) => {
-            const v = RollFFD20$1.safeRoll(CONFIG.FFD20.classBABFormulas[obj.data.data.bab], { level: obj.data.data.level })
-              .total;
+            const v = RollFFD20$1.safeRoll(CONFIG.FFD20.classBABFormulas[obj.data.bab], { level: obj.data.level }).total;
 
             if (v !== 0) {
               getSourceInfo(this.sourceInfo, k).positive.push({
@@ -8813,7 +8681,7 @@ class ActorFFD20 extends Actor {
     for (let [k, s] of Object.entries(getProperty(this.data, "data.skills"))) {
       if (!s) continue;
       const isClassSkill = classes.reduce((cur, o) => {
-        if ((getProperty(o.data, "data.classSkills") || {})[k] === true) return true;
+        if ((getProperty(o, "data.classSkills") || {})[k] === true) return true;
         return cur;
       }, false);
       setProperty(this.data, `data.skills.${k}.cs`, isClassSkill);
@@ -8826,10 +8694,6 @@ class ActorFFD20 extends Actor {
     {
       setProperty(this.data, "data.attributes.init.total", getProperty(this.data, "data.attributes.init.value"));
     }
-
-    this.items.forEach((item) => {
-      this.updateItemResources(item.data);
-    });
   }
 
   /**
@@ -8930,19 +8794,18 @@ class ActorFFD20 extends Actor {
     }
 
     // Refresh HP and mp
-    this._applyPreviousAttributes();
+    if (!game.ffd20.isMigrating && this._initialized) {
+      for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor", "data.attributes.mp"]) {
+        const prevMax = this._prevAttributes[k] || 0;
+        const newMax = getProperty(this.data, `${k}.max`) || 0;
+        const prevValue = getProperty(this.data, `${k}.value`);
+        const newValue = prevValue + (newMax - prevMax);
+        this._queuedUpdates[`${k}.value`] = newValue;
+      }
+    }
 
     // Update wound threshold
     this.updateWoundThreshold();
-
-    // Apply wound thresholds to skills
-    const woundPenalty = this.data.data.attributes.woundThresholds?.penalty ?? 0;
-    if (woundPenalty) {
-      for (let k of this.allSkills) {
-        const prevValue = getProperty(this.data, `data.skills.${k}.mod`);
-        setProperty(this.data, `data.skills.${k}.mod`, prevValue - woundPenalty);
-      }
-    }
 
     // Reset CR
     if (this.data.type === "npc") {
@@ -9096,6 +8959,7 @@ class ActorFFD20 extends Actor {
               casterType
             ];
           const classLevel = Math.max(Math.min(getProperty(this.data, `${bookPath}.cl.autoSpellLevelTotal`), 20), 1);
+          // rollData.cl = classLevel;
           rollData.ablMod = spellbookAbilityMod;
 
           const allLevelModFormula =
@@ -9459,7 +9323,8 @@ class ActorFFD20 extends Actor {
 
     // Update item resources
     this.items.forEach((item) => {
-      item.prepareDerivedItemData();
+      item.prepareDerivedData();
+      this.updateItemResources(item.data);
 
       // Update tokens for resources
       const tokens = this.isToken ? [this.token] : this.getActiveTokens();
@@ -9500,15 +9365,15 @@ class ActorFFD20 extends Actor {
 
     this.data.items
       .filter((obj) => {
-        return obj.type === "equipment" && obj.data.data.equipped;
+        return obj.type === "equipment" && obj.data.equipped;
       })
       .forEach((obj) => {
-        let itemACP = Math.abs(obj.data.data.armor.acp);
-        if (obj.data.data.masterwork === true && ["armor", "shield"].includes(obj.data.data.equipmentType)) {
+        let itemACP = Math.abs(obj.data.armor.acp);
+        if (obj.data.masterwork === true && ["armor", "shield"].includes(obj.data.equipmentType)) {
           itemACP = Math.max(0, itemACP - 1);
         }
 
-        switch (obj.data.data.equipmentType) {
+        switch (obj.data.equipmentType) {
           case "armor":
             itemACP = Math.max(0, itemACP + getProperty(this.data, "data.attributes.acp.armorBonus"));
             break;
@@ -9517,7 +9382,7 @@ class ActorFFD20 extends Actor {
             break;
         }
 
-        if (obj.data.data.broken) {
+        if (obj.data.broken) {
           itemACP *= 2;
         }
 
@@ -9534,22 +9399,22 @@ class ActorFFD20 extends Actor {
           }
         }
 
-        switch (obj.data.data.equipmentType) {
+        switch (obj.data.equipmentType) {
           case "armor":
             if (itemACP > armorACP) armorACP = itemACP;
-            if (!this.hasArmorProficiency(obj, armorProficiencyMap[obj.data.data.equipmentSubtype]))
+            if (!this.hasArmorProficiency(obj, armorProficiencyMap[obj.data.equipmentSubtype]))
               attackACPPenalty += armorACP;
             break;
           case "shield":
             if (itemACP > shieldACP) shieldACP = itemACP;
-            if (!this.hasArmorProficiency(obj, shieldProficiencyMap[obj.data.data.equipmentSubtype]))
+            if (!this.hasArmorProficiency(obj, shieldProficiencyMap[obj.data.equipmentSubtype]))
               attackACPPenalty += shieldACP;
             break;
         }
 
-        if (obj.data.data.armor.dex !== null) {
-          const mDex = Number.parseInt(obj.data.data.armor.dex);
-          switch (obj.data.data.equipmentType) {
+        if (obj.data.armor.dex !== null) {
+          const mDex = Number.parseInt(obj.data.armor.dex);
+          switch (obj.data.equipmentType) {
             case "armor":
               if (Number.isInteger(mDex)) {
                 const armorMDex = mDex + getProperty(this.data, "data.attributes.mDex.armorBonus");
@@ -9699,7 +9564,7 @@ class ActorFFD20 extends Actor {
               src.value != null
                 ? src.value
                 : RollFFD20$1.safeRoll(src.formula || "0", rollData, [changeTarget, src, this], {
-                    suppressError: !this.testUserPermission(game.user, "OWNER"),
+                    suppressError: !this.hasPerm(game.user, "OWNER"),
                   }).total;
             if (src.operator === "set") srcValue = game.i18n.localize("FFD20.SetTo").format(srcValue);
             if (!(src.operator === "add" && srcValue === 0)) {
@@ -9716,8 +9581,7 @@ class ActorFFD20 extends Actor {
     this.sourceDetails = sourceDetails;
   }
 
-  _getInherentTotalsKeys() {
-    // Determine base keys
+  _resetInherentTotals() {
     const keys = {
       "data.attributes.ac.normal.total": 10,
       "data.attributes.ac.touch.total": 10,
@@ -9747,7 +9611,6 @@ class ActorFFD20 extends Actor {
       "data.attributes.woundThresholds.penalty": 0,
     };
 
-    // Determine skill keys
     try {
       const skillKeys = getChangeFlat.call(this, "skills", "skills");
       for (let k of skillKeys) {
@@ -9757,20 +9620,13 @@ class ActorFFD20 extends Actor {
       console.warn("Could not determine skills for an unknown actor in the creation process", this);
     }
 
-    return keys;
-  }
-
-  _resetInherentTotals() {
-    const keys = this._getInherentTotalsKeys();
-
-    // Reset totals
     for (const [k, v] of Object.entries(keys)) {
       setProperty(this.data, k, v);
     }
   }
 
   async refresh() {
-    if (this.isOwner) {
+    if (this.hasPerm(game.user, "OWNER")) {
       return this.update({});
     }
   }
@@ -9878,6 +9734,7 @@ class ActorFFD20 extends Actor {
   /* -------------------------------------------- */
 
   async preUpdate(data) {
+    const fullData = mergeObject(this.data, data, { inplace: false });
     data = flattenObject(data);
 
     // Apply settings
@@ -9905,17 +9762,7 @@ class ActorFFD20 extends Actor {
         else if (o.inUse === false && usedSpellbooks.includes(o.spellbook))
           usedSpellbooks.splice(usedSpellbooks.indexOf(o.spellbook), 1);
       }
-      data["data.attributes.spells.usedSpellbooks"] = usedSpellbooks;
-    }
-
-    // Apply changes in Actor size to Token width/height
-    if (data["data.traits.size"] && this.data.data.traits.size !== data["data.traits.size"]) {
-      let size = CONFIG.FFD20.tokenSizes[data["data.traits.size"]];
-      if (!this.isToken && !getProperty(this.data, "token.flags.ffd20.staticSize")) {
-        data["token.width"] = size.w;
-        data["token.height"] = size.h;
-        data["token.scale"] = size.scale;
-      }
+      linkData(fullData, data, "data.attributes.spells.usedSpellbooks", usedSpellbooks);
     }
 
     // Make certain variables absolute
@@ -9929,7 +9776,17 @@ class ActorFFD20 extends Actor {
         return data[k] != null;
       });
     for (const k of _absoluteKeys) {
-      data[k] = Math.abs(data[k]);
+      linkData(fullData, data, k, Math.abs(data[k]));
+    }
+
+    // Apply changes in Actor size to Token width/height
+    if (data["data.traits.size"] && this.data.data.traits.size !== data["data.traits.size"]) {
+      let size = CONFIG.FFD20.tokenSizes[data["data.traits.size"]];
+      if (!this.isToken) {
+        linkData(fullData, data, "token.width", size.w);
+        linkData(fullData, data, "token.height", size.h);
+        linkData(fullData, data, "token.scale", size.scale);
+      }
     }
 
     // Apply changes in resources
@@ -9938,12 +9795,9 @@ class ActorFFD20 extends Actor {
         const resKey = RegExp.$1;
         const itemId = getProperty(this.data, `data.resources.${resKey}._id`);
         if (itemId && itemId.length) {
-          const updateData = mergeObject(this._queuedItemUpdates[itemId] ?? {}, {
+          this._queuedItemUpdates[itemId] = mergeObject(this._queuedItemUpdates[itemId] ?? {}, {
             "data.uses.value": v,
           });
-          if (!isObjectEmpty(updateData)) {
-            this._queuedItemUpdates[itemId] = updateData;
-          }
         }
       }
     }
@@ -9963,7 +9817,7 @@ class ActorFFD20 extends Actor {
     }
 
     // Update experience
-    this._updateExp(data);
+    this._updateExp(data, fullData);
 
     return data;
   }
@@ -9981,8 +9835,6 @@ class ActorFFD20 extends Actor {
       token.cancel();
     });
     this._pendingUpdateTokens = [];
-
-    this._trackPreviousAttributes();
 
     // Avoid regular update flow for explicitly non-recursive update calls
     if (options.recursive === false) {
@@ -10036,14 +9888,10 @@ class ActorFFD20 extends Actor {
                 cur.push(obj);
                 return cur;
               }, []);
-              if (!isObjectEmpty(this._queuedItemUpdates)) {
-                this.updateEmbeddedDocuments("Item", itemUpdates).then(() => {
-                  this._queuedItemUpdates = {};
-                  resolve();
-                });
-              } else {
+              this.updateEmbeddedEntity("OwnedItem", itemUpdates).then(() => {
+                this._queuedItemUpdates = {};
                 resolve();
-              }
+              });
             });
           });
         });
@@ -10085,66 +9933,58 @@ class ActorFFD20 extends Actor {
   }
 
   _onUpdate(data, options, userId, context) {
-    if (userId === game.user.id) {
-      this.toggleConditionStatusIcons();
+    for (let k of Object.keys(data)) {
+      if (k.startsWith("data.attributes.vision")) {
+        canvas.sight.initializeTokens();
+      }
     }
-
-    super._onUpdate(data, options, userId, context);
 
     // Resize token(s)
     {
       const sizeKey = getProperty(data, "data.traits.size");
       if (sizeKey) {
         let size = CONFIG.FFD20.tokenSizes[sizeKey];
-        let tokens = this.getActiveTokens(false, true).filter((o) => {
-          if (getProperty(o.data, "flags.ffd20.staticSize")) return false;
-          if (!getProperty(o.data, "actorLink")) return false;
-          return true;
-        });
+        let tokens = this.isToken ? [this.token] : this.getActiveTokens();
+        tokens = tokens.filter((o) => !getProperty(o.data, "flags.ffd20.staticSize"));
         tokens.forEach((o) => {
           o.update({ width: size.w, height: size.h, scale: size.scale });
         });
       }
     }
+    // Send queued updates
+    // if (this._initialized && this.hasPerm(game.user, "OWNER") && userId === game.user.id) {
+    // const diff = diffObject(duplicate(this._data), expandObject(this._queuedUpdates), { inner: true });
+    // if (!isObjectEmpty(diff)) {
+    // this.update(diff).then(() => {
+    // this._queuedUpdates = {};
+    // });
+    // }
+    // }
+
+    super._onUpdate(data, options, userId, context);
+
+    if (userId === game.user.id) {
+      this.doQueuedUpdates();
+    }
+  }
+
+  _onModifyEmbeddedEntity(embeddedName, changes, options, userId, context = {}) {
+    super._onModifyEmbeddedEntity(embeddedName, changes, options, userId, context);
+
+    if (embeddedName === "OwnedItem" && userId === game.user.id) {
+      this.doQueuedUpdates();
+    }
   }
 
   async doQueuedUpdates() {
-    if (!this.testUserPermission(game.user, "OWNER")) return;
-    if (this._queuedUpdates == null) return;
+    if (!this.hasPerm(game.user, "OWNER")) return;
 
-    const diff = diffObject(duplicate(this.data._source), expandObject(this._queuedUpdates), { inner: true });
+    const diff = diffObject(duplicate(this._data), expandObject(this._queuedUpdates), { inner: true });
     this._queuedUpdates = {};
+    await this.toggleConditionStatusIcons();
     if (!isObjectEmpty(diff)) {
       await this.update(diff);
     }
-  }
-
-  _preCreateEmbeddedDocuments(embeddedName, result, options, userId) {
-    this._trackPreviousAttributes();
-
-    super._preCreateEmbeddedDocuments(...arguments);
-  }
-
-  _preDeleteEmbeddedDocuments(embeddedName, result, options, userId) {
-    this._trackPreviousAttributes();
-
-    super._preDeleteEmbeddedDocuments(...arguments);
-  }
-
-  _preUpdateEmbeddedDocuments(embeddedName, result, options, userId) {
-    this._trackPreviousAttributes();
-
-    super._preUpdateEmbeddedDocuments(...arguments);
-  }
-
-  _onUpdateEmbeddedDocuments(embeddedName, documents, result, options, userId) {
-    if (userId === game.user.id) {
-      this.toggleConditionStatusIcons();
-    }
-
-    super._preUpdateEmbeddedDocuments(...arguments);
-
-    if (this.sheet) this.sheet.render();
   }
 
   /**
@@ -10152,13 +9992,12 @@ class ActorFFD20 extends Actor {
    *
    * @param {object} data - The update data, as per ActorFFD20.update()
    * @param updateData
+   * @param fullData
    */
-  _updateExp(updateData) {
+  _updateExp(updateData, fullData) {
     // Get total level
-    const classes = this.items.filter((o) => o.type === "class" && o.data.countforexp === "exp");
-    const level = classes
-      .filter((o) => o.data.data.classType !== "mythic")
-      .reduce((cur, o) => cur + o.data.data.level, 0);
+    const classes = fullData.items.filter((o) => o.type === "class" && o.data.countforexp === "exp");
+    const level = classes.filter((o) => o.data.classType !== "mythic").reduce((cur, o) => cur + o.data.level, 0);
 
     // The following is not for NPCs
     if (this.data.type !== "character") return;
@@ -10253,45 +10092,15 @@ class ActorFFD20 extends Actor {
     }
 
     mergeObject(itemData, initial);
-    return ItemFFD20.create(itemData, { parent: this });
+    return super.createOwnedItem(itemData, options);
   }
 
   /* -------------------------------------------- */
   /*  Rolls                                       */
   /* -------------------------------------------- */
 
-  /**
-   * Cast a Spell, consuming a spell slot of a certain level, FIX temp mp uses
-   *
-   * @param {ItemFFD20} item   The spell being cast by the actor
-   * @param {MouseEvent} ev The click event
-   * @param root0
-   * @param root0.skipDialog
-   */
-  async useSpell(item, ev, { skipDialog = false } = {}) {
-    if (!this.isOwner) {
-      const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
-      console.warn(msg);
-      return ui.notifications.warn(msg);
-    }
-    if (item.data.type !== "spell") throw new Error("Wrong Item type");
-
-    if (
-      getProperty(item.data, "data.preparation.mode") !== "atwill" &&
-      item.getSpellUses() < item.chargeCost &&
-      item.autoDeductCharges
-    ) {
-      const msg = game.i18n.localize("FFD20.ErrorNoMPLeft");
-      console.warn(msg);
-      return ui.notifications.warn(msg);
-    }
-
-    // Invoke the Item roll
-    return item.useAttack({ ev: ev, skipDialog: skipDialog });
-  }
-
   async createAttackFromWeapon(item) {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -10342,12 +10151,7 @@ class ActorFFD20 extends Actor {
     // Add additional attacks
     let extraAttacks = [];
     for (let a = 5; a < this.data.data.attributes.bab.total; a += 5) {
-      extraAttacks = extraAttacks.concat([
-        [
-          `-${a}[${game.i18n.localize("FFD20.Iterative")}]`,
-          `${game.i18n.localize("FFD20.Attack")} ${Math.floor((a + 5) / 5)}`,
-        ],
-      ]);
+      extraAttacks = extraAttacks.concat([[`-${a}`, `${game.i18n.localize("FFD20.Attack")} ${Math.floor((a + 5) / 5)}`]]);
     }
     if (extraAttacks.length > 0) attackData["data.attackParts"] = extraAttacks;
 
@@ -10392,9 +10196,9 @@ class ActorFFD20 extends Actor {
     // Create link
     if (itemData.type === "attack") {
       // check for correct itemData, Foundry #3419
-      const newItem = this.items.find((o) => o.id === itemData.id);
+      const newItem = this.items.find((o) => o._id === itemData._id);
       if (newItem) {
-        await item.createItemLink("children", "data", newItem, itemData.id);
+        await item.createItemLink("children", "data", newItem, itemData._id);
       }
     }
 
@@ -10449,7 +10253,7 @@ class ActorFFD20 extends Actor {
    * @param {object} options      Options which configure how the skill check is rolled
    */
   rollSkill(skillId, options = { event: null, skipDialog: false, staticRoll: null, noSound: false, dice: "1d20" }) {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -10489,47 +10293,8 @@ class ActorFFD20 extends Actor {
       notes.push(game.i18n.localize("FFD20.Untrained"));
     }
 
-    // Gather changes
-    let parts = [];
-    const changes = this.changes.filter((c) => {
-      let cf = getChangeFlat.call(this, c.subTarget, c.modifier);
-      if (!(cf instanceof Array)) cf = [cf];
-
-      return cf.includes(`data.skills.${skillParts.join(".")}.changeBonus`);
-    });
-
-    // Add ability modifier
-    if (skl.ability) {
-      parts.push(`@abilities.${skl.ability}.mod[${CONFIG.FFD20.abilities[skl.ability]}]`);
-    }
-
-    // Add rank
-    if (skl.rank > 0) {
-      parts.push(`${skl.rank}[${game.i18n.localize("FFD20.SkillRankPlural")}]`);
-      if (skl.cs) {
-        parts.push(`3[${game.i18n.localize("FFD20.CSTooltip")}]`);
-      }
-    }
-
-    // Add armor check penalty
-    if (skl.acp) {
-      parts.push(`-@attributes.acp.total[${game.i18n.localize("FFD20.ACPLong")}]`);
-    }
-
-    // Add Wound Thresholds info
-    if (rollData.attributes.woundThresholds?.penalty > 0) {
-      parts.push(
-        `- @attributes.woundThresholds.penalty[${game.i18n.localize(
-          CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]
-        )}]`
-      );
-    }
-
-    // Add changes
-    for (let c of changes) {
-      if (!c.value) continue;
-      parts.push(`${c.value}[${c.flavor}]`);
-    }
+    // Build base modifiers, but don't include all if they're zeroed.
+    let mods = [skl.mod];
 
     let props = [];
     if (notes.length > 0) props.push({ header: "Notes", value: notes });
@@ -10537,9 +10302,9 @@ class ActorFFD20 extends Actor {
       event: options.event,
       fastForward: options.skipDialog === true,
       staticRoll: options.staticRoll,
-      parts,
+      parts: mods.filter((m) => !!m),
       dice: options.dice,
-      data: rollData,
+      data: {},
       title: game.i18n.localize("FFD20.SkillCheck").format(sklName),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       chatTemplate: "systems/ffd20/templates/chat/roll-ext.hbs",
@@ -10563,7 +10328,7 @@ class ActorFFD20 extends Actor {
   }
 
   rollBAB(options = { noSound: false, dice: "1d20" }) {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -10574,7 +10339,7 @@ class ActorFFD20 extends Actor {
 
     return DiceFFD20.d20Roll({
       event: options.event,
-      parts: [`@mod[${game.i18n.localize("FFD20.BABAbbr")}]`],
+      parts: ["@mod"],
       dice: options.dice,
       data: { mod: this.data.data.attributes.bab.total },
       title: game.i18n.localize("FFD20.BAB"),
@@ -10585,7 +10350,7 @@ class ActorFFD20 extends Actor {
   }
 
   rollCMB(options = { noSound: false, dice: "1d20" }) {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -10615,7 +10380,7 @@ class ActorFFD20 extends Actor {
     if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
     return DiceFFD20.d20Roll({
       event: options.event,
-      parts: [`@mod[${game.i18n.localize("FFD20.CMBAbbr")}]`],
+      parts: ["@mod"],
       dice: options.dice,
       data: { mod: this.data.data.attributes.cmb.total },
       title: game.i18n.localize("FFD20.CMB"),
@@ -10628,7 +10393,7 @@ class ActorFFD20 extends Actor {
   }
 
   rollAttack(options = { melee: true, noSound: false, dice: "1d20" }) {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -10654,11 +10419,7 @@ class ActorFFD20 extends Actor {
     }
     rollData.item = {};
 
-    let changes = sources
-      .filter((item) => Number.isInteger(item.value))
-      .map((i) => {
-        return `${i.value}[${i.name}]`;
-      });
+    let changes = sources.map((item) => item.value).filter((item) => Number.isInteger(item));
 
     // Add attack bonuses from changes
     const attackTargets = ["attack"].concat(options.melee ? ["mattack"] : ["rattack"]);
@@ -10668,13 +10429,13 @@ class ActorFFD20 extends Actor {
     changes.push(
       ...attackChanges.map((c) => {
         c.applyChange(this);
-        return `${c.value}[${c.parent ? c.parent.name : c.data.modifier}}]`;
+        return c.value;
       })
     );
 
     // Add ability modifier
     const atkAbl = getProperty(this.data, `data.attributes.attack.${options.melee ? "melee" : "ranged"}Ability`);
-    changes.push(`${getProperty(this.data, `data.abilities.${atkAbl}.mod`)}[${CONFIG.FFD20.abilities[atkAbl]}]`);
+    changes.push(getProperty(this.data, `data.abilities.${atkAbl}.mod`));
 
     let props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
@@ -10711,7 +10472,7 @@ class ActorFFD20 extends Actor {
     if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
     return DiceFFD20.d20Roll({
       event: event,
-      parts: [`@cl[${game.i18n.localize("FFD20.CasterLevel")}]`],
+      parts: [`@cl`],
       data: rollData,
       title: game.i18n.localize("FFD20.CasterLevelCheck"),
       speaker: ChatMessage.getSpeaker({ actor: this }),
@@ -10750,11 +10511,7 @@ class ActorFFD20 extends Actor {
 
     return DiceFFD20.d20Roll({
       event: event,
-      parts: [
-        `@cl[${game.i18n.localize("FFD20.CasterLevel")}] + @mod[${
-          CONFIG.FFD20.abilities[spellbook.ability]
-        }] + (@concentrationBonus + @formulaBonus)[${game.i18n.localize("FFD20.ByBonus")}]`,
-      ],
+      parts: ["@cl + @mod + @concentrationBonus + @formulaBonus"],
       dice: options.dice,
       data: rollData,
       title: game.i18n.localize("FFD20.ConcentrationCheck"),
@@ -10853,7 +10610,7 @@ class ActorFFD20 extends Actor {
     let combat = game.combat;
     if (!combat) {
       if (game.user.isGM && canvas.scene) {
-        combat = await game.combats.documentClass.create({ scene: canvas.scene.id, active: true });
+        combat = await game.combats.object.create({ scene: canvas.scene._id, active: true });
       } else {
         ui.notifications.warn(game.i18n.localize("COMBAT.NoneActive"));
         return null;
@@ -10868,21 +10625,21 @@ class ActorFFD20 extends Actor {
         arr.push({ tokenId: t.id, hidden: t.data.hidden });
         return arr;
       }, []);
-      await combat.createEmbeddedDocuments("Combatant", createData);
+      await combat.createEmbeddedEntity("Combatant", createData);
     }
 
     // Iterate over combatants to roll for
     const combatantIds = combat.combatants.reduce((arr, c) => {
       if (c.actor.id !== this.id || (this.isToken && c.tokenId !== this.token.id)) return arr;
       if (c.initiative && !rerollInitiative) return arr;
-      arr.push(c.id);
+      arr.push(c._id);
       return arr;
     }, []);
     return combatantIds.length ? combat.rollInitiative(combatantIds, initiativeOptions) : combat;
   }
 
   rollSavingThrow(savingThrowId, options = { event: null, noSound: false, skipPrompt: true, dice: "1d20" }) {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -10904,56 +10661,27 @@ class ActorFFD20 extends Actor {
       }
     }
 
-    let parts = [];
-
-    // Get base
-    const base = getProperty(this.data, `data.attributes.savingThrows.${savingThrowId}.base`);
-    if (base) parts.push(`${base}[${game.i18n.localize("FFD20.Base")}]`);
-
-    // Add changes
-    let changeBonus = [];
-    const changes = this.changes.filter((c) => ["allSavingThrows", savingThrowId].includes(c.subTarget));
-    {
-      // Get damage bonus
-      changeBonus = getHighestChanges(
-        changes.filter((c) => {
-          c.applyChange(this);
-          return !["set", "="].includes(c.operator);
-        }),
-        { ignoreTarget: true }
-      ).reduce((cur, c) => {
-        if (c.value)
-          cur.push({
-            value: c.value,
-            source: c.flavor,
-          });
-        return cur;
-      }, []);
-    }
-    for (let c of changeBonus) {
-      parts.push(`${c.value}[${c.source}]`);
-    }
+    const changes = this.sourceDetails[`data.attributes.savingThrows.${savingThrowId}.total`];
+    const abl = getProperty(this.data, `data.attributes.savingThrows.${savingThrowId}.ability`);
+    const ablMod = getProperty(this.data, `data.abilities.${abl}.mod`);
+    let mods = changes.map((item) => item.value);
+    if (ablMod === 0) mods.unshift(0); // Include missing 0 ability modifier in front
 
     // Wound Threshold penalty
-    if (rollData.attributes.woundThresholds.penalty > 0) {
+    if (rollData.attributes.woundThresholds.penalty > 0)
       notes.push(game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
-      parts.push(
-        `- @attributes.woundThresholds.penalty[${game.i18n.localize(
-          CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]
-        )}]`
-      );
-    }
 
     // Roll saving throw
     let props = this.getDefenseHeaders();
     if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
     const label = CONFIG.FFD20.savingThrows[savingThrowId];
+    this.data.data.attributes.savingThrows[savingThrowId];
     return DiceFFD20.d20Roll({
       event: options.event,
-      parts,
+      parts: mods,
       dice: options.dice,
       situational: true,
-      data: rollData,
+      data: {},
       title: game.i18n.localize("FFD20.SavingThrowRoll").format(label),
       speaker: ChatMessage.getSpeaker({ actor: this }),
       takeTwenty: false,
@@ -10974,7 +10702,7 @@ class ActorFFD20 extends Actor {
    * @param {object} options      Options which configure how ability tests are rolled
    */
   rollAbilityTest(abilityId, options = { noSound: false, dice: "1d20" }) {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -11031,7 +10759,7 @@ class ActorFFD20 extends Actor {
    * Show defenses in chat
    */
   async rollDefenses() {
-    if (!this.isOwner) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -11118,15 +10846,12 @@ class ActorFFD20 extends Actor {
       cmdNotes.push(wTlabel);
     }
 
-    // Get actor's token
-    const token = this.token ?? canvas.tokens.placeables.find((t) => t.actor && t.actor.id === this.id);
-
     // Create message
     const d = this.data.data;
     const data = {
       actor: this,
       name: this.name,
-      tokenId: this.token ? `${this.token.uuid}` : null,
+      tokenId: this.token ? `${this.token.scene._id}.${this.token.id}` : null,
       ac: {
         normal: d.attributes.ac.normal.total,
         touch: d.attributes.ac.touch.total,
@@ -11144,7 +10869,6 @@ class ActorFFD20 extends Actor {
         drNotes: drNotes,
         energyResistance: energyResistance,
       },
-      tokenUuid: token?.document.uuid,
     };
     // Add regeneration and fast healing
     if ((getProperty(d, "traits.fastHealing") || "").length || (getProperty(d, "traits.regen") || "").length) {
@@ -11153,7 +10877,6 @@ class ActorFFD20 extends Actor {
         fastHealing: d.traits.fastHealing,
       };
     }
-
     await createCustomChatMessage("systems/ffd20/templates/chat/defenses.hbs", data, {
       speaker: ChatMessage.getSpeaker({ actor: this }),
     });
@@ -11213,7 +10936,7 @@ class ActorFFD20 extends Actor {
         // Temp HP adjustment
         let dt = value > 0 ? Math.min(tmp, value) : 0;
 
-        if (!a.isOwner) {
+        if (!a.hasPerm(game.user, "OWNER")) {
           const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
           console.warn(msg);
           ui.notifications.warn(msg);
@@ -11400,19 +11123,6 @@ class ActorFFD20 extends Actor {
       }
     }
     return null;
-  }
-
-  get allSkills() {
-    let result = [];
-    for (let [k, s] of Object.entries(this.data.data.skills)) {
-      result.push(k);
-      if (s.subSkills) {
-        for (let k2 of Object.keys(s.subSkills)) {
-          result.push(`${k}.subSkills.${k2}`);
-        }
-      }
-    }
-    return result;
   }
 
   get allNotes() {
@@ -11610,14 +11320,21 @@ class ActorFFD20 extends Actor {
     }, []);
   }
 
-  async createEmbeddedDocuments(embeddedName, createData, options = {}) {
+  async createEmbeddedEntity(embeddedName, createData, options = {}) {
     let noArray = false;
     if (!(createData instanceof Array)) {
       createData = [createData];
       noArray = true;
     }
 
-    return super.createEmbeddedDocuments(embeddedName, noArray ? createData[0] : createData, options);
+    for (let obj of createData) {
+      // Don't auto-equip transferred items
+      if (obj._id != null && ["weapon", "equipment"].includes(obj.type)) {
+        obj.data.equipped = false;
+      }
+    }
+
+    return super.createEmbeddedEntity(embeddedName, noArray ? createData[0] : createData, options);
   }
 
   /**
@@ -11704,19 +11421,19 @@ class ActorFFD20 extends Actor {
 
   getCarriedWeight() {
     // Determine carried weight
-    const physicalItems = this.items.filter((o) => {
-      return o.data.data.weight != null;
+    const physicalItems = this.data.items.filter((o) => {
+      return o.data.weight != null;
     });
     const weight = physicalItems.reduce((cur, o) => {
-      if (!o.data.data.carried) return cur;
-      return cur + o.data.data.weight * o.data.data.quantity;
+      if (!o.data.carried) return cur;
+      return cur + o.data.weight * o.data.quantity;
     }, this._calculateCoinWeight());
 
     return convertWeight(weight);
   }
 
   /**
-   * @returns {number} The total amount of currency this actor has, in gold pieces
+   * @returns {number} The total amount of currency this actor has, in gil pieces
    */
   mergeCurrency() {
     return this.getTotalCurrency("currency") + this.getTotalCurrency("altCurrency");
@@ -11724,27 +11441,45 @@ class ActorFFD20 extends Actor {
 
   getTotalCurrency(category = "currency") {
     const currencies = getProperty(this.data.data, category);
-    return currencies.gil;
+    return (currencies.pgil * 1000 + currencies.gil * 100 + currencies.sgil * 10 + currencies.cgil) / 100;
   }
 
   /**
    * Converts currencies of the given category to the given currency type
    *
    * @param {string} category - Either 'currency' or 'altCurrency'.
-   * @param {string} type - Either 'gil'. Converts as much currency as possible to this type.
+   * @param {string} type - Either 'pgil', 'gil', 'sgil' or 'cgil'. Converts as much currency as possible to this type.
    */
-  convertCurrency(category = "currency", type = "gil") {
+  convertCurrency(category = "currency", type = "pgil") {
     const totalValue =
       category === "currency" ? this.getTotalCurrency("currency") : this.getTotalCurrency("altCurrency");
-    let values = [0];
+    let values = [0, 0, 0, 0];
     switch (type) {
+      case "pgil":
+        values[0] = Math.floor(totalValue / 10);
+        values[1] = Math.max(0, Math.floor(totalValue) - values[0] * 10);
+        values[2] = Math.max(0, Math.floor(totalValue * 10) - values[0] * 100 - values[1] * 10);
+        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[0] * 1000 - values[1] * 100 - values[2] * 10);
+        break;
       case "gil":
-        values[0] = Math.floor(totalValue);
+        values[1] = Math.floor(totalValue);
+        values[2] = Math.max(0, Math.floor(totalValue * 10) - values[1] * 10);
+        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[1] * 100 - values[2] * 10);
+        break;
+      case "sgil":
+        values[2] = Math.floor(totalValue * 10);
+        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[2] * 10);
+        break;
+      case "cgil":
+        values[3] = Math.floor(totalValue * 100);
         break;
     }
 
     const updateData = {};
-    updateData[`data.${category}.gil`] = values[0];
+    updateData[`data.${category}.pgil`] = values[0];
+    updateData[`data.${category}.gil`] = values[1];
+    updateData[`data.${category}.sgil`] = values[2];
+    updateData[`data.${category}.cgil`] = values[3];
     return this.update(updateData);
   }
 
@@ -11827,52 +11562,57 @@ class ActorFFD20 extends Actor {
         return obj.type === "class";
       })
       .forEach((cls) => {
-        let tag = cls.data.data.tag;
+        let tag = cls.data.tag;
         if (!tag) {
-          if (cls.data.data["useCustomTag"] !== true) tag = createTag(cls.name);
+          if (cls.data["useCustomTag"] !== true) tag = createTag(cls.name);
           else return;
         }
 
         let healthConfig = game.settings.get("ffd20", "healthConfig");
         const hasPlayerOwner = this.hasPlayerOwner;
         healthConfig =
-          cls.data.data.classType === "racial"
+          cls.data.classType === "racial"
             ? healthConfig.hitdice.Racial
             : hasPlayerOwner
             ? healthConfig.hitdice.PC
             : healthConfig.hitdice.NPC;
-        const classType = cls.data.data.classType || "base";
+        const classType = cls.data.classType || "base";
         result.classes[tag] = {
-          level: cls.data.data.countforexp === "exp" ? cls.data.data.level : 0, // account for nonexp
-          lvl: cls.data.data.level,
+          level: cls.data.countforexp === "exp" ? cls.data.level : 0, // account for nonexp
+          lvl: cls.data.level,
           name: cls.name,
-          spellList: cls.data.data.parentClass,
-          hd: cls.data.data.countforexp === "exp" ? cls.data.data.hd : 0, // account for nonexp
-          bab: cls.data.data.countforexp === "exp" ? cls.data.data.bab : 0, // account for nonexp
-          hp: cls.data.data.countforexp === "exp" ? healthConfig.auto : 0, // account for nonexp
-          mp: cls.data.data.mp,
+          spellList: cls.data.parentClass,
+          hd: cls.data.countforexp === "exp" ? cls.data.hd : 0, // account for nonexp
+          bab: cls.data.countforexp === "exp" ? cls.data.bab : 0, // account for nonexp
+          hp: cls.data.countforexp === "exp" ? healthConfig.auto : 0, // account for nonexp
+          mp: cls.data.mp,
           savingThrows: {
             fort: 0,
             ref: 0,
             will: 0,
           },
           fc: {
-            hp: classType === "base" ? cls.data.data.fc.hp.value : 0,
-            skill: classType === "base" ? cls.data.data.fc.skill.value : 0,
-            alt: classType === "base" ? cls.data.data.fc.alt.value : 0,
+            hp: classType === "base" ? cls.data.fc.hp.value : 0,
+            skill: classType === "base" ? cls.data.fc.skill.value : 0,
+            alt: classType === "base" ? cls.data.fc.alt.value : 0,
           },
         };
 
         for (let k of Object.keys(result.classes[tag].savingThrows)) {
-          let formula = CONFIG.FFD20.classSavingThrowFormulas[classType][cls.data.data.savingThrows[k].value];
+          let formula = CONFIG.FFD20.classSavingThrowFormulas[classType][cls.data.savingThrows[k].value];
           if (formula == null) formula = "0";
-          result.classes[tag].savingThrows[k] = RollFFD20$1.safeRoll(formula, { level: cls.data.data.level }).total;
+          result.classes[tag].savingThrows[k] = RollFFD20$1.safeRoll(formula, { level: cls.data.level }).total;
 
           // Set base saving throws
           baseSavingThrows[k] = baseSavingThrows[k] ?? 0;
           baseSavingThrows[k] += result.classes[tag].savingThrows[k];
         }
       });
+
+    // Set base saving throws
+    for (let [k, v] of Object.entries(baseSavingThrows)) {
+      setProperty(result, `attributes.savingThrows.${k}.base`, v);
+    }
 
     // Add more info for formulas
     if (this.data.items) {
@@ -11881,10 +11621,10 @@ class ActorFFD20 extends Actor {
 
       // Determine equipped armor type
       const armor = this.data.items.filter(
-        (o) => o.data.type === "equipment" && o.data.data.equipmentType === "armor" && o.data.data.equipped
+        (o) => o.type === "equipment" && o.data.equipmentType === "armor" && o.data.equipped
       );
       for (let o of armor) {
-        const subtype = o.data.data.equipmentSubtype;
+        const subtype = o.data.equipmentSubtype;
         if (subtype === "lightArmor" && result.armor.type < 1) result.armor.type = 1;
         else if (subtype === "mediumArmor" && result.armor.type < 2) result.armor.type = 2;
         else if (subtype === "heavyArmor" && result.armor.type < 3) result.armor.type = 3;
@@ -11892,10 +11632,10 @@ class ActorFFD20 extends Actor {
 
       // Determine equipped shield type
       const shields = this.data.items.filter(
-        (o) => o.data.type === "equipment" && o.data.data.equipmentType === "shield" && o.data.data.equipped
+        (o) => o.type === "equipment" && o.data.equipmentType === "shield" && o.data.equipped
       );
       for (let o of shields) {
-        const subtype = o.data.data.equipmentSubtype;
+        const subtype = o.data.equipmentSubtype;
         if (subtype === "other" && result.shield.type < 1) result.shield.type = 1;
         else if (subtype === "lightShield" && result.shield.type < 2) result.shield.type = 2;
         else if (subtype === "heavyShield" && result.shield.type < 3) result.shield.type = 3;
@@ -12006,7 +11746,7 @@ class ActorFFD20 extends Actor {
   }
 
   async deleteEmbeddedEntity(embeddedName, data, options = {}) {
-    if (embeddedName === "Item") {
+    if (embeddedName === "OwnedItem") {
       if (!(data instanceof Array)) data = [data];
 
       // Add children to list of items to be deleted
@@ -12036,8 +11776,8 @@ class ActorFFD20 extends Actor {
   }
 
   getQuickActions() {
-    const actualChargeCost = (i) => (i != null ? Math.floor(i.charges / i.chargeCost) : 0),
-      actualMaxCharge = (i) => (i != null ? Math.floor(i.maxCharges / i.chargeCost) : 0);
+    const actualChargeCost = (i) => Math.floor(i.charges / i.chargeCost),
+      actualMaxCharge = (i) => Math.floor(i.maxCharges / i.chargeCost);
     return this.items
       .filter(
         (o) =>
@@ -12064,9 +11804,7 @@ class ActorFFD20 extends Actor {
           hasAmmo: o.data.data.links?.ammunition?.length > 0 ?? false,
           ammoValue:
             o.data.data.links?.ammunition
-              ?.map((l) => this.items.get(l.id))
-              .filter((l) => l != null)
-              .map((l) => actualChargeCost(l))
+              ?.map((l) => actualChargeCost(this.items.get(l.id)))
               .reduce((a, b) => a + b, 0) ?? 0,
           recharging: o.isCharged && o.chargeCost < 0,
           color1: ItemFFD20.getTypeColor(o.type, 0),
@@ -12076,19 +11814,17 @@ class ActorFFD20 extends Actor {
   }
 
   async toggleConditionStatusIcons() {
-    if (this._runningFunctions["toggleConditionStatusIcons"]) return;
-    this._runningFunctions["toggleConditionStatusIcons"] = {};
-
     const tokens = this.token ? [this.token] : this.getActiveTokens().filter((o) => o != null);
     const buffTextures = this._calcBuffTextures();
 
+    let promises = [];
     for (let t of tokens) {
       // const isLinkedToken = getProperty(this.data, "token.actorLink");
       const actor = t.actor ? t.actor : this;
-      if (!actor.testUserPermission(game.user, "OWNER")) continue;
+      if (!actor.hasPerm(game.user, "OWNER")) continue;
       const fx = [...actor.effects];
 
-      // Create and delete buff ActiveEffects
+      // Create and delete ActiveEffects
       let toCreate = [];
       let toDelete = [];
       for (let [id, obj] of Object.entries(buffTextures)) {
@@ -12096,30 +11832,31 @@ class ActorFFD20 extends Actor {
         if (obj.active && !existing) toCreate.push(obj.item.getRawEffectData());
         else if (!obj.active && existing) toDelete.push(existing.id);
       }
+      promises.push(
+        (async () => {
+          if (toDelete.length) await actor.deleteEmbeddedEntity("ActiveEffect", toDelete);
+          if (toCreate.length) await actor.createEmbeddedEntity("ActiveEffect", toCreate);
+        })()
+      );
 
-      // Create and delete condition ActiveEffects
-      for (let k of Object.keys(CONFIG.FFD20.conditions)) {
-        const idx = fx.findIndex((e) => e.getFlag("core", "statusId") === k);
-        const hasCondition = actor.data.data.attributes.conditions[k] === true;
+      for (let con of CONFIG.statusEffects) {
+        // Don't toggle non-condition effects
+        if (CONFIG.FFD20.conditions[con.id] == null) continue;
+
+        const idx = fx.findIndex((e) => e.getFlag("core", "statusId") === con.id);
+        const hasCondition = actor.data.data.attributes.conditions[con.id] === true;
         const hasEffectIcon = idx >= 0;
-        t.object ?? t;
 
-        if (hasCondition && !hasEffectIcon) {
-          toCreate.push({
-            "flags.core.statusId": k,
-            name: CONFIG.FFD20.conditions[k],
-            icon: CONFIG.FFD20.conditionTextures[k],
-          });
-        } else if (!hasCondition && hasEffectIcon) {
-          const removeEffects = fx.filter((e) => e.getFlag("core", "statusId") === k);
-          toDelete.push(...removeEffects.map((e) => e.id));
+        if (hasCondition !== hasEffectIcon) {
+          promises.push(
+            t.toggleEffect(con, {
+              midUpdate: true,
+            })
+          );
         }
       }
-
-      if (toDelete.length) await actor.deleteEmbeddedDocuments("ActiveEffect", toDelete);
-      if (toCreate.length) await actor.createEmbeddedDocuments("ActiveEffect", toCreate);
     }
-    delete this._runningFunctions["toggleConditionStatusIcons"];
+    await Promise.all(promises);
   }
 
   // @Object { id: { title: String, type: buff/string, img: imgPath, active: true/false }, ... }
@@ -12144,18 +11881,8 @@ class ActorFFD20 extends Actor {
       } else {
         const penalty = Math.abs(getProperty(this.data, `data.abilities.${k}.penalty`) || 0);
         const damage = getProperty(this.data, `data.abilities.${k}.damage`);
-        const newMod = Math.max(-5, Math.floor((total - 10) / 2) - Math.floor(penalty / 2) - Math.floor(damage / 2));
-        setProperty(this.data, `data.abilities.${k}.mod`, newMod);
-
-        // Store previous ability score
-        if (!game.ffd20.isMigrating && this._initialized && this._prevAbilityScores) {
-          const prevMod = this._prevAbilityScores?.[k].mod ?? 0;
-          const diffMod = newMod - prevMod;
-          const result = getProperty(this.data, `data.abilities.${k}.mod`) + diffMod;
-
-          setProperty(this._prevAbilityScores, `${k}.total`, total);
-          setProperty(this._prevAbilityScores, `${k}.mod`, result);
-        }
+        const result = Math.max(-5, Math.floor((total - 10) / 2) - Math.floor(penalty / 2) - Math.floor(damage / 2));
+        setProperty(this.data, `data.abilities.${k}.mod`, result);
       }
     }
   }
@@ -12346,63 +12073,21 @@ class ActorFFD20 extends Actor {
     );
     if (proceed === false) return false;
 
-    await this.updateEmbeddedDocuments("Item", itemUpdates);
+    await this.updateEmbeddedEntity("OwnedItem", itemUpdates);
     return this.update(updateData);
-  }
-
-  _trackPreviousAttributes() {
-    // Track HP, Wounds and Vigor
-    this._prevAttributes = this._prevAttributes || {};
-    for (const k of ["data.attributes.hp", "data.attributes.wounds", "data.attributes.vigor", "data.attributes.mp"]) {
-      const max = getProperty(this.data, `${k}.max`);
-      if (this._prevAttributes[k] != null) continue;
-      this._prevAttributes[k] = max;
-    }
-
-    // Track ability scores
-    this._prevAbilityScores = this._prevAbilityScores || {};
-    for (const k of Object.keys(this.data.data.abilities)) {
-      this._prevAbilityScores[k] = {
-        total: this.data.data.abilities[k].total,
-        mod: this.data.data.abilities[k].mod,
-      };
-    }
-  }
-
-  _applyPreviousAttributes() {
-    if (!game.ffd20.isMigrating && this._initialized) {
-      // Apply HP, Wounds and Vigor
-      if (this._prevAttributes) {
-        for (const [k, prevMax] of Object.entries(this._prevAttributes)) {
-          if (prevMax == null) continue;
-          const newMax = getProperty(this.data, `${k}.max`) || 0;
-          const prevValue = getProperty(this.data, `${k}.value`);
-          const newValue = prevValue + (newMax - prevMax);
-          // if (k === "data.attributes.hp") console.log(prevMax, newMax, prevValue, newValue);
-          if (prevValue !== newValue) this._queuedUpdates[`${k}.value`] = newValue;
-        }
-      }
-      this._prevAttributes = null;
-
-      // Clear previous ability score tracking
-      this._prevAbilityScores = null;
-    }
   }
 }
 
 /**
  * A helper class for building MeasuredTemplates for FFD20 spells and abilities
- *
- * @augments {MeasuredTemplate}
+ * @extends {MeasuredTemplate}
  */
 class AbilityTemplate extends MeasuredTemplate {
   /**
    * A factory method to create an AbilityTemplate instance using provided data
-   *
    * @param {string} type -             The type of template ("cone", "circle", "rect" or "ray")
    * @param {number} distance -         The distance/size of the template
-   * @param options
-   * @returns {AbilityTemplate|null}     The template object, or null if the data does not produce a template
+   * @return {AbilityTemplate|null}     The template object, or null if the data does not produce a template
    */
   static fromData(options) {
     let type = options.type;
@@ -12415,7 +12100,7 @@ class AbilityTemplate extends MeasuredTemplate {
     // Prepare template data
     const templateData = {
       t: type,
-      user: game.user.id,
+      user: game.user._id,
       distance: distance || 5,
       direction: 0,
       x: 0,
@@ -12441,17 +12126,13 @@ class AbilityTemplate extends MeasuredTemplate {
     }
 
     // Return the template constructed from the item data
-    const cls = CONFIG.MeasuredTemplate.documentClass;
-    const template = new cls(templateData, { parent: canvas.scene });
-    const object = new this(template);
-    return object;
+    return new this(templateData);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Creates a preview of the spell template
-   *
    * @param {Event} event   The initiating click event
    */
   async drawPreview(event) {
@@ -12467,7 +12148,6 @@ class AbilityTemplate extends MeasuredTemplate {
 
   /**
    * Activate listeners for the template preview
-   *
    * @param {CanvasLayer} initialLayer  The initially active CanvasLayer to re-activate after the workflow is complete
    * @returns {Promise<boolean>} Returns true if placed, or false if cancelled
    */
@@ -12476,7 +12156,7 @@ class AbilityTemplate extends MeasuredTemplate {
       const handlers = {};
       let moveTime = 0;
 
-      const ffd20Style = game.settings.get("ffd20", "measureStyle") === true;
+      const FFD20Style = game.settings.get("ffd20", "measureStyle") === true;
 
       // Update placement (mouse-move)
       handlers.mm = (event) => {
@@ -12513,10 +12193,12 @@ class AbilityTemplate extends MeasuredTemplate {
         handlers.rc(event, false);
 
         // Confirm final snapped position
-        this.data.update(this.data);
+        const destination = canvas.grid.getSnappedPosition(this.x, this.y, 2);
+        this.data.x = destination.x;
+        this.data.y = destination.y;
 
         // Create the template
-        const result = await canvas.scene.createEmbeddedDocuments("MeasuredTemplate", [this.data]);
+        const result = await canvas.scene.createEmbeddedEntity("MeasuredTemplate", this.data);
         resolve(result);
       };
 
@@ -12533,7 +12215,7 @@ class AbilityTemplate extends MeasuredTemplate {
           }
           this.data.distance += delta * -Math.sign(event.deltaY);
         } else {
-          if (ffd20Style && this.data.t === "cone") {
+          if (FFD20Style && this.data.t === "cone") {
             delta = 90;
             snap = event.shiftKey ? delta : 45;
           } else {
@@ -12615,7 +12297,7 @@ class ChatAttack {
     this.hasDamage = false;
     this.hasRange = item.hasRange;
     this.minimumDamage = false;
-    this.damageRows = [];
+    this.damageRows = 0;
 
     this.notesOnly = true;
 
@@ -12634,7 +12316,6 @@ class ChatAttack {
 
   /**
    * Sets the attack's item reference.
-   *
    * @param {ItemFFD20} item - The item to reference.
    */
   setItem(item) {
@@ -12659,7 +12340,7 @@ class ChatAttack {
     data.critMult = 1;
     data.critCount = 0;
     // Add critical confirmation bonus
-    data.critConfirmBonus = RollFFD20.safeTotal(data.item.critConfirmBonus || "0") ?? 0;
+    data.critConfirmBonus = data.item.critConfirmBonus;
     // Determine ability multiplier
     if (data.item.ability.damageMult != null) data.ablMult = data.item.ability.damageMult;
     // Lower ability multiplier for secondary attacks
@@ -12712,9 +12393,7 @@ class ChatAttack {
     let data = this.attack;
     if (critical === true) {
       data = this.critConfirm;
-      if (this.rollData.critConfirmBonus !== 0) {
-        extraParts.push(`@critConfirmBonus[${game.i18n.localize("FFD20.CriticalConfirmation")}]`);
-      }
+      extraParts.push("@critConfirmBonus");
       // Add conditionals for critical confirmation
       if (conditionalParts["attack.crit"]?.length) extraParts.push(...conditionalParts["attack.crit"]);
     } else {
@@ -12724,8 +12403,7 @@ class ChatAttack {
 
     // Add broken penalty
     if (this.item.data.data.broken && !critical) {
-      const label = game.i18n.localize("FFD20.Broken");
-      extraParts.push(`-2[${label}]`);
+      extraParts.push("-2");
     }
 
     // Roll attack
@@ -12736,7 +12414,7 @@ class ChatAttack {
       primaryAttack: this.primaryAttack,
     });
     data.roll = roll;
-    let d20 = roll.dice.length ? roll.dice[0].total : roll.terms[0].total;
+    let d20 = roll.results[0];
     let critType = 0;
     const isCmb = ["mcman", "rcman"].includes(this.item.data.data.actionType);
     if ((d20 >= this.critRange && !critical && !isCmb) || (d20 === 20 && (critical || isCmb))) critType = 1;
@@ -12748,7 +12426,6 @@ class ChatAttack {
     data.isCrit = critType === 1;
     data.isFumble = critType === 2;
     data.rollJSON = escape(JSON.stringify(roll));
-    data.formula = roll.formula;
 
     // Add crit confirm
     if (!critical && !isCmb && d20 >= this.critRange && this.rollData.item.ability.critMult > 1) {
@@ -12825,9 +12502,18 @@ class ChatAttack {
 
     // Consolidate damage parts based on damage type
     let tooltips = "";
+    let consolidatedParts = data.parts.reduce((cur, o) => {
+      if (!cur[o.damageType]) {
+        cur[o.damageType] = new DamagePart(o.amount, o.damageType, o.rolls.slice(), critical ? "critical" : o.type);
+      } else {
+        cur[o.damageType].amount += o.amount;
+        cur[o.damageType].rolls.push(...o.rolls);
+      }
+      return cur;
+    }, {});
 
     // Add tooltip
-    for (let p of Object.values(data.parts)) {
+    for (let p of Object.values(consolidatedParts)) {
       tooltips += await renderTemplate("systems/ffd20/templates/internal/damage-tooltip.hbs", {
         part: p,
       });
@@ -12968,7 +12654,7 @@ class ChatAttack {
     this.hasCards = Object.keys(this.cards).length > 0;
 
     // Determine damage rows for chat cards
-    // this.damageRows = [];
+    this.damageRows = [];
     for (let a = 0; a < Math.max(this.damage.parts.length, this.critDamage.parts.length); a++) {
       this.damageRows.push({ normal: null, crit: null });
     }
@@ -12984,205 +12670,21 @@ class ChatAttack {
 }
 
 class DamagePart {
-  constructor(amount, damageType, roll, type = "normal") {
+  constructor(amount, damageType, rolls, type = "normal") {
     this.amount = amount;
     this.damageType = damageType;
     if (!this.damageType) this.damageType = "Untyped";
     this.type = type;
-    this.roll = {
-      json: escape(JSON.stringify(roll)),
-      formula: roll.formula,
-      total: roll.total,
-    };
-  }
-}
+    this.rolls = [];
 
-class ScriptEditor extends FormApplication {
-  constructor(options = {}) {
-    super(options);
-
-    this.command = options.command || "";
-    this.name = options.name || null;
-
-    this._promises = {
-      submit: [],
-    };
-  }
-
-  static get defaultOptions() {
-    return mergeObject(super.defaultOptions, {
-      classes: ["ffd20", "script-editor"],
-      template: "systems/ffd20/templates/apps/script-editor.hbs",
-      width: 640,
-      height: 560,
-    });
-  }
-
-  getData() {
-    const data = {};
-
-    data.command = this.command || "";
-    data.name = this.name;
-
-    data.canEdit = {
-      name: data.name != null,
-    };
-
-    return data;
-  }
-
-  awaitResult() {
-    let callback;
-    const promise = new Promise((resolve) => {
-      callback = resolve;
-    });
-    this._promises.submit.push({ callback, promise, resolved: false });
-    return promise;
-  }
-
-  activateListeners(html) {
-    html.find('button[type="submit"]').click(this._onSubmit.bind(this));
-  }
-
-  _updateObject(event, formData) {
-    this.command = formData["command"];
-    this.name = formData["name"] || null;
-
-    const result = {
-      command: this.command,
-      name: this.name,
-    };
-
-    this.resolvePromises("submit", result);
-  }
-
-  resolvePromises(type, result) {
-    for (let p of this._promises[type]) {
-      if (!p.resolved) {
-        p.callback(result);
-        p.resolved = true;
-      }
-    }
-  }
-
-  async close(...args) {
-    super.close(...args);
-
-    this.resolvePromises("submit", null);
-  }
-}
-
-class ItemScriptCall {
-  static create(data, parent) {
-    const result = new this();
-
-    result.data = mergeObject(this.defaultData, data);
-    result.parent = parent;
-
-    return result;
-  }
-
-  static get defaultData() {
-    return {
-      _id: randomID(16),
-      name: game.i18n.localize("FFD20.ScriptCalls.NewName"),
-      img: "icons/svg/dice-target.svg",
-      type: "script",
-      value: "",
-      category: "",
-      hidden: false,
-    };
-  }
-
-  get id() {
-    return this.data._id;
-  }
-  get type() {
-    return this.data.type;
-  }
-  get value() {
-    return this.data.value;
-  }
-  get category() {
-    return this.data.category;
-  }
-  get name() {
-    return this.data.name;
-  }
-  get hidden() {
-    return this.data.hidden;
-  }
-
-  async getScriptBody() {
-    return this.type === "script" ? this.value : (await fromUuid(this.value))?.data.command ?? "";
-  }
-
-  async update(data, options = {}) {
-    if (this.parent != null) {
-      const rawChange = this.parent.data.data.scriptCalls.find((o) => o._id === this.id);
-      const idx = this.parent.data.data.scriptCalls.indexOf(rawChange);
-      if (idx >= 0) {
-        data = Object.entries(data).reduce((cur, o) => {
-          cur[`data.scriptCalls.${idx}.${o[0]}`] = o[1];
-          return cur;
-        }, {});
-        return this.parent.update(data, options);
-      }
-    }
-  }
-
-  // Opens up the editor for this script call
-  async edit() {
-    // For Macros
-    if (this.type === "macro") {
-      const macro = await fromUuid(this.value);
-      let err;
-      if (macro) {
-        if (macro.testUserPermission(game.user, "OBSERVER")) {
-          macro.sheet.render(true);
-        } else {
-          err = game.i18n.format("DOCUMENT.SheetPermissionWarn", { document: macro.documentName });
-        }
-      } else {
-        err = game.i18n.format("FFD20.ErrorNoMacroID", { id: this.value });
-      }
-
-      if (err) {
-        console.error(err);
-        ui.notifications.error(err);
-      }
-    }
-    // For regular script calls
-    else {
-      const scriptEditor = new ScriptEditor({ command: this.value, name: this.name }).render(true);
-      const result = await scriptEditor.awaitResult();
-      if (result) {
-        return this.update({ value: result.command, name: result.name });
-      }
-    }
-  }
-
-  /**
-   * Executes the script.
-   *
-   * @param {object} shared - An object passed between script calls, and which is passed back as a result of ItemFFD20.executeScriptCalls.
-   * @param {object.<string, object>} extraParams - A dictionary containing extra parameters to pass on to the call.
-   */
-  async execute(shared, extraParams = {}) {
-    // Add variables to the evaluation scope
-    const item = this.parent;
-    const actor = item.parentActor;
-
-    // Attempt script execution
-    const body = `(async () => {
-      ${await this.getScriptBody()}
-    })()`;
-    const fn = Function("item", "actor", "shared", ...Object.keys(extraParams), body);
-    try {
-      return fn.call(this, item, actor, shared, ...Object.values(extraParams));
-    } catch (err) {
-      ui.notifications.error(`There was an error in your script/macro syntax. See the console (F12) for details`);
-      console.error(err);
+    if (rolls != null) {
+      if (!(rolls instanceof Array)) rolls = [rolls];
+      this.rolls = rolls.map((o) => {
+        return {
+          roll: o,
+          json: escape(JSON.stringify(o)),
+        };
+      });
     }
   }
 }
@@ -13193,6 +12695,12 @@ class ItemScriptCall {
 class ItemFFD20 extends Item {
   constructor(...args) {
     super(...args);
+
+    /**
+     * @property {object} _prevData
+     * When an item gets updated, certain data is stored here for use in _onUpdate.
+     */
+    if (this._prevData === undefined) this._prevData = {};
 
     /**
      * @property {object} links
@@ -13209,13 +12717,6 @@ class ItemFFD20 extends Item {
 
   static isInventoryItem(type) {
     return ["weapon", "equipment", "consumable", "loot", "container"].includes(type);
-  }
-
-  /**
-   * @returns {string[]} The keys of data variables to memorize between updates, for e.g. determining the difference in update.
-   */
-  get memoryVariables() {
-    return ["data.quantity", "data.level"];
   }
 
   /* -------------------------------------------- */
@@ -13285,7 +12786,7 @@ class ItemFFD20 extends Item {
 
   get charges() {
     // No actor? No charges!
-    if (!this.parent) return 0;
+    if (!this.parentActor) return 0;
 
     // Get linked charges
     const link = getProperty(this, "links.charges");
@@ -13299,7 +12800,7 @@ class ItemFFD20 extends Item {
 
   get maxCharges() {
     // No actor? No charges!
-    if (!this.parent) return 0;
+    if (!this.parentActor) return 0;
 
     // Get linked charges
     const link = getProperty(this, "links.charges");
@@ -13326,10 +12827,10 @@ class ItemFFD20 extends Item {
 
   get spellbook() {
     if (this.type !== "spell") return null;
-    if (this.parent == null) return null;
+    if (this.parentActor == null) return null;
 
     const spellbookIndex = this.data.data.spellbook;
-    return this.parent?.data?.data.attributes.spells.spellbooks[spellbookIndex];
+    return this.parentActor.data.data.attributes.spells.spellbooks[spellbookIndex];
   }
 
   get casterLevel() {
@@ -13386,7 +12887,7 @@ class ItemFFD20 extends Item {
   }
 
   get parentActor() {
-    if (this.parent) return this.parent;
+    if (this.actor) return this.actor;
 
     let actor = null;
     let p = this.parentItem;
@@ -13402,6 +12903,13 @@ class ItemFFD20 extends Item {
     return super.limited;
   }
 
+  hasPerm(user, permission, exact = false) {
+    // Return true if the object is contained by another object
+    if (this.parentItem) return true;
+
+    return super.hasPerm(user, permission, exact);
+  }
+
   getName(forcePlayerPerspective = false) {
     if (game.user.isGM && !forcePlayerPerspective) return this.name;
     if (getProperty(this.data, "data.identified") === false && getProperty(this.data, "data.unidentified.name"))
@@ -13415,7 +12923,7 @@ class ItemFFD20 extends Item {
    */
   getDC(rollData = null) {
     // No actor? No DC!
-    if (!this.parent) return 0;
+    if (!this.parentActor) return 0;
 
     rollData = rollData ?? this.getRollData();
     const data = rollData.item;
@@ -13428,15 +12936,20 @@ class ItemFFD20 extends Item {
     if (this.type === "spell") {
       const spellbook = this.spellbook;
       if (spellbook != null) {
-        let formula = spellbook.baseDCFormula;
-        if (data.save.dc.length > 0) formula += ` + ${data.save.dc}`;
-        result = RollFFD20$1.safeRoll(formula, rollData).total + dcBonus;
+        try {
+          result =
+            Roll.create(spellbook.baseDCFormula, rollData).evaluate().total +
+            Roll.create(data.save.dc.length > 0 ? data.save.dc : "0", rollData).evaluate().total +
+            dcBonus;
+        } catch (e) {
+          console.error(e, spellbook.baseDCFormula, data.save.dc.length > 0 ? data.save.dc : "0");
+        }
       }
       return result;
     }
     const dcFormula = getProperty(data, "save.dc")?.toString() || "0";
     try {
-      result = RollFFD20$1.safeRoll(dcFormula, rollData).total + dcBonus;
+      result = Roll.create(dcFormula, rollData).roll().total + dcBonus;
     } catch (e) {
       console.error(e, dcFormula);
     }
@@ -13666,7 +13179,7 @@ class ItemFFD20 extends Item {
         const equipmentType = getProperty(this.data, "data.equipmentType") || null;
         if (equipmentType != null) {
           const equipmentSlot = getProperty(this.data, "data.slot") || null;
-          labels.slot = equipmentSlot == null ? null : CONFIG.FFD20.equipmentSlots[equipmentType]?.[equipmentSlot];
+          labels.slot = equipmentSlot == null ? null : CONFIG.FFD20.equipmentSlots[equipmentType][equipmentSlot];
         } else labels.slot = null;
       }
     }
@@ -13757,7 +13270,6 @@ class ItemFFD20 extends Item {
           }
         }
       }
-
       labels.equipmentType = C.equipmentTypes[eType]._label;
       labels.equipmentSubtype = C.equipmentTypes[eType][eSubtype];
 
@@ -13811,19 +13323,21 @@ class ItemFFD20 extends Item {
         rng.long = null;
       } else if (typeof rng.value === "string" && rng.value.length) {
         try {
-          rng.value = RollFFD20$1.safeTotal(rng.value, this.getRollData()).toString();
+          rng.value = Roll.create(rng.value, this.getRollData()).evaluate().total.toString();
         } catch (err) {
           console.error(err);
         }
       }
       labels.range = [rng.value, rng.long ? `/ ${rng.long}` : null, C.distanceUnits[rng.units]].filterJoin(" ");
-      if (labels.range.length > 0) labels.range = [`${game.i18n.localize("FFD20.Range")}:`, labels.range].join(" ");
+      if (labels.range.length > 0) labels.range = [game.i18n.localize("FFD20.Range") + ":", labels.range].join(" ");
 
       // Duration Label
       let dur = duplicate(data.duration || {});
       if (["inst", "perm", "spec", "seeText"].includes(dur.units)) dur.value = game.i18n.localize("FFD20.Duration") + ":";
       else if (typeof dur.value === "string" && this.parentActor) {
-        dur.value = RollFFD20$1.safeRoll(dur.value || "0", this.getRollData(), [this.name, "Duration"]).total.toString();
+        dur.value = RollFFD20$1.safeRoll(dur.value || "0", this.getRollData(), [this.name, "Duration"], {
+          suppressError: !this.hasPerm(game.user, "OWNER"),
+        }).total.toString();
       }
       labels.duration = [dur.value, C.timePeriods[dur.units]].filterJoin(" ");
     }
@@ -13860,11 +13374,6 @@ class ItemFFD20 extends Item {
       this.changes = this._prepareChanges(this.data.data.changes);
     }
 
-    // Update script calls
-    if (this.data.data.scriptCalls instanceof Array) {
-      this.scriptCalls = this._prepareScriptCalls(this.data.data.scriptCalls);
-    }
-
     // Update contained items
     if (this.data.data.inventoryItems instanceof Array) {
       this.items = this._prepareInventory(this.data.data.inventoryItems);
@@ -13880,13 +13389,13 @@ class ItemFFD20 extends Item {
     }
 
     if (!this.actor) {
-      this.prepareDerivedItemData();
+      this.prepareDerivedData();
     }
 
     return itemData;
   }
 
-  prepareDerivedItemData() {
+  prepareDerivedData() {
     // Parse formulaic attacks
     if (this.hasAttack) {
       this.parseFormulaicAttacks({ formula: getProperty(this.data, "data.formulaicAttacks.count.formula") });
@@ -13894,11 +13403,6 @@ class ItemFFD20 extends Item {
 
     // Update maximum uses
     this._updateMaxUses();
-
-    // Re-render sheet, if open
-    if (this.sheet?.rendered) {
-      this.sheet?.render();
-    }
   }
 
   prepareLinks() {
@@ -13933,20 +13437,6 @@ class ItemFFD20 extends Item {
     return collection;
   }
 
-  _prepareScriptCalls(scriptCalls) {
-    const prior = this.scriptCalls;
-    const collection = new Collection();
-    for (let s of scriptCalls) {
-      let scriptCall = null;
-      if (prior && prior.has(s.id)) {
-        scriptCall = prior.get(s.id);
-        scriptCall.data = s;
-      } else scriptCall = ItemScriptCall.create(s, this);
-      collection.set(s._id || scriptCall.data._id, scriptCall);
-    }
-    return collection;
-  }
-
   _prepareInventory(inventory) {
     const prior = this.items;
     const collection = new Collection();
@@ -13954,11 +13444,11 @@ class ItemFFD20 extends Item {
       let item = null;
       if (prior && prior.has(o._id)) {
         item = prior.get(o._id);
-        // item.data = o;
-        item.data.update(o);
+        item._data = o;
+        item.data = item._data;
         item.prepareData();
       } else {
-        item = new CONFIG.Item.documentClass(o);
+        item = new CONFIG.Item.entityClass(o);
         item.parentItem = this;
       }
 
@@ -13967,30 +13457,12 @@ class ItemFFD20 extends Item {
     return collection;
   }
 
-  /**
-   * Executes all script calls on this item of a specified category.
-   *
-   * @param {string} category - The category of script calls to call.
-   * @param {object.<string, object>} [extraParams={}] - A dictionary of extra parameters to pass as variables for use in the script.
-   * @returns {Promise.<object>} The shared object between calls which may have been given data.
-   */
-  async executeScriptCalls(category, extraParams = {}) {
-    const scripts = this.scriptCalls?.filter((o) => o.category === category) ?? [];
-    const shared = {};
-
-    for (let s of scripts) {
-      await s.execute(shared, extraParams);
-    }
-
-    return shared;
-  }
-
   async update(data, options = {}) {
     // Avoid regular update flow for explicitly non-recursive update calls
     if (options.recursive === false) {
       return super.update(data, options);
     }
-    const srcData = mergeObject(duplicate(this.data), data, { inplace: false });
+    const srcData = mergeObject(this.data, expandObject(data), { inplace: false });
 
     // Make sure changes remains an array
     if (Object.keys(data).filter((e) => e.startsWith("data.changes.")).length > 0) {
@@ -14098,7 +13570,6 @@ class ItemFFD20 extends Item {
         { key: "data.damage.critParts" },
         { key: "data.damage.nonCritParts" },
         { key: "data.contextNotes" },
-        { key: "data.scriptCalls" },
       ];
 
       for (let kArr of keepArray) {
@@ -14224,6 +13695,9 @@ class ItemFFD20 extends Item {
       }
     }
 
+    // Set previous data
+    this._prevData["level"] = getProperty(this.data, "data.level");
+
     // Make sure charges doesn't exceed max charges, and vice versa
     {
       let charges = 0;
@@ -14232,37 +13706,33 @@ class ItemFFD20 extends Item {
 
       if (this.type === "spell") {
         if (data["data.preparation.maxAmount"] != null) target = "max";
-        charges = data["data.preparation.preparedAmount"];
-        maxCharges = data["data.preparation.maxAmount"];
+        charges = getProperty(srcData, "data.preparation.preparedAmount");
+        maxCharges = getProperty(srcData, "data.preparation.maxAmount");
       } else {
         if (data["data.uses.max"] != null) target = "max";
-        charges = data["data.uses.value"];
-        maxCharges = data["data.uses.max"];
+        charges = getProperty(srcData, "data.uses.value") || 0;
+        maxCharges = getProperty(srcData, "data.uses.max") || 0;
       }
 
       if (target === "value" && charges > maxCharges) maxCharges = charges;
       else if (target === "max" && maxCharges < charges) charges = maxCharges;
 
-      const link = getProperty(this, "links.charges");
-      if (!link) {
-        if (this.type === "spell") {
-          linkData(srcData, data, "data.preparation.preparedAmount", charges);
-          linkData(srcData, data, "data.preparation.maxAmount", maxCharges);
-        } else {
-          linkData(srcData, data, "data.uses.value", charges);
-          linkData(srcData, data, "data.uses.max", maxCharges);
-        }
+      if (this.type === "spell") {
+        linkData(srcData, data, "data.preparation.preparedAmount", charges);
+        linkData(srcData, data, "data.preparation.maxAmount", maxCharges);
       } else {
-        // Update charges for linked items
-        if (data["data.uses.value"] != null) {
-          if (link && getProperty(link, "links.charges") == null) {
-            await link.update({ "data.uses.value": data["data.uses.value"] });
-          }
-        }
+        linkData(srcData, data, "data.uses.value", charges);
+        linkData(srcData, data, "data.uses.max", maxCharges);
       }
     }
 
-    this.memorizeVariables();
+    // Update charges for linked items
+    if (data["data.uses.value"] != null) {
+      const link = getProperty(this, "links.charges");
+      if (link && getProperty(link, "links.charges") == null) {
+        await link.update({ "data.uses.value": data["data.uses.value"] });
+      }
+    }
 
     let diff = diffObject(flattenObject(this.data), data);
     // Filter diff for arrays that haven't changed. Single level depth with speed as priority
@@ -14282,7 +13752,7 @@ class ItemFFD20 extends Item {
       } else {
         // Determine item index to update in parent
         const parentInventory = this.parentItem.data.data.inventoryItems || [];
-        const parentItem = parentInventory.find((o) => o._id === this.id);
+        const parentItem = parentInventory.find((o) => o._id === this._id);
         const idx = parentInventory.indexOf(parentItem);
 
         if (idx >= 0) {
@@ -14294,7 +13764,7 @@ class ItemFFD20 extends Item {
 
           // Set parent weight
           const contentsWeight = parentInventory.reduce((cur, i) => {
-            if (i._id === this.id)
+            if (i._id === this._id)
               return cur + (getProperty(srcData, "data.weight") || 0) * (getProperty(srcData, "data.quantity") || 0);
             return cur + (getProperty(i, "data.weight") || 0) * (getProperty(i, "data.quantity") || 0);
           }, 0);
@@ -14306,11 +13776,11 @@ class ItemFFD20 extends Item {
         }
       }
     } else if (options.skipUpdate) {
-      diff["_id"] = this.id;
+      diff["_id"] = this._id;
     }
 
     // Update tokens and the actor using this item
-    const actor = this.parent;
+    const actor = this.parentActor;
     if (actor) {
       // Update actor
       {
@@ -14332,19 +13802,19 @@ class ItemFFD20 extends Item {
           cur.push(obj);
           return cur;
         }, []);
-        if (effectUpdates.length) await actor.updateEmbeddedDocuments("ActiveEffect", effectUpdates);
+        if (effectUpdates.length) await actor.updateEmbeddedEntity("ActiveEffect", effectUpdates);
       }
 
       // Update tokens
       let promises = [];
-      const tokens = canvas.tokens.placeables.filter((token) => token.actor?.id === actor.id);
+      const tokens = canvas.tokens.placeables.filter((token) => token.actor?._id === actor._id);
       for (const token of tokens) {
         const tokenUpdateData = {};
 
         // Update tokens with this item as a resource bar
         if (diff["data.uses.value"] != null) {
           for (const barKey of ["bar1", "bar2"]) {
-            const bar = token.document.getBarAttribute(barKey);
+            const bar = token.getBarAttribute(barKey);
             if (bar && bar.attribute === `resources.${this.data.data.tag}`) {
               tokenUpdateData[`${barKey}.value`] = diff["data.uses.value"];
             }
@@ -14352,71 +13822,11 @@ class ItemFFD20 extends Item {
         }
 
         if (!isObjectEmpty(tokenUpdateData)) {
-          promises.push(token.document.update(tokenUpdateData));
+          promises.push(token.update(tokenUpdateData));
         }
       }
       if (promises.length) await Promise.all(promises);
     }
-  }
-
-  memorizeVariables() {
-    const memKeys = this.memoryVariables;
-    this._memoryVariables = {};
-    for (let k of memKeys) {
-      if (hasProperty(this.data, k)) {
-        this._memoryVariables[k] = getProperty(this.data, k);
-      }
-    }
-  }
-
-  _onUpdate(changed, options, userId) {
-    super._onUpdate(changed, options, userId);
-
-    // Call 'toggle' script calls
-    {
-      let state = null;
-      if (this.data.type === "buff") state = getProperty(changed, "data.active");
-      if (this.data.type === "feat") state = getProperty(changed, "data.disabled") === true ? false : true;
-      if (state != null) {
-        this.executeScriptCalls("toggle", { state });
-      }
-    }
-
-    // Call 'equip' script calls
-    {
-      const equipped = getProperty(changed, "data.equipped");
-      if (equipped != null) {
-        this.executeScriptCalls("equip", { equipped });
-      }
-    }
-
-    // Call 'changeQuantity' script calls
-    if (this._memoryVariables?.["data.quantity"] !== undefined) {
-      const quantity = {
-        previous: this._memoryVariables["data.quantity"],
-        new: getProperty(this.data, "data.quantity"),
-      };
-      if (quantity.new != null && quantity.new !== quantity.previous) {
-        this.executeScriptCalls("changeQuantity", { quantity });
-      }
-    }
-
-    // Call 'changeLevel' script calls
-    if (this._memoryVariables?.["data.level"] !== undefined) {
-      const level = {
-        previous: parseInt(this._memoryVariables["data.level"]),
-        new: parseInt(getProperty(this.data, "data.level")),
-      };
-      for (let [k, v] of Object.entries(level)) {
-        if (Number.isNaN(v)) level[k] = null;
-      }
-      if (level.new !== undefined && level.new !== level.previous) {
-        this.executeScriptCalls("changeLevel", { level });
-      }
-    }
-
-    // Forget memory variables
-    this._memoryVariables = null;
   }
 
   _updateContentsWeight(data, { srcData = null } = {}) {
@@ -14433,7 +13843,7 @@ class ItemFFD20 extends Item {
 
   _updateMaxUses() {
     // No actor? No charges!
-    if (!this.parent) return;
+    if (!this.parentActor) return;
 
     // No charges? No charges!
     if (!["day", "week", "charges"].includes(getProperty(this.data, "data.uses.per"))) return;
@@ -14457,15 +13867,14 @@ class ItemFFD20 extends Item {
 
   //Creates a simple ActiveEffect from a buff item. Returns the effect
   async toEffect({ noCreate = false } = {}) {
-    if (!this.parent || this.type !== "buff") return;
+    if (!this.parentActor || this.type !== "buff") return;
 
-    const existing = this.parent.effects.find((e) => e.data.origin == this.uuid);
+    const existing = this.parentActor.effects.find((e) => e.data.origin == this.uuid);
     if (existing || noCreate) return existing;
 
     // Add a new effect
-    const createData = { label: this.name, icon: this.img, origin: this.uuid, disabled: !this.data.data.active };
-    createData["flags.ffd20.show"] = !this.data.data.hideFromToken && !game.settings.get("ffd20", "hideTokenConditions");
-    const effect = ActiveEffect.create(createData, { parent: this.parent });
+    const effect = ActiveEffect.create(this.getRawEffectData(), this.parentActor);
+    await effect.create();
 
     return effect;
   }
@@ -14476,11 +13885,6 @@ class ItemFFD20 extends Item {
     if (this.type === "buff")
       createData["flags.ffd20.show"] = !this.data.data.hideFromToken && !game.settings.get("ffd20", "hideTokenConditions");
     return createData;
-  }
-
-  // Fetches all this item's script calls of a specified category
-  getScriptCalls(category) {
-    return this.scriptCalls?.filter((s) => s.category === category) ?? [];
   }
 
   /* -------------------------------------------- */
@@ -14494,8 +13898,8 @@ class ItemFFD20 extends Item {
    * @returns {Promise}
    */
   async roll(altChatData = {}, { addDC = true } = {}) {
-    const actor = this.parent;
-    if (actor && !actor.isOwner) {
+    const actor = this.parentActor;
+    if (actor && !actor.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(actor.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -14505,12 +13909,12 @@ class ItemFFD20 extends Item {
     if (allowed === false) return;
 
     // Basic template rendering data
-    const token = this.parent.token;
+    const token = this.parentActor.token;
     const saveType = getProperty(this.data, "data.save.type");
     const saveDC = this.getDC();
     const templateData = {
-      actor: this.parent,
-      tokenId: token ? token.uuid : null,
+      actor: this.parentActor,
+      tokenId: token ? `${token.scene._id}.${token.id}` : null,
       item: this.data,
       data: this.getChatData(),
       labels: this.labels,
@@ -14548,10 +13952,13 @@ class ItemFFD20 extends Item {
     }
 
     // Roll spell failure chance
-    if (templateData.isSpell && this.parent != null && this.parent.spellFailure > 0) {
-      const spellbook = getProperty(this.parent.data, `data.attributes.spells.spellbooks.${this.data.data.spellbook}`);
+    if (templateData.isSpell && this.parentActor != null && this.parentActor.spellFailure > 0) {
+      const spellbook = getProperty(
+        this.parentActor.data,
+        `data.attributes.spells.spellbooks.${this.data.data.spellbook}`
+      );
       if (spellbook && spellbook.arcaneSpellFailure) {
-        templateData.spellFailure = RollFFD20$1.safeRoll("1d100").total;
+        templateData.spellFailure = Roll.create("1d100").evaluate().total;
         templateData.spellFailureSuccess = templateData.spellFailure > this.parentActor.spellFailure;
       }
     }
@@ -14562,15 +13969,15 @@ class ItemFFD20 extends Item {
 
     // Determine metadata
     const metadata = {};
-    metadata.item = this.id;
+    metadata.item = this._id;
 
     // Basic chat message data
     const chatData = flattenObject(
       mergeObject(
         {
-          user: game.user.id,
+          user: game.user._id,
           type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-          speaker: ChatMessage.getSpeaker({ actor: this.parent }),
+          speaker: ChatMessage.getSpeaker({ actor: this.parentActor }),
           flags: {
             core: {
               canPopout: true,
@@ -14767,7 +14174,7 @@ class ItemFFD20 extends Item {
    * @private
    */
   _spellChatData(data, labels, props) {
-    this.parent.data.data;
+    this.parentActor.data.data;
 
     // Spell saving throw text
     // const abl = data.ability || ad.attributes.spellcasting || "int";
@@ -14788,7 +14195,7 @@ class ItemFFD20 extends Item {
    * @param props
    */
   _featChatData(data, labels, props) {
-    this.parent.data.data;
+    this.parentActor.data.data;
 
     // Spell saving throw text
     // const abl = data.ability || ad.attributes.spellcasting || "str";
@@ -14826,8 +14233,7 @@ class ItemFFD20 extends Item {
       }
     }
     if (this.data.data.soundEffect) this.data.data.soundEffect;
-
-    return this.executeScriptCalls("use", { attacks: [] });
+    this.roll();
   }
 
   parseFormulaicAttacks({ formula = null } = {}) {
@@ -14852,7 +14258,7 @@ class ItemFFD20 extends Item {
     try {
       if (exAtkBonusFormula.length > 0) {
         rollData["attackCount"] = 1;
-        RollFFD20$1.safeRoll(exAtkBonusFormula, rollData);
+        Roll.create(exAtkBonusFormula, rollData).evaluate().total;
       }
     } catch (err) {
       const msg = game.i18n.localize("FFD20.ErrorItemFormula").format(this.name, this.actor?.name);
@@ -14869,13 +14275,12 @@ class ItemFFD20 extends Item {
   /**
    * Cast a Spell, consuming a spell slot of a certain level
    *
-   * @param {MouseEvent} ev - The click event
-   * @param {object} options - Additional options
-   * @param {boolean} options.skipDialog - Whether to skip the roll dialog
-   * @returns {Promise<ChatMessage|void|null>} The chat message created by the spell's usage
+   * @param {MouseEvent} ev The click event
+   * @param root0
+   * @param root0.skipDialog
    */
   async useSpell(ev, { skipDialog = false } = {}) {
-    if (!this.testUserPermission(game.user, "OWNER")) {
+    if (!this.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(this.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -14898,8 +14303,8 @@ class ItemFFD20 extends Item {
 
   async useAttack({ ev = null, skipDialog = false, dice = "1d20" } = {}) {
     if (ev && ev.originalEvent) ev = ev.originalEvent;
-    const actor = this.parent;
-    if (actor && !actor.isOwner) {
+    const actor = this.parentActor;
+    if (actor && !actor.hasPerm(game.user, "OWNER")) {
       const msg = game.i18n.localize("FFD20.ErrorNoActorPermissionAlt").format(actor.name);
       console.warn(msg);
       return ui.notifications.warn(msg);
@@ -14970,8 +14375,8 @@ class ItemFFD20 extends Item {
         // Point-Blank Shot
         if (form.find('[name="point-blank-shot"]').prop("checked")) {
           rollData.pointBlankBonus = 1;
-          attackExtraParts.push(`@pointBlankBonus[${game.i18n.localize("FFD20.PointBlankShot")}]`);
-          damageExtraParts.push(`@pointBlankBonus[${game.i18n.localize("FFD20.PointBlankShot")}]`);
+          attackExtraParts.push("@pointBlankBonus");
+          damageExtraParts.push("@pointBlankBonus");
         }
 
         // Haste
@@ -14984,7 +14389,7 @@ class ItemFFD20 extends Item {
         rapidShotAttackRequired = fullAttack && form.find('[name="rapid-shot"]').prop("checked");
         if (rapidShotAttackRequired) {
           rollData.rapidShotPenalty = -2;
-          attackExtraParts.push(`@rapidShotPenalty[${game.i18n.localize("FFD20.RapidShot")}]`);
+          attackExtraParts.push("@rapidShotPenalty");
         }
 
         // Primary Attack (for natural attacks)
@@ -15019,12 +14424,9 @@ class ItemFFD20 extends Item {
             if (getProperty(rollData, "item.held") === "2h") rollData.powerAttackBonus *= 1.5;
             else if (getProperty(rollData, "item.held") === "oh") rollData.powerAttackBonus *= 0.5;
           }
-          const label = ["rwak", "rsak"].includes(this.data.data.actionType)
-            ? game.i18n.localize("FFD20.DeadlyAim")
-            : game.i18n.localize("FFD20.PowerAttack");
-          damageExtraParts.push(`@powerAttackBonus[${label}]`);
+          damageExtraParts.push("@powerAttackBonus");
           rollData.powerAttackPenalty = -(1 + Math.floor(getProperty(rollData, "attributes.bab.total") / 4));
-          attackExtraParts.push(`@powerAttackPenalty[${label}]`);
+          attackExtraParts.push("@powerAttackPenalty");
         }
 
         // Conditionals
@@ -15089,7 +14491,7 @@ class ItemFFD20 extends Item {
               frollData["formulaicAttack"] = i + 1; // Add and update attack counter
               const bonus = RollFFD20$1.safeRoll(exAtkBonusFormula, frollData).total;
               allAttacks.push({
-                bonus: `(${bonus})[${game.i18n.localize("FFD20.Iterative")}]`,
+                bonus: bonus.toString(),
                 label: fatlabel.format(i + 2),
               });
             }
@@ -15151,10 +14553,6 @@ class ItemFFD20 extends Item {
                   ? [modifier.formula, modifier.type, true]
                   : [modifier.formula, localizeType(modifier.target, modifier.type), false],
               ];
-            }
-            // Add formula to the size property
-            else if (modifier.target === "size") {
-              rollData.size += conditionalRoll.total;
             }
           }
         }
@@ -15248,10 +14646,7 @@ class ItemFFD20 extends Item {
           let attack = new ChatAttack(this, { label: atk.label, primaryAttack: primaryAttack, rollData: rollData });
 
           // Add attack roll
-          await attack.addAttack({
-            extraParts: duplicate(attackExtraParts).concat([atk.bonus]),
-            conditionalParts,
-          });
+          await attack.addAttack({ bonus: atk.bonus, extraParts: duplicate(attackExtraParts), conditionalParts });
 
           // Add damage
           if (this.hasDamage) {
@@ -15497,11 +14892,11 @@ class ItemFFD20 extends Item {
         // Create template
         template = AbilityTemplate.fromData(templateOptions);
         if (template) {
-          const sheetRendered = this.parent?.sheet?._element != null;
-          if (sheetRendered) this.parent.sheet.minimize();
+          const sheetRendered = this.parentActor?.sheet?._element != null;
+          if (sheetRendered) this.parentActor.sheet.minimize();
           template = await template.drawPreview(ev);
           if (!template) {
-            if (sheetRendered) this.parent.sheet.maximize();
+            if (sheetRendered) this.parentActor.sheet.maximize();
             return;
           }
         }
@@ -15509,7 +14904,7 @@ class ItemFFD20 extends Item {
 
       // Set chat data
       let chatData = {
-        speaker: ChatMessage.getSpeaker({ actor: this.parent }),
+        speaker: ChatMessage.getSpeaker({ actor: this.parentActor }),
         rollMode: rollMode,
         "flags.ffd20.noRollRender": true,
       };
@@ -15671,8 +15066,8 @@ class ItemFFD20 extends Item {
         }
 
         // Add CL notes
-        if (this.data.type === "spell" && this.parent) {
-          const clNotes = this.parent.getContextNotesParsed(`spell.cl.${this.data.data.spellbook}`);
+        if (this.data.type === "spell" && this.parentActor) {
+          const clNotes = this.parentActor.getContextNotesParsed(`spell.cl.${this.data.data.spellbook}`);
 
           if (clNotes.length) {
             props.push({
@@ -15685,21 +15080,19 @@ class ItemFFD20 extends Item {
         // Get saving throw data
         const save = getProperty(this.data, "data.save.type");
         const saveDC = this.getDC(rollData);
-        const token =
-          this.parentActor?.token ??
-          canvas.tokens.placeables.find((t) => t.actor && t.actor.id === this.parentActor?.id);
+        const token = this.parentActor?.token;
 
         const templateData = mergeObject(
           chatTemplateData,
           {
-            tokenUuid: token ? token.document?.uuid ?? token.uuid : null,
+            tokenId: token ? `${token.scene._id}.${token.id}` : null,
             extraText: extraText,
             data: itemChatData,
             hasExtraText: extraText.length > 0,
             properties: props,
             hasProperties: props.length > 0,
             item: this.data,
-            actor: this.parent.data,
+            actor: this.parentActor.data,
             hasSave: this.hasSave,
             save: {
               dc: saveDC,
@@ -15734,20 +15127,20 @@ class ItemFFD20 extends Item {
         }
 
         // Spell failure
-        if (this.type === "spell" && this.parent != null && this.parent.spellFailure > 0) {
+        if (this.type === "spell" && this.parentActor != null && this.parentActor.spellFailure > 0) {
           const spellbook = getProperty(
-            this.parent.data,
+            this.parentActor.data,
             `data.attributes.spells.spellbooks.${this.data.data.spellbook}`
           );
           if (spellbook && spellbook.arcaneSpellFailure) {
-            templateData.spellFailure = RollFFD20$1.safeRoll("1d100").total;
+            templateData.spellFailure = Roll.create("1d100").evaluate().total;
             templateData.spellFailureSuccess = templateData.spellFailure > this.parentActor.spellFailure;
           }
         }
         // Add metadata
         const metadata = {};
-        metadata.item = this.id;
-        metadata.template = template ? template.id : null;
+        metadata.item = this._id;
+        metadata.template = template ? template._id : null;
         metadata.rolls = {
           attacks: {},
         };
@@ -15796,10 +15189,6 @@ class ItemFFD20 extends Item {
 
       // Subtract ammunition
       await subtractAmmo(ammoUsed);
-
-      // Execute script call
-      await this.executeScriptCalls("use", { attacks });
-
       return result;
     };
 
@@ -15896,7 +15285,7 @@ class ItemFFD20 extends Item {
           return true;
         });
         // Add masterwork bonus
-        if (getProperty(this.data, "data.masterwork") === true && !getProperty(this.data, "data.enh")) {
+        if (getProperty(this.data, "data.masterwork") === true) {
           result.push(
             ItemChange.create({
               formula: "1",
@@ -15905,12 +15294,11 @@ class ItemFFD20 extends Item {
               subTarget: "attack",
               modifier: "enh",
               value: 1,
-              flavor: game.i18n.localize("FFD20.Masterwork"),
             })
           );
         }
         // Add enhancement bonus
-        if (getProperty(this.data, "data.enh")) {
+        if (getProperty(this.data, "data.enh") != null) {
           const enh = getProperty(this.data, "data.enh");
           result.push(
             ItemChange.create({
@@ -15920,7 +15308,6 @@ class ItemFFD20 extends Item {
               subTarget: "attack",
               modifier: "enh",
               value: enh,
-              flavor: game.i18n.localize("FFD20.EnhancementBonus"),
             })
           );
         }
@@ -15934,7 +15321,7 @@ class ItemFFD20 extends Item {
           return true;
         });
         // Add enhancement bonus
-        if (getProperty(this.data, "data.enh")) {
+        if (getProperty(this.data, "data.enh") != null) {
           const enh = getProperty(this.data, "data.enh");
           result.push(
             ItemChange.create({
@@ -15944,7 +15331,6 @@ class ItemFFD20 extends Item {
               subTarget: "attack",
               modifier: "enh",
               value: enh,
-              flavor: game.i18n.localize("FFD20.EnhancementBonus"),
             })
           );
         }
@@ -15979,48 +15365,49 @@ class ItemFFD20 extends Item {
 
     // Define Roll parts
     let parts = [];
+    // Add ability modifier
+    if (abl != "" && rollData.abilities[abl] != null && rollData.abilities[abl].mod !== 0) {
+      parts.push(`@abilities.${abl}.mod`);
+    }
+    // Add bonus parts
+    parts = parts.concat(extraParts);
+    // Add attack bonus
+    if (typeof itemData.attackBonus === "string" && itemData.attackBonus !== "") {
+      let attackBonus = RollFFD20$1.safeRoll(itemData.attackBonus, rollData).total;
+      rollData.item.attackBonus = attackBonus;
+      parts.push("@item.attackBonus");
+    }
+    // Backwards compatibility
+    else if (typeof itemData.attackBonus === "number") {
+      rollData.item.attackBonus = itemData.attackBonus;
+      parts.push("@item.attackBonus");
+    }
 
     // Special handling for combat maneuvers
     if (["mcman", "rcman"].includes(itemData.actionType)) {
       // Add CMB without general ability
       // This already includes BAB, size, energy drain
       rollData.attributes.cmb.total -= rollData.abilities[rollData.attributes.cmbAbility]?.mod ?? 0;
-      if (rollData.attributes.cmb.total) parts.push(`@attributes.cmb.total[${game.i18n.localize("FFD20.CMBAbbr")}]`);
+      if (rollData.attributes.cmb.total) parts.push("@attributes.cmb.total");
     } else {
       // Handle regular attacks
 
       // Add size bonus
-      if (rollData.sizeBonus !== 0) parts.push(`@sizeBonus[${game.i18n.localize("FFD20.Size")}]`);
+      if (rollData.sizeBonus !== 0) parts.push("@sizeBonus");
       // Add BAB
       if (rollData.attributes.bab.total !== 0 && rollData.attributes.bab.total != null) {
-        parts.push(`@attributes.bab.total[${game.i18n.localize("FFD20.BAB")}]`);
+        parts.push("@attributes.bab.total");
       }
       // Subtract energy drain
       if (rollData.attributes.energyDrain != null && rollData.attributes.energyDrain !== 0) {
-        parts.push(`- @attributes.energyDrain[${game.i18n.localize("FFD20.CondTypeEnergyDrain")}]`);
+        parts.push("- max(0, abs(@attributes.energyDrain))");
       }
-    }
-
-    // Add ability modifier
-    if (abl != "" && rollData.abilities[abl] != null && rollData.abilities[abl].mod !== 0) {
-      parts.push(`@abilities.${abl}.mod[${CONFIG.FFD20.abilities[abl]}]`);
-    }
-    // Add bonus parts
-    parts = parts.concat(extraParts);
-    // Add attack bonus
-    if (typeof itemData.attackBonus === "string" && !["", "0"].includes(itemData.attackBonus)) {
-      parts.push(itemData.attackBonus);
-    }
-    // Backwards compatibility
-    else if (typeof itemData.attackBonus === "number") {
-      rollData.item.attackBonus = itemData.attackBonus;
-      parts.push(`@item.attackBonus[${game.i18n.localize("FFD20.AttackRollBonus")}]`);
     }
 
     // Add change bonus
     const isRanged = ["rwak", "rsak"].includes(this.data.data.actionType);
     const changes = this.getContextChanges(isRanged ? "rattack" : "mattack");
-    let changeBonus = [];
+    let changeBonus = 0;
     {
       // Get attack bonus
       changeBonus = getHighestChanges(
@@ -16030,45 +15417,34 @@ class ItemFFD20 extends Item {
         }),
         { ignoreTarget: true }
       ).reduce((cur, c) => {
-        cur.push({
-          value: c.value,
-          source: c.flavor,
-        });
-        return cur;
-      }, []);
+        return cur + c.value;
+      }, 0);
     }
-    for (let c of changeBonus) {
-      parts.push(`${c.value}[${RollFFD20$1.cleanFlavor(c.source)}]`);
-    }
+    if (changeBonus) parts.push(changeBonus.toString());
 
     // Add wound thresholds penalties
     if (rollData.attributes.woundThresholds?.penalty > 0) {
-      parts.push(
-        `- @attributes.woundThresholds.penalty[${game.i18n.localize(
-          CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]
-        )}]`
-      );
+      parts.push("- @attributes.woundThresholds.penalty");
     }
 
     // Add proficiency penalty
     if (this.data.type === "attack" && !itemData.proficient) {
-      parts.push(`@item.proficiencyPenalty[${game.i18n.localize("FFD20.ProficiencyPenalty")}]`);
+      parts.push("@item.proficiencyPenalty");
     }
     // Add secondary natural attack penalty
-    if (primaryAttack === false) parts.push(`-5[${game.i18n.localize("FFD20.SecondaryAttack")}]`);
+    if (primaryAttack === false) parts.push("-5");
     // Add bonus
     if (bonus) {
       rollData.bonus = RollFFD20$1.safeRoll(bonus, rollData).total;
-      parts.push(`@bonus[${game.i18n.localize("FFD20.SituationalBonus")}]`);
+      parts.push("@bonus");
     }
 
     // Add penalties for lacking shield and armor proficiencies. Push only if non-zero.
-    if (rollData.attributes.acp.attackPenalty > 0)
-      parts.push(`-@attributes.acp.attackPenalty[${game.i18n.localize("FFD20.ACP")}]`);
+    if (rollData.attributes.acp.attackPenalty > 0) parts.push("-@attributes.acp.attackPenalty");
 
     if ((rollData.d20 ?? "") === "") rollData.d20 = "1d20";
 
-    let roll = RollFFD20$1.safeRoll([rollData.d20, ...parts.filter((p) => !!p)].join("+"), rollData);
+    let roll = RollFFD20$1.safeRoll([rollData.d20, ...parts].join("+"), rollData);
     return roll;
   }
 
@@ -16096,7 +15472,7 @@ class ItemFFD20 extends Item {
     if (primaryAttack === false && rollData.ablMult > 0) rollData.ablMult = 0.5;
 
     // Create effect string
-    let effectNotes = this.parent.getContextNotes("attacks.effect").reduce((cur, o) => {
+    let effectNotes = this.parentActor.getContextNotes("attacks.effect").reduce((cur, o) => {
       o.notes
         .reduce((cur2, n) => {
           cur2.push(...n.split(/[\n\r]+/));
@@ -16136,13 +15512,13 @@ class ItemFFD20 extends Item {
     }
 
     // Define Roll Data
-    const rollData = this.parent.getRollData();
+    const rollData = this.parentActor.getRollData();
     rollData.item = itemData;
     const title = `${this.name} - ${game.i18n.localize("FFD20.OtherFormula")}`;
 
     const roll = RollFFD20$1.safeRoll(itemData.formula, rollData);
     return roll.toMessage({
-      speaker: ChatMessage.getSpeaker({ actor: this.parent }),
+      speaker: ChatMessage.getSpeaker({ actor: this.parentActor }),
       flavor: itemData.chatFlavor || title,
       rollMode: game.settings.get("core", "rollMode"),
     });
@@ -16216,7 +15592,7 @@ class ItemFFD20 extends Item {
     if (!this.isHealing) {
       const isSpell = ["msak", "rsak"].includes(this.data.data.actionType);
       const changes = this.getContextChanges(isSpell ? "sdamage" : "wdamage");
-      let changeBonus = [];
+      let changeBonus = 0;
       {
         // Get damage bonus
         changeBonus = getHighestChanges(
@@ -16226,37 +15602,25 @@ class ItemFFD20 extends Item {
           }),
           { ignoreTarget: true }
         ).reduce((cur, c) => {
-          if (c.value)
-            cur.push({
-              value: c.value,
-              source: c.flavor,
-            });
-          return cur;
-        }, []);
+          return cur + c.value;
+        }, 0);
       }
-      for (let c of changeBonus) {
-        parts[0].extra.push(`${c.value}[${c.source}]`);
-      }
+      if (changeBonus) parts[0].extra.push(changeBonus.toString());
 
       // Add broken penalty
       if (this.data.data.broken) {
-        const label = game.i18n.localize("FFD20.Broken");
-        parts[0].extra.push(`-2[${label}]`);
+        parts[0].extra.push("-2");
       }
     }
 
     // Determine ability score modifier
     let abl = this.data.data.ability.damage;
     if (typeof abl === "string" && abl !== "") {
-      // Determine ability score bonus
       rollData.ablDamage = Math.floor(rollData.abilities[abl].mod * rollData.ablMult);
       if (rollData.abilities[abl].mod < 0) rollData.ablDamage = rollData.abilities[abl].mod;
-
-      // Determine ability score label
-      const ablLabel = CONFIG.FFD20.abilities[abl];
-
-      // Add ability score
-      parts[0].extra.push(`@ablDamage[${ablLabel}]`);
+      if (rollData.ablDamage < 0) parts[0].extra.push("@ablDamage");
+      else if (critical === true) parts[0].extra.push("@ablDamage");
+      else if (rollData.ablDamage !== 0) parts[0].extra.push("@ablDamage");
     }
 
     // Create roll
@@ -16266,7 +15630,7 @@ class ItemFFD20 extends Item {
       let rollParts = [];
       if (a === 0) rollParts = [...part.extra, ...extraParts];
       const roll = {
-        roll: RollFFD20$1.safeRoll([part.base, ...rollParts].join(" + "), rollData),
+        roll: RollFFD20$1.safeRoll([part.base, ...rollParts].join("+"), rollData),
         damageType: part.damageType,
         type: part.type,
       };
@@ -16305,7 +15669,7 @@ class ItemFFD20 extends Item {
     });
     // Submit the roll to chat
     if (effectStr === "") {
-      RollFFD20$1.safeRoll(parts.join(" + ")).toMessage({
+      Roll.create(parts.join("+")).toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.parentActor }),
         flavor: game.i18n.localize("FFD20.UsesItem").format(this.name),
       });
@@ -16332,7 +15696,7 @@ class ItemFFD20 extends Item {
         type: CONST.CHAT_MESSAGE_TYPES.CHAT,
         rollMode: game.settings.get("core", "rollMode"),
         sound: CONFIG.sounds.dice,
-        speaker: ChatMessage.getSpeaker({ actor: this.parent }),
+        speaker: ChatMessage.getSpeaker({ actor: this.parentActor }),
         flavor: game.i18n.localize("FFD20.UsesItem").format(this.name),
         roll: roll,
         content: await renderTemplate(chatTemplate, rollData),
@@ -16361,26 +15725,24 @@ class ItemFFD20 extends Item {
    * @returns {object} An object with data to be used in rolls in relation to this item.
    */
   getRollData() {
-    const result = this.parent != null && this.parent.data ? this.parent.getRollData() : {};
+    const result = this.parentActor != null ? this.parentActor.getRollData() : {};
 
     result.item = this.data.data;
-    if (this.type === "spell" && this.parent != null) {
+    if (this.type === "spell" && this.parentActor != null) {
       const spellbook = this.spellbook;
-      if (spellbook != null) {
-        const spellAbility = spellbook.ability;
-        let ablMod = "";
-        if (spellAbility !== "") ablMod = getProperty(this.parent.data, `data.abilities.${spellAbility}.mod`);
+      const spellAbility = spellbook.ability;
+      let ablMod = "";
+      if (spellAbility !== "") ablMod = getProperty(this.parentActor.data, `data.abilities.${spellAbility}.mod`);
 
-        result.cl = this.casterLevel || 0;
-        result.sl = this.spellLevel || 0;
-        result.classLevel =
-          spellbook.class === "_hd"
-            ? result.attributes.hd.total
-            : spellbook.class?.length > 0
-            ? getProperty(result, `classes.${spellbook.class}.level`) || 0 // `
-            : 0;
-        result.ablMod = ablMod;
-      }
+      result.cl = this.casterLevel || 0;
+      result.sl = this.spellLevel || 0;
+      result.classLevel =
+        spellbook.class === "_hd"
+          ? result.attributes.hd.total
+          : spellbook.class?.length > 0
+          ? getProperty(result, `classes.${spellbook.class}.level`) || 0 // `
+          : 0;
+      result.ablMod = ablMod;
     }
     if (this.type === "buff") result.item.level = this.data.data.level;
 
@@ -16424,7 +15786,7 @@ class ItemFFD20 extends Item {
     if (!(isTargetted || game.user.isGM || message.isAuthor)) return;
 
     // Get the Actor from a synthetic Token
-    const actor = await this._getChatCardActor(card);
+    const actor = this._getChatCardActor(card);
     if (!actor) {
       if (action === "applyDamage") {
         await this._onChatCardAction(action, { button: button });
@@ -16434,7 +15796,7 @@ class ItemFFD20 extends Item {
     }
 
     // Get the Item
-    const item = actor.items.get(card.dataset.itemId);
+    const item = actor.getOwnedItem(card.dataset.itemId);
 
     // Perform action
     if (!(await this._onChatCardAction(action, { button: button, item: item }))) {
@@ -16530,11 +15892,17 @@ class ItemFFD20 extends Item {
    * @returns {Actor|null}         The Actor entity or null
    * @private
    */
-  static async _getChatCardActor(card) {
+  static _getChatCardActor(card) {
     // Case 1 - a synthetic actor from a Token
-    const tokenUuid = card.dataset.tokenId;
-    if (tokenUuid) {
-      return (await fromUuid(tokenUuid))?.actor;
+    const tokenKey = card.dataset.tokenId;
+    if (tokenKey) {
+      const [sceneId, tokenId] = tokenKey.split(".");
+      const scene = game.scenes.get(sceneId);
+      if (!scene) return null;
+      const tokenData = scene.getEmbeddedEntity("Token", tokenId);
+      if (!tokenData) return null;
+      const token = new Token(tokenData);
+      return token.actor;
     }
 
     // Case 2 - use Actor ID directory
@@ -16751,11 +16119,11 @@ class ItemFFD20 extends Item {
   }
 
   useSpellPoints() {
-    if (!this.parent) return false;
+    if (!this.parentActor) return false;
     if (this.data.type !== "spell") return false;
 
     const spellbookKey = this.data.data.spellbook;
-    const spellbook = getProperty(this.parent.data, `data.attributes.spells.spellbooks.${spellbookKey}`);
+    const spellbook = getProperty(this.parentActor.data, `data.attributes.spells.spellbooks.${spellbookKey}`);
     return getProperty(spellbook, "spellPoints.useSystem") || false;
   }
 
@@ -16767,10 +16135,13 @@ class ItemFFD20 extends Item {
   }
 
   async addSpellUses(value, data = null) {
-    if (!this.parent) return;
+    if (!this.parentActor) return;
     if (this.data.data.atWill) return;
 
-    const spellbook = getProperty(this.parent.data, `data.attributes.spells.spellbooks.${this.data.data.spellbook}`),
+    const spellbook = getProperty(
+        this.parentActor.data,
+        `data.attributes.spells.spellbooks.${this.data.data.spellbook}`
+      ),
       isSpontaneous = spellbook.spontaneous,
       spellbookKey = getProperty(this.data, "data.spellbook") || "primary",
       spellLevel = getProperty(this.data, "data.level");
@@ -16778,62 +16149,67 @@ class ItemFFD20 extends Item {
     if (this.useSpellPoints()) {
       const curUses = this.getSpellUses();
       const updateData = {};
-      const tempMP = getProperty(this.parent.data, "data.attributes.mp.temp");
-      const curMP = getProperty(this.parent.data, "data.attributes.mp.temp");
+      const tempMP = getProperty(this.parentActor.data, "data.attributes.mp.temp");
+      const curMP = getProperty(this.parentActor.data, "data.attributes.mp.temp");
 
       // check for temp mp
-      if(tempMP === 0){
+      if (tempMP === 0) {
         // if temp mp is 0 do normal
         updateData["data.attributes.mp.value"] = curUses + value;
-        return this.parent.update(updateData);
-        } else {
-          // else check if temp mp is greater then spell cost
-          // if so deduct from temp and then from normal
-          if(tempMP >= (value * -1)){
+        return this.parentActor.update(updateData);
+      } else {
+        // else check if temp mp is greater then spell cost
+        // if so deduct from temp and then from normal
+        if (tempMP >= value * -1) {
           // else deduct from temp
           updateData["data.attributes.mp.temp"] = tempMP + value;
-            return this.parent.update(updateData);
-            } else {
-            let leftMP = tempMP + value;
+          return this.parentActor.update(updateData);
+        } else {
+          let leftMP = tempMP + value;
           updateData["data.attributes.mp.temp"] = 0;
           updateData["data.attributes.mp.value"] = curMP + leftMP;
-          return this.parent.update(updateData);}
-        }
-      } else {
-        const newCharges = isSpontaneous
-          ? Math.max(0, (getProperty(spellbook, `spells.spell${spellLevel}.value`) || 0) + value)
-          : Math.max(0, (getProperty(this.data, "data.preparation.preparedAmount") || 0) + value);
-
-        if (!isSpontaneous) {
-          const key = "data.preparation.preparedAmount";
-          if (data == null) {
-            data = {};
-            data[key] = newCharges;
-            return this.update(data);
-          } else {
-            data[key] = newCharges;
-          }
-        } else {
-          const key = `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${spellLevel}.value`;
-          const actorUpdateData = {};
-          actorUpdateData[key] = newCharges;
-          return this.parent.update(actorUpdateData);
+          return this.parentActor.update(updateData);
         }
       }
+    } else {
+      const newCharges = isSpontaneous
+        ? Math.max(0, (getProperty(spellbook, `spells.spell${spellLevel}.value`) || 0) + value)
+        : Math.max(0, (getProperty(this.data, "data.preparation.preparedAmount") || 0) + value);
+
+      if (!isSpontaneous) {
+        const key = "data.preparation.preparedAmount";
+        if (data == null) {
+          data = {};
+          data[key] = newCharges;
+          return this.update(data);
+        } else {
+          data[key] = newCharges;
+        }
+      } else {
+        const key = `data.attributes.spells.spellbooks.${spellbookKey}.spells.spell${spellLevel}.value`;
+        const actorUpdateData = {};
+        actorUpdateData[key] = newCharges;
+        return this.parentActor.update(actorUpdateData);
+      }
+    }
+
     return null;
   }
 
   getSpellUses(max = false) {
-    if (!this.parent) return 0;
+    if (!this.parentActor) return 0;
     if (this.data.data.atWill) return Number.POSITIVE_INFINITY;
 
-    const spellbook = getProperty(this.parent.data, `data.attributes.spells.spellbooks.${this.data.data.spellbook}`),
+    const spellbook = getProperty(
+        this.parentActor.data,
+        `data.attributes.spells.spellbooks.${this.data.data.spellbook}`
+      ),
       isSpontaneous = spellbook.spontaneous,
       spellLevel = getProperty(this.data, "data.level");
 
     if (this.useSpellPoints()) {
-      if (max) return getProperty(this.parent.data.data.attributes, "mp.max");
-      return (getProperty(this.parent.data.data.attributes, "mp.value") + getProperty(this.parent.data.data.attributes, "mp.temp")); // added for temp mp
+      if (max) return getProperty(this.parentActor.data.data.attributes, "mp.max");
+      return getProperty(this.parentActor.data.data.attributes, "mp.value");
     } else {
       if (isSpontaneous) {
         if (getProperty(this.data, "data.preparation.spontaneousPrepared") === true) {
@@ -16994,7 +16370,7 @@ class ItemFFD20 extends Item {
   }
 
   async _onLevelChange(curLevel, newLevel) {
-    if (!this.parent) return;
+    if (!this.parentActor) return;
 
     // Add items associated to this class
     if (newLevel > curLevel) {
@@ -17008,7 +16384,7 @@ class ItemFFD20 extends Item {
         const collection = co.id.split(".").slice(0, 2).join(".");
         const itemId = co.id.split(".")[2];
         const pack = game.packs.get(collection);
-        const item = await pack.getDocument(itemId);
+        const item = await pack.getEntity(itemId);
 
         const itemData = duplicate(item.data);
 
@@ -17020,31 +16396,24 @@ class ItemFFD20 extends Item {
       }
 
       if (newItems.length) {
-        const items = await CONFIG.Item.documentClass.create(
-          newItems.map((o) => o.data),
-          { parent: this.parentActor }
+        let items = await this.actor.createEmbeddedEntity(
+          "OwnedItem",
+          newItems.map((o) => o.data)
         );
+        if (!(items instanceof Array)) items = [items];
 
         let updateData = [];
         const classUpdateData = { _id: this.data._id };
         updateData.push(classUpdateData);
         for (let i of items) {
-          const co = i.getFlag("ffd20", "__co");
+          const co = getProperty(i, "flags.ffd20.__co");
           // Set class association flags
-          classUpdateData[`flags.ffd20.links.classAssociations.${i.id}`] = co.level;
+          classUpdateData[`flags.ffd20.links.classAssociations.${i._id}`] = co.level;
           // Remove temporary flag
-          updateData.push({ _id: i.data._id, "flags.ffd20.-=__co": null });
+          updateData.push({ _id: i._id, "flags.ffd20.-=__co": null });
         }
-        if (updateData.length)
-          await CONFIG.Item.documentClass.updateDocuments(updateData, { parent: this.parentActor });
+        if (updateData.length) await this.actor.updateEmbeddedEntity("OwnedItem", updateData);
       }
-      // const newItemData = await ItemFFD20.create(itemData, { parent: this.parent });
-      // const newItem = this.parent.items.find((o) => o.id === newItemData.id);
-
-      // // await this.setFlag("ffd20", `links.classAssociations.${newItemData._id}`, co.level);
-      // selfUpdateData[`flags.ffd20.links.classAssociations.${newItemData.id}`] = co.level;
-      // await this.createItemLink("children", "data", newItem, newItem.id);
-      // }
     }
 
     // Remove items associated to this class
@@ -17052,19 +16421,19 @@ class ItemFFD20 extends Item {
       let associations = duplicate(this.getFlag("ffd20", "links.classAssociations") || {});
       let itemIds = [];
       for (let [id, level] of Object.entries(associations)) {
-        const item = this.parent.items.find((o) => o.id === id);
+        const item = this.parentActor.items.find((o) => o._id === id);
         if (!item) {
           delete associations[id];
           continue;
         }
 
         if (level > newLevel) {
-          itemIds.push(item.id);
+          itemIds.push(id);
           delete associations[id];
         }
       }
       await this.setFlag("ffd20", "links.classAssociations", associations);
-      await CONFIG.Item.documentClass.deleteDocuments(itemIds, { parent: this.parent });
+      await this.actor.deleteEmbeddedEntity("OwnedItem", itemIds);
     }
 
     // Call level change hook
@@ -17079,12 +16448,12 @@ class ItemFFD20 extends Item {
    * @returns {boolean} Whether a link to the item is possible here.
    */
   canCreateItemLink(linkType, dataType, targetItem, itemLink) {
-    const actor = this.parent;
-    const sameActor = actor && targetItem.actor && targetItem.actor.id === actor.id;
+    const actor = this.parentActor;
+    const sameActor = actor && targetItem.actor && targetItem.actor._id === actor._id;
 
     // Don't create link to self
     const itemId = itemLink.split(".").slice(-1)[0];
-    if (itemId === this.id) return false;
+    if (itemId === this._id) return false;
 
     // Don't create existing links
     const links = getProperty(this.data, `data.links.${linkType}`) || [];
@@ -17173,7 +16542,7 @@ class ItemFFD20 extends Item {
        * but the premise is that the actor sheet should show data for newly linked items, and it won't do it immediately for some reason
        */
       window.setTimeout(() => {
-        if (this.parent) this.parent.sheet.render();
+        if (this.parentActor) this.parentActor.sheet.render();
       }, 50);
 
       return true;
@@ -17184,8 +16553,8 @@ class ItemFFD20 extends Item {
       // Default to spell-like tab until a selector is designed in the Links tab or elsewhere
       if (getProperty(itemData, "type") === "spell") setProperty(itemData, "data.spellbook", "spelllike");
 
-      const newItemData = await this.parent.createOwnedItem(itemData);
-      const newItem = this.parent.items.get(newItemData._id);
+      const newItemData = await this.parentActor.createOwnedItem(itemData);
+      const newItem = this.parentActor.items.get(newItemData._id);
 
       await this.createItemLink("children", "data", newItem, newItem._id);
     }
@@ -17254,15 +16623,15 @@ class ItemFFD20 extends Item {
     if (l.dataType === "compendium") {
       const pack = game.packs.get(id.slice(0, 2).join("."));
       if (!pack) return null;
-      item = await pack.getDocument(id[2]);
+      item = await pack.getEntity(id[2]);
     }
     // World entry
     else if (l.dataType === "world") {
       item = game.items.get(id[1]);
     }
     // Same actor's item
-    else if (this.parent != null && this.parent.items != null) {
-      item = this.parent.items.find((o) => o.id === id[0]);
+    else if (this.parentActor != null && this.parentActor.items != null) {
+      item = this.parentActor.items.find((o) => o._id === id[0]);
     }
 
     // Package extra data
@@ -17291,9 +16660,9 @@ class ItemFFD20 extends Item {
   }
 
   _cleanLink(oldLink, linkType) {
-    if (!this.parent) return;
+    if (!this.parentActor) return;
 
-    const otherItem = this.parent.items.find((o) => o.id === oldLink.id);
+    const otherItem = this.parentActor.items.find((o) => o._id === oldLink.id);
     if (linkType === "charges" && otherItem && hasProperty(otherItem, "links.charges")) {
       delete otherItem.links.charges;
     }
@@ -17309,12 +16678,12 @@ class ItemFFD20 extends Item {
     let result = {};
     // Add specific skills
     if (target === "skill") {
-      if (this.parent == null) {
+      if (this.parentActor == null) {
         for (let [s, skl] of Object.entries(CONFIG.FFD20.skills)) {
           result[`skill.${s}`] = skl;
         }
       } else {
-        const actorSkills = mergeObject(duplicate(CONFIG.FFD20.skills), this.parent.data.data.skills);
+        const actorSkills = mergeObject(duplicate(CONFIG.FFD20.skills), this.parentActor.data.data.skills);
         for (let [s, skl] of Object.entries(actorSkills)) {
           if (!skl.subSkills) {
             if (skl.custom) result[`skill.${s}`] = skl.name;
@@ -17347,9 +16716,6 @@ class ItemFFD20 extends Item {
     let result = {};
     if (this.hasAttack) result["attack"] = game.i18n.localize(CONFIG.FFD20.conditionalTargets.attack._label);
     if (this.hasDamage) result["damage"] = game.i18n.localize(CONFIG.FFD20.conditionalTargets.damage._label);
-    if (this.type === "attack") {
-      result["size"] = game.i18n.localize(CONFIG.FFD20.conditionalTargets.size._label);
-    }
     if (this.type === "spell" || this.hasSave)
       result["effect"] = game.i18n.localize(CONFIG.FFD20.conditionalTargets.effect._label);
     // Only add Misc target if subTargets are available
@@ -17442,12 +16808,12 @@ class ItemFFD20 extends Item {
   }
 
   async addChange() {
-    const change = new ItemChange({}, this);
-    return change;
+    const change = new ItemChange();
+    this.changes.push(change);
   }
 
   async createContainerContent(data, options = { raw: false }) {
-    let embeddedName = "Item";
+    let embeddedName = "ContainerContent";
     const user = game.user;
     const itemOptions = { temporary: false, renderSheet: false };
 
@@ -17456,7 +16822,7 @@ class ItemFFD20 extends Item {
     data = data instanceof Array ? data : [data];
     if (!(itemOptions.temporary || itemOptions.noHook)) {
       for (let d of data) {
-        const allowed = Hooks.call(`preCreate${embeddedName}`, this, d, itemOptions, user.id);
+        const allowed = Hooks.call(`preCreate${embeddedName}`, this, d, itemOptions, user._id);
         if (allowed === false) {
           console.debug(`${vtt} | ${embeddedName} creation prevented by preCreate hook`);
           return null;
@@ -17516,7 +16882,7 @@ class ItemFFD20 extends Item {
 
       // Call pre-update hooks to ensure the update is allowed to proceed
       if (!options.noHook) {
-        const allowed = Hooks.call(`preDelete${embeddedName}`, this, d, options, user.id);
+        const allowed = Hooks.call(`preDelete${embeddedName}`, this, d, options, user._id);
         if (allowed === false) {
           console.debug(`${vtt} | ${embeddedName} update prevented by preUpdate hook`);
           return true;
@@ -17546,19 +16912,19 @@ class ItemFFD20 extends Item {
 
     // Difference each update against existing data
     const updates = this.items.reduce((arr, d) => {
-      if (!pending.has(d.id)) return arr;
-      let update = pending.get(d.id);
+      if (!pending.has(d._id)) return arr;
+      let update = pending.get(d._id);
 
       // Diff the update against current data
       if (options.diff) {
-        update = diffObject(d.data, expandObject(update));
+        update = diffObject(d, expandObject(update));
         if (isObjectEmpty(update)) return arr;
-        update["_id"] = d.id;
+        update["_id"] = d._id;
       }
 
       // Call pre-update hooks to ensure the update is allowed to proceed
       if (!options.noHook) {
-        const allowed = Hooks.call(`preUpdate${embeddedName}`, this, d, update, options, user.id);
+        const allowed = Hooks.call(`preUpdate${embeddedName}`, this, d, update, options, user._id);
         if (allowed === false) {
           console.debug(`${vtt} | ${embeddedName} update prevented by preUpdate hook`);
           return arr;
@@ -17591,12 +16957,12 @@ class ItemFFD20 extends Item {
   }
 
   /**
-   * @returns {number} The total amount of currency this item contains, in gold pieces
+   * @returns {number} The total amount of currency this item contains, in gil pieces
    */
   getTotalCurrency() {
     const currencies = getProperty(this.data, "data.currency");
     if (!currencies) return 0;
-    return currencies.gil;
+    return (currencies.pgil * 1000 + currencies.gil * 100 + currencies.sgil * 10 + currencies.cgil) / 100;
   }
 
   getValue({ recursive = true, sellValue = 0.5 } = {}) {
@@ -17625,19 +16991,37 @@ class ItemFFD20 extends Item {
   /**
    * Converts currencies of the given category to the given currency type
    *
-   * @param {string} type - Either 'gil'. Converts as much currency as possible to this type.
+   * @param {string} type - Either 'pgil', 'ggil', 'sgil' or 'cgil'. Converts as much currency as possible to this type.
    */
-  convertCurrency(type = "gil") {
+  convertCurrency(type = "pgil") {
     const totalValue = this.getTotalCurrency();
-    let values = [0];
+    let values = [0, 0, 0, 0];
     switch (type) {
+      case "pgil":
+        values[0] = Math.floor(totalValue / 10);
+        values[1] = Math.max(0, Math.floor(totalValue) - values[0] * 10);
+        values[2] = Math.max(0, Math.floor(totalValue * 10) - values[0] * 100 - values[1] * 10);
+        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[0] * 1000 - values[1] * 100 - values[2] * 10);
+        break;
       case "gil":
-        values[0] = Math.floor(totalValue);
+        values[1] = Math.floor(totalValue);
+        values[2] = Math.max(0, Math.floor(totalValue * 10) - values[1] * 10);
+        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[1] * 100 - values[2] * 10);
+        break;
+      case "sgil":
+        values[2] = Math.floor(totalValue * 10);
+        values[3] = Math.max(0, Math.floor(totalValue * 100) - values[2] * 10);
+        break;
+      case "cgil":
+        values[3] = Math.floor(totalValue * 100);
         break;
     }
 
     const updateData = {};
-    updateData[`data.currency.gil`] = values[0];
+    updateData[`data.currency.pgil`] = values[0];
+    updateData[`data.currency.gil`] = values[1];
+    updateData[`data.currency.sgil`] = values[2];
+    updateData[`data.currency.cgil`] = values[3];
     return this.update(updateData);
   }
 
@@ -17651,13 +17035,6 @@ class ItemFFD20 extends Item {
     );
   }
 
-  async delete(context = {}) {
-    if (this.data.type === "class") {
-      await this._onLevelChange(this.data.data.level, 0);
-    }
-
-    return super.delete(context);
-  }
   /**
    * Sets a boolean flag on this item.
    *
@@ -18033,22 +17410,26 @@ const sizeDieExt = function (origCount, origSides, targetSize = "M", initialSize
     ui.notifications.warn(msg);
   }
 
-  const result = formula.split("d");
-  if (result.length === 1) {
-    return [new NumericTerm({ number: parseInt(result[0]) })];
-  }
-  return [new Die({ number: parseInt(result[0]), faces: parseInt(result[1]) })];
+  return formula;
 };
 
 const normalDie = function (origCount, origSides, crit = 1) {
-  return [new Die({ number: origCount * crit, faces: origSides })];
+  let formula = `${origCount}d${origSides}`;
+
+  if (crit !== 1 && formula.match(/^([0-9]+)d([0-9]+)(.*)/)) {
+    const count = parseInt(RegExp.$1);
+    const sides = parseInt(RegExp.$2);
+    formula = `${count * crit}d${sides}${RegExp.$3}`;
+  }
+
+  return formula;
 };
 
 const sizeReach = function (size = "M", reach = false, stature = "tall") {
   if (typeof size === "number") size = Object.values(CONFIG.FFD20.sizeChart)[size];
   size = Object.entries(CONFIG.FFD20.sizeChart).find((o) => o[1] === size)[0];
 
-  return [new NumericTerm({ number: ActorFFD20.getReach(size, stature)[reach ? "reach" : "melee"] })];
+  return ActorFFD20.getReach(size, stature)[reach ? "reach" : "melee"];
 };
 
 const getActorFromId = function (id) {
@@ -18278,161 +17659,15 @@ const getBuffTargetDictionary = function (actor, type = "buffs") {
   return categories;
 };
 
-/**
- * A locale-safe sort of an Array of Objects, not in place. Ignores punctuation and capitalization.
- *
- * @template T
- * @param {Array.<T & {name: string}>} inputArr - Array to be sorted. Each element must have a name property set
- * @returns {T[]} - New sorted Array
- */
-const sortArrayByName = function (inputArr) {
-  let n = inputArr.length;
-  inputArr = duplicate(inputArr).map((o) => {
-    o.name = o.name.toLocaleLowerCase();
-    return o;
-  });
-  for (let i = 1; i < n; i++) {
-    let current = inputArr[i],
-      j = i - 1,
-      currentLower = current.name;
-    while (j > -1 && currentLower.localeCompare(inputArr[j].name, undefined, { ignorePunctuation: true }) < 0) {
-      inputArr[j + 1] = inputArr[j];
-      j--;
-    }
-    inputArr[j + 1] = current;
-  }
-  return inputArr;
-};
-
-/**
- * A simple binary search to be used on sorted arrays
- *
- * @template T
- * @param {T[]} searchArr - Sorted Array to be searched
- * @param {T} el - Element to be compared to array values
- * @param {function(T, T): number} compare_fn - Comparison function to be apply el to every element in ar. Should return an positive/ negative integer or 0 if matching.
- * @returns {number} Index where search is found or negative index indicating where it would be inserted
- */
-const binarySearch = function (searchArr, el, compare_fn) {
-  var m = 0,
-    n = searchArr.length - 1;
-  while (m <= n) {
-    var k = (n + m) >> 1,
-      cmp = compare_fn(el, searchArr[k]);
-    if (cmp > 0) {
-      m = k + 1;
-    } else if (cmp < 0) {
-      n = k - 1;
-    } else {
-      return k;
-    }
-  }
-  return -m - 1;
-};
-
-/**
- * Generate permutations of an array. Complexity is O(n!).
- * Should be safe up to 8, though you should probably consider something else if you're reaching that high often.
- *
- * @template T
- * @param {T[]} perm - The Array to be generated upon
- * @returns {Array.<T[]>|false} An Array containing all Array permutations or false if failed.
- */
-function uniquePermutations(perm) {
-  let total = new Set();
-  if (perm.length > 8) {
-    console.warn("Array too large. Not attempting.");
-    return false;
-  }
-
-  for (let i = 0; i < perm.length; i = i + 1) {
-    let rest = uniquePermutations(perm.slice(0, i).concat(perm.slice(i + 1)));
-
-    if (!rest.length) {
-      total.add([perm[i]]);
-    } else {
-      for (let j = 0; j < rest.length; j = j + 1) {
-        total.add([perm[i]].concat(rest[j]));
-      }
-    }
-  }
-  return [...total];
-}
-
-/**
- * Searches through compendia quickly using the system generated index caches.
- * Exact matches excluding punctuation and case are prioritized before searching word order permutations.
- *
- * @param {string} searchTerm - The name of the Document being searched for
- * @param {object} [options] - Provides a filter to limit search to specific packs or Document types
- * @param {string[]} [options.packs] - An array of packs to search in
- * @param {"Actor"|"Item"|"Scene"|"JournalEntry"|"Macro"|"RollTable"|"Playlist"} [options.type] - A Document type to limit which packs are searched in
- * @returns {{pack: CompendiumCollection, index: object}|undefined} The index and pack containing it or undefined if no match is found
- */
-const findInCompendia = function (searchTerm, options = { packs: [], type: undefined }) {
-  let packs = game.packs.filter((o) => {
-    return (
-      (!options?.type || o.metadata.entity == options.type) &&
-      (!options?.packs || !options?.packs.length || options.packs.includes(o.collection))
-    );
-  });
-
-  searchTerm = searchTerm.toLocaleLowerCase();
-  let found, foundDoc, foundPack;
-  for (let pack of packs) {
-    found = binarySearch(pack.fuzzyIndex, searchTerm, (sp, it) =>
-      sp.localeCompare(it.name, undefined, { ignorePunctuation: true })
-    );
-    if (found > -1) {
-      foundDoc = pack.index.get(pack.fuzzyIndex[found]._id);
-      foundPack = pack;
-      break;
-    }
-  }
-  if (foundDoc) return { pack: foundPack, index: foundDoc };
-
-  let searchMutations = uniquePermutations(searchTerm.split(/[ _-]/));
-  if (searchMutations) searchMutations = searchMutations.map((o) => o.join(" "));
-  else {
-    // If array is too long, search for just a reversed version and one that pivots around commas/ semicolons
-    searchMutations = [null];
-    searchMutations.push(searchTerm.split(/[ _-]/).reverse());
-    searchMutations.push(
-      searchTerm
-        .split(/[,;] ?/)
-        .reverse()
-        .flatMap((o) => o.split(" "))
-    );
-  }
-
-  for (let pack of packs) {
-    // Skip first mutation since it is already searched for manually before computing mutations
-    for (let mut = 1; mut < searchMutations.length; mut++) {
-      found = binarySearch(pack.fuzzyIndex, searchMutations[mut], (sp, it) =>
-        sp.localeCompare(it.name, undefined, { ignorePunctuation: true })
-      );
-      if (found > -1) {
-        foundDoc = pack.index.get(pack.fuzzyIndex[found]._id);
-        foundPack = pack;
-        break;
-      }
-    }
-    if (foundDoc) break;
-  }
-
-  if (foundDoc) return { pack: foundPack, index: foundDoc };
-  return false;
-};
-
 // deals with compendium versioning
 const NEED_NEW_VERSION = {
-  spells: "0.1.9",
-  items: "0.1.9",
-  bestiary: "0.1.9",
-  feats: "0.1.9",
-  classes: "0.1.9",
-  races: "0.1.9",
-  buffs: "0.1.9",
+  spells: "0.1.0",
+  items: "0.1.0",
+  bestiary: "0.1.0",
+  feats: "0.1.0",
+  classes: "0.1.0",
+  races: "0.1.0",
+  buffs: "0.1.0",
 };
 
 const COMPENDIUM_TYPES = {
@@ -18499,15 +17734,6 @@ class CompendiumBrowser extends Application {
      * @property
      */
     this.packs = {};
-
-    /**
-     * The RegExp to filter item names by.
-     *
-     * @type {RegExp}
-     * @property
-     */
-    this.filterQuery = /.*/;
-    this.searchString = "";
 
     /**
      * Load cached items
@@ -18591,59 +17817,24 @@ class CompendiumBrowser extends Application {
     }
   }
 
-  async _createInitialElements() {
-    let items = [];
-    for (let a = 0; items.length < this.lazyLoadTreshold && a < this.items.length; a++) {
-      const item = this.items[a];
-      if (this._passesFilters(item.item)) {
-        items.push(item);
-      }
-      this.lazyIndex = a + 1;
-    }
-
-    for (let item of items) {
-      await this._addEntryElement(item);
-    }
-  }
-  async _addEntryElement(item) {
-    const elem = $(await renderTemplate("systems/ffd20/templates/internal/compendium-browser_entry.hbs", item));
+  _initLazyLoad() {
     const rootElem = this.element.find(".directory-list");
-    rootElem.append(elem);
-    this.activateEntryListeners(elem);
-
-    return elem;
-  }
-  _clearEntryElements() {
-    this.element.find(".directory-list").empty();
-  }
-
-  activateEntryListeners(elem) {
-    // Open sheet
-    elem.find(".entry-name").click((ev) => {
-      let li = ev.currentTarget.parentElement;
-      this._onEntry(li.getAttribute("data-collection"), li.getAttribute("data-entry-id"));
-    });
-
-    // Make compendium item draggable
-    elem[0].setAttribute("draggable", true);
-    elem[0].addEventListener("dragstart", this._onDragStart, false);
-  }
-
-  async _initLazyLoad() {
-    await this._createInitialElements();
-    const rootElem = this.element.find(".directory-list");
+    const elems = rootElem.find(".directory-item");
+    this.lazyIndex = Math.min(this.lazyStart, elems.length);
+    elems.slice(this.lazyIndex).hide();
 
     // Create function for lazy loading
-    const lazyLoad = async () => {
-      let createdItems = 0;
-      for (let a = this.lazyIndex; a < this.items.length && createdItems < this.lazyAdd; a++) {
-        const item = this.items[a];
-        if (this._passesFilters(item.item)) {
-          createdItems++;
-          const elem = await this._addEntryElement(item);
+    const lazyLoad = () => {
+      const initialIndex = this.lazyIndex;
+      for (let a = 0; a < elems.length && this.lazyIndex < initialIndex + this.lazyAdd; a++) {
+        const elem = elems[a];
+        if (elem.style.display !== "none") continue;
+        const item = this._data.data.collection[elem.dataset.entryId].item;
+
+        if (this._passesFilters(item)) {
           $(elem).fadeIn(500);
+          this.lazyIndex++;
         }
-        this.lazyIndex++;
       }
     };
 
@@ -18696,6 +17887,7 @@ class CompendiumBrowser extends Application {
       }, {}),
       labels: {
         itemCount: game.i18n.localize("FFD20.TotalItems").format(this.items.length),
+        filteredItemCount: game.i18n.localize("FFD20.FilteredItems").format(this.items.length),
       },
     };
   }
@@ -18714,8 +17906,6 @@ class CompendiumBrowser extends Application {
         return game.i18n.localize("FFD20.Classes");
       case "races":
         return game.i18n.localize("FFD20.Races");
-      case "buffs":
-        return game.i18n.localize("FFD20.Buffs");
     }
     return this.type;
   }
@@ -18732,37 +17922,13 @@ class CompendiumBrowser extends Application {
     return COMPENDIUM_TYPES[this.type];
   }
 
-  getBasicFilters() {
-    switch (this.type) {
-      case "spells":
-        return [{ type: "spell" }];
-      case "items":
-        return [
-          { type: "equipment" },
-          { type: "weapon" },
-          { type: "consumable" },
-          { type: "loot" },
-          { type: "container" },
-        ];
-      case "feats":
-        return [{ type: "feat" }];
-      case "classes":
-        return [{ type: "class" }];
-      case "races":
-        return [{ type: "race" }];
-      case "buffs":
-        return [{ type: "buff" }];
-    }
-    return [null];
-  }
-
   /**
    * @param {Compendium} p - The compendium in question.
    * @returns {boolean} Whether the compendium should be skipped.
    */
   shouldSkip(p) {
     // Check disabled status
-    const config = game.settings.get("core", "compendiumConfiguration")[p.collection];
+    const config = game.settings.get("core", Compendium.CONFIG_SETTING)[p.collection];
     const disabled = getProperty(config, "ffd20.disabled") === true;
     if (disabled) return true;
 
@@ -18779,7 +17945,7 @@ class CompendiumBrowser extends Application {
     SceneNavigation._onLoadProgress(progress.message, progress.pct);
   }
 
-  async loadCompendium(p, filters = [null]) {
+  async loadCompendium(p) {
     const progress = this._data.progress;
 
     if (p.metadata.system != "ffd20") {
@@ -18788,23 +17954,23 @@ class CompendiumBrowser extends Application {
       return;
     }
 
-    // Retrieve compendium contents
-    let items = [];
-    for (let filter of filters) {
-      items.push(...(await p.getDocuments(filter)));
-    }
+    let items = (
+      await SocketInterface.dispatch("modifyCompendium", {
+        type: p.collection,
+        action: "get",
+        data: {},
+        options: { returnType: "content" },
+      })
+    ).result;
 
     if (p.translated) {
       items = items.map((item) => p.translate(item));
     }
 
-    // Flush full compendium contents from memory
-    p.clear();
-
     for (let i of items) {
       if (!this._filterItems(i)) continue;
       this.packs[p.collection] = p;
-      this.items.push(this._mapEntry(p, i.data));
+      this.items.push(this._mapEntry(p, i));
     }
     this._onProgress(progress);
   }
@@ -18817,7 +17983,7 @@ class CompendiumBrowser extends Application {
       let packs = [];
       const progress = { pct: 0, message: game.i18n.localize("FFD20.LoadingCompendiumBrowser"), loaded: -1, total: 0 };
       for (let p of game.packs.values()) {
-        if (p.documentClass.documentName === this.entityType && !this.shouldSkip(p)) {
+        if (p.entity === this.entityType && !this.shouldSkip(p)) {
           progress.total++;
           packs.push(p);
         } else {
@@ -18837,12 +18003,14 @@ class CompendiumBrowser extends Application {
       this._onProgress(progress);
 
       // Load compendiums
+      let promises = [];
       for (let p of packs) {
-        await this.loadCompendium(p, this.getBasicFilters());
+        promises.push(this.loadCompendium(p));
       }
+      await Promise.all(promises);
 
       // Sort items
-      this.items = naturalSort(this.items, "item.name");
+      this.items = naturalSort(this.items, "name");
 
       // Return if no appropriate items were found
       if (this.items.length === 0) {
@@ -18966,8 +18134,8 @@ class CompendiumBrowser extends Application {
     if (item.items) {
       const race = item.items.filter((o) => o.type === "race")[0];
       if (race != null) {
-        result.item.creatureType = race.data.data.creatureType;
-        result.item.subTypes = race.data.data.subTypes.map((o) => {
+        result.item.creatureType = race.data.creatureType;
+        result.item.subTypes = race.data.subTypes.map((o) => {
           this.extraFilters.subTypes[o[0]] = true;
           return o[0];
         });
@@ -19168,10 +18336,7 @@ class CompendiumBrowser extends Application {
     if (this.shouldForceRefresh() || !this._data.loaded) await this.loadData();
     await this.updateForceRefreshData({ save: true, refresh: false });
 
-    const data = duplicate(this._data.data);
-    data.searchString = this.searchString;
-
-    return data;
+    return this._data.data;
   }
 
   async refresh() {
@@ -19275,14 +18440,6 @@ class CompendiumBrowser extends Application {
             "name"
           ),
         },
-        // {
-        //   path: "learnedAt.elementalSchool",
-        //   label: game.i18n.localize("FFD20.ElementalSchool"),
-        //   items: this.extraFilters["learnedAt.elementalSchool"].reduce((cur, o) => {
-        //     cur.push({ key: o, name: o });
-        //     return cur;
-        //   }, []),
-        // },
         {
           path: "learnedAt.bloodline",
           label: game.i18n.localize("FFD20.Bloodline"),
@@ -19638,10 +18795,10 @@ class CompendiumBrowser extends Application {
     );
   }
 
-  async _render(force, ...args) {
-    await super._render(force, ...args);
+  async _render(...args) {
+    await super._render(...args);
 
-    // Collapse filter displays
+    this.filterQuery = /.*/;
     {
       const elems = this.element.find(".filter-content");
       for (const e of elems) {
@@ -19652,13 +18809,23 @@ class CompendiumBrowser extends Application {
         }
       }
     }
-
-    // Determine filtered item count
-    this._determineFilteredItemCount();
+    this._filterResults();
   }
 
   activateListeners(html) {
     super.activateListeners(html);
+
+    // Open sheets
+    html.find(".entry-name").click((ev) => {
+      let li = ev.currentTarget.parentElement;
+      this._onEntry(li.getAttribute("data-collection"), li.getAttribute("data-entry-id"));
+    });
+
+    // Make compendium items draggable
+    html.find(".directory-item").each((i, li) => {
+      li.setAttribute("draggable", true);
+      li.addEventListener("dragstart", this._onDragStart, false);
+    });
 
     html.find('input[name="search"]').keyup(this._onFilterResults.bind(this));
 
@@ -19681,7 +18848,7 @@ class CompendiumBrowser extends Application {
    */
   async _onEntry(collectionKey, entryId) {
     const pack = game.packs.find((o) => o.collection === collectionKey);
-    const entity = await pack.getDocument(entryId);
+    const entity = await pack.getEntity(entryId);
     entity.sheet.render(true);
   }
 
@@ -19706,7 +18873,7 @@ class CompendiumBrowser extends Application {
     event.dataTransfer.setData(
       "text/plain",
       JSON.stringify({
-        type: pack.documentClass.documentName,
+        type: pack.entity,
         pack: pack.collection,
         id: li.getAttribute("data-entry-id"),
       })
@@ -19727,14 +18894,13 @@ class CompendiumBrowser extends Application {
     let input = event.currentTarget;
 
     // Define filtering function
-    let filter = async (query) => {
+    let filter = (query) => {
       this.filterQuery = query;
-      await this._filterResults();
+      this._filterResults();
     };
 
     // Filter if we are done entering keys
     let query = new RegExp(RegExp.escape(input.value), "i");
-    this.searchString = input.value;
     if (this._filterTimeout) {
       clearTimeout(this._filterTimeout);
       this._filterTimeout = null;
@@ -19775,35 +18941,33 @@ class CompendiumBrowser extends Application {
       game.settings.set("ffd20", "compendiumFilters", settings);
     }
 
-    return this._filterResults();
+    this._filterResults();
   }
 
-  async _filterResults() {
+  _filterResults() {
     this.lazyIndex = 0;
-    // Clear entry elements
-    this._clearEntryElements();
-
-    // Scroll up
-    const rootElem = this.element.find(".directory-list")[0];
-    rootElem.scrollTop = 0;
-
-    // Create new elements
-    await this._createInitialElements();
-
-    // Determine filtered item count
-    this._determineFilteredItemCount();
-  }
-
-  _determineFilteredItemCount() {
+    // Hide items that don't match the filters, and show items that DO match the filters
     let itemCount = 0;
-    for (let item of this.items) {
-      if (this._passesFilters(item.item)) {
+    this.element.find("li.directory-item").each((a, li) => {
+      const id = li.dataset.entryId;
+      const item = this._data.data.collection[id].item;
+      if (this._passesFilters(item)) {
+        // Show item
+        if (this.lazyIndex < this.lazyStart) {
+          $(li).show();
+          this.lazyIndex++;
+        }
+        // Set item count
         itemCount++;
-      }
-    }
+      } else $(li).hide();
+    });
     this.element
       .find('span[data-type="filterItemCount"]')
       .text(game.i18n.localize("FFD20.FilteredItems").format(itemCount));
+
+    // Scroll up a bit to prevent a lot of 'lazy' loading at once
+    const rootElem = this.element[0].querySelector(".directory-list");
+    rootElem.scrollTop = Math.max(0, rootElem.scrollTop - this.lazyLoadTreshold);
   }
 
   _passesFilters(item) {
@@ -19974,7 +19138,7 @@ const registerSystemSettings = function () {
     scope: "world",
     config: false,
     type: String,
-    default: "0.0.0",
+    default: "0.1.0",
   });
   /**
    * Track when the last changelog was shown
@@ -19984,7 +19148,7 @@ const registerSystemSettings = function () {
     scope: "client",
     config: false,
     type: String,
-    default: "0.2.0",
+    default: "0.1.0",
   });
   game.settings.register("ffd20", "dontShowChangelog", {
     name: "Don't Automatically Show Changelog",
@@ -20010,7 +19174,7 @@ const registerSystemSettings = function () {
     type: Object,
     config: false,
     onChange: () => {
-      game.actors.contents.forEach((o) => {
+      game.actors.entities.forEach((o) => {
         o.prepareData();
         if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
       });
@@ -20037,7 +19201,7 @@ const registerSystemSettings = function () {
     type: Object,
     config: false,
     onChange: () => {
-      game.actors.contents.forEach((o) => {
+      game.actors.entities.forEach((o) => {
         o.prepareData();
         if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
       });
@@ -20138,7 +19302,7 @@ const registerSystemSettings = function () {
     default: "",
     type: String,
     onChange: () => {
-      [...game.actors.contents, ...Object.values(game.actors.tokens)]
+      [...game.actors.entities, ...Object.values(game.actors.tokens)]
         .filter((o) => {
           return o.data.type === "character";
         })
@@ -20164,7 +19328,7 @@ const registerSystemSettings = function () {
       metric: "Metric (meters, kg)",
     },
     onChange: () => {
-      [...game.actors.contents, ...Object.values(game.actors.tokens)]
+      [...game.actors.entities, ...Object.values(game.actors.tokens)]
         .filter((o) => {
           return o.data.type === "character";
         })
@@ -20186,7 +19350,7 @@ const registerSystemSettings = function () {
     default: false,
     type: Boolean,
     onChange: () => {
-      game.actors.contents.forEach((o) => {
+      game.actors.entities.forEach((o) => {
         if (o.sheet && o.sheet.rendered) o.sheet.render(true);
       });
       Object.values(game.actors.tokens).forEach((o) => {
@@ -20206,7 +19370,12 @@ const registerSystemSettings = function () {
     default: false,
     type: Boolean,
     onChange: () => {
-      window.location.reload();
+      game.actors.entities.forEach((o) => {
+        o.prepareData();
+      });
+      Object.values(game.actors.tokens).forEach((o) => {
+        o.prepareData();
+      });
     },
   });
 
@@ -20262,11 +19431,6 @@ const registerSystemSettings = function () {
     config: true,
     default: false,
     type: Boolean,
-    onChange: () => {
-      // Refresh canvas sight
-      canvas.lighting.initializeSources();
-      canvas.perception.initialize();
-    },
   });
 
   game.settings.register("ffd20", "sharedVisionMode", {
@@ -20296,7 +19460,7 @@ const registerSystemSettings = function () {
     default: 50,
     type: Number,
     onChange: () => {
-      game.actors.contents.forEach((o) => {
+      game.actors.entities.forEach((o) => {
         o.prepareData();
       });
       Object.values(game.actors.tokens).forEach((o) => {
@@ -20318,7 +19482,7 @@ const registerSystemSettings = function () {
     onChange: () => {
       let promises = [];
       const actors = [
-        ...Array.from(game.actors.contents.filter((o) => getProperty(o.data, "token.actorLink"))),
+        ...Array.from(game.actors.entities.filter((o) => getProperty(o.data, "token.actorLink"))),
         ...Object.values(game.actors.tokens),
       ];
       for (let actor of actors) {
@@ -20396,7 +19560,7 @@ const registerSystemSettings = function () {
     onChange: () => {
       let promises = [];
       const actors = [
-        ...Array.from(game.actors.contents.filter((o) => getProperty(o.data, "token.actorLink"))),
+        ...Array.from(game.actors.entities.filter((o) => getProperty(o.data, "token.actorLink"))),
         ...Object.values(game.actors.tokens),
       ];
       for (let actor of actors) {
@@ -20489,12 +19653,12 @@ const registerClientSettings = function () {
     scope: "client",
     config: false,
     default: {
-      spells: "0.1.9",
-      items: "0.1.9",
-      bestiary: "0.1.9",
-      feats: "0.1.9",
-      classes: "0.1.9",
-      races: "0.1.9",
+      spells: "0.0.9",
+      items: "0.0.9",
+      bestiary: "0.0.9",
+      feats: "0.0.9",
+      classes: "0.0.9",
+      races: "0.0.9",
     },
     type: Object,
   });
@@ -20572,6 +19736,7 @@ const preloadHandlebarsTemplates = async function () {
     "systems/ffd20/templates/items/parts/item-activation.hbs",
     "systems/ffd20/templates/items/parts/item-description.hbs",
     "systems/ffd20/templates/items/parts/item-changes.hbs",
+    "systems/ffd20/templates/items/parts/item-notes.hbs",
     "systems/ffd20/templates/items/parts/item-template.hbs",
     "systems/ffd20/templates/items/parts/item-links.hbs",
     "systems/ffd20/templates/items/parts/item-aura.hbs",
@@ -20595,7 +19760,6 @@ const preloadHandlebarsTemplates = async function () {
     "systems/ffd20/templates/internal/consumable-description.hbs",
     "systems/ffd20/templates/internal/damage-tooltip.hbs",
     "systems/ffd20/templates/internal/token-config_vision.hbs",
-    "systems/ffd20/templates/internal/compendium-browser_entry.hbs",
 
     // Tooltip
     "systems/ffd20/templates/hud/tooltip.hbs",
@@ -20617,8 +19781,28 @@ const registerHandlebarsHelpers = function () {
    * Render a MCE editor container with an optional toggle button
    */
   Handlebars.registerHelper("roll-editor", function (options) {
-    const item = getProperty(options, "data.root.item");
-    const actor = getProperty(options, "data.root.actor");
+    // Find item and/or actor
+    const _id = (getProperty(options, "data.root.entity") || getProperty(options, "data.root.actor") || {})._id;
+    let actor = null,
+      item = null;
+    const actors = [...Array.from(game.actors.entities), ...Array.from(game.actors.tokens)];
+    const items = [...Array.from(game.items.entities)];
+    if (_id != null) {
+      // Find actor or item on actor
+      for (let a of actors) {
+        if (a._id === _id) {
+          actor = a;
+        } else {
+          if (item == null) item = a.items.find((o) => o._id === _id);
+        }
+      }
+      // Find item
+      if (item == null) {
+        for (let i of items) {
+          if (i._id === _id) item = i;
+        }
+      }
+    }
     const rollData = item != null ? item.getRollData() : actor != null ? actor.getRollData() : {};
 
     // Create editor
@@ -20894,9 +20078,6 @@ function registerContextMenu(editor) {
 /**
  * Measure the distance between two pixel coordinates
  * See BaseGrid.measureDistance for more details
- *
- * @param segments
- * @param options
  */
 const measureDistances = function (segments, options = {}) {
   if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
@@ -20937,8 +20118,8 @@ const measureDistances = function (segments, options = {}) {
  * Hijack Token health bar rendering to include temporary and temp-max health in the bar display
  * TODO: This should probably be replaced with a formal Token class extension
  */
-const _TokenGetBarAttribute = TokenDocument.prototype.getBarAttribute;
-TokenDocument.prototype.getBarAttribute = function (barName, { alternative = null } = {}) {
+const _TokenGetBarAttribute = Token.prototype.getBarAttribute;
+Token.prototype.getBarAttribute = function (barName, { alternative = null } = {}) {
   let data;
   try {
     data = _TokenGetBarAttribute.call(this, barName, { alternative: alternative });
@@ -20948,10 +20129,6 @@ TokenDocument.prototype.getBarAttribute = function (barName, { alternative = nul
   if (data != null && data.attribute === "attributes.hp") {
     data.value += parseInt(getProperty(this.actor.data, "data.attributes.hp.temp") || 0);
   }
-
-  // Make resources editable
-  if (data?.attribute.startsWith("resources.")) data.editable = true;
-
   return data;
 };
 
@@ -20959,7 +20136,7 @@ TokenDocument.prototype.getBarAttribute = function (barName, { alternative = nul
  * Condition/ status effects section
  */
 const getConditions = function () {
-  let core = CONFIG.statusEffects,
+  var core = CONFIG.statusEffects,
     sys = Object.keys(CONFIG.FFD20.conditions).map((c) => {
       return { id: c, label: CONFIG.FFD20.conditions[c], icon: CONFIG.FFD20.conditionTextures[c] };
     });
@@ -20979,7 +20156,7 @@ TokenHUD.prototype._getStatusEffectChoices = function () {
       buffs[buff.icon] = {
         id: buff.id,
         title: buff.label,
-        src: buff.icon,
+        src: idx,
         isActive: buff.active,
         isOverlay: false,
         cssClass: buff.active ? "active" : "",
@@ -21045,7 +20222,7 @@ TokenHUD.prototype._onAttributeUpdate = function (event) {
     if (!this.object) return;
     const actor = this.object.actor;
     let entity = actor;
-    const data = this.object.document.getBarAttribute(bar);
+    const data = this.object.getBarAttribute(bar);
     if (data.attribute.startsWith("resources.")) {
       const itemTag = data.attribute.split(".").slice(-1)[0];
       entity = actor.items.find((item) => item.data.data.tag === itemTag);
@@ -21085,7 +20262,7 @@ TokenHUD.prototype._onAttributeUpdate = function (event) {
     }
 
     entity.update(updateData);
-    this.object.document.update({ [input.name]: value });
+    this.object.update({ [input.name]: value });
   }
 
   // Otherwise update the Token
@@ -21176,7 +20353,7 @@ class ActorTraitSelector extends BaseEntitySheet {
   }
 }
 
-class ActorRestDialog extends DocumentSheet {
+class ActorRestDialog extends BaseEntitySheet {
   static get defaultOptions() {
     const options = super.defaultOptions;
     return mergeObject(options, {
@@ -21299,7 +20476,7 @@ class ActorSheetFlags extends BaseEntitySheet {
   }
 }
 
-class PointBuyCalculator extends DocumentSheet {
+class PointBuyCalculator extends BaseEntitySheet {
   constructor(...args) {
     super(...args);
 
@@ -21330,7 +20507,7 @@ class PointBuyCalculator extends DocumentSheet {
   }
 
   get actor() {
-    return this.document;
+    return this.entity;
   }
 
   getData() {
@@ -21562,7 +20739,7 @@ const dialogGetActor = function (title = "", actors = []) {
   });
 };
 
-class LevelUpForm extends DocumentSheet {
+class LevelUpForm extends BaseEntitySheet {
   constructor(...args) {
     super(...args);
 
@@ -21595,9 +20772,9 @@ class LevelUpForm extends DocumentSheet {
     setProperty(rawData, "data.level", 0);
 
     // Add class item
-    let itemData = await actor.createEmbeddedDocuments("Item", [rawData]);
+    let itemData = await actor.createEmbeddedEntity("OwnedItem", rawData);
     itemData = itemData instanceof Array ? itemData : [itemData];
-    const item = actor.items.get(itemData[0].id);
+    const item = actor.items.get(itemData[0]._id);
     if (!item) {
       throw new Error("No class was created at class initialization wizard");
     }
@@ -21608,7 +20785,7 @@ class LevelUpForm extends DocumentSheet {
       Hooks.on("closeLevelUpForm", function _onClose(app) {
         if (app === _app) {
           if (getProperty(item.data, "data.level") === 0) {
-            actor.deleteEmbeddedDocuments("Item", [item.id]);
+            actor.deleteEmbeddedEntity("OwnedItem", [item.id]);
           }
           Hooks.off("closeLevelUpForm", _onClose);
           resolve();
@@ -21751,7 +20928,7 @@ class LevelUpForm extends DocumentSheet {
   }
 
   async createChatMessage(formData) {
-    const chatMessageClass = CONFIG.ChatMessage.documentClass;
+    const chatMessageClass = CONFIG.ChatMessage.entityClass;
     const speaker = chatMessageClass.getSpeaker({ actor: this.actor });
 
     const templateData = {
@@ -21761,9 +20938,7 @@ class LevelUpForm extends DocumentSheet {
       actor: duplicate(this.actor.data),
     };
 
-    await chatMessageClass.create({
-      content: await renderTemplate("systems/ffd20/templates/chat/level-up.hbs", templateData),
-      user: game.user.id,
+    await createCustomChatMessage("systems/ffd20/templates/chat/level-up.hbs", templateData, {
       type: CONST.CHAT_MESSAGE_TYPES.OTHER,
       speaker,
     });
@@ -21827,7 +21002,7 @@ class CurrencyTransfer extends FormApplication {
         source.amount ?? {}
       );
     } else if (game.user.isGM) {
-      source.amount = mergeObject({ gil: "∞" }, source.amount ?? {});
+      source.amount = mergeObject({ pgil: "∞", gil: "∞", sgil: "∞", cgil: "∞" }, source.amount ?? {});
     } else {
       ui.notification.warning("Cannot use Infinite currency transfer as non-gm.");
       return undefined;
@@ -21871,7 +21046,7 @@ class CurrencyTransfer extends FormApplication {
   }
 
   static get order() {
-    return ["gil"]; // Object conversion ordering cannot be trusted in js
+    return ["pgil", "gil", "sgil", "cgil"]; // Object conversion ordering cannot be trusted in js
   }
 
   activateListeners(html) {
@@ -21885,7 +21060,10 @@ class CurrencyTransfer extends FormApplication {
 
   _updateObject(event, formData) {
     this.dest.amount = {
+      pgil: formData.pgil ?? 0,
       gil: formData.gil ?? 0,
+      sgil: formData.sgil ?? 0,
+      cgil: formData.cgil ?? 0,
     };
     this.constructor.transfer(
       this.source.container ? this.source.container : this.source.actor,
@@ -21974,7 +21152,7 @@ class CurrencyTransfer extends FormApplication {
    *
    * @param {Document} sourceDoc ActorFFD20 or ItemFFD20 with currency
    * @param {Document} destDoc ActorFFD20 or ItemFFD20 with currency
-   * @param {object|number} amount currency object containing transferred amount. Undefined keys will be assumed to be zero. Providing just a number will assume just gold
+   * @param {object|number} amount currency object containing transferred amount. Undefined keys will be assumed to be zero. Providing just a number will assume just gil
    * @param {boolean} sourceAlt Use alt currency on source
    * @param {boolean} destAlt Use alt currency on destination
    * @param {number} [allowConversion=false] Attempts to make change with sourceDoc's currency limit
@@ -22012,7 +21190,7 @@ class CurrencyTransfer extends FormApplication {
 
     if (!amount || Object.values(sourceCurrency).find((c) => c < 0)) return false;
 
-    if (!sourceDoc.testUserPermission(game.user, 3) || !destDoc.testUserPermission(game.user, 3)) {
+    if (!sourceDoc.hasPerm(game.user, 3) || !destDoc.hasPerm(game.user, 3)) {
       if (!game.users.find((o) => o.active && o.isGM)) return this._failed("FFD20.CurrencyGMRequired"), false;
       game.socket.emit("system.ffd20", {
         eventType: "currencyTransfer",
@@ -22046,7 +21224,7 @@ class CurrencyTransfer extends FormApplication {
    * Convert totalAmount to a currency object containing
    *
    * @param {object} limit currency object containing max number of coins. Falsey values will assume infinity
-   * @param {number|object} totalAmount currency as gold pieces. If provided as a currency object, will convert to gold
+   * @param {number|object} totalAmount currency as gil pieces. If provided as a currency object, will convert to gil
    * @returns {boolean|object} false if failed, currency object containing new amounts on conversion success
    */
   static convert(limit, totalAmount) {
@@ -22078,6 +21256,8 @@ class CurrencyTransfer extends FormApplication {
 class ActorSheetFFD20 extends ActorSheet {
   constructor(...args) {
     super(...args);
+
+    this.options.submitOnClose = false;
 
     /**
      * The scroll position on the active tab
@@ -22182,20 +21362,6 @@ class ActorSheetFFD20 extends ActorSheet {
     });
   }
 
-  /**
-   * Returns an object containing feature type specific data relevant to feature organization.
-   *
-   * @static
-   * @type {object.<string, any>}
-   */
-  static get featTypeData() {
-    return {
-      template: {
-        hasActions: false,
-      },
-    };
-  }
-
   get currentPrimaryTab() {
     const primaryElem = this.element.find('nav[data-group="primary"] .item.active');
     if (primaryElem.length !== 1) return null;
@@ -22206,49 +21372,52 @@ class ActorSheetFFD20 extends ActorSheet {
     const elems = this.element.find("nav.spellbooks .item.active");
     if (elems.length !== 1)
       return Object.keys(getProperty(this.data, "data.attributes.spells.spellbook") || { primary: null })[0];
-    else if (elems.length === 0) return "primary";
     return elems.attr("data-tab");
   }
 
   /* -------------------------------------------- */
 
+  async close(options = {}) {
+    return super.close(mergeObject(options, { submit: true }, { inplace: false }));
+  }
+
   /**
    * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
-   *
-   * @param options
    */
-  async getData(options) {
-    let isOwner = this.document.isOwner;
-    const data = mergeObject(await super.getData(options), {
+  async getData() {
+    // Basic data
+    let isOwner = this.entity.owner;
+    const data = {
       owner: isOwner,
-      limited: this.document.limited,
+      limited: this.entity.limited,
+      options: this.options,
       editable: this.isEditable,
       cssClass: isOwner ? "editable" : "locked",
-      isCharacter: this.document.data.type === "character",
+      isCharacter: this.entity.data.type === "character",
       hasRace: false,
       config: CONFIG.FFD20,
       useBGSkills: game.settings.get("ffd20", "allowBackgroundSkills"),
-      spellFailure: this.document.spellFailure,
+      spellFailure: this.entity.spellFailure,
       isGM: game.user.isGM,
-      race: this.document.race != null ? this.document.race.data : null,
-      usesAnySpellbook: (getProperty(this.document.data, "data.attributes.spells.usedSpellbooks") || []).length > 0,
+      race: this.actor.race != null ? duplicate(this.actor.race.data) : null,
+      usesAnySpellbook: (getProperty(this.actor.data, "data.attributes.spells.usedSpellbooks") || []).length > 0,
       sourceData: {},
-    });
-    data.data = data.data.data;
-    const rollData = this.document.getRollData();
+    };
+    const rollData = this.actor.getRollData();
     data.rollData = rollData;
 
     // The Actor and its Items
-    if (this.document.isToken) data.token = duplicate(this.document.token.data);
+    data.actor = duplicate(this.actor.data);
+    if (this.actor.isToken) data.token = duplicate(this.actor.token.data);
     else data.token = data.actor.token;
-    data.items = this.document.items.map((i) => {
+    data.items = this.actor.items.map((i) => {
       i.data.labels = i.labels;
       i.data.hasAttack = i.hasAttack;
       i.data.hasMultiAttack = i.hasMultiAttack;
       i.data.hasDamage = i.hasDamage;
       i.data.hasRange = i.hasRange;
       i.data.hasEffect = i.hasEffect;
-      i.data.hasAction = i.hasAction || i.isCharged || i.getScriptCalls("use").length > 0;
+      i.data.hasAction = i.hasAction || i.isCharged;
       i.data.showUnidentifiedData = i.showUnidentifiedData;
       if (i.showUnidentifiedData)
         i.data.name =
@@ -22257,7 +21426,8 @@ class ActorSheetFFD20 extends ActorSheet {
       return i.data;
     });
     data.items.sort((a, b) => (a.sort || 0) - (b.sort || 0));
-    data.labels = this.document.labels || {};
+    data.data = data.actor.data;
+    data.labels = this.actor.labels || {};
     data.filters = this._filters;
 
     // Generic melee and ranged attack bonuses, only present for sheet.
@@ -22277,10 +21447,18 @@ class ActorSheetFFD20 extends ActorSheet {
       const gilValue = this.calculateTotalItemValue();
       const totalValue = {
         gil: Math.max(0, Math.floor(gilValue)),
+        sgil: Math.max(0, Math.floor(gilValue * 10 - Math.floor(gilValue) * 10)),
+        cgil: Math.max(
+          0,
+          Math.floor(
+            Math.floor(gilValue * 100 - Math.floor(gilValue) * 100) -
+              Math.floor(gilValue * 10 - Math.floor(gilValue) * 10) * 10
+          )
+        ),
       };
       data.labels.totalValue = game.i18n
         .localize("FFD20.ItemContainerTotalItemValue")
-        .format(totalValue.gil);
+        .format(totalValue.gil, totalValue.sgil, totalValue.cgil);
     }
 
     // Race type label
@@ -22293,33 +21471,33 @@ class ActorSheetFFD20 extends ActorSheet {
     }
 
     // Hit point sources
-    if (this.document.sourceDetails != null) data.sourceDetails = expandObject(this.document.sourceDetails);
+    if (this.actor.sourceDetails != null) data.sourceDetails = expandObject(this.actor.sourceDetails);
     else data.sourceDetails = null;
 
     // Ability Scores
-    for (let [a, abl] of Object.entries(data.data.abilities)) {
+    for (let [a, abl] of Object.entries(data.actor.data.abilities)) {
       abl.label = CONFIG.FFD20.abilities[a];
       abl.sourceDetails = data.sourceDetails != null ? data.sourceDetails.data.abilities[a].total : [];
       abl.totalLabel = abl.total == null ? "-" : abl.total;
     }
 
     // Armor Class
-    for (let [a, ac] of Object.entries(data.data.attributes.ac)) {
+    for (let [a, ac] of Object.entries(data.actor.data.attributes.ac)) {
       ac.label = CONFIG.FFD20.ac[a];
       ac.valueLabel = CONFIG.FFD20.acValueLabels[a];
       ac.sourceDetails = data.sourceDetails != null ? data.sourceDetails.data.attributes.ac[a].total : [];
     }
 
     // Saving Throws
-    for (let [a, savingThrow] of Object.entries(data.data.attributes.savingThrows)) {
+    for (let [a, savingThrow] of Object.entries(data.actor.data.attributes.savingThrows)) {
       savingThrow.label = CONFIG.FFD20.savingThrows[a];
       savingThrow.sourceDetails =
         data.sourceDetails != null ? data.sourceDetails.data.attributes.savingThrows[a].total : [];
     }
 
     // Update skill labels
-    const acp = getProperty(this.document.data, "data.attributes.acp.total");
-    for (let [s, skl] of Object.entries(data.data.skills)) {
+    const acp = getProperty(this.actor.data, "data.attributes.acp.total");
+    for (let [s, skl] of Object.entries(data.actor.data.skills)) {
       skl.label = CONFIG.FFD20.skills[s];
       skl.arbitrary = CONFIG.FFD20.arbitrarySkills.includes(s);
       skl.sourceDetails = [];
@@ -22343,10 +21521,11 @@ class ActorSheetFFD20 extends ActorSheet {
       // Add ability modifier source
       skl.sourceDetails.push({
         name: CONFIG.FFD20.abilities[skl.ability],
-        value: data.data.abilities[skl.ability].mod,
+        value: data.actor.data.abilities[skl.ability].mod,
       });
 
       // Add misc skill bonus source
+      // console.log(this.actor.sourceDetails);
       if (data.sourceDetails != null && data.sourceDetails.data.skills[s] != null) {
         skl.sourceDetails = skl.sourceDetails.concat(data.sourceDetails.data.skills[s].changeBonus);
       }
@@ -22374,7 +21553,7 @@ class ActorSheetFFD20 extends ActorSheet {
           }
           skl2.sourceDetails.push({
             name: CONFIG.FFD20.abilities[skl2.ability],
-            value: data.data.abilities[skl2.ability].mod,
+            value: data.actor.data.abilities[skl2.ability].mod,
           });
           if (
             data.sourceDetails != null &&
@@ -22408,7 +21587,7 @@ class ActorSheetFFD20 extends ActorSheet {
       });
 
     // Update traits
-    this._prepareTraits(data.data.traits);
+    this._prepareTraits(data.actor.data.traits);
 
     // Prepare owned items
     this._prepareItems(data);
@@ -22417,12 +21596,12 @@ class ActorSheetFFD20 extends ActorSheet {
     data.encumbrance = this._computeEncumbrance(data);
 
     // Prepare skillsets
-    data.skillsets = this._prepareSkillsets(data.data.skills);
+    data.skillsets = this._prepareSkillsets(data.actor.data.skills);
 
     // Skill rank counting
     const skillRanks = { allowed: 0, used: 0, bgAllowed: 0, bgUsed: 0, sentToBG: 0 };
     // Count used skill ranks
-    for (let skl of Object.values(this.document.data.data.skills)) {
+    for (let skl of Object.values(this.actor.data.data.skills)) {
       if (skl.subSkills != null) {
         for (let subSkl of Object.values(skl.subSkills)) {
           if (data.useBGSkills && skl.background) {
@@ -22438,85 +21617,90 @@ class ActorSheetFFD20 extends ActorSheet {
       }
     }
     // Count allowed skill ranks
-    const sourceData = getSourceInfo(this.document.sourceInfo, "data.skillRanks").positive;
-    setProperty(data.sourceData, "skillRanks", sourceData);
-    this.document.data.items
-      .filter((obj) => {
-        return obj.type === "class" && obj.data.data.classType !== "mythic";
-      })
-      .forEach((cls) => {
-        const clsLevel = cls.data.data.level;
-        const clsSkillsPerLevel = cls.data.data.skillsPerLevel;
-        const fcSkills = cls.data.data.fc.skill.value;
-        skillRanks.allowed +=
-          Math.max(1, clsSkillsPerLevel + this.document.data.data.abilities.int.mod) * clsLevel + fcSkills;
-        if (data.useBGSkills && ["base", "prestige"].includes(cls.data.data.classType))
-          skillRanks.bgAllowed += clsLevel * 2;
-
-        sourceData.push({
-          name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassBase", { className: cls.name }),
-          value: clsSkillsPerLevel * clsLevel,
-        });
-        if (fcSkills > 0) {
+    {
+      const sourceData = [];
+      setProperty(data.sourceData, "skillRanks", sourceData);
+      // Count from classes
+      this.actor.data.items
+        .filter((obj) => {
+          return obj.type === "class" && obj.data.classType !== "mythic";
+        })
+        .forEach((cls) => {
+          const clsLevel = cls.data.level;
+          const clsSkillsPerLevel = cls.data.skillsPerLevel;
+          const fcSkills = cls.data.fc.skill.value;
+          skillRanks.allowed +=
+            Math.max(1, clsSkillsPerLevel + this.actor.data.data.abilities.int.mod) * clsLevel + fcSkills;
           sourceData.push({
-            name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassFC", { className: cls.name }),
-            value: fcSkills,
+            name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassBase", { className: cls.name }),
+            value: clsSkillsPerLevel * clsLevel,
           });
-        }
-      });
-    // Count from intelligence
-    if (getProperty(this.actor.data, "data.abilities.int.mod") !== 0) {
-      sourceData.push({
-        name: game.i18n.localize("FFD20.AbilityInt"),
-        value:
-          getProperty(this.actor.data, "data.abilities.int.mod") *
-          getProperty(this.actor.data, "data.attributes.hd.total"),
-      });
-    }
-    // Count from bonus skill rank formula
-    if (this.actor.data.data.details.bonusSkillRankFormula !== "") {
-      let roll = RollFFD20.safeRoll(this.actor.data.data.details.bonusSkillRankFormula, rollData);
-      if (roll.err) console.error(`An error occurred in the Bonus Skill Rank formula of actor ${this.actor.name}.`);
-      skillRanks.allowed += roll.total;
-      sourceData.push({
-        name: game.i18n.localize("FFD20.SkillBonusRankFormula"),
-        value: roll.total,
-      });
-    }
-    // Calculate from changes
-    this.actor.changes
-      .filter((o) => o.subTarget === "bonusSkillRanks")
-      .forEach((o) => {
-        if (!o.value) return;
+          if (fcSkills > 0) {
+            sourceData.push({
+              name: game.i18n.format("FFD20.SourceInfoSkillRank_ClassFC", { className: cls.name }),
+              value: fcSkills,
+            });
+          }
 
-        skillRanks.allowed += o.value;
-        sourceData.push({
-          name: o.parent ? o.parent.name : game.i18n.localize("FFD20.Change"),
-          value: o.value,
+          if (data.useBGSkills && ["base", "prestige"].includes(cls.data.classType))
+            skillRanks.bgAllowed += clsLevel * 2;
         });
-      });
-    // Calculate used background skills
-    if (data.useBGSkills) {
-      if (skillRanks.bgUsed > skillRanks.bgAllowed) {
-        skillRanks.sentToBG = skillRanks.bgUsed - skillRanks.bgAllowed;
-        skillRanks.allowed -= skillRanks.sentToBG;
-        skillRanks.bgAllowed += skillRanks.sentToBG;
+      // Count from intelligence
+      if (getProperty(this.actor.data, "data.abilities.int.mod") !== 0) {
+        sourceData.push({
+          name: game.i18n.localize("FFD20.AbilityInt"),
+          value:
+            getProperty(this.actor.data, "data.abilities.int.mod") *
+            getProperty(this.actor.data, "data.attributes.hd.total"),
+        });
       }
+      // Count from bonus skill rank formula
+      if (this.actor.data.data.details.bonusSkillRankFormula !== "") {
+        let roll = RollFFD20.safeRoll(this.actor.data.data.details.bonusSkillRankFormula, rollData);
+        if (roll.err) console.error(`An error occurred in the Bonus Skill Rank formula of actor ${this.actor.name}.`);
+        skillRanks.allowed += roll.total;
+        sourceData.push({
+          name: game.i18n.localize("FFD20.SkillBonusRankFormula"),
+          value: roll.total,
+        });
+      }
+      // Calculate from changes
+      this.actor.changes
+        .filter((o) => o.subTarget === "bonusSkillRanks")
+        .forEach((o) => {
+          if (!o.value) return;
+
+          skillRanks.allowed += o.value;
+          sourceData.push({
+            name: o.parent ? o.parent.name : game.i18n.localize("FFD20.Change"),
+            value: o.value,
+          });
+        });
+      // Calculate used background skills
+      if (data.useBGSkills) {
+        if (skillRanks.bgUsed > skillRanks.bgAllowed) {
+          skillRanks.sentToBG = skillRanks.bgUsed - skillRanks.bgAllowed;
+          skillRanks.allowed -= skillRanks.sentToBG;
+          skillRanks.bgAllowed += skillRanks.sentToBG;
+        }
+      }
+      data.skillRanks = skillRanks;
     }
-    data.skillRanks = skillRanks;
 
     // Feat count
     {
       const sourceData = [];
       setProperty(data.sourceData, "bonusFeats", sourceData);
 
-      // Feat count
-      // By level
+      // Feats
       data.featCount = {};
       data.featCount.value = this.actor.items.filter(
         (o) => o.type === "feat" && o.data.data.featType === "feat" && !o.data.data.disabled
       ).length;
-      const totalLevels = this.document.items
+
+      // Feat count
+      // By level
+      const totalLevels = this.actor.items
         .filter((o) => o.type === "class" && ["base", "npc", "prestige", "racial"].includes(o.data.data.classType))
         .reduce((cur, o) => {
           return cur + o.data.data.level;
@@ -22528,17 +21712,11 @@ class ActorSheetFFD20 extends ActorSheet {
       });
 
       // Bonus feat formula
-      const featCountRoll = RollFFD20.safeRoll(this.document.data.data.details.bonusFeatFormula || "0", rollData);
-      const changes = this.document.changes.filter((c) => c.subTarget === "bonusFeats");
+      const featCountRoll = RollFFD20.safeRoll(this.actor.data.data.details.bonusFeatFormula || "0", rollData);
+      const changes = this.actor.changes.filter((c) => c.subTarget === "bonusFeats");
       const changeBonus = getHighestChanges(
         changes.filter((c) => {
-          c.applyChange(this.document);
-          if (c.parent || c.flavor) {
-            sourceData.push({
-              name: c.parent?.name ?? c.flavor,
-              value: c.value,
-            });
-          }
+          c.applyChange(this.actor);
           return !["set", "="].includes(c.operator);
         }),
         { ignoreTarget: true }
@@ -22549,7 +21727,7 @@ class ActorSheetFFD20 extends ActorSheet {
       if (featCountRoll.err) {
         const msg = game.i18n
           .localize("FFD20.ErrorActorFormula")
-          .format(game.i18n.localize("FFD20.BonusFeatFormula"), this.document.name);
+          .format(game.i18n.localize("FFD20.BonusFeatFormula"), this.actor.name);
         console.error(msg);
         ui.notifications.error(msg);
       }
@@ -22562,11 +21740,24 @@ class ActorSheetFFD20 extends ActorSheet {
 
       // Count total
       data.featCount.total = data.featCount.byLevel + data.featCount.byFormula;
+
+      // Changes
+      this.actor.changes
+        .filter((o) => o.subTarget === "bonusFeats")
+        .forEach((o) => {
+          if (!o.value) return;
+
+          data.featCount.total += o.value;
+          sourceData.push({
+            name: o.parent ? o.parent.name : game.i18n.localize("FFD20.Change"),
+            value: o.value,
+          });
+        });
     }
 
     // Fetch the game settings relevant to sheet rendering.
     {
-      const actorType = { character: "pc", npc: "npc" }[this.document.data.type];
+      const actorType = { character: "pc", npc: "npc" }[this.actor.data.type];
       data.healthConfig = game.settings.get("ffd20", "healthConfig");
       data.useWoundsAndVigor = data.healthConfig.variants[actorType].useWoundsAndVigor;
     }
@@ -22580,7 +21771,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     // Create a table of magic items
     {
-      const magicItems = this.document.items
+      const magicItems = this.actor.items
         .filter((o) => {
           if (o.showUnidentifiedData) return false;
           if (!o.data.data.carried) return false;
@@ -22594,7 +21785,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
           data.name = o.name;
           data.img = o.img;
-          data.id = o.id;
+          data._id = o._id;
           data.cl = getProperty(o.data, "data.cl");
           data.school = getProperty(o.data, "data.aura.school");
           if (CONFIG.FFD20.spellSchools[data.school] != null) {
@@ -22638,7 +21829,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
   _prepareHiddenElements() {
     // Hide spellbook info
-    const spellbooks = getProperty(this.document.data, "data.attributes.spells.spellbooks");
+    const spellbooks = getProperty(this.actor.data, "data.attributes.spells.spellbooks");
     for (let k of Object.keys(spellbooks)) {
       const key = `spellbook-info_${k}`;
       if (this._hiddenElems[key] == null) this._hiddenElems[key] = true;
@@ -22652,8 +21843,8 @@ class ActorSheetFFD20 extends ActorSheet {
       dv: CONFIG.FFD20.damageTypes,
       ci: CONFIG.FFD20.conditionTypes,
       languages: CONFIG.FFD20.languages,
-      armorProf: CONFIG.FFD20.armorProficiencies,
-      weaponProf: CONFIG.FFD20.weaponProficiencies,
+      armorProf: CONFIG.FFD20.armorProf,
+      weaponProf: CONFIG.FFD20.weaponProf,
     };
     for (let [t, choices] of Object.entries(map)) {
       const trait = traits[t];
@@ -22696,8 +21887,8 @@ class ActorSheetFFD20 extends ActorSheet {
    * @private
    */
   _prepareSpellbook(data, spells, bookKey) {
-    const owner = this.document.isOwner;
-    const book = this.document.data.data.attributes.spells.spellbooks[bookKey];
+    const owner = this.actor.owner;
+    const book = this.actor.data.data.attributes.spells.spellbooks[bookKey];
 
     let min = 0;
     let max = 9;
@@ -22806,7 +21997,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
       if (filters.has("prepared")) {
         if (data.level === 0 || ["pact", "innate"].includes(data.preparation.mode)) return true;
-        if (this.document.data.type === "npc") return true;
+        if (this.actor.data.type === "npc") return true;
         return data.preparation.prepared;
       }
 
@@ -22843,6 +22034,24 @@ class ActorSheetFFD20 extends ActorSheet {
 
       return true;
     });
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Get the font-awesome icon used to display a certain level of skill proficiency
+   *
+   * @param level
+   * @private
+   */
+  _getProficiencyIcon(level) {
+    const icons = {
+      0: '<i class="far fa-circle"></i>',
+      0.5: '<i class="fas fa-adjust"></i>',
+      1: '<i class="fas fa-check"></i>',
+      2: '<i class="fas fa-check-double"></i>',
+    };
+    return icons[level];
   }
 
   /* -------------------------------------------- */
@@ -22984,9 +22193,9 @@ class ActorSheetFFD20 extends ActorSheet {
     });
 
     // CMB dragging
-    html.find("th.attribute.cmb").each((i, th) => {
-      th.setAttribute("draggable", true);
-      th.addEventListener("dragstart", (ev) => this._onDragMiscStart(ev, "cmb"), false);
+    html.find("li.attribute.cmb").each((i, li) => {
+      li.setAttribute("draggable", true);
+      li.addEventListener("dragstart", (ev) => this._onDragMiscStart(ev, "cmb"), false);
     });
 
     // Defenses dragging
@@ -23008,9 +22217,9 @@ class ActorSheetFFD20 extends ActorSheet {
     });
 
     // Base Attack Bonus dragging
-    html.find("th.attribute.bab").each((i, th) => {
-      th.setAttribute("draggable", true);
-      th.addEventListener("dragstart", (ev) => this._onDragMiscStart(ev, "bab"), false);
+    html.find("li.attribute.bab").each((i, li) => {
+      li.setAttribute("draggable", true);
+      li.addEventListener("dragstart", (ev) => this._onDragMiscStart(ev, "bab"), false);
     });
 
     // Everything below here is only needed if the sheet is editable
@@ -23092,7 +22301,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     // Roll defenses
     html.find(".generic-defenses .rollable").click((ev) => {
-      this.document.rollDefenses();
+      this.actor.rollDefenses();
     });
 
     // Rest
@@ -23267,6 +22476,10 @@ class ActorSheetFFD20 extends ActorSheet {
     html.find('a[data-action="compendium"]').click(this._onOpenCompendium.bind(this));
   }
 
+  activateElementListeners(el) {
+    console.log(el, el.classList);
+  }
+
   createTabs(html) {
     const tabGroups = {
       primary: {
@@ -23297,12 +22510,12 @@ class ActorSheetFFD20 extends ActorSheet {
     let maxValue;
     if (name) {
       newEl.setAttribute("name", name);
-      prevValue = getProperty(this.document.data, name);
+      prevValue = getProperty(this.actor.data, name);
       if (prevValue && typeof prevValue !== "string") prevValue = prevValue.toString();
 
       if (name.endsWith(".value")) {
         const maxName = name.replace(/\.value$/, ".max");
-        maxValue = getProperty(this.document.data, maxName);
+        maxValue = getProperty(this.actor.data, maxName);
       }
     }
     newEl.value = prevValue;
@@ -23371,12 +22584,12 @@ class ActorSheetFFD20 extends ActorSheet {
 
     const result = {
       type: "skill",
-      actor: this.document.id,
+      actor: this.actor._id,
       skill: subSkill ? `${mainSkill}.subSkills.${subSkill}` : mainSkill,
     };
-    if (this.document.isToken) {
-      result.sceneId = canvas.scene.id;
-      result.tokenId = this.document.token.id;
+    if (this.actor.isToken) {
+      result.sceneId = canvas.scene._id;
+      result.tokenId = this.actor.token._id;
     }
 
     event.dataTransfer.setData("text/plain", JSON.stringify(result));
@@ -23385,11 +22598,11 @@ class ActorSheetFFD20 extends ActorSheet {
   _onDragMiscStart(event, type) {
     const result = {
       type: type,
-      actor: this.document.id,
+      actor: this.actor._id,
     };
-    if (this.document.isToken) {
-      result.sceneId = canvas.scene.id;
-      result.tokenId = this.document.token.id;
+    if (this.actor.isToken) {
+      result.sceneId = canvas.scene._id;
+      result.tokenId = this.actor.token._id;
     }
 
     switch (type) {
@@ -23425,11 +22638,11 @@ class ActorSheetFFD20 extends ActorSheet {
 
   _onRest(event) {
     event.preventDefault();
-    const app = Object.values(this.document.apps).find((o) => {
+    const app = Object.values(this.actor.apps).find((o) => {
       return o instanceof ActorRestDialog && o._element;
     });
     if (app) app.bringToTop();
-    else new ActorRestDialog(this.document).render(true);
+    else new ActorRestDialog(this.actor).render(true);
   }
 
   /* -------------------------------------------- */
@@ -23443,7 +22656,7 @@ class ActorSheetFFD20 extends ActorSheet {
   _onItemRoll(event) {
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     if (item == null) return;
     return item.roll();
@@ -23471,12 +22684,12 @@ class ActorSheetFFD20 extends ActorSheet {
     event.preventDefault();
     const el = event.currentTarget;
     const itemId = el.closest(".item").dataset.itemId;
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     this._mouseWheelAdd(event.originalEvent, el);
 
     const value = el.tagName.toUpperCase() === "INPUT" ? Number(el.value) : Number(el.innerText);
-    this.setItemUpdate(item.id, "data.uses.value", value);
+    this.setItemUpdate(item._id, "data.uses.value", value);
 
     // Update on lose focus
     if (event.originalEvent instanceof MouseEvent) {
@@ -23492,16 +22705,12 @@ class ActorSheetFFD20 extends ActorSheet {
     event.preventDefault();
     const el = event.currentTarget;
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     this._mouseWheelAdd(event.originalEvent, el);
 
-    const prevValue = getProperty(item.data, "data.preparation.preparedAmount");
     const value = el.tagName.toUpperCase() === "INPUT" ? Number(el.value) : Number(el.innerText);
-    this.setItemUpdate(item.id, "data.preparation.preparedAmount", value);
-    if (prevValue < value) {
-      this.setItemUpdate(item.id, "data.preparation.maxAmount", Math.max(prevValue, value));
-    }
+    this.setItemUpdate(item._id, "data.preparation.preparedAmount", value);
 
     // Update on lose focus
     if (event.originalEvent instanceof MouseEvent) {
@@ -23516,16 +22725,12 @@ class ActorSheetFFD20 extends ActorSheet {
     event.preventDefault();
     const el = event.currentTarget;
     const itemId = el.closest(".item").dataset.itemId;
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     this._mouseWheelAdd(event.originalEvent, el);
 
-    const prevValue = getProperty(item.data, "data.preparation.maxAmount");
     const value = el.tagName.toUpperCase() === "INPUT" ? Number(el.value) : Number(el.innerText);
-    this.setItemUpdate(item.id, "data.preparation.maxAmount", Math.max(0, value));
-    if (prevValue > value) {
-      this.setItemUpdate(item.id, "data.preparation.preparedAmount", Math.min(prevValue, value));
-    }
+    this.setItemUpdate(item._id, "data.preparation.maxAmount", Math.max(0, value));
     if (value < 0) {
       el.tagName.toUpperCase() === "INPUT" ? (el.value = 0) : (el.innerText = 0);
     }
@@ -23577,7 +22782,7 @@ class ActorSheetFFD20 extends ActorSheet {
     event.preventDefault();
     const el = event.currentTarget;
     const itemId = el.closest(".item").dataset.itemId;
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     this._mouseWheelAdd(event.originalEvent, el);
     const value = el.tagName.toUpperCase() === "INPUT" ? Number(el.value) : Number(el.innerText);
@@ -23586,7 +22791,7 @@ class ActorSheetFFD20 extends ActorSheet {
       this._pendingUpdates[name] = value;
     }
 
-    this.setItemUpdate(item.id, "data.level", value);
+    this.setItemUpdate(item._id, "data.level", value);
     if (event.originalEvent instanceof MouseEvent) {
       if (!this._submitQueued) {
         $(el).one("mouseleave", (event) => {
@@ -23638,30 +22843,30 @@ class ActorSheetFFD20 extends ActorSheet {
     event.preventDefault();
 
     const spellbookKey = $(event.currentTarget).closest(".spellbook-group").data("tab");
-    this.document.rollConcentration(spellbookKey);
+    this.actor.rollConcentration(spellbookKey);
   }
 
   _onRollCL(event) {
     event.preventDefault();
 
     const spellbookKey = $(event.currentTarget).closest(".spellbook-group").data("tab");
-    this.document.rollCL(spellbookKey);
+    this.actor.rollCL(spellbookKey);
   }
 
   _setItemActive(event) {
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     const value = $(event.currentTarget).prop("checked");
-    this.setItemUpdate(item.data._id, "data.active", value);
+    this.setItemUpdate(item._id, "data.active", value);
     this._updateItems();
   }
 
   _onLevelUp(event) {
     event.preventDefault;
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     const app = Object.values(this.actor.apps).find((o) => {
       return o instanceof LevelUpForm && o._element && o.object === item;
@@ -23681,8 +22886,8 @@ class ActorSheetFFD20 extends ActorSheet {
   _onItemSummary(event) {
     event.preventDefault();
     let li = $(event.currentTarget).parents(".item"),
-      item = this.document.items.get(li.attr("data-item-id")),
-      chatData = item.getChatData({ secrets: this.document.isOwner });
+      item = this.actor.getOwnedItem(li.attr("data-item-id")),
+      chatData = item.getChatData({ secrets: this.actor.owner });
 
     // Toggle summary
     if (li.hasClass("expanded")) {
@@ -23717,9 +22922,10 @@ class ActorSheetFFD20 extends ActorSheet {
     }
     if (!elem || (elem && elem.attr("disabled"))) return;
 
+    [elem.attr("name"), elem.attr("value")];
     elem.prop("readonly", false);
     elem.attr("name", event.currentTarget.dataset.attrName);
-    let value = getProperty(this.document.data, event.currentTarget.dataset.attrName);
+    let value = getProperty(this.actor.data, event.currentTarget.dataset.attrName);
     elem.attr("value", value);
 
     const wheelEvent = event && event instanceof WheelEvent;
@@ -23773,7 +22979,7 @@ class ActorSheetFFD20 extends ActorSheet {
   _onArbitrarySkillCreate(event) {
     event.preventDefault();
     const skillId = $(event.currentTarget).parents(".skill").attr("data-skill");
-    const mainSkillData = this.document.data.data.skills[skillId];
+    const mainSkillData = this.actor.data.data.skills[skillId];
     const skillData = {
       name: "",
       ability: mainSkillData.ability,
@@ -23794,7 +23000,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     const updateData = {};
     updateData[`data.skills.${skillId}.subSkills.${tag}`] = skillData;
-    if (this.document.testUserPermission(game.user, "OWNER")) this.document.update(updateData);
+    if (this.actor.hasPerm(game.user, "OWNER")) this.actor.update(updateData);
   }
 
   _onSkillCreate(event) {
@@ -23814,14 +23020,14 @@ class ActorSheetFFD20 extends ActorSheet {
 
     let tag = createTag(skillData.name || "skill");
     let count = 1;
-    while (this.document.data.data.skills[tag] != null) {
+    while (this.actor.data.data.skills[tag] != null) {
       count++;
       tag = createTag(skillData.name || "skill") + count.toString();
     }
 
     const updateData = {};
     updateData[`data.skills.${tag}`] = skillData;
-    if (this.document.testUserPermission(game.user, "OWNER")) this.document.update(updateData);
+    if (this.actor.hasPerm(game.user, "OWNER")) this.actor.update(updateData);
   }
 
   _onArbitrarySkillDelete(event) {
@@ -23831,7 +23037,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     const updateData = {};
     updateData[`data.skills.${mainSkillId}.subSkills.-=${subSkillId}`] = null;
-    if (this.document.testUserPermission(game.user, "OWNER")) this.document.update(updateData);
+    if (this.actor.hasPerm(game.user, "OWNER")) this.actor.update(updateData);
   }
 
   _onSkillDelete(event) {
@@ -23840,7 +23046,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     const updateData = {};
     updateData[`data.skills.-=${skillId}`] = null;
-    if (this.document.testUserPermission(game.user, "OWNER")) this.document.update(updateData);
+    if (this.actor.hasPerm(game.user, "OWNER")) this.actor.update(updateData);
   }
 
   async _onRaceControl(event) {
@@ -23853,7 +23059,7 @@ class ActorSheetFFD20 extends ActorSheet {
         name: "New Race",
         type: "race",
       };
-      this.document.createOwnedItem(itemData);
+      this.actor.createOwnedItem(itemData);
     }
     // Edit race
     else if (a.classList.contains("edit")) {
@@ -23868,11 +23074,11 @@ class ActorSheetFFD20 extends ActorSheet {
   async _onPointBuyCalculator(event) {
     event.preventDefault();
 
-    const app = Object.values(this.document.apps).find((o) => {
+    const app = Object.values(this.actor.apps).find((o) => {
       return o instanceof PointBuyCalculator && o._element;
     });
     if (app) app.bringToTop();
-    else new PointBuyCalculator(this.document).render(true);
+    else new PointBuyCalculator(this.actor).render(true);
   }
 
   async _onControlAlignment(event) {
@@ -23885,7 +23091,7 @@ class ActorSheetFFD20 extends ActorSheet {
     }, []);
     const w = new Widget_ItemPicker(
       (alignment) => {
-        this.document.update({ "data.details.alignment": alignment });
+        this.actor.update({ "data.details.alignment": alignment });
       },
       { items: items, columns: 3 }
     );
@@ -23896,7 +23102,7 @@ class ActorSheetFFD20 extends ActorSheet {
     event.preventDefault();
     const a = event.currentTarget;
     const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     // Quick Attack
     if (a.classList.contains("item-attack")) {
@@ -23907,24 +23113,24 @@ class ActorSheetFFD20 extends ActorSheet {
   async _quickChangeItemQuantity(event, add = 1) {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     const curQuantity = getProperty(item.data, "data.quantity") || 0;
     let newQuantity = Math.max(0, curQuantity + add);
 
     if (item.type === "container") newQuantity = Math.min(newQuantity, 1);
 
-    this.setItemUpdate(item.id, "data.quantity", newQuantity);
+    this.setItemUpdate(item._id, "data.quantity", newQuantity);
     this._updateItems();
   }
 
   async _quickEquipItem(event) {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     if (hasProperty(item.data, "data.equipped")) {
-      this.setItemUpdate(item.id, "data.equipped", !item.data.data.equipped);
+      this.setItemUpdate(item._id, "data.equipped", !item.data.data.equipped);
       this._updateItems();
     }
   }
@@ -23932,7 +23138,7 @@ class ActorSheetFFD20 extends ActorSheet {
   async _quickCarryItem(event) {
     event.preventDefault();
     const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
 
     if (hasProperty(item.data, "data.carried")) {
       item.update({ "data.carried": !item.data.data.carried });
@@ -23946,9 +23152,8 @@ class ActorSheetFFD20 extends ActorSheet {
       console.error(msg);
       return ui.notifications.error(msg);
     }
-    // const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
-    const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.document.items.get(itemId);
+    const itemId = $(event.currentTarget).parents(".item").attr("data-item-id");
+    const item = this.actor.getOwnedItem(itemId);
 
     if (hasProperty(item.data, "data.identified")) {
       item.update({ "data.identified": !item.data.data.identified });
@@ -23960,7 +23165,7 @@ class ActorSheetFFD20 extends ActorSheet {
     const a = event.currentTarget;
 
     const itemId = $(a).parents(".item").attr("data-item-id");
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
     const property = $(a).attr("name") || a.dataset.name;
 
     const updateData = {};
@@ -23973,24 +23178,24 @@ class ActorSheetFFD20 extends ActorSheet {
     const a = event.currentTarget;
 
     const itemId = $(a).parents(".item").attr("data-item-id");
-    const item = this.document.items.get(itemId);
+    const item = this.actor.getOwnedItem(itemId);
     const data = duplicate(item.data);
 
-    delete data.id;
+    delete data._id;
     data.name = `${data.name} (Copy)`;
     if (data.links) data.links = {};
 
-    this.document.createOwnedItem(data);
+    this.actor.createOwnedItem(data);
   }
 
   _quickAction(event) {
     event.preventDefault();
     const a = event.currentTarget;
     const itemId = a.dataset.itemId;
-    const item = this.document.items.find((o) => o.id === itemId);
+    const item = this.actor.items.find((o) => o._id === itemId);
     if (!item) return;
 
-    game.ffd20.rollItemMacro(item.name, { itemId: item.id, itemType: item.type, actorId: this.document.id });
+    game.ffd20.rollItemMacro(item.name, { itemId: item._id, itemType: item.type, actorId: this.actor._id });
   }
 
   _convertCurrency(event) {
@@ -23999,7 +23204,7 @@ class ActorSheetFFD20 extends ActorSheet {
     const currencyType = a.dataset.type;
     const category = a.dataset.category;
 
-    this.document.convertCurrency(category, currencyType);
+    this.actor.convertCurrency(category, currencyType);
   }
 
   /**
@@ -24019,7 +23224,7 @@ class ActorSheetFFD20 extends ActorSheet {
       data: duplicate(header.dataset),
     };
     delete itemData.data["type"];
-    return this.document.createOwnedItem(itemData);
+    return this.actor.createOwnedItem(itemData);
   }
 
   /* -------------------------------------------- */
@@ -24033,9 +23238,9 @@ class ActorSheetFFD20 extends ActorSheet {
   _onItemEdit(event) {
     event.preventDefault();
     const li = event.currentTarget.closest(".item");
-    const item = this.document.items.get(li.dataset.itemId);
+    const item = this.actor.getOwnedItem(li.dataset.itemId);
 
-    const app = Object.values(this.document.apps).find((o) => {
+    const app = Object.values(this.actor.apps).find((o) => {
       return o instanceof ItemSheet && o.object === item && o._element;
     });
     if (app) app.bringToTop();
@@ -24055,19 +23260,18 @@ class ActorSheetFFD20 extends ActorSheet {
     if (button.disabled) return;
 
     const li = event.currentTarget.closest(".item");
-    const item = this.document.items.find((o) => o.id === li.dataset.itemId);
-
     if (keyboard.isDown("Shift")) {
-      item.delete();
+      this.actor.deleteOwnedItem(li.dataset.itemId);
     } else {
       button.disabled = true;
 
+      const item = this.actor.items.find((o) => o._id === li.dataset.itemId);
       const msg = `<p>${game.i18n.localize("FFD20.DeleteItemConfirmation")}</p>`;
       Dialog.confirm({
         title: game.i18n.localize("FFD20.DeleteItemTitle").format(item.name),
         content: msg,
         yes: () => {
-          item.delete();
+          this.actor.deleteOwnedItem(li.dataset.itemId);
           button.disabled = false;
         },
         no: () => (button.disabled = false),
@@ -24079,23 +23283,21 @@ class ActorSheetFFD20 extends ActorSheet {
     event.preventDefault();
 
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.document.items.find((o) => o.id === itemId);
+    const item = this.actor.items.find((o) => o._id === itemId);
 
-    const targets = game.actors.entities.filter((o) => o.testUserPermission(game.user, "OWNER") && o !== this.document);
-    targets.push(...this.document.items.filter((o) => o.type === "container"));
-    targets.push(
-      ...game.items.entities.filter((o) => o.testUserPermission(game.user, "OWNER") && o.type === "container")
-    );
+    const targets = game.actors.entities.filter((o) => o.hasPerm(game.user, "OWNER") && o !== this.actor);
+    targets.push(...this.actor.items.filter((o) => o.type === "container"));
+    targets.push(...game.items.entities.filter((o) => o.hasPerm(game.user, "OWNER") && o.type === "container"));
     const targetData = await dialogGetActor(`Give item to actor`, targets);
 
     if (!targetData) return;
     let target;
     if (targetData.type === "actor") {
-      target = game.actors.entities.find((o) => o.id === targetData.id);
+      target = game.actors.entities.find((o) => o._id === targetData.id);
     } else if (targetData.type === "item") {
-      target = this.document.items.find((o) => o.id === targetData.id);
+      target = this.actor.items.find((o) => o._id === targetData.id);
       if (!target) {
-        target = game.items.entities.find((o) => o.id === targetData.id);
+        target = game.items.entities.find((o) => o._id === targetData.id);
       }
     }
 
@@ -24106,7 +23308,7 @@ class ActorSheetFFD20 extends ActorSheet {
       } else if (target instanceof Item) {
         await target.createContainerContent(itemData);
       }
-      await this.document.deleteOwnedItem(item.id);
+      await this.actor.deleteOwnedItem(item._id);
     }
   }
 
@@ -24114,7 +23316,7 @@ class ActorSheetFFD20 extends ActorSheet {
     if (event.key === "Enter") {
       const elem = event.currentTarget;
       if (elem.name) {
-        const attr = getProperty(this.document.data, elem.name);
+        const attr = getProperty(this.actor.data, elem.name);
         if (typeof attr === "number" && attr === parseFloat(elem.value)) {
           this._onSubmit(event);
         } else if (typeof attr === "string" && attr === elem.value) {
@@ -24133,38 +23335,38 @@ class ActorSheetFFD20 extends ActorSheet {
   _onRollAbilityTest(event) {
     event.preventDefault();
     let ability = event.currentTarget.closest(".ability").dataset.ability;
-    this.document.rollAbility(ability, { event: event });
+    this.actor.rollAbility(ability, { event: event });
   }
 
   _onRollBAB(event) {
     event.preventDefault();
-    this.document.rollBAB({ event: event });
+    this.actor.rollBAB({ event: event });
   }
 
   _onRollMelee(event) {
     event.preventDefault();
-    this.document.rollAttack({ event: event, melee: true });
+    this.actor.rollAttack({ event: event, melee: true });
   }
 
   _onRollRanged(event) {
     event.preventDefault();
-    this.document.rollAttack({ event: event, melee: false });
+    this.actor.rollAttack({ event: event, melee: false });
   }
 
   _onRollCMB(event) {
     event.preventDefault();
-    this.document.rollCMB({ event: event });
+    this.actor.rollCMB({ event: event });
   }
 
   _onRollInitiative(event) {
     event.preventDefault();
-    this.document.rollInitiative({ createCombatants: true, rerollInitiative: game.user.isGM });
+    this.actor.rollInitiative({ createCombatants: true, rerollInitiative: game.user.isGM });
   }
 
   _onRollSavingThrow(event) {
     event.preventDefault();
     let savingThrow = event.currentTarget.parentElement.dataset.savingthrow;
-    this.document.rollSavingThrow(savingThrow, { event: event, skipPrompt: getSkipActionPrompt() });
+    this.actor.rollSavingThrow(savingThrow, { event: event, skipPrompt: getSkipActionPrompt() });
   }
 
   /* -------------------------------------------- */
@@ -24177,11 +23379,11 @@ class ActorSheetFFD20 extends ActorSheet {
    */
   _prepareItems(data) {
     // Set item tags
-    for (let [key, res] of Object.entries(getProperty(data, "data.resources"))) {
+    for (let [key, res] of Object.entries(getProperty(this.actor.data, "data.resources"))) {
       if (!res) continue;
-      const id = res.id;
+      const id = res._id;
       if (!id) continue;
-      const item = this.document.items.find((o) => o.id === id);
+      const item = this.actor.items.find((o) => o._id === id);
       if (!item) continue;
       item.data.tag = !item.data.data.useCustomTag ? key : item.data.data.tag;
     }
@@ -24240,7 +23442,7 @@ class ActorSheetFFD20 extends ActorSheet {
       tradeGoods: {
         label: CONFIG.FFD20.lootTypes["tradeGoods"],
         canCreate: true,
-        hasActions: false,
+        hasActions: true,
         items: [],
         canEquip: false,
         dataset: {
@@ -24286,7 +23488,7 @@ class ActorSheetFFD20 extends ActorSheet {
 
     // Organize Spellbook
     let spellbookData = {};
-    const spellbooks = data.data.attributes.spells.spellbooks;
+    const spellbooks = data.actor.data.attributes.spells.spellbooks;
     for (let [a, spellbook] of Object.entries(spellbooks)) {
       let spellbookSpells = spells.filter((obj) => {
         return obj.data.spellbook === a;
@@ -24314,23 +23516,52 @@ class ActorSheetFFD20 extends ActorSheet {
     }
 
     // Organize Features
-    const features = {};
-    const featureDefaults = { items: [], canCreate: true, hasActions: true };
-    const featData = this.constructor.featTypeData;
-    for (const [featKey, featValue] of Object.entries(FFD20.featTypes)) {
-      // Merge type specific data into common data template
-      features[featKey] = mergeObject(
-        featureDefaults,
-        {
-          // Fist generic data derived from the config object
-          label: FFD20.featTypesPlurals[featKey] ?? featValue,
-          dataset: { type: "feat", "type-name": game.i18n.localize(featValue), "feat-type": featKey },
-          // Then any specific data explicitly set to override defaults
-          ...featData[featKey],
-        },
-        { inplace: false }
-      );
-    }
+    const features = {
+      // classes: { label: game.i18n.localize("FFD20.ClassPlural"), items: [], canCreate: true, hasActions: false, dataset: { type: "class" }, isClass: true },
+      feat: {
+        label: game.i18n.localize("FFD20.FeatPlural"),
+        items: [],
+        canCreate: true,
+        hasActions: true,
+        showFeatCount: true,
+        dataset: { type: "feat", "feat-type": "feat" },
+      },
+      classFeat: {
+        label: game.i18n.localize("FFD20.ClassFeaturePlural"),
+        items: [],
+        canCreate: true,
+        hasActions: true,
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeClassFeat"), "feat-type": "classFeat" },
+      },
+      trait: {
+        label: game.i18n.localize("FFD20.TraitPlural"),
+        items: [],
+        canCreate: true,
+        hasActions: true,
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeTraits"), "feat-type": "trait" },
+      },
+      racial: {
+        label: game.i18n.localize("FFD20.RacialTraitPlural"),
+        items: [],
+        canCreate: true,
+        hasActions: true,
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeRacial"), "feat-type": "racial" },
+      },
+      misc: {
+        label: game.i18n.localize("FFD20.Misc"),
+        items: [],
+        canCreate: true,
+        hasActions: true,
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.Misc"), "feat-type": "misc" },
+      },
+      template: {
+        label: game.i18n.localize("FFD20.TemplatePlural"),
+        items: [],
+        canCreate: true,
+        hasActions: false,
+        dataset: { type: "feat", "type-name": game.i18n.localize("FFD20.FeatTypeTemplate"), "feat-type": "template" },
+      },
+    };
 
     for (let f of feats) {
       let k = f.data.featType;
@@ -24341,7 +23572,7 @@ class ActorSheetFFD20 extends ActorSheet {
         f.abilityType = "";
         f.abilityTypeShort = "";
       }
-      features[k]?.items?.push(f);
+      features[k].items.push(f);
     }
     classes.sort((a, b) => b.level - a.level);
     classes.forEach((item) => {
@@ -24477,7 +23708,7 @@ class ActorSheetFFD20 extends ActorSheet {
     data.buffs = buffSections;
     data.attacks = attackSections;
     data.classes = classes;
-    data.quickActions = this.document.getQuickActions();
+    data.quickActions = this.actor.getQuickActions();
   }
 
   /**
@@ -24489,14 +23720,14 @@ class ActorSheetFFD20 extends ActorSheet {
   _onRollSkillCheck(event) {
     event.preventDefault();
     const skill = event.currentTarget.parentElement.parentElement.dataset.skill;
-    this.document.rollSkill(skill, { event: event, skipDialog: getSkipActionPrompt() });
+    this.actor.rollSkill(skill, { event: event, skipDialog: getSkipActionPrompt() });
   }
 
   _onRollSubSkillCheck(event) {
     event.preventDefault();
     const mainSkill = event.currentTarget.parentElement.parentElement.dataset.mainSkill;
     const skill = event.currentTarget.parentElement.parentElement.dataset.skill;
-    this.document.rollSkill(`${mainSkill}.subSkills.${skill}`, { event: event, skipDialog: getSkipActionPrompt() });
+    this.actor.rollSkill(`${mainSkill}.subSkills.${skill}`, { event: event, skipDialog: getSkipActionPrompt() });
   }
 
   /**
@@ -24625,11 +23856,11 @@ class ActorSheetFFD20 extends ActorSheet {
       choices: CONFIG.FFD20[a.dataset.options],
     };
 
-    const app = Object.values(this.document.apps).find((o) => {
+    const app = Object.values(this.actor.apps).find((o) => {
       return o instanceof ActorTraitSelector && o.options.name === options.name && o._element;
     });
     if (app) app.bringToTop();
-    else new ActorTraitSelector(this.document, options).render(true);
+    else new ActorTraitSelector(this.actor, options).render(true);
   }
 
   setItemUpdate(id, key, value) {
@@ -24673,68 +23904,173 @@ class ActorSheetFFD20 extends ActorSheet {
   }
 
   async _updateItems() {
+    let promises = [];
 
-    const updates = this._itemUpdates;
+    const updates = duplicate(this._itemUpdates);
     this._itemUpdates = [];
 
-    // Memorize variables in document
-    for (let d of updates) {
-      const item = this.document.items.find((o) => o.id === d._id);
-      item?.memorizeVariables();
+    for (const data of updates) {
+      const item = this.actor.items.filter((o) => {
+        return o._id === data._id;
+      })[0];
+      if (item == null) continue;
+
+      delete data._id;
+      if (item.hasPerm(game.user, "OWNER")) promises.push(item.update(data));
     }
 
-    if (updates.length > 0) {
-      return this.document.updateEmbeddedDocuments("Item", updates);
-    }
+    return Promise.all(promises);
   }
 
   /**
    * @override
    */
-  async _onDropItem(event, data) {
-    if (!this.document.isOwner) return false;
-    const item = await ItemFFD20.implementation.fromDropData(data);
-    const itemData = item.toJSON();
+  async _onDrop(event) {
+    event.preventDefault();
 
-    // Handle item sorting within the same actor
-    let sameActor =
-      (data.actorId === this.actor.id || (this.actor.isToken && data.tokenId === this.actor.token.id)) &&
-      !data.containerId;
-    if (sameActor) return this._onSortItem(event, itemData);
-
-    // Remove from container
-    if (data.containerId) {
-      const container = this.actor.allItems.find((o) => o.id === data.containerId);
-
-      if (container) container.deleteContainerContent(itemData._id);
+    // Try to extract the data
+    let data;
+    try {
+      data = JSON.parse(event.dataTransfer.getData("text/plain"));
+      if (!["Item", "Currency"].includes(data.type)) return;
+    } catch (err) {
+      return false;
     }
 
-    // Create the owned item
-    this._alterDropItemData(itemData);
-    return this._onDropItemCreate(itemData);
+    let itemData = {};
+    let fromContainer = false;
+    const actor = this.actor;
+
+    // Case 0 - Non-item currency transfer
+    if (data.currency) {
+      let sourceActor = data.tokenId ? game.actors.tokens[data.tokenId] : data.actorId;
+      return new CurrencyTransfer(
+        { actor: sourceActor, container: data.containerId, alt: data.alt },
+        { actor: this.actor, amount: Object.fromEntries([[data.currency, parseInt(data.amount)]]) }
+      ).render(true);
+    }
+
+    // Case 1 - Import from a Compendium pack
+    if (data.pack) {
+      const pack = game.packs.find((p) => p.collection === data.pack);
+      const packItem = await pack.getEntity(data.id);
+      if (packItem != null) itemData = packItem.data;
+    }
+
+    // Case 2 - Data explicitly provided
+    else if (data.data) {
+      let sameActor = data.actorId === actor._id && !data.containerId;
+      if (sameActor && actor.isToken) sameActor = data.tokenId === actor.token.id;
+      if (sameActor) return this._onSortItem(event, data.data); // Sort existing items
+      itemData = data.data;
+
+      fromContainer = data.containerId ?? false;
+    }
+
+    // Case 3 - Import from World entity
+    else {
+      itemData = game.items.get(data.id).data;
+    }
+
+    // Remove item links
+    if (itemData?.data?.links) {
+      for (const k of Object.keys(itemData.data.links)) {
+        if (!CONFIG.FFD20.keepItemLinksOnCopy.includes(k)) {
+          delete itemData.data.links[k];
+        }
+      }
+    }
+
+    return this.importItem(mergeObject(itemData, this.getDropData(itemData), { inplace: false }), { event: event })
+      .then((item) => {
+        // Try to remove from container
+        if (item && fromContainer) {
+          // Search for actor
+          let sourceActor = data.tokenId
+            ? canvas.tokens.placeables.find((o) => o.id === data.tokenId)?.actor
+            : game.actors.get(actor._id);
+          // Only remove if actor is the same
+          if (sourceActor === item.parentActor) {
+            const allItems = sourceActor
+              ? [...Array.from(sourceActor.items), ...Array.from(sourceActor.containerItems)]
+              : [];
+            let container = allItems.find((o) => o._id === data.containerId);
+            // Remove from container
+            if (container) container.deleteContainerContent(itemData._id);
+          }
+        }
+      })
+      .catch((err) => {
+        console.error(
+          `Failed to remove item ${itemData._id} (${itemData.name}) from container ${data.containerId} on actor ${actor._id} (${actor.name})`,
+          err
+        );
+      });
   }
 
-  _alterDropItemData(data) {
-    if (data.type === "spell") {
-      data.data.spellbook = this.currentSpellbookKey;
+  getDropData(origData) {
+    let result = {};
+
+    // Set spellbook for spell
+    if (getProperty(origData, "type") === "spell") {
+      setProperty(result, "data.spellbook", this.currentSpellbookKey);
+      let matchedClass = origData.data.learnedAt.class.find((c) => {
+        return (
+          c[0].toLowerCase().indexOf(this.actor.data.data.spells[this.currentSpellbookKey]?.class.toLowerCase()) > -1
+        );
+      });
+      if (matchedClass) setProperty(result, "data.level", matchedClass[1]);
     }
+    return result;
+  }
+
+  /**
+   * @override
+   */
+  _onSortItem(event, itemData) {
+    // TODO - for now, don't allow sorting for Token Actor ovrrides
+    if (this.actor.isToken) return;
+
+    // Get the drag source and its siblings
+    const source = this.actor.getOwnedItem(itemData._id);
+    const siblings = this._getSortSiblings(source);
+
+    // Get the drop target
+    const dropTarget = event.target.closest(".item");
+    const targetId = dropTarget ? dropTarget.dataset.itemId : null;
+    if (targetId === source._id) return; // Don't sort if item is dropped onto itself
+    const target = siblings.find((s) => s.data._id === targetId);
+
+    // Ensure we are only sorting like-types
+    // if (target && (source.data.type !== target.data.type)) return;
+
+    // Perform the sort
+    const sortUpdates = SortingHelpers.performIntegerSort(source, { target: target, siblings });
+    const updateData = sortUpdates.map((u) => {
+      const update = u.update;
+      update._id = u.target.data._id;
+      return update;
+    });
+
+    // Perform the update
+    return this.actor.updateEmbeddedEntity("OwnedItem", updateData);
   }
 
   /**
    * @override
    */
   _getSortSiblings(source) {
-    return this.document.items.filter((i) => {
+    return this.actor.items.filter((i) => {
       if (ItemFFD20.isInventoryItem(source.data.type)) return ItemFFD20.isInventoryItem(i.data.type);
-      return i.data.type === source.data.type && i.data.id !== source.data.id;
+      return i.data.type === source.data.type && i.data._id !== source.data._id;
     });
   }
 
-  async _onDropItemCreate(itemData) {
+  async importItem(itemData, { event } = {}) {
     // Import spell as consumable
     if (itemData.type === "spell" && this.currentPrimaryTab === "inventory") {
       let resultData = await createConsumableSpellDialog(itemData);
-      if (resultData) return this.document.createEmbeddedDocuments("Item", [resultData]);
+      if (resultData) return this.actor.createEmbeddedEntity("OwnedItem", resultData);
       else return false;
     }
     // Choose how to import class
@@ -24777,10 +24113,10 @@ class ActorSheetFFD20 extends ActorSheet {
       if (doReturn) return false;
     }
 
-    if (itemData.id) delete itemData.id;
-    let actorRef = this.document;
-    return this.document.createEmbeddedDocuments("Item", [itemData]).then((createdItem) => {
-      let fullItem = actorRef.items.get(createdItem.id);
+    if (itemData._id) delete itemData._id;
+    let actorRef = this.actor;
+    return this.actor.createEmbeddedEntity("OwnedItem", itemData).then((createdItem) => {
+      let fullItem = actorRef.items.get(createdItem._id);
       return fullItem;
     });
   }
@@ -24812,7 +24148,7 @@ class ActorSheetFFD20 extends ActorSheet {
     // Show CR field
     if (f === "cr") {
       const elem = html.find('input[for="data.details.cr"]');
-      elem.attr("value", CR.fromNumber(this.document.data.data.details.cr.base));
+      elem.attr("value", CR.fromNumber(this.actor.data.data.details.cr.base));
       elem.attr("name", "data.details.cr.base");
       elem.prop("disabled", false);
       elem.focus();
@@ -24834,6 +24170,17 @@ class ActorSheetFFD20 extends ActorSheet {
     el.select();
   }
 
+  _onWheelChange(event) {
+    event.preventDefault();
+    const el = event.currentTarget;
+    const value = parseFloat(el.value);
+    if (Number.isNaN(value)) return;
+
+    const increase = -Math.sign(event.originalEvent.deltaY);
+    const amount = parseFloat(el.dataset.wheelStep) || 1;
+    el.value = value + amount * increase;
+  }
+
   _updateObject(event, formData) {
     // Translate CR
     const cr = formData["data.details.cr.base"];
@@ -24852,7 +24199,7 @@ class ActorSheetFFD20 extends ActorSheet {
         if (el.dataset.dtype === "Number") value = Number(value);
         else if (el.dataset.dtype === "Boolean") value = Boolean(value);
 
-        if (getProperty(this.document.data, name) !== value) {
+        if (getProperty(this.actor.data, name) !== value) {
           changedData[name] = value;
         }
       }
@@ -24874,15 +24221,15 @@ class ActorSheetFFD20 extends ActorSheet {
   }
 
   calculateTotalItemValue() {
-    const items = this.document.items.filter((o) => o.data.data.price != null);
+    const items = this.actor.items.filter((o) => o.data.data.price != null);
     return items.reduce((cur, i) => {
       return cur + i.getValue({ sellValue: 1 });
     }, 0);
   }
 
   calculateSellItemValue() {
-    const items = this.document.items.filter((o) => o.data.data.price != null);
-    const sellMultiplier = this.document.getFlag("ffd20", "sellMultiplier") || 0.5;
+    const items = this.actor.items.filter((o) => o.data.data.price != null);
+    const sellMultiplier = this.actor.getFlag("ffd20", "sellMultiplier") || 0.5;
     return items.reduce((cur, i) => {
       return cur + i.getValue({ sellValue: sellMultiplier });
     }, 0);
@@ -25007,25 +24354,15 @@ class ActorSheetFFD20Character extends ActorSheetFFD20 {
     return item.update({ "data.preparation.prepared": !item.data.data.preparation.prepared });
   }
 
-  _onLevelUp(event) {
-    event.preventDefault;
-    const itemId = event.currentTarget.closest(".item").dataset.itemId;
-    const item = this.actor.items.get(itemId);
-
-    const app = Object.values(this.actor.apps).find((o) => {
-      return o instanceof LevelUpForm && o._element;
-    });
-    if (app) app.bringToTop();
-    else new LevelUpForm(item).render(true);
-  }
-
   /* -------------------------------------------- */
 
   async _onConvertCurrency(event) {
     event.preventDefault();
     const curr = duplicate(this.actor.data.data.currency);
     const convert = {
-      gil: { into: "gil", each: 1 },
+      cgil: { into: "sgil", each: 10 },
+      sgil: { into: "gil", each: 10 },
+      gil: { into: "pgil", each: 10 },
     };
     for (let [c, t] of Object.entries(convert)) {
       let change = Math.floor(curr[c] / t.each);
@@ -25246,19 +24583,35 @@ class ActorSheetFFD20NPCLoot extends ActorSheetFFD20NPC {
     const sellValue = this.calculateSellItemValue() + this.actor.mergeCurrency();
     data.totalValue = {
       gil: Math.max(0, Math.floor(gilValue)),
+      sgil: Math.max(0, Math.floor(gilValue * 10 - Math.floor(gilValue) * 10)),
+      cgil: Math.max(
+        0,
+        Math.floor(
+          Math.floor(gilValue * 100 - Math.floor(gilValue) * 100) -
+            Math.floor(gilValue * 10 - Math.floor(gilValue) * 10) * 10
+        )
+      ),
     };
     data.sellValue = {
       gil: Math.max(0, Math.floor(sellValue)),
+      sgil: Math.max(0, Math.floor(sellValue * 10 - Math.floor(sellValue) * 10)),
+      cgil: Math.max(
+        0,
+        Math.floor(
+          Math.floor(sellValue * 100 - Math.floor(sellValue) * 100) -
+            Math.floor(sellValue * 10 - Math.floor(sellValue) * 10) * 10
+        )
+      ),
     };
 
     // Set labels
     if (!data.labels) data.labels = {};
     data.labels.totalValue = game.i18n
       .localize("FFD20.ItemContainerTotalValue")
-      .format(data.totalValue.gil);
+      .format(data.totalValue.gil, data.totalValue.sgil, data.totalValue.cgil);
     data.labels.sellValue = game.i18n
       .localize("FFD20.ItemContainerSellValue")
-      .format(data.sellValue.gil);
+      .format(data.sellValue.gil, data.sellValue.sgil, data.sellValue.cgil);
 
     // Alter inventory columns
     for (let inv of Object.values(data.inventory)) {
@@ -25277,21 +24630,6 @@ class ActorSheetFFD20NPCLoot extends ActorSheetFFD20NPC {
       },
     };
     this._tabsAlt = createTabs.call(this, html, tabGroups, this._tabsAlt);
-  }
-}
-
-class TokenDocumentFFD20 extends TokenDocument {
-  async update(data, options) {
-    // Resize token with actor size change
-    const sizeKey = getProperty(data, "actorData.data.traits.size");
-    if (sizeKey) {
-      const size = CONFIG.FFD20.tokenSizes[sizeKey];
-      setProperty(data, "width", size.w);
-      setProperty(data, "height", size.h);
-      setProperty(data, "scale", size.scale);
-    }
-
-    return super.update(data, options);
   }
 }
 
@@ -25405,6 +24743,69 @@ class EntrySelector extends FormApplication {
   }
 }
 
+class ScriptEditor extends FormApplication {
+  constructor(options = {}) {
+    super(options);
+
+    this.command = options.command || "";
+
+    this._promises = {
+      submit: [],
+    };
+  }
+
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      classes: ["ffd20", "script-editor"],
+      template: "systems/ffd20/templates/apps/script-editor.hbs",
+      width: 640,
+      height: 560,
+    });
+  }
+
+  getData() {
+    const data = {};
+
+    data.command = this.command || "";
+
+    return data;
+  }
+
+  awaitResult() {
+    let callback;
+    const promise = new Promise((resolve) => {
+      callback = resolve;
+    });
+    this._promises.submit.push({ callback, promise, resolved: false });
+    return promise;
+  }
+
+  activateListeners(html) {
+    html.find('button[type="submit"]').click(this._onSubmit.bind(this));
+  }
+
+  _updateObject(event, formData) {
+    this.command = formData["command"];
+
+    this.resolvePromises("submit", this.command);
+  }
+
+  resolvePromises(type, result) {
+    for (let p of this._promises[type]) {
+      if (!p.resolved) {
+        p.callback(result);
+        p.resolved = true;
+      }
+    }
+  }
+
+  async close(...args) {
+    super.close(...args);
+
+    this.resolvePromises("submit", null);
+  }
+}
+
 class SidebarFFD20 extends Sidebar {
   constructor(...args) {
     super(...args);
@@ -25439,7 +24840,15 @@ class SidebarFFD20 extends Sidebar {
 }
 
 class ActiveEffectFFD20 extends ActiveEffect {
-  async create(data, context) {
+  constructor(...args) {
+    super(...args);
+  }
+
+  async update(data, options) {
+    return super.update(data, options);
+  }
+
+  async create(options) {
     const statusId = this.data["flags.core.statusId"],
       origin = this.data.origin,
       updates = {};
@@ -25453,14 +24862,14 @@ class ActiveEffectFFD20 extends ActiveEffect {
       let buffItem = this.parent.items.get(origin.split(".")[3]);
       if (buffItem && !buffItem.data.data.active) await buffItem.update({ "data.active": true });
     }
-    return super.create(data, context);
+    return super.create(options);
   }
 
-  async delete(context) {
+  async delete(options) {
     const statusId = this.getFlag("core", "statusId"),
       origin = this.data.origin?.split(".")?.[3] ?? null,
       parentActor = this.parent,
-      returnVal = await super.delete(context),
+      returnVal = await super.delete(options),
       updates = {};
     if (statusId && parentActor.data.data.attributes.conditions[statusId]) {
       updates[`data.attributes.conditions.${statusId}`] = false;
@@ -25909,7 +25318,6 @@ class ItemSheetFFD20 extends ItemSheet {
    */
   async getData() {
     const data = await super.getData();
-    data.data = data.data.data;
     const rollData = this.item.getRollData();
     data.labels = this.item.labels;
 
@@ -25930,11 +25338,11 @@ class ItemSheetFFD20 extends ItemSheet {
     data.itemStatus = this._getItemStatus(data.item);
     data.itemProperties = this._getItemProperties(data.item);
     data.itemName = data.item.name;
-    data.isPhysical = hasProperty(data.item.data, "data.quantity");
+    data.isPhysical = Object.prototype.hasOwnProperty.call(data.item.data, "quantity");
     data.isSpell = this.item.type === "spell";
     data.owned = this.item.actor != null;
     data.parentOwned = this.actor != null;
-    data.owner = this.item.isOwner;
+    data.owner = this.item.hasPerm(game.user, "OWNER");
     data.isGM = game.user.isGM;
     data.showIdentifyDescription = data.isGM && data.isPhysical;
     data.isMateria = data.item.data.equipmentType === "materia";
@@ -25942,8 +25350,8 @@ class ItemSheetFFD20 extends ItemSheet {
     data.unchainedActionEconomy = game.settings.get("ffd20", "unchainedActionEconomy");
     data.hasActivationType =
       (game.settings.get("ffd20", "unchainedActionEconomy") &&
-        getProperty(data.item.data, "data.unchainedAction.activation.type")) ||
-      (!game.settings.get("ffd20", "unchainedActionEconomy") && getProperty(data.item.data, "data.activation.type"));
+        getProperty(data.item, "data.unchainedAction.activation.type")) ||
+      (!game.settings.get("ffd20", "unchainedActionEconomy") && getProperty(data.item, "data.activation.type"));
     if (rollData.item.auraStrength != null) {
       const auraStrength = rollData.item.auraStrength;
       data.auraStrength = auraStrength;
@@ -25974,15 +25382,15 @@ class ItemSheetFFD20 extends ItemSheet {
     data.isCombatManeuver = ["mcman", "rcman"].includes(data.item.data.actionType);
 
     data.isCharged = false;
-    if (data.item.data.data.uses != null) {
-      data.isCharged = ["day", "week", "charges"].includes(data.item.data.data.uses.per);
+    if (data.item.data.uses != null) {
+      data.isCharged = ["day", "week", "charges"].includes(data.item.data.uses.per);
     }
-    if (data.item.data.data.range != null) {
-      data.canInputRange = ["ft", "mi", "spec"].includes(data.item.data.data.range.units);
-      data.canInputMinRange = ["ft", "mi", "spec"].includes(data.item.data.data.range.minUnits);
+    if (data.item.data.range != null) {
+      data.canInputRange = ["ft", "mi", "spec"].includes(data.item.data.range.units);
+      data.canInputMinRange = ["ft", "mi", "spec"].includes(data.item.data.range.minUnits);
     }
-    if (data.item.data.data.duration != null) {
-      data.canInputDuration = !["", "inst", "perm", "seeText"].includes(data.item.data.data.duration.units);
+    if (data.item.data.duration != null) {
+      data.canInputDuration = !["", "inst", "perm", "seeText"].includes(data.item.data.duration.units);
     }
 
     // Show additional ranged properties
@@ -25996,14 +25404,14 @@ class ItemSheetFFD20 extends ItemSheet {
 
     // Prepare weapon specific stuff
     if (data.item.type === "weapon") {
-      data.isRanged = data.item.data.data.weaponSubtype === "ranged" || data.item.data.data.properties["thr"] === true;
+      data.isRanged = data.item.data.weaponSubtype === "ranged" || data.item.data.properties["thr"] === true;
 
       // Prepare categories for weapons
       data.weaponCategories = { types: {}, subTypes: {} };
       for (let [k, v] of Object.entries(CONFIG.FFD20.weaponTypes)) {
         if (typeof v === "object") data.weaponCategories.types[k] = v._label;
       }
-      const type = data.item.data.data.weaponType;
+      const type = data.item.data.weaponType;
       if (hasProperty(CONFIG.FFD20.weaponTypes, type)) {
         for (let [k, v] of Object.entries(CONFIG.FFD20.weaponTypes[type])) {
           // Add static targets
@@ -26019,7 +25427,7 @@ class ItemSheetFFD20 extends ItemSheet {
       for (let [k, v] of Object.entries(CONFIG.FFD20.equipmentTypes)) {
         if (typeof v === "object") data.equipmentCategories.types[k] = v._label;
       }
-      const type = data.item.data.data.equipmentType;
+      const type = data.item.data.equipmentType;
       if (hasProperty(CONFIG.FFD20.equipmentTypes, type)) {
         for (let [k, v] of Object.entries(CONFIG.FFD20.equipmentTypes[type])) {
           // Add static targets
@@ -26039,8 +25447,8 @@ class ItemSheetFFD20 extends ItemSheet {
 
     // Prepare attack specific stuff
     if (data.item.type === "attack") {
-      data.isWeaponAttack = data.item.data.data.attackType === "weapon";
-      data.isNaturalAttack = data.item.data.data.attackType === "natural";
+      data.isWeaponAttack = data.item.data.attackType === "weapon";
+      data.isNaturalAttack = data.item.data.attackType === "natural";
     }
 
     // Prepare spell specific stuff
@@ -26110,11 +25518,11 @@ class ItemSheetFFD20 extends ItemSheet {
     // Prepare proficiencies
     const profs = {
       languages: CONFIG.FFD20.languages,
-      armorProf: CONFIG.FFD20.armorProficiencies,
-      weaponProf: CONFIG.FFD20.weaponProficiencies,
+      armorProf: CONFIG.FFD20.armorProf,
+      weaponProf: CONFIG.FFD20.weaponProf,
     };
     for (let [t, choices] of Object.entries(profs)) {
-      if (hasProperty(data.item.data.data, t)) {
+      if (hasProperty(data.item.data, t)) {
         const trait = data.data[t];
         if (!trait) continue;
         let values = [];
@@ -26136,7 +25544,7 @@ class ItemSheetFFD20 extends ItemSheet {
       }
     }
 
-    // Prepare stuff for active effects on items
+    // Prepare stuff for items with changes
     if (this.item.changes) {
       data.changeGlobals = {
         targets: {},
@@ -26147,7 +25555,7 @@ class ItemSheetFFD20 extends ItemSheet {
       }
 
       const buffTargets = getBuffTargets(this.item.actor);
-      data.changes = data.item.data.data.changes.reduce((cur, o) => {
+      data.changes = data.item.data.changes.reduce((cur, o) => {
         const obj = { data: o };
 
         obj.subTargetLabel = buffTargets[o.subTarget]?.label;
@@ -26159,9 +25567,9 @@ class ItemSheetFFD20 extends ItemSheet {
     }
 
     // Prepare stuff for attacks with conditionals
-    if (data.data.conditionals) {
+    if (data.item.data.conditionals) {
       data.conditionals = { targets: {}, conditionalModifierTypes: {} };
-      for (const conditional of data.data.conditionals) {
+      for (const conditional of data.item.data.conditionals) {
         for (const modifier of conditional.modifiers) {
           modifier.targets = this.item.getConditionalTargets();
           modifier.subTargets = this.item.getConditionalSubTargets(modifier.target);
@@ -26169,15 +25577,14 @@ class ItemSheetFFD20 extends ItemSheet {
           modifier.conditionalCritical = this.item.getConditionalCritical(modifier.target);
           modifier.isAttack = modifier.target === "attack";
           modifier.isDamage = modifier.target === "damage";
-          modifier.isSize = modifier.target === "size";
           modifier.isSpell = modifier.target === "spell";
         }
       }
     }
 
     // Prepare stuff for items with context notes
-    if (data.item.data.data.contextNotes) {
-      data.contextNotes = duplicate(data.item.data.data.contextNotes);
+    if (data.item.data.contextNotes) {
+      data.contextNotes = duplicate(data.item.data.contextNotes);
       const noteTargets = getBuffTargets(this.item.actor, "contextNotes");
       data.contextNotes.forEach((o) => {
         o.label = noteTargets[o.subTarget]?.label;
@@ -26194,9 +25601,6 @@ class ItemSheetFFD20 extends ItemSheet {
 
     // Add item flags
     this._prepareItemFlags(data);
-
-    // Add script calls
-    await this._prepareScriptCalls(data);
 
     // Add links
     await this._prepareLinks(data);
@@ -26284,79 +25688,18 @@ class ItemSheetFFD20 extends ItemSheet {
   _prepareItemFlags(data) {
     // Add boolean flags
     {
-      const flags = getProperty(data.item.data, "data.flags.boolean") || [];
+      const flags = getProperty(data.item, "data.flags.boolean") || [];
       setProperty(data, "flags.boolean", flags);
     }
 
     // Add dictionary flags
     {
-      const flags = getProperty(data.item.data, "data.flags.dictionary") || [];
+      const flags = getProperty(data.item, "data.flags.dictionary") || [];
       let result = [];
       for (let [k, v] of flags) {
         result.push({ key: k, value: v });
       }
       setProperty(data, "flags.dictionary", result);
-    }
-  }
-
-  async _prepareScriptCalls(data) {
-    const categories = game.ffd20.registry.getItemScriptCategories().filter((o) => {
-      if (!o.itemTypes.includes(this.document.type)) return false;
-      if (o.hidden === true && !game.user.isGM) return false;
-      return true;
-    });
-    // Don't show the Script Calls section if there are no categories for this item type
-    if (!categories.length) {
-      data.scriptCalls = null;
-      return;
-    }
-    // Don't show the Script Calls section if players are not allowed to edit script macros
-    if (!game.user.can("MACRO_SCRIPT")) {
-      data.scriptCalls = null;
-      return;
-    }
-
-    data.scriptCalls = {};
-
-    // Prepare data to add
-    const checkYes = '<i class="fas fa-check"></i>';
-    const checkNo = '<i class="fas fa-times"></i>';
-
-    // Iterate over all script calls, and adjust data
-    let scriptCalls = Object.hasOwnProperty.call(this.document, "scriptCalls")
-      ? duplicate(Array.from(this.document.scriptCalls).map((o) => o.data))
-      : [];
-    {
-      let promises = [];
-      for (let o of scriptCalls) {
-        promises.push(
-          (async () => {
-            // Obtain macro info
-            if (o.type === "macro") {
-              const m = await fromUuid(o.value);
-              o.name = m.data.name;
-              o.img = m.data.img;
-            }
-
-            // Add data
-            o.hiddenIcon = o.hidden ? checkYes : checkNo;
-            o.hide = o.hidden && !game.user.isGM;
-          })()
-        );
-      }
-      await Promise.all(promises);
-    }
-
-    // Create categories, and assign items to them
-    for (const c of categories) {
-      data.scriptCalls[c.key] = {
-        name: game.i18n.localize(c.name),
-        info: c.info ? game.i18n.localize(c.info) : null,
-        items: scriptCalls.filter((o) => o.category === c.key),
-        dataset: {
-          category: c.key,
-        },
-      };
     }
   }
 
@@ -26386,23 +25729,20 @@ class ItemSheetFFD20 extends ItemSheet {
   _getItemStatus(item) {
     if (item.type === "spell") {
       const spellbook = this.item.spellbook;
-      if (item.data.data.preparation.mode === "prepared") {
-        if (item.data.data.preparation.preparedAmount > 0) {
+      if (item.data.preparation.mode === "prepared") {
+        if (item.data.preparation.preparedAmount > 0) {
           if (spellbook != null && spellbook.spontaneous) {
             return game.i18n.localize("FFD20.SpellPrepPrepared");
           } else {
-            return game.i18n.localize("FFD20.AmountPrepared").format(item.data.data.preparation.preparedAmount);
+            return game.i18n.localize("FFD20.AmountPrepared").format(item.data.preparation.preparedAmount);
           }
         }
         return game.i18n.localize("FFD20.Unprepared");
-      } else if (item.data.data.preparation.mode) {
-        return item.data.data.preparation.mode.titleCase();
+      } else if (item.data.preparation.mode) {
+        return item.data.preparation.mode.titleCase();
       } else return "";
-    } else if (
-      ["weapon", "equipment"].includes(item.type) ||
-      (item.type === "loot" && item.data.data.subType === "gear")
-    ) {
-      return item.data.data.equipped ? game.i18n.localize("FFD20.Equipped") : game.i18n.localize("FFD20.NotEquipped");
+    } else if (["weapon", "equipment"].includes(item.type) || (item.type === "loot" && item.data.subType === "gear")) {
+      return item.data.equipped ? game.i18n.localize("FFD20.Equipped") : game.i18n.localize("FFD20.NotEquipped");
     }
   }
 
@@ -26421,14 +25761,14 @@ class ItemSheetFFD20 extends ItemSheet {
 
     if (item.type === "weapon") {
       props.push(
-        ...Object.entries(item.data.data.properties)
+        ...Object.entries(item.data.properties)
           .filter((e) => e[1] === true)
           .map((e) => CONFIG.FFD20.weaponProperties[e[0]])
       );
     } else if (item.type === "spell") {
       props.push(labels.components, labels.materials);
     } else if (item.type === "equipment") {
-      props.push(CONFIG.FFD20.equipmentTypes[item.data.data.equipmentType][item.data.data.equipmentSubtype]);
+      props.push(CONFIG.FFD20.equipmentTypes[item.data.armor.type]);
       props.push(labels.armor);
     } else if (item.type === "feat") {
       props.push(labels.featType);
@@ -26436,18 +25776,18 @@ class ItemSheetFFD20 extends ItemSheet {
 
     // Action type
     if (item.data.actionType) {
-      props.push(CONFIG.FFD20.itemActionTypes[item.data.data.actionType]);
+      props.push(CONFIG.FFD20.itemActionTypes[item.data.actionType]);
     }
 
     // Action usage
-    if (item.type !== "weapon" && item.data.data.activation && !isObjectEmpty(item.data.data.activation)) {
+    if (item.type !== "weapon" && item.data.activation && !isObjectEmpty(item.data.activation)) {
       props.push(labels.activation, labels.range, labels.target, labels.duration);
     }
 
     // Tags
-    if (getProperty(item.data, "data.tags") != null) {
+    if (getProperty(item, "data.tags") != null) {
       props.push(
-        ...getProperty(item.data, "data.tags").map((o) => {
+        ...getProperty(item, "data.tags").map((o) => {
           return o[0];
         })
       );
@@ -26532,7 +25872,7 @@ class ItemSheetFFD20 extends ItemSheet {
     }
 
     // Change relative values
-    const relativeKeys = ["data.currency.gil"];
+    const relativeKeys = ["data.currency.pgil", "data.currency.gil", "data.currency.sgil", "data.currency.cgil"];
     for (let [k, v] of Object.entries(formData)) {
       if (typeof v !== "string") continue;
       // Add or subtract values
@@ -26673,16 +26013,6 @@ class ItemSheetFFD20 extends ItemSheet {
     /* -------------------------------------------- */
 
     html.find('a[data-action="compendium"]').click(this._onOpenCompendium.bind(this));
-
-    /* -------------------------------------------- */
-    /*  Script Calls
-    /* -------------------------------------------- */
-
-    html.find(".script-calls .item-control").click(this._onScriptCallControl.bind(this));
-
-    html.find(".script-calls .items-list .item").contextmenu(this._onScriptCallEdit.bind(this));
-
-    html.find(".script-calls .inventory-list[data-category]").on("drop", this._onScriptCallDrop.bind(this));
   }
 
   /* -------------------------------------------- */
@@ -26693,48 +26023,6 @@ class ItemSheetFFD20 extends ItemSheet {
     const target = a.dataset.actionTarget;
 
     game.ffd20.compendiums[target].render(true);
-  }
-
-  _onScriptCallControl(event) {
-    event.preventDefault();
-    const a = event.currentTarget;
-    const item = this.document.scriptCalls ? this.document.scriptCalls.get(a.closest(".item")?.dataset.itemId) : null;
-    const group = a.closest(".inventory-list");
-    const category = group.dataset.category;
-
-    // Create item
-    if (a.classList.contains("item-create")) {
-      const list = this.document.data.data.scriptCalls || [];
-      const item = ItemScriptCall.create({}, null);
-      item.data.category = category;
-      item.data.type = "script";
-      return this._onSubmit(event, { updateData: { "data.scriptCalls": list.concat(item.data) } });
-    }
-    // Delete item
-    else if (item && a.classList.contains("item-delete")) {
-      const list = (this.document.data.data.scriptCalls || []).filter((o) => o._id !== item.id);
-      return this._onSubmit(event, { updateData: { "data.scriptCalls": list } });
-    }
-    // Edit item
-    else if (item && a.classList.contains("item-edit")) {
-      item.edit();
-    }
-    // Toggle hidden
-    else if (item && a.classList.contains("item-hide")) {
-      item.update({
-        hidden: !item.data.hidden,
-      });
-    }
-  }
-
-  _onScriptCallEdit(event) {
-    event.preventDefault();
-    const a = event.currentTarget;
-    const item = this.document.scriptCalls ? this.document.scriptCalls.get(a.dataset.itemId) : null;
-
-    if (item) {
-      item.edit();
-    }
   }
 
   _moveTooltips(event) {
@@ -26774,37 +26062,6 @@ class ItemSheetFFD20 extends ItemSheet {
       elem.value = !elem.value ? link : elem.value + "\n" + link;
     }
     return this._onSubmit(event);
-  }
-
-  async _onScriptCallDrop(event) {
-    event.preventDefault();
-    const data = JSON.parse(event.originalEvent.dataTransfer.getData("text/plain"));
-    if (!data) return;
-
-    const elem = event.currentTarget;
-    const category = elem.dataset.category;
-
-    if (data.type === "Macro") {
-      let uuid;
-      // Get from compendium
-      if (data.pack) {
-        const pack = game.packs.get(data.pack);
-        const document = await pack.getDocument(data.id);
-        uuid = document.uuid;
-      }
-      // Get from world
-      else if (data.id) {
-        const document = game.macros.get(data.id);
-        uuid = document.uuid;
-      }
-
-      // Submit data
-      if (uuid) {
-        const list = this.document.data.data.scriptCalls ?? [];
-        const item = ItemScriptCall.create({ type: "macro", value: uuid, category });
-        return this._onSubmit(event, { updateData: { "data.scriptCalls": list.concat(item.data) } });
-      }
-    }
   }
 
   _openHelpBrowser(event) {
@@ -26925,9 +26182,9 @@ class ItemSheetFFD20 extends ItemSheet {
     if (!change) return;
 
     const scriptEditor = new ScriptEditor({ command: change.formula }).render(true);
-    const result = await scriptEditor.awaitResult();
-    if (typeof result.command === "string") {
-      return change.update({ formula: result.command });
+    const command = await scriptEditor.awaitResult();
+    if (typeof command === "string") {
+      return change.update({ formula: command });
     }
   }
 
@@ -27429,7 +26686,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
         name: "data.baseWeight",
         fakeName: true,
         label: game.i18n.localize("FFD20.Weight"),
-        value: data.item.data.data.weightConverted,
+        value: data.item.data.weightConverted,
         id: "data-baseWeight",
       });
 
@@ -27441,7 +26698,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
             name: "data.basePrice",
             fakeName: true,
             label: game.i18n.localize("FFD20.Price"),
-            value: data.item.data.data.price,
+            value: data.item.data.price,
             id: "data-basePrice",
           },
           {
@@ -27449,7 +26706,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
             name: "data.unidentified.basePrice",
             fakeName: true,
             label: game.i18n.localize("FFD20.UnidentifiedPriceShort"),
-            value: getProperty(data.item.data, "data.unidentified.price"),
+            value: getProperty(data.item, "data.unidentified.price"),
             id: "data-unidentifiedBasePrice",
           }
         );
@@ -27480,7 +26737,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
         isBoolean: true,
         name: "data.carried",
         label: game.i18n.localize("FFD20.Carried"),
-        value: data.item.data.data.carried,
+        value: data.item.data.carried,
       });
     }
 
@@ -27498,19 +26755,35 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
     const sellValue = this.item.getValue() - this.item.getValue({ recursive: false });
     data.totalValue = {
       gil: Math.max(0, Math.floor(gilValue)),
+      sgil: Math.max(0, Math.floor(gilValue * 10 - Math.floor(gilValue) * 10)),
+      cgil: Math.max(
+        0,
+        Math.floor(
+          Math.floor(gilValue * 100 - Math.floor(gilValue) * 100) -
+            Math.floor(gilValue * 10 - Math.floor(gilValue) * 10) * 10
+        )
+      ),
     };
     data.sellValue = {
       gil: Math.max(0, Math.floor(sellValue)),
+      sgil: Math.max(0, Math.floor(sellValue * 10 - Math.floor(sellValue) * 10)),
+      cgil: Math.max(
+        0,
+        Math.floor(
+          Math.floor(sellValue * 100 - Math.floor(sellValue) * 100) -
+            Math.floor(sellValue * 10 - Math.floor(sellValue) * 10) * 10
+        )
+      ),
     };
 
     // Set labels
     if (!data.labels) data.labels = {};
     data.labels.totalValue = game.i18n
       .localize("FFD20.ItemContainerTotalValue")
-      .format(data.totalValue.gil);
+      .format(data.totalValue.gil, data.totalValue.sgil, data.totalValue.cgil);
     data.labels.sellValue = game.i18n
       .localize("FFD20.ItemContainerSellValue")
-      .format(data.sellValue.gil);
+      .format(data.sellValue.gil, data.sellValue.sgil, data.sellValue.cgil);
 
     return data;
   }
@@ -27634,7 +26907,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
     });
 
     // Currency Dragging
-    if (this.item.testUserPermission(game.user, 3)) {
+    if (this.item.hasPerm(game.user, 3)) {
       html.find("label.denomination").each((i, label) => {
         label.setAttribute("draggable", true);
         label.addEventListener("dragstart", handler, false);
@@ -27755,7 +27028,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
 
     // Create drag data for an owned item
     const elem = event.currentTarget;
-    let dragData;
+    let dragData = { containerId: this.item.id };
     if (elem.classList.contains("denomination")) {
       dragData = {
         type: "Currency",
@@ -27769,7 +27042,6 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
       dragData = {
         type: "Item",
         data: item.data,
-        containerId: this.item.id,
       };
     }
 
@@ -27818,20 +27090,20 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
   }
 
   async _onDropItem(event, data) {
-    if (!this.item.isOwner) return false;
+    if (!this.item.owner) return false;
 
     let actor;
     if (data.tokenId) {
       actor = game.actors.tokens[data.tokenId];
     } else if (data.actorId) {
-      actor = game.actors.contents.find((o) => o.id === data.actorId);
+      actor = game.actors.entities.find((o) => o._id === data.actorId);
     }
 
     const item = await ItemFFD20.fromDropData(data);
     const itemData = duplicate(item.data);
 
     // Sort item
-    if (data.containerId === this.item.id) return this._onSortItem(event, itemData);
+    if (data.containerId === this.item._id) return this._onSortItem(event, itemData);
 
     // Create consumable from spell
     if (itemData.type === "spell") {
@@ -27846,9 +27118,9 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
 
       if (actor && actor === this.item.parentActor) {
         if (actor.items.get(data.data._id)) {
-          await actor.deleteEmbeddedDocuments("Item", [data.data._id]);
+          await actor.deleteOwnedItem(data.data._id);
         } else {
-          const containerItem = actor.containerItems.find((i) => i.id === data.data._id);
+          const containerItem = actor.containerItems.find((i) => i._id === data.data._id);
           if (containerItem) {
             await containerItem.parentItem.deleteContainerContent(data.data._id);
           }
@@ -27970,7 +27242,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
       if (item == null) continue;
 
       delete data._id;
-      if (item.testUserPermission(game.user, "OWNER")) promises.push(item.update(data));
+      if (item.hasPerm(game.user, "OWNER")) promises.push(item.update(data));
     }
 
     return Promise.all(promises);
@@ -28011,6 +27283,9 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
    * @override
    */
   _onSortItem(event, itemData) {
+    // TODO - for now, don't allow sorting for Token Actor ovrrides
+    if (this.actor && this.actor.isToken) return;
+
     // Get the drag source and its siblings
     const source = this.item.getContainerContent(itemData._id);
     const siblings = this._getSortSiblings(source);
@@ -28070,7 +27345,7 @@ class CompendiumDirectoryFFD20 extends CompendiumDirectory {
 
     for (let p of Object.values(data.packs)) {
       for (let pack of p.packs) {
-        const config = game.settings.get("core", "compendiumConfiguration")[pack.collection];
+        const config = game.settings.get("core", Compendium.CONFIG_SETTING)[pack.collection];
         const disabled = getProperty(config, "ffd20.disabled") === true;
         setProperty(pack, "ffd20.disabled", disabled);
       }
@@ -28110,8 +27385,6 @@ function patchLowLightVision() {
       get() {
         return {
           lowLight: getProperty(this.data, "flags.ffd20.lowLightVision"),
-          lowLightMultiplier: getProperty(this.data, "flags.ffd20.lowLightVisionMultiplier"),
-          lowLightMultiplierBright: getProperty(this.data, "flags.ffd20.lowLightVisionMultiplierBright"),
         };
       },
     },
@@ -28123,10 +27396,8 @@ function patchLowLightVision() {
   });
 
   SightLayer.prototype.hasLowLight = function () {
-    console.warn("SightLayer#hasLowLight is deprecated in favor of SightLayer#lowLightMultiplier");
-
     const relevantTokens = canvas.tokens.placeables.filter((o) => {
-      return o.actor && o.actor.testUserPermission(game.user, "OBSERVER");
+      return o.actor && o.actor.hasPerm(game.user, "OBSERVER");
     });
     const lowLightTokens = relevantTokens.filter((o) => getProperty(o, "actorVision.lowLight"));
     if (game.user.isGM) {
@@ -28135,48 +27406,22 @@ function patchLowLightVision() {
     if (game.settings.get("ffd20", "lowLightVisionMode")) {
       return lowLightTokens.filter((o) => o._controlled).length > 0;
     }
-
-    const hasControlledTokens = relevantTokens.filter((o) => o._controlled).length > 0;
-    const hasControlledLowLightTokens = lowLightTokens.filter((o) => o._controlled).length > 0;
-    const hasLowLightTokens = lowLightTokens.length > 0;
-    return (!hasControlledTokens && hasLowLightTokens) || hasControlledLowLightTokens;
+    return (
+      (!relevantTokens.filter((o) => o._controlled).length && lowLightTokens.length) ||
+      lowLightTokens.filter((o) => o._controlled).length > 0
+    );
   };
 
-  SightLayer.prototype.lowLightMultiplier = function () {
-    let result = {
-      dim: 1,
-      bright: 1,
-    };
-
-    const relevantTokens = canvas.tokens.placeables.filter((o) => {
-      return o.actor && o.actor.testUserPermission(game.user, "OBSERVER");
-    });
-    const lowLightTokens = relevantTokens.filter((o) => getProperty(o, "actorVision.lowLight"));
-
-    if (game.user.isGM || game.settings.get("ffd20", "lowLightVisionMode")) {
-      for (let t of lowLightTokens.filter((o) => o._controlled)) {
-        const multiplier = getProperty(t, "actorVision.lowLightMultiplier") || 2;
-        const multiplierBright = getProperty(t, "actorVision.lowLightMultiplierBright") || 2;
-        result.dim = Math.max(result.dim, multiplier);
-        result.bright = Math.max(result.bright, multiplierBright);
-      }
-    } else {
-      const hasControlledTokens = relevantTokens.filter((o) => o._controlled).length > 0;
-      const hasControlledLowLightTokens = lowLightTokens.filter((o) => o._controlled).length > 0;
-      const hasLowLightTokens = lowLightTokens.length > 0;
-      if ((!hasControlledTokens && hasLowLightTokens) || hasControlledLowLightTokens) {
-        for (let t of lowLightTokens) {
-          const multiplier = getProperty(t, "actorVision.lowLightMultiplier") || 2;
-          const multiplierBright = getProperty(t, "actorVision.lowLightMultiplierBright") || 2;
-          result.dim = Math.max(result.dim, multiplier);
-          result.bright = Math.max(result.bright, multiplierBright);
-        }
-      }
+  const Token__getLightRadius = Token.prototype.getLightRadius;
+  Token.prototype.getLightRadius = function (units) {
+    const radius = Token__getLightRadius.call(this, units);
+    if (canvas.sight.hasLowLight() && !this.disableLowLight) {
+      return radius * 2;
     }
-
-    return result;
+    return radius;
   };
 
+  Token.prototype.updateSource;
   Token.prototype.updateSource = function ({ defer = false, deleted = false, noUpdateFog = false } = {}) {
     if (CONFIG.debug.sight) {
       SightLayer._performance = { start: performance.now(), tests: 0, rays: 0 };
@@ -28187,14 +27432,12 @@ function patchLowLightVision() {
     const sourceId = this.sourceId;
     const d = canvas.dimensions;
     const maxR = canvas.lighting.globalLight ? Math.hypot(d.sceneWidth, d.sceneHeight) : null;
-    const lowLightMultiplier = canvas.sight.lowLightMultiplier();
 
     // Update light source
     const isLightSource = this.emitsLight && !this.data.hidden;
     if (isLightSource && !deleted) {
-      const bright =
-        this.getLightRadius(this.data.brightLight) * (!this.disableLowLight ? lowLightMultiplier.bright : 1);
-      const dim = this.getLightRadius(this.data.dimLight) * (!this.disableLowLight ? lowLightMultiplier.dim : 1);
+      const bright = this.getLightRadius(this.data.brightLight);
+      const dim = this.getLightRadius(this.data.dimLight);
       this.light.initialize({
         x: origin.x,
         y: origin.y,
@@ -28222,8 +27465,10 @@ function patchLowLightVision() {
       //-Override token vision sources to not receive low-light bonus-
       let dim = maxR ?? this.getLightRadius(this.data.dimSight);
       let bright = this.getLightRadius(this.data.brightSight);
-      dim = dim / (canvas.sight.lowLightMultiplier().dim || 1);
-      bright = bright / (canvas.sight.lowLightMultiplier().bright || 1);
+      if (canvas.sight.hasLowLight()) {
+        dim = dim / 2;
+        bright = bright / 2;
+      }
       //-End change-
       if (dim === 0 && bright === 0) dim = d.size * 0.6;
       this.vision.initialize({
@@ -28255,7 +27500,7 @@ function patchLowLightVision() {
   Object.defineProperty(AmbientLight.prototype, "dimRadius", {
     get: function () {
       let result = AmbientLight__get__dimRadius.call(this);
-      if (!this.disableLowLight) return result * canvas.sight.lowLightMultiplier().dim;
+      if (canvas.sight.hasLowLight() && !this.disableLowLight) return result * 2;
       return result;
     },
   });
@@ -28264,7 +27509,7 @@ function patchLowLightVision() {
   Object.defineProperty(AmbientLight.prototype, "brightRadius", {
     get: function () {
       let result = AmbientLight__get__brightRadius.call(this);
-      if (!this.disableLowLight) return result * canvas.sight.lowLightMultiplier().bright;
+      if (canvas.sight.hasLowLight() && !this.disableLowLight) return result * 2;
       return result;
     },
   });
@@ -28273,14 +27518,8 @@ function patchLowLightVision() {
   Token.prototype._onUpdate = async function (data, options, ...args) {
     await Token__onUpdate.call(this, data, options, ...args);
 
-    if (
-      hasProperty(data, "flags.ffd20.disableLowLight") ||
-      hasProperty(data, "flags.ffd20.lowLightVision") ||
-      hasProperty(data, "flags.ffd20.lowLightVisionMultiplier") ||
-      hasProperty(data, "flags.ffd20.lowLightVisionMultiplierBright")
-    ) {
-      canvas.lighting.initializeSources();
-      canvas.perception.initialize();
+    if (hasProperty(data, "flags.ffd20.disableLowLight") || hasProperty(data, "flags.ffd20.lowLightVision")) {
+      canvas.initializeSources();
     }
   };
 }
@@ -28352,11 +27591,11 @@ function patchMeasureTools() {
 
     // Create the template
     const data = {
-      user: game.user.id,
+      user: game.user._id,
       t: tool,
       x: pos.x,
       y: pos.y,
-      distance: 5,
+      distance: 0,
       direction: 0,
       fillColor: game.user.data.color || "#FF0000",
     };
@@ -28364,8 +27603,7 @@ function patchMeasureTools() {
     else if (tool === "ray") data["width"] = 5;
 
     // Assign the template
-    const doc = new MeasuredTemplateDocument(data, { parent: canvas.scene });
-    const template = new MeasuredTemplate(doc);
+    let template = new MeasuredTemplate(data);
     event.data.preview = this.preview.addChild(template);
     template.draw();
   };
@@ -28390,18 +27628,14 @@ function patchMeasureTools() {
       // Update the shape data
       if (["cone", "circle"].includes(template.data.t)) {
         const direction = ray.angle;
-        template.data.direction = Math.toDegrees(
+        template.data.direction = toDegrees(
           Math.floor((direction + Math.PI * 0.125) / (Math.PI * 0.25)) * (Math.PI * 0.25)
         );
         const distance = ray.distance / ratio;
         template.data.distance = Math.floor(distance / canvas.dimensions.distance) * canvas.dimensions.distance;
       } else {
-        template.data.direction = Math.toDegrees(ray.angle);
-        if (template.data.t === "ray") {
-          template.data.distance = Math.floor(ray.distance / ratio / 2.5) * 2.5;
-        } else {
-          template.data.distance = ray.distance / ratio;
-        }
+        template.data.direction = toDegrees(ray.angle);
+        template.data.distance = ray.distance / ratio;
       }
 
       // Draw the pending shape
@@ -28543,12 +27777,66 @@ async function PatchCore() {
   const TokenHUD_getData = TokenHUD.prototype.getData;
   TokenHUD.prototype.getData = function () {
     const data = TokenHUD_getData.call(this);
-    const bar1 = this.object.document.getBarAttribute("bar1");
-    const bar2 = this.object.document.getBarAttribute("bar2");
+    const bar1 = this.object.getBarAttribute("bar1");
+    const bar2 = this.object.getBarAttribute("bar2");
     return mergeObject(data, {
       displayBar1: bar1 != null && bar1.attribute != null && bar1.value != null,
       displayBar2: bar2 != null && bar2.attribute != null && bar2.value != null,
     });
+  };
+
+  // Patch ActorTokenHelpers.update
+  const ActorTokenHelpers_update = ActorTokenHelpers.prototype.update;
+  ActorTokenHelpers.prototype.update = async function (data, options = {}) {
+    // Avoid regular update flow for explicitly non-recursive update calls
+    if (getProperty(options, "recursive") === false) {
+      return ActorTokenHelpers_update.call(this, data, options);
+    }
+
+    const diff = await ActorFFD20.prototype.update.call(
+      this,
+      data,
+      mergeObject(options, { recursive: true, skipUpdate: true })
+    );
+    if (!isObjectEmpty(diff)) {
+      await ActorTokenHelpers_update.call(this, diff, mergeObject(options, { recursive: true }));
+      await this.toggleConditionStatusIcons();
+      await this.refreshItems();
+    }
+    return diff;
+  };
+  // Patch ActorTokenHelpers.updateEmbeddedEntity
+  const ActorTokenHelpers_updateEmbeddedEntity = ActorTokenHelpers.prototype.updateEmbeddedEntity;
+  ActorTokenHelpers.prototype.updateEmbeddedEntity = async function (embeddedName, data, options = {}) {
+    await ActorTokenHelpers_updateEmbeddedEntity.call(this, embeddedName, data, options);
+
+    if (embeddedName === "OwnedItem") {
+      this.doQueuedUpdates();
+    }
+  };
+  // Patch ActorTokenHelpers.deleteEmbeddedEntity
+  const ActorTokenHelpers_deleteEmbeddedEntity = ActorTokenHelpers.prototype.deleteEmbeddedEntity;
+  ActorTokenHelpers.prototype.deleteEmbeddedEntity = async function (embeddedName, data, options = {}) {
+    data = data instanceof Array ? data : [data];
+    const ids = data.map((o) => {
+      if (typeof o === "string") return o;
+      return o._id;
+    });
+    const items = this.items.filter((o) => {
+      return ids.includes(o.id);
+    });
+
+    // Remove class associations
+    for (let item of items) {
+      if (item.data.type === "class") {
+        await item._onLevelChange(getProperty(item.data, "data.level"), 0);
+      }
+    }
+
+    // Delete item
+    const deleted = await ActorTokenHelpers_deleteEmbeddedEntity.call(this, embeddedName, data, options);
+
+    return deleted;
   };
 
   // Token patch for shared vision
@@ -28603,6 +27891,16 @@ async function PatchCore() {
       },
     ]);
   };
+
+  // Workaround for unlinked token in first initiative on reload problem. No core issue number at the moment.
+  if (Actor.config.collection && Object.keys(Actor.collection.tokens).length > 0) {
+    Object.keys(Actor.collection.tokens).forEach((tokenId) => {
+      let actor = Actor.collection.tokens[tokenId];
+      for (let m of ["update", "createEmbeddedEntity", "updateEmbeddedEntity", "deleteEmbeddedEntity"]) {
+        actor[m] = ActorTokenHelpers.prototype[m].bind(actor);
+      }
+    });
+  }
 
   // Add combat tracker context menu options
   {
@@ -28673,55 +27971,6 @@ async function PatchCore() {
 
   // Apply measurement patches
   patchMeasureTools();
-
-  // Patch StringTerm
-  StringTerm.prototype.evaluate = function (options = {}) {
-    // console.log(this.term);
-    const src = `with (sandbox) { return ${this.term}; }`;
-    const evalFn = new Function("sandbox", src);
-    this._total = evalFn(RollFFD20.MATH_PROXY);
-  };
-
-  Object.defineProperty(StringTerm.prototype, "total", {
-    get: function () {
-      return this._total ?? 0;
-    },
-  });
-
-  // Patch OperatorTerm
-  OperatorTerm.OPERATORS = [...OperatorTerm.OPERATORS, ...["?", ":"]].filter((value, idx, self) => {
-    return self.indexOf(value) === idx;
-  });
-  OperatorTerm.REGEXP = new RegExp(
-    OperatorTerm.OPERATORS.map((o) => {
-      return Array.from(o).reduce((cur, o) => {
-        return cur + "\\" + o;
-      }, "");
-    }).join("|"),
-    "g"
-  );
-
-  // Patch NumericTerm
-  NumericTerm.prototype.getTooltipData = function () {
-    return {
-      formula: this.expression,
-      total: this.total,
-      flavor: this.flavor,
-    };
-  };
-
-  // Patch ParentheticalTerm
-  ParentheticalTerm.CLOSE_REGEXP = new RegExp(`\\)${RollTerm.FLAVOR_REGEXP_STRING}?`, "g");
-
-  // Add secondary indexing to compendium collections
-  {
-    const origFunc = CompendiumCollection.prototype.getIndex;
-    CompendiumCollection.prototype.getIndex = async function () {
-      let index = await origFunc.call(this);
-      this.fuzzyIndex = sortArrayByName([...index]);
-      return this.index;
-    };
-  }
 }
 
 const rangeColor = {
@@ -28883,21 +28132,20 @@ const showAttackReach = function (token, attack) {
   return result;
 };
 
-const addReachCallback = async function (data, html) {
+const addReachCallback = function (data, html) {
   let results = [];
 
   // Don't do anything under certain circumstances
-  const itemId = getProperty(data, "flags.ffd20.metadata.item");
-  if (!itemId) return results;
+  const itemID = getProperty(data, "flags.ffd20.metadata.item");
+  if (!itemID) return results;
 
-  const tokenUuid = html.find(".chat-card")[0]?.dataset?.tokenUuid;
-  let token;
-  if (tokenUuid) {
-    token = (await fromUuid(tokenUuid))?.object;
-  }
+  const speakerData = data.speaker;
+  if (!canvas.scene || canvas.scene._id !== speakerData.scene) return results;
+
+  const token = canvas.tokens.placeables.find((o) => o.id === speakerData.token);
   if (!token || !token.actor) return results;
 
-  const item = token.actor.items.find((o) => o.id === itemId);
+  const item = token.actor.items.find((o) => o._id === itemID);
   if (!item) return results;
 
   let highlight;
@@ -29133,7 +28381,7 @@ class TokenQuickActions {
       else if (item.type === "feat") title = game.i18n.localize("FFD20.AttackWithFeat").format(item.name);
       const type = item.type;
       quickActions +=
-        `<div id="${type}-${item.id}" class="control-icon token-quick-action" style="border: 2px solid ${i.color1};">` +
+        `<div id="${type}-${item._id}" class="control-icon token-quick-action" style="border: 2px solid ${i.color1};">` +
         `<img src="${icon}" width="36" height="36" title="${title}">`;
       if (item.isCharged || item.data.data.links?.ammunition?.length > 0) quickActions += chargeDisplay(item);
       quickActions += "</div >";
@@ -29142,9 +28390,9 @@ class TokenQuickActions {
     html.find(".col.middle").after(quickActions + "</div></div>");
 
     items.forEach(function (i) {
-      const item = actor.items.find((o) => o.id === i.item.id);
+      const item = actor.items.find((o) => o._id === i.item._id);
       const type = item.type;
-      const elem = html.find(`#${type}-${item.id}`);
+      const elem = html.find(`#${type}-${item._id}`);
 
       // Add click handler
       elem.on("click", (event) => {
@@ -41587,10 +40835,7 @@ class TooltipFFD20 extends Application {
     if (!data) return null;
 
     data.name = token.data.name;
-    if (
-      (game.user.isGM && this.forceHideGMInfo) ||
-      (!game.user.isGM && !token.actor.testUserPermission(game.user, "OBSERVER"))
-    ) {
+    if ((game.user.isGM && this.forceHideGMInfo) || (!game.user.isGM && !token.actor.hasPerm(game.user, "OBSERVER"))) {
       const tooltipName = getProperty(token.actor.data, "data.details.tooltip.name");
       data.name = tooltipName || token.data.name;
 
@@ -41617,14 +40862,14 @@ class TooltipFFD20 extends Application {
       data.name = getProperty(actor.data, "data.details.tooltip.name") || actor.data.name;
     }
 
-    data.isOwner = game.user.isGM || actor.isOwner;
+    data.isOwner = game.user.isGM || actor.owner;
     if (!data.isOwner) data.name = "???";
     this.getPortrait(data, actor.img);
 
     // Get conditions
     if (
       (game.user.isGM && !this.forceHideGMInfo) ||
-      actor.isOwner ||
+      actor.owner ||
       (!getProperty(actor.data, "data.details.tooltip.hideConditions") &&
         !getProperty(this.worldConfig, "hideConditions"))
     ) {
@@ -41643,7 +40888,7 @@ class TooltipFFD20 extends Application {
     // Get buffs
     if (
       (game.user.isGM && !this.forceHideGMInfo) ||
-      actor.isOwner ||
+      actor.owner ||
       (!getProperty(actor.data, "data.details.tooltip.hideBuffs") && !getProperty(this.worldConfig, "hideBuffs"))
     ) {
       const buffs = actor.items.filter((i) => i.data.data.active && !i.data.data.hideFromToken);
@@ -41660,7 +40905,7 @@ class TooltipFFD20 extends Application {
     // Get held items
     if (
       (game.user.isGM && !this.forceHideGMInfo) ||
-      actor.isOwner ||
+      actor.owner ||
       (!getProperty(actor.data, "data.details.tooltip.hideHeld") && !getProperty(this.worldConfig, "hideHeld"))
     ) {
       const held = actor.items.filter((i) => {
@@ -41684,7 +40929,7 @@ class TooltipFFD20 extends Application {
     // Get armor
     if (
       (game.user.isGM && !this.forceHideGMInfo) ||
-      actor.isOwner ||
+      actor.owner ||
       (!getProperty(actor.data, "data.details.tooltip.hideArmor") && !getProperty(this.worldConfig, "hideArmor"))
     ) {
       const armor = actor.items.filter((i) => {
@@ -41706,7 +40951,7 @@ class TooltipFFD20 extends Application {
     // Get clothing
     if (
       (game.user.isGM && !this.forceHideGMInfo) ||
-      actor.isOwner ||
+      actor.owner ||
       (!getProperty(actor.data, "data.details.tooltip.hideClothing") && !getProperty(this.worldConfig, "hideClothing"))
     ) {
       const clothing = actor.items.filter((i) => {
@@ -41845,7 +41090,7 @@ const migrateWorld = async function () {
 
   // Migrate World Actors
   console.log("Migrating Actor entities");
-  for (let a of game.actors.contents) {
+  for (let a of game.actors.entities) {
     try {
       const updateData = await migrateActorData(a);
       await a.update(updateData);
@@ -41856,7 +41101,7 @@ const migrateWorld = async function () {
 
   // Migrate World Items
   console.log("Migrating Item entities.");
-  for (let i of game.items.contents) {
+  for (let i of game.items.entities) {
     try {
       const updateData = migrateItemData(i);
       await i.update(updateData, { enforceTypes: false });
@@ -41867,7 +41112,7 @@ const migrateWorld = async function () {
 
   // Migrate Actor Override Tokens
   console.log("Migrating scene entities.");
-  for (let s of game.scenes.contents) {
+  for (let s of game.scenes.entities) {
     try {
       const updateData = await migrateSceneData(s.data);
       await s.update(updateData);
@@ -42058,7 +41303,7 @@ const migrateItemData = function (item) {
 const migrateSceneData = async function (scene) {
   const result = { tokens: duplicate(scene.tokens) };
   for (let t of result.tokens) {
-    const token = new TokenDocument(t, { parent: scene });
+    const token = new Token(t);
 
     migrateTokenVision(token, t);
     migrateTokenStatuses(token, t);
@@ -42076,7 +41321,7 @@ const migrateSceneData = async function (scene) {
       t.actorId = null;
       t.actorData = {};
     } else {
-      const a = token.getActor();
+      const a = Actor.fromToken(token);
       const updateData = await migrateActorData(a.data);
       t.actorData = mergeObject(a.data, updateData);
     }
@@ -42929,14 +42174,14 @@ const createMiscActorMacro = async function (type, actorId, slot, altType = null
  */
 const rollItemMacro = function (itemName, { itemId, itemType, actorId } = {}) {
   let actor = getActorFromId(actorId);
-  if (actor && !actor.testUserPermission(game.user, "OWNER")) {
+  if (actor && !actor.hasPerm(game.user, "OWNER")) {
     const msg = game.i18n.localize("FFD20.ErrorNoActorPermission");
     console.warn(msg);
     return ui.notifications.warn(msg);
   }
   const item = actor
     ? actor.items.find((i) => {
-        if (itemId != null && i.id !== itemId) return false;
+        if (itemId != null && i._id !== itemId) return false;
         if (itemType != null && i.type !== itemType) return false;
         return i.name === itemName;
       })
@@ -43037,85 +42282,6 @@ const macros = /*#__PURE__*/Object.freeze({
   rollActorAttributeMacro: rollActorAttributeMacro
 });
 
-class Registry {
-  static _createDatabase(key) {
-    if (!Object.hasOwnProperty.call(this, "database")) this.database = {};
-    if (!Object.hasOwnProperty.call(this.database, key)) this.database[key] = [];
-  }
-
-  /**
-   * Registers a value to a database.
-   *
-   * @param {string} databaseKey - The key of the database to register to.
-   * @param {string} module - The module to register this value as. Should be equal to that of the 'name' field in the module's manifest. Used primarily for de-registering values.
-   * @param {object} value - The value to register to the registry.
-   * @returns {boolean} Whether successful.
-   */
-  static register(databaseKey, module, value) {
-    this._createDatabase(databaseKey);
-
-    this.database[databaseKey].push({ value, module });
-    return true;
-  }
-  /**
-   * De-registers something from a database.
-   *
-   * @param {string} databaseKey - The database key to de-register values from.
-   * @param {string} module - The module for which to de-register stuff from.
-   * @param {object} [value=null] - The specific value to de-register. Leave null to de-register all values of the given module from this database.
-   */
-  static unregister(databaseKey, module, value) {
-    this._createDatabase(databaseKey);
-
-    if (this.value == null) this.database[databaseKey] = this.database[databaseKey].filter((o) => o.module !== module);
-    else {
-      this.database[databaseKey] = this.database[databaseKey].filter((o) => {
-        return !(o.value === value && o.module === module);
-      });
-    }
-  }
-  /**
-   * @param {string} databaseKey - The key of the database to find results from.
-   * @returns {object[]} All values associated with the database.
-   */
-  static getAll(databaseKey) {
-    this._createDatabase(databaseKey);
-
-    if (!Object.hasOwnProperty.call(this.database, databaseKey)) return [];
-    return this.database[databaseKey].map((o) => o.value);
-  }
-
-  // Script calls
-  /**
-   * Registers a category for item script calls.
-   *
-   * @param {string} module - The module to register this value as. Should be equal to that of the 'name' field in the module's manifest. Used primarily for de-registering values.
-   * @param {string} key - The unique key of the category.
-   * @param {string} name - The name of the category. Can be something usable with `game.i18n.localize`.
-   * @param {string[]} itemTypes - The item types to add this category to. Something like `["equipment", "buffs"]`.
-   * @param {string} [info=null] - The information of the category. Can be something usable with `game.i18n.localize`.
-   * @returns {boolean} Whether successful.
-   */
-  static registerItemScriptCategory(module, key, name, itemTypes, info) {
-    if (this.getAll("itemScriptCategories").find((o) => o.key === key)) return false;
-    return this.register("itemScriptCategories", module, { key, name, itemTypes, info });
-  }
-  static unregisterItemScriptCategory(module, key) {
-    const dbKey = "itemScriptCategories";
-    this._createDatabase(dbKey);
-
-    if (key == null) this.database[dbKey] = this.database[dbKey].filter((o) => o.module !== module);
-    else {
-      this.database[dbKey] = this.database[dbKey].filter((o) => {
-        return !(o.value.key === key && o.module === module);
-      });
-    }
-  }
-  static getItemScriptCategories() {
-    return this.getAll("itemScriptCategories");
-  }
-}
-
 /**
  * Initialize module compatibility/integration code.
  *
@@ -43128,7 +42294,7 @@ function initializeModules() {
     Hooks.once("dragRuler.ready", (SpeedProvider) => {
       const enhancedTerrain = game.modules.get("enhanced-terrain-layer")?.active;
 
-      class Ffd20SpeedProvider extends SpeedProvider {
+      class FFD20SpeedProvider extends SpeedProvider {
         get colors() {
           return [
             { id: "walk", default: 0x00ff00, name: "SETTINGS.ffd20DragRulerWalk" },
@@ -43189,7 +42355,7 @@ function initializeModules() {
           return token.actor.data.data.attributes.speed.land.total;
         }
       }
-      dragRuler.registerSystem("ffd20", Ffd20SpeedProvider);
+      dragRuler.registerSystem("ffd20", FFD20SpeedProvider);
     });
   }
 }
@@ -43217,8 +42383,8 @@ Hooks.once("init", function () {
 
   // Create a FFD20 namespace within the game global
   game.ffd20 = {
-    documents: { ActorFFD20, ItemFFD20, TokenDocumentFFD20 },
-    entities: { ActorFFD20, ItemFFD20, TokenDocumentFFD20 },
+    documents: { ActorFFD20, ItemFFD20 },
+    entities: { ActorFFD20, ItemFFD20 },
     applications: {
       // Actors
       ActorSheetFFD20,
@@ -43272,16 +42438,11 @@ Hooks.once("init", function () {
       dialogGetActor,
       dialogGetNumber,
       SemanticVersion,
-      binarySearch,
-      sortArrayByName,
-      findInCompendia,
     },
     // Components
     documentComponents: {
       ItemChange,
     },
-    // API
-    registry: Registry,
     // Macros
     macros,
     rollItemMacro: rollItemMacro,
@@ -43296,7 +42457,6 @@ Hooks.once("init", function () {
     config: FFD20,
     tooltip: null,
     runUnitTests,
-    AbilityTemplate,
     // Function library
     functions: {
       getBuffTargets,
@@ -43309,13 +42469,13 @@ Hooks.once("init", function () {
 
   // Record Configuration Values
   CONFIG.FFD20 = FFD20;
-  CONFIG.Actor.documentClass = ActorFFD20;
-  CONFIG.Token.documentClass = TokenDocumentFFD20;
-  CONFIG.ActiveEffect.documentClass = ActiveEffectFFD20;
-  CONFIG.Item.documentClass = ItemFFD20;
+  mergeObject(CONFIG, CONFIG_OVERRIDES);
+  CONFIG.Actor.entityClass = ActorFFD20;
+  CONFIG.ActiveEffect.entityClass = ActiveEffectFFD20;
+  CONFIG.Item.entityClass = ItemFFD20;
   CONFIG.ui.compendium = CompendiumDirectoryFFD20;
-  CONFIG.ChatMessage.documentClass = ChatMessageFFD20;
-  CONFIG.Dice.rolls.splice(0, 0, RollFFD20$1);
+  CONFIG.ChatMessage.entityClass = ChatMessageFFD20;
+  CONFIG.Dice.rolls[0] = RollFFD20$1;
 
   // Register System Settings
   registerSystemSettings();
@@ -43342,43 +42502,6 @@ Hooks.once("init", function () {
     makeDefault: true,
   });
   Items.registerSheet("FFD20", ItemSheetFFD20_Container, { types: ["container"], makeDefault: true });
-
-  // Register item categories
-  game.ffd20.registry.registerItemScriptCategory(
-    "ffd20",
-    "use",
-    "FFD20.ScriptCalls.Use.Name",
-    ["attack", "feat", "equipment", "consumable", "spell"],
-    "FFD20.ScriptCalls.Use.Info"
-  );
-  game.ffd20.registry.registerItemScriptCategory(
-    "ffd20",
-    "equip",
-    "FFD20.ScriptCalls.Equip.Name",
-    ["weapon", "equipment", "loot"],
-    "FFD20.ScriptCalls.Equip.Info"
-  );
-  game.ffd20.registry.registerItemScriptCategory(
-    "ffd20",
-    "toggle",
-    "FFD20.ScriptCalls.Toggle.Name",
-    ["buff", "feat"],
-    "FFD20.ScriptCalls.Toggle.Info"
-  );
-  game.ffd20.registry.registerItemScriptCategory(
-    "ffd20",
-    "changeQuantity",
-    "FFD20.ScriptCalls.ChangeQuantity.Name",
-    ["loot", "equipment", "weapon", "consumable", "container"],
-    "FFD20.ScriptCalls.ChangeQuantity.Info"
-  );
-  game.ffd20.registry.registerItemScriptCategory(
-    "ffd20",
-    "changeLevel",
-    "FFD20.ScriptCalls.ChangeLevel.Name",
-    ["buff", "class"],
-    "FFD20.ScriptCalls.ChangeLevel.Info"
-  );
 
   // Initialize socket listener
   initializeSocket();
@@ -43411,7 +42534,6 @@ Hooks.once("setup", function () {
     "ac",
     "acValueLabels",
     "featTypes",
-    "featTypesPlurals",
     "conditions",
     "lootTypes",
     "flyManeuverabilities",
@@ -43572,7 +42694,7 @@ Hooks.once("ready", async function () {
   });
 
   // Migrate data
-  const NEEDS_MIGRATION_VERSION = "0.1.16";
+  const NEEDS_MIGRATION_VERSION = "0.1.9";
   let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";
@@ -43639,10 +42761,10 @@ Hooks.on("canvasInit", function () {
     }
 
     // Add reach measurements
-    game.messages.forEach(async (m) => {
+    game.messages.forEach((m) => {
       const elem = $(`#chat .chat-message[data-message-id="${m.data._id}"]`);
       if (!elem || (elem && !elem.length)) return;
-      const results = await addReachCallback(m.data, elem);
+      const results = addReachCallback(m.data, elem);
       callbacks.push(...results);
     });
 
@@ -43654,12 +42776,12 @@ Hooks.on("canvasInit", function () {
     }
   });
 
-  Hooks.on("renderChatMessage", async (app, html, data) => {
+  Hooks.on("renderChatMessage", (app, html, data) => {
     // Wait for setup after this
     if (!game.ready) return;
 
     // Add reach measurements on hover
-    const results = await addReachCallback(data.message, html);
+    const results = addReachCallback(data.message, html);
     callbacks.push(...results);
   });
 }
@@ -43709,20 +42831,28 @@ Hooks.on("renderLightConfig", (app, html) => {
   addLowLightVisionToLightConfig(app, html);
 });
 
-Hooks.on("preUpdateItem", (item, changedData, options, userId) => {
-  const actor = item.parent instanceof ActorFFD20 ? item.parent : null;
+Hooks.on("updateOwnedItem", (actor, itemData, changedData, options, userId) => {
+  if (!(actor instanceof Actor)) return;
+  const item = actor.getOwnedItem(changedData._id);
+  if (item == null) return;
 
-  if (actor) {
-    // Update level
-    {
-      if (item.type === "class" && hasProperty(changedData, "data.level")) {
-        const prevLevel = getProperty(item.data, "data.level");
-        // const newLevel = getProperty(changedData, "data.level");
-        // item._onLevelChange(prevLevel, newLevel);
-        item._prevLevel = prevLevel;
-      }
-    }
+  // Toggle buff
+  if (item.type === "buff" && getProperty(changedData, "data.active") !== undefined) {
+    // Call hook
+    Hooks.callAll("ffd20.toggleActorBuff", actor, item.data, getProperty(changedData, "data.active"));
   }
+
+  if (userId !== game.user.id) return;
+
+  // Update level
+  (async () => {
+    // Alter level-based class data
+    if (item.type === "class" && hasProperty(changedData, "data.level")) {
+      const prevLevel = getProperty(item.data, "data.level");
+      const newLevel = getProperty(changedData, "data.level");
+      await item._onLevelChange(prevLevel, newLevel);
+    }
+  })();
 });
 
 Hooks.on("updateActor", (actor, data, options, userId) => {
@@ -43736,9 +42866,9 @@ Hooks.on("updateActor", (actor, data, options, userId) => {
 });
 
 Hooks.on("createToken", (scene, token, options, userId) => {
-  if (userId !== game.user.id) return;
+  if (userId !== game.user._id) return;
 
-  const actor = game.actors.tokens[token.data._id] ?? game.actors.get(token.actorId);
+  const actor = game.actors.tokens[token._id] ?? game.actors.get(token.actorId);
 
   // Update changes and generate sourceDetails to ensure valid actor data
   if (actor != null) {
@@ -43766,13 +42896,16 @@ Hooks.on("hoverToken", (token, hovering) => {
   else game.ffd20.tooltip.unbind(token);
 });
 
-Hooks.on("preDeleteToken", (token, options, userId) => {
+Hooks.on("preDeleteToken", (scene, data, options, userId) => {
+  const token = canvas.tokens.placeables.find((t) => t.data._id === data._id);
+  if (!token) return;
+
   // Hide token tooltip on token deletion
-  game.ffd20.tooltip.unbind(token.object);
+  game.ffd20.tooltip.unbind(token);
 });
 
 Hooks.on("updateToken", (scene, data, updateData, options, userId) => {
-  const token = canvas.tokens.placeables.find((t) => t.data.id === data.id);
+  const token = canvas.tokens.placeables.find((t) => t.data._id === data._id);
   if (!token) return;
 
   // Hide token tooltip on token update
@@ -43782,161 +42915,83 @@ Hooks.on("updateToken", (scene, data, updateData, options, userId) => {
   token.actor?.sheet?.render();
 });
 
-Hooks.on("controlToken", (token, selected) => {
-  // Refresh canvas sight
-  canvas.lighting.initializeSources();
-});
-
 // Create race on actor
-Hooks.on("preCreateItem", (item, options, userId) => {
-  const actor = item.parent instanceof ActorFFD20 ? item.parent : null;
+Hooks.on("preCreateOwnedItem", (actor, item, options, userId) => {
+  if (userId !== game.user._id) return;
+  if (!(actor instanceof Actor)) return;
+  if (actor.race == null) return;
 
-  if (actor && actor.race && item.type === "race") {
-    actor.race.update(item.data._source);
+  if (item.type === "race") {
+    actor.race.update(item);
     return false;
   }
 });
 
-Hooks.on("createItem", (item, options, userId) => {
-  const actor = item.parent instanceof ActorFFD20 ? item.parent : null;
-  if (userId !== game.user.id) return;
-
-  // Create class
-  if (item.type === "class" && actor) {
-    item._onLevelChange(0, item.data.data.level);
-  }
+Hooks.on("createOwnedItem", (actor, itemData, options, userId) => {
+  if (!(actor instanceof Actor)) return;
+  const item = actor.items.get(itemData._id);
+  if (!item) return;
 
   // Show buff if active
-  if (item.type === "buff" && getProperty(item.data, "data.active") === true) {
+  if (item.type === "buff" && getProperty(itemData, "data.active") === true) {
     // Call hook
-    if (actor) {
-      Hooks.callAll("ffd20.toggleActorBuff", actor, item.data, true);
-    }
-
-    // Execute script calls
-    item.executeScriptCalls("toggle", { state: true });
-  }
-  // Simulate toggling a feature on
-  if (item.type === "feat") {
-    const disabled = getProperty(item.data, "data.disabled");
-    if (disabled === false) {
-      item.executeScriptCalls("toggle", { state: true });
-    }
-  }
-  // Simulate equipping items
-  {
-    const equipped = getProperty(item.data, "data.equipped");
-    if (equipped === true) {
-      item.executeScriptCalls("equip", { equipped: true });
-    }
-  }
-  // Quantity change
-  {
-    const quantity = getProperty(item.data, "data.quantity");
-    if (typeof quantity === "number" && quantity > 0) {
-      item.executeScriptCalls("changeQuantity", { quantity: { previous: 0, new: quantity } });
-    }
+    Hooks.callAll("ffd20.toggleActorBuff", actor, item.data, true);
   }
 
-  if (userId !== game.user.id) return;
+  if (userId !== game.user._id) return;
+
+  // Create class
+  if (item.type === "class") {
+    item._onLevelChange(0, item.data.data.level);
+  }
 });
 
-Hooks.on("deleteItem", async (item, options, userId) => {
-  const actor = item.parent instanceof ActorFFD20 ? item.parent : null;
+Hooks.on("preDeleteOwnedItem", (actor, itemData, options, userId) => {
+  const item = actor.items.get(itemData._id);
+  if (!item) return;
 
-  if (actor) {
+  // Delete class assocations
+  if (item.type === "class") item._onLevelChange(item.data.data.level, 0);
+});
+
+Hooks.on("deleteOwnedItem", (actor, itemData, options, userId) => {
+  // Call buff removal hook
+  if (itemData.type === "buff" && getProperty(itemData, "data.active") === true) {
+    Hooks.callAll("ffd20.toggleActorBuff", actor, itemData, false);
+  }
+
+  if (userId !== game.user._id) return;
+  if (!(actor instanceof Actor)) return;
+
+  // Remove links
+  const itemLinks = getProperty(itemData, "data.links");
+  if (itemLinks) {
+    for (let [linkType, links] of Object.entries(itemLinks)) {
+      for (let link of links) {
+        const item = actor.items.find((o) => o._id === link.id);
+        let otherItemLinks = item?.links || {};
+        if (otherItemLinks[linkType]) {
+          delete otherItemLinks[linkType];
+        }
+      }
+    }
+  }
+
+  (async () => {
     // Remove token effects for deleted buff
     const isLinkedToken = getProperty(actor.data, "token.actorLink");
     if (isLinkedToken) {
       let promises = [];
-      if (item.data.type === "buff" && item.data.data.active) {
-        actor.effects.find((e) => e.data.origin?.indexOf(item.data.id) > 0)?.delete();
+      if (itemData.type === "buff" && itemData.data.active) {
+        actor.effects.find((e) => e.data.origin?.indexOf(itemData._id) > 0)?.delete();
         const tokens = actor.getActiveTokens();
         for (const token of tokens) {
-          promises.push(token.toggleEffect(item.data.img, { active: false }));
+          promises.push(token.toggleEffect(itemData.img, { active: false }));
         }
       }
       await Promise.all(promises);
     }
-
-    // Remove links
-    const itemLinks = getProperty(item.data, "data.links");
-    if (itemLinks) {
-      for (let [linkType, links] of Object.entries(itemLinks)) {
-        for (let link of links) {
-          const item = actor.items.find((o) => o.id === link.id);
-          let otherItemLinks = item?.links || {};
-          if (otherItemLinks[linkType]) {
-            delete otherItemLinks[linkType];
-          }
-        }
-      }
-    }
-
-    // Call buff removal hook
-    if (item.type === "buff" && getProperty(item.data, "data.active") === true) {
-      Hooks.callAll("ffd20.toggleActorBuff", actor, item.data, false);
-    }
-  }
-
-  if (item.type === "buff" && getProperty(item.data, "data.active") === true) {
-    item.executeScriptCalls("toggle", { state: false });
-  }
-  // Simulate toggling a feature on
-  if (item.type === "feat") {
-    const disabled = getProperty(item.data, "data.disabled");
-    if (disabled === false) {
-      item.executeScriptCalls("toggle", { state: false });
-    }
-  }
-  // Simulate equipping items
-  {
-    const equipped = getProperty(item.data, "data.equipped");
-    if (equipped === true) {
-      item.executeScriptCalls("equip", { equipped: false });
-    }
-  }
-  // Quantity change
-  {
-    const quantity = getProperty(item.data, "data.quantity");
-    if (typeof quantity === "number" && quantity > 0) {
-      item.executeScriptCalls("changeQuantity", { quantity: { previous: quantity, new: 0 } });
-    }
-  }
-});
-
-Hooks.on("updateItem", async (item, changedData, options, userId) => {
-  const actor = item.parent instanceof ActorFFD20 ? item.parent : null;
-
-  if (actor) {
-    // Toggle buff
-    if (item.type === "buff" && getProperty(changedData, "data.active") !== undefined) {
-      // Call hook
-      Hooks.callAll("ffd20.toggleActorBuff", actor, item.data, getProperty(changedData, "data.active"));
-    }
-
-    // Update level
-    {
-      await new Promise((resolve) => {
-        if (item.type === "class" && hasProperty(changedData, "data.level")) {
-          const newLevel = getProperty(changedData, "data.level");
-          const prevLevel = item._prevLevel ?? newLevel;
-          if (item._prevLevel !== undefined) delete item._prevLevel;
-          item._onLevelChange(prevLevel, newLevel).then(() => {
-            resolve();
-          });
-        } else {
-          resolve();
-        }
-      });
-      if (item.type === "buff" && getProperty(changedData, "data.active") !== undefined) {
-        // Toggle status icons
-        if (userId === game.user.id) {
-          await actor.toggleConditionStatusIcons();
-        }
-      }
-    }
-  }
+  })();
 });
 
 Hooks.on("chatMessage", (log, message, chatData) => {
@@ -43993,10 +43048,7 @@ Hooks.on("renderTokenConfig", async (app, html) => {
   newHTML = `<div class="form-group"><label>${game.i18n.localize(
     "FFD20.StaticSize"
   )}</label><input type="checkbox" name="flags.ffd20.staticSize" data-dtype="Boolean"`;
-  if (
-    getProperty(app.object instanceof TokenDocument ? app.object.data : app.object.data.token, "flags.ffd20.staticSize")
-  )
-    newHTML += " checked";
+  if (getProperty(app.object.data, "flags.ffd20.staticSize")) newHTML += " checked";
   newHTML += "/></div>";
   html.find('.tab[data-tab="image"] > *:nth-child(3)').after(newHTML);
 
@@ -44031,7 +43083,7 @@ Hooks.on("getCompendiumDirectoryFFD20EntryContext", (html, entryOptions) => {
     icon: '<i class="fas fa-low-vision"></i>',
     callback: (li) => {
       const pack = game.packs.get(li.data("pack"));
-      const config = game.settings.get("core", "compendiumConfiguration")[pack.collection];
+      const config = game.settings.get("core", Compendium.CONFIG_SETTING)[pack.collection];
       const disabled = getProperty(config, "ffd20.disabled") === true;
       pack.configure({ "ffd20.disabled": !disabled });
     },
@@ -44050,5 +43102,5 @@ const handleChatTooltips = function (event) {
   elem.find(".tooltipcontent").css("left", `${x}px`).css("top", `${y}px`).css("width", `${w}px`);
 };
 
-export { ActiveEffectFFD20, ActorFFD20, ActorSheetFFD20, ActorSheetFFD20Character, ActorSheetFFD20NPC, ActorSheetFFD20NPCLite, ActorSheetFFD20NPCLoot, ChatAttack, ChatMessageFFD20, DiceFFD20, FFD20, ItemChange, ItemFFD20, ItemSheetFFD20, ItemSheetFFD20_Container, RollFFD20$1 as RollFFD20, SemanticVersion, TokenDocumentFFD20, dialogGetActor, dialogGetNumber, getChangeFlat, getSourceInfo, measureDistances };
+export { ActiveEffectFFD20, ActorFFD20, ActorSheetFFD20, ActorSheetFFD20Character, ActorSheetFFD20NPC, ActorSheetFFD20NPCLite, ActorSheetFFD20NPCLoot, ChatAttack, ChatMessageFFD20, DiceFFD20, FFD20, ItemChange, ItemFFD20, ItemSheetFFD20, ItemSheetFFD20_Container, RollFFD20$1 as RollFFD20, SemanticVersion, dialogGetActor, dialogGetNumber, getChangeFlat, getSourceInfo, measureDistances };
 //# sourceMappingURL=ffd20.js.map

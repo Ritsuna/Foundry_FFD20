@@ -1,4 +1,4 @@
-<div class="ffd20 chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenUuid}}data-token-uuid="{{tokenUuid}}"{{/if}}>
+<div class="ffd20 chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
   <header class="card-header flexrow">
     <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
     {{#if name}}<h3 class="item-name">{{name}}</h3>{{/if}}
@@ -26,7 +26,7 @@
         {{/if}}
       </h1>
       <a class="inline-roll inline-result{{#if atk.attack.isCrit}} success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
-         title="{{atk.attack.formula}}" data-roll="{{atk.attack.rollJSON}}">
+         title="{{atk.attack.roll.formula}}" data-roll="{{atk.attack.rollJSON}}">
         <i class="fas fa-dice-d20"></i> {{atk.attack.total}}
       </a>
     </div>
@@ -35,7 +35,7 @@
     <div class="flexrow">
       <h3>{{atk.critConfirm.flavor}}</h3>
       <a class="inline-roll inline-result{{#if atk.critConfirm.isCrit}} success{{/if}}{{#if atk.critConfirm.isFumble}} failure{{/if}}"
-         title="{{atk.critConfirm.formula}}" data-roll="{{atk.critConfirm.rollJSON}}"}}>
+         title="{{atk.critConfirm.roll.formula}}" data-roll="{{atk.critConfirm.rollJSON}}"}}>
         <i class="fas fa-dice-d20"></i> {{atk.critConfirm.total}}
       </a>
     </div>
@@ -51,12 +51,14 @@
     </div>
 
     {{#each atk.damage.parts as |part|}}
+    {{#each part.rolls as |roll|}}
     <div class="flexrow">
       <span>{{part.damageType}}</span>
-      <a class="inline-roll inline-result" title="{{part.roll.formula}}" data-roll="{{part.roll.json}}">
-        <i class="fas fa-dice-d20"></i> {{part.roll.total}}
+      <a class="inline-roll inline-result" title="{{roll.roll.formula}}" data-roll="{{roll.json}}">
+        <i class="fas fa-dice-d20"></i> {{roll.roll.total}}
       </a>
     </div>
+    {{/each}}
     {{/each}}
 
     {{#if atk.hasCritConfirm}}
@@ -69,12 +71,14 @@
     {{/if}}
 
     {{#each atk.critDamage.parts as |part|}}
+    {{#each part.rolls as |roll|}}
     <div class="flexrow">
       <span>{{part.damageType}}</span>
-      <a class="inline-roll inline-result" title="{{part.roll.formula}}" data-roll="{{part.roll.json}}">
-        <i class="fas fa-dice-d20"></i> {{part.roll.total}}
+      <a class="inline-roll inline-result" title="{{roll.roll.formula}}" data-roll="{{roll.json}}">
+        <i class="fas fa-dice-d20"></i> {{roll.roll.total}}
       </a>
     </div>
+    {{/each}}
     {{/each}}
 
     {{/if}}

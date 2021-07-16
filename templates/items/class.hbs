@@ -171,7 +171,7 @@
             <li class="tag {{k}}">{{v}}</li>
           {{/each}}
         </ul>
-        <a class="trait-selector" data-options="weaponProficiencies"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-options="weaponProf"><i class="fas fa-edit"></i></a>
       </div>
 
       <div class="form-group {{data.armorProf.cssClass}}">
@@ -181,7 +181,7 @@
             <li class="tag {{k}}">{{v}}</li>
           {{/each}}
         </ul>
-        <a class="trait-selector" data-options="armorProficiencies"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-options="armorProf"><i class="fas fa-edit"></i></a>
       </div>
 
       <h4 class="form-header">{{localize "FFD20.SavingThrowPlural"}}</h4>
@@ -240,6 +240,8 @@
 
     <div class="tab flexcol" data-group="primary" data-tab="changes">
       {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
+
+      {{> "systems/ffd20/templates/items/parts/item-notes.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">

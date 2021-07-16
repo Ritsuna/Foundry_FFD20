@@ -11,7 +11,7 @@
                 <th>{{localize "FFD20.Penalty"}}</th>
             </tr>
         </thead>
-        
+
         <tbody>
             {{#each data.abilities as |ability id|}}
             <tr class="ability" data-ability="{{id}}">
@@ -25,19 +25,12 @@
                         @abilities.{{id}}.drain : {{ability.drain}}<br/>
                         @abilities.{{id}}.penalty : {{ability.penalty}}<br/>
                         @abilities.{{id}}.base : {{ability.base}}<br/>
-                        @abilities.{{id}}.baseMod : {{ability.baseMod}}<br/>
-                        
+                        @abilities.{{id}}.baseMod : {{ability.baseMod}}
+
                         {{#if ability.sourceDetails.length}}
-                        <br/>{{localize "FFD20.FromSources"}} ({{localize "FFD20.AbilityScore"}}):<br/>
+                        <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
                         {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                         {{/if}}
-
-                        {{#with (lookup ../sourceDetails.data.abilities id)}}
-                        {{#if mod.length}}
-                        <br/>{{localize "FFD20.FromSources"}} ({{localize "FFD20.Modifier"}}):<br/>
-                        {{#each mod as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-                        {{/if}}
-                        {{/with}}
                     </span>
                     
                     <a class="ability-name rollable">
@@ -45,15 +38,15 @@
                         {{ability.label}}
                     </a>
                 </th>
-                
+
                 {{!-- Total --}}
                 <td>
                     <span class="text-box direct" name="data.abilities.{{id}}.value" data-dtype="String">{{ability.totalLabel}}</span>
                 </td>
-                
+
                 {{!-- Modifier --}}
                 <td>{{numberFormat ability.mod decimals=0 sign=true}}</td>
-                
+
                 {{!-- Damage --}}
                 <td>
                     <span class="text-box direct allow-relative" name="data.abilities.{{id}}.damage" data-dtype="Number">{{#if ability.damage}}{{ability.damage}}{{/if}}</span>

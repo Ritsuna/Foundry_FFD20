@@ -211,6 +211,11 @@
   "FFD20.FlagsSave": "Update Special Traits",
   "FFD20.FlagsBoolean": "Boolean Flags",
   "FFD20.FlagsDictionary": "Dictionary Flags",
+  "FFD20.AdvancedInfo": {
+    "Flags": {
+      "InfoBox": "Flags can be used by modules and macros, and don't do anything by themselves."
+    }
+  },
 
   "FFD20.AbilityDamage": "Ability Damage",
   "FFD20.AbilityDrain": "Ability Drain",
@@ -455,9 +460,15 @@
 
   "FFD20.Currency": "Currency",
   "FFD20.WeightlessCurrency": "Weightless Currency",
+  "FFD20.CurrencyPGil": "P Gil",
   "FFD20.CurrencyGil": "Gil",
+  "FFD20.CurrencySGil": "S Gil",
+  "FFD20.CurrencyCGil": "C Gil",
   "FFD20.CurrencySend": "Send Currency",
+  "FFD20.CurrencyPlatinumGilP": "Platinum Gil Pieces",
   "FFD20.CurrencyGilP": "Gil Pieces",
+  "FFD20.CurrencySilverGilP": "Silver Gil Pieces",
+  "FFD20.CurrencyCopperGilP": "Copper Gil Pieces",
   "FFD20.CurrencyFailed": "Currency Transfer Failed: ",
   "FFD20.CurrencyGMRequired": "A GM is required to finish the transfer.",
   "FFD20.CurrencyInsufficient": "Insufficient Currency",
@@ -491,9 +502,9 @@
   "FFD20.ItemContainerHeader": "Containers",
   "FFD20.ItemContainerProperties": "Container Properties",
   "FFD20.ItemContainerWeightReduction": "Weight Reduction",
-  "FFD20.ItemContainerTotalValue": "Total Value: {0} Gil",
-  "FFD20.ItemContainerTotalItemValue": "Total Item Value: {0} Gil",
-  "FFD20.ItemContainerSellValue": "Sell Value: {0} Gil",
+  "FFD20.ItemContainerTotalValue": "Total Value: {0} Gil, {1} SGil, {2} CGil",
+  "FFD20.ItemContainerTotalItemValue": "Total Item Value: {0} Gil, {1} SGil, {2} CGil",
+  "FFD20.ItemContainerSellValue": "Sell Value: {0} Gil, {1} SGil, {2} CGil",
   "FFD20.ItemContainerTakeContents": "Take from Container",
 
   "FFD20.LootTypeGear": "Gear",
@@ -768,6 +779,8 @@
   "FFD20.ActivationTypeMinute": "Minute",
   "FFD20.ActivationTypeHour": "Hour",
   "FFD20.ActivationTypeSpecial": "Special",
+  "FFD20.ActivationTypeNonaction": "Nonaction",
+  "FFD20.ActivationTypeAoO": "Attack of Opportunity",
   "FFD20.ActivationTypeReaction": "Reaction",
   "FFD20.ActivationTypeAction": "Action",
 
@@ -980,6 +993,9 @@
   "FFD20.LanguageSeeq": "Seeq",
   "FFD20.LanguageTonberry": "Tonberry",
   "FFD20.LanguageVieran": "Vieran",
+  "FFD20.LanguageCelestial": "Celestial",
+  "FFD20.LanguageAbyssal": "Abyssal",
+  "FFD20.LanguageInfernal": "Infernal",
   "FFD20.LanguageAquan": "Aquan",
   "FFD20.LanguageAuran": "Auran",
   "FFD20.LanguageAuroran": "Auroran",
@@ -2069,6 +2085,9 @@
               "Actor": {
                 "Desc": "The actor which owns the calling item. Can be <code>null</code> if the item is not on an actor."
               },
+              "Token": {
+                "Desc": "The token of the associated actor, if any."
+              },
               "Shared": {
                 "Desc": "An object which starts out as empty, but is shared between all script calls of a single event, after which it is returned to the calling function, which may or may not do something with it."
               }
@@ -2081,7 +2100,7 @@
             "Use": {
               "Name": "Use",
               "Desc": {
-                "Basic": "Called when an item has been used. If an item has at least one script call under this category, it's usable no matter what."
+                "Basic": "Called when an item has been used. If an item has at least one script call under this category, it's usable no matter what. This call will have two additional variables: <code>{var1}</code> which is an array of attack data, and <code>{var2}</code>, which containts the attack's measure template (if any)."
               }
             },
 

@@ -25,56 +25,54 @@
           {{/select}}
         </select>
 
-        {{#unless modifier.isSize}}
-          <select class="conditional-sub-target" name="data.conditionals.{{a}}.{{m}}.subTarget">
-            {{#select (lookup this "subTarget") }}
-            {{#if (lookup this "target") }}
-            {{#each subTargets as |target type|}}
-            <option value="{{type}}">{{target}}</option>
-            {{/each}}
-            {{else}}
-            <option value=""></option>
-            {{/if}}
-            {{/select}}
-          </select>
+        <select class="conditional-sub-target" name="data.conditionals.{{a}}.{{m}}.subTarget">
+          {{#select (lookup this "subTarget") }}
+          {{#if (lookup this "target") }}
+          {{#each subTargets as |target type|}}
+          <option value="{{type}}">{{target}}</option>
+          {{/each}}
+          {{else}}
+          <option value=""></option>
+          {{/if}}
+          {{/select}}
+        </select>
 
-          {{#if modifier.isAttack}}
-          <select class="conditional-type" name="data.conditionals.{{a}}.{{m}}.type">
-            {{#select (lookup this "type") }}
-            {{#if (lookup this "target") }}
+        {{#if modifier.isAttack}}
+        <select class="conditional-type" name="data.conditionals.{{a}}.{{m}}.type">
+          {{#select (lookup this "type") }}
+          {{#if (lookup this "target") }}
+          {{#each conditionalModifierTypes as |modifierType mt|}}
+          <option value="{{mt}}">{{modifierType}}</option>
+          {{/each}}
+          {{else}}
+          <option value=""></option>
+          {{/if}}
+          {{/select}}
+        </select>
+        {{/if}}
+
+        {{#if modifier.isDamage}}
+        <input class="conditional-damage-type" type="text" list="types" name="data.conditionals.{{a}}.{{m}}.type" value="{{lookup this "type"}}" placeholder="{{localize "FFD20.DamageType"}}"/>
+          <datalist id="types">
             {{#each conditionalModifierTypes as |modifierType mt|}}
-            <option value="{{mt}}">{{modifierType}}</option>
+            <option value="{{modifierType}}">
             {{/each}}
-            {{else}}
-            <option value=""></option>
-            {{/if}}
-            {{/select}}
-          </select>
-          {{/if}}
+          </datalist>
+        {{/if}}
 
-          {{#if modifier.isDamage}}
-          <input class="conditional-damage-type" type="text" list="types" name="data.conditionals.{{a}}.{{m}}.type" value="{{lookup this "type"}}" placeholder="{{localize "FFD20.DamageType"}}"/>
-            <datalist id="types">
-              {{#each conditionalModifierTypes as |modifierType mt|}}
-              <option value="{{modifierType}}">
-              {{/each}}
-            </datalist>
+        {{#if (or modifier.isAttack modifier.isDamage)}}
+        <select class="conditional-critical" name="data.conditionals.{{a}}.{{m}}.critical">
+          {{#select (lookup this "critical") }}
+          {{#if (lookup this "target")}}
+          {{#each conditionalCritical as |critical c|}}
+          <option value="{{c}}">{{localize critical}}</option>
+          {{/each}}
+          {{else}}
+          <option value=""></option>
           {{/if}}
-
-          {{#if (or modifier.isAttack modifier.isDamage)}}
-          <select class="conditional-critical" name="data.conditionals.{{a}}.{{m}}.critical">
-            {{#select (lookup this "critical") }}
-            {{#if (lookup this "target")}}
-            {{#each conditionalCritical as |critical c|}}
-            <option value="{{c}}">{{localize critical}}</option>
-            {{/each}}
-            {{else}}
-            <option value=""></option>
-            {{/if}}
-            {{/select}}
-          </select>
-          {{/if}}
-        {{/unless}}
+          {{/select}}
+        </select>
+        {{/if}}
         {{#if ../modifiers.length}}
         <a class="conditional-control delete-conditional-modifier"><i class="fas fa-trash"></i></a>{{/if}}
       </li>

@@ -175,17 +175,14 @@
           "quadruped": false,
           "savingThrows": {
             "fort": {
-              "base": 0,
               "total": 0,
               "ability": "con"
             },
             "ref": {
-              "base": 0,
               "total": 0,
               "ability": "dex"
             },
             "will": {
-              "base": 0,
               "total": 0,
               "ability": "wis"
             }
@@ -282,7 +279,6 @@
             "exhausted": false,
             "fascinated": false,
             "fatigued": false,
-            "float": false,
             "frightened": false,
             "frog": false,
             "frozen": false,
@@ -336,8 +332,8 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "int",
-                "autoSpellLevelCalculation": false,
-                "autoSpellLevels": false,
+                "autoSpellLevelCalculation": true,
+                "autoSpellLevels": true,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -413,8 +409,8 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "int",
-                "autoSpellLevelCalculation": false,
-                "autoSpellLevels": false,
+                "autoSpellLevelCalculation": true,
+                "autoSpellLevels": true,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -490,8 +486,8 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "int",
-                "autoSpellLevelCalculation": false,
-                "autoSpellLevels": false,
+                "autoSpellLevelCalculation": true,
+                "autoSpellLevels": true,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -567,8 +563,8 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "int",
-                "autoSpellLevelCalculation": false,
-                "autoSpellLevels": false,
+                "autoSpellLevelCalculation": true,
+                "autoSpellLevels": true,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -644,13 +640,13 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "cha",
-                "autoSpellLevelCalculation": false,
-                "autoSpellLevels": false,
+                "autoSpellLevelCalculation": true,
+                "autoSpellLevels": true,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
-                "spontaneous": true,
+                "spontaneous": false,
                 "spellPoints": {
                   "useSystem": false,
                   "value": 0,
@@ -1129,10 +1125,16 @@
           "stature": "tall"
         },
         "currency": {
-          "gil": 0
+          "pgil": 0,
+          "gil": 0,
+          "sgil": 0,
+          "cgil": 0
         },
         "altCurrency": {
-          "gil": 0
+          "pgil": 0,
+          "gil": 0,
+          "sgil": 0,
+          "cgil": 0
         }
       }
     },
@@ -1240,9 +1242,6 @@
           "mediumArmorFullSpeed": false,
           "heavyArmorFullSpeed": false
         }
-      },
-      "scriptCalls": {
-        "scriptCalls": []
       },
       "contextNotes": {
         "contextNotes": []
@@ -1363,7 +1362,10 @@
         "baseWeight": 0,
         "sellMultiplier": 0.5,
         "currency": {
-          "gil": 0
+          "pgil": 0,
+          "gil": 0,
+          "sgil": 0,
+          "cgil": 0
         }
       },
       "tagged": {
@@ -1392,7 +1394,7 @@
       }
     },
     "class": {
-      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags", "scriptCalls"],
+      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags"],
       "classType": "base",
       "classSubType": "none",
       "parentClass": "",
@@ -1401,7 +1403,7 @@
         "_deprecated": true
       },
       "level": 1,
-      "lvl": 1,
+      "lvl": 0,
       "countforexp": "exp",
       "hd": 8,
       "hp": 8,
@@ -1424,23 +1426,14 @@
       "classSkills": {}
     },
     "buff": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags", "scriptCalls"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags"],
       "buffType": "temp",
       "active": false,
       "level": 0,
       "hideFromToken": false
     },
     "consumable": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "activatedEffect",
-        "action",
-        "links",
-        "tagged",
-        "flags",
-        "scriptCalls"
-      ],
+      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "links", "tagged", "flags"],
       "consumableType": "potion",
       "uses": {
         "value": 0,
@@ -1462,8 +1455,7 @@
         "action",
         "links",
         "tagged",
-        "flags",
-        "scriptCalls"
+        "flags"
       ],
       "equipped": true,
       "equipmentType": "armor",
@@ -1507,8 +1499,7 @@
         "links",
         "tagged",
         "proficiencies",
-        "flags",
-        "scriptCalls"
+        "flags"
       ],
       "featType": "feat",
       "associations": {
@@ -1524,21 +1515,12 @@
       "disabled": false
     },
     "loot": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "changes",
-        "contextNotes",
-        "links",
-        "tagged",
-        "flags",
-        "scriptCalls"
-      ],
+      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
       "subType": "misc",
       "equipped": true
     },
     "spell": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags", "scriptCalls"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags"],
       "learnedAt": {
         "class": [],
         "domain": [],
@@ -1591,16 +1573,7 @@
       "slotCost": 1
     },
     "weapon": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "changes",
-        "contextNotes",
-        "links",
-        "tagged",
-        "flags",
-        "scriptCalls"
-      ],
+      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
       "equipped": true,
       "masterwork": false,
       "nonlethal": false,
@@ -1638,7 +1611,7 @@
       }
     },
     "attack": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags", "scriptCalls"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags"],
       "attackType": "weapon",
       "masterwork": false,
       "nonlethal": false,
@@ -1654,7 +1627,7 @@
       }
     },
     "race": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags", "scriptCalls"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags"],
       "creatureType": "humanoid",
       "subTypes": []
     },

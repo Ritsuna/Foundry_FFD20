@@ -1,7 +1,10 @@
 # Changelog
-## 0.2.0
-###
-- Updated to match PF1e version 0.78.9 and to be compatable with Foundry 0.8.6
+## 0.1.17
+
+### Change Log
+- Updated to pf1e 77.24
+- filled out a bit more on schools
+- smaller coins added
 
 ## 0.1.16
 
@@ -43,11 +46,9 @@
 - Cleaned a few more errors
 - added status effects to the information
 - updated skills with more correct information
-
 ## 0.1.9
-
 ### Change Log
-- Updated to match PF1 version 0.77.21
+- Updated to match PF1 version 0.77.20
 - Cleaned a few errors
 
 ## 0.1.8
@@ -65,7 +66,7 @@
 ### Bug Fixes
 - more fixed  backend code
 
-## 0.1.5
+## 0.1.5 
 
 ### Bug Fixes
 - fixed some backend code
@@ -102,7 +103,7 @@
 
 ### Change Log
 - Got MP calculations to work
-- cleaned up some
+- cleaned up some 
 
 ### Update log
 - updated from the Pathfinder 1 github on 3/6/2021
@@ -140,7 +141,7 @@
 
 - localization files updated
 
-## 0.0.6
+## 0.0.6 
 
 ### Bug Fixes
 

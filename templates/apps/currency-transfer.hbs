@@ -1,13 +1,13 @@
 <form class="currency-transfer" autocomplete="off" onsubmit="event.preventDefault();">
     <div class="form-group">
-      <label>{{localize "FFD20.CurrencyPlatinumP"}}</label>
+      <label>{{localize "FFD20.CurrencyPlatinumGilP"}}</label>
       <div class="form-fields">
         <button class="cur-range down" type="button" title="None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
         </button>
-        <input type="number" name="pp" placeholder="0" value="{{dest.amount.pp}}" data-dtype="Number">
+        <input type="number" name="pgil" placeholder="0" value="{{dest.amount.pgil}}" data-dtype="Number">
         <label>/</label>
-        <span class="text-box readonly">{{source.amount.pp}}</span>
+        <span class="text-box readonly">{{source.amount.pgil}}</span>
         <button class="cur-range up" type="button" title="All" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-up"></i>
         </button>
@@ -15,7 +15,7 @@
     </div>
 
     <div class="form-group">
-      <label>{{localize "FFD20.CurrencyGoldP"}}</label>
+      <label>{{localize "FFD20.CurrencyGilP"}}</label>
       <div class="form-fields">
         <button class="cur-range down" type="button" title="None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
@@ -30,14 +30,14 @@
     </div>
 
     <div class="form-group">
-      <label>{{localize "FFD20.CurrencySilverP"}}</label>
+      <label>{{localize "FFD20.CurrencySilverGilP"}}</label>
       <div class="form-fields">
         <button class="cur-range down" type="button" title="None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
         </button>
-        <input type="number" name="sp" placeholder="0" value="{{dest.amount.sp}}" data-dtype="Number">
+        <input type="number" name="sgil" placeholder="0" value="{{dest.amount.sgil}}" data-dtype="Number">
         <label>/</label>
-        <span class="text-box readonly">{{source.amount.sp}}</span>
+        <span class="text-box readonly">{{source.amount.sgil}}</span>
         <button class="cur-range up" type="button" title="All" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-up"></i>
         </button>
@@ -45,12 +45,12 @@
     </div>
 
     <div class="form-group">
-      <label>{{localize "FFD20.CurrencyCopperP"}}</label>
+      <label>{{localize "FFD20.CurrencyCopperGilP"}}</label>
       <div class="form-fields">
         <button class="cur-range down" type="button" title="None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
         </button>
-        <input type="number" name="cp" placeholder="0" value="{{dest.amount.cp}}" data-dtype="Number">
+        <input type="number" name="cgil" placeholder="0" value="{{dest.amount.cgil}}" data-dtype="Number">
         <label>/</label>
         <span class="text-box readonly">{{source.amount.cp}}</span>
         <button class="cur-range up" type="button" title="All" tabindex="-1">
