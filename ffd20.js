@@ -26843,7 +26843,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
       tradeGoods: {
         label: CONFIG.FFD20.lootTypes["tradeGoods"],
         canCreate: true,
-        hasActions: false,
+        hasActions: true,
         items: [],
         canEquip: false,
         dataset: {
