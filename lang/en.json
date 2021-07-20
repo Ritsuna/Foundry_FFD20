@@ -823,7 +823,7 @@
   "FFD20.SpellSchoolLight": "Light",
   "FFD20.SpellSchoolMisc": "Misc",
   "FFD20.SpellSchoolNecromancy": "Necromancy",
-  "FFD20.SpellSchoolNonElemental": "NonElemental",
+  "FFD20.SpellSchoolNonElemental": "Non-Elemental",
   "FFD20.SpellSchoolSummoning": "Summoning",
   "FFD20.SpellSchoolUniversal": "Universal",
 
@@ -850,6 +850,7 @@
   "FFD20.SpellSchoolEnfeeblingDark": "Enfeebling/Dark",
   "FFD20.SpellSchoolEnfeeblingLight": "Enfeebling/Light",
   "FFD20.SpellSchoolEnfeeblingElemental": "Enfeebling/Elemental",
+  "FFD20.SpellSchoolEnfeeblingNonElemental": "Enfeebling/Non-Elemental",
   "FFD20.SpellSchoolEnhancingDark": "Enhancing/Dark",
   "FFD20.SpellSchoolEnhancingLight": "Enhancing/Light",
   "FFD20.SpellSchoolEnhancingElemental": "Enhancing/Elemental",

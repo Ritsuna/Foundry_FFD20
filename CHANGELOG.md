@@ -1,4 +1,10 @@
 # Changelog
+## 0.1.18 to 0.1.20
+
+### Change Log
+- added another school combo
+- fixed a few small bugs
+
 ## 0.1.17
 
 ### Change Log
@@ -66,7 +72,7 @@
 ### Bug Fixes
 - more fixed  backend code
 
-## 0.1.5 
+## 0.1.5
 
 ### Bug Fixes
 - fixed some backend code
@@ -103,7 +109,7 @@
 
 ### Change Log
 - Got MP calculations to work
-- cleaned up some 
+- cleaned up some
 
 ### Update log
 - updated from the Pathfinder 1 github on 3/6/2021
@@ -141,7 +147,7 @@
 
 - localization files updated
 
-## 0.0.6 
+## 0.0.6
 
 ### Bug Fixes
 
