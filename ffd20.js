@@ -6583,7 +6583,7 @@ const addDefaultChanges = function (changes) {
     let mpAbility = mp_source.data.classCastingStat;
     if (mpAbility == null) mpAbility = "noncaster";
     if (mpAbility === "noncaster") return;
-    if (mp_source.data.lvl === 0) return;
+    if (mp_source.data.level === 0) return;
     const spellMath = CONFIG.FFD20.ClassSpellLvlProgression[mp_source.data.classBaseMPTypes];
     const currentSpellLvl = Math.floor(RollFFD20.safeRoll(spellMath, { level: mp_source.data.level }).total);
     let mpProg = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl];

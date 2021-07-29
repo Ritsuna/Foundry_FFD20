@@ -1,9 +1,11 @@
 # Changelog
-## 0.1.18 to 0.1.20
+## 0.1.18 to 0.1.22
 
 ### Change Log
 - added another school combo
 - fixed a few small bugs
+- Fixed bonus mp bug
+- fixed base template
 
 ## 0.1.17
 
