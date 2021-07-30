@@ -6588,43 +6588,31 @@ const addDefaultChanges = function (changes) {
     const currentSpellLvl = Math.floor(RollFFD20.safeRoll(spellMath, { level: mp_source.data.level }).total);
     let mpProg = CONFIG.FFD20.classMPStatsBonus[currentSpellLvl];
     if (mpAbility !== "") {
+      const arrayStr = JSON.stringify(mpProg);
       if (mpAbility === "intAndWis") {
-        const arrayStr1 = mpProg[this.data.data.abilities.int.mod];
-        const arrayStr2 = mpProg[this.data.data.abilities.wis.mod];
         changes.push(
           ItemChange.create({
-            formula: `${arrayStr1} + ${arrayStr2}`,
+            formula: `${arrayStr}([@abilities.int.mod]) + ${arrayStr}([@abilities.wis.mod])`,
             target: "misc",
             subTarget: "mmp",
             modifier: "base",
           })
         );
         getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-          formula: `${arrayStr1} + ${arrayStr2}`,
+          formula: `${arrayStr}[@abilities.int.mod] + ${arrayStr}[@abilities.wis.mod]`,
           name: `${mp_source.name} ${CONFIG.FFD20.abilities["int"]} & ${CONFIG.FFD20.abilities["wis"]}`,
         });
       } else {
-        var statMod = 0;
-        if (mpAbility === "int") {
-          statMod = this.data.data.abilities.int.mod;
-        } else if (mpAbility === "wis") {
-          statMod = this.data.data.abilities.wis.mod;
-        } else if (mpAbility === "cha") {
-          statMod = this.data.data.abilities.cha.mod;
-        } else {
-          statMod = 0;
-        }
-        const arrayStr = mpProg[statMod];
         changes.push(
           ItemChange.create({
-            formula: `${arrayStr}`,
+            formula: `(${arrayStr}[@abilities.${mpAbility}.mod])`,
             target: "misc",
             subTarget: "mmp",
             modifier: "base",
           })
         );
         getSourceInfo(this.sourceInfo, "data.attributes.mp.max").positive.push({
-          formula: `${arrayStr}`,
+          formula: `${arrayStr}[@abilities.${mpAbility}.mod]`,
           name: `${mp_source.name} ${CONFIG.FFD20.abilities[mpAbility]}`,
         });
       }
@@ -7933,13 +7921,13 @@ class RollFFD20$1 extends Roll {
     terms = this._splitDiceTerms(terms, step);
 
     // Step 4.5 - Strip non-functional term flavor text
-    terms = terms.map((t) => {
-      if (typeof t !== "string") return t;
-      const stripped = t.replace(/\s*\[.*\]\s*/, ""),
-        num = /\D/.test(stripped) ? NaN : parseFloat(stripped);
-      if (isNaN(num)) return stripped;
-      else return num;
-    });
+    //terms = terms.map((t) => {
+    //  if (typeof t !== "string") return t;
+    //  const stripped = t.replace(/\s*\[.*\]\s*/, ""),
+    //    num = /\D/.test(stripped) ? NaN : parseFloat(stripped);
+    //  if (isNaN(num)) return stripped;
+    //  else return num;
+    //});
 
     // Step 5 - clean and de-dupe terms
     terms = this.constructor.cleanTerms(terms);
