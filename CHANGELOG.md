@@ -1,4 +1,9 @@
 # Changelog
+## 0.1.24
+
+### Change Log
+- added more spell class combos
+
 ## 0.1.23
 
 ### Change Log
