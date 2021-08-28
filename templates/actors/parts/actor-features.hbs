@@ -1,4 +1,4 @@
-<div class="inventory-filters flexrow">  
+<div class="inventory-filters flexrow">
   {{~> "systems/ffd20/templates/internal/item-search.hbs" category="features"}}
 
   <ul class="filter-list flexrow" data-filter="features">
@@ -12,7 +12,7 @@
   {{#each sections as |section sid|}}
   {{#unless section._hidden}}
   <div class="feats-group flexcol">
-    <ol class="inventory-list sub-scroll scroll-feats">
+    <ol class="inventory-list sub-scroll scroll-feats feats-{{sid}}">
       <li class="inventory-header flexrow">
         <h3 class="item-name flexrow">{{section.label}}</h3>
 
@@ -88,7 +88,7 @@
           </div>
           {{else if section.isClass}}
           <div class="item-detail item-feat-level tooltip">
-            <span>Level {{item.data.level}}</span>
+            <span>{{localize "FFD20.Level"}} {{item.data.level}}</span>
             <span class="tooltipcontent">@classes.{{item.data.tag}}.level : {{item.data.level}}</span>
           </div>
           {{/if}}
@@ -123,7 +123,7 @@
     <label>{{localize "FFD20.BonusFeatFormula"}}</label>
     <input class="formula" type="text" name="data.details.bonusFeatFormula" value="{{data.details.bonusFeatFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
   </div>
-  <table>
+  <table class='feat-counts'>
     <thead>
       <tr>
         <th>{{localize "FFD20.Feats"}}</th>
@@ -134,10 +134,10 @@
     </thead>
     <tbody>
       <tr>
-        <td class="center">{{featCount.value}}</td>
-        <td class="center">{{featCount.byLevel}}</td>
-        <td class="center">{{featCount.byFormula}}</td>
-        <td class="center">{{featCount.total}}</td>
+        <td class="center owned">{{featCount.value}}</td>
+        <td class="center by-level">{{featCount.byLevel}}</td>
+        <td class="center by-bonus">{{featCount.byFormula}}</td>
+        <td class="center total">{{featCount.total}}</td>
       </tr>
     </tbody>
   </table>

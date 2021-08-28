@@ -5,198 +5,96 @@
       "common": {
         "abilities": {
           "str": {
-            "total": 10,
-            "mod": 0,
             "value": 10,
             "carryBonus": 0,
             "carryMultiplier": 1,
-            "checkMod": 0,
             "damage": 0,
             "drain": 0,
-            "penalty": 0,
-            "userPenalty": 0,
-            "base": 10,
-            "baseMod": 0
+            "userPenalty": 0
           },
           "dex": {
-            "total": 10,
-            "mod": 0,
             "value": 10,
-            "checkMod": 0,
             "damage": 0,
             "drain": 0,
-            "penalty": 0,
-            "userPenalty": 0,
-            "base": 10,
-            "baseMod": 0
+            "userPenalty": 0
           },
           "con": {
-            "total": 10,
-            "mod": 0,
             "value": 10,
-            "checkMod": 0,
             "damage": 0,
             "drain": 0,
-            "penalty": 0,
-            "userPenalty": 0,
-            "base": 10,
-            "baseMod": 0
+            "userPenalty": 0
           },
           "int": {
-            "total": 10,
-            "mod": 0,
             "value": 10,
-            "checkMod": 0,
             "damage": 0,
             "drain": 0,
-            "penalty": 0,
-            "userPenalty": 0,
-            "base": 10,
-            "baseMod": 0
+            "userPenalty": 0
           },
           "wis": {
-            "total": 10,
-            "mod": 0,
             "value": 10,
-            "checkMod": 0,
             "damage": 0,
             "drain": 0,
-            "penalty": 0,
-            "userPenalty": 0,
-            "base": 10,
-            "baseMod": 0
+            "userPenalty": 0
           },
           "cha": {
-            "total": 10,
-            "mod": 0,
             "value": 10,
-            "checkMod": 0,
             "damage": 0,
             "drain": 0,
-            "penalty": 0,
-            "userPenalty": 0,
-            "base": 10,
-            "baseMod": 0
+            "userPenalty": 0
           }
         },
         "resources": {},
         "attributes": {
-          "encumbrance": {
-            "level": 0,
-            "levels": {
-              "light": 33,
-              "medium": 66,
-              "heavy": 100,
-              "carry": 200,
-              "drag": 500
-            },
-            "carriedWeight": 0
-          },
-          "vision": {
-            "lowLight": false,
-            "darkvision": 0
-          },
           "hpAbility": "con",
           "cmbAbility": "str",
-          "hd": {
-            "base": {
-              "_deprecated": true,
-              "value": 0
-            },
-            "total": 1,
-            "max": {
-              "_deprecated": true,
-              "value": 0
-            }
-          },
           "naturalAC": 0,
           "ac": {
             "normal": {
-              "value": 0,
-              "total": 10
+              "ability": "dex"
             },
             "touch": {
-              "value": 0,
-              "total": 10
+              "ability": "dex"
             },
-            "flatFooted": {
-              "value": 0,
-              "total": 10
-            }
-          },
-          "bab": {
-            "value": 0,
-            "total": 0
+            "flatFooted": {}
           },
           "cmd": {
-            "value": 0,
-            "total": 10,
-            "flatFootedTotal": 10
-          },
-          "cmb": {
-            "value": 0,
-            "total": 0
+            "dexAbility": "dex"
           },
           "sr": {
-            "formula": "",
-            "total": 0
+            "formula": ""
           },
           "saveNotes": "",
           "acNotes": "",
           "cmdNotes": "",
           "srNotes": "",
           "attack": {
-            "general": 0,
-            "shared": 0,
-            "melee": 0,
-            "ranged": 0,
             "meleeAbility": "str",
             "rangedAbility": "dex"
-          },
-          "damage": {
-            "general": 0,
-            "weapon": 0,
-            "spell": 0
-          },
-          "maxDexBonus": null,
-          "mDex": {
-            "armorBonus": 0,
-            "shieldBonus": 0
-          },
-          "acp": {
-            "gear": 0,
-            "encumbrance": 0,
-            "total": 0,
-            "armorBonus": 0,
-            "shieldBonus": 0,
-            "attackPenalty": 0
           },
           "energyDrain": 0,
           "quadruped": false,
           "savingThrows": {
             "fort": {
-              "total": 0,
+              "base": 0,
               "ability": "con"
             },
             "ref": {
-              "total": 0,
+              "base": 0,
               "ability": "dex"
             },
             "will": {
-              "total": 0,
+              "base": 0,
               "ability": "wis"
             }
           },
           "hp": {
             "value": 0,
             "base": 0,
-            "max": 0,
             "temp": 0,
             "nonlethal": 0
           },
           "wounds": {
             "min": 0,
-            "max": 0,
             "base": 0,
             "value": 0
           },
@@ -204,14 +102,7 @@
             "min": 0,
             "value": 0,
             "temp": 0,
-            "max": 0,
             "base": 0
-          },
-          "woundThresholds": {
-            "penalty": 0,
-            "mod": 0,
-            "level": 0,
-            "override": -1
           },
           "mp": {
             "value": 0,
@@ -227,90 +118,27 @@
           },
           "init": {
             "value": 0,
-            "bonus": 0,
-            "total": 0,
             "ability": "dex"
           },
-          "prof": 2,
           "speed": {
             "land": {
-              "base": 30,
-              "total": 30
+              "base": 30
             },
             "climb": {
-              "base": 0,
-              "total": null
+              "base": 0
             },
             "swim": {
-              "base": 0,
-              "total": null
+              "base": 0
             },
             "burrow": {
-              "base": 0,
-              "total": null
+              "base": 0
             },
             "fly": {
               "base": 0,
-              "total": null,
               "maneuverability": "average"
             }
           },
-          "conditions": {
-            "antagonized": false,
-            "bleed": false,
-            "blinded": false,
-            "burning": false,
-            "charmed": false,
-            "confused": false,
-            "cowering": false,
-            "cursed": false,
-            "dazed": false,
-            "dazzled": false,
-            "deafened": false,
-            "deprotect": false,
-            "deshell": false,
-            "dimmed": false,
-            "disabled": false,
-            "diseased": false,
-            "doom": false,
-            "drenched": false,
-            "energyDrained": false,
-            "entangled": false,
-            "exhausted": false,
-            "fascinated": false,
-            "fatigued": false,
-            "frightened": false,
-            "frog": false,
-            "frozen": false,
-            "hasted": false,
-            "immobilized": false,
-            "imperil": false,
-            "invisible": false,
-            "mini": false,
-            "nauseated": false,
-            "panicked": false,
-            "paralyzed": false,
-            "petrified": false,
-            "poisoned": false,
-            "protect": false,
-            "reflect": false,
-            "regen": false,
-            "reraise": false,
-            "sapped": false,
-            "shaken": false,
-            "shell": false,
-            "sickened": false,
-            "silenced": false,
-            "sleep": false,
-            "slow": false,
-            "squalled": false,
-            "staggered": false,
-            "static": false,
-            "stop": false,
-            "stunned": false,
-            "weighted": false,
-            "zombie": false
-          },
+          "conditions": {},
           "spells": {
             "usedSpellbooks": [],
             "spellbooks": {
@@ -322,12 +150,8 @@
                 "casterType": "high",
                 "class": "",
                 "cl": {
-                  "base": 0,
-                  "value": 0,
-                  "total": 0,
                   "formula": ""
                 },
-                "concentration": 0,
                 "concentrationFormula": "",
                 "concentrationNotes": "",
                 "clNotes": "",
@@ -340,11 +164,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
-                  "useSystem": true,
-                  "value": 0,
-                  "max": 0,
-                  "maxFormula": "",
-                  "restoreFormula": ""
+                  "useSystem": true
                 },
                 "spells": {
                   "spell0": {
@@ -399,12 +219,8 @@
                 "casterType": "high",
                 "class": "",
                 "cl": {
-                  "base": 0,
-                  "value": 0,
-                  "total": 0,
                   "formula": ""
                 },
-                "concentration": 0,
                 "concentrationFormula": "",
                 "concentrationNotes": "",
                 "clNotes": "",
@@ -417,11 +233,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
-                  "useSystem": true,
-                  "value": 0,
-                  "max": 0,
-                  "maxFormula": "",
-                  "restoreFormula": ""
+                  "useSystem": true
                 },
                 "spells": {
                   "spell0": {
@@ -476,12 +288,8 @@
                 "casterType": "high",
                 "class": "",
                 "cl": {
-                  "base": 0,
-                  "value": 0,
-                  "total": 0,
                   "formula": ""
                 },
-                "concentration": 0,
                 "concentrationFormula": "",
                 "concentrationNotes": "",
                 "clNotes": "",
@@ -494,11 +302,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
-                  "useSystem": true,
-                  "value": 0,
-                  "max": 0,
-                  "maxFormula": "",
-                  "restoreFormula": ""
+                  "useSystem": true
                 },
                 "spells": {
                   "spell0": {
@@ -553,12 +357,8 @@
                 "casterType": "high",
                 "class": "",
                 "cl": {
-                  "base": 0,
-                  "value": 0,
-                  "total": 0,
                   "formula": ""
                 },
-                "concentration": 0,
                 "concentrationFormula": "",
                 "concentrationNotes": "",
                 "clNotes": "",
@@ -571,11 +371,7 @@
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
-                  "useSystem": true,
-                  "value": 0,
-                  "max": 0,
-                  "maxFormula": "",
-                  "restoreFormula": ""
+                  "useSystem": true
                 },
                 "spells": {
                   "spell0": {
@@ -630,12 +426,8 @@
                 "casterType": "high",
                 "class": "_hd",
                 "cl": {
-                  "base": 0,
-                  "value": 0,
-                  "total": 0,
                   "formula": ""
                 },
-                "concentration": 0,
                 "concentrationFormula": "",
                 "concentrationNotes": "",
                 "clNotes": "",
@@ -646,13 +438,9 @@
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
-                "spontaneous": false,
+                "spontaneous": true,
                 "spellPoints": {
-                  "useSystem": false,
-                  "value": 0,
-                  "max": 0,
-                  "maxFormula": "",
-                  "restoreFormula": ""
+                  "useSystem": false
                 },
                 "spells": {
                   "spell0": {
@@ -700,30 +488,19 @@
                 "domainSlotValue": 1
               }
             }
-          },
-          "spellcasting": {
-            "_deprecated": true
-          },
-          "spelldc": {
-            "_deprecated": true
           }
         },
         "details": {
           "level": {
-            "value": 0,
-            "min": 0,
-            "max": 40
+            "value": 0
           },
-          "mythicTier": 0,
           "bonusFeatFormula": "",
           "alignment": "tn",
           "biography": {
-            "value": "",
-            "public": ""
+            "value": ""
           },
           "notes": {
-            "value": "",
-            "public": ""
+            "value": ""
           },
           "bonusSkillRankFormula": "",
           "tooltip": {
@@ -738,364 +515,244 @@
         },
         "skills": {
           "acr": {"name": "Acrobatics",
-            "value": 0,
             "ability": "dex",
             "rt": false,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "apr": {"name": "Appraise",
-            "value": 0,
             "ability": "int",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "blf": {"name": "Bluff",
-            "value": 0,
             "ability": "cha",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "clm": {"name": "Climb",
-            "value": 0,
             "ability": "str",
             "rt": false,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "crf": {"name": "craft skills",
-            "value": 0,
             "ability": "int",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "dip": {"name": "Diplomacy",
-            "value": 0,
             "ability": "cha",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "dev": {"name": "Disable Device",
-            "value": 0,
             "ability": "dex",
             "rt": true,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "dis": {"name": "Disguise",
-            "value": 0,
             "ability": "cha",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "dri": {"name": "Drive",
-            "value": 0,
             "ability": "dex",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "esc": {"name": "Escape Artist",
-            "value": 0,
             "ability": "dex",
             "rt": false,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "fly": {"name": "Fly",
-            "value": 0,
             "ability": "dex",
             "rt": false,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "han": {"name": "Handle Animal",
-            "value": 0,
             "ability": "cha",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "hea": {"name": "Heal",
-            "value": 0,
             "ability": "wis",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "int": {"name": "Intimidate",
-            "value": 0,
             "ability": "cha",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "kar": {"name": "Knowledge (arcana)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "kdu": {"name": "Knowledge (dungeoneering)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "ken": {"name": "Knowledge (engineering)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "kge": {"name": "Knowledge (geography)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "khi": {"name": "Knowledge (history)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "klo": {"name": "Knowledge (local)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "kna": {"name": "Knowledge (nature)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "kno": {"name": "Knowledge (nobility)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "kpl": {"name": "Knowledge (planes)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "kre": {"name": "Knowledge (religion)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "kte": {"name": "Knowledge (technology)",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "lin": {"name": "Linguistics",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "nav": {"name": "Navigate",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "per": {"name": "Perception",
-            "value": 0,
             "ability": "wis",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "prf": {"name": "Perform",
-            "value": 0,
             "ability": "cha",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "pil": {"name": "Pilot",
-            "value": 0,
             "ability": "dex",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "pro": {"name": "Profession",
-            "value": 0,
             "ability": "wis",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "rep": {"name": "Repair",
-            "value": 0,
             "ability": "int",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "rid": {"name": "Ride",
-            "value": 0,
             "ability": "dex",
             "rt": false,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "sen": {"name": "Sense Motive",
-            "value": 0,
             "ability": "wis",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "slt": {"name": "Sleight of Hand",
-            "value": 0,
             "ability": "dex",
             "rt": true,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": true
+            "rank": 0
           },
           "spl": {"name": "Spellcraft",
-            "value": 0,
             "ability": "int",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "ste": {"name": "Stealth",
-            "value": 0,
             "ability": "dex",
             "rt": false,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "sur": {"name": "Survival",
-            "value": 0,
             "ability": "wis",
             "rt": false,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "swm": {"name": "Swim",
-            "value": 0,
             "ability": "str",
             "rt": false,
             "acp": true,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           },
           "umd": {"name": "Use Magic Device",
-            "value": 0,
             "ability": "cha",
             "rt": true,
             "acp": false,
-            "rank": 0,
-            "mod": 0,
-            "background": false
+            "rank": 0
           }
         },
         "customSkills": {},
@@ -1119,9 +776,6 @@
             "value": [],
             "custom": ""
           },
-          "perception": {
-            "_deprecated": true
-          },
           "stature": "tall"
         },
         "currency": {
@@ -1142,9 +796,7 @@
       "templates": ["common"],
       "details": {
         "xp": {
-          "value": 0,
-          "min": 0,
-          "max": 300
+          "value": 0
         },
         "height": "",
         "weight": "",
@@ -1195,26 +847,9 @@
     },
     "npc": {
       "templates": ["common"],
-      "attributes": {
-        "spellLevel": 0,
-        "hp": {
-          "value": 0,
-          "max": 0
-        },
-        "mp": {
-          "value": 0,
-          "max": 0
-        }
-      },
       "details": {
-        "type": "",
-        "environment": "",
         "cr": {
-          "base": 1,
-          "total": 1
-        },
-        "xp": {
-          "value": 10
+          "base": 1
         }
       }
     }
@@ -1242,6 +877,9 @@
           "mediumArmorFullSpeed": false,
           "heavyArmorFullSpeed": false
         }
+      },
+      "scriptCalls": {
+        "scriptCalls": []
       },
       "contextNotes": {
         "contextNotes": []
@@ -1303,10 +941,10 @@
         },
         "uses": {
           "value": 0,
-          "max": 0,
           "per": null,
           "autoDeductCharges": true,
-          "autoDeductChargesCost": "1"
+          "autoDeductChargesCost": "1",
+          "maxFormula": ""
         }
       },
       "action": {
@@ -1329,7 +967,7 @@
         },
         "attackParts": [],
         "formulaicAttacks": {
-          "count": { "formula": "", "value": null },
+          "count": { "formula": "" },
           "bonus": { "formula": "" },
           "label": null
         },
@@ -1346,8 +984,8 @@
           "type": "",
           "description": ""
         },
-        "effectNotes": "",
-        "attackNotes": "",
+        "effectNotes": [],
+        "attackNotes": [],
         "soundEffect": ""
       },
       "links": {
@@ -1394,16 +1032,12 @@
       }
     },
     "class": {
-      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags"],
+      "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags", "scriptCalls"],
       "classType": "base",
       "classSubType": "none",
       "parentClass": "",
-      "levels": {
-        "value": 0,
-        "_deprecated": true
-      },
       "level": 1,
-      "lvl": 0,
+      "lvl": 1,
       "countforexp": "exp",
       "hd": 8,
       "hp": 8,
@@ -1421,23 +1055,34 @@
       "fc": {
         "hp": { "value": 0 },
         "skill": { "value": 0 },
-        "alt": { "value": 0 }
+        "alt": { "value": 0, "notes": "" }
       },
-      "classSkills": {}
+      "classSkills": {},
+      "links": {
+        "classAssociations": []
+      }
     },
     "buff": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags", "scriptCalls"],
       "buffType": "temp",
       "active": false,
       "level": 0,
       "hideFromToken": false
     },
     "consumable": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "links", "tagged", "flags"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "activatedEffect",
+        "action",
+        "links",
+        "tagged",
+        "flags",
+        "scriptCalls"
+      ],
       "consumableType": "potion",
       "uses": {
         "value": 0,
-        "max": 0,
         "maxFormula": "",
         "per": null
       },
@@ -1455,7 +1100,8 @@
         "action",
         "links",
         "tagged",
-        "flags"
+        "flags",
+        "scriptCalls"
       ],
       "equipped": true,
       "equipmentType": "armor",
@@ -1499,7 +1145,8 @@
         "links",
         "tagged",
         "proficiencies",
-        "flags"
+        "flags",
+        "scriptCalls"
       ],
       "featType": "feat",
       "associations": {
@@ -1515,12 +1162,21 @@
       "disabled": false
     },
     "loot": {
-      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "changes",
+        "contextNotes",
+        "links",
+        "tagged",
+        "flags",
+        "scriptCalls"
+      ],
       "subType": "misc",
       "equipped": true
     },
     "spell": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags", "scriptCalls"],
       "learnedAt": {
         "class": [],
         "domain": [],
@@ -1572,7 +1228,16 @@
       "slotCost": 1
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem", "changes", "contextNotes", "links", "tagged", "flags"],
+      "templates": [
+        "itemDescription",
+        "physicalItem",
+        "changes",
+        "contextNotes",
+        "links",
+        "tagged",
+        "flags",
+        "scriptCalls"
+      ],
       "equipped": true,
       "masterwork": false,
       "nonlethal": false,
@@ -1591,26 +1256,10 @@
         "size": "med",
         "maxRangeIncrements": 1
       },
-      "broken": false,
-      "bonus": {
-        "value": 0,
-        "_deprecated": true
-      },
-      "damageType": {
-        "value": "",
-        "_deprecated": true
-      },
-      "damage2": {
-        "value": "",
-        "_deprecated": true
-      },
-      "damage2Type": {
-        "value": "",
-        "_deprecated": true
-      }
+      "broken": false
     },
     "attack": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags"],
+      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags", "scriptCalls"],
       "attackType": "weapon",
       "masterwork": false,
       "nonlethal": false,
@@ -1622,11 +1271,12 @@
       "held": "normal",
       "conditionals": [],
       "links": {
-        "charges": []
+        "charges": [],
+        "ammunition": []
       }
     },
     "race": {
-      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags"],
+      "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags", "scriptCalls"],
       "creatureType": "humanoid",
       "subTypes": []
     },

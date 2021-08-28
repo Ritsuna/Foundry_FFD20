@@ -1,61 +1,124 @@
-{{!-- Flags --}}
-<div class="form-group">
-  <label class="header">{{localize "FFD20.CheckFlags"}}</label>
-  <div class="buff-flags flexcol">
-    <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.noEncumbrance" {{checked data.changeFlags.noEncumbrance}}/> {{localize "FFD20.ChangeFlagDwarflikeEncumbrance"}}
-    </label>
-    <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.mediumArmorFullSpeed" {{checked data.changeFlags.mediumArmorFullSpeed}}/> {{localize "FFD20.ChangeFlagMediumArmorFullSpeed"}}
-    </label>
-    <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.heavyArmorFullSpeed" {{checked data.changeFlags.heavyArmorFullSpeed}}/> {{localize "FFD20.ChangeFlagHeavyArmorFullSpeed"}}
-    </label>
-    <label class="checkbox">
-      <input type="checkbox" name="data.changeFlags.loseDexToAC" {{checked data.changeFlags.loseDexToAC}}/> {{localize "FFD20.ChangeFlagLoseDexToAC"}}
-    </label>
-  </div>
-</div>
+<ol class="items-list changes-list">
+  {{!-- Flags --}}
+  <li class="items-header flexrow">
+    <h3 class="item-name flag-name flexrow">{{localize "FFD20.CheckFlags"}}</h3>
+    <div class="item-enabled flexrow">{{localize "FFD20.Enabled"}}</div>
+  </li>
+  
+  <ol class="items-list">
+    <li class="item change-flag flexrow">
+      <div class="item-name flag-name flexrow">{{localize "FFD20.ChangeFlagDwarflikeEncumbrance"}}</div>
+      <div class="item-enabled flexrow"><input type="checkbox" name="data.changeFlags.noEncumbrance" {{checked data.changeFlags.noEncumbrance}}/></div>
+    </li>
+    <li class="item change-flag flexrow">
+      <div class="item-name flag-name flexrow">{{localize "FFD20.ChangeFlagMediumArmorFullSpeed"}}</div>
+      <div class="item-enabled flexrow"><input type="checkbox" name="data.changeFlags.mediumArmorFullSpeed" {{checked data.changeFlags.mediumArmorFullSpeed}}/></div>
+    </li>
+    <li class="item change-flag flexrow">
+      <div class="item-name flag-name flexrow">{{localize "FFD20.ChangeFlagHeavyArmorFullSpeed"}}</div>
+      <div class="item-enabled flexrow"><input type="checkbox" name="data.changeFlags.heavyArmorFullSpeed" {{checked data.changeFlags.heavyArmorFullSpeed}}/></div>
+    </li>
+    <li class="item change-flag flexrow">
+      <div class="item-name flag-name flexrow">{{localize "FFD20.ChangeFlagLoseDexToAC"}}</div>
+      <div class="item-enabled flexrow"><input type="checkbox" name="data.changeFlags.loseDexToAC" {{checked data.changeFlags.loseDexToAC}}/></div>
+    </li>
+  </ol>
 
-<div>
   {{!-- Changes --}}
-  <h4 class="change-header">
-    {{localize "FFD20.Changes"}}
-  </h4>
-  <ol class="changes form-group">
-    {{#each changes as |change a|}}
-    <li class="change flexrow" data-change="{{change.data._id}}">
-      <select class="change-operator" name="data.changes.{{a}}.operator">
-        {{#select (lookup this.data "operator") }}
-        <option value="add">+</option>
-        <option value="set">=</option>
-        <option value="script">S</option>
-        {{/select}}
-      </select>
-      {{#unless isScript}}
-      <input class="change-formula formula" type="text" name="data.changes.{{a}}.formula" value="{{lookup this.data "formula"}}"
-                                                                                  placeholder="{{localize "FFD20.Formula"}}"
-                                                                                  required/>
-      {{else}}
-      <button type="button" class="edit-change-contents"><i class="fas fa-edit"></i> {{localize "FFD20.Edit"}}</button>
-      {{/unless}}
+  <li class="items-header change-header flexrow">
+    <h3 class="item-name flexrow">{{localize "FFD20.Changes"}}</h3>
+    <div class="item-operator flexrow">{{localize "FFD20.Operator"}}</div>
+    <div class="item-target flexrow">{{localize "FFD20.Target"}}</div>
+    <div class="item-modifier flexrow">{{localize "FFD20.Modifier"}}</div>
+    <div class="item-priority flexrow" title="{{localize "FFD20.Priority"}}"><i class="fas fa-sort"></i></div>
 
-      {{!-- Target --}}
-      <span class="change-target">{{subTargetLabel}}</span>
+    {{#if owner}}
+    <div class="item-controls basic flexrow">
+      <a class="item-control item-create change-control add-change">
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
+    {{/if}}
+  </li>
 
-      {{!-- Modifier type --}}
-      <select class="change-modifier" name="data.changes.{{a}}.modifier">
-        {{#select (lookup this.data "modifier") }}
-        {{#each ../changeGlobals.modifiers as |name type|}}
-        <option value="{{type}}">{{localize name}}</option>
-        {{/each}}
-        {{/select}}
-      </select>
-      <input class="change-priority" type="text" data-dtype="Number" name="data.changes.{{a}}.priority" value="{{lookup this.data "priority"}}"
-                                                                                    placeholder="{{localize "FFD20.Priority"}}" title="{{localize "FFD20.Priority"}}" />
-      <a class="change-control delete-change"><i class="fas fa-trash"></i></a>
+  <ol class="items-list changes">
+  {{#each changes as |change a|}}
+    <li class="item change flexrow" data-change="{{change.data._id}}">
+      <div class="item-name item-formula flexrow">
+        {{#unless isScript}}
+        <input class="change-formula formula" type="text" name="data.changes.{{a}}.formula" value="{{lookup this.data "formula"}}" placeholder="{{localize "FFD20.Formula"}}" required/>
+        {{else}}
+        <button type="button" class="edit-change-contents"><i class="fas fa-edit"></i> {{localize "FFD20.Edit"}}</button>
+        {{/unless}}
+      </div>
+
+      <div class="item-operator flexrow">
+        <select class="change-operator" name="data.changes.{{a}}.operator">
+          {{#select (lookup this.data "operator") }}
+          <option value="add">+</option>
+          <option value="set">=</option>
+          <option value="script">S</option>
+          {{/select}}
+        </select>
+      </div>
+
+      <div class="item-target flexrow">
+        <span class="change-target{{#unless (lookup this.data "subTarget")}} invalid{{/unless}}">{{subTargetLabel}}</span>
+      </div>
+
+      <div class="item-modifier flexrow">
+        <select class="change-modifier" name="data.changes.{{a}}.modifier">
+          {{#select (lookup this.data "modifier") }}
+          {{#each ../changeGlobals.modifiers as |name type|}}
+          <option value="{{type}}">{{localize name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+      
+      <div class="item-priority flexrow">
+        <input class="change-priority" type="text" data-dtype="Number" name="data.changes.{{a}}.priority" value="{{lookup change.data "priority"}}"
+          placeholder="0" />
+      </div>
+
+      <div class="item-controls flexrow basic">
+        {{#if ../owner}}
+        <a class="item-control change-control delete-change"><i class="fas fa-trash"></i></a>
+        {{/if}}
+      </div>
+    </li>
+  {{/each}}
+  </ol>
+
+  <li class="items-header change-header flexrow">
+    <h3 class="item-name flexrow">{{localize "FFD20.ContextNotes"}}</h3>
+    <div class="item-target flexrow">{{localize "FFD20.Target"}}</div>
+    {{#if owner}}
+    <div class="item-controls basic flexrow">
+      <a class="context-note-control add-note">
+        <i class="fas fa-plus"></i>
+      </a>
+    </div>
+    {{/if}}
+  </li>
+
+  <ol class="items-list context-notes">
+    {{#each contextNotes as |note a|}}
+    <li class="item context-note flexrow" data-note="{{a}}">
+      <div class="item-name flexrow">
+        <textarea class="context-note-text context-text" name="data.contextNotes.{{a}}.text" placeholder="{{localize "FFD20.Notes"}}">{{{lookup this "text"}}}</textarea>
+      </div>
+
+      <div class="item-target flexrow">
+        <span class="context-note-target{{#unless (lookup this "subTarget")}} invalid{{/unless}}">{{label}}</span>
+      </div>
+
+      <div class="item-controls flexrow basic">
+        {{#if ../owner}}
+        <a class="context-note-control delete-note"><i class="fas fa-trash"></i></a>
+        {{/if}}
+      </div>
     </li>
     {{/each}}
-    <li class="change flexrow"><a class="change-control add-change"><i class="fas fa-plus"></i> {{localize "FFD20.AddChange"}}</a></li>
   </ol>
-</div>
+</ol>

@@ -1,4 +1,13 @@
 # Changelog
+## 0.2.0
+###
+- Updated to match PF1e version 0.78.18 and to be compatable with Foundry 0.8.8
+
+## 0.1.25
+
+### Change Log
+- added more spell class combos
+
 ## 0.1.24
 
 ### Change Log
@@ -65,7 +74,9 @@
 - Cleaned a few more errors
 - added status effects to the information
 - updated skills with more correct information
+
 ## 0.1.9
+
 ### Change Log
 - Updated to match PF1 version 0.77.20
 - Cleaned a few errors

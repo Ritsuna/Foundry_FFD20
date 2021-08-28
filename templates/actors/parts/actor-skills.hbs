@@ -4,6 +4,7 @@
   {{#if skill.arbitrary}}
   <li class="skill arbitrary flexrow" data-skill="{{s}}">
     <div class="skill-name">
+      <div class="rollable"><img src="icons/dice/d20black.svg"></div>
       <a class="skill-control skill-create" title="Add Skill">
         <i class="fas fa-plus"></i>
       </a>
@@ -30,7 +31,7 @@
         {{/each}}
         {{/if}}
       </span>
-      <div class="rollable"><img src="../../icons/dice/d20black.svg"></div>
+      <div class="rollable"><img src="icons/dice/d20black.svg"></div>
       <input type="text" name="data.skills.{{s}}.subSkills.{{b}}.name" value="{{subSkill.name}}" placeholder="{{localize "FFD20.SkillName"}}"/>
     </div>
     <span class="text-box skill-mod" title="{{localize "FFD20.SkillModTooltip"}}">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
@@ -72,7 +73,7 @@
         {{/each}}
         {{/if}}
       </span>
-      <div class="rollable"><img src="../../icons/dice/d20black.svg"></div>
+      <div class="rollable"><img src="icons/dice/d20black.svg"></div>
       {{#if skill.custom}}
       <input type="text" name="data.skills.{{s}}.name" value="{{skill.name}}" placeholder="{{localize "FFD20.Name"}}"/>
       {{else}}

@@ -34,13 +34,6 @@
       <span data-type="filterItemCount">{{labels.filteredItemCount}}</span>
     </div>
     <ol class="directory-list">
-      {{#each collection as |c|}}
-      <li class="directory-item flexrow" data-collection="{{c.collection._id}}" data-entry-id="{{c.item._id}}">
-        <img class="profile" src="{{c.item.img}}" title="{{c.item.name}}"/>
-        <h4 class="entry-name"><a>{{c.item.name}}</a></h4>
-        <span class="entry-source">{{c.collection.label}}</span>
-      </li>
-      {{/each}}
     </ol>
   </div>
 </div>

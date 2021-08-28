@@ -212,7 +212,7 @@
             <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.attributes.hp.value" data-dtype="Number">{{data.attributes.hp.value}}</span>
           </td>
           <td>
-            <span class="text-box readonly">{{data.attributes.hp.max}}</span>
+            <span class="text-box readonly hp-max">{{data.attributes.hp.max}}</span>
           </td>
           <td>
             <span class="text-box direct allow-relative hp-temp-input" name="data.attributes.hp.temp" data-dtype="Number">{{#if data.attributes.hp.temp}}{{data.attributes.hp.temp}}{{/if}}</span>
@@ -618,7 +618,7 @@
   <div class="tab quick-info" data-group="subdetails" data-tab="quick-info">
     <div class="flexcol">
       {{!-- Roll Defenses --}}
-      <li class="generic-defenses flexrow">
+      <li class="generic-defenses flexrow" data-drag="defenses">
         <div class="rollable image-d20"></div>
         <label><h3>{{localize "FFD20.Defenses"}}</h3></label>
       </li>
@@ -642,7 +642,7 @@
 
         <tbody>
           <tr>
-            <td class="tooltip">
+            <td class="tooltip bab">
               <span class="tooltipcontent">
                 @attributes.bab.total : {{data.attributes.bab.total}}
                 {{#if sourceDetails.data.attributes.bab.total.length}}
@@ -654,7 +654,7 @@
               {{data.attributes.bab.total}}
             </td>
 
-            <td class="tooltip">
+            <td class="tooltip cmb">
               <span class="tooltipcontent">
                 @attributes.cmb.total : {{data.attributes.cmb.total}}
                 {{#if sourceDetails.data.attributes.cmb.total.length}}
@@ -666,7 +666,7 @@
               {{data.attributes.cmb.total}}
             </td>
 
-            <td class="tooltip">
+            <td class="tooltip initiative">
               <span class="tooltipcontent">
                 @attributes.init.total : {{data.attributes.init.total}}
                 {{#if sourceDetails.data.attributes.init.total.length}}
@@ -686,7 +686,7 @@
 
     <ol class="quick-actions">
       {{#each quickActions as |i|}}
-      <li class="item" data-item-id="{{i.item._id}}" data-type="{{i.item.type}}" style="border-color: {{i.color1}};" title="{{i.item.name}}">
+      <li class="item" data-item-id="{{i.item.id}}" data-type="{{i.item.type}}" style="border-color: {{i.color1}};" title="{{i.item.name}}">
         <img src="{{i.item.img}}">
         <span class="icon-label">{{i.item.name}}</span>
         {{#if i.haveAnyCharges}}
@@ -739,7 +739,7 @@
           </div>
 
           <div class="item-detail item-feat-level tooltip">
-            <span>Level {{item.data.level}}</span>
+            <span>{{localize "FFD20.Level"}} {{item.data.level}}</span>
             <span class="tooltipcontent">@classes.{{item.data.tag}}.level : {{item.data.level}}</span>
           </div>
 

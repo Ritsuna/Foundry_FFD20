@@ -1,4 +1,4 @@
-<table>
+<table class='defenses'>
     <thead>
         <tr>
             {{#each data.attributes.ac as |ac id|}}
@@ -52,14 +52,14 @@
     <tbody>
         <tr>
             {{#each data.attributes.ac as |ac id|}}
-            <td>
+            <td class='ac-{{id}}'>
                 {{ac.total}}
             </td>
             {{/each}}
-            <td>
+            <td class='cmd'>
                 {{data.attributes.cmd.total}}
             </td>
-            <td>
+            <td class='cmd-ff'>
                 {{data.attributes.cmd.flatFootedTotal}}
             </td>
         </tr>
@@ -70,7 +70,7 @@
     <thead>
         <tr>
             {{#each data.attributes.savingThrows as |savingThrow id|}}
-            <th class="saving-throw tooltip" data-savingthrow="{{id}}">
+            <th class="saving-throw tooltip" data-savingthrow="{{id}}" data-draggable="true">
                 <div class="tooltipcontent">
                 @attributes.savingThrows.{{id}}.total : {{savingThrow.total}}
 
@@ -105,9 +105,9 @@
     <tbody>
         <tr>
             {{#each data.attributes.savingThrows as |savingThrow id|}}
-            <td>{{numberFormat savingThrow.total decimals=0 sign=true}}</td>
+            <td class='{{id}}'>{{numberFormat savingThrow.total decimals=0 sign=true}}</td>
             {{/each}}
-            <td>{{data.attributes.sr.total}}</td>
+            <td class='sr'>{{data.attributes.sr.total}}</td>
         </tr>
     </tbody>
 </table>

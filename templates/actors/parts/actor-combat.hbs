@@ -23,7 +23,7 @@
 
     <tbody>
       <tr>
-        <td class="tooltip">
+        <td class="bab tooltip">
           <span class="tooltipcontent">
             @attributes.bab.total : {{data.attributes.bab.total}}
             {{#if sourceDetails.data.attributes.bab.total.length}}
@@ -39,7 +39,7 @@
           {{/if}}
         </td>
 
-        <td class="tooltip">
+        <td class="cmb tooltip">
           <span class="tooltipcontent">
             @attributes.cmb.total : {{data.attributes.cmb.total}}
             <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
@@ -51,7 +51,7 @@
           {{numberFormat data.attributes.cmb.total decimals=0 sign=true}}
         </td>
 
-        <td class="tooltip">
+        <td class="generic-melee tooltip">
           <span class="tooltipcontent">
             …<br/>
             + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
@@ -76,7 +76,7 @@
           {{numberFormat meleeAttack decimals=0 sign=true}}
         </td>
 
-        <td class="tooltip">
+        <td class="generic-ranged tooltip">
           <span class="tooltipcontent">
             …<br/>
             + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
@@ -102,7 +102,7 @@
           {{numberFormat rangedAttack decimals=0 sign=true}}
         </td>
 
-        <td class="tooltip">
+        <td class="initiative tooltip">
           <span class="tooltipcontent">
             @attributes.init.total : {{data.attributes.init.total}}
             {{#if sourceDetails.data.attributes.init.total.length}}
@@ -138,7 +138,7 @@
     {{#unless section._hidden}}
     <div class="inventory-group flexcol">
       <ol class="inventory-list">
-        <li class="inventory-header flexrow">
+        <li class="inventory-header flexrow attacks-{{sid}}">
           <h3 class="item-name flexrow">{{section.label}}</h3>
 
           {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon icon-magic-palm large" title="{{localize "FFD20.Type"}}"></i></div>{{/if}}
@@ -273,7 +273,7 @@
 <div class="combat-defenses">
   <ul class="attributes flexrow">
     {{!-- Roll Defenses --}}
-    <li class="generic-defenses flexrow">
+    <li class="generic-defenses flexrow" data-drag="defenses">
       <div class="rollable image-d20"></div>
       <h3>{{localize "FFD20.Defenses"}}</h3>
     </li>

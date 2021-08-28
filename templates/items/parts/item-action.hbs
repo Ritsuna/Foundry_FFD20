@@ -222,16 +222,40 @@
 
 {{!-- Attack Notes --}}
 {{#if hasAttackRoll}}
-<div class="form-group stacked">
-  <label>{{localize "FFD20.AttackNotes"}}</label>
-  <textarea class="context-text" type="text" name="data.attackNotes">{{data.attackNotes}}</textarea>
+<div class="form-group stacked notes attack" data-name="data.attackNotes">
+  <table>
+    <thead>
+      <th>{{localize "FFD20.AttackNotes"}}</th>
+      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
+    </thead>
+    <tbody>
+      {{#each data.attackNotes as |entry index|}}
+      <tr class="entry" data-index="{{index}}">
+        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="data.attackNotes.{{index}}" /></td>
+        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
 {{/if}}
 
 {{!-- Effect Notes --}}
-<div class="form-group stacked">
-  <label>{{localize "FFD20.EffectNotes"}}</label>
-  <textarea class="context-text" type="text" name="data.effectNotes" style="white-space: pre">{{data.effectNotes}}</textarea>
+<div class="form-group stacked notes effect" data-name="data.effectNotes">
+  <table>
+    <thead>
+      <th>{{localize "FFD20.EffectNotes"}}</th>
+      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
+    </thead>
+    <tbody>
+      {{#each data.effectNotes as |entry index|}}
+      <tr class="entry" data-index="{{index}}">
+        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="data.effectNotes.{{index}}" /></td>
+        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
 {{/if}}
 

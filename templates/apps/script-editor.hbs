@@ -1,4 +1,12 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
+    {{#if canEdit.name}}
+    <header>
+        <h1 class="charname">
+            <input name="name" type="text" value="{{name}}" placeholder="{{localize "FFD20.Name"}}" title="{{localize "Name"}}"/>
+        </h1>
+    </header>
+    {{/if}}
+
     <div class="form-group stacked command">
         <label>{{localize "FFD20.Command"}}</label>
         <textarea name="command">{{command}}</textarea>

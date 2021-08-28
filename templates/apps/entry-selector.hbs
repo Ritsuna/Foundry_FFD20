@@ -12,7 +12,7 @@
       <tr class="entry" data-index="{{index}}">
         {{#each entry as |v k|}}
         {{#with v}}
-        <td><input type="text" data-index="{{k}}" value="{{0}}" data-dtype="{{1}}" name="{{index}}-{{k}}" /></td>
+        <td><input type="text" class="textarea" data-index="{{k}}" value="{{0}}" data-dtype="{{1}}" name="{{index}}-{{k}}" /></td>
         {{/with}}
         {{/each}}
         <td class="entry-control"><a class="entry-control delete-entry"><i class="fas fa-minus"></i></a></td>

@@ -29,7 +29,7 @@
 {{!-- Inventory Navigation --}}
 <hr>
 
-<div class="inventory-filters flexrow">  
+<div class="inventory-filters flexrow">
   {{~> "systems/ffd20/templates/internal/item-search.hbs" category="inventory"}}
   <ul class="filter-list flexrow" data-filter="inventory">
     {{#each sections as |section sid|}}
@@ -42,7 +42,7 @@
   <ol class="inventory-list">
   {{#each sections as |section sid|}}
   {{#unless section._hidden}}
-    <li class="inventory-header flexrow">
+    <li class="inventory-header flexrow items-{{sid}}">
       <h3 class="item-name flexrow">{{section.label}}</h3>
 
       {{#if section.hasSlots}}<div class="item-detail item-slot"><i class="icon icon-inventory-slot large" title="{{localize "FFD20.Slot"}}"></i></div>{{/if}}
@@ -200,7 +200,7 @@
       <span class="encumbrance-label">{{localize "FFD20.CarryHeavyLoad"}} ({{heavy}})</span>
     </div>
   </div>
-  <table>
+  <table class='lift'>
     <thead>
       <tr>
         <th>{{localize "FFD20.CarryAboveHead"}}</th>
@@ -211,9 +211,9 @@
 
     <tbody>
       <tr>
-        <td>{{aboveHead}}</td>
-        <td>{{offGround}}</td>
-        <td>{{dragPush}}</td>
+        <td class='overhead'>{{aboveHead}}</td>
+        <td class='offground'>{{offGround}}</td>
+        <td class='drag-push'>{{dragPush}}</td>
       </tr>
     </tbody>
   </table>
@@ -223,9 +223,9 @@
 {{#with encumbrance}}
 <div class="flexcol tab-footer">
   <div class="flexrow">
-    <span class="tag">{{carryLabel}}</span>
-    <span class="tag">{{../labels.totalValue}}</span>
-    <span class="tag">{{../labels.sellValue}}</span>
+    <span class="tag carry-load">{{carryLabel}}</span>
+    <span class="tag gear-value">{{../labels.totalValue}}</span>
+    <span class="tag gear-value-sale">{{../labels.sellValue}}</span>
   </div>
 </div>
 {{/with}}

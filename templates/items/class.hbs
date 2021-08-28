@@ -220,6 +220,10 @@
         <input type="text" name="data.fc.{{id}}.value" value="{{fc.value}}" data-dtype="Number" />
       </div>
       {{/each}}
+      <div class="form-group">
+        <label>{{localize 'FFD20.Notes'}}</label>
+        <input type="text" name="data.fc.alt.notes" value="{{data.fc.alt.notes}}" data-dtype="String" />
+      </div>
       {{/if}}
 
       <h4 class="form-header">{{localize "FFD20.ClassSkills"}}</h4>
@@ -240,7 +244,6 @@
 
     <div class="tab flexcol" data-group="primary" data-tab="changes">
       {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
-
       {{> "systems/ffd20/templates/items/parts/item-notes.hbs"}}
     </div>
 

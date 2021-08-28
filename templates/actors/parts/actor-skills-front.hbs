@@ -9,7 +9,15 @@
   </ol>
   <ol class="form-group">
     <li class="flexrow skill-rank-info tooltip">
-      <table>
+      <span class="tooltipcontent">
+        {{#if sourceData.skillRanks}}
+        {{localize "FFD20.FromSources"}}:<br/>
+        {{#each sourceData.skillRanks as |src|}}
+        {{src.name}}: {{src.value}}<br/>
+        {{/each}}
+        {{/if}}
+      </span>
+      <table class="skill-ranks">
         <thead>
           <tr>
             <th>{{localize "FFD20.SkillRankPlural"}}</th>
@@ -18,8 +26,8 @@
         </thead>
         <tbody>
           <tr>
-            <td class="center">{{skillRanks.allowed}}</td>
-            <td class="center">{{skillRanks.used}}</td>
+            <td class="center ranks-max">{{skillRanks.allowed}}</td>
+            <td class="center ranks-used">{{skillRanks.used}}</td>
           </tr>
         </tbody>
       </table>
@@ -44,7 +52,7 @@
         {{/each}}
         {{/if}}
       </span>
-      <table>
+      <table class="skill-ranks">
         <thead>
           <tr>
             <th>{{localize "FFD20.SkillRankPlural"}}</th>
@@ -56,11 +64,11 @@
         </thead>
         <tbody>
           <tr>
-            <td class="center">{{skillRanks.allowed}}</td>
-            <td class="center">{{skillRanks.used}}</td>
-            <td class="center">{{skillRanks.sentToBG}}</td>
-            <td class="center">{{skillRanks.bgAllowed}}</td>
-            <td class="center">{{skillRanks.bgUsed}}</td>
+            <td class="center ranks-max">{{skillRanks.allowed}}</td>
+            <td class="center ranks-used">{{skillRanks.used}}</td>
+            <td class="center ranks-transferred">{{skillRanks.sentToBG}}</td>
+            <td class="center ranks-max-bg">{{skillRanks.bgAllowed}}</td>
+            <td class="center ranks-used-bg">{{skillRanks.bgUsed}}</td>
           </tr>
         </tbody>
       </table>

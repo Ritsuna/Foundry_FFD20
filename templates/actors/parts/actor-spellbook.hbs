@@ -1,13 +1,13 @@
 <div class="inventory-filters spellbook-filters">
   <div class="flexrow spellcasting-misc ffd20-sheet-group">
-    <div class="spellcasting-concentration flexrow">
+    <div class="spellcasting-concentration flexrow" data-drag="concentration">
       <div class="rollable image-d20"></div>
       <label><h3>{{localize "FFD20.Concentration"}}</h3></label>
       <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationFormula"
       value="{{spellbook.orig.concentrationFormula}}" placeholder="{{localize "FFD20.ConcentrationBonusFormula"}}" />
     </div>
 
-    <div class="spellcasting-cl flexrow">
+    <div class="spellcasting-cl flexrow" data-drag="cl">
       <div class="rollable image-d20"></div>
       <label><h3>{{localize "FFD20.CasterLevel"}}</h3></label>
       <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.cl.formula"
@@ -73,23 +73,11 @@
           value="{{spellbook.orig.baseDCFormula}}" placeholder="{{localize "FFD20.BaseDCFormula"}}" />
         </div>
 
-        <div class="flexrow spell-slot-ability-bonus">
-          <label><h3>{{localize "FFD20.SpellSlotAbilityBonus"}}</h3></label>
-          <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellSlotAbilityBonusFormula"
-                             value="{{spellbook.orig.spellSlotAbilityBonusFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-        </div>
-
         <div class="flexrow alt-name">
           <label><h3>{{localize "FFD20.AlternativeSpellbookName"}}</h3></label>
           <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.altName"
             value="{{spellbook.orig.altName}}" placeholder="{{#if (and spellbook.orig.class (ne spellbook.orig.class "_hd"))}}{{spellbook.orig.class}}
               {{else}}{{~spellbook.orig.name}}{{/if}}" />
-        </div>
-
-        <div class="flexrow domain-slot-value">
-          <label><h3>{{localize "FFD20.DomainSlotValue"}}</h3></label>
-          <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.domainSlotValue"
-            value="{{spellbook.orig.domainSlotValue}}" title="{{localize "FFD20.DomainSlotValueDesc"}}" placeholder="0" data-dtype="Number" />
         </div>
 
         {{#if spellbook.orig.autoSpellLevelCalculation}}
@@ -284,9 +272,9 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{spellbook.orig.range.close}}</td>
-          <td>{{spellbook.orig.range.medium}}</td>
-          <td>{{spellbook.orig.range.long}}</td>
+          <td class="range-close">{{spellbook.orig.range.close}}</td>
+          <td class="range-medium">{{spellbook.orig.range.medium}}</td>
+          <td class="range-long">{{spellbook.orig.range.long}}</td>
         </tr>
       </tbody>
     </table>
@@ -340,7 +328,7 @@
     <ol class="inventory-list">
       {{#each spellbook.data as |section sid|}}
       {{#unless section._hidden}}
-      <li class="flexrow inventory-header spellbook-header">
+      <li class="flexrow inventory-header spellbook-header" data-level="{{section.level}}">
         <div class="item-name flexrow">
           <h3>{{section.name}}</h3>
         </div>

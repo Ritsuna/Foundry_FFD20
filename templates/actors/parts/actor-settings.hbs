@@ -1,5 +1,5 @@
 {{!-- Spellbooks --}}
-<div class="form-group">
+<div class="form-group spellbook-usage">
     <h2>{{localize "FFD20.SpellbookUsage"}}</h2>
 </div>
 
@@ -13,7 +13,7 @@
 </div>
 
 {{!-- Class Resources --}}
-<div class="form-group">
+<div class="form-group spellbook-usage">
     <h2>{{localize "FFD20.ClassResources"}}</h2>
 </div>
     <span>Please change the name of the resource to the correct name</span>
@@ -38,12 +38,12 @@
 </div>
 
 {{!-- Ability Score Linking --}}
-<div class="form-group">
+<div class="form-group ability-scores">
     <h2>{{localize "FFD20.AbilityScoreLinks"}}</h2>
 </div>
 
 <div class="form-group table">
-    <div class="flexcol" style="max-width: 32em;">
+    <div class="flexcol ability-scores">
         {{!-- Header --}}
         <div class="flexrow header">
             <label class="cell left-label">{{localize "FFD20.Feature"}}</label>
@@ -121,6 +121,47 @@
             </select>
         </div>
 
+        {{!-- Defense --}}
+        <div class="flexrow sub-header">
+            <label class="cell">{{localize "FFD20.Defense"}}</label>
+        </div>
+
+        <div class="flexrow">
+          <label class="cell left-label">{{localize "FFD20.ArmorClass"}}</label>
+          <select name="data.attributes.ac.normal.ability" class="cell midsize">
+              {{#select data.attributes.ac.normal.ability}}
+                  <option value=""></option>
+                  {{#each config.abilities as |label value|}}
+                      <option value="{{value}}">{{label}}</option>
+                  {{/each}}
+              {{/select}}
+          </select>
+        </div>
+
+        <div class="flexrow">
+          <label class="cell left-label">{{localize "FFD20.ACTouch"}}</label>
+          <select name="data.attributes.ac.touch.ability" class="cell midsize">
+              {{#select data.attributes.ac.touch.ability}}
+                  <option value=""></option>
+                  {{#each config.abilities as |label value|}}
+                      <option value="{{value}}">{{label}}</option>
+                  {{/each}}
+              {{/select}}
+          </select>
+        </div>
+
+        <div class="flexrow">
+          <label class="cell left-label">{{localize "FFD20.CMD"}}</label>
+          <select name="data.attributes.cmd.dexAbility" class="cell midsize">
+              {{#select data.attributes.cmd.dexAbility}}
+                  <option value=""></option>
+                  {{#each config.abilities as |label value|}}
+                      <option value="{{value}}">{{label}}</option>
+                  {{/each}}
+              {{/select}}
+          </select>
+        </div>
+
         {{!-- Saving Throws --}}
         <div class="flexrow sub-header">
             <label class="cell">{{localize "FFD20.SavingThrowPlural"}}</label>
@@ -143,7 +184,7 @@
 </div>
 
 {{!-- Optional Rules --}}
-<div class="form-group">
+<div class="form-group optional-rules">
     <h2>{{localize "FFD20.OptionalAndVariantRules"}}</h2>
 </div>
 
@@ -162,7 +203,7 @@
 
 {{!-- Tooltip Settings --}}
 {{#if isGM}}
-    <div class="form-group">
+    <div class="form-group token-tooltips">
         <h2>{{localize "FFD20.TooltipConfigName"}}</h2>
     </div>
 

@@ -2,14 +2,14 @@
   "name": "ffd20",
   "title": "Final Fantasy d20",
   "description": "FFd20 using Pathfinder 1 as a base in the Foundry VTT environment.",
-  "version": "0.1.25",
-  "minimumCoreVersion": "0.7.8",
-  "compatibleCoreVersion": "0.7.10",
+  "version": "0.2.0",
+  "minimumCoreVersion": "0.8.5",
+  "compatibleCoreVersion": "0.8.8",
   "bugs": "https://gitlab.com/Ritsuna/Foundry_FFD20/-/issues",
   "allowBugReporter": true,
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.1.25.zip",
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.2.0.zip",
   "author": "Ritsu Voices",
   "authors": [
     {
@@ -43,24 +43,10 @@
       "entity": "Item"
     },
     {
-      "name": "mythicpaths",
-      "label": "Pathfinder Mythic Paths",
-      "system": "ffd20",
-      "path": "./packs/mythic-paths.db",
-      "entity": "Item"
-    },
-    {
       "name": "commonbuffs",
       "label": "Common Buffs",
       "system": "ffd20",
       "path": "./packs/commonbuffs.db",
-      "entity": "Item"
-    },
-    {
-      "name": "spells",
-      "label": "Pathfinder Spells",
-      "system": "ffd20",
-      "path": "./packs/spells.db",
       "entity": "Item"
     },
     {
@@ -99,13 +85,6 @@
       "entity": "Item"
     },
     {
-      "name": "races",
-      "label": "Pathfinder Races",
-      "system": "ffd20",
-      "path": "./packs/races.db",
-      "entity": "Item"
-    },
-    {
       "name": "class-abilities",
       "label": "Pathfinder Class Abilities",
       "system": "ffd20",
@@ -139,41 +118,6 @@
       "system": "ffd20",
       "path": "./packs/ultimate-equipment.db",
       "entity": "RollTable"
-    },
-    {
-      "name": "bestiary_1",
-      "label": "Pathfinder Bestiary - Part 1",
-      "system": "ffd20",
-      "path": "./packs/bestiary_1.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary_2",
-      "label": "Pathfinder Bestiary - Part 2",
-      "system": "ffd20",
-      "path": "./packs/bestiary_2.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary_3",
-      "label": "Pathfinder Bestiary - Part 3",
-      "system": "ffd20",
-      "path": "./packs/bestiary_3.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary_4",
-      "label": "Pathfinder Bestiary - Part 4",
-      "system": "ffd20",
-      "path": "./packs/bestiary_4.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary_5",
-      "label": "Pathfinder Bestiary - Part 5",
-      "system": "ffd20",
-      "path": "./packs/bestiary_5.db",
-      "entity": "Actor"
     },
     {
       "name": "conditions",

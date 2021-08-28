@@ -12,7 +12,7 @@
 </div>
 
 <hr>
-<div class="inventory-filters flexrow">  
+<div class="inventory-filters flexrow">
   {{~> "systems/ffd20/templates/internal/item-search.hbs" category="buffs"}}
 
   <ul class="filter-list flexrow" data-filter="buffs">
@@ -27,7 +27,7 @@
     <ol class="inventory-list">
       {{#each sections as |section sid|}}
       {{#unless section._hidden}}
-      <li class="inventory-header flexrow">
+      <li class="inventory-header flexrow buffs-{{sid}}">
         <h3 class="item-name flexrow">{{section.label}}</h3>
 
         <div class="item-detail item-level">
