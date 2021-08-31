@@ -30,6 +30,10 @@
       <li class="inventory-header flexrow buffs-{{sid}}">
         <h3 class="item-name flexrow">{{section.label}}</h3>
 
+        <div class="item-detail item-duration">
+          <span>{{localize "FFD20.Duration"}}</span>
+        </div>
+
         <div class="item-detail item-level">
           <span>{{localize "FFD20.Level"}}</span>
         </div>
@@ -54,6 +58,10 @@
           <div class="item-name flexrow rollable">
               <div class="item-image" style="background-image: url({{item.img}})"></div>
               <h4>{{item.name}}</h4>
+          </div>
+
+          <div class="item-detail item-duration">
+              <span class="">{{#if item.labels.duration}}{{item.labels.duration}}{{/if}}</span>
           </div>
 
           <div class="item-detail item-level">

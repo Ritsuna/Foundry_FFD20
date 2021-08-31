@@ -50,14 +50,14 @@
         {{#if atk.hasAttack}}
         <tr>
           <td {{#if atk.hasCritConfirm}}colspan="2"{{else}}colspan="4"{{/if}}>
-            <a class="inline-roll inline-result{{#if atk.attack.isCrit}} success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
+            <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.attack.isCrit}} success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
             title="{{atk.attack.formula}}" data-roll="{{atk.attack.rollJSON}}">
             <i class="fas fa-dice-d20"></i> {{atk.attack.total}}
             </a>
           </td>
           {{#if atk.hasCritConfirm}}
           <td colspan="2">
-            <a class="inline-roll inline-result{{#if atk.critConfirm.isCrit}} success{{/if}}{{#if atk.critConfirm.isFumble}} failure{{/if}}"
+            <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.critConfirm.isCrit}} success{{/if}}{{#if atk.critConfirm.isFumble}} failure{{/if}}"
             title="{{atk.critConfirm.formula}}" data-roll="{{atk.critConfirm.rollJSON}}">
             <i class="fas fa-dice-d20"></i> {{atk.critConfirm.total}}
             </a>
@@ -69,14 +69,14 @@
         <tr>
           <th colspan="2">
             {{atk.damage.flavor}}
-            <a class="fake-inline-roll inline-result" title="{{localize "FFD20.Total"}}">
+            <a class="fake-inline-roll inline-dsn-hidden inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.damage.total}}
             </a>
           </th>
           {{#if atk.hasCritConfirm}}
           <th colspan="2">
             {{atk.critDamage.flavor}}
-            <a class="fake-inline-roll inline-result" title="{{localize "FFD20.Total"}}">
+            <a class="fake-inline-roll inline-dsn-hidden inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.critDamage.total}}
             </a>
           </th>
@@ -88,7 +88,7 @@
         <tr>
           {{#if dr.normal}}
           <td>
-            <a class="inline-roll inline-result" title="{{dr.normal.roll.formula}}" data-roll="{{dr.normal.roll.json}}">
+            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.normal.roll.formula}}" data-roll="{{dr.normal.roll.json}}">
               <i class="fas fa-dice-d20"></i> {{dr.normal.roll.total}}
             </a>
           </td>
@@ -100,7 +100,7 @@
           {{#if atk.hasCritConfirm}}
           {{#if dr.crit}}
           <td>
-            <a class="inline-roll inline-result" title="{{dr.crit.roll.formula}}" data-roll="{{dr.crit.roll.json}}">
+            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.crit.roll.formula}}" data-roll="{{dr.crit.roll.json}}">
               <i class="fas fa-dice-d20"></i> {{dr.crit.roll.total}}
             </a>
           </td>
@@ -121,7 +121,7 @@
         <tr>
           {{#if dr.normal}}
           <td>
-            <a class="inline-roll inline-result" title="{{dr.normal.roll.formula}}" data-roll="{{dr.normal.roll.json}}">
+            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.normal.roll.formula}}" data-roll="{{dr.normal.roll.json}}">
               <i class="fas fa-dice-d20"></i> {{dr.normal.roll.total}}
             </a>
           </td>
@@ -133,7 +133,7 @@
           {{#if atk.hasCritConfirm}}
           {{#if dr.crit}}
           <td>
-            <a class="inline-roll inline-result" title="{{dr.crit.roll.formula}}" data-roll="{{dr.crit.roll.json}}">
+            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.crit.roll.formula}}" data-roll="{{dr.crit.roll.json}}">
               <i class="fas fa-dice-d20"></i> {{dr.crit.roll.total}}
             </a>
           </td>
@@ -195,10 +195,23 @@
         </div>
       </div>
     {{/if}}
-
+    {{#if (or concentrationCheck casterLevelCheck)}}
+    <div class='card-buttons spell-buttons flexrow'>
+      {{#if concentrationCheck}}
+      <div class="concentration">
+          <button data-action="concentration">{{localize "FFD20.ConcentrationCheck"}}</button>
+      </div>
+      {{/if}}
+      {{#if casterLevelCheck}}
+      <div class="caster-level-check">
+          <button data-action="caster-level-check">{{localize "FFD20.CasterLevelCheck"}}</button>
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
     {{#if hasProperties}}
       {{#each properties as |prop|}}
-        <div class="flexcol property-group gm-sensitive">
+        <div class="flexcol property-group gm-sensitive general-notes">
           <label>{{prop.header}}</label>
           <div class="flexrow">
             {{#each prop.value as |v|}}

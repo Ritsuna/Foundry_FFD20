@@ -1,7 +1,14 @@
 # Changelog
+
+## 0.2.1
+###
+- fixed a few bugs
+- Updated to match PF1e version 0.79.0 and to be compatable with Foundry 0.8.9
+
 ## 0.2.0
 ###
 - Updated to match PF1e version 0.78.18 and to be compatable with Foundry 0.8.8
+
 
 ## 0.1.25
 

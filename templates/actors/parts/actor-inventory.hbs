@@ -172,14 +172,24 @@
 {{#unless isLootSheet}}
 <div class="flexrow tab-footer tooltip">
   <div class="tooltipcontent">
-    @attributes.encumbrance.level : {{data.attributes.encumbrance.level}}
+    @attributes.encumbrance.level : {{data.attributes.encumbrance.level}}<br>
+    <br>
+    @details.carryCapacity.bonus.total : {{data.details.carryCapacity.bonus.total}}<br>
+    {{#each sourceDetails.data.details.carryCapacity.bonus.total}}
+      {{name}} : {{value}}<br>
+    {{/each}}
+    <br>
+    @details.carryCapacity.multiplier.total : {{data.details.carryCapacity.multiplier.total}}<br>
+    {{#each sourceDetails.data.details.carryCapacity.multiplier.total}}
+      {{name}} : {{value}}<br>
+    {{/each}}
   </div>
 
   <div class="form-group carry-bonus">
     <label>{{localize "FFD20.BonusCarryStrength"}}</label>
-    <span class="text-box direct" name="data.abilities.str.carryBonus" data-dtype="Number" data-placeholder="0">{{data.abilities.str.carryBonus}}</span>
-    <label>{{localize "FFD20.Multiplier"}}</label>
-    <span class="text-box direct" name="data.abilities.str.carryMultiplier" data-dtype="Number" data-placeholder="1">{{data.abilities.str.carryMultiplier}}</span>
+    <span class="text-box direct" name="data.details.carryCapacity.bonus.user" data-dtype="Number" data-placeholder="0">{{data.details.carryCapacity.bonus.user}}</span>
+    <label>{{localize "FFD20.BonusCarryMultiplier"}}</label>
+    <span class="text-box direct" name="data.details.carryCapacity.multiplier.user" data-dtype="Number" data-placeholder="0">{{data.details.carryCapacity.multiplier.user}}</span>
   </div>
   {{#with encumbrance}}
   <div class="flexrow inventory-tags">

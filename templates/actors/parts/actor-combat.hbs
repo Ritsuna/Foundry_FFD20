@@ -186,8 +186,18 @@
             </div>
             {{/if}}
 
-            <div class="item-detail item-attacks">
-              <label>{{itemAttacks item ../../rollData}}</label>
+            <div class="item-detail item-attacks tooltip">
+              <label>{{itemAttacks item ../../rollData max=3}}</label>
+              <span class="tooltipcontent">
+                {{#each item.document.attackArray~}}
+                  {{numberFormat this decimals=0 sign=true}}{{#unless @last}}/{{/unless}}
+                {{~/each}}<br/>
+                <br/>
+                {{localize "FFD20.Details"}}:<br/>
+                {{#each item.document.attackSources}}
+                  {{this.label}} : {{this.value}}<br/>
+                {{/each}}
+              </span>
             </div>
 
             <div class="item-detail item-damage tooltip">

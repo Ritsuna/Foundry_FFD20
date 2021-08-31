@@ -1,12 +1,13 @@
 {{!-- Skill Rank Info --}}
-{{#unless useBGSkills}}
 <div class="flexcol skill-rank">
   <ol class="form-group">
     <li class="flexrow skill-rank-formula">
       <label>{{localize "FFD20.SkillBonusRankFormula"}}</label>
       <input class="formula" type="text" name="data.details.bonusSkillRankFormula" value="{{data.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}"/>
     </li>
+    <a class='skill-lock-button' title="{{localize "FFD20.ToggleSkillLock"}}"></a>
   </ol>
+  {{#unless useBGSkills}}
   <ol class="form-group">
     <li class="flexrow skill-rank-info tooltip">
       <span class="tooltipcontent">
@@ -33,15 +34,7 @@
       </table>
     </li>
   </ol>
-</div>
-{{else}}
-<div class="flexcol skill-rank">
-  <ol class="form-group">
-    <li class="flexrow skill-rank-formula">
-      <label>{{localize "FFD20.SkillBonusRankFormula"}}</label>
-      <input class="formula" type="text" name="data.details.bonusSkillRankFormula" value="{{data.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}"/>
-    </li>
-  </ol>
+  {{else}}
   <ol class="form-group tooltip">
     <li class="flexrow skill-rank-info">
       <span class="tooltipcontent">
@@ -74,8 +67,10 @@
       </table>
     </li>
   </ol>
+  {{/unless}}
 </div>
 
+{{#if useBGSkills}}
 <nav class="sheet-navigation tabs" data-group="skillset">
   <a class="item" data-tab="adventure">{{localize "FFD20.SkillTypeAdventure"}}</a>
   <a class="item" data-tab="background">{{localize "FFD20.SkillTypeBackground"}}</a>
@@ -90,9 +85,7 @@
     {{> "systems/ffd20/templates/actors/parts/actor-skills.hbs" skillset=skillsets.background.skills isBackgroundSkills="true" skillGroup="background"}}
   </div>
 </section>
-{{/unless}}
-
-{{#unless useBGSkills}}
+{{else}}
 <nav class="sheet-navigation tabs" data-group="skillset" style="display: none">
   <a class="item" data-tab="all">{{localize "FFD20.AllSkills"}}</a>
 </nav>
@@ -102,4 +95,4 @@
     {{> "systems/ffd20/templates/actors/parts/actor-skills.hbs" skillset=skillsets.all.skills isBackgroundSkills="false" skillGroup="adventure"}}
   </div>
 </section>
-{{/unless}}
+{{/if}}

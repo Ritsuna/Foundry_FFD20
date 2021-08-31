@@ -25,7 +25,7 @@
         <i class="fas fa-dice-d20" title="{{localize "FFD20.CustomRollDesc"}}"></i>
         {{/if}}
       </h1>
-      <a class="inline-roll inline-result{{#if atk.attack.isCrit}} success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
+      <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.attack.isCrit}} success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
          title="{{atk.attack.formula}}" data-roll="{{atk.attack.rollJSON}}">
         <i class="fas fa-dice-d20"></i> {{atk.attack.total}}
       </a>
@@ -34,7 +34,7 @@
     {{#if atk.hasCritConfirm}}
     <div class="flexrow">
       <h3>{{atk.critConfirm.flavor}}</h3>
-      <a class="inline-roll inline-result{{#if atk.critConfirm.isCrit}} success{{/if}}{{#if atk.critConfirm.isFumble}} failure{{/if}}"
+      <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.critConfirm.isCrit}} success{{/if}}{{#if atk.critConfirm.isFumble}} failure{{/if}}"
          title="{{atk.critConfirm.formula}}" data-roll="{{atk.critConfirm.rollJSON}}"}}>
         <i class="fas fa-dice-d20"></i> {{atk.critConfirm.total}}
       </a>
@@ -53,7 +53,7 @@
     {{#each atk.damage.parts as |part|}}
     <div class="flexrow">
       <span>{{part.damageType}}</span>
-      <a class="inline-roll inline-result" title="{{part.roll.formula}}" data-roll="{{part.roll.json}}">
+      <a class="inline-roll inline-dsn-hidden inline-result" title="{{part.roll.formula}}" data-roll="{{part.roll.json}}">
         <i class="fas fa-dice-d20"></i> {{part.roll.total}}
       </a>
     </div>
@@ -71,7 +71,7 @@
     {{#each atk.critDamage.parts as |part|}}
     <div class="flexrow">
       <span>{{part.damageType}}</span>
-      <a class="inline-roll inline-result" title="{{part.roll.formula}}" data-roll="{{part.roll.json}}">
+      <a class="inline-roll inline-dsn-hidden inline-result" title="{{part.roll.formula}}" data-roll="{{part.roll.json}}">
         <i class="fas fa-dice-d20"></i> {{part.roll.total}}
       </a>
     </div>
@@ -121,7 +121,7 @@
 
     {{#if hasProperties}}
       {{#each properties as |prop|}}
-        <div class="flexcol property-group gm-sensitive">
+        <div class="flexcol property-group gm-sensitive general-notes">
           <label>{{prop.header}}</label>
           <div class="flexrow">
             {{#each prop.value as |v|}}

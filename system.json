@@ -2,14 +2,14 @@
   "name": "ffd20",
   "title": "Final Fantasy d20",
   "description": "FFd20 using Pathfinder 1 as a base in the Foundry VTT environment.",
-  "version": "0.2.0",
-  "minimumCoreVersion": "0.8.5",
-  "compatibleCoreVersion": "0.8.8",
+  "version": "0.2.1",
+  "minimumCoreVersion": "0.8.7",
+  "compatibleCoreVersion": "0.8.9",
   "bugs": "https://gitlab.com/Ritsuna/Foundry_FFD20/-/issues",
   "allowBugReporter": true,
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.2.0.zip",
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.2.1.zip",
   "author": "Ritsu Voices",
   "authors": [
     {

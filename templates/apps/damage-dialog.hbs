@@ -38,6 +38,21 @@
           {{#each eres}}<a style="padding: 0 0.5em;">{{this}}</a>{{/each}}
         </span>
         {{/if}}
+    {{/if}}
+    {{#if (or di dv)}}
+    <p class="notes" style="display: flex; justify-content: space-around;">
+        {{#if di}}
+        <span>
+          <u>{{localize "FFD20.DamImm"}}</u><br>
+          {{#each di}}<a style="padding: 0 0.5em;">{{this}}</a>{{/each}}
+        </span>
+        {{/if}}
+        {{#if dv}}
+        <span>
+          <u>{{localize "FFD20.DamVuln"}}</u><br>
+          {{#each dv}}<a style="padding: 0 0.5em;">{{this}}</a>{{/each}}
+        </span>
+        {{/if}}
     </p>
     {{/if}}
     {{/each}}

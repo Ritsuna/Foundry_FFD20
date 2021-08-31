@@ -709,7 +709,7 @@ const FFD20 = {
   /* -------------------------------------------- */
 
   /**
-   * The valid currency denominations supported by the 5e system
+   * The valid currency denominations supported by the game system
    */
   currencies: {
     pgil: "FFD20.CurrencyPGil",
@@ -818,7 +818,7 @@ const FFD20 = {
   /* -------------------------------------------- */
 
   /**
-   * This Object defines the types of single or area targets which can be applied in D&D5e
+   * This Object defines the types of single or area targets which can be applied in the game system.
    */
   targetTypes: {
     none: "FFD20.None",
@@ -855,6 +855,12 @@ const FFD20 = {
     perm: "FFD20.TimePerm",
     seeText: "FFD20.SeeText",
     spec: "FFD20.Special",
+  },
+
+  timePeriodsShort: {
+    turn: "FFD20.TimeTurnShort",
+    round: "FFD20.TimeRoundShort",
+    minute: "FFD20.TimeMinuteShort",
   },
 
   /* -------------------------------------------- */
@@ -1890,6 +1896,8 @@ const FFD20 = {
     mDexA: { label: "FFD20.MaxDexArmor", category: "misc" },
     mDexS: { label: "FFD20.MaxDexShield", category: "misc" },
     bonusFeats: { label: "FFD20.BuffTarBonusFeats", category: "misc" },
+    carryStr: { label: "FFD20.CarryStrength", category: "misc" },
+    carryMult: { label: "FFD20.CarryMultiplier", category: "misc" },
   },
 
   buffTargetCategories: {
@@ -2679,7 +2687,7 @@ const registerSystemSettings = function () {
     scope: "world",
     config: false,
     type: String,
-    default: "0.1.0",
+    default: "0.0.0",
   });
   /**
    * Track when the last changelog was shown
@@ -2854,6 +2862,17 @@ const registerSystemSettings = function () {
     },
   });
 
+  const reRenderSheets = () => {
+    [...game.actors.contents, ...Object.values(game.actors.tokens)]
+      .filter((o) => {
+        return o.data.type === "character";
+      })
+      .forEach((o) => {
+        o.prepareData();
+        if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
+      });
+  };
+
   /**
    * System of Units
    */
@@ -2865,19 +2884,40 @@ const registerSystemSettings = function () {
     default: "imperial",
     type: String,
     choices: {
-      imperial: "Imperial (feet, lbs)",
-      metric: "Metric (meters, kg)",
+      imperial: game.i18n.localize("SETTINGS.ffd20ImperialUnits"),
+      metric: game.i18n.localize("SETTINGS.ffd20MetricUnits"),
     },
-    onChange: () => {
-      [...game.actors.contents, ...Object.values(game.actors.tokens)]
-        .filter((o) => {
-          return o.data.type === "character";
-        })
-        .forEach((o) => {
-          o.prepareData();
-          if (o.sheet != null && o.sheet._state > 0) o.sheet.render();
-        });
+    onChange: reRenderSheets,
+  });
+
+  game.settings.register("ffd20", "distanceUnits", {
+    name: "SETTINGS.ffd20DistanceUnitsN",
+    hint: "SETTINGS.ffd20DistanceUnitsL",
+    scope: "world",
+    config: true,
+    default: "default",
+    type: String,
+    choices: {
+      default: game.i18n.localize("FFD20.Default"),
+      imperial: game.i18n.localize("SETTINGS.ffd20ImperialDistanceUnits"),
+      metric: game.i18n.localize("SETTINGS.ffd20MetricDistanceUnits"),
     },
+    onChange: reRenderSheets,
+  });
+
+  game.settings.register("ffd20", "weightUnits", {
+    name: "SETTINGS.ffd20WeightUnitsN",
+    hint: "SETTINGS.ffd20WeightUnitsL",
+    scope: "world",
+    config: true,
+    default: "default",
+    type: String,
+    choices: {
+      default: game.i18n.localize("FFD20.Default"),
+      imperial: game.i18n.localize("SETTINGS.ffd20ImperialWeightUnits"),
+      metric: game.i18n.localize("SETTINGS.ffd20MetricWeightUnits"),
+    },
+    onChange: reRenderSheets,
   });
 
   /**
@@ -3277,7 +3317,6 @@ const preloadHandlebarsTemplates = async function () {
     "systems/ffd20/templates/items/parts/item-activation.hbs",
     "systems/ffd20/templates/items/parts/item-description.hbs",
     "systems/ffd20/templates/items/parts/item-changes.hbs",
-    "systems/ffd20/templates/items/parts/item-notes.hbs",
     "systems/ffd20/templates/items/parts/item-template.hbs",
     "systems/ffd20/templates/items/parts/item-links.hbs",
     "systems/ffd20/templates/items/parts/item-aura.hbs",
@@ -3286,6 +3325,7 @@ const preloadHandlebarsTemplates = async function () {
     "systems/ffd20/templates/items/parts/item-tag.hbs",
     "systems/ffd20/templates/items/parts/item-name.hbs",
     "systems/ffd20/templates/items/parts/item-advanced.hbs",
+    "systems/ffd20/templates/items/parts/item-size.hbs",
 
     // Apps
     "systems/ffd20/templates/apps/attack-roll-dialog.hbs",
@@ -3510,7 +3550,7 @@ const formulaHasDice = function (formula) {
 
 class DiceFFD20 {
   /**
-   * A standardized helper function for managing core 5e "d20 rolls"
+   * A standardized helper function for managing game system rolls.
    *
    * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
    * This chooses the default options of a normal attack with no bonus, Advantage, or Disadvantage respectively
@@ -3550,7 +3590,7 @@ class DiceFFD20 {
     critical = 20,
     fumble = 1,
     onClose,
-    dialogOptions,
+    dialogOptions = {},
     extraRolls = [],
     chatTemplate,
     chatTemplateData,
@@ -3661,6 +3701,9 @@ class DiceFFD20 {
 
     let roll;
     return new Promise((resolve) => {
+      if (!(dialogOptions.classes instanceof Array)) dialogOptions.classes = [];
+      dialogOptions.classes.push("dialog", "ffd20", "die-roll");
+
       new Dialog(
         {
           title: title,
@@ -3695,7 +3738,7 @@ class DiceFFD20 {
   /* -------------------------------------------- */
 
   /**
-   * A standardized helper function for managing core 5e "d20 rolls"
+   * A standardized helper function for managing damage rolls.
    *
    * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
    * This chooses the default options of a normal attack with no bonus, Critical, or no bonus respectively
@@ -3723,7 +3766,7 @@ class DiceFFD20 {
     flavor,
     critical = true,
     onClose,
-    dialogOptions,
+    dialogOptions = {},
     chatTemplate,
     chatTemplateData,
     chatMessage = true,
@@ -3787,13 +3830,13 @@ class DiceFFD20 {
         // Handle different roll modes
         switch (chatData.rollMode) {
           case "gmroll":
-            chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
+            chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u._id);
             break;
           case "selfroll":
             chatData["whisper"] = [game.user._id];
             break;
           case "blindroll":
-            chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
+            chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u._id);
             chatData["blind"] = true;
         }
 
@@ -3832,6 +3875,9 @@ class DiceFFD20 {
     // Render modal dialog
     let roll;
     return new Promise((resolve) => {
+      if (!(dialogOptions.classes instanceof Array)) dialogOptions.classes = [];
+      dialogOptions.classes.push("dialog", "ffd20", "damage-roll");
+
       new Dialog(
         {
           title: title,
@@ -5854,13 +5900,13 @@ const createCustomChatMessage = async function (
   // Handle different roll modes
   switch (chatData.rollMode) {
     case "gmroll":
-      chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u.id);
+      chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u.id);
       break;
     case "selfroll":
       chatData["whisper"] = [game.user.id];
       break;
     case "blindroll":
-      chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u.id);
+      chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u.id);
       chatData["blind"] = true;
       break;
   }
@@ -5968,7 +6014,7 @@ const createInlineRollString = function (roll) {
 /* -------------------------------------------- */
 
 /**
- * Override the default Initiative formula to customize special behaviors of the D&D5e system.
+ * Override the default Initiative formula to customize special behaviors of the game system.
  * Apply advantage, proficiency, or bonuses where appropriate
  * Apply the dexterity score as a decimal tiebreaker if requested
  * See Combat._getInitiativeFormula for more detail.
@@ -6014,7 +6060,9 @@ Combat.showInitiativeDialog = function (formula = null) {
             resolve({ stop: true });
           },
         },
-        {}
+        {
+          classes: ["dialog", "ffd20", "roll-initiative"],
+        }
       ).render(true);
     });
   });
@@ -6104,13 +6152,13 @@ const _rollInitiative = async function (ids, { formula = null, updateTurn = true
       // Handle different roll modes
       switch (chatData.rollMode) {
         case "gmroll":
-          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u.id);
+          chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u.id);
           break;
         case "selfroll":
           chatData["whisper"] = [game.user._id];
           break;
         case "blindroll":
-          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u.id);
+          chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u.id);
           chatData["blind"] = true;
       }
 
@@ -6149,28 +6197,33 @@ const duplicateCombatantInitiativeDialog = function (combats, combatantId) {
     return;
   }
 
-  new Dialog({
-    title: `${game.i18n.localize("FFD20.DuplicateInitiative")}: ${combatant.actor.name}`,
-    content: `<div class="flexrow form-group">
+  new Dialog(
+    {
+      title: `${game.i18n.localize("FFD20.DuplicateInitiative")}: ${combatant.actor.name}`,
+      content: `<div class="flexrow form-group">
       <label>${game.i18n.localize("FFD20.InitiativeOffset")}</label>
       <input type="number" name="initiativeOffset" value="0"/>
     </div>`,
-    buttons: {
-      confirm: {
-        label: game.i18n.localize("FFD20.Confirm"),
-        callback: (html) => {
-          const offset = parseFloat(html.find('input[name="initiativeOffset"]').val());
-          const prevInitiative = combatant.initiative != null ? combatant.initiative : 0;
-          const newInitiative = prevInitiative + offset;
-          duplicateCombatantInitiative(combat, combatant, newInitiative);
+      buttons: {
+        confirm: {
+          label: game.i18n.localize("FFD20.Confirm"),
+          callback: (html) => {
+            const offset = parseFloat(html.find('input[name="initiativeOffset"]').val());
+            const prevInitiative = combatant.initiative != null ? combatant.initiative : 0;
+            const newInitiative = prevInitiative + offset;
+            duplicateCombatantInitiative(combat, combatant, newInitiative);
+          },
+        },
+        cancel: {
+          label: game.i18n.localize("Cancel"),
         },
       },
-      cancel: {
-        label: game.i18n.localize("Cancel"),
-      },
+      default: "confirm",
     },
-    default: "confirm",
-  }).render(true);
+    {
+      classes: ["dialog", "ffd20", "duplicate-initiative"],
+    }
+  ).render(true);
 };
 
 const duplicateCombatantInitiative = function (combat, combatant, initiative) {
@@ -6337,7 +6390,6 @@ class RollFFD20$1 extends Roll {
   async getTooltip() {
     const parts = this.dice.map((d) => d.getTooltipData());
     const numericParts = this.terms.reduce((cur, t, idx, arr) => {
-      if (!t?.flavor) return cur;
       const result = t instanceof NumericTerm ? t.getTooltipData() : undefined;
 
       const prior = arr[idx - 1];
@@ -6345,7 +6397,10 @@ class RollFFD20$1 extends Roll {
         result.total = -result.total;
       }
 
-      if (result !== undefined) cur.push(result);
+      if (result !== undefined) {
+        if (!result.flavor) result.flavor = game.i18n.localize("FFD20.Undefined");
+        cur.push(result);
+      }
       return cur;
     }, []);
     return renderTemplate("systems/ffd20/templates/dice/tooltip.hbs", { parts, numericParts });
@@ -6686,6 +6741,8 @@ const getSortChangePriority = function () {
       "wisMod",
       "chaMod",
       "skills",
+      "carryStr",
+      "carryMult",
       "strSkills",
       "dexSkills",
       "conSkills",
@@ -6808,6 +6865,10 @@ const getChangeFlat = function (changeTarget, changeType, curData = null) {
     case "wisMod":
     case "chaMod":
       return `data.abilities.${changeTarget.slice(0, 3)}.mod`;
+    case "carryStr":
+      return "data.details.carryCapacity.bonus.total";
+    case "carryMult":
+      return "data.details.carryCapacity.multiplier.total";
     case "ac":
       switch (changeType) {
         case "dodge":
@@ -7304,16 +7365,17 @@ const addDefaultChanges = function (changes) {
     });
 
     if (!getProperty(this.data, "data.attributes.wounds.base")) {
+      const woundFormula = `(@abilities.${hpAbility}.total * 2) + @abilities.${hpAbility}.drain`;
       changes.push(
         ItemChange.create({
-          formula: `@abilities.${hpAbility}.total + @abilities.${hpAbility}.drain`,
+          formula: woundFormula,
           target: "misc",
           subTarget: "wounds",
           modifier: "base",
         })
       );
       getSourceInfo(this.sourceInfo, "data.attributes.wounds.max").positive.push({
-        formula: `@abilities.${hpAbility}.total + @abilities.${hpAbility}.drain`,
+        formula: woundFormula,
         name: CONFIG.FFD20.abilities[hpAbility],
       });
     }
@@ -7642,6 +7704,52 @@ const addDefaultChanges = function (changes) {
     getSourceInfo(this.sourceInfo, "data.attributes.sr.total").positive.push({
       formula: sr,
       name: game.i18n.localize("FFD20.Base"),
+    });
+  }
+  {
+    // Carry capacity strength bonus
+    const cStr = getProperty(this.data, "data.details.carryCapacity.bonus.user") || 0;
+    changes.push(
+      ItemChange.create({
+        formula: cStr.toString(),
+        target: "misc",
+        subTarget: "carryStr",
+        modifier: "untyped",
+        priority: 1000,
+      })
+    );
+    getSourceInfo(this.sourceInfo, "data.details.carryCapacity.bonus.total").positive.push({
+      formula: cStr.toString(),
+      name: game.i18n.localize("FFD20.Custom"),
+    });
+    // Carry capacity multiplier
+    const cMultBase = getProperty(this.data, "data.details.carryCapacity.multiplier.base") ?? 1;
+    changes.push(
+      ItemChange.create({
+        formula: cMultBase.toString(),
+        target: "misc",
+        subTarget: "carryMult",
+        modifier: "base",
+        priority: 1000,
+      })
+    );
+    getSourceInfo(this.sourceInfo, "data.details.carryCapacity.multiplier.total").positive.push({
+      formula: cMultBase.toString(),
+      name: game.i18n.localize("FFD20.Base"),
+    });
+    const cMult = getProperty(this.data, "data.details.carryCapacity.multiplier.user") || 0;
+    changes.push(
+      ItemChange.create({
+        formula: cMult.toString(),
+        target: "misc",
+        subTarget: "carryMult",
+        modifier: "untyped",
+        priority: 1000,
+      })
+    );
+    getSourceInfo(this.sourceInfo, "data.details.carryCapacity.multiplier.total").positive.push({
+      formula: cMult.toString(),
+      name: game.i18n.localize("FFD20.Custom"),
     });
   }
   // Natural armor
@@ -8100,7 +8208,7 @@ const addDefaultChanges = function (changes) {
             modifier: "untyped",
             operator: "set",
             flavor: game.i18n.localize("FFD20.CondPinned"),
-            priority: -1001,
+            priority: 1001,
           })
         );
         this.flags["loseDexToAC"] = true;
@@ -8767,7 +8875,7 @@ const hasTokenVision = function (token) {
 };
 
 /**
- * Extend the base Actor class to implement additional logic specialized for D&D5e.
+ * Extend the base Actor class to implement additional game system logic.
  */
 class ActorFFD20 extends Actor {
   constructor(...args) {
@@ -8865,7 +8973,7 @@ class ActorFFD20 extends Actor {
       const packKey = parts.slice(0, 2).join(".");
       const entryId = parts.slice(-1)[0];
       const pack = game.packs.get(packKey);
-      const entry = await pack.getEntity(entryId);
+      const entry = await pack.getDocument(entryId);
       entry.sheet.render(true);
     }
   }
@@ -8983,7 +9091,7 @@ class ActorFFD20 extends Actor {
 
   _dataIsPC(data) {
     if (data.permission != null) {
-      const nonGM = game.users.entities.filter((u) => !u.isGM);
+      const nonGM = game.users.contents.filter((u) => !u.isGM);
       return nonGM.some((u) => {
         if (data.permission["default"] >= CONST.ENTITY_PERMISSIONS["OWNER"]) return true;
         return data.permission[u._id] >= CONST.ENTITY_PERMISSIONS["OWNER"];
@@ -10212,6 +10320,14 @@ class ActorFFD20 extends Actor {
       "data.attributes.woundThresholds.level": 0,
       "data.attributes.woundThresholds.penaltyBase": 0,
       "data.attributes.woundThresholds.penalty": 0,
+      "data.abilities.str.checkMod": 0,
+      "data.abilities.dex.checkMod": 0,
+      "data.abilities.con.checkMod": 0,
+      "data.abilities.int.checkMod": 0,
+      "data.abilities.wis.checkMod": 0,
+      "data.abilities.cha.checkMod": 0,
+      "data.details.carryCapacity.bonus.total": 0,
+      "data.details.carryCapacity.multiplier.total": 0,
     };
 
     // Determine skill keys
@@ -11383,24 +11499,31 @@ class ActorFFD20 extends Actor {
     const label = CONFIG.FFD20.abilities[abilityId];
     const abl = this.data.data.abilities[abilityId];
 
-    let formula = `@abilities.${abilityId}.mod`;
-    if (abl.checkMod) {
-      formula += ` + @abilities.${abilityId}.checkMod`;
+    const parts = [`@abilities.${abilityId}.mod[${label}]`];
+    if (abl.checkMod != 0) {
+      const changes = this.sourceDetails[`data.abilities.${abilityId}.checkMod`];
+      for (let c of changes) parts.push(`${c.value}[${c.name}]`);
     }
     if (this.data.data.attributes.energyDrain) {
-      formula += " - @attributes.energyDrain";
+      parts.push("-@attributes.energyDrain");
     }
 
     // Wound Threshold penalty
-    if (rollData.attributes.woundThresholds.penalty > 0)
+    if (rollData.attributes.woundThresholds.penalty > 0) {
       notes.push(game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]));
+      parts.push(
+        `- @attributes.woundThresholds.penalty[${game.i18n.localize(
+          CONFIG.FFD20.woundThresholdConditions[rollData.attributes.woundThresholds.level]
+        )}]`
+      );
+    }
 
-    let props = this.getDefenseHeaders();
+    const props = [];
     if (notes.length > 0) props.push({ header: game.i18n.localize("FFD20.Notes"), value: notes });
 
     return DiceFFD20.d20Roll({
       event: options.event,
-      parts: [formula],
+      parts,
       dice: options.dice,
       data: rollData,
       subject: { ability: abilityId },
@@ -11569,7 +11692,8 @@ class ActorFFD20 extends Actor {
     var controlled = canvas.tokens.controlled,
       healingInvert = 1,
       numReg = /(\d+)/g,
-      sliceReg = /[^,;\n]*(\d+)[^,;\n]*/g;
+      sliceReg = /[^,;\n]*(\d+)[^,;\n]*/g,
+      sliceReg2 = /[^,;\n]+/g;
 
     //if (!controlled) return;
 
@@ -11632,6 +11756,14 @@ class ActorFFD20 extends Actor {
           name: tok.name,
           dr: tok.actor.data.data.traits.dr.match(sliceReg),
           eres: tok.actor.data.data.traits.eres.match(sliceReg),
+          di: [
+            ...tok.actor.data.data.traits.di.value,
+            ...(tok.actor.data.data.traits.di.custom.match(sliceReg2) ?? []),
+          ],
+          dv: [
+            ...tok.actor.data.data.traits.dv.value,
+            ...(tok.actor.data.data.traits.dv.custom.match(sliceReg2) ?? []),
+          ],
           checked: true,
         };
       });
@@ -11660,49 +11792,54 @@ class ActorFFD20 extends Actor {
           callback: (html) => resolve(_submit.call(this, html, 0.5 * healingInvert)),
         };
 
-        var d = new Dialog({
-          title: healingInvert > 0 ? game.i18n.localize("FFD20.ApplyDamage") : game.i18n.localize("FFD20.ApplyHealing"),
-          content: html,
-          buttons: buttons,
-          default: "normal",
-          close: (html) => {
-            resolve(false);
+        var d = new Dialog(
+          {
+            title: healingInvert > 0 ? game.i18n.localize("FFD20.ApplyDamage") : game.i18n.localize("FFD20.ApplyHealing"),
+            content: html,
+            buttons: buttons,
+            default: "normal",
+            close: (html) => {
+              resolve(false);
+            },
+            render: (inp) => {
+              /**
+               *
+               */
+              function swapSelected() {
+                let checked = [...inp[0].querySelectorAll('.selected-tokens input[type="checkbox"]')];
+                checked.forEach((chk) => (chk.checked = !chk.checked));
+              }
+              /**
+               * @param e
+               */
+              function setReduction(e) {
+                inp[0].querySelector('input[name="damage-reduction"]').value =
+                  e.currentTarget.innerText.match(numReg) ?? "";
+              }
+              /**
+               * @param event
+               */
+              function mouseWheelAdd(event) {
+                const el = event.currentTarget;
+
+                //Digits with optional sign only
+                if (/[^\d+-]|(?:\d[+-])/.test(el.value.trim())) return;
+
+                const value = parseFloat(el.value) || 0;
+                const increase = -Math.sign(event.originalEvent.deltaY);
+
+                el.value = (value + increase).toString();
+              }
+
+              inp.on("click", 'a[name="swap-selected"]', swapSelected);
+              inp.on("click", 'a[name="clear-reduction"], p.notes a', setReduction);
+              inp.on("wheel", "input", mouseWheelAdd);
+            },
           },
-          render: (inp) => {
-            /**
-             *
-             */
-            function swapSelected() {
-              let checked = [...inp[0].querySelectorAll('.selected-tokens input[type="checkbox"]')];
-              checked.forEach((chk) => (chk.checked = !chk.checked));
-            }
-            /**
-             * @param e
-             */
-            function setReduction(e) {
-              inp[0].querySelector('input[name="damage-reduction"]').value =
-                e.currentTarget.innerText.match(numReg) ?? "";
-            }
-            /**
-             * @param event
-             */
-            function mouseWheelAdd(event) {
-              const el = event.currentTarget;
-
-              //Digits with optional sign only
-              if (/[^\d+-]|(?:\d[+-])/.test(el.value.trim())) return;
-
-              const value = parseFloat(el.value) || 0;
-              const increase = -Math.sign(event.originalEvent.deltaY);
-
-              el.value = (value + increase).toString();
-            }
-
-            inp.on("click", 'a[name="swap-selected"]', swapSelected);
-            inp.on("click", 'a[name="clear-reduction"], p.notes a', setReduction);
-            inp.on("wheel", "input", mouseWheelAdd);
-          },
-        });
+          {
+            classes: ["dialog", "ffd20", "apply-hit-points"],
+          }
+        );
         d.render(true);
       });
     } else return _submit();
@@ -12061,8 +12198,9 @@ class ActorFFD20 extends Actor {
 
   getCarryCapacity() {
     // Determine carrying capacity
-    const carryStr = this.data.data.abilities.str.total + this.data.data.abilities.str.carryBonus;
-    let carryMultiplier = this.data.data.abilities.str.carryMultiplier;
+    const carryCapacity = this.data.data.details.carryCapacity;
+    const carryStr = this.data.data.abilities.str.total + carryCapacity.bonus.total;
+    let carryMultiplier = carryCapacity.multiplier.total;
     const size = this.data.data.traits.size;
     if (this.data.data.attributes.quadruped) carryMultiplier *= CONFIG.FFD20.encumbranceMultipliers.quadruped[size];
     else carryMultiplier *= CONFIG.FFD20.encumbranceMultipliers.normal[size];
@@ -12164,7 +12302,7 @@ class ActorFFD20 extends Actor {
     const pack = game.packs.find((p) => p.collection === collection);
     if (pack.metadata.entity !== "Item") return;
 
-    return pack.getEntity(entryId).then((ent) => {
+    return pack.getDocument(entryId).then((ent) => {
       console.log(`${vtt} | Importing Item ${ent.name} from ${collection}`);
 
       let data = duplicate(ent.data);
@@ -12819,6 +12957,51 @@ class ActorFFD20 extends Actor {
       this._prevAbilityScores = null;
     }
   }
+
+  /**
+   * @override
+   */
+  async modifyTokenAttribute(attribute, value, isDelta = false, isBar = true) {
+    let entity = this,
+      current = getProperty(this.data.data, attribute),
+      updates = {};
+    if (attribute.startsWith("resources.")) {
+      const itemTag = attribute.split(".").slice(-1)[0];
+      entity = this.items.find((item) => item.data.data.tag === itemTag);
+    }
+    if (!entity) return;
+
+    // Special key
+    if (attribute === "attributes.hp") {
+      if (!isDelta) value = (current.temp + current.value - value) * -1;
+      let dt = value;
+      if (current.temp > 0 && value < 0) {
+        dt = Math.min(0, current.temp + value);
+        updates["data.attributes.hp.temp"] = Math.max(0, current.temp + value);
+      }
+      updates["data.attributes.hp.value"] = Math.min(current.value + dt, current.max);
+      // Absolute
+    } else if (!isDelta) {
+      if (entity instanceof Actor) {
+        if (typeof entity[`data.${attribute}.value`] === "undefined") updates[`data.${attribute}`] = value;
+        else updates[`data.${attribute}.value`] = value;
+      } else {
+        updates["data.uses.value"] = value;
+      }
+      // Relative
+    } else {
+      if (entity instanceof Actor) {
+        if (current.value !== undefined)
+          updates[`data.${attribute}.value`] = Math.clamped(current.min || 0, current.value + value, current.max);
+        else updates[`data.${attribute}`] = current + value;
+      } else {
+        updates["data.uses.value"] = current.value + value;
+      }
+    }
+
+    const allowed = Hooks.call("modifyTokenAttribute", { attribute, value, isDelta, isBar }, updates);
+    return allowed !== false ? entity.update(updates) : this;
+  }
 }
 
 /**
@@ -13112,7 +13295,7 @@ class ChatAttack {
       }
     }
     const inner = TextEditor.enrichHTML(result, { rollData: this.rollData });
-    this.attackNotesHTML = `<div class="flexcol property-group gm-sensitive"><label>${game.i18n.localize(
+    this.attackNotesHTML = `<div class="flexcol property-group gm-sensitive attack-notes"><label>${game.i18n.localize(
       "FFD20.AttackNotes"
     )}</label><div class="flexrow">${inner}</div></div>`;
   }
@@ -13130,7 +13313,7 @@ class ChatAttack {
       }
     }
     const inner = TextEditor.enrichHTML(result, { rollData: this.rollData });
-    this.effectNotesHTML = `<div class="flexcol property-group gm-sensitive"><label>${game.i18n.localize(
+    this.effectNotesHTML = `<div class="flexcol property-group gm-sensitive effect-notes"><label>${game.i18n.localize(
       "FFD20.EffectNotes"
     )}</label><div class="flexrow">${inner}</div></div>`;
   }
@@ -14081,10 +14264,11 @@ class ItemFFD20 extends Item {
       if (!hasProperty(this.data, "data.unidentified.price")) setProperty(this.data, "data.unidentified.price", 0);
 
       // Convert weight according metric system (lb vs kg)
+      let usystem = game.settings.get("ffd20", "weightUnits"); // override
+      if (usystem === "default") usystem = game.settings.get("ffd20", "units");
       itemData.data.weightConverted = convertWeight(itemData.data.weight);
-      itemData.data.weightUnits =
-        game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
-      itemData.data.priceUnits = game.i18n.localize("FFD20.CurrencyGil").toLowerCase();
+      itemData.data.weightUnits = usystem === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+      itemData.data.priceUnits = game.i18n.localize("FFD20.CurrencyGP").toLowerCase();
 
       // Set basic data
       itemData.data.hp = itemData.data.hp || { max: 10, value: 10 };
@@ -14143,6 +14327,17 @@ class ItemFFD20 extends Item {
     // Buff Items
     else if (itemData.type === "buff") {
       labels.buffType = C.buffTypes[data.buffType];
+
+      if (this.data.data.duration) {
+        const dur = this.data.data.duration;
+        const unit = C.timePeriodsShort[dur.units];
+        if (unit && dur.value) {
+          const val = RollFFD20$1.safeTotal(dur.value, this.getRollData());
+          labels.duration = [val, unit].filterJoin(" ");
+        } else {
+          labels.duration = null;
+        }
+      }
     }
 
     // Weapon Items
@@ -15412,7 +15607,9 @@ class ItemFFD20 extends Item {
         useMeasureTemplate = this.hasTemplate && game.settings.get("ffd20", "placeMeasureTemplateOnQuickRolls"),
         rollMode = game.settings.get("core", "rollMode"),
         conditionals,
-        result;
+        result,
+        casterLevelCheck = false,
+        concentrationCheck = false;
 
       // Get form data
       if (form) {
@@ -15505,6 +15702,14 @@ class ItemFFD20 extends Item {
         if (html.length > 0) {
           rollData.sl += parseInt(html.val());
         }
+
+        // CL check enabled
+        html = form.find('[name="cl-check"]:checked');
+        if (html.length > 0) casterLevelCheck = true;
+
+        // Concentration enabled
+        html = form.find('[name="concentration"]:checked');
+        if (html.length > 0) concentrationCheck = true;
       }
 
       // Prepare the chat message data
@@ -15578,7 +15783,9 @@ class ItemFFD20 extends Item {
             }`;
             // Add formula in simple format
             if (["attack", "effect", "misc"].includes(modifier.target)) {
-              conditionalPartsCommon[partString] = [...(conditionalPartsCommon[partString] ?? []), modifier.formula];
+              const hasFlavor = /\[.*\]/.test(modifier.formula);
+              const flavoredFormula = hasFlavor ? modifier.formula : `(${modifier.formula})[${conditional.name}]`;
+              conditionalPartsCommon[partString] = [...(conditionalPartsCommon[partString] ?? []), flavoredFormula];
             }
             // Add formula as array for damage
             else if (modifier.target === "damage") {
@@ -15987,13 +16194,13 @@ class ItemFFD20 extends Item {
             blind = false;
           switch (rollMode) {
             case "gmroll":
-              whisper = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
+              whisper = game.users.contents.filter((u) => u.isGM).map((u) => u._id);
               break;
             case "selfroll":
               whisper = [game.user._id];
               break;
             case "blindroll":
-              whisper = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
+              whisper = game.users.contents.filter((u) => u.isGM).map((u) => u._id);
               blind = true;
               break;
           }
@@ -16180,10 +16387,9 @@ class ItemFFD20 extends Item {
               templateData.range = RollFFD20$1.safeRoll(range, rollData).total;
               templateData.rangeFormula = range;
             }
-            templateData.rangeLabel = `${templateData.range} ft.`;
-            if (game.settings.get("ffd20", "units") === "metric") {
-              templateData.rangeLabel = `${templateData.range} m`;
-            }
+            let usystem = game.settings.get("ffd20", "distanceUnits"); // override
+            if (usystem === "default") usystem = game.settings.get("ffd20", "units");
+            templateData.rangeLabel = usystem === "metric" ? `${templateData.range} m` : `${templateData.range} ft.`;
 
             const rangeUnits = getProperty(this.data, "data.range.units");
             if (["melee", "touch", "reach", "close", "medium", "long"].includes(rangeUnits)) {
@@ -16192,16 +16398,25 @@ class ItemFFD20 extends Item {
           }
         }
 
-        // Spell failure
-        if (this.type === "spell" && this.parent != null && this.parent.spellFailure > 0) {
-          const spellbook = getProperty(
-            this.parent.data,
-            `data.attributes.spells.spellbooks.${this.data.data.spellbook}`
-          );
-          if (spellbook && spellbook.arcaneSpellFailure) {
-            templateData.spellFailure = RollFFD20$1.safeRoll("1d100").total;
-            templateData.spellFailureSuccess = templateData.spellFailure > this.parentActor.spellFailure;
+        // Spells
+        if (this.type === "spell" && this.parent != null) {
+          // Spell failure
+          if (this.parent.spellFailure > 0) {
+            const spellbook = getProperty(
+              this.parent.data,
+              `data.attributes.spells.spellbooks.${this.data.data.spellbook}`
+            );
+            if (spellbook && spellbook.arcaneSpellFailure) {
+              const roll = RollFFD20$1.safeRoll("1d100");
+              templateData.spellFailure = roll.total;
+              templateData.spellFailureRoll = roll;
+              templateData.spellFailureSuccess = templateData.spellFailure > this.parentActor.spellFailure;
+            }
           }
+          // Caster Level Check
+          templateData.casterLevelCheck = casterLevelCheck;
+          // Concentration check
+          templateData.concentrationCheck = concentrationCheck;
         }
         // Add metadata
         const metadata = {};
@@ -16266,7 +16481,12 @@ class ItemFFD20 extends Item {
       const data = { chatMessage, fullAttack };
 
       // Execute script call
-      await this.executeScriptCalls("use", { attacks, template, data });
+      await this.executeScriptCalls("use", {
+        attacks,
+        template,
+        data,
+        conditionals: conditionals.map((c) => this.data.data.conditionals[c]),
+      });
 
       return result;
     };
@@ -16332,15 +16552,20 @@ class ItemFFD20 extends Item {
           callback: (html) => resolve((_roll.call(this, false, html))),
         };
       }
-      new Dialog({
-        title: `${game.i18n.localize("FFD20.Use")}: ${this.name}`,
-        content: html,
-        buttons: buttons,
-        default: buttons.multi != null ? "multi" : "normal",
-        close: (html) => {
-          resolve(false);
+      new Dialog(
+        {
+          title: `${game.i18n.localize("FFD20.Use")}: ${this.name}`,
+          content: html,
+          buttons: buttons,
+          default: buttons.multi != null ? "multi" : "normal",
+          close: (html) => {
+            resolve(false);
+          },
         },
-      }).render(true);
+        {
+          classes: ["dialog", "ffd20", "use-attack"],
+        }
+      ).render(true);
     });
 
     return result;
@@ -16810,13 +17035,13 @@ class ItemFFD20 extends Item {
       // Handle different roll modes
       switch (chatData.rollMode) {
         case "gmroll":
-          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
+          chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u._id);
           break;
         case "selfroll":
           chatData["whisper"] = [game.user._id];
           break;
         case "blindroll":
-          chatData["whisper"] = game.users.entities.filter((u) => u.isGM).map((u) => u._id);
+          chatData["whisper"] = game.users.contents.filter((u) => u.isGM).map((u) => u._id);
           chatData["blind"] = true;
       }
 
@@ -16968,6 +17193,10 @@ class ItemFFD20 extends Item {
       await Promise.all(promises);
 
       return true;
+    } else if (action === "concentration") {
+      item.parentActor.rollConcentration(item.data.data.spellbook);
+    } else if (action === "caster-level-check") {
+      item.parentActor.rollCL(item.data.data.spellbook);
     }
 
     return false;
@@ -17121,7 +17350,8 @@ class ItemFFD20 extends Item {
 
       if (rangeUnit != null && rangeUnit !== "none") {
         label.range = (CONFIG.FFD20.distanceUnits[rangeUnit] || "").toLowerCase();
-        const units = game.settings.get("ffd20", "units");
+        let units = game.settings.get("ffd20", "distanceUnits"); // override
+        if (units === "default") units = game.settings.get("ffd20", "units");
         if (rangeUnit === "close")
           label.range = `${label.range} ${game.i18n.localize(
             units == "metric" ? "FFD20.SpellRangeShortMetric" : "FFD20.SpellRangeShort"
@@ -18269,6 +18499,154 @@ class ItemFFD20 extends Item {
     });
     return flag ? flag[1] : undefined;
   }
+
+  /**
+   * @returns {number[]} Simple array describing the individual guaranteed attacks.
+   */
+  get attackArray() {
+    const itemData = this.data.data,
+      rollData = this.getRollData(),
+      attacks = [0];
+
+    const appendAttack = (formula) => {
+      const bonus = RollFFD20$1.safeRoll(formula, rollData).total;
+      if (Number.isFinite(bonus)) attacks.push(bonus);
+    };
+
+    // Static extra attacks
+    const extraAttacks = itemData.attackParts.map((n) => n[0]?.toString().trim()).filter((n) => n?.length > 0);
+    for (let formula of extraAttacks) appendAttack(formula);
+
+    // Formula-based extra attacks
+    const fmAtk = itemData.formulaicAttacks?.count?.formula?.trim();
+    if (fmAtk?.length > 0) {
+      const fmAtkBonus = itemData.formulaicAttacks?.bonus?.formula?.trim() ?? "0";
+      const count = RollFFD20$1.safeRoll(fmAtk, rollData);
+      for (let i = 0; i < count.total; i++) {
+        rollData.formulaicAttack = i + 1;
+        appendAttack(fmAtkBonus);
+      }
+    }
+
+    // Conditional modifiers
+    const condBonuses = new Array(attacks.length).fill(0);
+    itemData.conditionals
+      .filter((c) => c.default && c.modifiers.find((sc) => sc.target === "attack"))
+      .forEach((c) => {
+        c.modifiers.forEach((cc) => {
+          const bonusRoll = RollFFD20$1.safeRoll(cc.formula, rollData);
+          if (bonusRoll.total == 0) return;
+          if (cc.subTarget === "allAttack") {
+            condBonuses.forEach((_, i) => {
+              condBonuses[i] += bonusRoll.total;
+            });
+          } else if (cc.subTarget.match(/^attack\.(\d+)$/)) {
+            const atk = parseInt(RegExp.$1, 10);
+            if (atk in condBonuses) condBonuses[atk] += bonusRoll.total;
+          }
+        });
+      });
+
+    const sources = this.attackSources;
+    const totalBonus = sources.reduce((f, s) => f + s.value, 0);
+
+    return attacks.map((a, i) => a + totalBonus + condBonuses[i]);
+  }
+
+  /**
+   * @returns {object[]} Array of value and label pairs for attack bonus sources on the main attack.
+   */
+  get attackSources() {
+    const sources = [];
+
+    const actorData = this.parentActor?.data.data,
+      itemData = this.data.data;
+
+    if (!actorData) return sources;
+
+    const describePart = (value, label, sort = 0) => {
+      sources.push({ value, label, sort });
+    };
+
+    // BAB is last for some reason, array is reversed to try make it the first.
+    const srcDetails = (s) => s?.reverse().forEach((d) => describePart(d.value, d.name, -10));
+    srcDetails(this.parentActor.sourceDetails["data.attributes.attack.shared"]);
+    srcDetails(this.parentActor.sourceDetails["data.attributes.attack.general"]);
+
+    // Unreliable melee/ranged identification
+    const isMelee =
+      ["mwak", "msak", "mcman"].includes(this.data.data.actionType) ||
+      ["melee", "reach"].includes(this.data.data.range.units);
+    const isRanged =
+      ["rwak", "rsak", "rcman"].includes(this.data.data.actionType) || this.data.data.weaponSubtype === "ranged";
+
+    const effectiveChanges =
+      isMelee || isRanged
+        ? getHighestChanges(
+            this.parentActor.changes.filter((c) => c.subTarget === (isMelee ? "mattack" : "rattack")),
+            { ignoreTarget: true }
+          )
+        : [];
+    effectiveChanges.forEach((ic) => describePart(ic.value, ic.flavor, -100));
+
+    if (itemData.ability.attack) {
+      const ablMod = getProperty(actorData, `abilities.${itemData.ability.attack}.mod`) ?? 0;
+      describePart(ablMod, CONFIG.FFD20.abilities[itemData.ability.attack], -50);
+    }
+
+    // Attack bonus formula
+    const bonusRoll = RollFFD20$1.safeRoll(itemData.attackBonus ?? "0");
+    if (bonusRoll.total != 0)
+      describePart(bonusRoll.total, bonusRoll.flavor ?? game.i18n.localize("FFD20.AttackRollBonus"), -100);
+
+    // Masterwork or enhancement bonus
+    // Only add them if there's no larger enhancement bonus from some other source
+    const virtualEnh = itemData.enh ?? (itemData.masterwork ? 1 : 0);
+    if (!effectiveChanges.find((i) => i.modifier === "enh" && i.value > virtualEnh)) {
+      if (Number.isFinite(itemData.enh) && itemData.enh != 0) {
+        describePart(itemData.enh, game.i18n.localize("FFD20.EnhancementBonus"), -300);
+      } else if (itemData.masterwork) {
+        describePart(1, game.i18n.localize("FFD20.Masterwork"), -300);
+      }
+    }
+
+    // Add wound thresholds penalty
+    const wtPen = actorData.attributes.woundThresholds.penalty;
+    if (wtPen > 0) {
+      describePart(-wtPen, game.i18n.localize(CONFIG.FFD20.woundThresholdConditions[wtPen]), -1000);
+    }
+
+    // Add proficiency penalty
+    if (!itemData.proficient) {
+      describePart(this.proficiencyPenalty, game.i18n.localize("FFD20.ProficiencyPenalty"), -500);
+    }
+
+    // Broken condition
+    if (itemData.broken) {
+      describePart(-2, game.i18n.localize("FFD20.Broken"), -500);
+    }
+
+    // Add secondary natural attack penalty
+    if (!itemData.primaryAttack) {
+      describePart(-5, game.i18n.localize("FFD20.SecondaryAttack"), -400);
+    }
+
+    // Conditional modifiers
+    const rollData = this.getRollData();
+    itemData.conditionals
+      .filter((c) => c.default && c.modifiers.find((sc) => sc.target === "attack"))
+      .forEach((c) => {
+        c.modifiers.forEach((cc) => {
+          if (cc.subTarget === "allAttack") {
+            const bonusRoll = RollFFD20$1.safeRoll(cc.formula, rollData);
+            if (bonusRoll.total == 0) return;
+            describePart(bonusRoll.total, c.name, -5000);
+          }
+        });
+      });
+
+    return sources.sort((a, b) => b.sort - a.sort);
+  }
 }
 
 /**
@@ -18400,7 +18778,7 @@ const linkData = function (expanded, flattened, key, value) {
 const getItemOwner = function (item) {
   if (item.actor) return item.actor;
   if (item._id) {
-    return game.actors.entities.filter((o) => {
+    return game.actors.contents.filter((o) => {
       return o.items.filter((i) => i._id === item._id).length > 0;
     })[0];
   }
@@ -18565,7 +18943,9 @@ const getActorFromId = function (id) {
  * @returns {Array.<number, string>} An array containing the converted value in index 0 and the new unit key in index 1 (for use in CONFIG.FFD20.measureUnits, for example)
  */
 const convertDistance = function (value, type = "ft") {
-  switch (game.settings.get("ffd20", "units")) {
+  let system = game.settings.get("ffd20", "distanceUnits"); // override
+  if (system === "default") system = game.settings.get("ffd20", "units");
+  switch (system) {
     case "metric":
       switch (type) {
         case "mi":
@@ -18585,7 +18965,9 @@ const convertDistance = function (value, type = "ft") {
  * @returns {number} The converted value. In the case of the metric system, converts to kg.
  */
 const convertWeight = function (value) {
-  switch (game.settings.get("ffd20", "units")) {
+  let system = game.settings.get("ffd20", "weightUnits"); // override
+  if (system === "default") system = game.settings.get("ffd20", "units");
+  switch (system) {
     case "metric":
       return Math.round((value / 2) * 100) / 100; // 1 kg is not exactly 2 lb but this conversion is officially used by Paizo/BBE
     default:
@@ -18600,7 +18982,9 @@ const convertWeight = function (value) {
  * @returns {number} The converted value. In the case of the metric system, converts from kg.
  */
 const convertWeightBack = function (value) {
-  switch (game.settings.get("ffd20", "units")) {
+  let system = game.settings.get("ffd20", "weightUnits"); // override
+  if (system === "default") system = game.settings.get("ffd20", "units");
+  switch (system) {
     case "metric":
       return Math.round(value * 2 * 100) / 100; // 1 kg is not exactly 2 lb but this conversion is officially used by Paizo/BBE
     default:
@@ -18649,7 +19033,7 @@ const createConsumableSpellDialog = function (itemData, { allowSpell = true } = 
       default: "potion",
     };
     if (!allowSpell) delete dialogData.buttons.spell;
-    new Dialog(dialogData).render(true);
+    new Dialog(dialogData, { classes: ["dialog", "ffd20", "create-consumable"] }).render(true);
   });
 };
 
@@ -19015,50 +19399,68 @@ const registerHandlebarsHelpers = function () {
   Handlebars.registerHelper("itemDamage", (item, rollData) => {
     if (!item.hasDamage) return null; // It was a mistake to call this
 
-    try {
-      // Get damage parts
-      const parts = [...(item.data.damage.parts ?? []), ...(item.data.damage.nonCritParts ?? [])].map(
-        (p) =>
-          // `${p[0]})[${p[1]}]` // includes damage type
-          p[0] // Discard damage type as it makes the output barely readable.
-      );
-      let hasMore = item.data.damage.critParts?.length > 0;
+    const actorData = item.document.parentActor.data.data,
+      itemData = item.data;
 
-      const ablMod = getProperty(rollData, `abilities.${item.data.ability.damage}.mod`), // `
-        ablMult = item.data.ability.damageMult;
+    const rv = [];
 
-      const rv = [],
-        cutOff = 1;
-      // TODO: Make this cut based on actual string length instead of part count. Or push adjustment to handlebars.
-      //slice(0, cutOff)
-      parts.forEach((r) => rv.push(Roll.create(r, rollData).formula));
-      const cutParts = []; // parts.length > cutOff ? parts.slice(cutOff - 1) : [];
+    const reduceFormula = (formula) => {
+      const roll = RollFFD20.safeRoll(formula, rollData);
+      formula = roll.formula.replace(/\[[^\]]+\]/g, ""); // remove flairs
+      return [roll, formula];
+    };
 
-      // Include ability score only if the string isn't too long yet
-      if (ablMod != null && cutParts.length === 0)
-        rv.push(RollFFD20.safeRoll("floor(@mod * @mult)", { mod: ablMod, mult: ablMult }).total);
-
-      // Include enhancement bonus
-      const enhBonus = item.data.enh ?? 0;
-      if (enhBonus && cutParts.length === 0) {
-        rv.push(enhBonus);
+    const handleParts = (parts) => {
+      for (let [formula, _] of parts) {
+        const [roll, newformula] = reduceFormula(formula);
+        if (roll.total == 0) continue;
+        rv.push(newformula);
       }
+    };
 
-      if (hasMore) rv.push("…"); // Too much detail or too complicated for display
+    // Normal damage parts
+    handleParts(itemData.damage.parts);
 
-      const out = rv.join("+").replace(/\s+/g, ""); // Combine and remove whitespace
-      return out;
-    } catch {
-      // ignore errors, they should be handled elsewhere
-    }
+    // Include ability score only if the string isn't too long yet
+    const dmgAbl = itemData.ability.damage;
+    const dmgAblMod = Math.floor((actorData.abilities[dmgAbl]?.mod ?? 0) * (itemData.ability.damageMult || 1));
+    if (dmgAblMod != 0) rv.push(dmgAblMod);
 
-    return null;
+    // Include enhancement bonus
+    const enhBonus = item.data.enh ?? 0;
+    if (enhBonus != 0) rv.push(enhBonus);
+
+    // Include damage parts that don't happen on crits
+    handleParts(itemData.damage.nonCritParts);
+
+    // Include conditional damage that is enabled by default
+    itemData.conditionals
+      .filter((c) => c.default)
+      .reduce((all, m) => {
+        all.push(...m.modifiers.filter((m) => m.target === "damage" && m.subTarget === "allDamage"));
+        return all;
+      }, [])
+      .forEach((m) => {
+        const [roll, formula] = reduceFormula(m.formula);
+        if (roll.total == 0) return;
+        rv.push(formula);
+      });
+
+    if (rv.length === 0) rv.push("NaN"); // Something probably went wrong
+
+    return rv
+      .join("+")
+      .replace(/\s+/g, "") // remove whitespaces
+      .replace(/\+-/, "-") // simplify math logic pt.1
+      .replace(/--/g, "+") // simplify math logic pt.2
+      .replace(/\+\++/, "+"); // simplify math logic pt.3
   });
 
-  Handlebars.registerHelper(
-    "itemAttacks",
-    (item) => 1 + item.data.attackParts.length + (item.data.formulaicAttacks?.count?.value ?? 0)
-  );
+  Handlebars.registerHelper("itemAttacks", (item) => {
+    const attacks = item.document.attackArray;
+    const highest = Math.max(...attacks); // Highest bonus, with assumption the first might not be that.
+    return `${attacks.length} (${highest < 0 ? highest : `+${highest}`}${attacks.length > 1 ? "/…" : ""})`;
+  });
 
   // Fetches ability mod value based on ability key.
   // Avoids contaminating rollData or item data with excess strings.
@@ -19337,6 +19739,7 @@ Token.prototype.toggleEffect = async function (effect, { active, overlay = false
   return call;
 };
 
+// Compatibility override for old ffd20 absolute syntax as well as foundry default
 TokenHUD.prototype._onAttributeUpdate = function (event) {
   event.preventDefault();
 
@@ -19355,66 +19758,25 @@ TokenHUD.prototype._onAttributeUpdate = function (event) {
     value = parseFloat(RegExp.$1);
   } else return;
 
-  let bar = input.dataset.bar;
-
-  // For attribute bar values, update the associated Actor
-  // TODO: Switch to Actor#modifyTokenAttribute
-  if (bar) {
-    if (!this.object) return;
-    const actor = this.object.actor;
-    let entity = actor;
-    const data = this.object.document.getBarAttribute(bar);
-    if (data.attribute.startsWith("resources.")) {
-      const itemTag = data.attribute.split(".").slice(-1)[0];
-      entity = actor.items.find((item) => item.data.data.tag === itemTag);
+  if (operator == "--" || operator == "-") value *= -1;
+  const bar = input.dataset.bar;
+  const actor = this.object?.actor;
+  if (bar && actor) {
+    const attr = this.object.document.getBarAttribute(bar);
+    if (isDelta || attr.attribute !== value) {
+      actor.modifyTokenAttribute(attr.attribute, value, isDelta, attr.type === "bar");
     }
-    if (!actor || !entity) return;
-    const current = getProperty(actor.data.data, data.attribute);
-    const updateData = {};
-
-    // Set to specified negative value
-    if (operator === "--" || (!isDelta && operator == "-")) {
-      if (entity instanceof Actor) {
-        updateData[`data.${data.attribute}.value`] = -value;
-      } else {
-        updateData["data.uses.value"] = -value;
-      }
-    }
-
-    // Add relative value
-    else {
-      let dt = value;
-      if (data.attribute === "attributes.hp" && actor.data.data.attributes.hp.temp > 0 && operator === "-") {
-        dt = Math.min(0, actor.data.data.attributes.hp.temp - value);
-        updateData["data.attributes.hp.temp"] = Math.max(0, actor.data.data.attributes.hp.temp - value);
-        value = actor.data.data.attributes.hp.value + dt;
-      } else if (operator === "-") {
-        if (data.attribute === "attributes.hp") value = Math.min(current.value - dt, current.max);
-        else value = Math.clamped(current.min || 0, current.value - dt, current.max);
-      } else if (operator === "+") {
-        if (data.attribute === "attributes.hp") value = Math.min(current.value + dt, current.max);
-        else value = Math.clamped(current.min || 0, current.value + dt, current.max);
-      }
-      if (entity instanceof Actor) {
-        updateData[`data.${data.attribute}.value`] = value;
-      } else {
-        updateData["data.uses.value"] = value;
-      }
-    }
-
-    entity.update(updateData);
-    this.object.document.update({ [input.name]: value });
   }
 
-  // Otherwise update the Token
-  else if (this.object) {
+  // Otherwise update the Token directly
+  else {
     if (operator === "--" || (!isDelta && operator == "-")) value = -value;
     else if (isDelta && this.object) {
-      const current = getProperty(this.object.data, input.name);
+      const current = foundry.utils.getProperty(this.object.data, input.name);
       if (operator === "-") value = current - value;
       else if (operator === "+") value = current + value;
     }
-    this.object.update({ [input.name]: value });
+    this.object.document.update({ [input.name]: value });
   }
 
   // Clear the HUD
@@ -19834,29 +20196,34 @@ function dialogGetNumber({
   return new Promise((resolve) => {
     let cancelled = true;
 
-    new Dialog({
-      title: title,
-      content: `<input type="number" name="result" min="${min}" max="${max}" value="${initial || 0}">`,
-      buttons: {
-        ok: {
-          label: "Submit",
-          callback: (html) => {
-            cancelled = false;
-            const input = html.find('input[name="result"]');
-            resolve(input.val());
+    new Dialog(
+      {
+        title: title,
+        content: `<input type="number" name="result" min="${min}" max="${max}" value="${initial || 0}">`,
+        buttons: {
+          ok: {
+            label: "Submit",
+            callback: (html) => {
+              cancelled = false;
+              const input = html.find('input[name="result"]');
+              resolve(input.val());
+            },
           },
         },
+        close: () => {
+          if (!cancelled) {
+            resolve(initial);
+          }
+        },
+        default: "ok",
+        render: (htm) => {
+          htm.find("input").select();
+        },
       },
-      close: () => {
-        if (!cancelled) {
-          resolve(initial);
-        }
-      },
-      default: "ok",
-      render: (htm) => {
-        htm.find("input").select();
-      },
-    }).render(true);
+      {
+        classes: ["dialog", "ffd20", "get-number"],
+      }
+    ).render(true);
   });
 }
 
@@ -19872,16 +20239,21 @@ const dialogGetActor = function (title = "", actors = []) {
       }
     });
 
-    const dialog = new Dialog({
-      title: title,
-      content: content,
-      buttons: {},
-      close: () => {
-        {
-          resolve(null);
-        }
+    const dialog = new Dialog(
+      {
+        title: title,
+        content: content,
+        buttons: {},
+        close: () => {
+          {
+            resolve(null);
+          }
+        },
       },
-    });
+      {
+        classes: ["dialog", "ffd20", "get-actor"],
+      }
+    );
 
     dialog.activateListeners = function (html) {
       Dialog.prototype.activateListeners.call(this, html);
@@ -21230,7 +21602,9 @@ class ActorSheetFFD20 extends ActorSheet {
       heavy: actorData.data.attributes.encumbrance.levels.heavy,
     };
     let carryLabel;
-    switch (game.settings.get("ffd20", "units")) {
+    let usystem = game.settings.get("ffd20", "weightUnits"); // override
+    if (usystem === "default") usystem = game.settings.get("ffd20", "units");
+    switch (usystem) {
       case "metric":
         carryLabel = game.i18n.localize("FFD20.CarryLabelKg").format(carriedWeight);
         break;
@@ -21563,6 +21937,12 @@ class ActorSheetFFD20 extends ActorSheet {
 
     // Toggle condition
     html.find(".condition .checkbox").click(this._onToggleCondition.bind(this));
+
+    /* -------------------------------------------- */
+    /*  Skills
+    /* -------------------------------------------- */
+
+    html.find(".skill-lock-button").click(this._onToggleSkillLock.bind(this)).addClass("unlocked").click();
 
     /* -------------------------------------------- */
     /*  Links
@@ -21946,6 +22326,15 @@ class ActorSheetFFD20 extends ActorSheet {
     this.actor.update(updateData);
   }
 
+  _onToggleSkillLock(event) {
+    event.preventDefault();
+    const state = event.target.classList.toggle("unlocked");
+    const tab = event.target.closest(".tab.skills");
+    const rareInputs = $(tab).find(".skill-acp input,.skill-rt input, .skill-ability select");
+    rareInputs.prop("disabled", !state);
+    $(tab).find(".skill-controls .skill-delete").toggle();
+  }
+
   _onOpenCompendium(event) {
     event.preventDefault();
     const a = event.currentTarget;
@@ -22298,7 +22687,8 @@ class ActorSheetFFD20 extends ActorSheet {
 
     delete data.id;
     data.name = `${data.name} (Copy)`;
-    if (data.links) data.links = {};
+    data.data.identifiedName = data.name;
+    if (data.data.links) data.data.links = {};
 
     this.document.createOwnedItem(data);
   }
@@ -22333,12 +22723,43 @@ class ActorSheetFFD20 extends ActorSheet {
     const header = event.currentTarget;
     const type = header.dataset.type;
     const typeName = header.dataset.typeName || header.dataset.type;
+    const baseName = `New ${typeName.capitalize()}`;
     const itemData = {
-      name: `New ${typeName.capitalize()}`,
+      name: baseName,
       type: type,
       data: duplicate(header.dataset),
     };
     delete itemData.data["type"];
+
+    const getSubtype = (d) => getProperty(d, `data.${d.type}Type`);
+    const subtype = getSubtype(itemData);
+    const sameSubgroup = (oldItem) => {
+      if (subtype) return subtype === getSubtype(oldItem.data);
+      if (type === "spell") {
+        return (
+          itemData.data.spellbook === oldItem.data.data.spellbook && itemData.data.level === oldItem.data.data.level
+        );
+      }
+      // Assume everything else is only categorized by main type
+      return true;
+    };
+
+    // Get old items of same general category
+    const oldItems = this.document.items
+      .filter((i) => i.type === type && sameSubgroup(i))
+      .sort((a, b) => a.data.sort - b.data.sort);
+
+    if (oldItems.length) {
+      // Ensure new item is at top of the list instead of seemingly random position
+      itemData.sort = oldItems[0].data.sort - 10;
+
+      // Ensure no duplicate names occur
+      let i = 2;
+      while (oldItems.find((i) => i.name === itemData.name)) {
+        itemData.name = `${baseName} (${i++})`;
+      }
+    }
+
     return this.document.createOwnedItem(itemData);
   }
 
@@ -22391,7 +22812,8 @@ class ActorSheetFFD20 extends ActorSheet {
           button.disabled = false;
         },
         no: () => (button.disabled = false),
-      });
+        rejectClose: true,
+      }).then(null, () => (button.disabled = false));
     }
   }
 
@@ -22401,21 +22823,21 @@ class ActorSheetFFD20 extends ActorSheet {
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
     const item = this.document.items.find((o) => o.id === itemId);
 
-    const targets = game.actors.entities.filter((o) => o.testUserPermission(game.user, "OWNER") && o !== this.document);
+    const targets = game.actors.contents.filter((o) => o.testUserPermission(game.user, "OWNER") && o !== this.document);
     targets.push(...this.document.items.filter((o) => o.type === "container"));
     targets.push(
-      ...game.items.entities.filter((o) => o.testUserPermission(game.user, "OWNER") && o.type === "container")
+      ...game.items.contents.filter((o) => o.testUserPermission(game.user, "OWNER") && o.type === "container")
     );
     const targetData = await dialogGetActor(`Give item to actor`, targets);
 
     if (!targetData) return;
     let target;
     if (targetData.type === "actor") {
-      target = game.actors.entities.find((o) => o.id === targetData.id);
+      target = game.actors.contents.find((o) => o.id === targetData.id);
     } else if (targetData.type === "item") {
       target = this.document.items.find((o) => o.id === targetData.id);
       if (!target) {
-        target = game.items.entities.find((o) => o.id === targetData.id);
+        target = game.items.contents.find((o) => o.id === targetData.id);
       }
     }
 
@@ -22622,13 +23044,15 @@ class ActorSheetFFD20 extends ActorSheet {
     }
 
     // Organize Inventory
+    let usystem = game.settings.get("ffd20", "weightUnits"); // override
+    if (usystem === "default") usystem = game.settings.get("ffd20", "units");
+
     for (let i of items) {
       const subType = i.type === "loot" ? i.data.subType || "gear" : i.data.subType;
       i.data.quantity = i.data.quantity || 0;
       i.data.weight = i.data.weight || 0;
       i.totalWeight = Math.round(convertWeight(i.data.quantity * i.data.weight) * 10) / 10;
-      i.units =
-        game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+      i.units = usystem === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
       if (inventory[i.type] != null) inventory[i.type].items.push(i);
       if (subType != null && inventory[subType] != null) inventory[subType].items.push(i);
     }
@@ -22831,7 +23255,7 @@ class ActorSheetFFD20 extends ActorSheet {
     const packKey = parts.slice(0, 2).join(".");
     const entryId = parts.slice(-1)[0];
     const pack = game.packs.get(packKey);
-    const entry = await pack.getEntity(entryId);
+    const entry = await pack.getDocument(entryId);
     entry.sheet.render(true);
   }
 
@@ -23075,35 +23499,40 @@ class ActorSheetFFD20 extends ActorSheet {
       !(event && event.shiftKey)
     ) {
       let doReturn = await new Promise((resolve) => {
-        new Dialog({
-          title: game.i18n.localize("FFD20.AddClass"),
-          content: `<div class="ffd20"><p>${game.i18n.localize(
-            "FFD20.Info.AddClassDialog_Desc"
-          )}</p><div class="help-text"><i class="fas fa-info-circle"></i> ${game.i18n.localize(
-            "FFD20.Info.AddClassDialog"
-          )}</div></div>`,
-          buttons: {
-            normal: {
-              icon: '<i class="fas fa-hat-wizard"></i>',
-              label: game.i18n.localize("FFD20.Normal"),
-              callback: () => {
-                LevelUpForm.addClassWizard(this.actor, itemData).then(() => {
-                  resolve(true);
-                });
+        new Dialog(
+          {
+            title: game.i18n.localize("FFD20.AddClass"),
+            content: `<div class="ffd20"><p>${game.i18n.localize(
+              "FFD20.Info.AddClassDialog_Desc"
+            )}</p><div class="help-text"><i class="fas fa-info-circle"></i> ${game.i18n.localize(
+              "FFD20.Info.AddClassDialog"
+            )}</div></div>`,
+            buttons: {
+              normal: {
+                icon: '<i class="fas fa-hat-wizard"></i>',
+                label: game.i18n.localize("FFD20.Normal"),
+                callback: () => {
+                  LevelUpForm.addClassWizard(this.actor, itemData).then(() => {
+                    resolve(true);
+                  });
+                },
+              },
+              raw: {
+                icon: '<i class="fas fa-file"></i>',
+                label: game.i18n.localize("FFD20.Raw"),
+                callback: () => {
+                  resolve(false);
+                },
               },
             },
-            raw: {
-              icon: '<i class="fas fa-file"></i>',
-              label: game.i18n.localize("FFD20.Raw"),
-              callback: () => {
-                resolve(false);
-              },
+            close: () => {
+              resolve(true);
             },
           },
-          close: () => {
-            resolve(true);
-          },
-        }).render(true);
+          {
+            classes: ["dialog", "ffd20", "add-character-class"],
+          }
+        ).render(true);
       });
       if (doReturn) return false;
     }
@@ -23384,7 +23813,7 @@ class ActorSheetFFD20Character extends ActorSheetFFD20 {
 }
 
 /**
- * An Actor sheet for NPC type characters in the D&D5E system.
+ * An Actor sheet for NPC type characters in the game system.
  * Extends the base ActorSheetFFD20 class.
  *
  * @type {ActorSheetFFD20}
@@ -25750,7 +26179,7 @@ class FFD20_HelpBrowser extends Application {
 }
 
 /**
- * Override and extend the core ItemSheet implementation to handle D&D5E specific item types
+ * Override and extend the core ItemSheet implementation to handle game system specific item types
  *
  * @type {ItemSheet}
  */
@@ -26677,7 +27106,7 @@ class ItemSheetFFD20 extends ItemSheet {
     if (data.pack) {
       const pack = game.packs.get(data.pack);
       if (!pack) return;
-      const entity = await pack.getEntity(data.id);
+      const entity = await pack.getDocument(data.id);
       link = `@Compendium[${data.pack}.${data.id}]{${entity.name}}`;
     }
 
@@ -26769,7 +27198,7 @@ class ItemSheetFFD20 extends ItemSheet {
     if (data.pack) {
       dataType = "compendium";
       const pack = game.packs.find((p) => p.collection === data.pack);
-      const packItem = await pack.getEntity(data.id);
+      const packItem = await pack.getDocument(data.id);
       if (packItem != null) {
         targetItem = packItem;
         itemLink = `${pack.collection}.${packItem._id}`;
@@ -26793,6 +27222,15 @@ class ItemSheetFFD20 extends ItemSheet {
     }
 
     await this.item.createItemLink(linkType, dataType, targetItem, itemLink);
+  }
+
+  /**
+   * By default, returns true only for GM
+   *
+   * @override
+   */
+  _canDragStart(selector) {
+    return true;
   }
 
   _onDragStart(event) {
@@ -27469,8 +27907,9 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
     }, 0);
     data.contentsWeight += this.item._calculateCoinWeight(this.item.data);
     data.contentsWeight = Math.round(convertWeight(data.contentsWeight) * 10) / 10;
-    data.weightUnits =
-      game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+    let usystem = game.settings.get("ffd20", "weightUnits"); // override
+    if (usystem === "default") usystem = game.settings.get("ffd20", "units");
+    data.weightUnits = usystem === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
 
     // Get contents value
     const gilValue = this.item.getValue({ sellValue: 1 }) - this.item.getValue({ recursive: false, sellValue: 1 });
@@ -27604,8 +28043,9 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
       i.data.quantity = i.data.quantity || 0;
       i.data.weight = i.data.weight || 0;
       i.totalWeight = Math.round(convertWeight(i.data.quantity * i.data.weight) * 10) / 10;
-      i.units =
-        game.settings.get("ffd20", "units") === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
+      let usystem = game.settings.get("ffd20", "weightUnits"); // override
+      if (usystem === "default") usystem = game.settings.get("ffd20", "units");
+      i.units = usystem === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
       if (inventory[i.type] != null) inventory[i.type].items.push(i);
       if (subType != null && inventory[subType] != null) inventory[subType].items.push(i);
     }
@@ -27865,7 +28305,7 @@ class ItemSheetFFD20_Container extends ItemSheetFFD20 {
 
     delete data._id;
     data.name = `${data.name} (Copy)`;
-    if (data.links) data.links = {};
+    if (data.data.links) data.data.links = {};
 
     return this.item.createContainerContent(data);
   }
@@ -28522,18 +28962,6 @@ async function PatchCore() {
     return _templateCache[path];
   }
 
-  // Patch TokenHUD.getData to show resource bars even if their value is 0
-  const TokenHUD_getData = TokenHUD.prototype.getData;
-  TokenHUD.prototype.getData = function () {
-    const data = TokenHUD_getData.call(this);
-    const bar1 = this.object.document.getBarAttribute("bar1");
-    const bar2 = this.object.document.getBarAttribute("bar2");
-    return mergeObject(data, {
-      displayBar1: bar1 != null && bar1.attribute != null && bar1.value != null,
-      displayBar2: bar2 != null && bar2.attribute != null && bar2.value != null,
-    });
-  };
-
   // Token patch for shared vision
   Token.prototype._isVisionSource;
   Token.prototype._isVisionSource = function () {
@@ -28683,8 +29111,10 @@ async function PatchCore() {
     };
   };
 
-  // Patch ParentheticalTerm
+  // Patch ParentheticalTerm and allowed operators
   ParentheticalTerm.CLOSE_REGEXP = new RegExp(`\\)${RollTerm.FLAVOR_REGEXP_STRING}?`, "g");
+  OperatorTerm.REGEXP = /(?:&&|\|\||\*\*|\+|-|\*|\/|\\%|\||:|\?)|[!=<>]+/g;
+  OperatorTerm.OPERATORS.push("\\%", "!", "?", ":", "=", "<", ">", "==", "===", "<=", ">=", "??", "||", "&&", "**");
 
   // Add secondary indexing to compendium collections
   {
@@ -28726,6 +29156,16 @@ async function PatchCore() {
         }
       }
       return a;
+    };
+  }
+
+  // Todo: Declare this in TokenDocumentFFD20 when/ if TokenDocument.getData calls the constructor's method
+  {
+    const origFunc = TokenDocument.getTrackedAttributes;
+    TokenDocument.getTrackedAttributes = function (data, _path = []) {
+      let attr = origFunc.call(this, data, _path);
+      if (_path.length === 0) attr.value.push(["attributes", "hp", "temp"], ["attributes", "hp", "nonlethal"]);
+      return attr;
     };
   }
 }
@@ -29119,8 +29559,8 @@ class TokenQuickActions {
           ? actualChargeCost(item)
           : -item.chargeCost
         : item.data.data.links?.ammunition
-            ?.map((l) => actualChargeCost(actor.items.get(l.id)))
-            .reduce((a, b) => a + b, 0) ?? 0;
+            ?.flatMap((l) => actor.items.get(l.id) ?? [])
+            .reduce((a, b) => a + actualChargeCost(b), 0) ?? 0;
       if (!recharging) r += `<span class='remaining'>${uses}</span >`;
       else r += `<span class='recharge'>+${uses}</span>`;
       if (!recharging && max !== 0) r += `<span class='delimiter' >/</span ><span class='max'>${max}</span>`;
@@ -29240,7 +29680,7 @@ function initializeSocket() {
 
 const runUnitTests = async function () {
   const actorName = "Testy";
-  const actor = game.actors.entities.find((o) => o.name === actorName);
+  const actor = game.actors.contents.find((o) => o.name === actorName);
   if (!actor) {
     const msg = game.i18n.localize("FFD20.ErrorCouldNotFindActorByName").format(actorName);
     console.error(msg);
@@ -41982,6 +42422,7 @@ const _migrateWorldSettings = async function () {
  * Return an Object of updateData to be applied
  *
  * @param {Actor} actor   The actor data to derive an update from
+ * @param token
  * @returns {object}       The updateData to apply
  */
 const migrateActorData = function (actor, token) {
@@ -41995,7 +42436,7 @@ const migrateActorData = function (actor, token) {
   _migrateActorSpellbookCL(actor, updateData);
   _migrateActorSpellbookSlots(actor, updateData, linked);
   _migrateActorBaseStats(actor, updateData);
-  _migrateActorCreatureType(actor, updateData, linked);
+  _migrateUnusedActorCreatureType(actor, updateData);
   _migrateActorSpellbookDCFormula(actor, updateData, linked);
   _migrateActorHPAbility(actor, updateData);
   _migrateActorCR(actor, updateData, linked);
@@ -42009,6 +42450,8 @@ const migrateActorData = function (actor, token) {
   _migrateActorInitAbility(actor, updateData);
   _migrateActorChangeRevamp(actor, updateData);
   _migrateActorConditions(actor, updateData);
+  _migrateActorSkillRanks(actor, updateData, linked);
+  _migrateCarryBonus(actor, updateData, linked);
 
   // Migrate Owned Items
   if (!actor.items) return updateData;
@@ -42049,7 +42492,7 @@ const migrateItemData = function (item) {
   _migrateClassType(item, updateData);
   _migrateWeaponCategories(item, updateData);
   _migrateEquipmentCategories(item, updateData);
-  _migrateWeaponSize(item, updateData);
+  _migrateItemSize(item, updateData);
   _migrateAbilityTypes(item, updateData);
   _migrateClassLevels(item, updateData);
   _migrateSavingThrowTypes(item, updateData);
@@ -42224,12 +42667,9 @@ const _migrateActorBaseStats = function (ent, updateData) {
   }
 };
 
-const _migrateActorCreatureType = function (ent, updateData, linked) {
+const _migrateUnusedActorCreatureType = function (ent, updateData) {
   const type = getProperty(ent, "data.attributes.creatureType");
-  if (!linked && type === undefined) return; // skip with unlinked tokens
-  if (type == null) {
-    updateData["data.attributes.creatureType"] = "humanoid";
-  }
+  if (type != undefined) updateData["data.attributes.-=creatureType"] = null;
 };
 
 const _migrateActorSpellbookDCFormula = function (ent, updateData, linked) {
@@ -42431,11 +42871,21 @@ const _migrateEquipmentCategories = function (ent, updateData) {
   updateData["data.armor.-=type"] = null;
 };
 
-const _migrateWeaponSize = function (ent, updateData) {
-  if (ent.type !== "weapon") return;
-
-  if (!getProperty(ent, "data.weaponData.size")) {
-    updateData["data.weaponData.size"] = "med";
+const _migrateItemSize = function (ent, updateData, linked) {
+  // Convert custom sizing in weapons
+  if (ent.type === "weapon") {
+    const wdSize = getProperty(ent, "data.weaponData.size");
+    if (wdSize) {
+      // Move old
+      updateData["data.size"] = wdSize;
+      updateData["data.weaponData.-=size"] = null;
+      return;
+    }
+  }
+  // Convert any other instances
+  if (!getProperty(ent, "data.size")) {
+    // Fill in missing
+    updateData["data.size"] = "med";
   }
 };
 
@@ -42798,6 +43248,46 @@ const _migrateActorConditions = function (ent, updateData) {
   }
 };
 
+/**
+ * Migrate abnormal skill rank values to 0.
+ * Primarily changing nulls to 0 to match new actors.
+ *
+ * @param ent
+ * @param updateData
+ * @param linked
+ */
+const _migrateActorSkillRanks = function (ent, updateData, linked) {
+  const skills = getProperty(ent, "data.skills");
+  if (!skills) return; // Unlinked with no skill overrides of any kind
+  for (let [key, data] of Object.entries(skills)) {
+    if (!linked && data.rank === undefined) continue; // Unlinked with no override
+    if (!Number.isFinite(data.rank)) updateData[`data.skills.${key}.rank`] = 0;
+    for (let [subKey, subData] of Object.entries(data.subSkills ?? {})) {
+      if (!linked && subData.rank === undefined) continue; // Unlinked with no override
+      if (!Number.isFinite(subData.rank)) updateData[`data.skills.${key}.subSkills.${subKey}.rank`] = 0;
+    }
+  }
+};
+
+const _migrateCarryBonus = function (ent, updateData, linked) {
+  if (getProperty("data.details.carryCapacity.bonus.user") === undefined) {
+    let bonus = getProperty(ent, "data.abilities.str.carryBonus");
+    if (bonus !== undefined || linked) {
+      bonus = bonus || 0;
+      updateData["data.details.carryCapacity.bonus.user"] = bonus;
+    }
+    updateData["data.abilities.str.-=carryBonus"] = null;
+  }
+  if (getProperty("data.details.carryCapacity.multiplier.user") === undefined) {
+    let mult = getProperty(ent, "data.abilities.str.carryMultiplier");
+    if (mult !== undefined || linked) {
+      mult = mult || 1;
+      updateData["data.details.carryCapacity.multiplier.user"] = mult - 1;
+    }
+    updateData["data.abilities.str.-=carryMultiplier"] = null;
+  }
+};
+
 const migrations = /*#__PURE__*/Object.freeze({
   __proto__: null,
   migrateWorld: migrateWorld,
@@ -42828,7 +43318,7 @@ const createItemMacro = async function (item, slot) {
     `  itemType: "${item.type}",\n` +
     (actor != null ? `  actorId: "${actor._id}",\n` : "") +
     `});`;
-  let macro = game.macros.entities.find((m) => m.name === item.name && m.data.command === command);
+  let macro = game.macros.contents.find((m) => m.name === item.name && m.data.command === command);
   if (!macro) {
     macro = await Macro.create(
       {
@@ -42860,7 +43350,7 @@ const createSkillMacro = async function (skillId, actorId, slot) {
   const skillInfo = actor.getSkillInfo(skillId);
   const command = `game.ffd20.rollSkillMacro("${actorId}", "${skillId}");`;
   const name = game.i18n.format("FFD20.RollSkillMacroName", { 0: actor.name, 1: skillInfo.name });
-  let macro = game.macros.entities.find((m) => m.name === name && m.data.command === command);
+  let macro = game.macros.contents.find((m) => m.name === name && m.data.command === command);
   if (!macro) {
     macro = await Macro.create(
       {
@@ -42894,7 +43384,7 @@ const createSaveMacro = async function (saveId, actorId, slot) {
   const command = `game.ffd20.rollSaveMacro("${actorId}", "${saveId}");`;
 
   const name = game.i18n.format("FFD20.RollSaveMacroName", { 0: actor.name, 1: saveName });
-  let macro = game.macros.entities.find((m) => m.name === name && m.data.command === command);
+  let macro = game.macros.contents.find((m) => m.name === name && m.data.command === command);
   if (!macro) {
     macro = await Macro.create(
       {
@@ -42970,7 +43460,7 @@ const createMiscActorMacro = async function (type, actorId, slot, altType = null
 
   if (!name) return;
 
-  let macro = game.macros.entities.find((o) => o.name === name && o.data.command === command);
+  let macro = game.macros.contents.find((o) => o.name === name && o.data.command === command);
   if (!macro) {
     macro = await Macro.create(
       {
@@ -43495,6 +43985,7 @@ Hooks.once("setup", function () {
     "skills",
     "targetTypes",
     "timePeriods",
+    "timePeriodsShort",
     "savingThrows",
     "ac",
     "acValueLabels",
@@ -43660,7 +44151,7 @@ Hooks.once("ready", async function () {
   });
 
   // Migrate data
-  const NEEDS_MIGRATION_VERSION = "0.1.25";
+  const NEEDS_MIGRATION_VERSION = "0.2.1";
   let PREVIOUS_MIGRATION_VERSION = game.settings.get("ffd20", "systemMigrationVersion");
   if (typeof PREVIOUS_MIGRATION_VERSION === "number") {
     PREVIOUS_MIGRATION_VERSION = PREVIOUS_MIGRATION_VERSION.toString() + ".0";

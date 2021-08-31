@@ -55,6 +55,22 @@
         <input type="checkbox" name="data.hideFromToken" {{checked data.hideFromToken}} />
       </div>
 
+      {{!-- Duration --}}
+      <div class="form-group input-select">
+        <label>{{localize "FFD20.Duration"}}</label>
+        <div class="form-fields">
+          <input class="formula" type="text" name="data.duration.value" value="{{data.duration.value}}" placeholder="{{localize "FFD20.Formula"}}"/>
+          <select name="data.duration.units">
+            {{#select data.duration.units}}
+            <option value=""></option>
+            {{#each config.timePeriodsShort as |name key|}}
+            <option value="{{key}}">{{lookup @root.config.timePeriods key}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
+      </div>
+
       {{!-- Advanced Tag --}}
       {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
     </div>
@@ -73,7 +89,6 @@
       </div>
 
       {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
-      {{> "systems/ffd20/templates/items/parts/item-notes.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">

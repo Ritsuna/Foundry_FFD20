@@ -105,16 +105,7 @@
       </div>
       {{else}}
       {{!-- Equipment Size --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Size"}}</label>
-        <select name="data.size">
-          {{#select data.size}}
-          {{#each config.actorSizes as |name type|}}
-          <option value="{{type}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
-      </div>
+      {{> "systems/ffd20/templates/items/parts/item-size.hbs"}}
       {{/if}}
 
       {{!-- Equipment Status --}}
@@ -206,7 +197,6 @@
     {{#unless showUnidentifiedData}}
     <div class="tab flexcol" data-group="primary" data-tab="changes">
       {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
-      {{> "systems/ffd20/templates/items/parts/item-notes.hbs"}}
     </div>
     {{/unless}}
 

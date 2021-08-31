@@ -102,6 +102,16 @@
     <label>{{localize "FFD20.SpellLevelOffset"}}</label>
     <input type="number" data-dtype="Number" value="0" name="sl-offset" />
   </div>
+
+  <div class="form-group">
+    <label>{{localize "FFD20.ConcentrationCheck"}}</label>
+    <input type="checkbox" data-dtype="Boolean" name="concentration">
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "FFD20.CasterLevelCheck"}}</label>
+    <input type="checkbox" data-dtype="Boolean" name="cl-check" {{checked item.clCheck}}>
+  </div>
   {{/if}}
 
   <div class="form-group stacked">
