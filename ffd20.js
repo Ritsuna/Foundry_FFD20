@@ -14268,7 +14268,7 @@ class ItemFFD20 extends Item {
       if (usystem === "default") usystem = game.settings.get("ffd20", "units");
       itemData.data.weightConverted = convertWeight(itemData.data.weight);
       itemData.data.weightUnits = usystem === "metric" ? game.i18n.localize("FFD20.Kgs") : game.i18n.localize("FFD20.Lbs");
-      itemData.data.priceUnits = game.i18n.localize("FFD20.CurrencyGP").toLowerCase();
+      itemData.data.priceUnits = game.i18n.localize("FFD20.CurrencyGil").toLowerCase();
 
       // Set basic data
       itemData.data.hp = itemData.data.hp || { max: 10, value: 10 };
@@ -26288,7 +26288,7 @@ class ItemSheetFFD20 extends ItemSheet {
     data.owner = this.item.isOwner;
     data.isGM = game.user.isGM;
     data.showIdentifyDescription = data.isGM && data.isPhysical;
-    data.isMateria = data.item.data.equipmentType === "materia";
+    data.isMateria = data.item.data.data.equipmentType === "materia";
     data.showUnidentifiedData = this.item.showUnidentifiedData;
     data.unchainedActionEconomy = game.settings.get("ffd20", "unchainedActionEconomy");
     data.hasActivationType =

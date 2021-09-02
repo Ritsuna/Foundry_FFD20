@@ -1,4 +1,7 @@
 # Changelog
+## 0.2.2
+###
+- fixed missing materia information
 
 ## 0.2.1
 ###
