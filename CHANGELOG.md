@@ -1,17 +1,61 @@
 # Changelog
+## 0.2.24
+
+### Change Log
+- Updated to follow 0.79.1
+
+### Bug Fixes
+
+- Attack display doubling sometimes in combat tab (!258 by mkahvi)
+- `/damage` and `/heal` still triggered Dice So Nice to roll dice twice (#1015)
+- Proficiency penalty was incorrect when rolling (!260 by mkahvi)
+- Wound thresholds were ignoring temp HP (!264 by mkahvi) (#1032)
+- Skill lock button was invisible on NPC sheets (!268 by mkahvi) (#1036)
+- Dice modifiers could break if they had special characters `<>`
+- World migrations reset the max HP of lite sheet using actors to 0 (#1031)
+- Some attack bonuses/penalties weren't shown (!272 by mkahvi) (#784)
+- Some maneuver bonuses/penalties weren't shown (!271 by mkahvi) (#714, #481)
+- Various fixes to attack tooltips (!270 by mkahvi) (#1034)
+- Attack, Feat and Spell DC labels weren't being shown anymore (#988) (!292)
+- Token elevation handling was handling relative negative values as positive (#1047) (!295)
+- Item tags were visible to players while unidentified, possibly revealing its actual name (#1057) (!293)
+- Sources which set an actor's maximum dexterity bonus to 0 weren't being shown (#1039) (!289 by mkahvi)
+- Skills incorrectly added zero ACP values to their sources (!287 by mkahvi)
+- Changing a buff's icon didn't update the icon on tokens for that actor (!280)
+
+### Pathfinder Changelog
+
+- Container item deletion confirmation dialog says what is being deleted (!259 by mkahvi) (#1004)
+- Add conditionals and buffs to damage preview on actor sheets (!262 by mkahvi)
+- Add more spell details (!277 by mkahvi)
+- Allow translating sheet names (!273 by mkahvi)
+- Added a dialog for distributing experience points after a combat (!284)
+
+### API
+
+- Added Hook `itemUse`:`postAttack` before chat message is generated (!267 by mkahvi) (#487)
+
+### Compendium
+
+- Wild Shape's casts per day formula was incorrect (!283 by scapegoat57)
+
+## 0.2.23
+
+### Change Log
+- small updates
+
 ## 0.2.2
-###
+### Change Log
 - fixed missing materia information
 
 ## 0.2.1
-###
+### Change Log
 - fixed a few bugs
 - Updated to match PF1e version 0.79.0 and to be compatable with Foundry 0.8.9
 
 ## 0.2.0
-###
+### Change Log
 - Updated to match PF1e version 0.78.18 and to be compatable with Foundry 0.8.8
-
 
 ## 0.1.25
 

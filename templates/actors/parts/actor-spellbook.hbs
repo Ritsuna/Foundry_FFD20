@@ -431,7 +431,9 @@
           <div class="item-detail item-actions">
             <div class="item-attack tooltip">
               <span class="tooltipcontent">
-                {{localize "FFD20.UseSpell"}}
+                {{localize "FFD20.UseSpell"}}<br/>
+                {{#if labels.range}}{{labels.range}}<br>{{/if}}
+                {{#if labels.save}}{{labels.save}}<br/>{{/if}}
               </span>
               <a class="item-control item-attack"><img class="icon" src="systems/ffd20/icons/actions/gladius.svg"></a>
             </div>
@@ -439,9 +441,26 @@
 
           <div class="item-detail spell-activation"><span>{{labels.activation}}</span></div>
 
-          <div class="item-detail spell-components"><span>{{labels.components}}</span></div>
+          <div class="item-detail spell-components tooltip">
+            {{#if (or data.materials.value data.materials.focus)}}
+            <span class="tooltipcontent">
+              {{#if data.materials.focus}}{{localize "FFD20.SpellComponentFocus"}}: {{data.materials.focus}}<br/>{{/if}}
+              {{#if data.materials.value}}{{localize "FFD20.SpellComponentMaterial"}}: {{data.materials.value}}<br/>{{/if}}
+            </span>
+            {{/if}}
+            <span>{{labels.components}}</span>
+          </div>
 
-          <div class="item-detail spell-school"><span>{{labels.school}}</span></div>
+          <div class="item-detail spell-school tooltip">
+            {{#if (or data.subschool data.types labels.damageTypes)}}
+            <span class="tooltipcontent">
+                {{#if data.subschool}}{{localize "FFD20.SubSchool"}}: {{data.subschool}}<br/>{{/if}}
+                {{#if data.types}}{{localize "FFD20.TypePlural"}}: {{data.types}}<br/>{{/if}}
+                {{#if labels.damageTypes}}{{localize "FFD20.Damage"}}: {{labels.damageTypes}}<br/>{{/if}}
+            </span>
+            {{/if}}
+            <span>{{labels.school}}</span>
+          </div>
 
           {{#if ../../owner}}
           <div class="item-controls">

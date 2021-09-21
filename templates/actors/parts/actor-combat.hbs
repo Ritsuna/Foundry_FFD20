@@ -40,15 +40,7 @@
         </td>
 
         <td class="cmb tooltip">
-          <span class="tooltipcontent">
-            @attributes.cmb.total : {{data.attributes.cmb.total}}
-            <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
-            {{#if sourceDetails.data.attributes.cmb.total.length}}
-            {{#each sourceDetails.data.attributes.cmb.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-            {{/if}}
-          </span>
-
-          {{numberFormat data.attributes.cmb.total decimals=0 sign=true}}
+          {{> "systems/ffd20/templates/actors/parts/actor-cmb.hbs"}}
         </td>
 
         <td class="generic-melee tooltip">
@@ -57,12 +49,13 @@
             + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
             + @attributes.attack.general : {{data.attributes.attack.general}}<br/>
             + @attributes.attack.melee : {{data.attributes.attack.melee}}<br/>
-            + @abilities.{{data.attributes.attack.meleeAbility}}.mod : {{data.attributes.attack.meleeAttackMod}}
-
-            <br/><br/>{{localize "FFD20.FromSources"}}<br/>
+            + @abilities.{{data.attributes.attack.meleeAbility}}.mod : {{data.attributes.attack.meleeAttackMod}}<br/>
+            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
+            <br/>{{localize "FFD20.FromSources"}}<br/>
             {{#if sourceDetails.data.attributes.attack.shared.length}}
             {{#each sourceDetails.data.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
+            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
             {{#if sourceDetails.data.attributes.attack.general.length}}
             {{#each sourceDetails.data.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
@@ -82,12 +75,13 @@
             + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
             + @attributes.attack.general : {{data.attributes.attack.general}}<br/>
             + @attributes.attack.ranged : {{data.attributes.attack.ranged}}<br/>
-            + @abilities.{{data.attributes.attack.rangedAbility}}.mod : {{data.attributes.attack.rangedAttackMod}}
-
-            <br/><br/>{{localize "FFD20.FromSources"}}<br/>
+            + @abilities.{{data.attributes.attack.rangedAbility}}.mod : {{data.attributes.attack.rangedAttackMod}}<br/>
+            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
+            <br/>{{localize "FFD20.FromSources"}}<br/>
             {{#if sourceDetails.data.attributes.attack.shared.length}}
             {{#each sourceDetails.data.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
+            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
             {{#if sourceDetails.data.attributes.attack.general.length}}
             {{#each sourceDetails.data.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
@@ -218,22 +212,31 @@
                 {{#if item.data.ability.damage}}
                   {{abilityMod item.data.ability.damage ../../rollData item.data.ability.damageMult}} [{{lookup ../../config.abilities item.data.ability.damage}}]<br/>
                 {{/if}}
-                {{#if item.data.enh}}
-                  {{item.data.enh}} [{{localize "FFD20.EnhancementBonus"}}]<br/>
+                {{#each item.document.allDamageSources}}
+                  {{#if @first}}<br>{{/if}}
+                  {{flavor}} : {{value}} [{{lookup @root.config.bonusModifiers modifier}}]<br>
+                {{/each}}
+                {{#if (optionalConditionals item)}}
+                  <br/>+ {{localize "FFD20.Conditionals"}}<br/>
                 {{/if}}
                 {{#if item.data.damage.critParts}}
                   <br/>+ {{localize "FFD20.CritDamageBonusFormula"}}<br/>
-                {{/if}}
-                {{#if item.data.conditionals}}
-                  <br/>+ {{localize "FFD20.Conditionals"}}<br/>
                 {{/if}}
               </span>
               {{/if}}
             </div>
 
-            <div class="item-detail item-range">
+            <div class="item-detail item-range tooltip">
               {{#if item.hasRange}}
-              <label>{{itemRange item ../../rollData}}</label>
+              <label>{{itemRange item @root.rollData}}</label>
+                {{#if (or (gt item.data.range.maxIncrements 1) (ne item.data.range.minUnits ""))}}
+                <span class="tooltipcontent">
+                  {{localize "FFD20.MaximumRangeIncrements"}}: {{item.data.range.maxIncrements}}<br>
+                  <br>
+                  {{localize "FFD20.Range"}}:
+                  {{item.document.minRange}} {{distanceUnit "ft"}} – {{item.document.maxRange}} {{distanceUnit item.data.range.units}}
+                </span>
+                {{/if}}
               {{/if}}
             </div>
 

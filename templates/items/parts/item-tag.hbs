@@ -1,3 +1,4 @@
+{{#unless showUnidentifiedData}}
 <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
 
 <div class="form-group">
@@ -6,3 +7,4 @@
 	<label>{{localize "FFD20.Custom"}}</label>
 	<input type="checkbox" name="data.useCustomTag" {{checked data.useCustomTag}} />
 </div>
+{{/unless}}

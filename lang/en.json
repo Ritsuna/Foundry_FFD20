@@ -157,6 +157,15 @@
   "FFD20.TooltipConfigHideWithoutKey": "Hide unless {key} is held",
   "FFD20.OnMouse": "On Mouse",
 
+  "FFD20.Sheet": {
+    "PC": "Player Character (PC)",
+    "NPC": "Nonplayer Character (NPC)",
+    "NPCLite": "NPC Lite",
+    "NPCLoot": "Loot",
+    "Item": "Generic Item",
+    "Container": "Container"
+  },
+
   "FFD20.TooltipWorldConfigName": "Tooltip World Configuration",
   "FFD20.TooltipWorldConfigLabel": "Tooltip (World)",
   "FFD20.TooltipWorldConfigHint": "Change world-wide tooltip settings",
@@ -1679,6 +1688,10 @@
   "FFD20.Hidden": "Hidden",
   "FFD20.Bright": "Bright",
   "FFD20.Dim": "Dim",
+  "FFD20.PCs": "PCs",
+  "FFD20.NPCs": "NPCs",
+  "FFD20.Options": "Options",
+  "FFD20.Cancel": "Cancel",
 
   "FFD20.Migration.Start": "Applying FFD20 System Migration for version {version}. Please stand by.",
   "FFD20.Migration.Ongoing": "Migration is ongoing. Please wait until it finishes.",
@@ -1692,6 +1705,16 @@
     },
     "ContextNoteTargetSelector": {
       "Title": "Select context note target"
+    },
+    "XPDistributor": {
+      "Title": "Experience Distributor",
+      "Options": {
+        "BonusExperience": "Bonus Experience"
+      },
+      "SplitEvenly": "Split Evenly",
+      "GiveToAll": "Give to All",
+      "TotalExperience": "Total Experience",
+      "SplitExperience": "Split Experience"
     }
   },
 
