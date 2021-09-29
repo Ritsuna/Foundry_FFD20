@@ -1,9 +1,9 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-  
+
   {{!-- NPC Sheet Header --}}
   <header class="sheet-header flexrow">
     <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
-    
+
     <div class="header-details flexcol">
       <!-- <div class="header-top flexrow"> -->
         <h1 class="charname">
@@ -18,7 +18,7 @@
     <a class="item active" data-tab="summary">{{localize "FFD20.Summary"}}</a>
     <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
   </nav>
-  
+
   <section class="primary-body">
     <div class="tab summary" data-group="primary" data-tab="summary">
       {{!-- HD/XP reward --}}
@@ -48,7 +48,7 @@
           @details.cr.total : {{data.details.cr.total}}
         </span>
       </div>
-      
+
       {{!-- Health --}}
       {{#unless useWoundsAndVigor}}
       <table class="health-table">
@@ -58,7 +58,7 @@
               {{localize "FFD20.HitPoints"}}
             </th>
           </tr>
-          
+
           <tr>
             <th>{{localize "FFD20.Current"}}</th>
             <th>{{localize "FFD20.Maximum"}}</th>
@@ -202,13 +202,13 @@
             <ol class="inventory-list sub-scroll scroll-attacks">
               <li class="inventory-header flexrow">
                 <h3 class="item-name flexrow">{{section.label}}</h3>
-      
+
                 {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon icon-magic-palm large" title="{{localize "FFD20.Type"}}"></i></div>{{/if}}
-                
+
                 <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "FFD20.ActionPlural"}}"></i></div>
-                
+
                 <div class="item-detail item-uses"><i class="icon icon-battery-pack large" title="{{localize "FFD20.ChargePlural"}}"></i></div>
-                
+
                 {{#if ../owner}}
                 <div class="item-controls">
                   {{#if section.canCreate}}
@@ -219,7 +219,7 @@
                 </div>
                 {{/if}}
               </li>
-              
+
               <ol class="item-list">
                 {{#each section.items as |item iid|}}
                 <li class="item flexrow" data-item-id="{{item._id}}">
@@ -229,13 +229,13 @@
                       {{item.name~}}
                     </h4>
                   </div>
-      
+
                   {{#if section.showTypes}}
                   <div class="item-detail item-type">
                     <span>{{lookup ../../config.attackTypes item.data.attackType}}</span>
                   </div>
                   {{/if}}
-                  
+
                   <div class="item-detail item-actions">
                     <div class="item-attack tooltip">
                       {{#if item.hasAction}}
@@ -246,7 +246,7 @@
                       {{/if}}
                     </div>
                   </div>
-                  
+
                   <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
                     {{#if item.isCharged}}
                     <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.data.uses.value}}</span>
@@ -258,7 +258,7 @@
                     </span>
                     {{/if}}
                   </div>
-                  
+
                   {{#if ../../owner}}
                   <div class="item-controls">
                     <a class="item-control item-edit" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>
@@ -289,5 +289,5 @@
       {{/if}}
     </div>
   </section>
-  
+
 </form>

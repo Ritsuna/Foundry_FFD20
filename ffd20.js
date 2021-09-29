@@ -2362,6 +2362,7 @@ class ExperienceConfig extends FormApplication {
     return {
       track: "medium",
       disableExperienceTracking: false,
+      openXpDistributor: true,
       custom: {
         formula: "",
       },
@@ -7512,10 +7513,10 @@ const addDefaultChanges = function (changes) {
       });
     }
     // Strength to CMD
-    const abl = getProperty(this.data, "data.attributes.cmd.ability");
+    // const abl = getProperty(this.data, "data.attributes.cmd.ability");
     changes.push(
       ItemChange.create({
-        formula: `@abilities.${abl}.mod`,
+        formula: `@abilities.str.mod`,
         target: "misc",
         subTarget: "cmd",
         modifier: "untypedPerm",
@@ -8498,7 +8499,7 @@ const addDefaultChanges = function (changes) {
           value: game.i18n.localize("FFD20.ChangeFlagLoseDexToAC"),
         });
         break;
-        case "slow":
+      case "slow":
           changes.push(
             ItemChange.create({
               formula: "-1",
@@ -14480,12 +14481,6 @@ class ItemFFD20 extends Item {
 
     // Item Actions
     if (Object.prototype.hasOwnProperty.call(data, "actionType")) {
-      // Save DC
-      let save = data.save || {};
-      if (save.type) {
-        labels.save = `DC ${this.getDC()}`;
-      }
-
       // Damage
       let dam = data.damage || {};
       if (dam.parts && dam.parts instanceof Array) {
@@ -14544,6 +14539,14 @@ class ItemFFD20 extends Item {
 
     // Update maximum uses
     this._updateMaxUses();
+
+    // Add saving throw DC label
+    if (hasProperty(this.data, "data.actionType") && this.hasSave) {
+      // Save DC
+      if (this.hasSave) {
+        this.labels.save = `DC ${this.getDC()}`;
+      }
+    }
 
     // Re-render sheet, if open
     if (this.sheet?.rendered) {
@@ -18441,11 +18444,7 @@ class ItemFFD20 extends Item {
         c.modifiers.forEach((cc) => {
           const bonusRoll = RollFFD20$1.safeRoll(cc.formula, rollData);
           if (bonusRoll.total == 0) return;
-          if (cc.subTarget === "allAttack") {
-            condBonuses.forEach((_, i) => {
-              condBonuses[i] += bonusRoll.total;
-            });
-          } else if (cc.subTarget.match(/^attack\.(\d+)$/)) {
+          if (cc.subTarget?.match(/^attack\.(\d+)$/)) {
             const atk = parseInt(RegExp.$1, 10);
             if (atk in condBonuses) condBonuses[atk] += bonusRoll.total;
           }
@@ -20898,16 +20897,15 @@ class ActorSheetFFD20 extends ActorSheet {
       rangedAtkAbl = getProperty(data, `data.abilities.${data.data.attributes.attack.rangedAbility}.mod`),
       cmbAbl = getProperty(data, `data.abilities.${data.data.attributes.cmbAbility}.mod`);
 
-    const szMod = CONFIG.FFD20.sizeMods[data.data.traits.size],
-      szCMBMod = CONFIG.FFD20.sizeSpecialMods[data.data.traits.size];
+    const szCMBMod = CONFIG.FFD20.sizeSpecialMods[data.data.traits.size];
 
     data.data.attributes.attack.meleeAttackMod = meleeAtkAbl;
     data.data.attributes.attack.rangedAttackMod = rangedAtkAbl;
-    data.meleeAttack = coreAttack + szMod + data.data.attributes.attack.melee + (meleeAtkAbl ?? 0);
-    data.rangedAttack = coreAttack + szMod + data.data.attributes.attack.ranged + (rangedAtkAbl ?? 0);
+    data.meleeAttack = coreAttack + data.data.attributes.attack.melee + (meleeAtkAbl ?? 0);
+    data.rangedAttack = coreAttack + data.data.attributes.attack.ranged + (rangedAtkAbl ?? 0);
     data.data.attributes.attack.meleeAttackLabel = CONFIG.FFD20.abilities[data.data.attributes.attack.meleeAbility];
     data.data.attributes.attack.rangedAttackLabel = CONFIG.FFD20.abilities[data.data.attributes.attack.rangedAbility];
-    data.cmbAttack = coreAttack + szCMBMod + data.data.attributes.cmb.total + (cmbAbl ?? 0);
+    data.cmbAttack = coreAttack + szCMBMod + szCMBMod + data.data.attributes.cmb.total + (cmbAbl ?? 0);
 
     // Add inventory value
     {
@@ -23868,7 +23866,7 @@ class ActorSheetFFD20NPCLite extends ActorSheetFFD20NPC {
   _prepareItems(data) {
     const [attacks] = data.items.reduce(
       (arr, item) => {
-        item.img = item.img || DEFAULT_TOKEN;
+        item.img = item.img || foundry.data.ItemData.DEFAULT_ICON;
         item.hasUses = item.data.uses && item.data.uses.max > 0;
         item.isCharged = ["day", "week", "charges"].includes(getProperty(item, "data.uses.per"));
 
@@ -44697,10 +44695,14 @@ Hooks.on("getCompendiumDirectoryFFD20EntryContext", (html, entryOptions) => {
 
 // Show experience distributor after combat
 Hooks.on("deleteCombat", (combat, options, userId) => {
+  const isGM = game.user.isGM;
+  const shiftPressed = game.keyboard.isDown("Shift");
+  const { disableExperienceTracking, openXpDistributor } = game.settings.get("ffd20", "experienceConfig");
   if (
-    !game.keyboard.isDown("shift") &&
+    isGM &&
+    !disableExperienceTracking &&
     combat.started &&
-    !game.settings.get("ffd20", "experienceConfig").disableExperienceTracking
+    ((openXpDistributor && !shiftPressed) || (!openXpDistributor && shiftPressed))
   ) {
     const app = new ExperienceDistributor(combat);
 

@@ -1,25 +1,48 @@
 <form autocomplete="off">
   <div class="form-group">
-    <label class="checkbox">
-      <input type="checkbox" name="disableExperienceTracking" {{checked settings.disableExperienceTracking}} /> {{localize "SETTINGS.ffd20NoExpN"}}
+    <label for="disable-experience-tracking">
+      {{localize "SETTINGS.ffd20NoExpN"}}
     </label>
+    <div class="form-fields">
+      <input type="checkbox" id="disable-experience-tracking" name="disableExperienceTracking" data-dtype="Boolean" {{checked settings.disableExperienceTracking}} />
+    </div>
+    <p class="notes">{{localize "SETTINGS.ffd20NoExpL"}}</p>
   </div>
 
+  {{#if (not settings.disableExperienceTracking)}}
+
   <div class="form-group">
-    <label>{{localize "SETTINGS.ffd20ExpRateN"}}</label>
-    <select name="track">
-      {{#select settings.track}}
-      <option value="slow">{{localize "FFD20.XPTrackSlow"}}</option>
-      <option value="medium">{{localize "FFD20.XPTrackMedium"}}</option>
-      <option value="fast">{{localize "FFD20.XPTrackFast"}}</option>
-      <option value="customFormula">{{localize "FFD20.XPTrackCustomFormula"}}</option>
-      {{/select}}
-    </select>
+    <label for="xp-track">{{localize "SETTINGS.ffd20ExpRateN"}}</label>
+    <div class="form-fields">
+      <select name="track" id="xp-track">
+        {{#select settings.track}}
+        <option value="slow">{{localize "FFD20.XPTrackSlow"}}</option>
+        <option value="medium">{{localize "FFD20.XPTrackMedium"}}</option>
+        <option value="fast">{{localize "FFD20.XPTrackFast"}}</option>
+        <option value="customFormula">{{localize "FFD20.XPTrackCustomFormula"}}</option>
+        {{/select}}
+      </select>
+    </div>
+    <p class="notes">{{localize "SETTINGS.ffd20ExpRateL"}}</p>
   </div>
 
   {{#if hasCustomFormula}}
   <div class="form-group">
-    <input type="text" placeholder="{{localize "FFD20.XPTrackCustomFormulaHint"}}" name="custom.formula" value="{{settings.custom.formula}}" />
+    <label for="xp-custom-formula">{{localize "FFD20.Formula"}}</label>
+    <div class="form-fields">
+      <input type="text" placeholder="{{localize "FFD20.XPTrackCustomFormulaHint"}}" name="custom.formula" value="{{settings.custom.formula}}" id="xp-custom-formula" />
+    </div>
+  </div>
+  {{/if}}
+
+  <div class="form-group">
+    <label for="open-xp-distributor">
+      {{localize "SETTINGS.ffd20OpenXPDistributorN"}}
+    </label>
+    <div class="form-fields">
+      <input type="checkbox" id="open-xp-distributor" name="openXpDistributor" data-dtype="Boolean" {{checked settings.openXpDistributor}} />
+    </div>
+    <p class="notes">{{localize "SETTINGS.ffd20OpenXPDistributorL"}}</p>
   </div>
   {{/if}}
 

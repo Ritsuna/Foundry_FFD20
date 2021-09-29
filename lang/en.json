@@ -20,6 +20,8 @@
   "SETTINGS.ffd20ExpRateL": "The rate at which characters advance in levels",
   "SETTINGS.ffd20NoExpN": "Disable Experience Tracking",
   "SETTINGS.ffd20NoExpL": "Remove experience bars from character sheets.",
+  "SETTINGS.ffd20OpenXPDistributorN": "Open XP Distributor",
+  "SETTINGS.ffd20OpenXPDistributorL": "Opens the XP distributor on combat end unless Shift is held when the combat's deletion is confirmed",
   "SETTINGS.ffd20BackgroundSkillsN": "Use Background Skills",
   "SETTINGS.ffd20BackgroundSkillsH": "Use the Background Skills optional ruleset",
   "SETTINGS.ffd20FractionalBaseBonusesN": "Use Fractional Base Bonuses",

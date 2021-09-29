@@ -1,4 +1,9 @@
 # Changelog
+## 0.2.25
+
+### Bug Fixes
+- CMB and CMD bug fix
+
 ## 0.2.24
 
 ### Change Log
