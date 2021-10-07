@@ -9,7 +9,8 @@ while the game content is distributed under the Open Gaming License v1.0a.
 
 ## Installation
 
-Install the following game system in FoundryVTT's game system tab: [https://github.com/Ritsuna/ffd20-foundry/raw/master/system.json](https://github.com/Ritsuna/ffd20-foundry/raw/master/system.json)
+Install the following game system in FoundryVTT's game system tab: [https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json](https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json)
+And then Install in modules: [https://raw.githubusercontent.com/Ritsuna/FFd20_content/main/module.json](https://raw.githubusercontent.com/Ritsuna/FFd20_content/main/module.json)
 
 If you wish to manually install the system, you must clone or extract it into
 the Data/systems/ffd20 folder. You may do this by cloning the repository or
