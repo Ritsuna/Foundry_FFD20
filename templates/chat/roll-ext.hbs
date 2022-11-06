@@ -1,7 +1,9 @@
 {{#if flavor}}
 <span class="flavor-text">
   {{#if compendiumEntry}}
-  <a title="{{localize "FFD20.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"><i class="fas fa-book"></i></a>
+  <a title="{{localize "FFD20.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"{{#if compendiumEntryType}} data-document-type="{{compendiumEntryType}}"{{/if}}>
+    <i class="fas fa-book"></i>
+  </a>
   {{/if}}
   {{flavor}}
 </span>
@@ -9,14 +11,16 @@
 
 {{#unless flavor}}
 {{#if compendiumEntry}}
-<a title="{{localize "FFD20.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"><i class="fas fa-book"></i></a>
+<a title="{{localize "FFD20.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"{{#if compendiumEntryType}} data-document-type="{{compendiumEntryType}}"{{/if}}>
+  <i class="fas fa-book"></i>
+</a>
 {{/if}}
 {{/unless}}
 
 {{#if formula}}
 <div class="dice-roll">
   <div class="dice-result">
-      <h4 class="dice-total{{#if isCrit}} success{{/if}}{{#if isFumble}} failure{{/if}}">{{total}}</h4>
+      <h4 class="dice-total{{#if isNat20}} natural-20{{/if}}{{#if isCrit}} critical-threat success{{/if}}{{#if isFumble}} failure{{/if}}">{{total}}</h4>
       {{{tooltip}}}
   </div>
 </div>
@@ -30,7 +34,7 @@
 {{#each properties as |prop|}}
 <div class="flexcol property-group gm-sensitive general-notes">
   <label>{{prop.header}}</label>
-  <div class="flexrow">
+  <div class="flexrow tag-list">
     {{#each prop.value as |v|}}
     <span class="tag">{{{v}}}</span>
     {{/each}}

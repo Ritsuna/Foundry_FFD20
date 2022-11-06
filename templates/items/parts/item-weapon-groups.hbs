@@ -1,0 +1,9 @@
+<div class="form-group {{system.weaponGroups.cssClass}} tooltip">
+  <label for="system.weaponGroups">{{localize "FFD20.WeaponGroups"}}</label>
+  <ul class="traits-list tag-list">
+    {{#each system.weaponGroups.selected as |v k|}}
+      <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+  </ul>
+  <a class="trait-selector" data-options="weaponGroups"><i class="fas fa-edit"></i></a>
+</div>

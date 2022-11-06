@@ -5,7 +5,7 @@
     <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
 
     <div class="header-details flexrow">
-      <h1 class="charname">
+      <h1 class="itemname">
         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
       </h1>
       <div class="item-subtitle">
@@ -16,7 +16,7 @@
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
     <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
     <a class="item" data-tab="changes">{{localize "FFD20.Changes"}}</a>
     <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
@@ -27,67 +27,62 @@
   <section class="primary-body">
 
     {{!-- Description Tab --}}
-    <div class="tab flexcol active" data-group="primary" data-tab="description">
-      {{roll-editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+    <div class="tab flexcol" data-group="primary" data-tab="description">
+      {{editor descriptionHTML.identified target="system.description.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Details Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
 
+      {{!-- Race Size --}}
+      {{> "systems/ffd20/templates/items/parts/item-size.hbs" allowAutoResizing=false}}
+
       {{!-- Racial Type --}}
       <div class="form-group">
         <label>{{localize "FFD20.CreatureType"}}</label>
-        <select name="data.creatureType">
-          {{#select data.creatureType}}
-          {{#each config.creatureTypes as |name type|}}
-          <option value="{{type}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
-      </div>
-
-      <div class="form-group stacked">
-        <div class="data-selector">
-          <a class="entry-selector" for="data.subTypes" data-fields="{{localize "FFD20.RaceSubtypePlural"}}" data-dtypes="String"><i class="fas fa-edit"></i></a>
-          <label for="data.subTypes">{{localize "FFD20.RaceSubtypePlural"}}</label>
+        <div class="form-fields">
+          <select name="system.creatureType">
+            {{#select system.creatureType}}
+            {{#each config.creatureTypes as |name type|}}
+            <option value="{{type}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
         </div>
       </div>
 
+      {{!-- Subtypes --}}
+      <div class="form-group subtypes">
+        <label for="system.subTypes">{{localize "FFD20.RaceSubtypePlural"}}</label>
+        <ul class="subtype-list traits-list tag-list">
+          {{#each system.subTypes as |v k|}}
+            <li class="tag {{k}}">{{v}}</li>
+          {{/each}}
+        </ul>
+        <a class="entry-selector" for="system.subTypes" data-fields="{{localize "FFD20.RaceSubtypePlural"}}" data-dtypes="String"><i class="fas fa-edit"></i></a>
+      </div>
+
       {{!-- Proficiencies --}}
-      <div class="form-group {{data.armorProf.cssClass}}">
-        <label for="data.weaponProf">{{localize "FFD20.TraitWeaponProf"}}</label>
-        <ul class="traits-list">
-          {{#each data.weaponProf.selected as |v k|}}
-            <li class="tag {{k}}">{{v}}</li>
-          {{/each}}
-        </ul>
-        <a class="trait-selector" data-options="weaponProf"><i class="fas fa-edit"></i></a>
-      </div>
+      {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
 
-      <div class="form-group {{data.armorProf.cssClass}}">
-        <label for="data.armorProf">{{localize "FFD20.TraitArmorProf"}}</label>
-        <ul class="traits-list">
-          {{#each data.armorProf.selected as |v k|}}
-            <li class="tag {{k}}">{{v}}</li>
-          {{/each}}
-        </ul>
-        <a class="trait-selector" data-options="armorProf"><i class="fas fa-edit"></i></a>
-      </div>
+      <!-- Class Skills -->
+      <h4 class="form-header">{{localize "FFD20.ClassSkills"}}</h4>
 
-      {{!-- add racial languages selection --}}
-  <div class="form-group {{data.languages.cssClass}}">
-    <label for="data.languages">{{localize "FFD20.Languages"}}</label>
-    <ul class="traits-list">
-      {{#each data.languages.selected as |v k|}}
-      <li class="tag {{k}}">{{v}}</li>
-      {{/each}}
-    </ul>
-    <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
-  </div>
+      <div class="form-group">
+        <ol class="item-list">
+        {{#each skills as |skill key|}}
+        <li class="item flexrow" data-skill="{{key}}">
+          <label class="checkbox skill-cs">
+            <input type="checkbox" name="system.classSkills.{{key}}" {{checked skill.classSkill}} /> {{skill.name}}
+          </label>
+        </li>
+        {{/each}}
+        </ol>
+      </div>
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="changes">
-      {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
+      {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">

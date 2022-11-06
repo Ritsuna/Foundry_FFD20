@@ -3,11 +3,11 @@
     {{!-- PC selector --}}
     <h2>{{localize "FFD20.PCs"}}</h2>
     <div class="character-selector">
-      {{#each combatants.characters as |combatant|}}
-        <div class="actor{{#if combatant.toggled}} toggled{{/if}}" data-id="{{combatant.id}}">
-          <img class="portrait" src="{{combatant.actorData.img}}">
-          <span class="name">{{combatant.actorData.name}}</span>
-          <input type="checkbox" {{checked combatant.toggled}}/>
+      {{#each actors.characters as |actor|}}
+        <div class="actor{{#if actor.toggled}} toggled{{/if}}" data-id="{{actor.id}}">
+          <img class="portrait" src="{{actor.actor.img}}">
+          <span class="name">{{actor.actor.name}}</span>
+          <input type="checkbox" {{checked actor.toggled}}/>
         </div>
       {{/each}}
     </div>
@@ -15,12 +15,12 @@
     {{!-- NPC selector --}}
     <h2>{{localize "FFD20.NPCs"}}</h2>
     <div class="npc-selector">
-      {{#each combatants.npcs as |combatant|}}
-        <div class="actor{{#if combatant.toggled}} toggled{{/if}}" data-id="{{combatant.id}}">
-          <img class="portrait" src="{{combatant.actorData.img}}">
-          <span class="name">{{combatant.actorData.name}}</span>
-          <span class="xp">{{combatant.xpString}} XP</span>
-          <input type="checkbox" {{checked combatant.toggled}}/>
+      {{#each actors.npcs as |actor|}}
+        <div class="actor{{#if actor.toggled}} toggled{{/if}}" data-id="{{actor.id}}">
+          <img class="portrait" src="{{actor.actor.img}}">
+          <span class="name">{{actor.actor.name}}</span>
+          <span class="xp">{{actor.xpString}} XP</span>
+          <input type="checkbox" {{checked actor.toggled}}/>
         </div>
       {{/each}}
     </div>

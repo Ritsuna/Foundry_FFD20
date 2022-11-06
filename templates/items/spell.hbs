@@ -5,7 +5,7 @@
     <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
 
     <div class="header-details flexrow">
-      <h1 class="charname">
+      <h1 class="itemname">
         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
       </h1>
 
@@ -27,9 +27,8 @@
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
     <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
-    <a class="item" data-tab="conditionals">{{localize "FFD20.Conditionals"}}</a>
     <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
     <a class="item" data-tab="advanced">{{localize "FFD20.Advanced"}}</a>
   </nav>
@@ -39,281 +38,298 @@
 
     {{!-- Description Tab --}}
     <div class="tab description" data-group="primary" data-tab="description">
-      {{{description}}}
+      {{{topDescription}}}
+
+      {{!-- Spell Description --}}
+      <h2>{{localize "FFD20.Description"}}</h2>
+      {{editor shortDescription target="system.shortDescription" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Details Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
-      <h3 class="form-header">{{localize "FFD20.SpellDetails"}}</h3>
+      {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
+
+      <h3 class="form-header">{{localize "FFD20.SpellBook"}}</h3>
 
       {{!-- Spellbook --}}
       {{#if owner}}
       <div class="form-group">
         <label>{{localize "FFD20.SpellBook"}}</label>
-        <select name="data.spellbook">
-          {{#select data.spellbook}}
-          {{#each spellbooks as |spellbook a|}}
-          <option value="{{a}}">{{spellbook.name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
+        <div class="form-fields">
+          <select name="system.spellbook">
+            {{#select system.spellbook}}
+            {{#each spellbooks as |spellbook a|}}
+            <option value="{{a}}">{{localize spellbook.label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
       </div>
       {{else}}
-      <input type="hidden" name="data.spellbook" value="primary"/>
+      <input type="hidden" name="system.spellbook" value="primary"/>
       {{/if}}
 
       {{!-- Spell Level --}}
       <div class="form-group">
         <label>{{localize "FFD20.SpellLevel"}}</label>
-        <select name="data.level" data-dtype="Number">
-          {{#select data.level}}
-          {{#each config.spellLevels as |name lvl|}}
-          <option value="{{lvl}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
+        <div class="form-fields">
+          <select name="system.level" data-dtype="Number">
+            {{#select system.level}}
+            {{#each config.spellLevels as |name lvl|}}
+            <option value="{{lvl}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
       </div>
+
+      <h3 class="form-header">{{localize "FFD20.LearnedAt"}}</h3>
 
       <div class="form-group stacked">
-        <label>{{localize "FFD20.LearnedAt"}}</label>
-
         <div class="data-selector">
-          <a class="entry-selector" for="data.learnedAt.class" data-fields="{{localize "FFD20.CasterLevel"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
-          <label for="data.learnedAt.class">{{localize "FFD20.CasterLevel"}}</label>
+          <a class="entry-selector" for="system.learnedAt.class" data-fields="{{localize "FFD20.CasterLevel"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <label for="system.learnedAt.class">{{localize "FFD20.CasterLevel"}}</label>
         </div>
 
         <div class="data-selector">
-          <a class="entry-selector" for="data.learnedAt.domain" data-fields="{{localize "FFD20.Domain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
-          <label for="data.learnedAt.domain">{{localize "FFD20.Domain"}}</label>
+          <a class="entry-selector" for="system.learnedAt.domain" data-fields="{{localize "FFD20.Domain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <label for="system.learnedAt.domain">{{localize "FFD20.Domain"}}</label>
         </div>
 
         <div class="data-selector">
-          <a class="entry-selector" for="data.learnedAt.subDomain" data-fields="{{localize "FFD20.SubDomain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
-          <label for="data.learnedAt.subDomain">{{localize "FFD20.SubDomain"}}</label>
+          <a class="entry-selector" for="system.learnedAt.subDomain" data-fields="{{localize "FFD20.SubDomain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <label for="system.learnedAt.subDomain">{{localize "FFD20.SubDomain"}}</label>
         </div>
 
         <div class="data-selector">
-          <a class="entry-selector" for="data.learnedAt.bloodline" data-fields="{{localize "FFD20.Bloodline"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
-          <label for="data.learnedAt.bloodline">{{localize "FFD20.Bloodline"}}</label>
+          <a class="entry-selector" for="system.learnedAt.bloodline" data-fields="{{localize "FFD20.Bloodline"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <label for="system.learnedAt.bloodline">{{localize "FFD20.Bloodline"}}</label>
         </div>
       </div>
+
+      <h3 class="form-header">{{localize "FFD20.SpellDetails"}}</h3>
 
       {{!-- Spell School --}}
       <div class="form-group">
         <label>{{localize "FFD20.SpellSchool"}}</label>
-        <select name="data.school">
-          {{#select data.school}}
-          {{#each config.spellSchools as |name sch|}}
-          <option value="{{sch}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
+        <div class="form-fields">
+          <select name="system.school">
+            {{#select system.school}}
+            {{#each config.spellSchools as |name sch|}}
+            <option value="{{sch}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
       </div>
       <div class="spell-misc form-group stacked">
         <label>{{localize "FFD20.multiSchool"}}</label>
         <label class="checkbox">
-          <input type="checkbox" name="data.multi" {{checked data.multi}}/> {{localize "FFD20.multiSchool"}}
+          <input type="checkbox" name="system.multi" {{checked system.multi}}/> {{localize "FFD20.multiSchool"}}
         </label>
       </div>
-    {{#if data.multi}}
+    {{#if system.multi}}
       <div class="form-group">
         <label>{{localize "FFD20.multiSchool"}}</label>
-        <select name="data.multischool">
-          {{#select data.multischool}}
-          {{#each config.multiSchools as |name sch|}}
-          <option value="{{sch}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
+        <div class="form-fields">
+          <select name="system.multischool">
+            {{#select system.multischool}}
+            {{#each config.multiSchools as |name sch|}}
+            <option value="{{sch}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
       </div>
-    {{/if}}
+      {{/if}}
 
       {{!-- Subschool and type --}}
       <div class="form-group flexrow">
         <label>{{localize "FFD20.SubSchool"}}</label>
-        <input type="text" name="data.subschool" value="{{data.subschool}}" Placeholder="{{localize "FFD20.SubSchoolExample"}}"/>
-        <label>{{localize "FFD20.TypePlural"}}</label>
-        <input type="text" name="data.types" value="{{data.types}}" Placeholder="{{localize "FFD20.SpellTypesExample"}}"/>
+        <div class="form-fields">
+          <input type="text" name="system.subschool" value="{{system.subschool}}" Placeholder="{{localize "FFD20.SubSchoolExample"}}"/>
+        </div>
+      </div>
+
+      {{!-- Descriptors --}}
+      <div class="form-group flexrow">
+        <label>{{localize "FFD20.DescriptorPlural"}}</label>
+        <div class="form-fields">
+          <input type="text" name="system.types" value="{{system.types}}" Placeholder="{{localize "FFD20.SpellTypesExample"}}"/>
+        </div>
       </div>
 
       {{!-- Misc --}}
+      <h3 class="form-header">{{localize "FFD20.Misc"}}</h3>
+
       <div class="spell-misc form-group stacked">
-        <label>{{localize "FFD20.Misc"}}</label>
         <label class="checkbox">
-          <input type="checkbox" name="data.sr" {{checked data.sr}}/> {{localize "FFD20.SpellResistance"}}
+          <input type="checkbox" name="system.sr" {{checked system.sr}}/> {{localize "FFD20.SpellResistance"}}
         </label>
 
         <label class="checkbox">
-          <input type="checkbox" name="data.clCheck" {{checked data.clCheck}}/> {{localize "FFD20.CasterLevelCheck"}}
+          <input type="checkbox" name="system.clCheck" {{checked system.clCheck}}/> {{localize "FFD20.CasterLevelCheck"}}
         </label>
 
         <label class="checkbox">
-          <input type="checkbox" name="data.atWill" {{checked data.atWill}}/> {{localize "FFD20.SpellPrepAtWill"}}
+          <input type="checkbox" name="system.atWill" {{checked system.atWill}}/> {{localize "FFD20.SpellPrepAtWill"}}
         </label>
 
         <label class="checkbox" title="{{localize "FFD20.HelpDomainSpell"}}">
-          <input type="checkbox" name="data.domain" {{checked data.domain}}/> {{localize "FFD20.Domain"}}/{{localize "FFD20.School"}}
+          <input type="checkbox" name="system.domain" {{checked system.domain}}/> {{localize "FFD20.Domain"}}/{{localize "FFD20.School"}}
         </label>
 
         {{#if owner}}
         <label class="checkbox">
-          <input type="checkbox" name="data.showInQuickbar" {{checked data.showInQuickbar}}/> {{localize "FFD20.ShowInQuickbar"}}
+          <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}}/> {{localize "FFD20.ShowInQuickbar"}}
         </label>
         {{/if}}
-
-        <label class="checkbox">
-          <input type="checkbox" name="data.nonlethal" {{checked data.nonlethal}}/> {{localize "FFD20.Nonlethal"}}
-        </label>
       </div>
+
+      <h3 class="form-header">{{localize "FFD20.SpellComponents"}}</h3>
 
       {{!-- Spell Components --}}
       <div class="spell-components form-group stacked">
-        <label>{{localize "FFD20.SpellComponents"}}</label>
         <label class="checkbox">
-          <input type="checkbox" name="data.components.verbal" {{checked data.components.verbal}}/> {{localize "FFD20.SpellComponentVerbal"}}
+          <input type="checkbox" name="system.components.verbal" {{checked system.components.verbal}}/> {{localize "FFD20.SpellComponentVerbal"}}
         </label>
         <label class="checkbox">
-          <input type="checkbox" name="data.components.somatic" {{checked data.components.somatic}}/> {{localize "FFD20.SpellComponentSomatic"}}
+          <input type="checkbox" name="system.components.somatic" {{checked system.components.somatic}}/> {{localize "FFD20.SpellComponentSomatic"}}
         </label>
         <label class="checkbox">
-          <input type="checkbox" name="data.components.material" {{checked data.components.material}}/> {{localize "FFD20.SpellComponentMaterial"}}
+          <input type="checkbox" name="system.components.thought" {{checked system.components.thought}}/> {{localize "FFD20.SpellComponentThought"}}
         </label>
         <label class="checkbox">
-          <input type="checkbox" name="data.components.focus" {{checked data.components.focus}}/> {{localize "FFD20.SpellComponentFocus"}}
+          <input type="checkbox" name="system.components.emotion" {{checked system.components.emotion}}/> {{localize "FFD20.SpellComponentEmotion"}}
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="system.components.material" {{checked system.components.material}}/> {{localize "FFD20.SpellComponentMaterial"}}
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="system.components.focus" {{checked system.components.focus}}/> {{localize "FFD20.SpellComponentFocus"}}
         </label>
       </div>
 
       {{!-- Divine Focus --}}
-      <div class="divine-focus form-group stacked">
+      <div class="divine-focus form-group">
         <label>{{localize "FFD20.SpellComponentDivineFocus"}}</label>
-        <select name="data.components.divineFocus" data-dtype="Number">
-          {{#select data.components.divineFocus}}
-          {{#each config.divineFocus as |name value|}}
-          <option value="{{value}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
+        <div class="form-fields">
+          <select name="system.components.divineFocus" data-dtype="Number">
+            {{#select system.components.divineFocus}}
+            {{#each config.divineFocus as |name value|}}
+            <option value="{{value}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
       </div>
 
       {{!-- Misc Components --}}
-      <div class="misc-components form-group stacked">
+      <div class="misc-components form-group">
         <label>{{localize "FFD20.SpellComponentsMisc"}}</label>
-        <input type="text" name="data.components.value" value="{{data.components.value}}"/>
+        <div class="form-fields">
+          <input type="text" name="system.components.value" value="{{system.components.value}}"/>
+        </div>
       </div>
 
       {{!-- Material Components --}}
-      {{#if data.components.material}}
+      {{#if system.components.material}}
       <h3>{{localize "FFD20.SpellcastingMaterials"}}</h3>
       <div class="form-group">
+        <label>{{localize "FFD20.Description"}}</label>
         <div class="form-fields">
-          <label>{{localize "FFD20.Description"}}</label>
-          <input class="materials" type="text" name="data.materials.value" value="{{data.materials.value}}"/>
+          <input class="materials" type="text" name="system.materials.value" value="{{system.materials.value}}"/>
         </div>
       </div>
       <div class="form-group">
+        <label>{{localize "FFD20.Value"}}</label>
         <div class="form-fields">
-          <label>{{localize "FFD20.Value"}}</label>
-          <input type="text" data-dtype="Number" name="data.materials.gilValue" value="{{data.materials.gilValue}}"/>
+          <input type="text" data-dtype="Number" name="system.materials.gilValue" value="{{system.materials.gilValue}}" placeholder="0" />
         </div>
       </div>
       {{/if}}
 
-      {{#if data.components.focus}}
-      <div class="form-group stacked">
+      {{#if system.components.focus}}
+      <div class="form-group">
         <label>{{localize "FFD20.SpellcastingFocus"}}</label>
-        <input class="focus" type="text" name="data.materials.focus" value="{{data.materials.focus}}"/>
+        <div class="form-fields">
+          <input class="focus" type="text" name="system.materials.focus" value="{{system.materials.focus}}"/>
+        </div>
       </div>
       {{/if}}
 
       {{!-- Prepared Spells --}}
+      {{#unless usesSpellpoints}}
       {{#if isPreparedSpell}}
+      <h3 class="form-header">{{localize "FFD20.Preparation"}}</h3>
+
       <div class="form-group">
         <div class="form-fields">
           <label>{{localize "FFD20.CastsLeft"}}</label>
           <div class="form-fields">
-            <input type="text" name="data.preparation.preparedAmount" value="{{data.preparation.preparedAmount}}" data-dtype="Number"/>
+            <input type="text" name="system.preparation.preparedAmount" value="{{system.preparation.preparedAmount}}" data-dtype="Number"/>
           </div>
         </div>
         <div class="form-fields">
           <label>{{localize "FFD20.SpellPrepPrepared"}}</label>
           <div class="form-fields">
-            <input type="text" name="data.preparation.maxAmount" value="{{data.preparation.maxAmount}}" data-dtype="Number"/>
+            <input type="text" name="system.preparation.maxAmount" value="{{system.preparation.maxAmount}}" data-dtype="Number"/>
           </div>
         </div>
       </div>
       {{else}}
       <div class="form-group stacked">
         <label class="checkbox">
-          <input type="checkbox" name="data.preparation.spontaneousPrepared" {{checked data.preparation.spontaneousPrepared}}> {{localize "FFD20.SpellPrepPrepared"}}
+          <input type="checkbox" name="system.preparation.spontaneousPrepared" {{checked system.preparation.spontaneousPrepared}}> {{localize "FFD20.SpellPrepPrepared"}}
         </label>
       </div>
       {{/if}}
+      {{/unless}}
 
       {{#unless isAtWill}}
+      {{#unless usesSpellpoints}}
       <div class="spell-misc form-group stacked">
         <label class="checkbox">
-          <input type="checkbox" name="data.preparation.autoDeductCharges" {{checked data.preparation.autoDeductCharges}}/> {{localize "FFD20.AutoDeductCharges"}}
+          <input type="checkbox" name="system.preparation.autoDeductCharges" {{checked system.preparation.autoDeductCharges}}/> {{localize "FFD20.AutoDeductCharges"}}
         </label>
       </div>
       {{/unless}}
+      {{/unless}}
 
-      {{!-- Spell Points --}}
+      <h3 class="form-header">{{localize "FFD20.Offsets"}}</h3>
+      {{!-- Spell Points
       <div class="spell-points form-group">
         <div class="form-fields">
           <label>{{localize "FFD20.SpellPointsCost"}}</label>
-          <input type="text" name="data.spellPoints.cost" value="{{data.spellPoints.cost}}" placeholder="{{localize "FFD20.Formula"}}" title="{{localize "FFD20.Formula"}}" />
+          <input type="text" class="formula" name="system.spellPoints.cost" value="{{system.spellPoints.cost}}" placeholder="{{localize "FFD20.Formula"}}" title="{{localize "FFD20.Formula"}}" />
         </div>
-      </div>
+      </div> --}}
 
       {{!-- Caster Level Offset --}}
       <div class="form-group">
+        <label>{{localize "FFD20.CasterLevelOffset"}}</label>
         <div class="form-fields">
-          <label>{{localize "FFD20.CasterLevelOffset"}}</label>
-          <input type="text" name="data.clOffset" value="{{data.clOffset}}" data-dtype="Number"/>
+          <input type="text" name="system.clOffset" value="{{system.clOffset}}" data-dtype="Number"/>
         </div>
       </div>
 
       {{!-- Spell Level Offset --}}
       <div class="form-group">
+        <label>{{localize "FFD20.SpellLevelOffset"}}</label>
         <div class="form-fields">
-          <label>{{localize "FFD20.SpellLevelOffset"}}</label>
-          <input type="text" name="data.slOffset" value="{{data.slOffset}}" data-dtype="Number"/>
+          <input type="text" name="system.slOffset" value="{{system.slOffset}}" data-dtype="Number"/>
         </div>
       </div>
 
       {{!-- Spell Slot Cost --}}
+      {{#unless usesSpellpoints}}
       <div class="form-group">
+        <label>{{localize "FFD20.SpellSlotCost"}}</label>
         <div class="form-fields">
-          <label>{{localize "FFD20.SpellSlotCost"}}</label>
-          <input type="text" name="data.slotCost" value="{{data.slotCost}}" data-dtype="Number"/>
+          <input type="text" name="system.slotCost" value="{{system.slotCost}}" data-dtype="Number"/>
         </div>
       </div>
-
-      <h3 class="form-header">{{localize "FFD20.SpellCasting"}}</h3>
-
-      {{!-- Item Activation Template --}}
-      {{> "systems/ffd20/templates/items/parts/item-activation.hbs"}}
-
-      <h3 class="form-header">{{localize "FFD20.SpellEffects"}}</h3>
-
-      {{!-- Item Action Template --}}
-      {{> "systems/ffd20/templates/items/parts/item-action.hbs"}}
-
-      <h3 class="form-header">{{localize "FFD20.MeasureTemplate"}}</h3>
-
-      {{!-- Item Measure Template --}}
-      {{> "systems/ffd20/templates/items/parts/item-template.hbs"}}
-
-      {{!-- Spell Description --}}
-
-      <h3 class="form-header">{{localize "FFD20.Description"}}</h3>
-
-      {{roll-editor content=shortDescription target="data.shortDescription" button=true owner=owner editable=editable}}
-    </div>
-
-    {{!-- Conditionals Tab --}}
-    <div class="tab" data-group="primary" data-tab="conditionals">
-      {{> "systems/ffd20/templates/items/parts/item-conditionals.hbs"}}
+      {{/unless}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">

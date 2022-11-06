@@ -1,0 +1,42 @@
+<footer class="card-footer">
+  {{#if hasExtraText}}
+    <div class="extra-text gm-sensitive">{{{extraText}}}</div>
+  {{/if}}
+
+  {{#if spellFailure}}
+    <div class="spell-failure">
+      <h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3>
+      <div class="dice-roll">
+        <div class="dice-result">
+          <h4 class="dice-total spell-failure {{#unless spellFailureSuccess}}failure{{/unless}}">{{spellFailure}}</h4>
+        </div>
+      </div>
+    </div>
+  {{/if}}
+  {{#if (or concentrationCheck casterLevelCheck)}}
+  <div class='card-buttons spell-buttons flexrow'>
+    {{#if concentrationCheck}}
+    <div class="concentration">
+        <button data-action="concentration">{{localize "FFD20.ConcentrationCheck"}}</button>
+    </div>
+    {{/if}}
+    {{#if casterLevelCheck}}
+    <div class="caster-level-check">
+        <button data-action="caster-level-check">{{localize "FFD20.CasterLevelCheck"}}</button>
+    </div>
+    {{/if}}
+  </div>
+  {{/if}}
+  {{#if hasProperties}}
+    {{#each properties as |prop|}}
+      <div class="flexcol property-group gm-sensitive general-notes">
+        <label>{{prop.header}}</label>
+        <div class="flexrow tag-list">
+          {{#each prop.value as |v|}}
+            <span class="tag">{{{v}}}</span>
+          {{/each}}
+        </div>
+      </div>
+    {{/each}}
+  {{/if}}
+</footer>

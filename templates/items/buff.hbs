@@ -5,7 +5,7 @@
     <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
 
     <div class="header-details flexrow">
-      <h1 class="charname">
+      <h1 class="itemname">
         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.BuffName"}}"/>
       </h1>
 
@@ -19,12 +19,12 @@
           {{labels.buffType}}
         </li>
         <li class="tooltip">
-          <span class="tooltipcontent">@item.level : {{data.level}}</span>
-          <input type="text" name="data.level" value="{{#if data.level}}{{data.level}}{{/if}}" placeholder="{{localize "FFD20.Level"}}"/>
+          <span class="tooltipcontent">@item.level : {{system.level}}</span>
+          <input type="text" name="system.level" data-dtype="Number" value="{{#if system.level}}{{system.level}}{{/if}}" placeholder="{{localize "FFD20.Level"}}"/>
         </li>
         <li>
           <label>
-            <input type="checkbox" name="data.active" {{checked data.active}}> {{localize "FFD20.Active"}}
+            <input type="checkbox" name="system.active" {{checked system.active}}> {{localize "FFD20.Active"}}
           </label>
         </li>
       </ul>
@@ -33,7 +33,7 @@
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
     <a class="item" data-tab="details">{{localize "FFD20.Details"}}</a>
     <a class="item" data-tab="changes">{{ localize "FFD20.Changes" }}</a>
     <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
@@ -44,24 +44,26 @@
   <section class="primary-body">
 
     {{!-- Description Tab --}}
-    <div class="tab flexcol active" data-group="primary" data-tab="description">
-      {{roll-editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+    <div class="tab flexcol" data-group="primary" data-tab="description">
+      {{editor descriptionHTML.identified target="system.description.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Details Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
       <div class="form-group">
         <label>{{localize "FFD20.HideFromToken"}}</label>
-        <input type="checkbox" name="data.hideFromToken" {{checked data.hideFromToken}} />
+        <input type="checkbox" name="system.hideFromToken" {{checked system.hideFromToken}} />
       </div>
+
+      <h3 class="form-header">{{localize "FFD20.Details"}}</h3>
 
       {{!-- Duration --}}
       <div class="form-group input-select">
         <label>{{localize "FFD20.Duration"}}</label>
         <div class="form-fields">
-          <input class="formula" type="text" name="data.duration.value" value="{{data.duration.value}}" placeholder="{{localize "FFD20.Formula"}}"/>
-          <select name="data.duration.units">
-            {{#select data.duration.units}}
+          <input class="formula" type="text" name="system.duration.value" value="{{system.duration.value}}" placeholder="{{localize "FFD20.Formula"}}"/>
+          <select name="system.duration.units">
+            {{#select system.duration.units}}
             <option value=""></option>
             {{#each config.timePeriodsShort as |name key|}}
             <option value="{{key}}">{{lookup @root.config.timePeriods key}}</option>
@@ -71,6 +73,9 @@
         </div>
       </div>
 
+      {{!-- Proficiencies --}}
+      {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
+
       {{!-- Advanced Tag --}}
       {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
     </div>
@@ -79,8 +84,8 @@
     <div class="tab flexcol" data-group="primary" data-tab="changes">
       <div class="form-group select">
         <label>{{localize "FFD20.Type"}}</label>
-        <select name="data.buffType" value="{{data.buffType}}">
-          {{#select data.buffType}}
+        <select name="system.buffType" value="{{system.buffType}}">
+          {{#select system.buffType}}
           {{#each config.buffTypes as |type a|}}
           <option value="{{a}}">{{type}}</option>
           {{/each}}
@@ -88,7 +93,7 @@
         </select>
       </div>
 
-      {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
+      {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">

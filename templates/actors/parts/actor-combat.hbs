@@ -25,17 +25,17 @@
       <tr>
         <td class="bab tooltip">
           <span class="tooltipcontent">
-            @attributes.bab.total : {{data.attributes.bab.total}}
-            {{#if sourceDetails.data.attributes.bab.total.length}}
+            @attributes.bab.total : {{system.attributes.bab.total}}
+            {{#if sourceDetails.system.attributes.bab.total.length}}
             <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
-            {{#each sourceDetails.data.attributes.bab.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#each sourceDetails.system.attributes.bab.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
           </span>
 
           {{#if iteratives}}
           {{iteratives}}
           {{else}}
-          {{numberFormat data.attributes.bab.total decimals=0 sign=true}}
+          {{numberFormat system.attributes.bab.total decimals=0 sign=true}}
           {{/if}}
         </td>
 
@@ -46,24 +46,20 @@
         <td class="generic-melee tooltip">
           <span class="tooltipcontent">
             …<br/>
-            + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
-            + @attributes.attack.general : {{data.attributes.attack.general}}<br/>
-            + @attributes.attack.melee : {{data.attributes.attack.melee}}<br/>
-            + @abilities.{{data.attributes.attack.meleeAbility}}.mod : {{data.attributes.attack.meleeAttackMod}}<br/>
-            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
+            + @attributes.attack.shared : {{system.attributes.attack.shared}}<br/>
+            + @attributes.attack.general : {{system.attributes.attack.general}}<br/>
+            + @attributes.attack.melee : {{system.attributes.attack.melee}}<br/>
+            + @abilities.{{system.attributes.attack.meleeAbility}}.mod : {{system.attributes.attack.meleeAttackMod}}<br/>
             <br/>{{localize "FFD20.FromSources"}}<br/>
-            {{#if sourceDetails.data.attributes.attack.shared.length}}
-            {{#each sourceDetails.data.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#if sourceDetails.system.attributes.attack.shared.length}}
+            {{#each sourceDetails.system.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
-            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
-            {{#if sourceDetails.data.attributes.attack.general.length}}
-            {{#each sourceDetails.data.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#if (ne @root.system.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.system.traits.size }}<br/>{{/if}}
+            {{#if sourceDetails.system.attributes.attack.general.length}}
+            {{#each sourceDetails.system.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
-            {{#if sourceDetails.data.attributes.attack.melee.length}}
-            {{#each sourceDetails.data.attributes.attack.melee as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-            {{/if}}
-            {{#if data.attributes.attack.meleeAttackMod}}
-            {{data.attributes.attack.meleeAttackLabel}}: {{data.attributes.attack.meleeAttackMod}}<br/>
+            {{#if sourceDetails.system.attributes.attack.melee.length}}
+            {{#each sourceDetails.system.attributes.attack.melee as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
           </span>
           {{numberFormat meleeAttack decimals=0 sign=true}}
@@ -72,24 +68,20 @@
         <td class="generic-ranged tooltip">
           <span class="tooltipcontent">
             …<br/>
-            + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
-            + @attributes.attack.general : {{data.attributes.attack.general}}<br/>
-            + @attributes.attack.ranged : {{data.attributes.attack.ranged}}<br/>
-            + @abilities.{{data.attributes.attack.rangedAbility}}.mod : {{data.attributes.attack.rangedAttackMod}}<br/>
-            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
+            + @attributes.attack.shared : {{system.attributes.attack.shared}}<br/>
+            + @attributes.attack.general : {{system.attributes.attack.general}}<br/>
+            + @attributes.attack.ranged : {{system.attributes.attack.ranged}}<br/>
+            + @abilities.{{system.attributes.attack.rangedAbility}}.mod : {{system.attributes.attack.rangedAttackMod}}<br/>
             <br/>{{localize "FFD20.FromSources"}}<br/>
-            {{#if sourceDetails.data.attributes.attack.shared.length}}
-            {{#each sourceDetails.data.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#if sourceDetails.system.attributes.attack.shared.length}}
+            {{#each sourceDetails.system.attributes.attack.shared as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
-            {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.data.traits.size }}<br/>{{/if}}
-            {{#if sourceDetails.data.attributes.attack.general.length}}
-            {{#each sourceDetails.data.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#if (ne @root.system.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeMods @root.system.traits.size }}<br/>{{/if}}
+            {{#if sourceDetails.system.attributes.attack.general.length}}
+            {{#each sourceDetails.system.attributes.attack.general as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
-            {{#if sourceDetails.data.attributes.attack.ranged.length}}
-            {{#each sourceDetails.data.attributes.attack.ranged as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-            {{/if}}
-            {{#if data.attributes.attack.rangedAttackMod}}
-            {{data.attributes.attack.rangedAttackLabel}}: {{data.attributes.attack.rangedAttackMod}}<br/>
+            {{#if sourceDetails.system.attributes.attack.ranged.length}}
+            {{#each sourceDetails.system.attributes.attack.ranged as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
           </span>
 
@@ -98,14 +90,16 @@
 
         <td class="initiative tooltip">
           <span class="tooltipcontent">
-            @attributes.init.total : {{data.attributes.init.total}}
-            {{#if sourceDetails.data.attributes.init.total.length}}
+            @attributes.init.total : {{system.attributes.init.total}}
+            {{#if sourceDetails.system.attributes.init.total.length}}
             <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
-            {{#each sourceDetails.data.attributes.init.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#each sourceDetails.system.attributes.init.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
+
+            {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.init"}}
           </span>
 
-          {{data.attributes.init.total}}
+          {{system.attributes.init.total}}
         </td>
       </tr>
     </tbody>
@@ -128,10 +122,10 @@
 {{!-- Attacks Header --}}
 <div class="combat-attacks">
   <section class="attacks-body">
+    <ol class="inventory-list">
     {{#each sections as |section sid|}}
     {{#unless section._hidden}}
-    <div class="inventory-group flexcol">
-      <ol class="inventory-list">
+      <ol class="item-list" data-type="attack" data-subtype="{{sid}}">
         <li class="inventory-header flexrow attacks-{{sid}}">
           <h3 class="item-name flexrow">{{section.label}}</h3>
 
@@ -164,119 +158,121 @@
           {{/if}}
         </li>
 
-        <ol class="item-list">
-          {{#each section.items as |item iid|}}
-          <li class="item flexrow" data-item-id="{{item._id}}">
-            <div class="item-name flexrow rollable">
-              <div class="item-image" style="background-image: url({{item.img}})"></div>
-              <h4>
-                {{item.name~}}
-              </h4>
-            </div>
+        {{#each section.items as |item iid|}}
+        <li class="item flexrow" data-item-id="{{item.id}}">
+          <div class="item-name flexrow rollable">
+            <div class="item-image" style='background-image: url("{{item.img}}")'></div>
+            <h4>
+              {{item.name~}}
+            </h4>
+          </div>
 
-            {{#if section.showTypes}}
-            <div class="item-detail item-type">
-              <span>{{lookup ../../config.attackTypes item.data.attackType}}</span>
-            </div>
+          {{#if section.showTypes}}
+          <div class="item-detail item-type">
+            <span>{{lookup ../../config.attackTypes item.attackType}}</span>
+          </div>
+          {{/if}}
+
+          <div class="item-detail item-attacks tooltip">
+            {{#if item.hasAttack}}
+            <label>{{itemAttacks item @root.rollData max=3}}</label>
+            <span class="tooltipcontent">
+              {{#each item.document.attackArray~}}
+                {{numberFormat this decimals=0 sign=true}}{{#unless @last}}/{{/unless}}
+              {{~/each}}<br/>
+              <br/>
+              {{localize "FFD20.Details"}}:<br/>
+              {{#each item.document.attackSources}}
+                {{this.label}} : {{this.value}}<br/>
+              {{/each}}
+            </span>
             {{/if}}
+          </div>
 
-            <div class="item-detail item-attacks tooltip">
-              <label>{{itemAttacks item ../../rollData max=3}}</label>
+          <div class="item-detail item-damage tooltip">
+            {{#if item.hasDamage}}
+              <label class="resolved-formula">{{actionDamage item.document.firstAction @root.rollData}}</label>
               <span class="tooltipcontent">
-                {{#each item.document.attackArray~}}
-                  {{numberFormat this decimals=0 sign=true}}{{#unless @last}}/{{/unless}}
-                {{~/each}}<br/>
+                {{actionDamage item.document.firstAction @root.rollData}}<br/>
                 <br/>
                 {{localize "FFD20.Details"}}:<br/>
-                {{#each item.document.attackSources}}
-                  {{this.label}} : {{this.value}}<br/>
-                {{/each}}
-              </span>
-            </div>
-
-            <div class="item-detail item-damage tooltip">
-              {{#if item.hasDamage}}
-              <label>{{ellipsis (itemDamage item ../../rollData) 8 -4 2}}</label>
-              <span class="tooltipcontent">
-                {{itemDamage item ../../rollData}}<br/>
-                <br/>
-                {{localize "FFD20.Details"}}:<br/>
-                {{#each item.data.damage.parts as |pt ix|}}
-                  {{pt.[0]}}{{#if pt.[1]}} [{{pt.[1]}}]{{/if}}<br/>
-                {{/each}}
-                {{#if item.data.damage.nonCritParts}}
-                  {{#each item.data.damage.nonCritParts as |pt|}}
-                    {{pt.[0]}}{{#if pt.[1]}} [{{pt.[1]}}]{{/if}}<br/>
+                {{#with item.document.firstAction}}
+                  {{#each data.damage.parts as |pt ix|}}
+                    {{pt.[0]}}{{#if pt.[1]}} [{{damageTypes pt.[1]}}]{{/if}}<br/>
                   {{/each}}
-                {{/if}}
-                {{#if item.data.ability.damage}}
-                  {{abilityMod item.data.ability.damage ../../rollData item.data.ability.damageMult}} [{{lookup ../../config.abilities item.data.ability.damage}}]<br/>
-                {{/if}}
-                {{#each item.document.allDamageSources}}
-                  {{#if @first}}<br>{{/if}}
-                  {{flavor}} : {{value}} [{{lookup @root.config.bonusModifiers modifier}}]<br>
-                {{/each}}
-                {{#if (optionalConditionals item)}}
-                  <br/>+ {{localize "FFD20.Conditionals"}}<br/>
-                {{/if}}
-                {{#if item.data.damage.critParts}}
-                  <br/>+ {{localize "FFD20.CritDamageBonusFormula"}}<br/>
-                {{/if}}
+                  {{#if data.damage.nonCritParts}}
+                    {{#each data.damage.nonCritParts as |pt|}}
+                      {{pt.[0]}}{{#if pt.[1]}} [{{pt.[1]}}]{{/if}}<br/>
+                    {{/each}}
+                  {{/if}}
+                  {{#if data.ability.damage}}
+                    {{abilityMod data.ability.damage @root.rollData data.ability.damageMult}} [{{lookup @root.config.abilities data.ability.damage}}]<br/>
+                  {{/if}}
+                  {{#each allDamageSources}}
+                    {{#if @first}}<br>{{/if}}
+                    {{flavor}} : {{value}} [{{#if type}}{{type}}{{else}}{{lookup @root.config.bonusModifiers modifier}}{{/if}}]<br>
+                  {{/each}}
+                  {{#if (optionalConditionals item)}}
+                    <br/>+ {{localize "FFD20.Conditionals"}}<br/>
+                  {{/if}}
+                  {{#if damage.critParts}}
+                    <br/>+ {{localize "FFD20.CritDamageBonusFormula"}}<br/>
+                  {{/if}}
+                {{/with}}
               </span>
-              {{/if}}
-            </div>
-
-            <div class="item-detail item-range tooltip">
-              {{#if item.hasRange}}
-              <label>{{itemRange item @root.rollData}}</label>
-                {{#if (or (gt item.data.range.maxIncrements 1) (ne item.data.range.minUnits ""))}}
-                <span class="tooltipcontent">
-                  {{localize "FFD20.MaximumRangeIncrements"}}: {{item.data.range.maxIncrements}}<br>
-                  <br>
-                  {{localize "FFD20.Range"}}:
-                  {{item.document.minRange}} {{distanceUnit "ft"}} – {{item.document.maxRange}} {{distanceUnit item.data.range.units}}
-                </span>
-                {{/if}}
-              {{/if}}
-            </div>
-
-            <div class="item-detail item-actions">
-              <div class="item-attack tooltip">
-                {{#if item.hasAction}}
-                <span class="tooltipcontent">
-                  {{localize "FFD20.PerformAttack"}}
-                </span>
-                <a class="item-control item-attack"><img class="icon" src="systems/ffd20/icons/actions/gladius.svg"></a>
-                {{/if}}
-              </div>
-            </div>
-
-            <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
-              {{#if item.isCharged}}
-              <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.data.uses.value}}</span>
-              <span class="sep"> / </span>
-              <span class="text-box">{{item.data.uses.max}}</span>
-              <span class="tooltipcontent">
-                @resources.{{item.tag}}.value : {{item.data.uses.value}}<br>
-                @resources.{{item.tag}}.max : {{item.data.uses.max}}
-              </span>
-              {{/if}}
-            </div>
-
-            {{#if ../../owner}}
-            <div class="item-controls">
-              <a class="item-control item-edit" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>
-              <a class="item-control item-duplicate" title="{{localize "FFD20.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
-              <a class="item-control item-delete" title="{{localize "FFD20.DeleteItem"}}"><i class="fas fa-trash"></i></a>
-            </div>
             {{/if}}
-          </li>
-          {{/each}}
-        </ol>
+          </div>
+
+          <div class="item-detail item-range tooltip">
+            {{#if item.hasRange}}
+            <label>{{itemRange item @root.rollData}}</label>
+              {{#if (or (gt item.range.maxIncrements 1) (ne item.range.minUnits ""))}}
+              <span class="tooltipcontent">
+                {{localize "FFD20.MaximumRangeIncrements"}}: {{item.range.maxIncrements}}<br>
+                <br>
+                {{localize "FFD20.Range"}}:
+                {{item.range.min}} {{distanceUnit "ft"}} – {{item.range.max}} {{distanceUnit item.range.units}}
+              </span>
+              {{/if}}
+            {{/if}}
+          </div>
+
+          <div class="item-detail item-actions">
+            <div class="item-attack tooltip">
+              {{#if item.hasAction}}
+              <span class="tooltipcontent">
+                {{localize "FFD20.PerformAttack"}}
+              </span>
+              <a class="item-control item-attack"><img class="icon" src="systems/ffd20/icons/actions/gladius.svg"></a>
+              {{/if}}
+            </div>
+          </div>
+
+          <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
+            {{#if item.isCharged}}
+            <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.uses.value}}</span>
+            <span class="sep"> / </span>
+            <span class="text-box readonly">{{item.uses.max}}</span>
+            <span class="tooltipcontent">
+              @resources.{{item.tag}}.value : {{item.uses.value}}<br>
+              @resources.{{item.tag}}.max : {{item.uses.max}}
+            </span>
+            {{/if}}
+          </div>
+
+          {{#if ../../owner}}
+          <div class="item-controls">
+            <a class="item-control item-edit" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-duplicate" title="{{localize "FFD20.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
+            <a class="item-control item-delete" title="{{localize "FFD20.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/if}}
+        </li>
+        {{/each}}
       </ol>
-    </div>
     {{/unless}}
     {{/each}}
+    </ol>
   </section>
 </div>
 
@@ -294,13 +290,13 @@
     {{!-- Natural Armor --}}
     <li class="natural-armor flexrow">
       <h3>{{localize "FFD20.BuffTarACNatural"}}</h3>
-      <span class="text-box direct" name="data.attributes.naturalAC" data-dtype="Number">{{data.attributes.naturalAC}}</span>
+      <span class="text-box direct" name="system.attributes.naturalAC" data-dtype="Number">{{system.attributes.naturalAC}}</span>
     </li>
 
     <li class="flexrow">
       <h3>{{localize "FFD20.SpellResistance"}}</h3>
-      <input name="data.attributes.sr.formula" type="text" placeholder="{{localize "FFD20.Formula"}}"
-        value="{{#if data.attributes.sr.formula}}{{data.attributes.sr.formula}}{{/if}}"/>
+      <input class="formula" name="system.attributes.sr.formula" type="text" placeholder="{{localize "FFD20.Formula"}}"
+        value="{{#if system.attributes.sr.formula}}{{system.attributes.sr.formula}}{{/if}}"/>
     </li>
   </ul>
 
@@ -309,22 +305,22 @@
   <div class="attributes defense-notes flexcol scroll-primary" data-scroll-index="defense-notes">
     <div class="flexrow">
       <label><h3>{{localize "FFD20.SaveNotes"}}</h3></label>
-      <textarea class="context-text" name="data.attributes.saveNotes" placeholder="{{localize "FFD20.SaveNotes"}}">{{data.attributes.saveNotes}}</textarea>
+      <textarea class="context-text" name="system.attributes.saveNotes" placeholder="{{localize "FFD20.SaveNotes"}}">{{system.attributes.saveNotes}}</textarea>
     </div>
     <hr>
     <div class="flexrow">
       <label><h3>{{localize "FFD20.ACNotes"}}</h3></label>
-      <textarea class="context-text" name="data.attributes.acNotes" placeholder="{{localize "FFD20.ACNotes"}}">{{data.attributes.acNotes}}</textarea>
+      <textarea class="context-text" name="system.attributes.acNotes" placeholder="{{localize "FFD20.ACNotes"}}">{{system.attributes.acNotes}}</textarea>
     </div>
     <hr>
     <div class="flexrow">
       <label><h3>{{localize "FFD20.CMDNotes"}}</h3></label>
-      <textarea class="context-text" name="data.attributes.cmdNotes" placeholder="{{localize "FFD20.CMDNotes"}}">{{data.attributes.cmdNotes}}</textarea>
+      <textarea class="context-text" name="system.attributes.cmdNotes" placeholder="{{localize "FFD20.CMDNotes"}}">{{system.attributes.cmdNotes}}</textarea>
     </div>
     <hr>
     <div class="flexrow">
       <label><h3>{{localize "FFD20.SpellResistanceNotes"}}</h3></label>
-      <textarea class="context-text" name="data.attributes.srNotes" placeholder="{{localize "FFD20.SpellResistanceNotes"}}">{{data.attributes.srNotes}}</textarea>
+      <textarea class="context-text" name="system.attributes.srNotes" placeholder="{{localize "FFD20.SpellResistanceNotes"}}">{{system.attributes.srNotes}}</textarea>
     </div>
     <hr>
   </div>

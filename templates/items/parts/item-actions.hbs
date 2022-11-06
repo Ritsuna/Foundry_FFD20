@@ -1,0 +1,117 @@
+{{!-- Inline Action --}}
+{{#*inline "listAction"}}
+  <li class="action-part item flexrow" data-item-id="{{action.data._id}}" data-item-collection="actions">
+    <div class="item-name flexrow">
+      <div class="item-image no-hover" style='background-image: url("{{action.data.img}}")'></div>
+      <h4>{{action.data.name}}</h4>
+    </div>
+
+    <div class="item-detail item-uses flexrow">
+      {{#if action.isSelfCharged}}
+        <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{action.data.uses.self.value}}</span>
+        <span class="sep"> / </span>
+        <span class="text-box readonly">{{action.data.uses.self.max}}</span>
+      {{/if}}
+    </div>
+
+    <div class="action-controls item-controls">
+      <a class="edit-action" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>
+      <a class="duplicate-action" title="{{localize "FFD20.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
+      <a class="delete-action" title="{{localize "FFD20.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+    </div>
+  </li>
+{{/inline}}
+
+{{!-- Actions --}}
+<div class="actions">
+  <ol class="inventory-list action-parts">
+    {{!-- Header --}}
+    <li class="inventory-header flexrow">
+      <h3 class="item-name flexrow">{{localize "FFD20.ActionPlural"}}</h3>
+
+      <div class="item-detail item-uses"><i class="icon icon-battery-pack large" title="{{localize "FFD20.ChargePlural"}}"></i></div>
+
+      <div class="action-controls item-controls">
+        <a class="action-control add-action">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+    </li>
+
+    {{!-- Action list --}}
+    <ol class="items-list">
+      {{#each actions as |action i|}}{{> listAction action=action i=i}}{{/each}}
+    </ol>
+  </ol>
+</div>
+
+{{!-- Limited Uses --}}
+{{#unless isSpell}}
+<div class="form-group uses-per">
+  <label>{{localize "FFD20.LimitedUses"}}</label>
+  <div class="form-fields">
+    {{#if isCharged}}
+    <input type="text" name="system.uses.value" value="{{system.uses.value}}" data-dtype="Number"/>
+    <span class="sep"> / </span>
+    <input type="text" value="{{system.uses.max}}" disabled data-dtype="Number"/>
+    {{/if}}
+    <select name="system.uses.per">
+      {{#select system.uses.per}}
+      <option value=""></option>
+      {{#each config.limitedUsePeriods as |name key|}}
+      <option value="{{key}}">{{name}}</option>
+      {{/each}}
+      {{/select}}
+    </select>
+  </div>
+</div>
+{{#if isCharged}}
+<div class="form-group uses-per">
+  <input class="formula" type="text" name="system.uses.maxFormula" value="{{system.uses.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}"/>
+</div>
+{{#if isPhysical}}
+  <div class="form-group">
+    <label>{{localize "FFD20.PricePerCharge"}}</label>
+    <input type="text" name="system.uses.pricePerUse" value="{{system.uses.pricePerUse}}" placeholder="0" type="Number"/>
+  </div>
+{{/if}}
+{{/if}}
+{{/unless}}
+
+{{#if hasAction}}
+{{!-- Attack Notes --}}
+<div class="form-group stacked notes attack" data-name="system.attackNotes">
+  <table>
+    <thead>
+      <th>{{localize "FFD20.AttackNotes"}}</th>
+      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
+    </thead>
+    <tbody>
+      {{#each system.attackNotes as |entry index|}}
+      <tr class="entry" data-index="{{index}}">
+        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="system.attackNotes.{{index}}" /></td>
+        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{!-- Effect Notes --}}
+<div class="form-group stacked notes effect" data-name="system.effectNotes">
+  <table>
+    <thead>
+      <th>{{localize "FFD20.EffectNotes"}}</th>
+      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
+    </thead>
+    <tbody>
+      {{#each system.effectNotes as |entry index|}}
+      <tr class="entry" data-index="{{index}}">
+        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="system.effectNotes.{{index}}" /></td>
+        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+{{/if}}

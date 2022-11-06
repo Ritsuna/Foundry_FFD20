@@ -15,7 +15,7 @@
 
   {{!-- NPC Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="summary">{{localize "FFD20.Summary"}}</a>
+    <a class="item" data-tab="summary">{{localize "FFD20.Summary"}}</a>
     <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
   </nav>
 
@@ -32,20 +32,20 @@
           </thead>
           <tbody>
             <tr>
-              <td data-action="input-text" data-for=".cr-input" data-attr-name="data.details.cr.base">
+              <td data-action="input-text" data-for=".cr-input" data-attr-name="system.details.cr.base">
                 <input readonly class="cr-input" type="text" value="{{labels.cr}}"/>
               </td>
               <td>
-                {{data.details.xp.value}}
+                {{system.details.xp.value}}
               </td>
             </tr>
           </tbody>
         </table>
 
         <span class="tooltipcontent">
-          @attributes.hd.total : {{data.attributes.hd.total}}<br/>
-          @details.cr.base : {{data.details.cr.base}}<br/>
-          @details.cr.total : {{data.details.cr.total}}
+          @attributes.hd.total : {{system.attributes.hd.total}}<br/>
+          @details.cr.base : {{system.details.cr.base}}<br/>
+          @details.cr.total : {{system.details.cr.total}}
         </span>
       </div>
 
@@ -70,16 +70,16 @@
         <tbody>
           <tr>
             <td>
-              <span class="text-box direct wheel-change allow-relative hp-current-input" name="data.attributes.hp.value" data-dtype="Number">{{data.attributes.hp.value}}</span>
+              <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.attributes.hp.value" data-dtype="Number">{{system.attributes.hp.value}}</span>
             </td>
             <td>
-              <span class="text-box direct hp-max-input" name="data.attributes.hp.base">{{data.attributes.hp.max}}</span>
+              <span class="text-box direct hp-max-input" name="system.attributes.hp.base">{{system.attributes.hp.max}}</span>
             </td>
             <td>
-              <span class="text-box direct allow-relative hp-temp-input" name="data.attributes.hp.temp" data-dtype="Number">{{#if data.attributes.hp.temp}}{{data.attributes.hp.temp}}{{/if}}</span>
+              <span class="text-box direct allow-relative hp-temp-input" name="system.attributes.hp.temp" data-dtype="Number">{{#if system.attributes.hp.temp}}{{system.attributes.hp.temp}}{{/if}}</span>
             </td>
             <td>
-              <span class="text-box direct allow-relative hp-nonlethal-input" name="data.attributes.hp.nonlethal" data-dtype="Number">{{#if data.attributes.hp.nonlethal}}{{data.attributes.hp.nonlethal}}{{/if}}</span>
+              <span class="text-box direct allow-relative hp-nonlethal-input" name="system.attributes.hp.nonlethal" data-dtype="Number">{{#if system.attributes.hp.nonlethal}}{{system.attributes.hp.nonlethal}}{{/if}}</span>
             </td>
           </tr>
         </tbody>
@@ -109,19 +109,19 @@
         <tbody>
           <tr>
             <td>
-              <span class="text-box direct wheel-change allow-relative" name="data.attributes.vigor.value" data-dtype="Number">{{data.attributes.vigor.value}}</span>
+              <span class="text-box direct wheel-change allow-relative" name="system.attributes.vigor.value" data-dtype="Number">{{system.attributes.vigor.value}}</span>
             </td>
             <td>
-              <span class="text-box direct" name="data.attributes.vigor.base">{{data.attributes.vigor.max}}</span>
+              <span class="text-box direct" name="system.attributes.vigor.base">{{system.attributes.vigor.max}}</span>
             </td>
             <td>
-              <span class="text-box direct wheel-change allow-relative" name="data.attributes.vigor.temp" data-dtype="Number">{{#if data.attributes.vigor.temp}}{{data.attributes.vigor.temp}}{{/if}}</span>
+              <span class="text-box direct wheel-change allow-relative" name="system.attributes.vigor.temp" data-dtype="Number">{{#if system.attributes.vigor.temp}}{{system.attributes.vigor.temp}}{{/if}}</span>
             </td>
             <td>
-              <span class="text-box direct wheel-change allow-relative" name="data.attributes.wounds.value" data-dtype="Number">{{data.attributes.wounds.value}}</span>
+              <span class="text-box direct wheel-change allow-relative" name="system.attributes.wounds.value" data-dtype="Number">{{system.attributes.wounds.value}}</span>
             </td>
             <td>
-              <span class="text-box direct" name="data.attributes.wounds.base">{{data.attributes.wounds.max}}</span>
+              <span class="text-box direct" name="system.attributes.wounds.base">{{system.attributes.wounds.max}}</span>
             </td>
           </tr>
         </tbody>
@@ -131,7 +131,7 @@
       <table>
           <thead>
               <tr>
-                  {{#each data.attributes.savingThrows as |savingThrow id|}}
+                  {{#each system.attributes.savingThrows as |savingThrow id|}}
                   <th class="saving-throw" data-savingthrow="{{id}}">
                       <a class="rollable"><i class="fas fa-dice"></i><span>{{savingThrow.label}}</span></a>
                   </th>
@@ -141,9 +141,9 @@
 
           <tbody>
               <tr>
-                  {{#each data.attributes.savingThrows as |savingThrow id|}}
+                  {{#each system.attributes.savingThrows as |savingThrow id|}}
                   <td>
-                      <span class="text-box direct savingthrow-{{id}}-input" name="data.attributes.savingThrows.{{id}}.base">{{savingThrow.total}}</span>
+                      <span class="text-box direct savingthrow-{{id}}-input" name="system.attributes.savingThrows.{{id}}.base">{{savingThrow.total}}</span>
                   </td>
                   {{/each}}
               </tr>
@@ -170,11 +170,11 @@
         <tbody>
           <tr>
             <td>
-              <span class="text-box direct allow-relative hp-nonlethal-input" name="data.attributes.init.value" data-dtype="Number">{{data.attributes.init.total}}</span>
+              <span class="text-box direct allow-relative hp-nonlethal-input" name="system.attributes.init.value" data-dtype="Number">{{system.attributes.init.total}}</span>
             </td>
             <td>
-              <select name="data.traits.size">
-                {{#select data.traits.size}}
+              <select name="system.traits.size">
+                {{#select system.traits.size}}
                 {{#each config.actorSizes as |label size|}}
                 <option value="{{size}}">{{label}}</option>
                 {{/each}}
@@ -182,8 +182,8 @@
               </select>
             </td>
             <td>
-              <select name="data.traits.stature">
-                {{#select data.traits.stature}}
+              <select name="system.traits.stature">
+                {{#select system.traits.stature}}
                 {{#each config.actorStatures as |label key|}}
                 <option value="{{key}}">{{label}}</option>
                 {{/each}}
@@ -220,11 +220,11 @@
                 {{/if}}
               </li>
 
-              <ol class="item-list">
+              <ol class="item-list" data-type="attack" data-subtype="{{sid}}">
                 {{#each section.items as |item iid|}}
-                <li class="item flexrow" data-item-id="{{item._id}}">
+                <li class="item flexrow" data-item-id="{{item.id}}">
                   <div class="item-name flexrow rollable">
-                    <div class="item-image" style="background-image: url({{item.img}})"></div>
+                    <div class="item-image" style='background-image: url("{{item.img}}")'></div>
                     <h4>
                       {{item.name~}}
                     </h4>
@@ -232,7 +232,7 @@
 
                   {{#if section.showTypes}}
                   <div class="item-detail item-type">
-                    <span>{{lookup ../../config.attackTypes item.data.attackType}}</span>
+                    <span>{{lookup ../../config.attackTypes item.attackType}}</span>
                   </div>
                   {{/if}}
 
@@ -249,12 +249,12 @@
 
                   <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
                     {{#if item.isCharged}}
-                    <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.data.uses.value}}</span>
+                    <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.uses.value}}</span>
                     <span class="sep"> / </span>
-                    <span class="text-box">{{item.data.uses.max}}</span>
+                    <span class="text-box">{{item.uses.max}}</span>
                     <span class="tooltipcontent">
-                      @resources.{{item.tag}}.value : {{item.data.uses.value}}<br>
-                      @resources.{{item.tag}}.max : {{item.data.uses.max}}
+                      @resources.{{item.tag}}.value : {{item.uses.value}}<br>
+                      @resources.{{item.tag}}.max : {{item.uses.max}}
                     </span>
                     {{/if}}
                   </div>
@@ -279,7 +279,7 @@
     {{!-- Notes Tab --}}
     <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
       <div class="primary-content">
-        {{roll-editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+        {{editor notesHTML target="system.details.notes.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
       </div>
 
       {{#if table_magicItems}}

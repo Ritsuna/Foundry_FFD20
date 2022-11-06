@@ -1,0 +1,23 @@
+<header class="card-header flexrow">
+  <img src="{{item.img}}" title="{{name}}" width="36" height="36" />
+  {{#if name}}<h3 class="item-name">{{name}}</h3>{{/if}}
+</header>
+
+<div class="card-content">
+  <section class="item-description">
+    {{{description}}}
+  </section>
+  {{#if (and identified actionDescription)}}
+    <hr>
+    <section class="action-description">
+      <h3 class="action-name">{{action.name}}</h3>
+      {{{actionDescription}}}
+    </section>
+  {{/if}}
+</div>
+
+{{#if range}}
+  <div class="card-range gm-sensitive" data-range="{{range}}" {{#if rangeFormula}}title="{{rangeFormula}}"{{/if}}>
+    {{localize "FFD20.Range"}}: {{rangeLabel}}
+  </div>
+{{/if}}

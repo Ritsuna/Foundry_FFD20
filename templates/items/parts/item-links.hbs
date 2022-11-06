@@ -1,12 +1,10 @@
 <nav class="sheet-navigation tabs" data-group="links" data-tabs-type="list">
-  <select class="tabs">
-    {{#each links.list as |link|}}
-    <option value="{{link.id}}" data-tab="{{link.id}}">{{link.label}}</option>
-    {{/each}}
-  </select>
+  {{#each links.list as |link|}}
+  <a class="item" data-tab="{{link.id}}" data-group="links">{{link.label}}</a>
+  {{/each}}
 </nav>
 
-<div class="links-body">
+<section class="links-body">
 
   {{#each links.list as |link|}}
   {{!-- Children Tab --}}
@@ -39,7 +37,7 @@
 
         {{#each link.fields as |fv fk|}}
         <td class="links-item-extra-field">
-          <input type="text" data-dtype="{{fv.type}}" value="{{lookup item fk}}" name="data.links.{{link.id}}.{{item._index}}.{{fk}}" />
+          <input type="text" data-dtype="{{fv.type}}" value="{{lookup item fk}}" name="system.links.{{link.id}}.{{item._index}}.{{fk}}" />
         </td>
         {{/each}}
 
@@ -56,4 +54,4 @@
     </table>
   </div>
   {{/each}}
-</div>
+</section>

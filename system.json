@@ -1,150 +1,45 @@
 {
+  "id": "ffd20",
   "name": "ffd20",
   "title": "Final Fantasy d20",
-  "description": "FFd20 using Pathfinder 1 as a base in the Foundry VTT environment.",
-  "version": "0.2.5",
-  "minimumCoreVersion": "0.8.7",
-  "compatibleCoreVersion": "0.8.9",
-  "bugs": "https://gitlab.com/Ritsuna/Foundry_FFD20/-/issues",
-  "allowBugReporter": true,
-  "url": "https://github.com/Ritsuna/Foundry_FFD20",
-  "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/0.2.5.zip",
+  "description": "FFd20 using Pathfinder 1e v0.82.2 as a base in the Foundry VTT environment.",
+  "version": "10.1.2",
   "author": "Ritsu Voices",
   "authors": [
-    {
-      "name": "Ritsu Voices"
-    },
-    {
-      "name": "Furyspark",
-      "discord": "Furyspark#7513"
-    },
-    {
-      "name": "Noon",
-      "discord": "Noon#3951"
-    },
-    {
-      "name": "Ethaks",
-      "discord": "Ethaks#2903",
-      "ko-fi": "ethaks",
-      "url": "https://gitlab.com/Ethaks"
-    }
+    { "name": "Ritsu Voices", "ko-fi": "the_voices" },
+    { "name": "Furyspark", "discord": "Furyspark#7513" },
+    { "name": "Noon", "discord": "Noon#3951" },
+    { "name": "Ethaks", "discord": "Ethaks#2903" }
   ],
-  "templateVersion": 2,
-  "scripts": [],
   "esmodules": ["ffd20.js"],
-  "styles": ["ffd20.css"],
+  "styles": ["style.css"],
   "packs": [
-    {
-      "name": "classes",
-      "label": "Pathfinder Classes",
-      "system": "ffd20",
-      "path": "./packs/classes.db",
-      "entity": "Item"
-    },
-    {
-      "name": "commonbuffs",
-      "label": "Common Buffs",
-      "system": "ffd20",
-      "path": "./packs/commonbuffs.db",
-      "entity": "Item"
-    },
-    {
-      "name": "feats",
-      "label": "Pathfinder Feats",
-      "system": "ffd20",
-      "path": "./packs/feats.db",
-      "entity": "Item"
-    },
-    {
-      "name": "items",
-      "label": "Pathfinder Items",
-      "system": "ffd20",
-      "path": "./packs/items.db",
-      "entity": "Item"
-    },
-    {
-      "name": "armors-and-shields",
-      "label": "Pathfinder Armor and Shields",
-      "system": "ffd20",
-      "path": "./packs/armors-and-shields.db",
-      "entity": "Item"
-    },
-    {
-      "name": "weapons-and-ammo",
-      "label": "Pathfinder Weapons and Ammo",
-      "system": "ffd20",
-      "path": "./packs/weapons-and-ammo.db",
-      "entity": "Item"
-    },
-    {
-      "name": "racialhd",
-      "label": "Pathfinder Racial HD",
-      "system": "ffd20",
-      "path": "./packs/racial-hd.db",
-      "entity": "Item"
-    },
-    {
-      "name": "class-abilities",
-      "label": "Pathfinder Class Abilities",
-      "system": "ffd20",
-      "path": "./packs/class-abilities.db",
-      "entity": "Item"
-    },
-    {
-      "name": "monster-templates",
-      "label": "Pathfinder Monster Templates",
-      "system": "ffd20",
-      "path": "./packs/monster-templates.db",
-      "entity": "Item"
-    },
-    {
-      "name": "sample-macros",
-      "label": "Sample Macros",
-      "system": "ffd20",
-      "path": "./packs/sample-macros.db",
-      "entity": "Macro"
-    },
-    {
-      "name": "roll-tables",
-      "label": "Roll Tables",
-      "system": "ffd20",
-      "path": "./packs/roll-tables.db",
-      "entity": "RollTable"
-    },
-    {
-      "name": "ultimate-equipment",
-      "label": "Pathfinder Ultimate Equipment",
-      "system": "ffd20",
-      "path": "./packs/ultimate-equipment.db",
-      "entity": "RollTable"
-    },
-    {
-      "name": "conditions",
-      "label": "Conditions",
-      "system": "ffd20",
-      "path": "./packs/conditions.db",
-      "entity": "JournalEntry"
-    },
-    {
-      "name": "skills",
-      "label": "Skills",
-      "system": "ffd20",
-      "path": "./packs/skills.db",
-      "entity": "JournalEntry"
-    }
+    { "name": "commonbuffs", "label": "Common Buffs", "system": "ffd20", "path": "./packs/commonbuffs.db", "type": "Item" },
+    { "name": "feats", "label": "Pathfinder Feats", "system": "ffd20", "path": "./packs/feats.db", "type": "Item" },
+    { "name": "items", "label": "Pathfinder Items", "system": "ffd20", "path": "./packs/items.db", "type": "Item" },
+    { "name": "armors-and-shields", "label": "Pathfinder Armor and Shields", "system": "ffd20", "path": "./packs/armors-and-shields.db", "type": "Item" },
+    { "name": "weapons-and-ammo", "label": "Pathfinder Weapons and Ammo", "system": "ffd20", "path": "./packs/weapons-and-ammo.db", "type": "Item" },
+    { "name": "racialhd", "label": "Pathfinder Racial HD", "system": "ffd20", "path": "./packs/racial-hd.db", "type": "Item" },
+    { "name": "monster-templates", "label": "Pathfinder Monster Templates", "system": "ffd20", "path": "./packs/monster-templates.db", "type": "Item" },
+    { "name": "sample-macros", "label": "Sample Macros", "system": "ffd20", "path": "./packs/sample-macros.db", "type": "Macro" },
+    { "name": "roll-tables", "label": "Roll Tables", "system": "ffd20", "path": "./packs/roll-tables.db", "type": "RollTable" },
+    { "name": "ultimate-equipment", "label": "Pathfinder Ultimate Equipment", "system": "ffd20", "path": "./packs/ultimate-equipment.db", "type": "RollTable" },
+    { "name": "ffd20e-rules", "label": "Pathfinder 1e Rules", "system": "ffd20", "path": "./packs/ffd20e-rules.db", "type": "JournalEntry" }
   ],
   "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
+    { "lang": "en", "name": "English", "path": "lang/en.json" }
   ],
   "socket": true,
   "initiative": "1d20 + @attributes.init.total + (@attributes.init.total / 100)",
   "gridDistance": 5,
   "gridUnits": "ft",
   "primaryTokenAttribute": "attributes.hp",
-  "secondaryTokenAttribute": "attributes.mp"
+  "secondaryTokenAttribute": null,
+  "minimumCoreVersion": "10",
+  "compatibility": { "minimum": "10", "verified": "10", "maximum": "10" },
+  "bugs": "https://gitlab.com/Ritsuna/Foundry_FFD20/-/issues",
+  "flags": { "allowBugReporter": true },
+  "url": "https://github.com/Ritsuna/Foundry_FFD20",
+  "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/10.1.2.zip"
 }

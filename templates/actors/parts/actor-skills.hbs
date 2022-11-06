@@ -2,24 +2,24 @@
 <ul class="skills-list {{skillGroup}}" data-background="{{isBackgroundSkills}}">
   {{#each skillset as |skill s|}}
   {{#if skill.arbitrary}}
-  <li class="skill arbitrary flexrow" data-skill="{{s}}">
+  <li class="skill arbitrary" data-skill="{{s}}">
     <div class="skill-name">
-      <div class="rollable"><img src="icons/dice/d20black.svg"></div>
       <a class="skill-control skill-create" title="Add Skill">
         <i class="fas fa-plus"></i>
       </a>
       {{#if compendiumEntry}}
-      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}">
+      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}" data-document-type="JournalEntry">
         <h4>{{skill.label}}</h4><i class="fas fa-book compendium-icon"></i>
       </a>
       {{else}}
       <h4>{{skill.label}}</h4>
       {{/if}}
     </div>
+    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
   </li>
   {{#each skill.subSkills as |subSkill b|}}
-  <li class="sub-skill flexrow" data-skill="{{b}}" data-main-skill="{{s}}">
-    <div class="skill-name tooltip {{#if subSkill.untrained}}untrained{{/if}}">
+  <li class="sub-skill {{#if subSkill.untrained}}untrained{{/if}}" data-skill="{{b}}" data-main-skill="{{s}}">
+    <div class="skill-name tooltip">
       <span class="tooltipcontent">
         @skills.{{s}}.subSkills.{{b}}.mod : {{subSkill.mod}}<br>
         @skills.{{s}}.subSkills.{{b}}.rank : {{subSkill.rank}}<br>
@@ -30,24 +30,33 @@
         {{src.name}}: {{src.value}}<br/>
         {{/each}}
         {{/if}}
+
+        {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "skill." s ".subSkills." b)}}
       </span>
-      <div class="rollable"><img src="icons/dice/d20black.svg"></div>
-      <input type="text" name="data.skills.{{s}}.subSkills.{{b}}.name" value="{{subSkill.name}}" placeholder="{{localize "FFD20.SkillName"}}"/>
+      {{#if subSkill.compendiumEntry}}
+      <a class="compendium-entry" data-compendium-entry="{{subSkill.compendiumEntry}}" data-document-type="JournalEntry">
+        <h4>{{subSkill.name}}</h4><i class="fas fa-book compendium-icon"></i>
+      </a>
+      {{else}}
+      <h4>{{subSkill.name}}</h4>
+      {{/if}}
     </div>
+    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
     <span class="text-box skill-mod" title="{{localize "FFD20.SkillModTooltip"}}">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
-    <span class="text-box skill-rank" name="data.skills.{{s}}.subSkills.{{b}}.rank" data-dtype="Number" title="{{localize "FFD20.SkillRankPlural"}}" data-placeholder="{{localize "FFD20.Rank"}}">{{#if subSkill.rank}}{{subSkill.rank}}{{/if}}</span>
+    <span class="text-box skill-rank" name="system.skills.{{s}}.subSkills.{{b}}.rank" data-dtype="Number" title="{{localize "FFD20.SkillRankPlural"}}" data-placeholder="{{localize "FFD20.Rank"}}">{{#if subSkill.rank}}{{subSkill.rank}}{{/if}}</span>
     <label class="checkbox skill-cs">
       <abbr title="{{localize "FFD20.CSTooltip"}}">{{localize "FFD20.CS"}}</abbr> <input type="checkbox" disabled {{checked subSkill.cs}}/>
     </label>
     <label class="checkbox skill-acp">
-      <abbr title="{{localize "FFD20.ACPTooltip"}}">{{localize "FFD20.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.acp" {{checked subSkill.acp}}/>
+      <abbr title="{{localize "FFD20.ACPTooltip"}}">{{localize "FFD20.ACP"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.subSkills.{{b}}.acp"{{#if @root.skillsLocked}} disabled{{/if}} {{checked subSkill.acp}}/>
     </label>
     <label class="checkbox skill-rt">
-      <abbr title="{{localize "FFD20.RTTooltip"}}">{{localize "FFD20.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.subSkills.{{b}}.rt" {{checked subSkill.rt}}/>
+      <abbr title="{{localize "FFD20.RTTooltip"}}">{{localize "FFD20.RT"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.subSkills.{{b}}.rt"{{#if @root.skillsLocked}} disabled{{/if}} {{checked subSkill.rt}}/>
     </label>
-    <div class="form-group skill-ability">
-      <select class="skill-ability" name="data.skills.{{s}}.subSkills.{{b}}.ability" data-dtype="String">
+    <div class="skill-ability">
+      <select class="skill-ability" name="system.skills.{{s}}.subSkills.{{b}}.ability" data-dtype="String"{{#if @root.skillsLocked}} disabled{{/if}}>
         {{#select subSkill.ability}}
+        <option value=''><!-- None --></option>
         {{#each ../../config.abilitiesShort as |ability a|}}
         <option value="{{a}}">{{ability}}</option>
         {{/each}}
@@ -55,13 +64,18 @@
       </select>
     </div>
     <div class="skill-controls">
+      {{#unless @root.skillsLocked}}
+      {{#if @root.owner}}
+      <a class="skill-control skill-edit" title="{{localize "FFD20.EditSkill"}}"><i class="fas fa-edit"></i></a>
       <a class="skill-control skill-delete" title="Delete Skill"><i class="fas fa-trash"></i></a>
+      {{/if}}
+      {{/unless}}
     </div>
   </li>
   {{/each}}
   {{else}}
-  <li class="skill flexrow" data-skill="{{s}}">
-    <div class="skill-name tooltip {{#if skill.untrained}}untrained{{/if}}">
+  <li class="skill {{#if skill.untrained}}untrained{{/if}}" data-skill="{{s}}">
+    <div class="skill-name tooltip">
       <span class="tooltipcontent">
         @skills.{{s}}.mod : {{skill.mod}}<br>
         @skills.{{s}}.rank : {{skill.rank}}<br>
@@ -72,34 +86,33 @@
         {{src.name}}: {{src.value}}<br/>
         {{/each}}
         {{/if}}
+
+        {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "skill." s)}}
       </span>
-      <div class="rollable"><img src="icons/dice/d20black.svg"></div>
-      {{#if skill.custom}}
-      <input type="text" name="data.skills.{{s}}.name" value="{{skill.name}}" placeholder="{{localize "FFD20.Name"}}"/>
-      {{else}}
       {{#if compendiumEntry}}
-      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}">
-        <h4>{{skill.label}}</h4><i class="fas fa-book compendium-icon"></i>
+      <a class="compendium-entry" data-compendium-entry="{{compendiumEntry}}" data-document-type="JournalEntry">
+        <h4>{{#if skill.custom}}{{skill.name}}{{else}}{{skill.label}}{{/if}}</h4><i class="fas fa-book compendium-icon"></i>
       </a>
       {{else}}
-      <h4>{{skill.label}}</h4>
-      {{/if}}
+      <h4>{{#if skill.custom}}{{skill.name}}{{else}}{{skill.label}}{{/if}}</h4>
       {{/if}}
     </div>
+    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
     <span class="text-box skill-mod" title="{{localize "FFD20.SkillModTooltip"}}">{{numberFormat skill.mod decimals=0 sign=true}}</span>
-    <span class="text-box skill-rank" name="data.skills.{{s}}.rank" data-dtype="Number" title="{{localize "FFD20.SkillRankPlural"}}" data-placeholder="{{localize "FFD20.Rank"}}">{{#if skill.rank}}{{skill.rank}}{{/if}}</span>
+    <span class="text-box skill-rank" name="system.skills.{{s}}.rank" data-dtype="Number" title="{{localize "FFD20.SkillRankPlural"}}" data-placeholder="{{localize "FFD20.Rank"}}">{{#if skill.rank}}{{skill.rank}}{{/if}}</span>
     <label class="checkbox skill-cs">
       <abbr title="{{localize "FFD20.CSTooltip"}}">{{localize "FFD20.CS"}}</abbr> <input type="checkbox" disabled {{checked skill.cs}}/>
     </label>
     <label class="checkbox skill-acp">
-      <abbr title="{{localize "FFD20.ACPTooltip"}}">{{localize "FFD20.ACP"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.acp" {{checked skill.acp}}/>
+      <abbr title="{{localize "FFD20.ACPTooltip"}}">{{localize "FFD20.ACP"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.acp"{{#if @root.skillsLocked}} disabled{{/if}} {{checked skill.acp}}/>
     </label>
     <label class="checkbox skill-rt">
-      <abbr title="{{localize "FFD20.RTTooltip"}}">{{localize "FFD20.RT"}}</abbr> <input type="checkbox" name="data.skills.{{s}}.rt" {{checked skill.rt}}/>
+      <abbr title="{{localize "FFD20.RTTooltip"}}">{{localize "FFD20.RT"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.rt"{{#if @root.skillsLocked}} disabled{{/if}} {{checked skill.rt}}/>
     </label>
-    <div class="form-group skill-ability">
-      <select class="skill-ability" name="data.skills.{{s}}.ability" data-dtype="String">
+    <div class="skill-ability">
+      <select class="skill-ability" name="system.skills.{{s}}.ability" data-dtype="String"{{#if @root.skillsLocked}} disabled{{/if}}>
         {{#select skill.ability}}
+        <option value=''><!-- None --></option>
         {{#each ../config.abilitiesShort as |ability a|}}
         <option value="{{a}}">{{ability}}</option>
         {{/each}}
@@ -107,17 +120,22 @@
       </select>
     </div>
     <div class="skill-controls">
-      {{#if ../owner}}{{#if skill.custom}}
-      <a class="skill-control skill-delete" title="Delete Skill"><i class="fas fa-trash"></i></a>
+      {{#unless @root.skillsLocked}}
+      {{#if ../owner}}
+      <a class="skill-control skill-edit" title="{{localize "FFD20.EditSkill"}}"><i class="fas fa-edit"></i></a>
+      {{#if skill.custom}}
+      <a class="skill-control skill-delete" title="{{localize "FFD20.DeleteSkill"}}"><i class="fas fa-trash"></i></a>
       {{/if}}{{/if}}
+      {{/unless}}
     </div>
   </li>
   {{/if}}
   {{/each}}
   <div class="skill-controls skills">
     {{#if owner}}
-    <a class="skill-control skill-create" title="Add Skill">
+    <a class="skill-control skill-create">
       <i class="fas fa-plus"></i>
+      {{localize 'FFD20.AddSkill'}}
     </a>
     {{/if}}
   </div>

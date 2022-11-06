@@ -1,145 +1,202 @@
 <div class="traits flexcol">
-  <div class="form-group">
+  <div class="form-group tooltip">
     <label>{{localize "FFD20.Size"}}</label>
-    <select name="data.traits.size">
-      {{#select data.traits.size}}
+    <select name="system.traits.size">
+      {{#select system.traits.size}}
       {{#each config.actorSizes as |label size|}}
       <option value="{{size}}">{{label}}</option>
       {{/each}}
       {{/select}}
     </select>
+    <span class="tooltipcontent">
+      @traits.size : {{system.traits.size}}<br>
+      @size : {{@root.rollData.size}}
+    </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group tooltip">
     <label>{{localize "FFD20.Stature"}}</label>
-    <select name="data.traits.stature">
-      {{#select data.traits.stature}}
+    <select name="system.traits.stature">
+      {{#select system.traits.stature}}
       {{#each config.actorStatures as |label key|}}
       <option value="{{key}}">{{label}}</option>
       {{/each}}
       {{/select}}
     </select>
+    <span class="tooltipcontent">
+      @traits.stature : {{system.traits.stature}}
+    </span>
   </div>
 
-  <div class="form-group {{#unless data.traits.senses}}inactive{{/unless}}">
+  <div class="form-group">
     <label>{{localize "FFD20.Senses"}}</label>
-    <input type="text" name="data.traits.senses" value="{{data.traits.senses}}" placeholder="{{localize "FFD20.None"}}"/>
+    <ul class="traits-list tag-list">
+      {{#each senses as |v k|}}
+      <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="senses-selector"><i class="fas fa-edit"></i></a>
   </div>
 
-  <div class="form-group {{#unless data.traits.dr}}inactive{{/unless}}">
+  <div class="form-group {{#unless system.traits.dr}}inactive{{/unless}} tooltip">
     <label>{{localize "FFD20.DamRed"}}</label>
-    <input type="text" name="data.traits.dr" value="{{data.traits.dr}}" placeholder="{{localize "FFD20.None"}}"/>
+    <input type="text" name="system.traits.dr" value="{{system.traits.dr}}" placeholder="{{localize "FFD20.None"}}"/>
+    <span class="tooltipcontent">
+      @traits.dr
+    </span>
   </div>
 
-  <div class="form-group {{#unless data.traits.regen}}inactive{{/unless}}">
+  <div class="form-group {{#unless system.traits.regen}}inactive{{/unless}} tooltip">
     <label>{{localize "FFD20.Regeneration"}}</label>
-    <input type="text" name="data.traits.regen" value="{{data.traits.regen}}" placeholder="{{localize "FFD20.None"}}"/>
+    <input type="text" name="system.traits.regen" value="{{system.traits.regen}}" placeholder="{{localize "FFD20.None"}}"/>
+    <span class="tooltipcontent">
+      @traits.regen
+    </span>
   </div>
 
-  <div class="form-group {{#unless data.traits.fastHealing}}inactive{{/unless}}">
+  <div class="form-group {{#unless system.traits.fastHealing}}inactive{{/unless}} tooltip">
     <label>{{localize "FFD20.FastHealing"}}</label>
-    <input type="text" name="data.traits.fastHealing" value="{{data.traits.fastHealing}}" placeholder="{{localize "FFD20.None"}}"/>
+    <input type="text" name="system.traits.fastHealing" value="{{system.traits.fastHealing}}" placeholder="{{localize "FFD20.None"}}"/>
+    <span class="tooltipcontent">
+      @traits.fastHealing
+    </span>
   </div>
 
-  <div class="form-group {{#unless data.traits.eres}}inactive{{/unless}}">
+  <div class="form-group {{#unless system.traits.eres}}inactive{{/unless}} tooltip">
     <label>{{localize "FFD20.EnRes"}}</label>
-    <input type="text" name="data.traits.eres" value="{{data.traits.eres}}" placeholder="{{localize "FFD20.None"}}"/>
+    <input type="text" name="system.traits.eres" value="{{system.traits.eres}}" placeholder="{{localize "FFD20.None"}}"/>
+    <span class="tooltipcontent">
+      @traits.eres
+    </span>
   </div>
 
-  <div class="form-group {{#unless data.traits.cres}}inactive{{/unless}}">
+  <div class="form-group {{#unless system.traits.cres}}inactive{{/unless}} tooltip">
     <label>{{localize "FFD20.ConRes"}}</label>
-    <input type="text" name="data.traits.cres" value="{{data.traits.cres}}" placeholder="{{localize "FFD20.None"}}"/>
+    <input type="text" name="system.traits.cres" value="{{system.traits.cres}}" placeholder="{{localize "FFD20.None"}}"/>
+    <span class="tooltipcontent">
+      @traits.cres
+    </span>
   </div>
 
-  <div class="form-group {{data.traits.di.cssClass}}">
-    <label for="data.traits.di">{{localize "FFD20.DamImm"}}</label>
-    <ul class="traits-list">
-      {{#each data.traits.di.selected as |v k|}}
+  <div class="form-group {{system.traits.di.cssClass}} tooltip">
+    <label for="system.traits.di">{{localize "FFD20.DamImm"}}</label>
+    <ul class="traits-list tag-list">
+      {{#each system.traits.di.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
       {{/each}}
     </ul>
     <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
+    <span class="tooltipcontent">
+      @traits.di.value<br>
+      @traits.di.custom
+    </span>
   </div>
 
-  <div class="form-group {{data.traits.dv.cssClass}}">
-    <label for="data.traits.dv">{{localize "FFD20.DamVuln"}}</label>
-    <ul class="traits-list">
-      {{#each data.traits.dv.selected as |v k|}}
+  <div class="form-group {{system.traits.dv.cssClass}} tooltip">
+    <label for="system.traits.dv">{{localize "FFD20.DamVuln"}}</label>
+    <ul class="traits-list tag-list">
+      {{#each system.traits.dv.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
       {{/each}}
     </ul>
     <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
+    <span class="tooltipcontent">
+      @traits.dv.value<br>
+      @traits.dv.custom
+    </span>
   </div>
 
-  <div class="form-group {{data.traits.ci.cssClass}}">
-    <label for="data.traits.ci">{{localize "FFD20.ConImm"}}</label>
-    <ul class="traits-list">
-      {{#each data.traits.ci.selected as |v k|}}
+  <div class="form-group {{system.traits.ci.cssClass}} tooltip">
+    <label for="system.traits.ci">{{localize "FFD20.ConImm"}}</label>
+    <ul class="traits-list tag-list">
+      {{#each system.traits.ci.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
       {{/each}}
     </ul>
     <a class="trait-selector" data-options="conditionTypes"><i class="fas fa-edit"></i></a>
+    <span class="tooltipcontent">
+      @traits.ci.value<br>
+      @traits.ci.custom
+    </span>
   </div>
 
-  <div class="form-group {{data.traits.languages.cssClass}}">
-    <label for="data.traits.languages">{{localize "FFD20.Languages"}}</label>
-    <ul class="traits-list">
-      {{#each data.traits.languages.selected as |v k|}}
-      <li class="tag {{k}}">{{v}}</li>
+  <div class="form-group {{system.traits.languages.cssClass}} tooltip">
+    <label for="system.traits.languages">{{localize "FFD20.Languages"}}</label>
+    <ul class="traits-list tooltip tag-list">
+      {{#each system.traits.languages.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
       {{/each}}
+      {{#if sourceDetails.system.traits.languages.length}}
+        <div class="tooltipcontent">
+          @traits.languages.total<br>
+          <br>
+          {{localize "FFD20.FromSources"}}:<br/>
+          {{#each sourceDetails.system.traits.languages as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+        </div>
+      {{/if}}
     </ul>
     <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
   </div>
 
-  {{#if isCharacter}}
-    <div class="form-group {{data.traits.weaponProf.cssClass}}">
-      <label for="data.traits.weaponProf">
+  {{#if hasProficiencies}}
+    <div class="form-group {{system.traits.weaponProf.cssClass}} tooltip">
+      <label for="system.traits.weaponProf">
         {{localize "FFD20.TraitWeaponProf"}}
       </label>
-      <ul class="traits-list tooltip">
-        {{#each data.traits.weaponProf.selected as |v k|}}
+      <ul class="traits-list tooltip tag-list">
+        {{#each system.traits.weaponProf.selected as |v k|}}
           <li class="tag {{k}}">{{v}}</li>
         {{/each}}
-        {{#if sourceDetails.data.traits.weaponProf.length}}
+        {{#if sourceDetails.system.traits.weaponProf.length}}
           <div class="tooltipcontent">
+            @traits.weaponProf.total<br>
+            <br>
             {{localize "FFD20.FromSources"}}:<br/>
-            {{#each sourceDetails.data.traits.weaponProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#each sourceDetails.system.traits.weaponProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
           </div>
         {{/if}}
       </ul>
-      <a class="trait-selector" data-options="weaponProf"><i class="fas fa-edit"></i></a>
+      <a class="trait-selector" data-options="weaponProficiencies"><i class="fas fa-edit"></i></a>
     </div>
 
-    <div class="form-group {{data.traits.armorProf.cssClass}}">
-      <label for="data.traits.armorProf">
+    <div class="form-group {{system.traits.armorProf.cssClass}} tooltip">
+      <label for="system.traits.armorProf">
         {{localize "FFD20.TraitArmorProf"}}
       </label>
-      <ul class="traits-list tooltip">
-        {{#each data.traits.armorProf.selected as |v k|}}
+      <ul class="traits-list tooltip tag-list">
+        {{#each system.traits.armorProf.selected as |v k|}}
           <li class="tag {{k}}">{{v}}</li>
         {{/each}}
-        {{#if sourceDetails.data.traits.armorProf.length}}
+        {{#if sourceDetails.system.traits.armorProf.length}}
           <div class="tooltipcontent">
+            @traits.armorProf.total<br>
+            <br>
             {{localize "FFD20.FromSources"}}:<br/>
-            {{#each sourceDetails.data.traits.armorProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{#each sourceDetails.system.traits.armorProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
           </div>
         {{/if}}
       </ul>
-      <a class="trait-selector" data-options="armorProf"><i class="fas fa-edit"></i></a>
+      <a class="trait-selector" data-options="armorProficiencies"><i class="fas fa-edit"></i></a>
     </div>
   {{/if}}
 
-  <div class="form-group">
+  <div class="form-group tooltip">
     <label>{{localize "FFD20.Quadruped"}}</label>
     <label class="checkbox">
-      <input type="checkbox" name="data.attributes.quadruped" {{checked data.attributes.quadruped}}/>
+      <input type="checkbox" name="system.attributes.quadruped" {{checked system.attributes.quadruped}}/>
     </label>
+    <span class="tooltipcontent">
+      @attributes.quadruped : {{system.attributes.quadruped}}<br>
+    </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group tooltip">
     <label>{{localize "FFD20.LevelDrain"}}</label>
-    <input class="select-on-click" type="text" name="data.attributes.energyDrain" value="{{data.attributes.energyDrain}}"
+    <input class="select-on-click" type="text" name="system.attributes.energyDrain" value="{{system.attributes.energyDrain}}"
                                                           placeholder="0" data-dtype="Number" />
+    <span class="tooltipcontent">
+      @attributes.energyDrain : {{system.attributes.energyDrain}}<br>
+    </span>
   </div>
 
   {{!-- Point Buy Calculator --}}

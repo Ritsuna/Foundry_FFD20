@@ -11,7 +11,7 @@
   <section class="sheet-body tab">
     <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
     <div class="tab biography">
-      {{editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+      {{editor biographyHTML target="system.details.biography.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
     </div>
   </section>
 </form>

@@ -12,7 +12,7 @@
           {{itemType}}
         </li>
         <li>
-          {{#unless showUnidentifiedData}}{{lookup config.lootTypes data.subType}}{{/unless}}
+          {{#unless showUnidentifiedData}}{{lookup config.lootTypes system.subType}}{{/unless}}
         </li>
       </ul>
     </div>
@@ -20,7 +20,7 @@
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
     <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
     {{#unless showUnidentifiedData}}
     <a class="item" data-tab="changes">{{ localize "FFD20.Changes" }}</a>
@@ -42,29 +42,51 @@
 
       {{!-- Loot Type --}}
       <div class="form-group">
-        <label>Item Type</label>
-        <select name="data.subType">
-          {{#select data.subType}}
-          {{#each config.lootTypes as |name type|}}
-          <option value="{{type}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
+        <label>{{localize "FFD20.Type"}}</label>
+        <div class="form-fields">
+          <select name="system.subType">
+            {{#select system.subType}}
+            {{#each config.lootTypes as |name type|}}
+            <option value="{{type}}">{{name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
       </div>
 
-      {{!-- Item Size --}}
-      {{> "systems/ffd20/templates/items/parts/item-size.hbs"}}
+      {{#if (eq system.subType "ammo")}}
+        <div class="form-group">
+          <label>{{localize "FFD20.AmmunitionSubtype"}}</label>
+          <div class="form-fields">
+            <select name="system.extraType">
+              {{#select system.extraType}}
+              <option value=""></option>
+              {{#each config.ammoTypes as |name type|}}
+                <option value="{{type}}">{{name}}</option>
+              {{/each}}
+              {{/select}}
+            </select>
+          </div>
+        </div>
 
-      {{#if isGM}}
-      <label class="checkbox">
-        <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{localize "FFD20.Identified"}}
-      </label>
+        <div class="form-group" title="{{localize "FFD20.AbundantDesc"}}">
+          <label class="checkbox">
+            <input type="checkbox" name="flags.ffd20.abundant" {{checked item.flags.ffd20.abundant}} /> {{localize "FFD20.Abundant"}}
+          </label>
+        </div>
       {{/if}}
 
-      <h3 class="form-header">{{localize "FFD20.ConsumableUsage"}}</h3>
+      <hr>
 
-      {{!-- Item Activation Template --}}
-      {{> "systems/ffd20/templates/items/parts/item-activation.hbs"}}
+      {{!-- Item Size --}}
+      {{> "systems/ffd20/templates/items/parts/item-size.hbs" allowAutoResizing=true}}
+
+      {{#if isGM}}
+      <hr>
+      <label class="checkbox">
+        <input type="checkbox" name="system.identified" {{checked system.identified}}/> {{localize "FFD20.Identified"}}
+      </label>
+      {{/if}}
 
       {{!-- Advanced Tag --}}
       {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
@@ -73,7 +95,7 @@
     {{!-- Changes Tab --}}
     {{#unless showUnidentifiedData}}
     <div class="tab flexcol" data-group="primary" data-tab="changes">
-      {{> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
+      {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
     {{/unless}}
 

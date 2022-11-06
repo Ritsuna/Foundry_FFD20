@@ -12,7 +12,7 @@
           {{itemType}}
         </li>
         <li>
-          {{#unless showUnidentifiedData}}{{lookup config.consumableTypes data.consumableType }}{{/unless}}
+          {{#unless showUnidentifiedData}}{{lookup config.consumableTypes system.consumableType }}{{/unless}}
         </li>
       </ul>
     </div>
@@ -20,7 +20,7 @@
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
     <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
     <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
     {{#unless showUnidentifiedData}}
@@ -36,6 +36,18 @@
 
     {{!-- Details Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
+      {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
+
+      <h3 class="form-header">{{localize "FFD20.Properties"}}</h3>
+
+      <div class="form-group stacked">
+        {{#if owner}}
+        <label class="checkbox">
+          <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}}/> {{localize "FFD20.ShowInQuickbar"}}
+        </label>
+        {{/if}}
+      </div>
+
       {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
 
       <h3 class="form-header">{{localize "FFD20.Details"}}</h3>
@@ -44,8 +56,8 @@
       {{#unless showUnidentifiedData}}
       <div class="form-group">
         <label>{{localize "FFD20.Type"}}</label>
-        <select name="data.consumableType">
-          {{#select data.consumableType}}
+        <select name="system.consumableType">
+          {{#select system.consumableType}}
           {{#each config.consumableTypes as |name type|}}
           <option value="{{type}}">{{name}}</option>
           {{/each}}
@@ -55,24 +67,9 @@
 
       {{#if isGM}}
       <label class="checkbox">
-        <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{localize "FFD20.Identified"}}
+        <input type="checkbox" name="system.identified" {{checked system.identified}}/> {{localize "FFD20.Identified"}}
       </label>
       {{/if}}
-
-      <h3 class="form-header">{{localize "FFD20.ConsumableUsage"}}</h3>
-
-      {{!-- Item Activation Template --}}
-      {{> "systems/ffd20/templates/items/parts/item-activation.hbs"}}
-
-      <h3 class="form-header">{{localize "FFD20.Action"}}</h3>
-
-      {{!-- Item Action Template --}}
-      {{> "systems/ffd20/templates/items/parts/item-action.hbs"}}
-
-      <h3 class="form-header">{{localize "FFD20.MeasureTemplate"}}</h3>
-
-      {{!-- Item Measure Template --}}
-      {{> "systems/ffd20/templates/items/parts/item-template.hbs"}}
 
       {{!-- Advanced Tag --}}
       {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}

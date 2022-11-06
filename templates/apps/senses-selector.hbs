@@ -1,0 +1,102 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+  {{!-- Low Light vision --}}
+  <div class="form-group">
+    <label>{{localize "TOKEN.VisionLowLight"}}</label>
+    <div class="form-fields">
+      <input
+        type="checkbox"
+        name="system.traits.senses.ll.enabled"
+        {{checked
+        system.traits.senses.ll.enabled}}
+        data-dtype="Boolean"
+      />
+    </div>
+  </div>
+
+  {{!-- Low Light vision multiplier --}}
+  <div class="form-group slim">
+    <label>{{localize "TOKEN.VisionLowLightMultiplier"}}</label>
+    <div class="form-fields">
+      <label class="header">{{localize "LIGHT.Dim"}}</label>
+      <input type="text" data-dtype="Number" name="system.traits.senses.ll.multiplier.dim" value="{{system.traits.senses.ll.multiplier.dim}}" />
+      <label class="header">{{localize "LIGHT.Bright"}}</label>
+      <input type="text" data-dtype="Number" name="system.traits.senses.ll.multiplier.bright" value="{{system.traits.senses.ll.multiplier.bright}}" />
+    </div>
+  </div>
+
+  {{!-- Darkvision --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseDV"}} <span class="units">({{gridUnits}})</span></label>
+    <div class="form-fields">
+      <input type="text" data-dtype="Number" name="system.traits.senses.dv" value="{{converted.system.traits.senses.dv}}" />
+    </div>
+  </div>
+
+  {{!-- Tremorsense --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseTS"}} <span class="units">({{gridUnits}})</span></label>
+    <div class="form-fields">
+      <input type="text" data-dtype="Number" name="system.traits.senses.ts" value="{{converted.system.traits.senses.ts}}" />
+    </div>
+  </div>
+
+  {{!-- Blindsense --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseBSense"}} <span class="units">({{gridUnits}})</span></label>
+    <div class="form-fields">
+      <input type="text" data-dtype="Number" name="system.traits.senses.bse" value="{{converted.system.traits.senses.bse}}" />
+    </div>
+  </div>
+
+  {{!-- Blindsight --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseBS"}} <span class="units">({{gridUnits}})</span></label>
+    <div class="form-fields">
+      <input type="text" data-dtype="Number" name="system.traits.senses.bs" value="{{converted.system.traits.senses.bs}}" />
+    </div>
+  </div>
+
+  {{!-- Scent --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseSC"}}*</label>
+    <div class="form-fields">
+      <input type="checkbox" data-dtype="Boolean" name="system.traits.senses.sc" {{checked system.traits.senses.sc}} />
+    </div>
+  </div>
+
+  {{!-- See invisibility --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseSI"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" data-dtype="Boolean" name="system.traits.senses.si" {{checked system.traits.senses.si}} />
+    </div>
+  </div>
+
+  {{!-- Truesight --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseTR"}}</label>
+    <div class="form-fields">
+      <input type="checkbox" data-dtype="Boolean" name="system.traits.senses.tr" {{checked system.traits.senses.tr}} />
+    </div>
+  </div>
+
+  {{!-- See in darkness --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.SenseSID"}}*</label>
+    <div class="form-fields">
+      <input type="checkbox" data-dtype="Boolean" name="system.traits.senses.sid" {{checked system.traits.senses.sid}} />
+    </div>
+  </div>
+
+  {{!-- Custom --}}
+  <div class="form-group">
+    <label>{{localize "FFD20.Custom"}}</label>
+    <div class="form-fields">
+      <input type="text" data-dtype="String" name="system.traits.senses.custom" value="{{system.traits.senses.custom}}" />
+    </div>
+  </div>
+
+  <p class="footnote">* {{localize "FFD20.Info.NotFunctioning"}}</p>
+
+  <button type="submit" name="submit"><i class="far fa-save"></i> {{ localize "Save Changes" }}</button>
+</form>

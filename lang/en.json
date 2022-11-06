@@ -2,16 +2,14 @@
   "Final Fantasy D20": "Final Fantasy D20",
   "FFD20.title": "Final Fantasy D20",
   "FFD20.description": "A comprehensive game system for running games of Final Fantasy D20 in the Foundry VTT environment.",
-
   "FFD20.ActorSheetFFD20Character": "Character",
   "FFD20.ActorSheetFFD20NPC": "NPC",
   "FFD20.ActorSheetFFD20NPCLite": "NPC (Lite)",
   "FFD20.ActorSheetFFD20NPCLoot": "Loot",
-
   "SETTINGS.ffd20DiagN": "Diagonal Movement Rule",
   "SETTINGS.ffd20DiagL": "Configure which diagonal movement rule should be used for games within this system.",
-  "SETTINGS.ffd20InitTBN": "Initiative Dexterity Tiebreaker",
-  "SETTINGS.ffd20InitTBL": "Append the raw Dexterity ability score to break ties in Initiative.",
+  "SETTINGS.ffd20InitTiebreakerN": "Initiative Tiebreaker",
+  "SETTINGS.ffd20InitTiebreakerH": "Append total initiative divided by 100 to break ties in Initiative.",
   "SETTINGS.ffd20CurWtN": "Apply Currency Weight",
   "SETTINGS.ffd20CurWtL": "Carried currency affects character encumbrance.",
   "SETTINGS.ffd20DiagPHB": "5/5/5",
@@ -40,10 +38,20 @@
   "SETTINGS.ffd20CoinWeightH": "How many coins weigh 1 lbs",
   "SETTINGS.ffd20SharedVisionModeN": "Shared Vision Mode",
   "SETTINGS.ffd20SharedVisionModeH": "How to handle Shared Vision between players.",
+  "SETTINGS.ffd20characterVisionN": "Player character vision",
+  "SETTINGS.ffd20characterVisionH": "Player Characters by default have token vision, regardless of default token setup.",
   "SETTINGS.ffd20SharedVisionWithoutSelection": "Without selected token",
   "SETTINGS.ffd20SharedVisionWithSelection": "Always",
+  "SETTINGS.ffd20AllowScriptChangesN": "Enable Script Changes",
+  "SETTINGS.ffd20AllowScriptChangesH": "Allows the use of \"Script\"-type changes in the world",
+  "SETTINGS.ffd20AllowScriptChangesW": "<b>This settings would allow players to execute arbitrary code as the GM.</b><br><br>Are you absolutely sure you want to enable this?",
+  "SETTINGS.ffd20AllowScriptChangesE": "Script Changes are disabled on this world.",
   "SETTINGS.ffd20HideTokenConditionsN": "Hide Token Buffs",
   "SETTINGS.ffd20HideTokenConditionsH": "Whether buffs should hide their icons from token status effects",
+  "SETTINGS.ffd20obscureInlineRollsN": "Obscure inline rolls",
+  "SETTINGS.ffd20obscureInlineRollsH": "Hide inline rolls from those without at least observer permission.",
+  "SETTINGS.ffd20obscureSaveDCsN": "Obscure save DCs",
+  "SETTINGS.ffd20obscureSaveDCsH": "Hide DC values from chat cards from players.",
   "SETTINGS.ffd20CoreEffectsN": "Default Token Conditions",
   "SETTINGS.ffd20CoreEffectsH": "Displays only FFD20 conditions on tokens (unchecked) or core icons as well (checked)",
   "SETTINGS.ffd20HideChatButtonsN": "Hide Chat Card Buttons",
@@ -64,7 +72,12 @@
   "SETTINGS.ffd20DisplayIterativesH": "Breaks down BAB display to iteratives instead of only the total bonus",
   "SETTINGS.ffd20AlternativeReachCornerRuleN": "Alternative Reach Rule",
   "SETTINGS.ffd20AlternativeReachCornerRuleH": "Hides the outer corners from 10-ft reach measurements",
-
+  "SETTINGS.ffd20NPCProficienciesN": "NPC proficiencies",
+  "SETTINGS.ffd20NPCProficienciesH": "NPC actors also use proficiencies. With this disabled (default), they are considered proficienct with everything they have as per RAW.",
+  "SETTINGS.ffd20DisableAttackCardTargetsN": "Disable Attack Targets",
+  "SETTINGS.ffd20DisableAttackCardTargetsH": "Disables targeted actors from showing up on attack cards",
+  "SETTINGS.ffd20ClearTargetsAfterAttackN": "Clear targets after attack",
+  "SETTINGS.ffd20ClearTargetsAfterAttackH": "Whether to untarget everything after an attack roll.",
   "SETTINGS.ffd20HealthConfigName": "Health Configuration",
   "SETTINGS.ffd20HealthConfigLabel": "Configure Health",
   "SETTINGS.ffd20HealthConfigHint": "Configure health computations for actors.",
@@ -84,7 +97,6 @@
   "SETTINGS.ffd20HealthConfigWoundsAndVigorPCHint": "Use the Wounds and Vigor optional ruleset for player characters.",
   "SETTINGS.ffd20HealthConfigWoundsAndVigorNPCName": "Wounds and Vigor for NPCs",
   "SETTINGS.ffd20HealthConfigWoundsAndVigorNPCHint": "Use the Wounds and Vigor optional ruleset for nonplayer characters.",
-
   "SETTINGS.ffd20HealthConfigWoundThresholdsPCName": "Wound thresholds for PCs",
   "SETTINGS.ffd20HealthConfigWoundsThresholdsPCHint": "Use wound threshold optional ruleset for player characters.",
   "SETTINGS.ffd20HealthConfigWoundThresholdsNPCName": "Wound thresholds for NPCs",
@@ -96,40 +108,57 @@
   "SETTINGS.ffd20HealthConfigWoundThresholdDisabled": "Disabled",
   "SETTINGS.ffd20HealthConfigWoundThresholdNormal": "Normal",
   "SETTINGS.ffd20HealthConfigWoundThresholdGritty": "Gritty",
-
   "SETTINGS.ffd20DragRulerWalk": "walk",
   "SETTINGS.ffd20DragRulerDash": "dash",
   "SETTINGS.ffd20DragRulerRun": "run",
-
+  "SETTINGS.ffd20DragRulerUseElevationName": "Use elevation to determine movement type",
+  "SETTINGS.ffd20DragRulerUseElevationHint": "Use a tokens elevation to determine wether a token is flying or burrowing",
+  "FFD20.KEYBINDINGS": {
+    "SkipConfirmPrompt": {
+      "Name": "Skip Confirmation Prompt"
+    },
+    "HideTokenTooltip": {
+      "Name": "Hide Token Tooltip",
+      "Hint": "Hide token tooltips while this key is held"
+    },
+    "HideTokenTooltipGMInfo": {
+      "Name": "Show Token Tooltip as Player"
+    },
+    "ForceShowItem": {
+      "Name": "Force Show Item",
+      "Hint": "Whether to show the item to chat when using a macro for it"
+    }
+  },
+  "FFD20.SpellComponentKeys": {
+    "Verbal": "V",
+    "Somatic": "S",
+    "Thought": "T",
+    "Emotion": "E",
+    "Material": "M",
+    "Focus": "F",
+    "DivineFocus": "DF"
+  },
   "FFD20.OptionalAndVariantRules": "Optional & Variant Rules",
-
   "FFD20.WoundThresholdOverride": "Wound Threshold override",
-
   "FFD20.WoundLevelHealthy": "Healthy Condition",
   "FFD20.WoundLevelGrazed": "Grazed Condition",
   "FFD20.WoundLevelWounded": "Wounded Condition",
   "FFD20.WoundLevelCritical": "Critical Condition",
-
   "SETTINGS.ffd20UnitsN": "System of units",
   "SETTINGS.ffd20UnitsL": "System of units to be used in the world",
-
   "SETTINGS.ffd20ImperialUnits": "Imperial (feet, lbs)",
   "SETTINGS.ffd20ImperialDistanceUnits": "Imperial (feet)",
   "SETTINGS.ffd20ImperialWeightUnits": "Imperial (lbs)",
   "SETTINGS.ffd20MetricUnits": "Metric (meters, kg)",
   "SETTINGS.ffd20MetricDistanceUnits": "Metric (meters)",
   "SETTINGS.ffd20MetricWeightUnits": "Metric (kg)",
-
   "SETTINGS.ffd20DistanceUnitsN": "System of units for distances",
   "SETTINGS.ffd20DistanceUnitsL": "Override system of units to be used with distances.",
-
   "SETTINGS.ffd20WeightUnitsN": "System of units for weights",
   "SETTINGS.ffd20WeightUnitsL": "Override system of units to be used with weights.",
-
   "TOKEN.VisionLowLight": "Low-light Vision",
   "TOKEN.VisionLowLightMultiplier": "Low-light Multiplier",
   "TOKEN.VisionDarkvision": "Darkvision",
-
   "FFD20.ExperienceConfigName": "Experience Configuration",
   "FFD20.ExperienceConfigLabel": "Configure Experience",
   "FFD20.ExperienceConfigHint": "Configure aspects about leveling up.",
@@ -138,13 +167,11 @@
   "FFD20.XPTrackFast": "Fast",
   "FFD20.XPTrackCustomFormula": "Custom (Formula)",
   "FFD20.XPTrackCustomFormulaHint": "e.g. '@level * 1000'",
-
   "FFD20.AccessibilityConfigName": "Accessibility Configuration",
   "FFD20.AccessibilityConfigLabel": "Accessibility",
   "FFD20.AccessibilityConfigHint": "Change accessibility settings",
   "FFD20.AccessibilityFontSize": "Font Size",
   "FFD20.AccessibilityFontSizeHint": "Changes font size in certain aspects of the game (such as on attack chat cards)",
-
   "FFD20.TooltipConfigName": "Tooltip Configuration",
   "FFD20.TooltipConfigLabel": "Tooltip",
   "FFD20.TooltipConfigHint": "Change tooltip settings",
@@ -158,7 +185,6 @@
   "FFD20.TooltipConfigDisable": "Disable Tooltips",
   "FFD20.TooltipConfigHideWithoutKey": "Hide unless {key} is held",
   "FFD20.OnMouse": "On Mouse",
-
   "FFD20.Sheet": {
     "PC": "Player Character (PC)",
     "NPC": "Nonplayer Character (NPC)",
@@ -167,7 +193,6 @@
     "Item": "Generic Item",
     "Container": "Container"
   },
-
   "FFD20.TooltipWorldConfigName": "Tooltip World Configuration",
   "FFD20.TooltipWorldConfigLabel": "Tooltip (World)",
   "FFD20.TooltipWorldConfigHint": "Change world-wide tooltip settings",
@@ -186,13 +211,46 @@
   "FFD20.TooltipWorldConfigHideActorName": "Hide Actor names (globally)",
   "FFD20.TooltipWorldConfigHideActorName_Hint": "Hide Actor names from all players",
   "FFD20.TooltipWorldConfigHideActorNameReplacement": "Hidden Replacement Name",
-
   "FFD20.LevelUpForm_Title": "Level up {className}",
   "FFD20.LevelUpForm_Health": "Health",
   "FFD20.LevelUpForm_Health_Roll": "Roll",
   "FFD20.LevelUpForm_Health_Manual": "Manual",
   "FFD20.LevelUp": {
     "Label": "Level Up",
+    "Health": {
+      "Roll": {
+        "Desc": "Your hit points for this level will be rolled for based on the size of your hit die."
+      },
+      "Manual": {
+        "Desc": "You will decide how many hit points you gain for this level."
+      }
+    },
+    "FC": {
+      "Label": "Favoured Class Bonus",
+      "HP": {
+        "Desc": "You will gain a single hit point as your favoured class bonus for this level."
+      },
+      "Skill": {
+        "Desc": "You will gain a single skill rank to freely spend as your favoured class bonus for this level."
+      },
+      "Alt": {
+        "Desc": "You will gain something specific for your class and race combination as your favoured class bonus for this level."
+      }
+    },
+    "AbilityScore": {
+      "Label": "Ability Score",
+      "PointsLeft": "Points remaining: {value}",
+      "Item": {
+        "Name": "Added Ability Scores",
+        "Desc": "<p>This feature is used for tracking your ability score changes from gaining hit die.</p>"
+      }
+    },
+    "Summary": {
+      "Label": "Summary",
+      "AbilityScore": {
+        "Gain": "{abl}: +{value}"
+      }
+    },
     "Chat": {
       "Header": "Level Up Report",
       "Health": {
@@ -203,6 +261,9 @@
       "FC": {
         "Header": "Favoured Class Bonus"
       },
+      "AbilityScore": {
+        "Header": "Ability Score Increase"
+      },
       "Extra": {
         "Header": "Extra",
         "NewFeat": "You have 1 new feat to choose",
@@ -211,37 +272,31 @@
       }
     }
   },
-
   "FFD20.Submit": "Submit",
   "FFD20.Next": "Next",
   "FFD20.Previous": "Previous",
   "FFD20.General": "General",
-
   "FFD20.Apply": "Apply",
   "FFD20.ApplyHalf": "Apply Half",
   "FFD20.ApplyDamage": "Apply Damage",
   "FFD20.ApplyCriticalDamage": "Apply Critical Damage",
   "FFD20.ApplyHealing": "Apply Healing",
   "FFD20.ApplyCriticalHealing": "Apply Critical Healing",
+  "FFD20.ApplyToAll": "Apply to all",
   "FFD20.ReduceBy": "Reduce by",
   "FFD20.SwapSelected": "Swap Selected",
   "FFD20.ClearReduction": "Clear Reduction",
-
   "FFD20.RollsForInitiative": "{0} rolls for initiative!",
-
-  "FFD20.Take10": "Take 10",
-  "FFD20.Take20": "Take 20",
-
+  "FFD20.Roll": "Roll",
+  "FFD20.TakeX": "Take {number}",
   "FFD20.Flags": "Flags",
   "FFD20.FlagsInstructions": "Configure character features and traits which fine-tune behaviors of the FFD20 system.",
   "FFD20.FlagsTitle": "Configure Special Traits",
   "FFD20.FlagsSave": "Update Special Traits",
   "FFD20.FlagsBoolean": "Boolean Flags",
   "FFD20.FlagsDictionary": "Dictionary Flags",
-
   "FFD20.AbilityDamage": "Ability Damage",
   "FFD20.AbilityDrain": "Ability Drain",
-
   "FFD20.PointBuyCalculator": "Point Buy Calculator",
   "FFD20.PointBuyCalculatorWarning": "The point buy calculator will OVERRIDE the character's base ability scores.",
   "FFD20.PointBuyCalculatorSpent": "Points Spent",
@@ -251,65 +306,75 @@
   "FFD20.PointBuyCalculatorStandardFantasy": "Standard Fantasy",
   "FFD20.PointBuyCalculatorHighFantasy": "High Fantasy",
   "FFD20.PointBuyCalculatorEpicFantasy": "Epic Fantasy",
-
   "FFD20.CreateItem": "Create Item",
   "FFD20.EditItem": "Edit Item",
   "FFD20.DuplicateItem": "Duplicate Item",
   "FFD20.DeleteItem": "Delete Item",
   "FFD20.DeleteItemTitle": "Delete Item: {0}",
-
+  "FFD20.DeleteItemConfirmation": "Are you sure you want to delete this item?",
+  "FFD20.EditSkill": "Edit Skill",
+  "FFD20.DeleteSkill": "Delete Skill",
+  "FFD20.DeleteSkillTitle": "Delete Skill: {0}",
+  "FFD20.DeleteSkillConfirmation": "Are you sure you want to delete this skill?",
   "FFD20.LinkTypeChildren": "Children",
   "FFD20.LinkTypeCharges": "Charges",
   "FFD20.LinkTypeClassAssociations": "Class Associations",
   "FFD20.LinkTypeAmmunition": "Ammunition",
-
-  "FFD20.LinkHelpChildren": "Linked children are deleted from the actor when the link parent is deleted.",
-  "FFD20.LinkHelpCharges": "Items linked in this way share their charges. Add all links to one master item.",
-  "FFD20.LinkHelpClassAssociations": "Items linked in this way are automatically added to the actor at the appropriate class level.",
-  "FFD20.LinkHelpAmmunition": "Items linked in this way automatically lose a quantity (or charge) for every attack made.",
-
+  "FFD20.LinkHelpChildren": "Linked children are deleted from the actor when the link parent (this item) is deleted.",
+  "FFD20.LinkHelpCharges": "Linked items inherit and share the charges from the link parent (this item).",
+  "FFD20.LinkHelpClassAssociations": "Class association linked items are automatically added to the actor at the appropriate class level. Unlike other item links, these must be linked from a compendium.",
+  "FFD20.LinkHelpAmmunition": "Linked items automatically lose quantity (or charge) for every attack made with link parent (this item).",
   "FFD20.HelpSellMultiplierN": "Sale Rate",
   "FFD20.HelpSellMultiplier": "The rate at which non-trade goods sell. Trade goods always sell at full price. Default is 0.5.",
   "FFD20.HelpDomainSpell": "This spell will not cost any spell slots to restore upon rest.",
-
   "FFD20.AbilityStr": "Strength",
   "FFD20.AbilityDex": "Dexterity",
   "FFD20.AbilityCon": "Constitution",
   "FFD20.AbilityInt": "Intelligence",
   "FFD20.AbilityWis": "Wisdom",
   "FFD20.AbilityCha": "Charisma",
-
   "FFD20.AbilityStrMod": "Strength Modifier",
   "FFD20.AbilityDexMod": "Dexterity Modifier",
   "FFD20.AbilityConMod": "Constitution Modifier",
   "FFD20.AbilityIntMod": "Intelligence Modifier",
   "FFD20.AbilityWisMod": "Wisdom Modifier",
   "FFD20.AbilityChaMod": "Charisma Modifier",
-
   "FFD20.AbilityShortStr": "Str",
   "FFD20.AbilityShortDex": "Dex",
   "FFD20.AbilityShortCon": "Con",
   "FFD20.AbilityShortInt": "Int",
   "FFD20.AbilityShortWis": "Wis",
   "FFD20.AbilityShortCha": "Cha",
-
   "FFD20.SavingThrowFort": "Fortitude",
   "FFD20.SavingThrowRef": "Reflex",
   "FFD20.SavingThrowWill": "Will",
-
   "FFD20.ACNormal": "AC",
   "FFD20.ACTouch": "Touch",
   "FFD20.ACFlatFooted": "Flat-footed",
   "FFD20.CMDFlatFooted": "Flat-footed CMD",
-
   "FFD20.ACTypeNormal": "Deflection",
   "FFD20.ACTypeTouch": "Dodge",
   "FFD20.ACTypeFlatFooted": "Misc FF",
-
   "FFD20.WeaponHoldTypeNormal": "Normal",
   "FFD20.WeaponHoldTypeTwoHanded": "Two-handed",
   "FFD20.WeaponHoldTypeOffhand": "Off-hand",
-
+  "FFD20.WeaponGroupAxes": "Axes",
+  "FFD20.WeaponGroupBladesHeavy": "Blades, Heavy",
+  "FFD20.WeaponGroupBladesLight": "Blades, Light",
+  "FFD20.WeaponGroupBows": "Bows",
+  "FFD20.WeaponGroupClose": "Close",
+  "FFD20.WeaponGroupCrossbows": "Crossbows",
+  "FFD20.WeaponGroupDouble": "Double",
+  "FFD20.WeaponGroupFirearms": "Firearms",
+  "FFD20.WeaponGroupFlails": "Flails",
+  "FFD20.WeaponGroupHammers": "Hammers",
+  "FFD20.WeaponGroupMonk": "Monk",
+  "FFD20.WeaponGroupNatural": "Natural",
+  "FFD20.WeaponGroupPolearms": "Polearms",
+  "FFD20.WeaponGroupSiegeEngines": "Siege Engines",
+  "FFD20.WeaponGroupSpears": "Spears",
+  "FFD20.WeaponGroupThrown": "Thrown",
+  "FFD20.WeaponGroupTribal": "Tribal",
   "FFD20.CondAntagonized": "Antagonized",
   "FFD20.CondTypeAntagonized": "Antagonized",
   "FFD20.CondBerserk": "Berserk",
@@ -422,16 +487,13 @@
   "FFD20.CondTypeWeighted": "Weighted",
   "FFD20.CondZombie": "Zombie",
   "FFD20.CondTypeZombie": "Zombie",
-
   "FFD20.CostGil": "Cost (Gil)",
-
   "FFD20.ClassType": "Class Type",
   "FFD20.ClassTypeBase": "Base Class",
   "FFD20.ClassTypePrestige": "Prestige Class",
   "FFD20.ClassTypeNPC": "NPC Class",
   "FFD20.ClassTypeRacial": "Racial HD",
   "FFD20.ClassTypeMythic": "Mythic Path",
-
   "FFD20.ActionMWAK": "Melee Weapon Attack",
   "FFD20.ActionRWAK": "Ranged Weapon Attack",
   "FFD20.ActionMSAK": "Melee Spell Attack",
@@ -442,7 +504,6 @@
   "FFD20.ActionSave": "Saving Throw",
   "FFD20.ActionHeal": "Healing",
   "FFD20.ActionOther": "Other",
-
   "FFD20.Alignment": "Alignment",
   "FFD20.AlignmentLG": "Lawful Good",
   "FFD20.AlignmentNG": "Neutral Good",
@@ -462,10 +523,8 @@
   "FFD20.AlignmentShortLE": "LE",
   "FFD20.AlignmentShortNE": "NE",
   "FFD20.AlignmentShortCE": "CE",
-
   "FFD20.ChatReqMats": "Required Materials",
   "FFD20.ChatOtherFormula": "Other Formula",
-
   "FFD20.Currency": "Currency",
   "FFD20.WeightlessCurrency": "Weightless Currency",
   "FFD20.CurrencyPGil": "P Gil",
@@ -480,7 +539,6 @@
   "FFD20.CurrencyFailed": "Currency Transfer Failed: ",
   "FFD20.CurrencyGMRequired": "A GM is required to finish the transfer.",
   "FFD20.CurrencyInsufficient": "Insufficient Currency",
-
   "FFD20.DistPersonal": "Personal",
   "FFD20.DistTouch": "Touch",
   "FFD20.DistMelee": "Melee",
@@ -490,14 +548,12 @@
   "FFD20.DistLong": "Long",
   "FFD20.DistFt": "Feet",
   "FFD20.DistMi": "Miles",
-
   "FFD20.DistM": "Meters",
   "FFD20.DistKM": "Kilometers",
   "FFD20.DistFtShort": "ft",
   "FFD20.DistMiShort": "mi",
   "FFD20.DistMShort": "m",
   "FFD20.DistKMShort": "km",
-
   "FFD20.ItemContainerContentsWeight": "Contents Weight",
   "FFD20.ItemContainerContentsValue": "Contents Value",
   "FFD20.ItemContainerContentsSellValue": "Contents Sell Value",
@@ -514,26 +570,33 @@
   "FFD20.ItemContainerTotalItemValue": "Total Item Value: {0} Gil, {1} SGil, {2} CGil",
   "FFD20.ItemContainerSellValue": "Sell Value: {0} Gil, {1} SGil, {2} CGil",
   "FFD20.ItemContainerTakeContents": "Take from Container",
-
   "FFD20.LootTypeGear": "Gear",
   "FFD20.LootTypeAmmo": "Ammunition",
   "FFD20.LootTypeTradeGoods": "Trade Goods",
   "FFD20.LootTypeGearSingle": "Gear",
   "FFD20.LootTypeAmmoSingle": "Ammunition",
   "FFD20.LootTypeTradeGoodsSingle": "Trade Good",
-
+  "FFD20.AmmoTypeArrow": "Arrow",
+  "FFD20.AmmoTypeBolt": "Bolt",
+  "FFD20.AmmoTypeRepeatingBolt": "Bolt (Repeating)",
+  "FFD20.AmmoTypeBulletSling": "Bullet (Sling)",
+  "FFD20.AmmoTypeBulletGun": "Bullet (Firearm)",
+  "FFD20.AmmoTypeBulletDragoon": "Bullet (Dragoon Firearm)",
+  "FFD20.AmmoTypeDart": "Dart",
+  "FFD20.SenseBSense": "Blindsense",
   "FFD20.SenseBS": "Blindsight",
   "FFD20.SenseDV": "Darkvision",
   "FFD20.SenseTS": "Tremorsense",
   "FFD20.SenseTR": "Truesight",
   "FFD20.SenseLL": "Low-light",
-
+  "FFD20.SenseSI": "See Invisibility",
+  "FFD20.SenseSID": "See in darkness",
+  "FFD20.SenseSC": "Scent",
   "FFD20.FlyManeuverabilityClumsy": "Clumsy",
   "FFD20.FlyManeuverabilityPoor": "Poor",
   "FFD20.FlyManeuverabilityAverage": "Average",
   "FFD20.FlyManeuverabilityGood": "Good",
   "FFD20.FlyManeuverabilityPerfect": "Perfect",
-
   "FFD20.BuffTarAC": "AC",
   "FFD20.BuffTarACGeneric": "Generic AC",
   "FFD20.BuffTarACArmor": "Armor AC",
@@ -565,10 +628,8 @@
   "FFD20.BuffTarAllSpeeds": "All Speeds",
   "FFD20.BuffTarMeleeAttack": "Melee Attack Rolls",
   "FFD20.BuffTarRangedAttack": "Ranged Attack Rolls",
-
   "FFD20.BuffTarSpells": "Spells",
   "FFD20.SpellBuffEffect": "Spell Effect",
-
   "FFD20.SkillAcr": "Acrobatics",
   "FFD20.SkillApr": "Appraise",
   "FFD20.SkillBlf": "Bluff",
@@ -609,7 +670,7 @@
   "FFD20.SkillSur": "Survival",
   "FFD20.SkillSwm": "Swim",
   "FFD20.SkillUMD": "Use Magic Device",
-
+  "FFD20.AddSkill": "Add Skill",
   "FFD20.TargetAlly": "Ally",
   "FFD20.TargetCreature": "Creature",
   "FFD20.TargetCylinder": "Cylinder",
@@ -624,7 +685,6 @@
   "FFD20.TargetSquare": "Square",
   "FFD20.TargetSpace": "Space",
   "FFD20.TargetWall": "Wall",
-
   "FFD20.TimeInst": "Instantaneous",
   "FFD20.TimeTurn": "Turns",
   "FFD20.TimeTurnShort": "turns",
@@ -633,52 +693,45 @@
   "FFD20.TimeMinute": "Minutes",
   "FFD20.TimeMinuteShort": "mins",
   "FFD20.TimeHour": "Hours",
+  "FFD20.TimeHourShort": "hrs",
   "FFD20.TimeDay": "Days",
   "FFD20.TimeMonth": "Months",
   "FFD20.TimeYear": "Years",
   "FFD20.TimePerm": "Permanent",
-
   "FFD20.TraitArmorProf": "Armor Proficiencies",
   "FFD20.TraitWeaponProf": "Weapon Proficiencies",
-
   "FFD20.SpellPrepAtWill": "At-will",
   "FFD20.SpellPrepPrepared": "Prepared",
   "FFD20.SpellPrepSpontaneous": "Spontaneous",
-
   "FFD20.SpellsKnown": "Spells Known",
-
   "FFD20.Arcanist": "Arcanist",
   "FFD20.RedMantisAssassin": "Red Mantis Assassin",
-
+  "FFD20.Psychic": "Psychic",
   "FFD20.SpellComponentVerbal": "Verbal",
   "FFD20.SpellComponentSomatic": "Somatic",
+  "FFD20.SpellComponentThought": "Thought",
+  "FFD20.SpellComponentEmotion": "Emotion",
   "FFD20.SpellComponentMaterial": "Material",
   "FFD20.SpellComponentFocus": "Focus",
   "FFD20.SpellComponentDivineFocus": "Divine Focus",
-
   "FFD20.SpellComponentDivineFocusAlone": "DF",
   "FFD20.SpellComponentDivineFocusMaterial": "M/DF",
   "FFD20.SpellComponentDivineFocusFocus": "F/DF",
-
   "FFD20.AutoSpellClassLevelOffset": {
     "Formula": "Class Level Modification",
     "InfoBox": "If you have a prestige class that alters your class level, add that here (e.g. @classes.mysticTheurge.level)"
   },
-
   "FFD20.LearnMoreSpell": "You can learn 1 more spell",
   "FFD20.LearnMoreSpells": "You can learn {quantity} more spells",
   "FFD20.PrepareMoreSpell": "You can prepare 1 more spell",
   "FFD20.PrepareMoreSpells": "You can prepare {quantity} more spells",
   "FFD20.SpellScoreTooLow": "Your ability score is too low to cast spells of this level",
   "FFD20.TooManySpells": "You have {quantity} too many spells",
-
   "FFD20.MeasureTemplateCone": "Cone",
   "FFD20.MeasureTemplateCircle": "Circle",
   "FFD20.MeasureTemplateRay": "Ray",
   "FFD20.MeasureTemplateRectangle": "Rectangle",
-
   "FFD20.LoadingCompendiumBrowser": "Loading Compendium Browser...",
-
   "FFD20.ItemTypeWeapon": "Weapon",
   "FFD20.ItemTypeEquipment": "Equipment",
   "FFD20.ItemTypeLoot": "Loot",
@@ -689,7 +742,6 @@
   "FFD20.ItemTypeFeat": "Feat",
   "FFD20.ItemTypeAttack": "Attack",
   "FFD20.ItemTypeRace": "Race",
-
   "FFD20.WeaponType": "Weapon Type",
   "FFD20.WeaponTypeSimple": "Simple",
   "FFD20.WeaponTypeMartial": "Martial",
@@ -697,7 +749,6 @@
   "FFD20.WeaponTypeChef": "Chef",
   "FFD20.WeaponTypePower": "Power",
   "FFD20.WeaponTypeSplash": "Splash",
-
   "FFD20.WeaponPropBlocking": "Blocking",
   "FFD20.WeaponPropBrace": "Brace",
   "FFD20.WeaponPropDeadly": "Deadly",
@@ -715,16 +766,13 @@
   "FFD20.WeaponPropSunder": "Sunder",
   "FFD20.WeaponPropThrown": "Thrown",
   "FFD20.WeaponPropTrip": "Trip",
-
   "FFD20.WeaponSubtype": "Weapon Subtype",
   "FFD20.WeaponPropLight": "Light",
   "FFD20.WeaponPropOneHanded": "One-handed",
   "FFD20.WeaponPropTwoHanded": "Two-handed",
   "FFD20.WeaponSubtypeRanged": "Ranged",
-
   "FFD20.EquipTypeShield": "Shield",
   "FFD20.EquipTypeArmor": "Armor",
-
   "FFD20.EquipTypeLight": "Light Armor",
   "FFD20.EquipTypeMedium": "Medium Armor",
   "FFD20.EquipTypeHeavy": "Heavy Armor",
@@ -735,7 +783,6 @@
   "FFD20.EquipTypeOtherShield": "Miscellaneous Shield",
   "FFD20.EquipTypeClothing": "Clothing",
   "FFD20.EquipTypeWondrousItem": "Wondrous Item",
-
   "FFD20.EquipSlotSlotless": "Slotless",
   "FFD20.EquipSlotArmor": "Armor",
   "FFD20.EquipSlotShield": "Shield",
@@ -751,18 +798,17 @@
   "FFD20.EquipSlotHands": "Hands",
   "FFD20.EquipSlotRing": "Ring",
   "FFD20.EquipSlotFeet": "Feet",
-
   "FFD20.ConsumableTypePotion": "Potion",
   "FFD20.ConsumableTypeOil": "Oil",
   "FFD20.ConsumableTypePoison": "Poison",
   "FFD20.ConsumableTypeDrug": "Drug",
   "FFD20.ConsumableTypeScroll": "Scroll",
   "FFD20.ConsumableTypeWand": "Wand",
+  "FFD20.ConsumableTypeRod": "Rod",
   "FFD20.ConsumableTypeStaff": "Staff",
   "FFD20.ConsumableTypeAlchContact": "Alchemical Contact",
   "FFD20.ConsumableTypeAlchIngested": "Alchemical Ingested",
   "FFD20.ConsumableTypeAlchInhaled": "Alchemical Inhaled",
-
   "FFD20.AttackTypeWeapon": "Weapon Attack",
   "FFD20.AttackTypeWeaponPlural": "Weapon Attacks",
   "FFD20.AttackTypeNatural": "Natural Attack",
@@ -771,13 +817,11 @@
   "FFD20.AttackTypeAbilityPlural": "Class Abilities",
   "FFD20.AttackTypeRacial": "Racial Ability",
   "FFD20.AttackTypeRacialPlural": "Racial Abilities",
-
   "FFD20.FeatTypeFeat": "Feat",
   "FFD20.FeatTypeClassFeat": "Class Feature",
   "FFD20.FeatTypeTraits": "Trait",
   "FFD20.FeatTypeRacial": "Racial Trait",
   "FFD20.FeatTypeTemplate": "Template",
-
   "FFD20.ActivationTypePassive": "Passive",
   "FFD20.ActivationTypeFree": "Free",
   "FFD20.ActivationTypeSwift": "Swift",
@@ -794,7 +838,6 @@
   "FFD20.ActivationTypeAoO": "Attack of Opportunity",
   "FFD20.ActivationTypeReaction": "Reaction",
   "FFD20.ActivationTypeAction": "Action",
-
   "FFD20.ActivationTypeFreePlural": "Free Actions",
   "FFD20.ActivationTypeSwiftPlural": "Swift Actions",
   "FFD20.ActivationTypeImmediatePlural": "Immediate Actions",
@@ -807,12 +850,10 @@
   "FFD20.ActivationTypeHourPlural": "Hours",
   "FFD20.ActivationTypeReactionPlural": "Reactions",
   "FFD20.ActivationTypeActionPlural": "Actions",
-
   "FFD20.LimitedUseSingle": "Single Use",
   "FFD20.LimitedUseDay": "Per Day",
   "FFD20.LimitedUseWeek": "Per Week",
   "FFD20.LimitedUseCharges": "Charges",
-
   "FFD20.ActorSizeFine": "Fine",
   "FFD20.ActorSizeDiminutive": "Diminutive",
   "FFD20.ActorSizeTiny": "Tiny",
@@ -822,10 +863,9 @@
   "FFD20.ActorSizeHuge": "Huge",
   "FFD20.ActorSizeGargantuan": "Gargantuan",
   "FFD20.ActorSizeColossal": "Colossal",
-
   "FFD20.SpellSchoolChronomancy": "Chronomancy",
   "FFD20.SpellSchoolDark": "Dark",
-  "FFD20.SpellSchoolDivination":"Divination",
+  "FFD20.SpellSchoolDivination": "Divination",
   "FFD20.SpellSchoolElemental": "Elemental",
   "FFD20.SpellSchoolEnhancing": "Enhancing",
   "FFD20.SpellSchoolEnfeebling": "Enfeebling",
@@ -837,7 +877,6 @@
   "FFD20.SpellSchoolNonElemental": "Non-Elemental",
   "FFD20.SpellSchoolSummoning": "Summoning",
   "FFD20.SpellSchoolUniversal": "Universal",
-
   "FFD20.multiSchool": "Multi-School",
   "FFD20.SpellSchoolSummoningHealingEnhancing": "Summoning/Healing/Enhancing",
   "FFD20.SpellSchoolSummoningHealing": "Summoning/Healing",
@@ -877,7 +916,6 @@
   "FFD20.SpellSchoolLightElemental": "Light/Elemental",
   "FFD20.SpellSchoolLightNonElemental": "Light/Non-Elemental",
   "FFD20.SpellSchoolEnfeeblingEnhancing": "Enfeebling/Enhancing",
-
   "FFD20.SpellLevel0": "Cantrip/Jingle",
   "FFD20.SpellLevel1": "1st Level",
   "FFD20.SpellLevel2": "2nd Level",
@@ -888,45 +926,38 @@
   "FFD20.SpellLevel7": "7th Level",
   "FFD20.SpellLevel8": "8th Level",
   "FFD20.SpellLevel9": "9th Level",
-
   "FFD20.FavouredClassBonuses": "Favoured Class Bonuses",
   "FFD20.FavouredClassHP": "Hit Points",
   "FFD20.FavouredClassSkill": "Skills",
   "FFD20.FavouredClassAlt": "Alt",
-
   "FFD20.FavouredClassBonus": {
     "Label": "Favoured Class Bonus",
     "HP": "Hit Point",
     "Skill": "Skill",
     "Alt": "Alt"
   },
-
   "FFD20.Key_Control": "Control",
-
   "FFD20.ArmorProfLight": "Light Armor",
   "FFD20.ArmorProfMedium": "Medium Armor",
   "FFD20.ArmorProfHeavy": "Heavy Armor",
   "FFD20.ArmorProfShield": "Shields",
   "FFD20.ArmorProfTowerShield": "Tower Shields",
-
   "FFD20.WeaponProfSimple": "Simple Weapons",
   "FFD20.WeaponProfMartial": "Martial Weapons",
   "FFD20.WeaponProfExotic": "Exotic Weapons",
   "FFD20.WeaponProfChef": "Chef Weapons",
   "FFD20.WeaponProfPower": "Power Weapons",
-
   "FFD20.InventoryWeapons": "Weapons",
   "FFD20.InventoryArmorEquipment": "Armor/Equipment",
   "FFD20.InventoryConsumables": "Consumables",
   "FFD20.InventoryContainers": "Containers",
-
   "FFD20.ChangeFlagLoseDexToAC": "Lose Dex to AC",
   "FFD20.ChangeFlagDwarflikeEncumbrance": "Dwarf-like Encumbrance",
   "FFD20.ChangeFlagMediumArmorFullSpeed": "Full Speed in Medium Armor",
   "FFD20.ChangeFlagHeavyArmorFullSpeed": "Full Speed in Heavy Armor",
-
+  "FFD20.ChangeFlagNoDex": "No Dexterity",
+  "FFD20.ChangeFlagNoStr": "No Strength",
   "FFD20.Undefined": "Undefined",
-
   "FFD20.ErrorGenericPermission": "You don't have permission to perform what action",
   "FFD20.ErrorNoActorPermission": "You don't have permission to control this actor",
   "FFD20.ErrorNoActorPermissionAlt": "You don't have permission to control actor '{0}'",
@@ -948,19 +979,17 @@
   "FFD20.WarningNoSizeDie": "Could not determine size-appropriate die for {0}, defaulting to rolling {1}",
   "FFD20.WarningNoDiceAllowedInFormula": "No dice rolls are allowed in formula '{0}' for {1}",
   "FFD20.WarningInsufficientAmmunition": "You have insufficient ammunition of type {0}",
+  "FFD20.WarningMissingAmmunition": "Ammunition linked to the attack is missing.",
   "FFD20.WarningConditionalRoll": "Rolling conditional formula № {number} of conditional {name} caused an error",
   "FFD20.WarningNoItemOnActor": "Actor {0} has no item {1}",
   "FFD20.WarningCannotCreateChargeLink": "Could not create a Charge type link between {0} and {1}, because {1} has Charge type links of its own",
   "FFD20.WarningCannotCreateChargeLink2": "Could not create a Charge type link between {0} and {1}, because {1} is already linked to {2}",
   "FFD20.WarningNoCombatantFound": "No combatant found",
   "FFD20.NotificationCreatedAttack": "Created attack for {0}",
-
   "FFD20.Action_RollDefenses": "Roll Defenses",
-
   "FFD20.Info_FirstClass": "Drag and drop from {0}\nor click the '+ Add' button above.",
   "FFD20.Info_FirstClass_Compendium": "Class Compendium",
   "FFD20.Info_MissingClass": "Your character is missing a class. Go to the Classes subtab on the Summary tab of your character sheet.",
-
   "FFD20.CMDNotes": "CMD Notes",
   "FFD20.AttackNotes": "Attack Notes",
   "FFD20.EffectNotes": "Effect Notes",
@@ -970,10 +999,8 @@
   "FFD20.SaveNotes": "Save Notes",
   "FFD20.CLNotes": "Caster Level Notes",
   "FFD20.NonApplicable": "N/A",
-
   "FFD20.SkillTypeAdventure": "Adventure",
   "FFD20.SkillTypeBackground": "Background",
-
   "FFD20.ACP": "ACP",
   "FFD20.ACPLong": "Armor Check Penalty",
   "FFD20.ACPTooltip": "Armor Check Penalties",
@@ -982,7 +1009,6 @@
   "FFD20.RT": "RT",
   "FFD20.RTTooltip": "Requires Training",
   "FFD20.SkillModTooltip": "Skill Modifier",
-
   "FFD20.BrowseSpells": "Browse Spells",
   "FFD20.BrowseItems": "Browse Items",
   "FFD20.BrowseBestiary": "Browse Bestiary",
@@ -990,7 +1016,6 @@
   "FFD20.BrowseClasses": "Browse Classes",
   "FFD20.BrowseRaces": "Browse Races",
   "FFD20.BrowseBuffs": "Browse Buffs",
-
   "FFD20.LanguageCommon": "Common",
   "FFD20.LanguageDwarven": "Dwarven",
   "FFD20.LanguageElvaan": "Elvaan",
@@ -1038,7 +1063,6 @@
   "FFD20.LanguageUndercommon": "Undercommon",
   "FFD20.LanguageVanu": "Vanu",
   "FFD20.LanguageYagudo": "Yagudo",
-
   "FFD20.CreatureTypeAberration": "Aberration",
   "FFD20.CreatureTypeAnimal": "Animal",
   "FFD20.CreatureTypeConstruct": "Construct",
@@ -1052,13 +1076,11 @@
   "FFD20.CreatureTypePlant": "Plant",
   "FFD20.CreatureTypeUndead": "Undead",
   "FFD20.CreatureTypeVermin": "Vermin",
-
   "FFD20.Rest": "Rest",
   "FFD20.RestoreHealth": "Restore Health (8 hours min)",
   "FFD20.RestoreDailyUses": "Restore Daily Uses",
   "FFD20.LongTermCare": "Long-Term Care (24 hours min, no heavy activity)",
   "FFD20.aidedCare": "Aided Care (caregiver has 5 ranks in heal)",
-
   "FFD20.BonusModifierUntyped": "Untyped",
   "FFD20.BonusModifierUntypedPerm": "Untyped (Permanent)",
   "FFD20.BonusModifierBase": "Base",
@@ -1079,14 +1101,12 @@
   "FFD20.BonusModifierCircumstance": "Circumstance",
   "FFD20.BonusModifierAlchemical": "Alchemical",
   "FFD20.BonusModifierPenalty": "Penalty",
-
   "FFD20.AbilityTypeExtraordinary": "Extraordinary",
   "FFD20.AbilityTypeSupernatural": "Supernatural",
   "FFD20.AbilityTypeSpell-Like": "Spell-Like",
   "FFD20.AbilityTypeShortExtraordinary": "Ex",
   "FFD20.AbilityTypeShortSupernatural": "Su",
   "FFD20.AbilityTypeShortSpell-Like": "Sp",
-
   "FFD20.RollSkillMacroName": "{0}: Roll {1}",
   "FFD20.RollDefensesMacroName": "{0}: Roll Defenses",
   "FFD20.RollCMBMacroName": "{0}: Roll Combat Maneuver Bonus",
@@ -1094,7 +1114,7 @@
   "FFD20.RollConcentrationMacroName": "{0}: Roll Concentration ({1})",
   "FFD20.RollBABMacroName": "{0}: Roll Base Attack Bonus",
   "FFD20.RollSaveMacroName": "{0}: Roll {1} Save",
-
+  "FFD20.DamageTypeUntyped": "Untyped",
   "FFD20.DamageTypeBludgeoning": "Bludgeoning",
   "FFD20.DamageTypePiercing": "Piercing",
   "FFD20.DamageTypeSlashing": "Slashing",
@@ -1107,7 +1127,11 @@
   "FFD20.DamageTypeLight": "Light",
   "FFD20.DamageTypeDark": "Dark",
   "FFD20.DamageTypeNonElemental": "Non-Elemental",
-
+  "FFD20.DamageTypeCategory": {
+    "misc": "Miscellaneous",
+    "physical": "Physical",
+    "energy": "Energy"
+  },
   "FFD20.SourceInfoSize": "Size",
   "FFD20.SourceInfoBuffs": "Buff",
   "FFD20.SourceInfoTemporaryBuffs": "Temporary Buff",
@@ -1123,10 +1147,8 @@
   "FFD20.SourceInfoMiscFeatures": "Miscellaneous",
   "FFD20.SourceInfoTemplate": "Template",
   "FFD20.SourceInfoRace": "Race",
-
   "FFD20.SourceInfoSkillRank_ClassBase": "{className} (Base)",
   "FFD20.SourceInfoSkillRank_ClassFC": "{className} (Favoured Class)",
-
   "FFD20.CreateItemForSpell": "Create Item for {0}",
   "FFD20.CreateItemWand": "Wand",
   "FFD20.CreateItemScroll": "Scroll",
@@ -1134,40 +1156,34 @@
   "FFD20.CreateItemWandOf": "Wand of {0}",
   "FFD20.CreateItemScrollOf": "Scroll of {0}",
   "FFD20.CreateItemPotionOf": "Potion of {0}",
-
   "FFD20.CombatInfo_Header": "Combat",
   "FFD20.CombatInfo_Round": "Round {0}",
-
   "FFD20.ScriptCalls": {
     "Name": "Script Calls",
     "NewName": "New Script Call",
-
     "Use": {
       "Name": "Use",
       "Info": "Called when the item has been 'used' (attack, drink potion, etc.). Has the extra variable `attacks`, which is an array containing the action's attack rolls, if any."
     },
-
     "Equip": {
       "Name": "Equip",
       "Info": "Called when the item has been equipped or unequipped. Has the extra variable `equipped`, which is either `true` or `false`."
     },
-
     "Toggle": {
       "Name": "Toggle",
       "Info": "Called when the item has been enabled or disabled. Has the extra variable `state`, which is either `true` or `false`."
     },
-
     "ChangeQuantity": {
       "Name": "Change Quantity",
       "Info": "Called when the quantity of the item has been changed. Has the extra variables `quantity.previous` and `quantity.new`, which are both numbers."
     },
-
     "ChangeLevel": {
       "Name": "Change Level",
       "Info": "Called when the level of the item has been changed. Has the extra variables `quantity.previous` and `quantity.new`, which are both numbers."
     }
   },
-
+  "FFD20.Abundant": "Abundant",
+  "FFD20.AbundantDesc": "Never remove this ammunition when used.",
   "FFD20.AddClass": "Add Class",
   "FFD20.Horizontal": "Horizontal",
   "FFD20.Vertical": "Vertical",
@@ -1193,6 +1209,7 @@
   "FFD20.AddConditional": "Add Conditional",
   "FFD20.AddChange": "Add Change",
   "FFD20.AddNote": "Add Note",
+  "FFD20.AddEntry": "Add Entry",
   "FFD20.Confirmation": "Confirmation",
   "FFD20.Attributes": "Attributes",
   "FFD20.ArmorClass": "Armor Class",
@@ -1207,12 +1224,12 @@
   "FFD20.Conditionals": "Conditional Modifiers",
   "FFD20.ConImm": "Condition Immunities",
   "FFD20.ConRes": "Condition Resistances",
+  "FFD20.Copy": "Copy",
   "FFD20.Critical": "Critical",
   "FFD20.CriticalConfirmation": "Critical Confirmation",
   "FFD20.Damage": "Damage",
   "FFD20.DamageCritical": "Critical Damage",
   "FFD20.DamageRoll": "Damage Roll",
-  "FFD20.DamageType": "Damage Type",
   "FFD20.DamImm": "Damage Immunities",
   "FFD20.DamRed": "Damage Reduction",
   "FFD20.DamVuln": "Damage Vulnerabilities",
@@ -1222,6 +1239,8 @@
   "FFD20.Defense": "Defense",
   "FFD20.Defenses": "Defenses",
   "FFD20.Description": "Description",
+  "FFD20.Descriptor": "Descriptor",
+  "FFD20.DescriptorPlural": "Descriptors",
   "FFD20.Details": "Details",
   "FFD20.Edit": "Edit",
   "FFD20.Enchantments": "Enchantments",
@@ -1244,6 +1263,8 @@
   "FFD20.Vigor": "Vigor",
   "FFD20.HitDice": "Hit Dice",
   "FFD20.HitDie": "Hit Die",
+  "FFD20.CustomHitDice": "Custom Hit Dice",
+  "FFD20.CustomHitDiceHint": "Enter formula, e.g. floor(@item.level / 2)",
   "FFD20.InfoShort": "Info",
   "FFD20.Inventory": "Inventory",
   "FFD20.Inspiration": "Inspiration",
@@ -1283,6 +1304,7 @@
   "FFD20.StatureLong": "Long",
   "FFD20.StatureTall": "Tall",
   "FFD20.Items": "Items",
+  "FFD20.Skill": "Skill",
   "FFD20.Skills": "Skills",
   "FFD20.KnowledgeSkills": "Knowledge Skills",
   "FFD20.SubSkills": "Specialties",
@@ -1304,9 +1326,12 @@
   "FFD20.TempShort": "Temp.",
   "FFD20.TempHP": "Temporary Hit Points",
   "FFD20.Nonlethal": "Nonlethal",
+  "FFD20.Precision": "Precision",
   "FFD20.Initiative": "Initiative",
+  "FFD20.Tiebreaker": "Tiebreaker",
   "FFD20.MaxDexShort": "Max Dex",
   "FFD20.Type": "Type",
+  "FFD20.Subtype": "Subtype",
   "FFD20.ActionPlural": "Actions",
   "FFD20.ChargePlural": "Charges",
   "FFD20.ConditionPlural": "Conditions",
@@ -1315,11 +1340,17 @@
   "FFD20.BuffName": "Buff Name",
   "FFD20.SkillName": "Skill Name",
   "FFD20.AttackName": "Attack Name",
+  "FFD20.ActionName": "Action Name",
   "FFD20.CreateAttack": "Create Attack",
   "FFD20.Active": "Active",
   "FFD20.SpellDetails": "Spell Details",
   "FFD20.SpellBook": "Spellbook",
   "FFD20.SpellBookPlural": "Spellbooks",
+  "FFD20.SpellBookPrimary": "Primary",
+  "FFD20.SpellBookSecondary": "Secondary",
+  "FFD20.SpellBookTertiary": "Tertiary",
+  "FFD20.SpellBookQuaternary": "Quaternary",
+  "FFD20.SpellBookSpelllike": "Spell-like",
   "FFD20.SpellLevel": "Spell Level",
   "FFD20.SpellSchool": "Spell School",
   "FFD20.SpellComponents": "Spell Components",
@@ -1350,6 +1381,7 @@
   "FFD20.SavingThrow": "Saving Throw",
   "FFD20.SavingThrowPlural": "Saving Throws",
   "FFD20.SavingThrowEffect": "Saving Throw Effect",
+  "FFD20.SavingThrowGoodFractionalBonus": "Good Saving Throw Bonus",
   "FFD20.Misc": "Miscellaneous",
   "FFD20.MiscShort": "Misc",
   "FFD20.HitPoints": "Hit Points",
@@ -1359,6 +1391,7 @@
   "FFD20.SkillCheck": "{0} Skill Check",
   "FFD20.SavingThrowRoll": "{0} Saving Throw",
   "FFD20.SavingThrowButtonLabel": "{0} DC {1}",
+  "FFD20.SavingThrowButtonLabelGMSensitive": "{save} Save",
   "FFD20.SpellResistanceNote": "Spell Resistance {0}",
   "FFD20.ImmunityPlural": "Immunities",
   "FFD20.BABAbbr": "BAB",
@@ -1369,7 +1402,6 @@
   "FFD20.CMDFFAbbr": "FF CMD",
   "FFD20.CMD": "Combat Maneuver Defense",
   "FFD20.Untrained": "Untrained",
-  "FFD20.DeleteItemConfirmation": "Are you sure you want to delete this item?",
   "FFD20.UnsavedTinyMCE": "You have unsaved text in a field.<br>Would you like to save before closing?",
   "FFD20.UsesItem": "Uses {0}",
   "FFD20.OtherFormula": "Other Formula",
@@ -1398,9 +1430,11 @@
   "FFD20.WeaponSize": "Weapon Size",
   "FFD20.WeaponProperties": "Weapon Properties",
   "FFD20.EnhancementBonus": "Enhancement Bonus",
+  "FFD20.EnhancementBonusOverride": "Enhancement Bonus Override",
   "FFD20.BaseWeaponDamage": "Base Weapon Damage",
   "FFD20.BaseWeaponCritical": "Base Weapon Critical",
   "FFD20.SpellPreparationType": "Spell Preparation Type",
+  "FFD20.Preparation": "Preparation",
   "FFD20.CastsLeft": "Casts Left",
   "FFD20.CasterLevelOffset": "Caster Level Offset",
   "FFD20.CasterLevelCheck": "Caster Level Check",
@@ -1419,12 +1453,11 @@
   "FFD20.SpellRangeShortMetric": "(7.5 m + 1.5 m/2 levels)",
   "FFD20.SpellRangeMediumMetric": "(30 m + 3 m/level)",
   "FFD20.SpellRangeLongMetric": "(120 m + 12 m/level)",
-
   "FFD20.AuraStrength_Faint": "Faint",
   "FFD20.AuraStrength_Moderate": "Moderate",
   "FFD20.AuraStrength_Strong": "Strong",
   "FFD20.AuraStrength_Overwhelming": "Overwhelming",
-
+  "FFD20.Unknown": "Unknown",
   "FFD20.ElementalSchool": "Elemental School",
   "FFD20.Bloodline": "Bloodline",
   "FFD20.ConcentrationCheck": "Concentration Check",
@@ -1455,10 +1488,12 @@
   "FFD20.Unlimited": "Unlimited",
   "FFD20.Requirements": "Requirements",
   "FFD20.Formula": "Formula",
+  "FFD20.BonusFormula": "Bonus Formula",
   "FFD20.FormulaResult": "Formula Result",
   "FFD20.ActionType": "Action Type",
   "FFD20.AttackRollBonus": "Attack Roll Bonus",
   "FFD20.AttackRollDice": "Attack Roll Dice",
+  "FFD20.BaseDice": "Base Dice",
   "FFD20.CriticalThreatRange": "Critical Threat Range",
   "FFD20.CriticalMultiplier": "Critical Multiplier",
   "FFD20.CriticalConfirmBonus": "Critical Confirmation Bonus",
@@ -1477,6 +1512,8 @@
   "FFD20.CritHealingBonusFormula": "Critical Healing Bonus Formula",
   "FFD20.NonCritHealingBonusFormula": "Non-critical Healing Bonus Formula",
   "FFD20.DamageTypes": "Damage Types",
+  "FFD20.DamageType": "Damage Type",
+  "FFD20.DamageModifiers": "Damage Modifiers",
   "FFD20.DamageBonus": "Damage Bonus",
   "FFD20.ActivationCost": "Activation Cost",
   "FFD20.Duration": "Duration",
@@ -1485,6 +1522,7 @@
   "FFD20.CheckFlags": "Flags",
   "FFD20.Quantity": "Quantity",
   "FFD20.Price": "Price",
+  "FFD20.PricePerCharge": "Price per Charge",
   "FFD20.HPShort": "HP",
   "FFD20.Hardness": "Hardness",
   "FFD20.SituationalBonus": "Situational Bonus",
@@ -1496,6 +1534,7 @@
   "FFD20.CarryStrength": "Carry Strength",
   "FFD20.CarryMultiplier": "Carry Multiplier",
   "FFD20.Multiplier": "Multiplier",
+  "FFD20.AbilityMultiplier": "Ability Multiplier",
   "FFD20.CarryLightLoad": "Light Load",
   "FFD20.CarryMediumLoad": "Medium Load",
   "FFD20.CarryHeavyLoad": "Heavy Load",
@@ -1545,6 +1584,7 @@
   "FFD20.EquipmentSubtype": "Equipment Subtype",
   "FFD20.ConsumableType": "Consumable Type",
   "FFD20.CreatureType": "Creature Type",
+  "FFD20.Override": "Override",
   "FFD20.OverrideColor": "Override Color",
   "FFD20.CustomColor": "Custom Color",
   "FFD20.OverrideTexture": "Override Texture",
@@ -1586,10 +1626,15 @@
   "FFD20.Links": "Links",
   "FFD20.Confirm": "Confirm",
   "FFD20.CROffset": "Challenge Rating Offset",
+  "FFD20.Offsets": "Offsets",
   "FFD20.Haste": "Haste",
   "FFD20.Manyshot": "Manyshot",
   "FFD20.RapidShot": "Rapid Shot",
   "FFD20.PointBlankShot": "Point-Blank Shot",
+  "FFD20.UsesAmmo": "Uses Ammunition",
+  "FFD20.Ammunition": "Ammunition",
+  "FFD20.AmmunitionSubtype": "Ammunition Subtype",
+  "FFD20.AmmunitionAbbr": "Ammo",
   "FFD20.AmmoRemaining": "Ammunition Remaining: {0}",
   "FFD20.AmmoDepleted": "Out of Ammunition!",
   "FFD20.Priority": "Priority",
@@ -1640,7 +1685,9 @@
   "FFD20.Default": "Default",
   "FFD20.Vision": "Vision",
   "FFD20.Held": "Held",
+  "FFD20.WeaponGroups": "Weapon Groups",
   "FFD20.GiveItem": "Give Item",
+  "FFD20.SplitItem": "Split Item",
   "FFD20.HideFromToken": "Hide from token",
   "FFD20.ACPArmor": "ACP (Armor)",
   "FFD20.ACPShield": "ACP (Shield)",
@@ -1665,6 +1712,8 @@
   "FFD20.Maximum": "Maximum",
   "FFD20.Ability": "Ability",
   "FFD20.Modifier": "Modifier",
+  "FFD20.ModifierAbbr": "Mod.",
+  "FFD20.Bonus": "Bonus",
   "FFD20.OpenAssociatedCompendiumEntry": "Open associated compendium entry",
   "FFD20.OpenCompendium": "Open Compendium",
   "FFD20.Primary": "Primary",
@@ -1674,8 +1723,12 @@
   "FFD20.Settings": "Settings",
   "FFD20.SpellbookUsage": "Spellbook Usage",
   "FFD20.SpellSlotAbilityBonus": "Spell Slot Ability Bonus",
-  "FFD20.AlternativeSpellbookName": "Spellbook Name",
+  "FFD20.SpellbookName": "Spellbook Name",
   "FFD20.StaticSize": "Static Size",
+  "FFD20.CustomVisionRules": {
+    "Label": "Custom Vision Rules",
+    "Description": "Ignore the actor's senses, allowing custom vision rules to be applied properly."
+  },
   "FFD20.DomainSlotValue": "Domain Slot Value",
   "FFD20.DomainSlotValueDesc": "How many 'free' slots do Domain/School spells provide for a spell level?",
   "FFD20.DisableLightLowLightVision": "Disable Low-light Vision for Light Source",
@@ -1694,14 +1747,19 @@
   "FFD20.NPCs": "NPCs",
   "FFD20.Options": "Options",
   "FFD20.Cancel": "Cancel",
-
+  "FFD20.Split": "Split",
+  "FFD20.ChooseAnAction": "Choose an action",
+  "FFD20.Drink": "Drink",
+  "FFD20.Properties": "Properties",
   "FFD20.Migration.Start": "Applying FFD20 System Migration for version {version}. Please stand by.",
+  "FFD20.Migration.AlreadyInProgress": "FFD20 System Migration is already in progress. Please wait for it to finish before trying again.",
   "FFD20.Migration.Ongoing": "Migration is ongoing. Please wait until it finishes.",
   "FFD20.Migration.End": "FFD20 System Migration to version {version} succeeded!",
-
   "FFD20.DenyDexBonus": "Deny Dexterity bonus",
-
   "FFD20.Application": {
+    "ActionChooser": {
+      "Title": "{actor} using {item}"
+    },
     "ChangeTargetSelector": {
       "Title": "Select change target"
     },
@@ -1717,14 +1775,22 @@
       "GiveToAll": "Give to All",
       "TotalExperience": "Total Experience",
       "SplitExperience": "Split Experience"
+    },
+    "EntrySelector": {
+      "Title": "Entry Selector"
     }
   },
-
+  "FFD20.Dialog": {
+    "SplitItem": {
+      "Title": "Split item: {0}",
+      "Desc": "Input the number to split off."
+    }
+  },
   "FFD20.Info": {
     "AddClassDialog": "You can hold Shift to bypass this dialog.",
-    "AddClassDialog_Desc": "Pressing Normal opens a short wizard, while pressing Raw will add the class without any alterations."
+    "AddClassDialog_Desc": "Pressing Normal opens a short wizard, while pressing Raw will add the class without any alterations.",
+    "NotFunctioning": "The system (currently) doesn't use this feature"
   },
-
   "FFD20.AbilityShortIntAndWis": "Int and Wis",
   "FFD20.ClassSubType": "Class Catagory",
   "FFD20.ClassSubTypeCore": "Core Class",
@@ -1756,7 +1822,7 @@
   "FFD20.MateriaTypeSpell": "Spell Materia",
   "FFD20.MateriaTypeSummon": "Summon Materia",
   "FFD20.MateriaTypeSupport": "Support Materia",
-  "FFD20.MateriaSlot":"Materia Slot",
+  "FFD20.MateriaSlot": "Materia Slot",
   "FFD20.MateriaSlotUnslotted": "Unslotted",
   "FFD20.MateriaSlotAny": "Any Slot",
   "FFD20.MateriaSlotWeapon": "Weapon Slot",
@@ -1767,416 +1833,52 @@
   "FFD20.MateriaSlotOther": "Other Slot",
   "FFD20.MateriaLevel": "Materia Level",
   "FFD20.MateriaCombatXp": "Materia Combat Exp ONLY",
-  "FFD20.MateriaRarity":"Materia Rarity",
-  "FFD20.MateriaRarityCommon":"Common",
-  "FFD20.MateriaRarityUncommon":"Uncommon",
-  "FFD20.MateriaRarityRare":"Rare",
-  "FFD20.MateriaRarityLegendary":"Legendary",
-  "FFD20.ClassResources":"Class Resources",
-
+  "FFD20.MateriaRarity": "Materia Rarity",
+  "FFD20.MateriaRarityCommon": "Common",
+  "FFD20.MateriaRarityUncommon": "Uncommon",
+  "FFD20.MateriaRarityRare": "Rare",
+  "FFD20.MateriaRarityLegendary": "Legendary",
+  "FFD20.ClassResources": "Class Resources",
   "FFD20.Help": {
-    "Label": "Help",
-    "WIP": "This section is currently a Work In Progress (WIP).",
-    "Desc": "This is a reference sheet and information panel on various topics of the Final Fantasy D20 system for Foundry Virtual Tabletop.",
-    "Desc2": "You can select topics on the left, whose contents will appear on the right. On the top of this window are navigational tools.",
-    "Img": {
-      "Items.Weapons": "systems/ffd20/help/img/en/weapon-details.jpg",
-      "Items.Equipment": "systems/ffd20/help/img/en/equipment-details.jpg",
-      "Items.Description": "systems/ffd20/help/img/en/item-description.jpg",
-      "Items.Changes": "systems/ffd20/help/img/en/item-changes.jpg"
-    },
-    "Nav": {
-      "Home": "Home",
-      "Actors": "Actors",
-      "Items": "Items",
-      "ItemTypes": "Item Types",
-      "Concepts": "Concepts",
-      "Special": "Special"
-    },
-    "Content": {
-      "Special": {
-        "Formulas": {
-          "Label": "Formulas",
-          "Desc": "Formulas are an important aspect in the Final Fantasy D20 system. They can be as simple as a single numerical value, or as complex as single lines of code. They play a great role in item changes.",
-          "Desc2": "For a quick reference, you can find a lot of this information in tooltips on actor sheets as well.",
-          "Variables": {
-            "Label": "Variables",
-            "Desc": "Below you will find an (incomplete) list of variables you can use within your formulas.",
-            "Header": {
-              "Name": "Variable",
-              "Description": "Description"
-            },
-            "AbilityScoreTotal": {
-              "Desc": "The total value of an ability score. Replace X with one of the following: 'str', 'dex', 'con', 'int', 'wis', 'cha'."
-            },
-            "AbilityScoreMod": {
-              "Desc": "The modifier of an ability score. Replace X with one of the following: 'str', 'dex', 'con', 'int', 'wis', 'cha'."
-            },
-            "HitDie": {
-              "Desc": "The total hit die the actor has. This is a combination of class levels and racial hit die, and it excludes mythic tiers."
-            },
-            "SavingThrows": {
-              "Desc": "The total bonus of the appropriate saving throw for that actor. X can be either 'fort' (Fortitude), 'ref' (Reflex) or 'will' (Will)"
-            },
-            "SavingThrowsBase": {
-              "Desc": "The total base bonus of the appropriate saving throw for that actor, as given by class levels. X can be either 'fort' (Fortitude), 'ref' (Reflex) or 'will' (Will)"
-            },
-            "EncumbranceLevel": {
-              "Desc": "The current encumbrance level of the actor.",
-              "0": "<code>0</code>: Light Load",
-              "1": "<code>1</code>: Medium Load",
-              "2": "<code>2</code>: Heavy Load"
-            },
-            "ArmorType": {
-              "Desc": "The type of armor the actor is wearing.",
-              "0": "<code>0</code>: No Armor",
-              "1": "<code>1</code>: Light Armor",
-              "2": "<code>2</code>: Medium Armor",
-              "3": "<code>3</code>: Heavy Armor"
-            },
-            "ShieldType": {
-              "Desc": "The type of shield the actor is holding.",
-              "0": "<code>0</code>: No Shield",
-              "1": "<code>1</code>: Miscellaneous Shield (such as a buckler)",
-              "2": "<code>2</code>: Light Shield",
-              "3": "<code>3</code>: Heavy Shield",
-              "4": "<code>4</code>: Tower Shield"
-            },
-            "CombatRound": {
-              "Desc": "The current round of combat, or <code>0</code> if not in combat."
-            }
-          },
-          "Functions": {
-            "Label": "Functions",
-            "Desc": "The following are functions you can use within formulas, and examples on how to use them.",
-            "Header": {
-              "Name": "Function",
-              "Description": "Description",
-              "Examples": "Examples",
-              "Example": "Example"
-            },
-            "Max": {
-              "Desc": "Returns the highest of the given numbers.",
-              "Examples": {
-                "0": "Returns the either the actor's Strength modifier or the actor's Dexterity modifier, whichever is higher."
-              }
-            },
-            "Min": {
-              "Desc": "Returns the lowest of the given numbers.",
-              "Examples": {
-                "0": "Returns the either the actor's Hit Die total or the number 10, whichever is lower."
-              }
-            },
-            "Floor": {
-              "Desc": "Rounds the given number down to the lowest integer.",
-              "Examples": {
-                "0": "Returns half of the actor's Hit Die total, rounded down."
-              }
-            },
-            "Ceil": {
-              "Desc": "Rounds the given number down to the highest integer.",
-              "Examples": {
-                "0": "Returns half of the actor's Hit Die total, rounded up."
-              }
-            },
-            "Round": {
-              "Desc": "Rounds the given number to the nearest integer.",
-              "Examples": {
-                "0": "Returns one third of the actor's Hit Die total, rounded to the nearest whole number."
-              }
-            },
-            "SquareRoot": {
-              "Desc": "Returns the positive square root of the given number.",
-              "Examples": {
-                "0": "Returns 4."
-              }
-            },
-            "Power": {
-              "Desc": "Returns x to the power of y.",
-              "Examples": {
-                "0": "Returns 64."
-              }
-            },
-            "SizeRoll": {
-              "Desc": "Alters a damage roll to that of another size category.",
-              "Examples": {
-                "0": "Rolls 1d8 for medium actors, and alters the damage formula according to the calling actor's current size.",
-                "1": "Translates a damage roll of 1d4 from a tiny actor (size '2') to a huge actor (size '6')<br/>Output: 3d6"
-              }
-            },
-            "SizeReach": {
-              "Desc": "Generates a number equal to the reach of a creature of a certain size and stature.",
-              "Examples": {
-                "0": "Returns the normal melee reach as if the actor was 1 size category higher.",
-                "1": "Returns the reach a huge, long actor would have with a reach weapon."
-              }
-            }
-          }
-        },
-        "CompendiumBrowsers": {
-          "Label": "Compendium Browsers",
-          "Properties": {
-            "Label": "Compendium Properties",
-            "Hidden": {
-              "Label": "Hidden",
-              "Description": "Hidden compendiums will not show up for players in compendium browsers."
-            },
-            "Disabled": {
-              "Label": "Disabled",
-              "Description": "Disabled compendiums will not show up for anyone (including GMs) in compendium browsers."
-            }
-          }
-        }
-      },
-      "Items": {
-        "ItemTypes.Physical": "Physical Item Types",
-        "ItemTypes.Other": "Other Item Types",
-        "Generic": {
-          "EnhancementBonus": "Enhancement Bonus",
-          "EnhancementBonusDesc": "The item's enhancement bonus, as per the Core rules",
-          "Masterwork": "Masterwork",
-          "MasterworkDesc": "Whether the item is masterwork, as per the Core rules",
-          "Broken": "Broken",
-          "BrokenDesc": "Whether the item is broken, as per the Core rules",
-          "EquipmentStatus": "Equipment Status",
-          "Equipped": "Equipped",
-          "EquippedDesc": "Whether the item is currently equipped, and transfers its changes to its actor (if any)",
-          "Identified": "Identified (GM only)",
-          "IdentifiedDesc": "Whether the item is currently identified, and shows its identified information to players",
-          "Size": "Size",
-          "SizeDesc": "The item's size, similar to a character's size"
-        },
-        "Weapons": {
-          "Label": "Weapons",
-          "Desc": "Weapons are meant to represent physical weapons that a character can hold.",
-          "Category": "Category",
-          "CategoryDesc": "The weapon's category (simple, martial, exotic or misc)",
-          "Type": "Type",
-          "TypeDesc": "The weapon's type (light, one-handed, two-handed or ranged)",
-          "Size": "Weapon Size",
-          "SizeDesc": "The weapon's size, similar to a character's size",
-          "Properties": "Weapon Properties",
-          "PropertiesDesc": "The weapon's properties, as per the Core rules (does nothing mechanically)",
-          "BonusAttackFormula": "Bonus Attack Formula",
-          "BonusAttackFormulaDesc": "The weapon's attack bonus formula. Some examples:",
-          "BonusAttackFormulaExamples": {
-            "0": "Will incur a penalty to the attack roll of -2 if the wielder's Strength modifier is lower than 3"
-          },
-          "BaseWeaponDamage": "Base Weapon Damage",
-          "BaseWeaponDamageDesc": "The first field indicates the damage die a Medium-sized weapon would deal, and the second field indicates the type of damage it deals (i.e. Bludgeoning, Slashing, etc.)",
-          "BonusDamageFormula": "Bonus Damage Formula",
-          "BonusDamageFormulaDesc": "The bonus damage the weapon deals. Some examples:",
-          "BonusDamageFormulaExamples": {
-            "0": "Will add either 4 or the wielder's Strength modifier to the damage roll, whichever is lower"
-          },
-          "BaseWeaponCritical": "Base Weapon Critical",
-          "BaseWeaponCriticalDesc": "The first field indicates the lowest result of the attack's d20 to be a critical threat, and the second field indicates the amount by which the damage is multiplied"
-        },
-        "Equipment": {
-          "Label": "Equipment",
-          "Desc": "Equipment represents all non-weapon equippable items, including armor, shields, rings and wondrous items.",
-          "Category": "Category",
-          "CategoryDesc": "The armor's category (whether it's armor, a shield, or something else)",
-          "Type": "Type",
-          "TypeDesc": "Armor or Shield size type, or other item type (clothing, wondrous item, etc.)",
-          "Slot": "Slot",
-          "SlotDesc": "What slot this item is for (only shows up for items other than armor or shields)",
-          "Status": "Equipment Status",
-          "StatusDesc": "Status flags of this particular item"
-        },
-        "Consumables": {
-          "Label": "Consumables",
-          "Desc": "Consumables represent physical items with limited uses, such as potions or wands."
-        },
-        "Containers": {
-          "Label": "Containers",
-          "Desc": "Containers are items which can contain other items."
-        },
-        "Loot": {
-          "Label": "Loot",
-          "Desc": "Loot items are all types of physical items that don't fit in other major categories, such as trade goods and ammunition."
-        },
-        "Description": {
-          "Label": "Description",
-          "Name": "Name",
-          "NameDesc": "The name of the item, if identified.",
-          "UnidentifiedName": "Unidentified Name",
-          "UnidentifiedNameDesc": "The name of the item, if unidentified. Shows the identified name for players if left empty.",
-          "Description": "Description",
-          "DescriptionDesc": "The description to show, if identified.",
-          "UnidentifiedDescription": "Unidentified Description",
-          "UnidentifiedDescriptionDesc": "The description to show to players, if unidentified.",
-          "Price": "Price",
-          "PriceDesc": "The price of the item, in gold pieces, if identified",
-          "UnidentifiedPrice": "Unidentified Price",
-          "UnidentifiedPriceDesc": "The price of the item, in gold pieces, if unidentified."
-        },
-        "Changes": {
-          "Label": "Changes",
-          "Flags": {
-            "Label": "Flags",
-            "LoseDexToAC": {
-              "Label": "Lose Dex to AC",
-              "Desc": "While an item with this change is active, a character loses his Dexterity bonuses to Armor Class."
-            },
-            "SetAbility": {
-              "Label": "X Ability",
-              "Desc": "Sets the appropriate ability to the flag's specified value. This might be removed in a later version, since the same can be accomplished with the '=' operator (see below)."
-            },
-            "DwarfLikeEncumbrance": {
-              "Label": "Dwarf-like Encumbrance",
-              "Desc": "While an item with this change is active, its actor will not be slowed down by being in a medium or heavy load."
-            },
-            "FullSpeedMediumArmor": {
-              "Label": "Full Speed in Medium Armor",
-              "Desc": "While an item with this change is active, its actor will not be slowed down by wearing medium armor."
-            },
-            "FullSpeedHeavyArmor": {
-              "Label": "Full Speed in Heavy Armor",
-              "Desc": "While an item with this change is active, its actor will not be slowed down by wearing heavy armor."
-            }
-          },
-          "Changes": {
-            "Label": "Changes",
-            "Desc": "This is a list of changes which affect the actor owning the item directly. From left to right:",
-            "Formula": {
-              "Label": "Formula",
-              "Desc": "The formula by which to affect this particular change. The way this alters an actor's attribute depends on the operator (see next). See {tagOpen}this page{tagClose} for more details."
-            },
-            "Operator": {
-              "Label": "Operator",
-              "Desc": "The operators are '+' (relative), '=' (absolute) or 'S' (script). Relative values <i>add</i> to an attribute, while absolute values <i>set</i> the attribute to the result of the formula. See below for the script operator."
-            },
-            "Priority": {
-              "Label": "Priority",
-              "Desc": "The priority of this change. Changes with lower priorities will be processed later."
-            },
-            "Target": {
-              "Label": "Target",
-              "Desc": "A general category of the attribute to alter."
-            },
-            "SubTarget": {
-              "Label": "Sub-Target",
-              "Desc": "The specific attribute to alter with this change."
-            },
-            "Modifier": {
-              "Label": "Modifier",
-              "Desc": "The modifier of this change."
-            }
-          },
-          "ContextNotes": {
-            "Label": "Context Notes",
-            "Desc": "This a list of contextual notes, which are shown in appropriate situations. From left to right:",
-            "Description": {
-              "Label": "Description",
-              "Desc": "The description to show in appropriate situations. Every newline adds a new description to the same target. You can use Foundry-style inline rolls in these."
-            },
-            "Target": {
-              "Label": "Target",
-              "Desc": "A general category of the attribute to alter."
-            },
-            "SubTarget": {
-              "Label": "Sub-Target",
-              "Desc": "The specific attribute to alter with this change."
-            }
-          },
-          "ScriptOperator": {
-            "Label": "Script Operator",
-            "Desc": "The 'formula' of changes using the Script operator are actually small JavaScript scripts that are run when processing changes. Some JavaScript knowledge is required to understand these.",
-            "Variables": {
-              "Desc": "Within these scripts, the following variables can be used:",
-              "0": {
-                "Name": "d",
-                "Desc": "The roll data at the time of processing the change. Contains any variable you could use within a normal change formula using the `@` symbol."
-              },
-              "1": {
-                "Name": "result",
-                "Desc": "This contains two more variables, <code>value</code> and <code>operator</code>. Set <code>value</code> to the numeric result you want for the change, and <code>operator</code> to either <code>\"add\"</code> or <code>\"set\"</code>.<br><br><code>value</code> defaults to <code>0</code> and <code>operator</code> defaults to <code>\"add\"</code>."
-              }
-            }
-          }
-        },
-        "Flags": {
-          "Label": "Flags",
-          "Desc": {
-            "Basic": "Flags can be used by modules and macros. Boolean Flags don't do anything by themselves, but Dictionary Flags can be used in rolls, in addition to their use in macros and modules.",
-            "DictionaryFlags": {
-              "Basic": "You can access Dictionary Flags within rolls by using <code>@dFlags.(itemTag).(flagName)</code>, or with <code>@item.dFlags.(flagName)</code> within the current item."
-            }
-          }
-        },
-        "ScriptCalls": {
-          "Label": "Script Calls",
-          "Desc": {
-            "Basic": "Most items have certain categories of script calls, which are a combination of macros and inline scripts which run at specific events for that item."
-          },
-          "Macros": {
-            "Label": "Using Macros as Script Calls",
-            "Desc": {
-              "Basic": "In order to use Macros as Script Calls, simply drag a macro over from somewhere to the category of Script Calls you wish to run them on."
-            }
-          },
-          "Variables": {
-            "Label": "Variables",
-            "Desc": {
-              "Basic": "The variable availability differs somewhat from what's available in regular Macros. Below you will find a list of variables which are present within Script Calls."
-            },
-            "List": {
-              "Item": {
-                "Desc": "The item from which this event was called."
-              },
-              "Actor": {
-                "Desc": "The actor which owns the calling item. Can be <code>null</code> if the item is not on an actor."
-              },
-              "Token": {
-                "Desc": "The token of the associated actor, if any."
-              },
-              "Shared": {
-                "Desc": "An object which starts out as empty, but is shared between all script calls of a single event, after which it is returned to the calling function, which may or may not do something with it."
-              }
-            }
-          },
-
-          "Categories": {
-            "Label": "Categories",
-
-            "Use": {
-              "Name": "Use",
-              "Desc": {
-                "Basic": "Called when an item has been used. If an item has at least one script call under this category, it's usable no matter what. This call will have two additional variables: <code>{var1}</code> which is an array of attack data, and <code>{var2}</code>, which containts the attack's measure template (if any)."
-              }
-            },
-
-            "Equip": {
-              "Name": "Equip",
-              "Desc": {
-                "Basic": "Called when an item has been equipped or unequipped. This call will have an additional variable <code>{var1}</code> which is either <code>true</code> if it has just been equipped, or <code>false</code> if it has just been unequipped."
-              }
-            },
-
-            "Toggle": {
-              "Name": "Toggle",
-              "Desc": {
-                "Basic": "Called when a buff or feature has been toggled on/off. This call will have an additional variable <code>{var1}</code> which is either <code>true</code> if it has just been enabled or <code>false</code> if it has just been disabled."
-              }
-            },
-
-            "ChangeQuantity": {
-              "Name": "Change Quantity",
-              "Desc": {
-                "Basic": "Called when the quantity of a physical item has been changed. This call will have the additional variables <code>{var1}</code> and <code>{var2}</code>, which contains the quantity numbers before and after the update respectively."
-              }
-            },
-
-            "ChangeLevel": {
-              "Name": "Change Level",
-              "Desc": {
-                "Basic": "Called when the level of a item has been changed. This call will have the additional variables <code>{var1}</code> and <code>{var2}</code>, which contains the numbers before and after the update respectively."
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+    "Label": "Help"
+  },
+  "ACTOR": {
+    "TypeCharacter": "Player Character (PC)",
+    "TypeNpc": "Nonplayer Character (NPC)",
+    "TypeBasic": "Basic (for modules)"
+  },
+  "ITEM": {
+    "TypeWeapon": "Weapon",
+    "TypeEquipment": "Equipment, Magic Item, etc.",
+    "TypeConsumable": "Consumable",
+    "TypeLoot": "Loot",
+    "TypeClass": "Class, Racial HD, Mythic Path, etc.",
+    "TypeSpell": "Spell",
+    "TypeFeat": "Feat, Class Feature, Talent, etc.",
+    "TypeBuff": "Buff",
+    "TypeAttack": "Attack",
+    "TypeRace": "Race",
+    "TypeContainer": "Container"
+  },
+  "FFD20.Help/Actors": "# Actors\n\n## Normal Actor Types\n\n- [Character](Help/Actors/Character)\n- [NPC](Help/Actors/NPC)\n\n## Miscellaneous Actor Types\n\n- [Basic](Help/Actors/Basic)\n",
+  "FFD20.Help/Formulas": "# Formulas\n\nThis section is currently a Work In Progress (WIP).\n\nFormulas are an important aspect in the Pathfinder 1e system. They can be as simple as a single numerical value, or as complex as single lines of code. They play a great role in item changes.\n\n## Variables\n\nFor a quick reference, you can find a lot of this information in tooltips on actor sheets as well.\n\n### `@abilities.X.total`\n\nThe total value of an ability score. Replace X with one of the following: 'str', 'dex', 'con', 'int', 'wis', 'cha'.\n\n### `@abilities.X.mod`\n\nThe modifier of an ability score. Replace X with one of the following: 'str', 'dex', 'con', 'int', 'wis', 'cha'.\n\n### `@attributes.hd.total`\n\nThe total hit die the actor has. This is a combination of class levels and racial hit die, and it excludes mythic tiers.\n\n### `@attributes.savingThrows.X.total`\n\nThe total bonus of the appropriate saving throw for that actor. X can be either 'fort' (Fortitude), 'ref' (Reflex) or 'will' (Will)\n\n### `@attributes.savingThrows.X.base`\n\nThe total bonus of the appropriate saving throw for that actor. X can be either 'fort' (Fortitude), 'ref' (Reflex) or 'will' (Will)\n\n### `@attributes.encumbrance.level`\n\nThe current encumbrance level of the actor.\n\n- `0`: Light Load\n- `1`: Medium Load\n- `2`: Heavy Load\n\n### `@armor.type`\n\nThe type of armor the actor is wearing.\n\n- `0`: No Armor\n- `1`: Light Armor\n- `2`: Medium Armor\n- `3`: Heavy Armor\n\n### `@shield.type`\n\nThe type of shield the actor is holding.\n\n- `0`: No Shield\n- `1`: Miscellaneous Shield (such as a buckler)\n- `2`: Light Shield\n- `3`: Heavy Shield\n- `4`: Tower Shield\n\n### `@combat.round`\n\nThe current round of combat, or `0` if not in combat.\n\n### `@critMult`\n\nThe critical multiplier of the attack, or `1` if the attack is not a critical threat.\nOnly appropriate for use in damage rolls and attack and effect notes.\n\n## Functions\n\nFoundry (and by extension this system) allow using JavaScript's [`Math` functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math) in its formulas.\nInformation about writing formulas using such expressions and referencing actor and item data can be found in [Foundry's Knowledge Base](https://foundryvtt.com/article/dice-advanced/).\nIn addition to the functions mentioned there, the Pathfinder 1e system provides some specific helpers available for use in some formulas.\n\n### `sizeRoll`\n\nAlters a damage roll to that of another size category.\n\n**Example:** `sizeRoll(1, 8, @size)` – Rolls 1d8 for medium actors, and alters the damage formula according to the calling actor's current size.\n\n**Example:** `sizeRoll(1, 4, 6, 2)` – Translates a damage roll of `1d4` from a tiny actor (size `2`) to a huge actor (size `6`); Output: `3d6`\n\n### `sizeReach`\n\nGenerates a number equal to the reach of a creature of a certain size and stature.\n\n**Example:** `sizeReach(@size + 1, false, @traits.stature)` – Returns the normal melee reach as if the actor was 1 size category higher.\n\n**Example:** `sizeReach(6, true, \"long\")` – Returns the reach a huge, long actor would have with a reach weapon.\n",
+  "FFD20.Help/Home": "# Help\n\n- [Actors](Help/Actors)\n  - Actor Types\n    - [Character](Help/Actors/Character)\n    - [NPC](Help/Actors/NPC)\n    - [Basic](Help/Actors/Basic)\n- [Items](Help/Items)\n  - Item Types\n    - [Consumables](Help/Items/Consumables)\n    - [Containers](Help/Items/Containers)\n    - [Equipment](Help/Items/Equipment)\n    - [Loot](/Help/Items/Loot)\n    - [Weapons](Help/Items/Weapons)\n    - [Attacks](Help/Items/Attacks)\n  - Concepts\n    - [Description](Help/Items/Description)\n    - [Changes](Help/Items/Changes)\n    - [Flags](Help/Items/Flags)\n    - [Script Calls](Help/Items/Script-Calls)\n- Special\n  - [Formulas](Help/Formulas)\n",
+  "FFD20.Help/Items": "# Items\n\n## Physical Item Types\n\n- [Weapons](Help/Items/Weapons)\n- [Equipment](Help/Items/Equipment)\n- [Consumables](Help/Items/Consumables)\n- [Containers](Help/Items/Containers)\n- [Loot](Help/Items/Loot)\n\n## Other\n\n- [Attacks](Help/Items/Attacks)\n",
+  "FFD20.Help/Actors/Basic": "# Basic Actor\n\nBasic actors have no system-defined data on them, making them very\nlight-weight and good to use in conjunction with modules that\nrequire actors or tokens, but not all the data that a character\nor NPC includes.\n",
+  "FFD20.Help/Actors/Character": "# Characters\n\nThis part of the help file is WIP.\n",
+  "FFD20.Help/Actors/NPC": "# NPCs\n\nThe only notable difference between [Characters](Help/Actors/Character) and\nNPCs, is that NPCs _give_ experience points, and Characters _earn_ experience\npoints, which is represented in the top-right of their sheets.\n",
+  "FFD20.Help/Items/Attacks": "# Attacks\n\nAttacks are types of items that can be used to roll various types of attacks\nwithout requiring a physical weapon. Examples include natural attacks and\nattacks generated from weapons.\n\nAside from not being a physical item and lacking physical properties, they\nfunction very similar to [Weapons](Help/Items/Weapons).\n",
+  "FFD20.Help/Items/Changes": "# Changes\n\n![Changes examples](/Help/img/item-changes.webp)\n\n- **Flags**\n  - **Dwarf-like Encumbrance**: While an item with this change is active, its actor will not be slowed down by being in a medium or heavy load.\n  - **Full Speed in Medium Armor**: While an item with this change is active, its actor will not be slowed down by wearing medium armor.\n  - **Full Speed in Heavy Armor**: While an item with this change is active, its actor will not be slowed down by wearing heavy armor.\n  - **Lose Dex to AC**: While an item with this change is active, a character loses his Dexterity bonuses to Armor Class.\n- **Changes**: This is a list of changes which affect the actor owning the item directly. From left to right:\n  - **Formula**: The formula by which to affect this particular change. The way this alters an actor's attribute depends on the operator (see next). See this page for more details.\n  - **Operator**: The operators are '+' (relative), '=' (absolute) or 'S' (script). Relative values add to an attribute, while absolute values set the attribute to the result of the formula. See below for the script operator.\n  - **Target**: The attribute to alter with this change.\n  - **Modifier**: The modifier of this change.\n  - **Priority**: The priority of this change. Changes with lower priorities will be processed later. In rare cases, a lower priority is necessary.\n- **Context Notes**: This a list of contextual notes, which are shown in appropriate situations. From left to right:\n  - **Description**: The description to show in appropriate situations. Every newline adds a new description to the same target. You can use Foundry-style inline rolls in these.\n  - **Target**: The attribute to alter with this change.\n\n## Script Operator\n\nThe 'formula' of changes using the Script operator are actually small JavaScript scripts that are run when processing changes. Some JavaScript knowledge is required to understand these.\n\n> ⚠ Script Operators are disabled by default. ⚠\n>\n> **Only activate them if you trust your players, activating them will allow them to execute JavaScript code with elevated permissions!**\n>\n> If, and only if, you trust every player, you can activate Script Operators in System Settings > Enable Script Changes.\n\nWithin these scripts, the following variables can be used:\n\n- `d` The roll data at the time of processing the change. Contains any variable you could use within a normal change formula using the `@` symbol.\n- `result` This contains two more variables, `value` and `operator`. Set `value` to the numeric result you want for the change, and `operator` to either \"add\" or \"set\".\n  `value` defaults to 0 and `operator` defaults to \"add\".\n",
+  "FFD20.Help/Items/Consumables": "# Consumables\n\nConsumables represent physical items with limited uses, such as potions or wands.\n",
+  "FFD20.Help/Items/Containers": "# Containers\n\nContainers are items which can contain other items.\n",
+  "FFD20.Help/Items/Description": "# Descriptions\n\n![Description example](/Help/img/item-description.webp)\n\n1. **Name**: The name of the item, if identified.\n1. **Unidentified Name**: The name of the item, if unidentified. Shows the identified name for players if left empty.\n1. **Description**: The description to show, if identified.\n1. **Unidentified Description**: The description to show to players, if unidentified.\n1. **Price**: The price of the item, in gil pieces, if identified.\n1. **Unidentified Price**: The price of the item, in gil pieces, if unidentified.\n",
+  "FFD20.Help/Items/Equipment": "# Equipment\n\nEquipment represents all non-weapon equippable items, including armor, shields, rings and wondrous items.\n\n![Equipment details](/Help/img/equipment-details.webp)\n\n**Weapon/Armor Proficiencies, Languages**: Proficiencies and languages granted by this item, which will appear in the actor's attributes and affect e.g. Armor Check Penalty due to not being proficient in armor.\n\n**Category**: The armor's category (whether it's armor, a shield, or something else)\n\n**Type**: Armor or Shield size type, or other item type (clothing, wondrous item, etc.)\n\n**Slot**: What slot this item is for (only shows up for items other than armor or shields)\n\n**Size**: The item's size, similar to a character's size\n\n**Equipment Status**: Status flags of this particular item:\n\n- **Equipped**: Whether the item is currently equipped, and transfers its changes to its actor (if any)\n- **Identified (GM only)**: Whether the item is currently identified, and shows its identified information to players\n- **Masterwork**: Whether the item is masterwork, as per the Core rules\n- **Broken**: Whether the item is broken, as per the Core rules\n",
+  "FFD20.Help/Items/Flags": "# Flags\n\nFlags can be used by modules and macros.\nBoolean Flags don't do anything by themselves, but Dictionary Flags can be used in rolls, in addition to their use in macros and modules.\n\n## Dictionary Flags\n\nYou can access Dictionary Flags within rolls by using `@dFlags.(itemTag).(flagName)`, or with `@item.dFlags.(flagName)` within the current item.\n",
+  "FFD20.Help/Items/Loot": "# Loot\n\nLoot items are all types of physical items that don't fit in other major categories, such as trade goods and ammunition.\n",
+  "FFD20.Help/Items/Script-Calls": "# Script Calls\n\nMost items have certain categories of script calls, which are a combination of macros and inline scripts which run at specific events for that item.\n\n## Using Macros as Script Calls\n\nIn order to use Macros as Script Calls, simply drag a macro over from somewhere to the category of Script Calls you wish to run them on.\n\n## Variables\n\nThe variable availability differs somewhat from what's available in regular Macros.\nBelow you will find a list of variables which are present within Script Calls.\n| Name | Description |\n| ------ | ------ |\n| `item` | The item from which this event was called. |\n| `actor` | The actor which owns the calling item. Can be `null` if the item is not on an actor. |\n| `shared` | An object which starts out as empty, but is shared between all script calls of a single event, after which it is returned to the calling function, which may or may not do something with it. |\n\n## Categories\n\n### Use\n\nCalled when an item has been used.\nIf an item has at least one script call under this category, it's usable no matter what.\nThis call will have an additional variable `shared.attackData.action` which refers to the specific action being used. You can use `shared.attackData.action.tag` to differentiate between actions.\nOptionally, `shared.reject` can be set to `true` to cancel the item's use.\n\n### Equip\n\nCalled when an item has been equipped or unequipped.\nThis call will have an additional variable `equipped` which is either `true` if it has just been equipped, or `false` if it has just been unequipped.\n\n### Toggle\n\nCalled when a buff or feature has been toggled on/off.\nThis call will have an additional variable `state` which is either `true` if it has just been enabled or `false` if it has just been disabled.\n\n### Change Quantity\n\nCalled when the quantity of a physical item has been changed.\nThis call will have the additional variables `quantity.previous` and `quantity.new`, which contains the quantity numbers before and after the update respectively.\n\n### Change Level\n\nCalled when the level of a item has been changed.\nThis call will have the additional variables `level.previous` and `level.new`, which contains the numbers before and after the update respectively.\n",
+  "FFD20.Help/Items/Weapons": "# Weapons\n\nWeapons are meant to represent physical weapons that a character can hold.\n\n![Weapon Details](/Help/img/weapon-details.webp)\n\n## Actions\n\nIndividual actions embedded in this action can be found here.\nWhen attacking, it will be the action's configuration that determines how the attack is rolled.\n\n**Limited Uses**: If the item only has a limited number of uses, or charges per day, this can be configured here.\n\n## Attack & Effect Notes\n\nThese notes will appear in chat cards, visible only to users with owner permissions for this item.\n\n## Aura\n\nThe weapon's magic aura, including its school and caster level, can be entered here.\n\n## Details\n\n**Create Attack**: Clicking this button will create an Attack item in this actor's combat tab.\n\n**Category**: The weapon's category (simple, martial, exotic or misc)\n\n**Type**: The weapon's type (light, one-handed, two-handed or ranged)\n\n**Weapon Size**: The weapon's size, similar to a character's size\n\n**Equipment Status**:\n\n- **Equipped**: Whether the item is currently equipped, and transfers its changes to its actor (if any)\n- **Identified (GM only)**: Whether the item is currently identified, and shows its identified information to players\n- **Masterwork** Whether the item is masterwork, as per the Core rules\n- **Broken** Whether the item is broken, as per the Core rules\n\n**Weapon Properties**: The weapon's properties, as per the Core rules (does nothing mechanically)\n\n**Enhancement Bonus**: The item's enhancement bonus, as per the Core rules\n",
+  "FFD20.Help/img/equipment-details.webp": "help/en/img/equipment-details.webp",
+  "FFD20.Help/img/item-changes.webp": "help/en/img/item-changes.webp",
+  "FFD20.Help/img/item-description.webp": "help/en/img/item-description.webp",
+  "FFD20.Help/img/weapon-details.webp": "help/en/img/weapon-details.webp"
 }

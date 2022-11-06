@@ -1,0 +1,30 @@
+<div class="ability-scores">
+  <ul>
+    {{#each section.abilities as |abl key|}}
+      <li class="ability-score{{#if abl.isEnhanced}} enhanced{{/if}}" data-key="{{ key }}">
+      <span class="name">{{ abl.name }}</span>
+      <div class="value{{#if (gt abl.added 0)}} changed{{/if}}">
+        {{#if (gt abl.added 0)}}
+          <a class="operator" data-operator="subtract"><i class="fas fa-minus"></i></a>
+        {{else}}
+          <span class="fake-operator"></span>
+        {{/if}}
+
+        <span>{{ abl.value }}</span>
+
+        {{#if (gt ../section.value 0)}}
+          <a class="operator" data-operator="add"><i class="fas fa-plus"></i></a>
+        {{else}}
+          <span class="fake-operator"></span>
+        {{/if}}
+      </div>
+    </li>
+    {{/each}}
+  </ul>
+
+  <footer>
+    <span class="points-left">
+      {{ localize "FFD20.LevelUp.AbilityScore.PointsLeft" value=section.value }}
+    </span>
+  </footer>
+</div>

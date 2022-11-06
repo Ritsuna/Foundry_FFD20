@@ -3,9 +3,9 @@
   <ol class="form-group">
     <li class="flexrow skill-rank-formula">
       <label>{{localize "FFD20.SkillBonusRankFormula"}}</label>
-      <input class="formula" type="text" name="data.details.bonusSkillRankFormula" value="{{data.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}"/>
+      <input class="formula" type="text" name="system.details.bonusSkillRankFormula" value="{{system.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}"/>
     </li>
-    <a class='skill-lock-button' title="{{localize "FFD20.ToggleSkillLock"}}"></a>
+    <a class="skill-lock-button{{#unless @root.skillsLocked}} unlocked{{/unless}}" title="{{localize "FFD20.ToggleSkillLock"}}"></a>
   </ol>
   {{#unless useBGSkills}}
   <ol class="form-group">
@@ -72,8 +72,8 @@
 
 {{#if useBGSkills}}
 <nav class="sheet-navigation tabs" data-group="skillset">
-  <a class="item" data-tab="adventure">{{localize "FFD20.SkillTypeAdventure"}}</a>
-  <a class="item" data-tab="background">{{localize "FFD20.SkillTypeBackground"}}</a>
+  <a class="item" data-tab="adventure" data-group="skillset">{{localize "FFD20.SkillTypeAdventure"}}</a>
+  <a class="item" data-tab="background" data-group="skillset">{{localize "FFD20.SkillTypeBackground"}}</a>
 </nav>
 
 <section class="skillset-body">

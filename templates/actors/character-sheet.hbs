@@ -2,22 +2,22 @@
 
   {{#unless hasClasses}}<span class="warning">{{localize "FFD20.Info_MissingClass"}}</span>{{/unless}}
 
-  {{!-- Character Sheet Navigation --}}
+  {{!-- PC Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="summary">{{localize "FFD20.Summary"}}</a>
-    <a class="item" data-tab="attributes">{{ localize "FFD20.Attributes" }}</a>
-    <a class="item" data-tab="combat">{{ localize "FFD20.Combat" }}</a>
-    <a class="item" data-tab="inventory">{{ localize "FFD20.Inventory" }}</a>
-    <a class="item" data-tab="feats">{{ localize "FFD20.Features" }}</a>
-    <a class="item" data-tab="skills">{{ localize "FFD20.Skills" }}</a>
-    <a class="item" data-tab="buffs">{{ localize "FFD20.Buffs" }}</a>
-    {{#if usesAnySpellbook}}<a class="item" data-tab="spellbook">{{ localize "FFD20.Spells" }}</a>{{/if}}
-    <a class="item" data-tab="biography">{{ localize "FFD20.Biography" }}</a>
-    <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
-    <a class="item" data-tab="settings">{{ localize "FFD20.Settings" }}</a>
+    <a class="item" data-tab="summary" data-group="primary">{{localize "FFD20.Summary"}}</a>
+    <a class="item" data-tab="attributes" data-group="primary">{{ localize "FFD20.Attributes" }}</a>
+    <a class="item" data-tab="combat" data-group="primary">{{ localize "FFD20.Combat" }}</a>
+    <a class="item" data-tab="inventory" data-group="primary">{{ localize "FFD20.Inventory" }}</a>
+    <a class="item" data-tab="feats" data-group="primary">{{ localize "FFD20.Features" }}</a>
+    <a class="item" data-tab="skills" data-group="primary">{{ localize "FFD20.Skills" }}</a>
+    <a class="item" data-tab="buffs" data-group="primary">{{ localize "FFD20.Buffs" }}</a>
+    {{#if usesAnySpellbook}}<a class="item" data-tab="spellbook" data-group="primary">{{ localize "FFD20.Spells" }}</a>{{/if}}
+    <a class="item" data-tab="biography" data-group="primary">{{ localize "FFD20.Biography" }}</a>
+    <a class="item" data-tab="notes" data-group="primary">{{ localize "FFD20.Notes" }}</a>
+    <a class="item" data-tab="settings" data-group="primary">{{ localize "FFD20.Settings" }}</a>
   </nav>
 
-  {{!-- Character Sheet Body --}}
+  {{!-- PC Sheet Body --}}
   <section class="primary-body">
 
     {{!-- Details --}}
@@ -34,7 +34,7 @@
 
     {{!-- Combat Tab --}}
     <div class="tab combat flexcol" data-group="primary" data-tab="combat">
-      {{> "systems/ffd20/templates/actors/parts/actor-combat.hbs" sections=attacks}}
+      {{~> "systems/ffd20/templates/actors/parts/actor-combat.hbs" sections=attacks}}
     </div>
 
     {{!-- Inventory Tab --}}
@@ -43,7 +43,7 @@
     </div>
 
     {{!-- Features Tab --}}
-    <div class="tab feats flexcol" data-group="primary" data-tab="feats">
+    <div class="tab features flexcol" data-group="primary" data-tab="feats">
       {{> "systems/ffd20/templates/actors/parts/actor-features.hbs" sections=features}}
     </div>
 
@@ -60,19 +60,19 @@
     {{!-- Spellbook Tab --}}
     {{#if usesAnySpellbook}}
     <div class="tab spellbook flexcol" data-group="primary" data-tab="spellbook">
-      {{> "systems/ffd20/templates/actors/parts/actor-spellbook-front.hbs"}}
+      {{~> "systems/ffd20/templates/actors/parts/actor-spellbook-front.hbs"}}
     </div>
     {{/if}}
 
     {{!-- Biography Tab --}}
     <div class="tab biography flexcol" data-group="primary" data-tab="biography">
-      {{roll-editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+      {{editor biographyHTML target="system.details.biography.value" button=true editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Notes Tab --}}
     <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
       <div class="primary-content">
-        {{roll-editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+        {{editor notesHTML target="system.details.notes.value" button=true editable=editable engine="prosemirror" collaborate=false}}
       </div>
 
       {{#if table_magicItems}}

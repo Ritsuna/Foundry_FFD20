@@ -1,0 +1,9 @@
+{{#each summary as |sum sumKey|}}
+  <div class="summary summary-{{sumKey}}">
+    <h2>{{localize sum.label}}</h2>
+
+    {{#if sum.template}}
+      {{> (lookup sum "template") .. summary=sum}}
+    {{/if}}
+  </div>
+{{/each}}

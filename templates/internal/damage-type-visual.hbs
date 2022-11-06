@@ -1,0 +1,25 @@
+{{!-- Damage type indicators --}}
+{{#if (or data.values.length data.custom)}}
+<div class="damage-type-visual">
+  {{#each data.values as |d|}}
+  <div class="damage-type" title="{{localize (lookup (lookup ../damageTypes d) "name")}}">
+    {{#if (lookup (lookup ../damageTypes d) "icon")}}
+    <i class="{{lookup (lookup ../damageTypes d) "icon"}} icon" style="color: {{lookup (lookup ../damageTypes d) "color"}}"></i>
+    {{else}}
+    <img class="icon" src="{{lookup (lookup ../damageTypes d) "img"}}">
+    {{/if}}
+    {{#if (and (eq ../data.values.length 1) (not ../data.custom))}}
+    <span class="name">{{localize (lookup (lookup ../damageTypes d) "name")}}</span>
+    {{/if}}
+  </div>
+  {{/each}}
+  {{#if data.custom}}
+  <span class="custom">{{data.custom}}</span>
+  {{/if}}
+</div>
+{{!-- No damage type values --}}
+{{else}}
+<div class="damage-type-visual empty"{{#if name}} data-name="{{name}}"{{/if}}>
+  <span>{{localize "FFD20.DamageType"}}</span>
+</div>
+{{/if}}

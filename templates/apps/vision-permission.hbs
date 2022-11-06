@@ -16,7 +16,7 @@
         {{#each users}}
         <div class="form-group{{#if this.hidden}} hidden{{/if}}">
             <label>{{this.user.name}}</label>
-            <select name="users.{{this.user._id}}.level">
+            <select name="users.{{this.user.id}}.level">
                 {{#select this.level}}
                 {{#each ../levels}}
                 <option value="{{this.level}}">{{this.name}}</option>

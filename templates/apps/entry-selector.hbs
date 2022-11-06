@@ -1,11 +1,10 @@
 <form autocomplete="off" onsubmit="event.preventDefault();">
-
   <table>
     <thead>
       {{#each fields as |v|}}
       <th>{{v}}</th>
       {{/each}}
-      <th class="entry-control"><a class="entry-control add-entry"><i class="fas fa-plus"></i></a></th>
+      <th class="entry-control"></th>
     </thead>
     <tbody>
       {{#each entries as |entry index|}}
@@ -20,6 +19,8 @@
       {{/each}}
     </tbody>
   </table>
+
+  <a class="entry-control add-entry"><i class="fas fa-plus"></i> {{localize "FFD20.AddEntry"}}</a>
 
   <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize "FFD20.UpdateItem"}}</button>
 </form>

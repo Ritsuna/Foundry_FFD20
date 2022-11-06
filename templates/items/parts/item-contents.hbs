@@ -32,9 +32,9 @@
         {{#each section.items as |item iid|}}
         <li class="item flexrow" data-item-id="{{item._id}}">
           <div class="item-name flexrow">
-            <div class="item-image rollable" style="background-image: url({{item.img}})"></div>
+            <div class="item-image rollable" style='background-image: url("{{item.img}}")'></div>
             <h4 class="rollable{{#if item.empty}} strikethrough-text{{/if}}">
-              {{~#if item.isStack}}({{item.data.quantity}}) {{/if}}
+              {{~#if item.isStack}}({{item.system.quantity}}) {{/if}}
               {{item.name~}}
             </h4>
           </div>
@@ -76,12 +76,12 @@
 
           <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
             {{#if item.isCharged}}
-            <input type="text" class="select-on-click" data-wheel-step="1" value="{{item.data.uses.value}}" data-dtype="Number"/>
+            <input type="text" class="select-on-click" data-wheel-step="1" value="{{item.system.uses.value}}" data-dtype="Number"/>
             <span class="sep"> / </span>
-            <input type="text" value="{{item.data.uses.max}}" disabled data-dtype="Number"/>
+            <input type="text" value="{{item.system.uses.max}}" disabled data-dtype="Number"/>
             <span class="tooltipcontent">
-              @resources.{{item.tag}}.value : {{item.data.uses.value}}<br>
-              @resources.{{item.tag}}.max : {{item.data.uses.max}}
+              @resources.{{item.tag}}.value : {{item.system.uses.value}}<br>
+              @resources.{{item.tag}}.max : {{item.system.uses.max}}
             </span>
             {{/if}}
           </div>

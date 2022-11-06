@@ -1,250 +1,42 @@
 <div class="inventory-filters spellbook-filters">
-  <div class="flexrow spellcasting-misc ffd20-sheet-group">
-    <div class="spellcasting-concentration flexrow" data-drag="concentration">
-      <div class="rollable image-d20"></div>
-      <label><h3>{{localize "FFD20.Concentration"}}</h3></label>
-      <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationFormula"
-      value="{{spellbook.orig.concentrationFormula}}" placeholder="{{localize "FFD20.ConcentrationBonusFormula"}}" />
-    </div>
-
-    <div class="spellcasting-cl flexrow" data-drag="cl">
-      <div class="rollable image-d20"></div>
-      <label><h3>{{localize "FFD20.CasterLevel"}}</h3></label>
-      <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.cl.formula"
-      value="{{spellbook.orig.cl.formula}}" placeholder="{{localize "FFD20.CasterLevelBonusFormula"}}" />
-    </div>
-
-    <div class="spellcasting-config flexrow" style="flex: 0 5 5%; align-items: center; margin-left: auto; text-align: right;">
-      <label><a class="hide-show" data-for="spellbook-info_{{spellbookIndex}}"><i class="fas fa-cogs"></i></a></label>
-    </div>
-  </div>
-  <div class="hide spellbook-info_{{spellbookIndex}} {{#if (lookup hiddenElems (concat "spellbook-info_" spellbookIndex))}}hidden{{/if}}">
-    <div class="flexrow spellcasting-notes ffd20-sheet-group">
-      <textarea name="data.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationNotes" placeholder="{{localize "FFD20.ConcentrationNotes"}}">{{spellbook.orig.concentrationNotes}}</textarea>
-      <textarea name="data.attributes.spells.spellbooks.{{spellbookIndex}}.clNotes" placeholder="{{localize "FFD20.CasterLevelNotes"}}">{{spellbook.orig.clNotes}}</textarea>
-    </div>
-
-    <div class="flexrow spell-settings">
-      <div class="flexcol ffd20-sheet-group">
-        <div class="form-group spellcasting-class tooltip">
-          <div class="tooltipcontent">
-            @cl : {{spellbook.orig.cl.total}}<br>
-            @spells.{{spellbookIndex}}.cl.total : {{spellbook.orig.cl.total}}
-
-            {{#with (lookup sourceDetails.data.attributes.spells.spellbooks spellbookIndex)}}
-            {{#if cl.total.length}}
-            <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
-            {{#each cl.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-            {{/if}}
-            {{/with}}
-          </div>
-          <label><h3>{{localize "FFD20.SpellcastingClass"}}</h3></label>
-          <select name="data.attributes.spells.spellbooks.{{spellbookIndex}}.class" data-dtype="String">
-            {{#select spellbook.orig.class}}
-            <option value="">{{localize "FFD20.None"}}</option>
-            <option value="_hd">{{localize "FFD20.HitDie"}}</option>
-            {{#each data.classes as |cls a|}}
-            <option value="{{a}}">{{cls.name}}</option>
-            {{/each}}
-            {{/select}}
-          </select>
-        </div>
-
-        <div class="form-group spellcasting-ability">
-          <label><h3>{{localize "FFD20.SpellcastingAbility"}}</h3></label>
-          <select name="data.attributes.spells.spellbooks.{{spellbookIndex}}.ability" data-dtype="String">
-            {{#select spellbook.orig.ability}}
-            <option value="">{{localize "FFD20.None"}}</option>
-            {{#each data.abilities as |abl a|}}
-            <option value="{{a}}">{{abl.label}}</option>
-            {{/each}}
-            {{/select}}
-          </select>
-        </div>
-
-        <div class="flexrow spell-failure">
-          <label><h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3></label>
-          <input type="text" disabled value="{{spellFailure}}%"/>
-        </div>
-
-        <div class="flexrow formulas">
-          <label><h3>{{localize "FFD20.BaseDCFormula"}}</h3></label>
-          <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.baseDCFormula"
-          value="{{spellbook.orig.baseDCFormula}}" placeholder="{{localize "FFD20.BaseDCFormula"}}" />
-        </div>
-
-        <div class="flexrow alt-name">
-          <label><h3>{{localize "FFD20.AlternativeSpellbookName"}}</h3></label>
-          <input type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.altName"
-            value="{{spellbook.orig.altName}}" placeholder="{{#if (and spellbook.orig.class (ne spellbook.orig.class "_hd"))}}{{spellbook.orig.class}}
-              {{else}}{{~spellbook.orig.name}}{{/if}}" />
-        </div>
-
-        {{#if spellbook.orig.autoSpellLevelCalculation}}
-        <div class="help-text">
-        <i class="help-icon fas fa-info-circle"></i> {{localize "FFD20.AutoSpellClassLevelOffset.InfoBox"}}
-        </div>
-        <div class="flexrow">
-          <label><h3>{{localize "FFD20.AutoSpellClassLevelOffset.Formula"}}</h3></label>
-          <input class="formula" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.cl.autoSpellLevelCalculationFormula"
-            value="{{spellbook.orig.cl.autoSpellLevelCalculationFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-        </div>
-        {{/if}}
-
-      </div>
-
-      <div class="flexcol ffd20-sheet-group">
-        <label class="checkbox">
-          <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.useSystem"
-          {{checked spellbook.orig.spellPoints.useSystem}}/> {{localize "FFD20.UseSpellPoints"}}
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.arcaneSpellFailure"
-          {{checked spellbook.orig.arcaneSpellFailure}}/> {{localize "FFD20.ArcaneSpellFailure"}}
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.autoSpellLevelCalculation"
-          {{checked spellbook.orig.autoSpellLevelCalculation}}/> {{localize "FFD20.AutoCalculateSpellSlots"}}
-        </label>
-        {{#unless spellbook.orig.autoSpellLevelCalculation}}
-        <label class="checkbox">
-          <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spontaneous"
-          {{checked spellbook.orig.spontaneous}}/> {{localize "FFD20.SpellPrepSpontaneous"}}
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.autoSpellLevels"
-          {{checked spellbook.orig.autoSpellLevels}}/> {{localize "FFD20.AutomaticSpellSlots"}}
-        </label>
-        {{/unless}}
-        {{#if spellbook.orig.autoSpellLevelCalculation}}
-        <label class="checkbox">
-          <input type="checkbox" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.hasCantrips"
-          {{checked spellbook.orig.hasCantrips}}/> {{localize "FFD20.HasCantrips"}}
-        </label>
-        <div class="radios">
-          <label class="checkbox">
-            <input type="radio" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="prepared" {{checked (eq spellbook.orig.spellPreparationMode "prepared")}} />
-            {{localize "FFD20.SpellPrepPrepared"}}
-          </label>
-          <label class="checkbox">
-            <input type="radio" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="spontaneous" {{checked (eq spellbook.orig.spellPreparationMode "spontaneous")}} />
-            {{localize "FFD20.SpellPrepSpontaneous"}}
-          </label>
-          <label class="checkbox">
-            <input type="radio" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="hybrid" {{checked (eq spellbook.orig.spellPreparationMode "hybrid")}} />
-            {{localize "FFD20.Arcanist"}}
-          </label>
-          <label class="checkbox">
-            <input type="radio" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="prestige" {{checked (eq spellbook.orig.spellPreparationMode "prestige")}} />
-            {{localize "FFD20.RedMantisAssassin"}}
-          </label>
-        </div>
-        {{#unless (or (eq spellbook.orig.spellPreparationMode "hybrid") (eq spellbook.orig.spellPreparationMode "prestige"))}}
-        <div class="radios">
-          <label class="checkbox">
-            <input type="radio" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.casterType" value="low" {{checked (eq spellbook.orig.casterType "low")}} />
-            {{localize "FFD20.Low"}}
-          </label>
-          <label class="checkbox">
-            <input type="radio" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.casterType" value="med" {{checked (eq spellbook.orig.casterType "med")}} />
-            {{localize "FFD20.Medium"}}
-          </label>
-          <label class="checkbox">
-            <input type="radio" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.casterType" value="high" {{checked (eq spellbook.orig.casterType "high")}} />
-            {{localize "FFD20.High"}}
-          </label>
-        </div>
-        {{/unless}}
-
-        <section class="spell-level-mod-container {{#if (eq spellbook.orig.spellPreparationMode "prepared")}}hide-cpd{{/if}}">
-          <label><h3>{{localize "FFD20.Modifications"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <label class="ppdoffset"><h3>
-              {{#if (or (eq spellbook.orig.spellPreparationMode "spontaneous") (eq spellbook.orig.spellPreparationMode "prestige"))}}{{localize "FFD20.SpellsKnown"}}{{else}}{{localize "FFD20.PreparePerDay"}}{{/if}}
-            </h3></label>
-            <label class="cpdoffset"><h3>{{localize "FFD20.CastPerDay"}}</h3></label>
-          </div>
-
-          <label><h3>{{localize "FFD20.All"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.preparedAllOffsetFormula" value="{{spellbook.orig.preparedAllOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.castPerDayAllOffsetFormula" value="{{spellbook.orig.castPerDayAllOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          {{#if spellbook.orig.hasCantrips}}
-          <label><h3>{{localize "FFD20.SpellLevel0"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell0.preparedOffsetFormula" value="{{spellbook.orig.spells.spell0.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell0.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell0.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-          {{/if}}
-
-          <label><h3>{{localize "FFD20.SpellLevel1"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell1.preparedOffsetFormula" value="{{spellbook.orig.spells.spell1.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell1.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell1.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          <label><h3>{{localize "FFD20.SpellLevel2"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell2.preparedOffsetFormula" value="{{spellbook.orig.spells.spell2.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell2.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell2.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          <label><h3>{{localize "FFD20.SpellLevel3"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell3.preparedOffsetFormula" value="{{spellbook.orig.spells.spell3.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell3.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell3.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          <label><h3>{{localize "FFD20.SpellLevel4"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell4.preparedOffsetFormula" value="{{spellbook.orig.spells.spell4.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell4.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell4.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          {{#if (or (eq spellbook.orig.casterType "med") (eq spellbook.orig.casterType "high"))}}
-          <label><h3>{{localize "FFD20.SpellLevel5"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell5.preparedOffsetFormula" value="{{spellbook.orig.spells.spell5.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell5.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell5.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          <label><h3>{{localize "FFD20.SpellLevel6"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell6.preparedOffsetFormula" value="{{spellbook.orig.spells.spell6.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell6.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell6.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-          {{/if}}
-
-          {{#if (eq spellbook.orig.casterType "high")}}
-          <label><h3>{{localize "FFD20.SpellLevel7"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell7.preparedOffsetFormula" value="{{spellbook.orig.spells.spell7.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell7.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell7.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          <label><h3>{{localize "FFD20.SpellLevel8"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell8.preparedOffsetFormula" value="{{spellbook.orig.spells.spell8.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell8.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell8.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-
-          <label><h3>{{localize "FFD20.SpellLevel9"}}</h3></label>
-          <div class="spell-mod-formulas">
-            <input class="formula ppdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell9.preparedOffsetFormula" value="{{spellbook.orig.spells.spell9.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-            <input class="formula cpdoffset" type="text" name="data.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell9.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell9.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
-          </div>
-          {{/if}}
-
-        </section>
-        {{/if}}
-      </div>
-    </div>
-  </div>
-
-  <div class="flexrow spell-range">
-    <table>
+  <div class="flexrow spell-summary">
+    <table class="spellcasting-summary">
+      <thead>
+        <tr>
+          <th class="spellcasting-concentration rollable tooltip" data-drag="concentration">
+            <i class="fas fa-dice"></i> {{localize "FFD20.Concentration"}}
+            <span class="tooltipcontent">
+              @attributes.spells.spellbooks.{{spellbookIndex}}.concentration.total : {{spellbook.orig.concentration.total}}
+              {{#with (lookup sourceDetails.system.attributes.spells.spellbooks spellbookIndex)}}
+              {{#if concentration.total.length}}
+              <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+              {{#each concentration.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{/if}}
+              {{/with}}
+            </span>
+          </th>
+          <th class="spellcasting-cl rollable tooltip" data-drag="cl">
+            <i class="fas fa-dice"></i> {{localize "FFD20.CasterLevel"}}
+            <span class="tooltipcontent">
+              @attributes.spells.spellbooks.{{spellbookIndex}}.cl.total : {{spellbook.orig.cl.total}}
+              {{#with (lookup sourceDetails.system.attributes.spells.spellbooks spellbookIndex)}}
+              {{#if cl.total.length}}
+              <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+              {{#each cl.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+              {{/if}}
+              {{/with}}
+            </span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="spellcasting-concentration-total">{{numberFormat spellbook.orig.concentration.total sign=true decimals=0}}</td>
+          <td class="spellcasting-casterlevel-total">{{numberFormat spellbook.orig.cl.total sign=true decimals=0}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="spell-range">
       <thead>
         <tr>
           <th class="tooltip">
@@ -278,6 +70,277 @@
         </tr>
       </tbody>
     </table>
+    <div class="spellcasting-config">
+      <a class="hide-show" data-for="spellbook-info_{{spellbookIndex}}"><i class="fas fa-cogs"></i></a>
+    </div>
+  </div>
+
+  <div class="hide spellbook-info_{{spellbookIndex}} {{#if (lookup hiddenElems (concat "spellbook-info_" spellbookIndex))}}hidden{{/if}}">
+    <div class="flexrow">
+      <h3>{{localize "FFD20.Concentration"}}</h3>
+      <h3>{{localize "FFD20.CasterLevel"}}</h3>
+    </div>
+    <div class="flexrow spellcasting-bonus-formulas">
+      <h3>{{localize "FFD20.BonusFormula"}}</h3>
+      <input class="formula" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationFormula"
+      value="{{spellbook.orig.concentrationFormula}}" placeholder="{{localize "FFD20.ConcentrationBonusFormula"}}" />
+      <h3>{{localize "FFD20.BonusFormula"}}</h3>
+      <input class="formula" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.cl.formula"
+      value="{{spellbook.orig.cl.formula}}" placeholder="{{localize "FFD20.CasterLevelBonusFormula"}}" />
+    </div>
+    <div class="flexrow spellcasting-notes ffd20-sheet-group">
+      <textarea name="system.attributes.spells.spellbooks.{{spellbookIndex}}.concentrationNotes" placeholder="{{localize "FFD20.ConcentrationNotes"}}">{{spellbook.orig.concentrationNotes}}</textarea>
+      <textarea name="system.attributes.spells.spellbooks.{{spellbookIndex}}.clNotes" placeholder="{{localize "FFD20.CasterLevelNotes"}}">{{spellbook.orig.clNotes}}</textarea>
+    </div>
+    <hr/>
+
+    <div class="flexrow spell-settings">
+      <div class="flexcol ffd20-sheet-group">
+        <div class="form-group spellcasting-class tooltip">
+          <div class="tooltipcontent">
+            @cl : {{spellbook.orig.cl.total}}<br>
+            @spells.{{spellbookIndex}}.cl.total : {{spellbook.orig.cl.total}}
+
+            {{#with (lookup sourceDetails.system.attributes.spells.spellbooks spellbookIndex)}}
+            {{#if cl.total.length}}
+            <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+            {{#each cl.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            {{/if}}
+            {{/with}}
+          </div>
+          <label><h3>{{localize "FFD20.SpellcastingClass"}}</h3></label>
+          <select name="system.attributes.spells.spellbooks.{{spellbookIndex}}.class" data-dtype="String">
+            {{#select spellbook.orig.class}}
+            <option value="">{{localize "FFD20.None"}}</option>
+            <option value="_hd">{{localize "FFD20.HitDie"}}</option>
+            {{#each @root.classes as |cls|}}
+            <option value="{{cls.tag}}">{{cls.name}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
+
+        <div class="form-group spellcasting-ability">
+          <label><h3>{{localize "FFD20.SpellcastingAbility"}}</h3></label>
+          <select name="system.attributes.spells.spellbooks.{{spellbookIndex}}.ability" data-dtype="String">
+            {{#select spellbook.orig.ability}}
+            <option value="">{{localize "FFD20.None"}}</option>
+            {{#each @root.system.abilities as |abl a|}}
+            <option value="{{a}}">{{abl.label}}</option>
+            {{/each}}
+            {{/select}}
+          </select>
+        </div>
+
+        <div class="flexrow spell-failure">
+          <label><h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3></label>
+          <input type="text" disabled value="{{spellFailure}}%"/>
+        </div>
+
+        <div class="flexrow formulas">
+          <label><h3>{{localize "FFD20.BaseDCFormula"}}</h3></label>
+          <input class="formula" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.baseDCFormula"
+          value="{{spellbook.orig.baseDCFormula}}" placeholder="{{localize "FFD20.BaseDCFormula"}}" />
+        </div>
+
+        <div class="flexrow spell-slot-ability-bonus">
+          <label><h3>{{localize "FFD20.SpellSlotAbilityBonus"}}</h3></label>
+          <input class="formula" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellSlotAbilityBonusFormula"
+                             value="{{spellbook.orig.spellSlotAbilityBonusFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+        </div>
+
+        <div class="flexrow alt-name">
+          <label><h3>{{localize "FFD20.SpellbookName"}}</h3></label>
+          <input type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.name"
+            value="{{spellbook.orig.name}}" placeholder="{{localize spellbook.orig.label}}" />
+        </div>
+
+        <div class="flexrow domain-slot-value">
+          <label><h3>{{localize "FFD20.DomainSlotValue"}}</h3></label>
+          <input type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.domainSlotValue"
+            value="{{spellbook.orig.domainSlotValue}}" title="{{localize "FFD20.DomainSlotValueDesc"}}" placeholder="0" data-dtype="Number" />
+        </div>
+
+        {{!--
+        {{#if spellbook.orig.spellPoints.useSystem}}
+        <div class="flexrow spell-points">
+          <h3>{{localize "FFD20.SpellPoints"}}</h3>
+          <input class="formula" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.maxFormula"
+          value="{{spellbook.orig.spellPoints.maxFormula}}" placeholder="{{localize "FFD20.MaxFormula"}}" title="{{localize "FFD20.MaxFormula"}}"/>
+        </div>
+        <div class="flexrow spell-points-rest">
+          <h3>└ {{localize "FFD20.RestoredOnRest"}}</h3>
+          <input class="formula" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.restoreFormula"
+          value="{{spellbook.orig.spellPoints.restoreFormula}}" placeholder="{{localize "FFD20.SpellPointsMax"}}" title="{{localize "FFD20.Formula"}}"/>
+        </div>
+        {{/if}}
+        --}}
+
+        {{#if spellbook.orig.autoSpellLevelCalculation}}
+        <div class="help-text">
+        <i class="help-icon fas fa-info-circle"></i> {{localize "FFD20.AutoSpellClassLevelOffset.InfoBox"}}
+        </div>
+        <div class="flexrow">
+          <label><h3>{{localize "FFD20.AutoSpellClassLevelOffset.Formula"}}</h3></label>
+          <input class="formula" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.cl.autoSpellLevelCalculationFormula"
+            value="{{spellbook.orig.cl.autoSpellLevelCalculationFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+        </div>
+        {{/if}}
+
+      </div>
+
+      <div class="flexcol ffd20-sheet-group">
+        <label class="checkbox">
+          <input type="checkbox" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.arcaneSpellFailure"
+          {{checked spellbook.orig.arcaneSpellFailure}}/> {{localize "FFD20.ArcaneSpellFailure"}}
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.autoSpellLevelCalculation"
+          {{checked spellbook.orig.autoSpellLevelCalculation}}/> {{localize "FFD20.AutoCalculateSpellSlots"}}
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.psychic"
+          {{checked spellbook.orig.psychic}}/> {{localize "FFD20.Psychic"}}
+        </label>
+        {{#unless spellbook.orig.autoSpellLevelCalculation}}
+        <label class="checkbox">
+          <input type="checkbox" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spontaneous"
+          {{checked spellbook.orig.spontaneous}}/> {{localize "FFD20.SpellPrepSpontaneous"}}
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.autoSpellLevels"
+          {{checked spellbook.orig.autoSpellLevels}}/> {{localize "FFD20.AutomaticSpellSlots"}}
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellPoints.useSystem"
+          {{checked spellbook.orig.spellPoints.useSystem}}/> {{localize "FFD20.UseSpellPoints"}}
+        </label>
+        {{/unless}}
+        {{#if spellbook.orig.autoSpellLevelCalculation}}
+        <label class="checkbox">
+          <input type="checkbox" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.hasCantrips"
+          {{checked spellbook.orig.hasCantrips}}/> {{localize "FFD20.HasCantrips"}}
+        </label>
+        <div class="radios">
+          <label class="checkbox">
+            <input type="radio" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="prepared" {{checked (eq spellbook.orig.spellPreparationMode "prepared")}} />
+            {{localize "FFD20.SpellPrepPrepared"}}
+          </label>
+          <label class="checkbox">
+            <input type="radio" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="spontaneous" {{checked (eq spellbook.orig.spellPreparationMode "spontaneous")}} />
+            {{localize "FFD20.SpellPrepSpontaneous"}}
+          </label>
+          <label class="checkbox">
+            <input type="radio" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="hybrid" {{checked (eq spellbook.orig.spellPreparationMode "hybrid")}} />
+            {{localize "FFD20.Arcanist"}}
+          </label>
+          <label class="checkbox">
+            <input type="radio" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spellPreparationMode" value="prestige" {{checked (eq spellbook.orig.spellPreparationMode "prestige")}} />
+            {{localize "FFD20.RedMantisAssassin"}}
+          </label>
+        </div>
+        {{#unless (or (eq spellbook.orig.spellPreparationMode "hybrid") (eq spellbook.orig.spellPreparationMode "prestige"))}}
+        <div class="radios">
+          <label class="checkbox">
+            <input type="radio" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.casterType" value="low" {{checked (eq spellbook.orig.casterType "low")}} />
+            {{localize "FFD20.Low"}}
+          </label>
+          <label class="checkbox">
+            <input type="radio" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.casterType" value="med" {{checked (eq spellbook.orig.casterType "med")}} />
+            {{localize "FFD20.Medium"}}
+          </label>
+          <label class="checkbox">
+            <input type="radio" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.casterType" value="high" {{checked (eq spellbook.orig.casterType "high")}} />
+            {{localize "FFD20.High"}}
+          </label>
+        </div>
+        {{/unless}}
+
+        <section class="spell-level-mod-container {{#if (eq spellbook.orig.spellPreparationMode "prepared")}}hide-cpd{{/if}}">
+          <label><h3>{{localize "FFD20.Modifications"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <label class="ppdoffset"><h3>
+              {{#if (or (eq spellbook.orig.spellPreparationMode "spontaneous") (eq spellbook.orig.spellPreparationMode "prestige"))}}{{localize "FFD20.SpellsKnown"}}{{else}}{{localize "FFD20.PreparePerDay"}}{{/if}}
+            </h3></label>
+            <label class="cpdoffset"><h3>{{localize "FFD20.CastPerDay"}}</h3></label>
+          </div>
+
+          <label><h3>{{localize "FFD20.All"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.preparedAllOffsetFormula" value="{{spellbook.orig.preparedAllOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.castPerDayAllOffsetFormula" value="{{spellbook.orig.castPerDayAllOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          {{#if spellbook.orig.hasCantrips}}
+          <label><h3>{{localize "FFD20.SpellLevel0"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell0.preparedOffsetFormula" value="{{spellbook.orig.spells.spell0.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell0.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell0.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+          {{/if}}
+
+          <label><h3>{{localize "FFD20.SpellLevel1"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell1.preparedOffsetFormula" value="{{spellbook.orig.spells.spell1.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell1.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell1.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          <label><h3>{{localize "FFD20.SpellLevel2"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell2.preparedOffsetFormula" value="{{spellbook.orig.spells.spell2.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell2.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell2.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          <label><h3>{{localize "FFD20.SpellLevel3"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell3.preparedOffsetFormula" value="{{spellbook.orig.spells.spell3.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell3.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell3.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          <label><h3>{{localize "FFD20.SpellLevel4"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell4.preparedOffsetFormula" value="{{spellbook.orig.spells.spell4.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell4.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell4.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          {{#if (or (eq spellbook.orig.casterType "med") (eq spellbook.orig.casterType "high"))}}
+          <label><h3>{{localize "FFD20.SpellLevel5"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell5.preparedOffsetFormula" value="{{spellbook.orig.spells.spell5.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell5.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell5.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          <label><h3>{{localize "FFD20.SpellLevel6"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell6.preparedOffsetFormula" value="{{spellbook.orig.spells.spell6.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell6.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell6.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+          {{/if}}
+
+          {{#if (eq spellbook.orig.casterType "high")}}
+          <label><h3>{{localize "FFD20.SpellLevel7"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell7.preparedOffsetFormula" value="{{spellbook.orig.spells.spell7.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell7.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell7.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          <label><h3>{{localize "FFD20.SpellLevel8"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell8.preparedOffsetFormula" value="{{spellbook.orig.spells.spell8.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell8.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell8.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+
+          <label><h3>{{localize "FFD20.SpellLevel9"}}</h3></label>
+          <div class="spell-mod-formulas">
+            <input class="formula ppdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell9.preparedOffsetFormula" value="{{spellbook.orig.spells.spell9.preparedOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+            <input class="formula cpdoffset" type="text" name="system.attributes.spells.spellbooks.{{spellbookIndex}}.spells.spell9.castPerDayOffsetFormula" value="{{spellbook.orig.spells.spell9.castPerDayOffsetFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+          </div>
+          {{/if}}
+
+        </section>
+        {{/if}}
+      </div>
+    </div>
   </div>
 </div>
 
@@ -291,36 +354,23 @@
     {{/each}}
   </ul>
 </div>
-
+{{!--
 <div class="spell-points-current flexrow">
   {{#if spellbook.orig.spellPoints.useSystem}}
-  <h3>{{localize "FFD20.SpellPoints"}}</h3>
-  <div class="tooltip value">
-    <span class="tooltipcontent">
-      {{localize "FFD20.SpellPointsCurrent"}}<br><br>
-    </span>
-    <span class="text-box" name="data.attributes.mp.value"
-    data-dtype="Number">{{data.attributes.mp.value}}</span>
-  </div>
-  <span class="sep"> / </span>
-  <div class="tooltip max">
-    <span class="tooltipcontent">
-      {{localize "FFD20.SpellPointsMax"}}<br><br>
-      {{#each sourceDetails.data.attributes.mp.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-    </span>
-    <span class="text-box">{{data.attributes.mp.max}}</span>
-  <span class="sep"> + temp </span>
-  </div>
+    <h3>{{localize "FFD20.SpellPoints"}}</h3>
+    <div class="value">
+      <span class="text-box" name="system.attributes.mp.value" data-dtype="Number">{{../mp.value}}</span>
+    </div>
+    <span class="sep"> / </span>
+    <div class="max">
+      <span class="text-box" name="system.attributes.mp.max" data-dtype="Number">{{../mp.max}}</span>
+    </div>
+    <span class="sep"> + temp </span>
     <div class="tooltip value">
-    <span class="tooltipcontent">
-      {{localize "FFD20.SpellPointsTemp"}}<br><br>
-    </span>
-    <span class="text-box" name="data.attributes.mp.temp"
-    data-dtype="Number">{{data.attributes.mp.temp}}</span>
-  </div>
-
+      <span class="text-box" name="system.attributes.mp.temp" data-dtype="Number">{{../mp.temp}}</span>
+    </div>
   {{/if}}
-</div>
+</div> --}}
 
 <section class="spells_{{spellbookIndex}}-body">
 
@@ -328,77 +378,76 @@
     <ol class="inventory-list">
       {{#each spellbook.data as |section sid|}}
       {{#unless section._hidden}}
-      <li class="flexrow inventory-header spellbook-header" data-level="{{section.level}}">
-        <div class="item-name flexrow">
-          <h3>{{section.name}}</h3>
-        </div>
-
-        {{#unless ../spellbook.orig.spellPoints.useSystem}}
-        <div class="item-detail spell-uses">
-          {{#if section.usesSlots}}
-          {{#unless (and (eq section.level 0) ../spellbook.orig.autoSpellLevelCalculation)}}
-          <div class="tooltip spell-slots{{#if ../spellbook.orig.spontaneous}} spontaneous{{/if}}">
-            <span class="{{#unless ../spellbook.orig.spontaneous}}spell-input-readonly{{else}}text-box{{/unless}}" data-dtype="Number" {{#if ../spellbook.orig.spontaneous}}name="data.attributes.spells.spellbooks.{{../spellbookIndex}}.spells.spell{{section.level}}.value"{{/if}}>
-              {{section.uses}}
-            </span>
-            <span class="tooltipcontent">
-              {{#unless ../spellbook.orig.spontaneous}}
-              {{localize "FFD20.LeftToPrepare"}}
-              {{else}}
-              {{localize "FFD20.CastsLeft"}}
-              {{/unless}}
-            </span>
+      <ol class="item-list" data-type="spell" data-level="{{section.level}}" data-preparation-unused="{{section.preparation.unused}}" {{#if ../spellbook.orig.spontaneous}}data-known-unused="{{section.known.unused}}"{{/if}}>
+        <li class="flexrow inventory-header spellbook-header {{#if section.lowAbilityScore}}insufficient-ability-score{{/if}}" data-level="{{section.level}}">
+          <div class="item-name flexrow">
+            <h3>{{section.name}}</h3>
           </div>
-          <span class="sep"> / </span>
+
+          {{#unless ../spellbook.orig.spellPoints.useSystem}}
+          <div class="item-detail spell-uses">
+            {{#if section.usesSlots}}
+            {{#unless (and (eq section.level 0) ../spellbook.orig.autoSpellLevelCalculation)}}
+            <div class="tooltip spell-slots{{#if ../spellbook.orig.spontaneous}} spontaneous{{/if}}">
+              <span class="{{#unless ../spellbook.orig.spontaneous}}spell-input-readonly{{else}}text-box{{/unless}}" data-dtype="Number" {{#if ../spellbook.orig.spontaneous}}name="system.attributes.spells.spellbooks.{{../spellbookIndex}}.spells.spell{{section.level}}.value"{{/if}}>
+                {{section.uses}}
+              </span>
+              <span class="tooltipcontent">
+                {{#unless ../spellbook.orig.spontaneous}}
+                {{localize "FFD20.LeftToPrepare"}}
+                {{else}}
+                {{localize "FFD20.CastsLeft"}}
+                {{/unless}}
+              </span>
+            </div>
+            <span class="sep"> / </span>
+            {{/unless}}
+            <div class="tooltip spell-max">
+              <span class="{{#if ../spellbook.orig.autoSpellLevelCalculation}}spell-input-readonly{{else}}text-box{{/if}}" data-dtype="Number" name="system.attributes.spells.spellbooks.{{../spellbookIndex}}.spells.spell{{section.level}}.base">{{section.slots}}</span>
+              <span class="tooltipcontent">
+                {{localize "FFD20.SpellsTotalEachDay"}}
+              </span>
+            </div>
+            {{ else }}
+            <span class="spell-slots">{{{section.uses}}}</span>
+            <span class="sep"> / </span>
+            <span class="spell-max">{{{section.slots}}}</span>
+            {{/if}}
+          </div>
           {{/unless}}
-          <div class="tooltip spell-max">
-            <span class="{{#if ../spellbook.orig.autoSpellLevelCalculation}}spell-input-readonly{{else}}text-box{{/if}}" data-dtype="Number" name="data.attributes.spells.spellbooks.{{../spellbookIndex}}.spells.spell{{section.level}}.base">{{section.slots}}</span>
-            <span class="tooltipcontent">
-              {{localize "FFD20.SpellsTotalEachDay"}}
-            </span>
+
+          <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "FFD20.ActionPlural"}}"></i></div>
+
+          <div class="item-detail spell-activation"><i class="icon icon-hand large" title="{{localize "FFD20.Usage"}}"></i></div>
+
+          <div class="item-detail spell-components"><i class="icon icon-expense large" title="{{localize "FFD20.Components"}}"></i></div>
+
+          <div class="item-detail spell-school"><i class="icon icon-spell-book large" title="{{localize "FFD20.SpellSchool"}}"></i></div>
+
+          <div class="item-controls">
+            {{#if section.canCreate}}
+            <a class="item-control item-create" title="{{localize "FFD20.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
+              <i class="fas fa-plus"></i>
+            </a>
+            {{/if}}
+            <a data-action="compendium" data-action-target="spells" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
           </div>
-          {{ else }}
-          <span class="spell-slots">{{{section.uses}}}</span>
-          <span class="sep"> / </span>
-          <span class="spell-max">{{{section.slots}}}</span>
-          {{/if}}
-        </div>
-        {{/unless}}
-
-        <div class="item-detail item-actions"><i class="icon icon-gears large" title="{{localize "FFD20.ActionPlural"}}"></i></div>
-
-        <div class="item-detail spell-activation"><i class="icon icon-hand large" title="{{localize "FFD20.Usage"}}"></i></div>
-
-        <div class="item-detail spell-components"><i class="icon icon-expense large" title="{{localize "FFD20.Components"}}"></i></div>
-
-        <div class="item-detail spell-school"><i class="icon icon-spell-book large" title="{{localize "FFD20.SpellSchool"}}"></i></div>
-
-        <div class="item-controls">
-          {{#if section.canCreate}}
-          <a class="item-control item-create" title="{{localize "FFD20.CreateItem"}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
-            <i class="fas fa-plus"></i>
-          </a>
-          {{/if}}
-          <a data-action="compendium" data-action-target="spells" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
-        </div>
-      </li>
-
-      <ol class="item-list">
+        </li>
 
         {{#each section.items as |item i|}}
-        <li class="item flexrow" data-item-id="{{item._id}}">
+        <li class="item flexrow {{#if item.document.canCast}}prepared{{else}}unprepared{{/if}} {{#if item.domain}}domain{{/if}}" data-item-id="{{item.id}}">
           <div class="item-name flexrow rollable">
-            <div class="item-image" style="background-image: url({{item.img}})"></div>
+            <div class="item-image" style='background-image: url("{{item.img}}")'></div>
             <h4>{{item.name}}</h4>
           </div>
 
           {{#unless ../../spellbook.orig.spellPoints.useSystem}}
           <div class="item-detail spell-uses flexrow">
-            {{#unless item.data.atWill}}
+            {{#unless item.atWill}}
             {{!-- Domain Marker --}}
             <div>
-              {{#if item.data.domain}}
-              <i class="fas fa-hand-sparkles" title="{{localize "FFD20.Domain"}}/{{localize "FFD20.School"}}"></i>
+              {{#if item.domain}}
+              <i class="fas fa-hand-sparkles spell-icon domain" title="{{localize "FFD20.Domain"}}/{{localize "FFD20.School"}}"></i>
               {{/if}}
             </div>
 
@@ -407,19 +456,19 @@
               <span class="tooltipcontent">
                 {{localize "FFD20.Prepared"}}
               </span>
-              <span class="text-box" data-type="amount" data-dtype="Number">{{item.data.preparation.preparedAmount}}</span>
+              <span class="text-box" data-type="amount" data-dtype="Number">{{item.preparation.preparedAmount}}</span>
             </div>
             <span class="sep"> / </span>
             <div class="tooltip">
               <span class="tooltipcontent">
                 {{localize "FFD20.InitiallyPrepared"}}
               </span>
-              <span class="text-box" data-type="max" data-dtype="Number">{{item.data.preparation.maxAmount}}</span>
+              <span class="text-box" data-type="max" data-dtype="Number">{{item.preparation.maxAmount}}</span>
             </div>
             {{else}}
-            <a class="item-control item-toggle-data {{#if data.preparation.spontaneousPrepared}}enabled{{/if}}" data-name="data.preparation.spontaneousPrepared"
-              title="{{#if data.preparation.spontaneousPrepared}}{{localize "FFD20.Prepared"}}{{else}}{{localize "FFD20.Unprepared"}}{{/if}}">
-              <i class="fas fa-cog"></i>
+            <a class="item-control item-toggle-data {{#if item.preparation.spontaneousPrepared}}enabled{{/if}}" data-name="system.preparation.spontaneousPrepared"
+              title="{{#if system.preparation.spontaneousPrepared}}{{localize "FFD20.Prepared"}}{{else}}{{localize "FFD20.Unprepared"}}{{/if}}">
+              <i class="fas fa-cog spell-icon prepared"></i>
             </a>
             {{/unless}}
             {{else}}
@@ -442,20 +491,20 @@
           <div class="item-detail spell-activation"><span>{{labels.activation}}</span></div>
 
           <div class="item-detail spell-components tooltip">
-            {{#if (or data.materials.value data.materials.focus)}}
+            {{#if (or system.materials.value system.materials.focus)}}
             <span class="tooltipcontent">
-              {{#if data.materials.focus}}{{localize "FFD20.SpellComponentFocus"}}: {{data.materials.focus}}<br/>{{/if}}
-              {{#if data.materials.value}}{{localize "FFD20.SpellComponentMaterial"}}: {{data.materials.value}}<br/>{{/if}}
+              {{#if system.materials.focus}}{{localize "FFD20.SpellComponentFocus"}}: {{system.materials.focus}}<br/>{{/if}}
+              {{#if system.materials.value}}{{localize "FFD20.SpellComponentMaterial"}}: {{system.materials.value}}<br/>{{/if}}
             </span>
             {{/if}}
             <span>{{labels.components}}</span>
           </div>
 
           <div class="item-detail spell-school tooltip">
-            {{#if (or data.subschool data.types labels.damageTypes)}}
+            {{#if (or system.subschool system.types labels.damageTypes)}}
             <span class="tooltipcontent">
-                {{#if data.subschool}}{{localize "FFD20.SubSchool"}}: {{data.subschool}}<br/>{{/if}}
-                {{#if data.types}}{{localize "FFD20.TypePlural"}}: {{data.types}}<br/>{{/if}}
+                {{#if system.subschool}}{{localize "FFD20.SubSchool"}}: {{system.subschool}}<br/>{{/if}}
+                {{#if system.types}}{{localize "FFD20.TypePlural"}}: {{system.types}}<br/>{{/if}}
                 {{#if labels.damageTypes}}{{localize "FFD20.Damage"}}: {{labels.damageTypes}}<br/>{{/if}}
             </span>
             {{/if}}
@@ -472,10 +521,12 @@
         </li>
         {{/each}}
 
+        {{#if section.lowAbilityScore}}
+          <h4 class="spell-level-message">{{localize "FFD20.SpellScoreTooLow"}}</h4>
+        {{/if}}
         {{#if section.spellMessage}}
           <h4 class="spell-level-message">{{section.spellMessage}}</h4>
         {{/if}}
-
       </ol>
       {{/unless}}
       {{/each}}

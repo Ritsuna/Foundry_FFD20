@@ -2,7 +2,7 @@
 <div class="flexcol">
     <div class="tags">
         <h3 class="form-header">
-            <a class="help-browser" data-url="systems/ffd20/help/items/concepts/flags.hbs"><i class="fas fa-info-circle"></i></a>
+            <a class="help-browser" data-url="Help/Items/Flags"><i class="fas fa-info-circle"></i></a>
             {{localize "FFD20.Flags"}}
         </h3>
 
@@ -10,13 +10,13 @@
         <div class="form-group">
             <div class="form-fields boolean-flags">
                 <div class="data-selector">
-                    <a class="entry-selector" for="data.flags.boolean" data-fields="{{localize "FFD20.FlagsBoolean"}}" data-dtypes="String"><i class="fas fa-edit"></i></a>
-                    <label for="data.flags.boolean">{{localize "FFD20.FlagsBoolean"}}</label>
+                    <a class="entry-selector" for="system.flags.boolean" data-flag="true" data-flat="true" data-fields="{{localize "FFD20.FlagsBoolean"}}" data-dtypes="String"><i class="fas fa-edit"></i></a>
+                    <label for="system.flags.boolean">{{localize "FFD20.FlagsBoolean"}}</label>
                 </div>
 
                 <div class="tag-list flexrow">
-                    {{#each flags.boolean as |f|}}
-                    <span class="tag">{{f}}</span>
+                    {{#each flags.boolean as |value key|}}
+                    <span class="tag">{{key}}</span>
                     {{/each}}
                 </div>
             </div>
@@ -26,12 +26,12 @@
         <div class="form-group">
             <div class="form-fields dictionary-flags">
                 <div class="data-selector">
-                    <a class="entry-selector" for="data.flags.dictionary" data-fields="{{localize "FFD20.Name"}};{{localize "FFD20.Value"}}" data-dtypes="String;String"><i class="fas fa-edit"></i></a>
-                    <label for="data.flags.dictionary">{{localize "FFD20.FlagsDictionary"}}</label>
+                    <a class="entry-selector" for="system.flags.dictionary" data-flag="true" data-fields="{{localize "FFD20.Name"}};{{localize "FFD20.Value"}}" data-dtypes="String;String"><i class="fas fa-edit"></i></a>
+                    <label for="system.flags.dictionary">{{localize "FFD20.FlagsDictionary"}}</label>
                 </div>
             </div>
 
-            {{#if flags.dictionary.length}}
+            {{#if flags.dictionary}}
             <table>
                 <thead>
                     <tr>
@@ -40,10 +40,10 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {{#each flags.dictionary as |d|}}
+                    {{#each flags.dictionary as |value key|}}
                     <tr>
-                        <td>{{d.key}}</td>
-                        <td>{{d.value}}</td>
+                        <td>{{key}}</td>
+                        <td>{{value}}</td>
                     </tr>
                     {{/each}}
                 </tbody>
@@ -56,7 +56,7 @@
     {{#if scriptCalls}}
     <div class="script-calls">
         <h3 class="form-header">
-            <a class="help-browser" data-url="systems/ffd20/help/items/concepts/script-calls.hbs"><i class="fas fa-info-circle"></i></a>
+            <a class="help-browser" data-url="Help/Items/Script-Calls"><i class="fas fa-info-circle"></i></a>
             {{localize "FFD20.ScriptCalls.Name"}}
         </h3>
 
@@ -90,7 +90,7 @@
                 {{#unless hide}}
                 <li class="item flexrow" data-item-id="{{item._id}}">
                     <div class="item-name flexrow">
-                        <div class="item-image no-hover" style="background-image: url({{item.img}})"></div>
+                        <div class="item-image no-hover" style='background-image: url("{{item.img}}")'></div>
                         <h4>{{item.name}}</h4>
                     </div>
 

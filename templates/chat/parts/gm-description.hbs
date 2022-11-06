@@ -1,0 +1,18 @@
+<div class="gm-sensitive-always identified-info">
+  <section class="item-description">
+    <header class="flexrow description-header">
+      <h3 class="item-name">{{name}}{{#if hasCombinedName}} ({{actionName}}){{/if}}</h3>
+      <div class="description-metadata">
+        <i class="fas fa-user-secret"></i>
+      </div>
+    </header>
+    {{{description}}}
+  </section>
+  {{#if (and actionName actionDescription)}}
+    {{#if description}}<hr>{{/if}}
+    <section class="action-description">
+      <h3 class="action-name">{{actionName}}</h3>
+      {{{actionDescription}}}
+    </section>
+  {{/if}}
+</div>

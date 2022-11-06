@@ -1,0 +1,10 @@
+<h2>{{localize "FFD20.ChooseAnAction"}}</h2>
+
+<div class="actions">
+  {{#each actions as |action|}}
+  <div class="action" data-action="{{action._id}}">
+    <img src="{{action.img}}">
+    <span class="name">{{action.name}}</span>
+  </div>
+  {{/each}}
+</div>

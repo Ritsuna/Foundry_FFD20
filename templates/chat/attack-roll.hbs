@@ -1,22 +1,52 @@
-<div class="ffd20 chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenUuid}}data-token-uuid="{{tokenUuid}}"{{/if}}>
-  <header class="card-header flexrow">
-    <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
-    {{#if name}}<h3 class="item-name">{{name}}</h3>{{/if}}
-  </header>
+{{!-- Apply Damage button/widget --}}
+{{#*inline "applyDamageButton"}}
+  {{!-- Apply full damage --}}
+  <a class="inline-action" data-action="applyDamage" data-value="{{#if isHealing}}-{{/if}}{{damage}}" title="{{#if isHealing}}{{localize "FFD20.ApplyHealing"}}{{else}}{{localize "FFD20.ApplyDamage"}}{{/if}}"
+                                                                                                      data-tags="{{#if nonlethal}}nonlethal{{/if}}">
+    <i class="fas fa-hammer"></i>
+    <i class="absolute fas fa-plus"></i>
+  </a>
+  {{!-- Apply half damage --}}
+  <a class="inline-action" data-action="applyDamage" data-value="{{#if isHealing}}-{{/if}}{{halfNumber damage}}" title="{{localize "FFD20.ApplyHalf"}}"
+                                                                                                      data-tags="{{#if nonlethal}}nonlethal{{/if}}">
+    <i class="fas fa-hammer"></i>
+    <i class="absolute">½</i>
+  </a>
+{{/inline}}
 
-  <div class="card-content">
-    {{{data.description.value}}}
-  </div>
+{{!-- Damage row partial --}}
+{{#*inline "damageRow"}}
+  <tr>
+    {{#if dr.normal}}
+      <td class="roll">
+        <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.normal.roll.formula}}" data-roll="{{json-string dr.normal.roll}}">
+          <i class="fas fa-dice-d20"></i> {{dr.normal.roll.total}}
+        </a>
+      </td>
+      <td class="damage-types">{{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=dr.normal.damageType damageTypes=@root.damageTypes}}</td>
+    {{else}}
+      <td></td>
+      <td></td>
+    {{/if}}
+    {{#if atk.hasCritConfirm}}
+    {{#if dr.crit}}
+      <td class="roll">
+        <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.crit.roll.formula}}" data-roll="{{json-string dr.crit.roll}}">
+          <i class="fas fa-dice-d20"></i> {{dr.crit.roll.total}}
+        </a>
+      </td>
+      <td class="damage-type">{{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=dr.crit.damageType damageTypes=@root.damageTypes}}</td>
+    {{else}}
+      <td></td>
+      <td></td>
+    {{/if}}
+    {{/if}}
+  </tr>
+{{/inline}}
 
-  {{#if range}}
-  <div class="card-range" data-range="{{range}}" {{#if rangeFormula}}title="{{rangeFormula}}"{{/if}}>
-    {{localize "FFD20.Range"}}: {{rangeLabel}}
-  </div>
-  {{/if}}
-
-  {{#each attacks as |atk|}}
-  <div class="chat-attack">
-    {{#unless atk.notesOnly}}
+{{!-- Attack table partial --}}
+{{#*inline "attackTable"}}
+  {{#unless atk.notesOnly}}
     <table>
       <thead>
         {{#if atk.hasAttack}}
@@ -41,6 +71,7 @@
             <a class="attack-damage total fake-inline-roll inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.damage.total}}
             </a>
+            {{> applyDamageButton damage=atk.damage.total isHealing=atk.isHealing nonlethal=atk.nonlethal}}
           </th>
         </tr>
         {{/if}}
@@ -48,17 +79,17 @@
 
       <tbody>
         {{#if atk.hasAttack}}
-        <tr>
-          <td {{#if atk.hasCritConfirm}}colspan="2"{{else}}colspan="4"{{/if}}>
-            <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.attack.isCrit}} success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
-            title="{{atk.attack.formula}}" data-roll="{{atk.attack.rollJSON}}">
+        <tr class="attack">
+          <td {{#if atk.hasCritConfirm}}colspan="2"{{else}}colspan="4"{{/if}} class="roll">
+            <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.attack.isNat20}} natural-20{{/if}}{{#if atk.attack.isCrit}} critical-threat success{{/if}}{{#if atk.attack.isFumble}} failure{{/if}}"
+            title="{{atk.attack.formula}}" data-roll="{{json-string atk.attack.roll}}">
             <i class="fas fa-dice-d20"></i> {{atk.attack.total}}
             </a>
           </td>
           {{#if atk.hasCritConfirm}}
-          <td colspan="2">
+          <td colspan="2" class="roll">
             <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.critConfirm.isCrit}} success{{/if}}{{#if atk.critConfirm.isFumble}} failure{{/if}}"
-            title="{{atk.critConfirm.formula}}" data-roll="{{atk.critConfirm.rollJSON}}">
+            title="{{atk.critConfirm.formula}}" data-roll="{{json-string atk.critConfirm.roll}}">
             <i class="fas fa-dice-d20"></i> {{atk.critConfirm.total}}
             </a>
           </td>
@@ -66,12 +97,13 @@
         </tr>
 
         {{#if atk.hasDamage}}
-        <tr>
+        <tr class="damage">
           <th colspan="2">
             {{atk.damage.flavor}}
             <a class="fake-inline-roll inline-dsn-hidden inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.damage.total}}
             </a>
+            {{> applyDamageButton damage=atk.damage.total isHealing=atk.isHealing nonlethal=atk.nonlethal}}
           </th>
           {{#if atk.hasCritConfirm}}
           <th colspan="2">
@@ -79,38 +111,14 @@
             <a class="fake-inline-roll inline-dsn-hidden inline-result" title="{{localize "FFD20.Total"}}">
               {{atk.critDamage.total}}
             </a>
+            {{> applyDamageButton damage=atk.critDamage.total isHealing=atk.isHealing nonlethal=atk.nonlethal}}
           </th>
           {{/if}}
         </tr>
 
         {{!-- Damage parts in an attack --}}
         {{#each atk.damageRows as |dr|}}
-        <tr>
-          {{#if dr.normal}}
-          <td>
-            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.normal.roll.formula}}" data-roll="{{dr.normal.roll.json}}">
-              <i class="fas fa-dice-d20"></i> {{dr.normal.roll.total}}
-            </a>
-          </td>
-          <td>{{dr.normal.damageType}}</td>
-          {{else}}
-          <td></td>
-          <td></td>
-          {{/if}}
-          {{#if atk.hasCritConfirm}}
-          {{#if dr.crit}}
-          <td>
-            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.crit.roll.formula}}" data-roll="{{dr.crit.roll.json}}">
-              <i class="fas fa-dice-d20"></i> {{dr.crit.roll.total}}
-            </a>
-          </td>
-          <td>{{dr.crit.damageType}}</td>
-          {{else}}
-          <td></td>
-          <td></td>
-          {{/if}}
-          {{/if}}
-        </tr>
+          {{> damageRow atk=../atk dr=dr}}
         {{/each}}
         {{/if}}
 
@@ -118,37 +126,56 @@
 
         {{!-- Damage parts without an attack roll --}}
         {{#each atk.damageRows as |dr|}}
-        <tr>
-          {{#if dr.normal}}
-          <td>
-            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.normal.roll.formula}}" data-roll="{{dr.normal.roll.json}}">
-              <i class="fas fa-dice-d20"></i> {{dr.normal.roll.total}}
-            </a>
-          </td>
-          <td>{{dr.normal.damageType}}</td>
-          {{else}}
-          <td></td>
-          <td></td>
-          {{/if}}
-          {{#if atk.hasCritConfirm}}
-          {{#if dr.crit}}
-          <td>
-            <a class="inline-roll inline-dsn-hidden inline-result" title="{{dr.crit.roll.formula}}" data-roll="{{dr.crit.roll.json}}">
-              <i class="fas fa-dice-d20"></i> {{dr.crit.roll.total}}
-            </a>
-          </td>
-          <td>{{dr.crit.damageType}}</td>
-          {{else}}
-          <td></td>
-          <td></td>
-          {{/if}}
-          {{/if}}
-        </tr>
+          {{> damageRow atk=../atk dr=dr}}
         {{/each}}
         {{/if}}
       </tbody>
     </table>
-    {{/unless}}
+  {{else}}
+  {{#if atk.label}}
+    <table>
+      <thead>
+        <tr>
+          <th>
+            {{atk.label}}
+          </th>
+        </tr>
+      </thead>
+    </table>
+  {{/if}}
+  {{/unless}}
+
+  {{!-- Ammo --}}
+  {{#if atk.ammo}}
+    <div class="ammo group-container" data-ammo-id="{{atk.ammo.id}}">
+      <label class="group-title">{{localize "FFD20.LootTypeAmmoSingle"}}</label>
+      <img src="{{atk.ammo.img}}" />
+      <span class="name">{{atk.ammo.name}}</span>
+
+      {{!-- Recover --}}
+      <a class="inline-action" data-action="recoverAmmo" title="{{localize "FFD20.RecoverAmmunition"}}">
+        <i class="fas fa-rocket"></i>
+      </a>
+
+      {{!-- Force Recover --}}
+      <a class="inline-action" data-action="forceRecoverAmmo" title="{{localize "FFD20.ForceRecover"}}">
+        <i class="fas fa-rocket"></i>
+        <i class="absolute fas fa-plus"></i>
+      </a>
+    </div>
+  {{/if}}
+{{/inline}}
+
+<div class="ffd20 chat-card item-card" data-actor-id="{{actor._id}}" data-item-id="{{item._id}}" {{#if tokenUuid}}data-token-uuid="{{tokenUuid}}"{{/if}} {{#if actionId}}data-action-id="{{actionId}}"{{/if}}>
+  {{~> "systems/ffd20/templates/chat/parts/attack-roll-header.hbs"}}
+
+  {{#if targets}}
+  {{> "systems/ffd20/templates/chat/parts/attack-roll-targets.hbs"}}
+  {{/if}}
+
+  {{#each attacks as |atk idx|}}
+  <div class="chat-attack" data-index="{{idx}}">
+    {{> attackTable atk=atk}}
 
     {{#if atk.hasCards}}
     <hr>
@@ -159,19 +186,23 @@
         <label>{{cardGroup.label}}</label>
         <div class="flexrow">
         {{#each cardGroup.items as |item|}}
-          <button data-action="{{item.action}}" data-value="{{item.value}}" data-tags="{{item.tags}}">{{item.label}}</button>
+          <button data-action="{{item.action}}" data-value="{{item.value}}" data-tags="{{item.tags}}"{{#if item.data}}{{#each item.data as |dValue dKey|}} data-{{dKey}}="{{dValue}}"{{/each}}{{/if}}>{{item.label}}</button>
         {{/each}}
         </div>
       </div>
       {{/each}}
       {{#if ../hasSave}}
-      <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}" data-tags="{{item.tags}}">{{../save.label}}</button>
+      <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}"
+        {{#if ../save.gmSensitiveLabel}} data-gm-sensitive-inner="{{../save.gmSensitiveLabel}}"{{/if}}
+        data-tags="{{item.tags}}">{{../save.label}}</button>
       {{/if}}
     </div>
     {{else}}
     <div class="card-button-group flexcol">
       {{#if ../hasSave}}
-      <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}">{{../save.label}}</button>
+      <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}"
+        {{#if ../save.gmSensitiveLabel}} data-gm-sensitive-inner="{{../save.gmSensitiveLabel}}"{{/if}}
+        data-tags="{{item.tags}}">{{../save.label}}</button>
       {{/if}}
     </div>
     {{/if}}
@@ -180,46 +211,5 @@
   </div>
   {{/each}}
 
-  <footer class="card-footer">
-    {{#if hasExtraText}}
-      <div class="extra-text gm-sensitive">{{{extraText}}}</div>
-    {{/if}}
-
-    {{#if spellFailure}}
-      <div class="spell-failure">
-        <h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3>
-        <div class="dice-roll">
-          <div class="dice-result">
-            <h4 class="dice-total spell-failure {{#unless spellFailureSuccess}}failure{{/unless}}">{{spellFailure}}</h4>
-          </div>
-        </div>
-      </div>
-    {{/if}}
-    {{#if (or concentrationCheck casterLevelCheck)}}
-    <div class='card-buttons spell-buttons flexrow'>
-      {{#if concentrationCheck}}
-      <div class="concentration">
-          <button data-action="concentration">{{localize "FFD20.ConcentrationCheck"}}</button>
-      </div>
-      {{/if}}
-      {{#if casterLevelCheck}}
-      <div class="caster-level-check">
-          <button data-action="caster-level-check">{{localize "FFD20.CasterLevelCheck"}}</button>
-      </div>
-      {{/if}}
-    </div>
-    {{/if}}
-    {{#if hasProperties}}
-      {{#each properties as |prop|}}
-        <div class="flexcol property-group gm-sensitive general-notes">
-          <label>{{prop.header}}</label>
-          <div class="flexrow">
-            {{#each prop.value as |v|}}
-              <span class="tag">{{{v}}}</span>
-            {{/each}}
-          </div>
-        </div>
-      {{/each}}
-    {{/if}}
-  </footer>
+  {{~> "systems/ffd20/templates/chat/parts/attack-roll-footer.hbs"}}
 </div>

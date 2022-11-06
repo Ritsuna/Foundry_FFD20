@@ -1,14 +1,17 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
     {{#if canEdit.name}}
     <header>
-        <h1 class="charname">
+        <h1>
             <input name="name" type="text" value="{{name}}" placeholder="{{localize "FFD20.Name"}}" title="{{localize "Name"}}"/>
         </h1>
     </header>
     {{/if}}
 
     <div class="form-group stacked command">
-        <label>{{localize "FFD20.Command"}}</label>
+        <label>
+          {{localize "FFD20.Command"}}
+          <a class="help-browser" data-url="Help/Items/{{#if isScriptCall}}Script-Calls{{else}}Changes#script-operator{{/if}}"><i class="far fa-question-circle"></i></a>
+        </label>
         <textarea name="command">{{command}}</textarea>
     </div>
 

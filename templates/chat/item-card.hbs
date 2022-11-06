@@ -1,11 +1,13 @@
 <div class="ffd20 chat-card item-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
   <header class="card-header flexrow">
-    <img src="{{item.img}}" title="{{item.name}}" width="36" height="36"/>
-    <h3 class="item-name">{{item.name}}</h3>
+    <img src="{{item.img}}" title="{{name}}" width="36" height="36"/>
+    <h3 class="item-name">{{name}}</h3>
   </header>
 
   <div class="card-content">
-    {{{data.description.value}}}
+    <section class="item-description">
+      {{{description}}}
+    </section>
   </div>
 
   <footer class="card-footer">
@@ -22,13 +24,13 @@
     {{/if}}
     {{/if}}
     {{#if data.materials.value}}
-    <p><strong>{{ localize "FFD20.ChatReqMats" }}.</strong> {{data.materials.value}}</p>
+    <p><strong>{{ localize "FFD20.ChatReqMats" }}:</strong> {{data.materials.value}}</p>
     {{/if}}
 
     {{#if data.properties.length}}
     <div class="flexcol property-group gm-sensitive">
       <label>{{localize "FFD20.Tags"}}</label>
-      <div class="flexrow">
+      <div class="flexrow tag-list">
         {{#each data.properties}}
         <span class="tag">{{{this}}}</span>
         {{/each}}
@@ -40,7 +42,7 @@
     {{#each extraProperties as |prop|}}
     <div class="flexcol property-group gm-sensitive">
       <label>{{prop.header}}</label>
-      <div class="flexrow">
+      <div class="flexrow tag-list">
         {{#each prop.value as |v|}}
         <span class="tag">{{v}}</span>
         {{/each}}

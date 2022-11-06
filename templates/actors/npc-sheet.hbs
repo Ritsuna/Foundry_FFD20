@@ -2,7 +2,7 @@
 
     {{!-- NPC Sheet Navigation --}}
     <nav class="sheet-navigation tabs" data-group="primary">
-      <a class="item active" data-tab="summary">{{ localize "FFD20.Summary" }}</a>
+      <a class="item" data-tab="summary">{{ localize "FFD20.Summary" }}</a>
       <a class="item" data-tab="attributes">{{ localize "FFD20.Attributes" }}</a>
       <a class="item" data-tab="combat">{{ localize "FFD20.Combat" }}</a>
       <a class="item" data-tab="inventory">{{ localize "FFD20.Inventory" }}</a>
@@ -31,7 +31,7 @@
 
       {{!-- Combat Tab --}}
       <div class="tab combat flexcol" data-group="primary" data-tab="combat">
-        {{> "systems/ffd20/templates/actors/parts/actor-combat.hbs" sections=attacks}}
+        {{~> "systems/ffd20/templates/actors/parts/actor-combat.hbs" sections=attacks}}
       </div>
 
       {{!-- Inventory Tab --}}
@@ -63,13 +63,13 @@
 
       {{!-- Biography Tab --}}
       <div class="tab biography flexcol" data-group="primary" data-tab="biography">
-        {{roll-editor content=data.details.biography.value target="data.details.biography.value" button=true owner=owner editable=editable}}
+        {{editor biographyHTML target="system.details.biography.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
       </div>
 
       {{!-- Notes Tab --}}
       <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
         <div class="primary-content">
-          {{roll-editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+          {{editor notesHTML target="system.details.notes.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
         </div>
 
         {{#if table_magicItems}}

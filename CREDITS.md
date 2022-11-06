@@ -153,3 +153,7 @@ People and credits are listed in no particular order.
 ## claudekennilol
 
 - Made some code contributions
+
+## Daniela Howe and Ivan Montiel
+
+- Created the [RPG Awesome font and CSS toolkit](https://github.com/nagoshiashumari/Rpg-Awesome)

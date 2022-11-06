@@ -13,7 +13,7 @@
         </thead>
 
         <tbody>
-            {{#each data.abilities as |ability id|}}
+            {{#each system.abilities as |ability id|}}
             <tr class="ability" data-ability="{{id}}">
                 {{!-- Ability name --}}
                 <th class="tooltip">
@@ -32,12 +32,14 @@
                         {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                         {{/if}}
 
-                        {{#with (lookup ../sourceDetails.data.abilities id)}}
+                        {{#with (lookup ../sourceDetails.system.abilities id)}}
                         {{#if mod.length}}
                         <br/>{{localize "FFD20.FromSources"}} ({{localize "FFD20.Modifier"}}):<br/>
                         {{#each mod as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                         {{/if}}
                         {{/with}}
+
+                        {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "abilityChecks." id)}}
                     </span>
 
                     <a class="ability-name rollable">
@@ -48,7 +50,7 @@
 
                 {{!-- Total --}}
                 <td>
-                    <span class="text-box direct" name="data.abilities.{{id}}.value" data-dtype="String">{{ability.totalLabel}}</span>
+                    <span class="text-box direct" name="system.abilities.{{id}}.value" data-dtype="String">{{ability.totalLabel}}</span>
                 </td>
 
                 {{!-- Modifier --}}
@@ -56,17 +58,17 @@
 
                 {{!-- Damage --}}
                 <td>
-                    <span class="text-box direct allow-relative" name="data.abilities.{{id}}.damage" data-dtype="Number">{{#if ability.damage}}{{ability.damage}}{{/if}}</span>
+                    <span class="text-box direct allow-relative" name="system.abilities.{{id}}.damage" data-dtype="Number">{{#if ability.damage}}{{ability.damage}}{{/if}}</span>
                 </td>
 
                 {{!-- Drain --}}
                 <td>
-                    <span class="text-box direct allow-relative" name="data.abilities.{{id}}.drain" data-dtype="Number">{{#if ability.drain}}{{ability.drain}}{{/if}}</span>
+                    <span class="text-box direct allow-relative" name="system.abilities.{{id}}.drain" data-dtype="Number">{{#if ability.drain}}{{ability.drain}}{{/if}}</span>
                 </td>
 
                 {{!-- Penalty --}}
                 <td>
-                    <span class="text-box direct allow-relative" name="data.abilities.{{id}}.userPenalty" data-dtype="Number">{{#if ability.userPenalty}}{{ability.userPenalty}}{{/if}}</span>
+                    <span class="text-box direct allow-relative" name="system.abilities.{{id}}.userPenalty" data-dtype="Number">{{#if ability.userPenalty}}{{ability.userPenalty}}{{/if}}</span>
                 </td>
             </tr>
             {{/each}}
@@ -78,30 +80,48 @@
             <th class="tooltip">
                 {{localize "FFD20.ACP"}}
                 <div class="tooltipcontent">
-                    @attributes.acp.total : {{data.attributes.acp.total}}
+                    @attributes.acp.total : {{system.attributes.acp.total}}
 
-                    {{#if sourceDetails.data.attributes.acp.total.length}}
+                    {{#if sourceDetails.system.attributes.acp.total.length}}
                     <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
-                    {{#each sourceDetails.data.attributes.acp.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                    {{#each sourceDetails.system.attributes.acp.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                    {{/if}}
+
+                    {{#if sourceDetails.system.attributes.acp.armorBonus.length}}
+                    <br/>{{localize "FFD20.EquipTypeArmor"}}:<br/>
+                    {{#each sourceDetails.system.attributes.acp.armorBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
+                    {{/if}}
+                    {{#if sourceDetails.system.attributes.acp.shieldBonus.length}}
+                    <br/>{{localize "FFD20.EquipTypeShield"}}:<br/>
+                    {{#each sourceDetails.system.attributes.acp.shieldBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
                     {{/if}}
                 </div>
             </th>
             <th class="tooltip">
                 {{localize "FFD20.MaxDexShort"}}
                 <div class="tooltipcontent">
-                    @attributes.maxDexBonus : {{data.attributes.maxDexBonus}}
+                    @attributes.maxDexBonus : {{system.attributes.maxDexBonus}}
 
-                    {{#if sourceDetails.data.attributes.maxDexBonus.length}}
+                    {{#if sourceDetails.system.attributes.maxDexBonus.length}}
                     <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
-                    {{#each sourceDetails.data.attributes.maxDexBonus as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                    {{#each sourceDetails.system.attributes.maxDexBonus as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                    {{/if}}
+
+                    {{#if sourceDetails.system.attributes.mDex.armorBonus.length}}
+                    <br/>{{localize "FFD20.EquipTypeArmor"}}:<br/>
+                    {{#each sourceDetails.system.attributes.mDex.armorBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
+                    {{/if}}
+                    {{#if sourceDetails.system.attributes.mDex.shieldBonus.length}}
+                    <br/>{{localize "FFD20.EquipTypeShield"}}:<br/>
+                    {{#each sourceDetails.system.attributes.mDex.shieldBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
                     {{/if}}
                 </div>
             </th>
         </thead>
 
         <tbody>
-            <td class='acp'>{{data.attributes.acp.total}}</td>
-            <td class='maxdex'>{{data.attributes.maxDexBonus}}</td>
+            <td class="acp">{{system.attributes.acp.total}}</td>
+            <td class="maxdex">{{system.attributes.maxDexBonus}}</td>
         </tbody>
     </table>
 </div>

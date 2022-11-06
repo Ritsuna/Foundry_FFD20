@@ -1,0 +1,29 @@
+<div class="form-group {{system.armorProf.cssClass}}">
+  <label for="system.weaponProf">{{localize "FFD20.TraitWeaponProf"}}</label>
+  <ul class="traits-list tag-list">
+    {{#each system.weaponProf.selected as |v k|}}
+      <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+  </ul>
+  <a class="trait-selector" data-options="weaponProficiencies"><i class="fas fa-edit"></i></a>
+</div>
+
+<div class="form-group {{system.armorProf.cssClass}}">
+  <label for="system.armorProf">{{localize "FFD20.TraitArmorProf"}}</label>
+  <ul class="traits-list tag-list">
+    {{#each system.armorProf.selected as |v k|}}
+      <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+  </ul>
+  <a class="trait-selector" data-options="armorProficiencies"><i class="fas fa-edit"></i></a>
+</div>
+
+<div class="form-group {{system.languages.cssClass}}">
+  <label for="system.languages">{{localize "FFD20.Languages"}}</label>
+  <ul class="traits-list tag-list">
+    {{#each system.languages.selected as |v k|}}
+      <li class="tag {{k}}">{{v}}</li>
+    {{/each}}
+  </ul>
+  <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+</div>

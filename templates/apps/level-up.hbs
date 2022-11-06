@@ -1,43 +1,40 @@
 <form class="{{cssClass}}" autocomplete="off">
-    {{#unless health.autoHP}}
-    <div class="part">
-        <h4 class="form-header">{{localize "FFD20.LevelUpForm_Health"}}</h4>
+  <div class="tab section flexcol" data-section="{{section.name}}" data-section-index="{{sectionIdx}}">
+    <h2 class="form-header">{{localize section.label}}</h2>
 
-        <div class="health">
-            <div class="switch roll-health">
-                <input class="switch-check" type="checkbox" checked name="health.roll" id="{{uuid}}.health.roll">
-                <label class="switch-label" for="{{uuid}}.health.roll">
-                    <span class="switch-primary">{{localize "FFD20.LevelUpForm_Health_Roll"}}</span>
-                    <span class="switch-secondary">{{localize "FFD20.LevelUpForm_Health_Manual"}}</span>
-                </label>
-            </div>
+    {{#if section.items}}
+      <div class="flexrow">
+        <nav class="list-selector" data-content="{{section.name}}">
+          {{#each section.items as |item a|}}
+            <a class="item{{#if (eq item.id ../section.currentItem.id)}} active{{/if}}" data-id="{{item.id}}" data-target="{{item.target}}" data-type="{{item.type}}">
+              {{#if item.img}}
+                <img src="{{item.img}}"></img>
+              {{else}}
+                <span class="fake-img"></span>
+              {{/if}}
+              <span class="name">{{item.name}}</span>
+            </a>
+          {{/each}}
+        </nav>
 
-            <input type="text" disabled name="health.manual_value" value="{{health.manualValue}}" />
+        <div class="content {{section.name}}-body">
+          {{#with section.currentItem}}
+            {{#if (eq type "html")}}
+              {{> (lookup . "target") ..}}
+            {{/if}}
+          {{/with}}
         </div>
-    </div>
-    {{/unless}}
-
-    {{#if fc.allowed}}
-    <div class="part">
-        <h4 class="form-header">{{localize "FFD20.FavouredClassBonus.Label"}}</h4>
-
-        <div class="fc">
-            {{#each fc.types as |fc|}}
-                <div class="switch fc-type">
-                    <input class="switch-check" type="radio" {{checked fc.checked}} name="fc.type" value="{{fc.key}}" id="{{uuid}}.fc.type.{{fc.key}}">
-                    <label class="switch-label" for="{{uuid}}.fc.type.{{fc.key}}">
-                        <span class="switch-primary">{{fc.label}}</span>
-                        <span class="switch-secondary">{{fc.label}}</span>
-                    </label>
-                </div>
-            {{/each}}
-        </div>
-    </div>
+      </div>
     {{/if}}
 
-    <div class="form-group">
-        <button type="submit" name="submit" >
-            <i class="far fa-save"></i> {{localize "FFD20.Submit"}}
-        </button>
-    </div>
+    {{#if section.template}}
+      {{> (lookup section "template") .}}
+    {{/if}}
+  </div>
+
+  <div class="nav-buttons">
+    <button type="button" disabled data-type="previous">{{localize "FFD20.Previous"}}</button>
+    <button type="button" disabled data-type="next">{{localize "FFD20.Next"}}</button>
+    <button type="submit" disabled data-type="submit">{{localize "FFD20.Submit"}}</button>
+  </div>
 </form>

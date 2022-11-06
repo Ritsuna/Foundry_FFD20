@@ -1,4 +1,19 @@
 # Changelog
+## 10.1.2 - 2022-10-20
+
+### Changelog
+- update to foundry v10 and pf1 0.82.2
+
+## 9.1.0 - 2022-10-20
+
+### Changelog
+- update to pf1 0.80.0
+
+## 0.2.26 - 2022-10-18
+
+### Changelog
+- update to pf1 0.79.2
+
 ## 0.2.25
 
 ### Bug Fixes

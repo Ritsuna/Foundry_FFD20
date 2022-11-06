@@ -4,11 +4,11 @@
 {{!-- Caster Level --}}
 <div class="form-group tooltip">
   <div class="tooltipcontent">
-    @item.cl : {{data.cl}}
+    @item.cl : {{system.cl}}
   </div>
-  <label>{{localize "FFD20.CasterLevel"}}</label>
+  <label class="header">{{localize "FFD20.CasterLevel"}}</label>
   <div class="form-fields">
-    <input type="text" name="data.cl" value="{{data.cl}}" placeholder="{{localize "FFD20.CasterLevel"}}" data-dtype="Number"/>
+    <input type="text" class="select-on-click" name="system.cl" value="{{system.cl}}" placeholder="{{localize "FFD20.CasterLevel"}}" data-dtype="Number"/>
   </div>
 </div>
 
@@ -17,28 +17,31 @@
   <div class="tooltipcontent">
     @item.auraStrength : {{auraStrength}}
   </div>
-  <label>{{localize "FFD20.Aura"}}</label>
-  {{#if data.aura.custom}}
+  <label class="header">{{localize "FFD20.Aura"}}</label>
+  {{#if system.aura.custom}}
   <div class="form-fields">
     <label class="aura-strength">{{auraStrength_name}}</label>
-    <input type="text" name="data.aura.school" value="{{data.aura.school}}" placeholder="{{localize "FFD20.Aura"}}"/>
+    <input type="text" name="system.aura.school" value="{{system.aura.school}}" placeholder="{{localize "FFD20.Aura"}}"/>
+    <label class="checkbox">
+      <input type="checkbox" name="system.aura.custom" {{checked system.aura.custom}}/> {{localize "FFD20.Custom"}}
+    </label>
   </div>
   {{else}}
   <div class="form-fields">
     <label class="aura-strength">{{auraStrength_name}}</label>
-    <select name="data.aura.school">
-      {{#select data.aura.school}}
+    <select name="system.aura.school">
+      {{#select system.aura.school}}
       <option value=""></option>
       {{#each config.spellSchools as |name k|}}
       <option value="{{k}}">{{name}}</option>
       {{/each}}
       {{/select}}
     </select>
+    <label class="checkbox">
+      <input type="checkbox" name="system.aura.custom" {{checked system.aura.custom}}/> {{localize "FFD20.Custom"}}
+    </label>
   </div>
   {{/if}}
-  <label class="checkbox">
-    <input type="checkbox" name="data.aura.custom" {{checked data.aura.custom}}/> {{localize "FFD20.Custom"}}
-  </label>
 </div>
 
 {{!-- Identify DC --}}

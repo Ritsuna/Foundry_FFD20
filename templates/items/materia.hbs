@@ -15,7 +15,12 @@
           {{#unless showUnidentifiedData}}{{labels.equipmentSubtype}}{{/unless}}
         </li>
         <li>
-          {{#if hasMultipleSlots}}{{#unless showUnidentifiedData}}{{labels.slot}}{{/unless}}{{/if}}
+          {{#if isMateria}}{{data.materiaRarity}}
+          {{else}}
+          {{#if hasMultipleSlots}}
+          {{#unless showUnidentifiedData}}{{labels.slot}}{{/unless}}
+          {{/if}}
+          {{/if}}
         </li>
       </ul>
     </div>

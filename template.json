@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["character", "npc"],
+    "types": ["character", "npc", "basic"],
     "templates": {
       "common": {
         "abilities": {
@@ -56,6 +56,7 @@
             "flatFooted": {}
           },
           "cmd": {
+            "strAbility": "str",
             "dexAbility": "dex"
           },
           "sr": {
@@ -90,18 +91,24 @@
             "value": 0,
             "base": 0,
             "temp": 0,
-            "nonlethal": 0
+            "nonlethal": 0,
+            "max": 0,
+            "offset": 0
           },
           "wounds": {
             "min": 0,
             "base": 0,
-            "value": 0
+            "value": 0,
+            "max": 0,
+            "offset": 0
           },
           "vigor": {
             "min": 0,
             "value": 0,
             "temp": 0,
-            "base": 0
+            "base": 0,
+            "max": 0,
+            "offset": 0
           },
           "mp": {
             "value": 0,
@@ -139,13 +146,11 @@
           },
           "conditions": {},
           "spells": {
-            "usedSpellbooks": [],
             "spellbooks": {
               "primary": {
-                "altName": "",
+                "name": "",
                 "castPerDayAllOffsetFormula": "",
                 "preparedAllOffsetFormula": "",
-                "name": "Primary",
                 "casterType": "high",
                 "class": "",
                 "cl": {
@@ -157,6 +162,7 @@
                 "ability": "int",
                 "autoSpellLevelCalculation": false,
                 "autoSpellLevels": false,
+                "psychic": false,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -211,10 +217,9 @@
                 "domainSlotValue": 1
               },
               "secondary": {
-                "altName": "",
+                "name": "",
                 "castPerDayAllOffsetFormula": "",
                 "preparedAllOffsetFormula": "",
-                "name": "Secondary",
                 "casterType": "high",
                 "class": "",
                 "cl": {
@@ -226,6 +231,7 @@
                 "ability": "int",
                 "autoSpellLevelCalculation": false,
                 "autoSpellLevels": false,
+                "psychic": false,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -280,10 +286,9 @@
                 "domainSlotValue": 1
               },
               "tertiary": {
-                "altName": "",
+                "name": "",
                 "castPerDayAllOffsetFormula": "",
                 "preparedAllOffsetFormula": "",
-                "name": "Tertiary",
                 "casterType": "high",
                 "class": "",
                 "cl": {
@@ -295,6 +300,7 @@
                 "ability": "int",
                 "autoSpellLevelCalculation": false,
                 "autoSpellLevels": false,
+                "psychic": false,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -349,10 +355,9 @@
                 "domainSlotValue": 1
               },
               "quaternary": {
-                "altName": "",
+                "name": "",
                 "castPerDayAllOffsetFormula": "",
                 "preparedAllOffsetFormula": "",
-                "name": "Quaternary",
                 "casterType": "high",
                 "class": "",
                 "cl": {
@@ -364,6 +369,7 @@
                 "ability": "int",
                 "autoSpellLevelCalculation": false,
                 "autoSpellLevels": false,
+                "psychic": false,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
@@ -418,10 +424,9 @@
                 "domainSlotValue": 1
               },
               "spelllike": {
-                "altName": "",
+                "name": "",
                 "castPerDayAllOffsetFormula": "",
                 "preparedAllOffsetFormula": "",
-                "name": "Spell-likes",
                 "casterType": "high",
                 "class": "_hd",
                 "cl": {
@@ -433,13 +438,14 @@
                 "ability": "cha",
                 "autoSpellLevelCalculation": false,
                 "autoSpellLevels": false,
+                "psychic": false,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
                 "spontaneous": true,
                 "spellPoints": {
-                  "useSystem": false
+                  "useSystem": true
                 },
                 "spells": {
                   "spell0": {
@@ -766,12 +772,33 @@
         "customSkills": {},
         "traits": {
           "size": "med",
-          "senses": "",
+          "senses": {
+            "dv": 0,
+            "ts": 0,
+            "bs": 0,
+            "bse": 0,
+            "ll": {
+              "enabled": false,
+              "multiplier": {
+                "dim": 2,
+                "bright": 2
+              }
+            },
+            "sid": false,
+            "tr": false,
+            "si": false,
+            "sc": false,
+            "custom": ""
+          },
           "dr": "",
           "eres": "",
           "cres": "",
           "regen": "",
           "fastHealing": "",
+          "languages": {
+            "value": [],
+            "custom": ""
+          },
           "di": {
             "value": [],
             "custom": ""
@@ -804,7 +831,8 @@
       "templates": ["common"],
       "details": {
         "xp": {
-          "value": 0
+          "value": 0,
+          "max": 0
         },
         "height": "",
         "weight": "",
@@ -844,10 +872,6 @@
           "custom": ""
         },
         "armorProf": {
-          "value": [],
-          "custom": ""
-        },
-        "languages": {
           "value": [],
           "custom": ""
         }
@@ -902,15 +926,19 @@
       },
       "physicalItem": {
         "quantity": 1,
-        "weight": 0,
+        "weight": {
+          "value": 0
+        },
         "price": 0,
         "size": "med",
+        "equipped": true,
         "resizing": false,
         "identified": true,
         "hp": {
           "max": 10,
           "value": 10
         },
+        "broken": false,
         "hardness": 0,
         "carried": true,
         "unidentified": {
@@ -924,79 +952,15 @@
           "school": ""
         }
       },
-      "activatedEffect": {
-        "activation": {
-          "cost": 1,
-          "type": ""
-        },
-        "unchainedAction": {
-          "activation": {
-            "cost": 1,
-            "type": ""
-          }
-        },
-        "duration": {
-          "value": null,
-          "units": ""
-        },
-        "target": {
-          "value": ""
-        },
-        "range": {
-          "value": null,
-          "units": "",
-          "maxIncrements": 1,
-          "minValue": null,
-          "minUnits": ""
-        },
-        "uses": {
-          "value": 0,
-          "per": null,
-          "autoDeductCharges": true,
-          "autoDeductChargesCost": "1",
-          "maxFormula": ""
-        }
-      },
       "action": {
-        "measureTemplate": {
-          "type": "",
-          "size": "",
-          "overrideColor": false,
-          "customColor": "",
-          "overrideTexture": false,
-          "customTexture": ""
+        "actions": [],
+        "uses": {
+          "per": null,
+          "value": 0,
+          "maxFormula": ""
         },
-        "attackName": "",
-        "actionType": null,
-        "attackBonus": "",
-        "critConfirmBonus": "",
-        "damage": {
-          "parts": [],
-          "critParts": [],
-          "nonCritParts": []
-        },
-        "attackParts": [],
-        "formulaicAttacks": {
-          "count": { "formula": "" },
-          "bonus": { "formula": "" },
-          "label": null
-        },
-        "formula": "",
-        "ability": {
-          "attack": null,
-          "damage": null,
-          "damageMult": 1,
-          "critRange": 20,
-          "critMult": 2
-        },
-        "save": {
-          "dc": 0,
-          "type": "",
-          "description": ""
-        },
-        "effectNotes": [],
         "attackNotes": [],
-        "soundEffect": ""
+        "effectNotes": []
       },
       "links": {
         "links": {
@@ -1007,7 +971,9 @@
         "inventoryItems": [],
         "maxWeight": null,
         "weightReduction": 0,
-        "baseWeight": 0,
+        "weight": {
+          "value": 0
+        },
         "sellMultiplier": 0.5,
         "currency": {
           "pgil": 0,
@@ -1036,9 +1002,17 @@
       },
       "flags": {
         "flags": {
-          "boolean": [],
-          "dictionary": []
+          "boolean": {},
+          "dictionary": {}
         }
+      },
+      "enhancable": {
+        "masterwork": false,
+        "enh": null
+      },
+      "hasAttack": {
+        "proficient": true,
+        "held": "normal"
       }
     },
     "class": {
@@ -1084,38 +1058,32 @@
       "hideFromToken": false
     },
     "consumable": {
-      "templates": [
-        "itemDescription",
-        "physicalItem",
-        "activatedEffect",
-        "action",
-        "links",
-        "tagged",
-        "flags",
-        "scriptCalls"
-      ],
+      "templates": ["itemDescription", "physicalItem", "action", "links", "tagged", "flags", "scriptCalls"],
       "consumableType": "potion",
       "uses": {
         "value": 0,
         "maxFormula": "",
-        "per": null
+        "per": null,
+        "pricePerUse": 0
       },
       "links": {
         "charges": []
-      }
+      },
+      "showInQuickbar": false
     },
     "equipment": {
       "templates": [
         "itemDescription",
         "physicalItem",
-        "activatedEffect",
         "changes",
         "contextNotes",
         "action",
         "links",
         "tagged",
         "flags",
-        "scriptCalls"
+        "scriptCalls",
+        "enhancable",
+        "hasAttack"
       ],
       "equipped": true,
       "equipmentType": "armor",
@@ -1128,12 +1096,10 @@
       },
       "spellFailure": 0,
       "slot": "slotless",
-      "masterwork": false,
-      "broken": false,
-      "nonlethal": false,
       "links": {
         "charges": []
       },
+      "showInQuickbar": false,
       "isMateria": false,
       "materiaRarity": "common",
       "materiaSlot": "unslotted",
@@ -1151,7 +1117,6 @@
     "feat": {
       "templates": [
         "itemDescription",
-        "activatedEffect",
         "action",
         "changes",
         "contextNotes",
@@ -1166,13 +1131,13 @@
         "classes": []
       },
       "showInQuickbar": false,
-      "nonlethal": false,
       "abilityType": "none",
       "crOffset": "",
       "links": {
         "charges": []
       },
-      "disabled": false
+      "disabled": false,
+      "classSkills": {}
     },
     "loot": {
       "templates": [
@@ -1186,10 +1151,10 @@
         "scriptCalls"
       ],
       "subType": "misc",
-      "equipped": true
+      "extraType": ""
     },
     "spell": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "flags", "scriptCalls"],
+      "templates": ["itemDescription", "action", "links", "flags", "scriptCalls"],
       "learnedAt": {
         "class": [],
         "domain": [],
@@ -1210,6 +1175,8 @@
         "value": "",
         "verbal": true,
         "somatic": true,
+        "thought": false,
+        "emotion": false,
         "material": false,
         "focus": false,
         "divineFocus": 0
@@ -1230,13 +1197,7 @@
       "atWill": false,
       "sr": true,
       "shortDescription": "",
-      "spellDuration": "",
-      "spellEffect": "",
-      "spellArea": "",
       "showInQuickbar": false,
-      "spellPoints": {
-        "cost": "@sl"
-      },
       "domain": false,
       "slotCost": 1
     },
@@ -1245,51 +1206,43 @@
         "itemDescription",
         "physicalItem",
         "changes",
+        "action",
         "contextNotes",
         "links",
         "tagged",
         "flags",
-        "scriptCalls"
+        "scriptCalls",
+        "enhancable",
+        "hasAttack"
       ],
-      "equipped": true,
-      "masterwork": false,
-      "nonlethal": false,
+      "weaponGroups": {
+        "value": [],
+        "custom": ""
+      },
       "weaponType": "simple",
       "weaponSubtype": "light",
       "properties": {},
-      "enh": null,
-      "weaponData": {
-        "damageRoll": "",
-        "damageType": "",
-        "critRange": 20,
-        "critMult": 2,
-        "range": null,
-        "attackFormula": "",
-        "damageFormula": "",
-        "maxRangeIncrements": 1
-      },
-      "broken": false
+      "showInQuickbar": true,
+      "ammoType": ""
     },
     "attack": {
-      "templates": ["itemDescription", "activatedEffect", "action", "links", "tagged", "flags", "scriptCalls"],
-      "attackType": "weapon",
-      "masterwork": false,
-      "nonlethal": false,
-      "enh": null,
-      "proficient": true,
-      "primaryAttack": true,
+      "templates": ["itemDescription", "action", "links", "tagged", "flags", "scriptCalls", "enhancable", "hasAttack"],
       "showInQuickbar": true,
       "broken": false,
-      "held": "normal",
-      "conditionals": [],
       "links": {
-        "charges": [],
-        "ammunition": []
+        "charges": []
+      },
+      "ammoType": "",
+      "attackType": "",
+      "weaponGroups": {
+        "value": [],
+        "custom": ""
       }
     },
     "race": {
       "templates": ["itemDescription", "changes", "contextNotes", "links", "proficiencies", "flags", "scriptCalls"],
       "creatureType": "humanoid",
+      "size": "med",
       "subTypes": []
     },
     "container": {

@@ -1,27 +1,31 @@
 {{#if isGM}}
-<div class='flexcol'>
-<h3 class="charname">
-	<input name="name" type="text" value="{{item.name}}" placeholder="{{localize 'FFD20.ItemName'}}" />
-</h3>
-<!-- <div class="flex-break"></div>-->
-<h3 class="charname">
-	<input name="data.unidentified.name" type="text" value="{{data.unidentified.name}}"
-		placeholder="{{localize 'FFD20.UnidentifiedName'}}" />
-</h3>
+<div class="flexcol">
+  <h3 class="itemname">
+    <input name="name" type="text" value="{{ item.name }}" placeholder="{{localize 'FFD20.ItemName'}}" />
+  </h3>
+  <!-- <div class="flex-break"></div>-->
+  <h3 class="itemname">
+    <input
+      name="system.unidentified.name"
+      type="text"
+      value="{{ system.unidentified.name }}"
+      placeholder="{{localize 'FFD20.UnidentifiedName'}}"
+    />
+  </h3>
 </div>
 {{else}}
 {{#if showUnidentifiedData}}
-<h1 class="charname">
-	<input name="data.unidentified.name" type="text" value="{{itemName}}" placeholder="{{localize 'FFD20.ItemName'}}" />
+<h1 class="itemname">
+  <input name="system.unidentified.name" type="text" value="{{ itemName }}" placeholder="{{localize 'FFD20.ItemName'}}" />
 </h1>
 {{else}}
-<h1 class="charname">
-	<input name="name" type="text" value="{{itemName}}" placeholder="{{localize 'FFD20.ItemName'}}" />
+<h1 class="itemname">
+  <input name="name" type="text" value="{{ itemName }}" placeholder="{{localize 'FFD20.ItemName'}}" />
 </h1>
 {{/if}}
 {{/if}}
 
 <div class="item-subtitle">
-	<h4 class="item-type">{{localize "FFD20.Item"}}</h4>
-	<span class="item-status">{{itemStatus}}</span>
+  <h4 class="item-type">{{localize "FFD20.Item"}}</h4>
+  <span class="item-status">{{ itemStatus }}</span>
 </div>

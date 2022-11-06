@@ -7,7 +7,7 @@
     <label>{{localize "FFD20.SpellBookPlural"}}</label>
     {{#each spellbookData as |spellbook a|}}
         <label class="checkbox">
-            <input type="checkbox" {{checked spellbook.orig.inUse}} name="spellbook-{{a}}-inuse" /> {{spellbook.orig.name}}
+            <input type="checkbox" {{checked spellbook.orig.inUse}} name="system.attributes.spells.spellbooks.{{a}}.inUse" /> {{localize spellbook.orig.label}}
         </label>
     {{/each}}
 </div>
@@ -20,20 +20,20 @@
 
   <div class="form-group stacked">
     <label class="checkbox">
-      <input type="checkbox" name="data.classResource.res1.on" {{checked data.classResource.res1.on}}/>
-      <input type="text" name="data.classResource.res1.name" value="{{data.classResource.res1.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+      <input type="checkbox" name="system.classResource.res1.on" {{checked system.classResource.res1.on}}/>
+      <input type="text" name="system.classResource.res1.name" value="{{system.classResource.res1.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.classResource.res2.on" {{checked data.classResource.res2.on}}/>
-      <input type="text" name="data.classResource.res2.name" value="{{data.classResource.res2.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+      <input type="checkbox" name="system.classResource.res2.on" {{checked system.classResource.res2.on}}/>
+      <input type="text" name="system.classResource.res2.name" value="{{system.classResource.res2.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.classResource.res3.on" {{checked data.classResource.res3.on}}/>
-      <input type="text" name="data.classResource.res3.name" value="{{data.classResource.res3.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+      <input type="checkbox" name="system.classResource.res3.on" {{checked system.classResource.res3.on}}/>
+      <input type="text" name="system.classResource.res3.name" value="{{system.classResource.res3.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="data.classResource.res4.on" {{checked data.classResource.res4.on}}/>
-      <input type="text" name="data.classResource.res4.name" value="{{data.classResource.res4.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
+      <input type="checkbox" name="system.classResource.res4.on" {{checked system.classResource.res4.on}}/>
+      <input type="text" name="system.classResource.res4.name" value="{{system.classResource.res4.name}}" placeholder="{{localize "FFD20.ClassResources"}}" title="{{localize "FFD20.ClassResources"}}"/>
     </label>
 </div>
 
@@ -58,8 +58,8 @@
         {{!-- Hit Points --}}
         <div class="flexrow">
             <label class="cell left-label">{{localize "FFD20.HitPoints"}}</label>
-            <select name="data.attributes.hpAbility" class="cell midsize-cell">
-                {{#select data.attributes.hpAbility}}
+            <select name="system.attributes.hpAbility" class="cell midsize-cell">
+                {{#select system.attributes.hpAbility}}
                     <option value=""></option>
                     {{#each config.abilities as |ability a|}}
                         <option value="{{a}}">{{ability}}</option>
@@ -76,8 +76,8 @@
         {{!-- Initiative --}}
         <div class="flexrow">
             <label class="cell left-label">{{localize "FFD20.Initiative"}}</label>
-            <select data-name="data.attributes.init.ability" class="cell midsize">
-                {{#select data.attributes.init.ability}}
+            <select name="system.attributes.init.ability" class="cell midsize">
+                {{#select system.attributes.init.ability}}
                     <option value=""></option>
                     {{selectOptions config.abilities}}
                 {{/select}}
@@ -87,8 +87,8 @@
         {{!-- CMB --}}
         <div class="flexrow">
             <label class="cell left-label">{{localize "FFD20.CMB"}}</label>
-            <select name="data.attributes.cmbAbility" class="cell midsize">
-                {{#select data.attributes.cmbAbility}}
+            <select name="system.attributes.cmbAbility" class="cell midsize">
+                {{#select system.attributes.cmbAbility}}
                     <option value=""></option>
                     {{#each config.abilities as |label value|}}
                         <option value="{{value}}">{{label}}</option>
@@ -99,8 +99,8 @@
 
         <div class="flexrow">
             <label class="cell left-label">{{localize "FFD20.Melee"}}<!-- Attack --></label>
-            <select name="data.attributes.attack.meleeAbility" class="cell midsize">
-                {{#select data.attributes.attack.meleeAbility}}
+            <select name="system.attributes.attack.meleeAbility" class="cell midsize">
+                {{#select system.attributes.attack.meleeAbility}}
                     <option value=""></option>
                     {{#each config.abilities as |label value|}}
                         <option value="{{value}}">{{label}}</option>
@@ -111,8 +111,8 @@
 
         <div class="flexrow">
             <label class="cell left-label">{{localize "FFD20.Ranged"}}<!-- Attack --></label>
-            <select name="data.attributes.attack.rangedAbility" class="cell midsize">
-                {{#select data.attributes.attack.rangedAbility}}
+            <select name="system.attributes.attack.rangedAbility" class="cell midsize">
+                {{#select system.attributes.attack.rangedAbility}}
                     <option value=""></option>
                     {{#each config.abilities as |label value|}}
                         <option value="{{value}}">{{label}}</option>
@@ -128,8 +128,8 @@
 
         <div class="flexrow">
           <label class="cell left-label">{{localize "FFD20.ArmorClass"}}</label>
-          <select name="data.attributes.ac.normal.ability" class="cell midsize">
-              {{#select data.attributes.ac.normal.ability}}
+          <select name="system.attributes.ac.normal.ability" class="cell midsize">
+              {{#select system.attributes.ac.normal.ability}}
                   <option value=""></option>
                   {{#each config.abilities as |label value|}}
                       <option value="{{value}}">{{label}}</option>
@@ -140,8 +140,8 @@
 
         <div class="flexrow">
           <label class="cell left-label">{{localize "FFD20.ACTouch"}}</label>
-          <select name="data.attributes.ac.touch.ability" class="cell midsize">
-              {{#select data.attributes.ac.touch.ability}}
+          <select name="system.attributes.ac.touch.ability" class="cell midsize">
+              {{#select system.attributes.ac.touch.ability}}
                   <option value=""></option>
                   {{#each config.abilities as |label value|}}
                       <option value="{{value}}">{{label}}</option>
@@ -151,9 +151,21 @@
         </div>
 
         <div class="flexrow">
-          <label class="cell left-label">{{localize "FFD20.CMD"}}</label>
-          <select name="data.attributes.cmd.dexAbility" class="cell midsize">
-              {{#select data.attributes.cmd.dexAbility}}
+          <label class="cell left-label">{{localize "FFD20.CMDAbbr"}} ({{localize "FFD20.AbilityStr"}})</label>
+          <select name="system.attributes.cmd.strAbility" class="cell midsize">
+              {{#select system.attributes.cmd.strAbility}}
+                  <option value=""></option>
+                  {{#each config.abilities as |label value|}}
+                      <option value="{{value}}">{{label}}</option>
+                  {{/each}}
+              {{/select}}
+          </select>
+        </div>
+
+        <div class="flexrow">
+          <label class="cell left-label">{{localize "FFD20.CMDAbbr"}} ({{localize "FFD20.AbilityDex"}})</label>
+          <select name="system.attributes.cmd.dexAbility" class="cell midsize">
+              {{#select system.attributes.cmd.dexAbility}}
                   <option value=""></option>
                   {{#each config.abilities as |label value|}}
                       <option value="{{value}}">{{label}}</option>
@@ -167,10 +179,10 @@
             <label class="cell">{{localize "FFD20.SavingThrowPlural"}}</label>
         </div>
 
-        {{#each data.attributes.savingThrows as |savingThrow id|}}
+        {{#each system.attributes.savingThrows as |savingThrow id|}}
             <div class="flexrow">
                 <label class="cell left-label">{{savingThrow.label}}</label>
-                <select data-name="data.attributes.savingThrows.{{id}}.ability" class="cell midsize">
+                <select name="system.attributes.savingThrows.{{id}}.ability" class="cell midsize">
                     {{#select savingThrow.ability}}
                         <option value=""></option>
                         {{#each ../config.abilities as |label value|}}
@@ -191,8 +203,8 @@
 {{!-- Wound Thresholds --}}
 <div class="form-group">
     <label>{{localize "FFD20.WoundThresholdOverride"}}</label>
-    <select data-dtype="Number" name="data.attributes.woundThresholds.override" {{#unless woundThresholds.allowWoundThresholdOverride}}disabled{{/unless}}>
-        {{#select data.attributes.woundThresholds.override}}
+    <select data-dtype="Number" name="system.attributes.woundThresholds.override" {{#unless woundThresholds.allowWoundThresholdOverride}}disabled{{/unless}}>
+        {{#select system.attributes.woundThresholds.override}}
             <option value="-1">{{localize 'FFD20.Default'}}</option>
             <option value="0">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdDisabled'}}</option>
             <option value="1">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdNormal'}}</option>
@@ -209,32 +221,32 @@
 
     <div class="form-group">
         <label>{{localize "FFD20.Name"}}</label>
-        <input type="text" name="data.details.tooltip.name" placeholder="{{token.name}}" value="{{data.details.tooltip.name}}" />
+        <input type="text" name="system.details.tooltip.name" placeholder="{{token.name}}" value="{{system.details.tooltip.name}}" />
     </div>
 
     <div class="form-group stacked">
         <label class="checkbox">
-            <input type="checkbox" name="data.details.tooltip.hideHeld" {{checked actor.data.details.tooltip.hideHeld}}/> {{localize "FFD20.HideHeld"}}
+            <input type="checkbox" name="system.details.tooltip.hideHeld" {{checked actor.system.details.tooltip.hideHeld}}/> {{localize "FFD20.HideHeld"}}
         </label>
 
         <label class="checkbox">
-            <input type="checkbox" name="data.details.tooltip.hideArmor" {{checked actor.data.details.tooltip.hideArmor}}/> {{localize "FFD20.HideArmor"}}
+            <input type="checkbox" name="system.details.tooltip.hideArmor" {{checked actor.system.details.tooltip.hideArmor}}/> {{localize "FFD20.HideArmor"}}
         </label>
 
         <label class="checkbox">
-            <input type="checkbox" name="data.details.tooltip.hideBuffs" {{checked actor.data.details.tooltip.hideBuffs}}/> {{localize "FFD20.HideBuffs"}}
+            <input type="checkbox" name="system.details.tooltip.hideBuffs" {{checked actor.system.details.tooltip.hideBuffs}}/> {{localize "FFD20.HideBuffs"}}
         </label>
 
         <label class="checkbox">
-            <input type="checkbox" name="data.details.tooltip.hideConditions" {{checked actor.data.details.tooltip.hideConditions}}/> {{localize "FFD20.HideConditions"}}
+            <input type="checkbox" name="system.details.tooltip.hideConditions" {{checked actor.system.details.tooltip.hideConditions}}/> {{localize "FFD20.HideConditions"}}
         </label>
 
         <label class="checkbox">
-            <input type="checkbox" name="data.details.tooltip.hideClothing" {{checked actor.data.details.tooltip.hideClothing}}/> {{localize "FFD20.HideClothing"}}
+            <input type="checkbox" name="system.details.tooltip.hideClothing" {{checked actor.system.details.tooltip.hideClothing}}/> {{localize "FFD20.HideClothing"}}
         </label>
 
         <label class="checkbox">
-            <input type="checkbox" name="data.details.tooltip.hideName" {{checked actor.data.details.tooltip.hideName}}/> {{localize "FFD20.HideName"}}
+            <input type="checkbox" name="system.details.tooltip.hideName" {{checked actor.system.details.tooltip.hideName}}/> {{localize "FFD20.HideName"}}
         </label>
     </div>
 {{/if}}

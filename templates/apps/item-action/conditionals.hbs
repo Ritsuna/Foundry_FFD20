@@ -1,0 +1,85 @@
+{{!-- Conditionals --}}
+<h4 class="conditional-header">
+  {{localize "FFD20.Conditionals"}}
+</h4>
+<ol class="conditionals form-group">
+  {{#each data.conditionals as |conditional a|}}
+  <li class="conditional flexcolumn" data-conditional="{{conditional._id}}"><div class="conditional flexrow" data-conditional="{{conditional._id}}">
+      <input class="conditional-default" type="checkbox" title="{{localize "FFD20.Default"}}" name="conditionals.{{a}}.default" {{checked this.default}}/>
+      <input class="conditional-name" type="text" name="conditionals.{{a}}.name" value="{{lookup this "name"}}"
+      placeholder="{{localize "FFD20.Name"}}"/>
+      <a class="delete-conditional conditional-control delete-conditional"><i class="fas fa-trash"></i></a>
+    </div>
+    <ol class="conditionals form-group">
+      {{#each this.modifiers as |modifier m|}}
+      <li class="conditional-modifier flexrow" data-conditional="{{conditional._id}}" data-modifier="{{modifier._id}}">
+        <input class="conditional-formula formula" type="text" name="conditionals.{{a}}.modifiers.{{m}}.formula" value="{{lookup this "formula"}}"
+        placeholder="{{localize "FFD20.Formula"}}" required/>
+
+        <select class="conditional-target" name="conditionals.{{a}}.modifiers.{{m}}.target" required>
+          {{#select (lookup this "target") }}
+          <option value=""></option>
+          {{#each targets as |target type|}}
+          <option value="{{type}}">{{target}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+
+        {{#unless (eq modifier.target "size")}}
+          <select class="conditional-sub-target" name="conditionals.{{a}}.modifiers.{{m}}.subTarget">
+            {{#select (lookup this "subTarget") }}
+            {{#if (lookup this "target") }}
+            {{#each subTargets as |target type|}}
+            <option value="{{type}}">{{target}}</option>
+            {{/each}}
+            {{else}}
+            <option value=""></option>
+            {{/if}}
+            {{/select}}
+          </select>
+
+          {{#if (eq modifier.target "attack")}}
+          <select class="conditional-type" name="conditionals.{{a}}.modifiers.{{m}}.type">
+            {{#select (lookup this "type") }}
+            {{#if (lookup this "target") }}
+            {{#each conditionalModifierTypes as |modifierType mt|}}
+            <option value="{{mt}}">{{modifierType}}</option>
+            {{/each}}
+            {{else}}
+            <option value=""></option>
+            {{/if}}
+            {{/select}}
+          </select>
+          {{/if}}
+
+          {{#if (eq modifier.target "damage")}}
+          <div class="conditional-damage-type">
+              {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=(lookup this "damageType") name=(concat "conditionals." a ".modifiers." m ".damageType") damageTypes=@root.damageTypes}}
+          </div>
+          {{/if}}
+
+          {{#if (or (eq modifier.target "attack") (eq modifier.target "damage"))}}
+          <select class="conditional-critical" name="conditionals.{{a}}.modifiers.{{m}}.critical">
+            {{#select (lookup this "critical") }}
+            {{#if (lookup this "target")}}
+            {{#each conditionalCritical as |critical c|}}
+            <option value="{{c}}">{{localize critical}}</option>
+            {{/each}}
+            {{else}}
+            <option value=""></option>
+            {{/if}}
+            {{/select}}
+          </select>
+          {{/if}}
+        {{/unless}}
+        {{#if ../modifiers.length}}
+        <a class="conditional-control delete-conditional-modifier"><i class="fas fa-trash"></i></a>{{/if}}
+      </li>
+      {{/each}}
+      <li class="flexrow"><a class="conditional-control add-conditional-modifier"><i class="fas fa-plus"></i> {{localize "FFD20.AddEffect"}}</a></li>
+    </ol>
+  </li>
+  {{/each}}
+  <li class="conditional flexrow"><a class="conditional-control add-conditional"><i class="fas fa-plus"></i> {{localize "FFD20.AddConditional"}}</a></li>
+</ol>
+</div>

@@ -1,0 +1,6 @@
+{{#if (hasContextNotes @root.actor target)}}
+<br>{{localize "FFD20.ContextNotes"}}<br>
+{{#each (contextNotes @root.actor target)}}
+  {{{this}}}<br>
+{{/each}}
+{{/if}}

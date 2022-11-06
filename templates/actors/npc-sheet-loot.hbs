@@ -1,7 +1,7 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
 
   <nav class="sheet-navigation tabs" data-group="primary">
-    <a class="item active" data-tab="inventory">{{ localize "FFD20.Inventory" }}</a>
+    <a class="item" data-tab="inventory">{{ localize "FFD20.Inventory" }}</a>
     <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
   </nav>
 
@@ -38,7 +38,7 @@
     {{!-- Notes Tab --}}
     <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
       <div class="primary-content">
-        {{roll-editor content=data.details.notes.value target="data.details.notes.value" button=true owner=owner editable=editable}}
+        {{editor notesHTML target="system.details.notes.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
       </div>
 
       {{#if table_magicItems}}

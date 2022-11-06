@@ -27,7 +27,7 @@
     {{#if ac.notes}}
     <div class="flexcol property-group">
       <label>{{localize "FFD20.ACNotes"}}</label>
-      <div class="flexrow">
+      <div class="flexrow tag-list">
         {{#each ac.notes as |v|}}
         <span class="tag">{{{v}}}</span>
         {{/each}}
@@ -57,7 +57,7 @@
     {{#if cmd.notes}}
     <div class="flexcol property-group">
       <label>{{localize "FFD20.CMDNotes"}}</label>
-      <div class="flexrow">
+      <div class="flexrow tag-list">
         {{#each cmd.notes as |v|}}
         <span class="tag">{{{v}}}</span>
         {{/each}}
@@ -85,7 +85,7 @@
     {{#if misc.srNotes}}
     <div class="flexcol property-group">
       <label>{{localize "FFD20.SpellResistanceNotes"}}</label>
-      <div class="flexrow">
+      <div class="flexrow tag-list">
         {{#each misc.srNotes as |v|}}
         <span class="tag">{{{v}}}</span>
         {{/each}}
@@ -97,7 +97,7 @@
     {{#if misc.drNotes}}
     <div class="flexcol property-group">
       <label>{{localize "FFD20.DamRed"}}</label>
-      <div class="flexrow">
+      <div class="flexrow tag-list">
         {{#each misc.drNotes as |v|}}
         <span class="tag">{{{v}}}</span>
         {{/each}}
@@ -108,7 +108,7 @@
     {{#if misc.energyResistance}}
     <div class="flexcol property-group">
       <label>{{localize "FFD20.EnRes"}}</label>
-      <div class="flexrow">
+      <div class="flexrow tag-list">
         {{#each misc.energyResistance as |v|}}
         <span class="tag">{{{v}}}</span>
         {{/each}}

@@ -3,16 +3,16 @@
 
     {{!-- Level name and icon --}}
     <div class="item">
-        <img src="{{item.img}}" width="24" height="24">
-        <span class="name">{{item.name}}</span>
+    <img src="{{ item.img }}" width="24" height="24" />
+    <span class="name">{{ item.name }}</span>
     </div>
 
     {{!-- New level --}}
     <div class="level-change">
         {{localize "FFD20.Level"}}
-        <span class="level-previous">{{formData.level.previous}}</span>
+    <span class="level-previous">{{ formData.level.previous }}</span>
         <i class="fas fa-arrow-right"></i>
-        <span class="level-new">{{formData.level.new}}</span>
+    <span class="level-new">{{ formData.level.new }}</span>
     </div>
 
     {{!-- New HP --}}
@@ -29,7 +29,21 @@
     <div class="part">
         <h2>{{localize "FFD20.LevelUp.Chat.FC.Header"}}</h2>
 
-        <span><i class="fas {{lookup config.favouredClassBonusIcons formData.fc.type}}"></i> {{localize formData.fc.label}}</span>
+    <span
+      ><i class="fas {{lookup config.favouredClassBonusIcons formData.fc.type}}"></i>
+      {{localize formData.fc.label}}</span
+    >
+  </div>
+  {{/if}}
+
+  {{!-- Ability Score increase --}}
+  {{#if formData.ability}}
+  <div class="part">
+    <h2>{{localize "FFD20.LevelUp.Chat.AbilityScore.Header"}}</h2>
+
+    {{#each formData.ability.choices as |value key|}}
+      <span>{{localize "FFD20.LevelUp.Summary.AbilityScore.Gain" abl=(lookup ../config.abilities key) value=value}}</span>
+    {{/each}}
     </div>
     {{/if}}
 
@@ -40,8 +54,8 @@
 
         {{#each formData.newFeatures as |ft|}}
         <div class="item">
-            <img src="{{ft.img}}" width="24" height="24">
-            <span class="name">{{ft.name}}</span>
+      <img src="{{ ft.img }}" width="24" height="24" />
+      <span class="name">{{ ft.name }}</span>
         </div>
         {{/each}}
     </div>
@@ -51,13 +65,9 @@
     {{#if formData.extra.enabled}}
     <div class="part">
         <h2>{{localize "FFD20.LevelUp.Chat.Extra.Header"}}</h2>
-
+        
         {{#if formData.extra.feats.new}}
-        <p class="feats">{{formData.extra.feats.label}}</p>
-        {{/if}}
-
-        {{#if formData.extra.newAbilityScore}}
-        <p>{{formData.extra.newAbilityScore.label}}</p>
+    <p class="feats">{{ formData.extra.feats.label }}</p>
         {{/if}}
     </div>
     {{/if}}

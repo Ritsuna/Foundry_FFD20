@@ -1,0 +1,55 @@
+{{!-- Template Type --}}
+<div class="form-group select">
+  <label>{{localize "FFD20.TemplateType"}}</label>
+  <select name="measureTemplate.type">
+    {{#select data.measureTemplate.type}}
+    <option value="">{{localize "FFD20.None"}}</option>
+    {{#each config.measureTemplateTypes as |name type|}}
+    <option value="{{type}}">{{name}}</option>
+    {{/each}}
+    {{/select}}
+  </select>
+</div>
+
+{{#if data.measureTemplate.type}}
+{{!-- Template Size --}}
+<div class="form-group">
+  <label>{{localize "FFD20.Size"}}</label>
+  <div class="form-fields">
+    <input class="formula" type="text" name="measureTemplate.size" value="{{data.measureTemplate.size}}" placeholder="{{localize "FFD20.Formula"}}" />
+  </div>
+</div>
+
+{{!-- Override Color --}}
+<div class="form-group stacked">
+  <label class="checkbox">
+    <input type="checkbox" name="measureTemplate.overrideColor" {{checked data.measureTemplate.overrideColor}}/> {{localize "FFD20.OverrideColor"}}
+  </label>
+  <label class="checkbox">
+    <input type="checkbox" name="measureTemplate.overrideTexture" {{checked data.measureTemplate.overrideTexture}}/> {{localize "FFD20.OverrideTexture"}}
+  </label>
+</div>
+
+{{#if data.measureTemplate.overrideColor}}
+<div class="form-group">
+  <label>{{localize "FFD20.CustomColor"}}</label>
+  <div class="form-fields">
+    <input class="color" type="text" name="measureTemplate.customColor" value="{{data.measureTemplate.customColor}}" />
+    <input type="color" value="{{data.measureTemplate.customColor}}" data-edit="measureTemplate.customColor" />
+  </div>
+</div>
+{{/if}}
+
+{{#if data.measureTemplate.overrideTexture}}
+<div class="form-group">
+  <label>{{localize "FFD20.CustomTexture"}}</label>
+  <div class="form-fields">
+    {{!-- {{filePicker target="data.measureTemplate.customTexture" type="imagevideo"}} --}}
+    <input class="image" type="text" name="measureTemplate.customTexture" placeholder="path/image.png" value="{{data.measureTemplate.customTexture}}"/>
+    <button type="button" class="file-picker-alt" data-for="measureTemplate.customTexture" data-type="imagevideo">
+      <i class="fas fa-file-import fa-fw"></i>
+    </button>
+  </div>
+</div>
+{{/if}}
+{{/if}}

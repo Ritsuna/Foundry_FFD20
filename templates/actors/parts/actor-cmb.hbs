@@ -1,20 +1,23 @@
 <span class="tooltipcontent">
-  @attributes.cmb.total : {{data.attributes.cmb.total}}<br/>
-  + @attributes.attack.shared : {{data.attributes.attack.shared}}<br/>
-  + @attributes.attack.general : {{data.attributes.attack.general}}<br/>
-  + @abilities.{{data.attributes.cmbAbility}}.mod : {{abilityMod @root.data.attributes.cmbAbility @root.rollData 1}}<br/>
+  @attributes.cmb.total : {{system.attributes.cmb.total}}<br/>
+  <br/>
+  @attributes.cmb.bonus : {{system.attributes.cmb.bonus}}<br/>
+  + @attributes.attack.shared : {{system.attributes.attack.shared}}<br/>
+  + @attributes.attack.general : {{system.attributes.attack.general}}<br/>
   <br/>{{localize "FFD20.FromSources"}}:<br/>
-  {{#if (ne @root.data.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeSpecialMods @root.data.traits.size }}<br/>{{/if}}
-  {{#if sourceDetails.data.attributes.attack.shared.length}}
-  {{#each sourceDetails.data.attributes.attack.shared as |src|}}{{src.name}} : {{src.value}}<br/>{{/each}}
+  {{#if (ne @root.system.traits.size "med")}}{{localize "FFD20.Size"}} : {{lookup @root.config.sizeSpecialMods @root.system.traits.size }}<br/>{{/if}}
+  {{#if sourceDetails.system.attributes.attack.shared.length}}
+  {{#each sourceDetails.system.attributes.attack.shared as |src|}}{{src.name}} : {{src.value}}<br/>{{/each}}
   {{/if}}
-  {{lookup @root.config.abilities data.attributes.cmbAbility}} : {{abilityMod data.attributes.cmbAbility @root.rollData 1}}<br/>
-  {{#if sourceDetails.data.attributes.attack.general.length}}
-  {{#each sourceDetails.data.attributes.attack.general as |src|}}{{src.name}} : {{src.value}}<br/>{{/each}}
+  {{#if system.attributes.cmbAbility}}{{lookup @root.config.abilities system.attributes.cmbAbility}} : {{abilityMod system.attributes.cmbAbility @root.rollData 1}}<br/>{{/if}}
+  {{#if sourceDetails.system.attributes.attack.general.length}}
+  {{#each sourceDetails.system.attributes.attack.general as |src|}}{{src.name}} : {{src.value}}<br/>{{/each}}
   {{/if}}
-  {{#if sourceDetails.data.attributes.cmb.total.length}}
-  {{#each sourceDetails.data.attributes.cmb.total as |src|}}{{src.name}} : {{src.value}}<br/>{{/each}}
+  {{#if sourceDetails.system.attributes.cmb.bonus.length}}
+  {{#each sourceDetails.system.attributes.cmb.bonus as |src|}}{{src.name}} : {{src.value}}<br/>{{/each}}
   {{/if}}
+
+  {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.cmb"}}
 </span>
 
-{{numberFormat cmbAttack decimals=0 sign=true}}
+{{numberFormat system.attributes.cmb.total decimals=0 sign=true}}
