@@ -1,9 +1,23 @@
 # Changelog
-## 10.1.2 - 2022-10-20
+## 10.1.3 - 2022-11-10
 
+### Changelog
+- fixed inviability
+- fixed damage types
+- still broken is the tags for weapon, armor and languages outside of charater interface(they still work, just not easly visable)
+
+# Changelog
+## 10.1.2 - 2022-10-20
 ### Changelog
 - update to foundry v10 and pf1 0.82.2
 
+# Changelog
+## 10.1.0 - 2022-10-20
+
+### Changelog
+- update to pf1 0.82.0
+
+# Changelog
 ## 9.1.0 - 2022-10-20
 
 ### Changelog
@@ -210,7 +224,7 @@
 - cleaned up some
 
 ### Update log
-- updated from the Pathfinder 1 github on 3/6/2021
+- updated from the pf1 github on 3/6/2021
 
 ### Database work
 - cleaned up some possable errors

@@ -1125,7 +1125,7 @@
   "FFD20.DamageTypeLightning": "Lightning",
   "FFD20.DamageTypeWater": "Water",
   "FFD20.DamageTypeLight": "Light",
-  "FFD20.DamageTypeDark": "Dark",
+  "FFD20.DamageTypeDark": "Dark/Shadow",
   "FFD20.DamageTypeNonElemental": "Non-Elemental",
   "FFD20.DamageTypeCategory": {
     "misc": "Miscellaneous",
