@@ -19,7 +19,7 @@
   {{#if label.duration}}<strong>{{localize "FFD20.Duration"}}</strong>&nbsp;{{{label.duration}}}<br>{{/if}}
     {{#if useDCandSR}}
       <strong>{{localize "FFD20.SavingThrow"}}</strong>&nbsp;{{{label.savingThrow}}};&nbsp;
-      <strong>{{localize "FFD20.SpellResistance"}}</strong>&nbsp;{{{label.sr}}}<br>
+      <strong>{{localize "FFD20.SpellResistance"}}</strong>&nbsp;{{{label.sr}}}{{#if label.srinfo}}&nbsp;({{{label.srinfo}}}){{/if}}<br>
     {{/if}}
   </p>
 </div>

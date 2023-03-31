@@ -49,10 +49,17 @@
 
     {{!-- Hide Name globally --}}
     <div class="form-fields">
-        <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideActorName_Hint"}}">
-            <label>{{localize "FFD20.TooltipWorldConfigHideActorName"}}</label>
+        <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideActorNameByDisposition_Hint"}}">
+            <label for="hideActorNameByDisposition">{{localize "FFD20.TooltipWorldConfigHideActorNameByDisposition"}}</label>
             <div class="form-fields">
-                <input type="checkbox" name="hideActorName" data-dtype="Boolean" {{checked data.hideActorName}}/>
+                <select data-dtype="Number" name="hideActorNameByDisposition" id="hideActorNameByDisposition">
+                    {{#select data.hideActorNameByDisposition}}
+                    <option value="-2">{{localize "FFD20.Disposition.None"}}</option>
+                    <option value="-1">{{localize "FFD20.Disposition.Hostile"}}</option>
+                    <option value="0">{{localize "FFD20.Disposition.Non-Friendly"}}</option>
+                    <option value="1">{{localize "FFD20.Disposition.All"}}</option>
+                    {{/select}}
+                </select>
             </div>
         </div>
 

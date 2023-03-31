@@ -2,17 +2,17 @@
   "id": "ffd20",
   "name": "ffd20",
   "title": "Final Fantasy d20",
-  "description": "FFd20 using Pathfinder 1e v0.82.2 as a base in the Foundry VTT environment.",
-  "version": "10.1.3",
+  "description": "FFd20 using Pathfinder 1e v0.82.5 as a base in the Foundry VTT environment.",
+  "version": "10.1.7",
   "author": "Ritsu Voices",
   "authors": [
     { "name": "Ritsu Voices", "ko-fi": "the_voices" },
     { "name": "Furyspark", "discord": "Furyspark#7513" },
     { "name": "Noon", "discord": "Noon#3951" },
-    { "name": "Ethaks", "discord": "Ethaks#2903" }
+    { "name": "Ethaks", "discord": "Ethaks#2903", "ko-fi": "ethaks", "url": "https://gitlab.com/Ethaks" }
   ],
   "esmodules": ["ffd20.js"],
-  "styles": ["style.css"],
+  "styles": ["ffd20.css"],
   "packs": [
     { "name": "commonbuffs", "label": "Common Buffs", "system": "ffd20", "path": "./packs/commonbuffs.db", "type": "Item" },
     { "name": "feats", "label": "Pathfinder Feats", "system": "ffd20", "path": "./packs/feats.db", "type": "Item" },
@@ -24,7 +24,7 @@
     { "name": "sample-macros", "label": "Sample Macros", "system": "ffd20", "path": "./packs/sample-macros.db", "type": "Macro" },
     { "name": "roll-tables", "label": "Roll Tables", "system": "ffd20", "path": "./packs/roll-tables.db", "type": "RollTable" },
     { "name": "ultimate-equipment", "label": "Pathfinder Ultimate Equipment", "system": "ffd20", "path": "./packs/ultimate-equipment.db", "type": "RollTable" },
-    { "name": "ffd20e-rules", "label": "Pathfinder 1e Rules", "system": "ffd20", "path": "./packs/ffd20e-rules.db", "type": "JournalEntry" }
+    { "name": "pf1e-rules", "label": "Pathfinder 1e Rules", "system": "ffd20", "path": "./packs/pf1e-rules.db", "type": "JournalEntry" }
   ],
   "languages": [
     { "lang": "en", "name": "English", "path": "lang/en.json" }
@@ -41,5 +41,5 @@
   "flags": { "allowBugReporter": true },
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/10.1.3.zip"
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/10.1.7.zip"
 }

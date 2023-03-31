@@ -2,7 +2,7 @@
   <div class="form-group">
     <label>{{localize "FFD20.Name"}}</label>
     <div class="form-fields">
-      <input type="text" name="skill.name" value="{{skill.name}}" data-dtype="String"{{#if skill.static}} disabled{{/if}} />
+      <input type="text" name="skill.name" value="{{skill.name}}" data-dtype="String"{{#if skill.static}} disabled{{/if}} required />
     </div>
   </div>
 
@@ -10,7 +10,7 @@
   <div class="form-group">
     <label>{{localize "FFD20.Tag"}}</label>
     <div class="form-fields">
-      <input type="text" name="skill.tag" value="{{skill.tag}}" data-dtype="String" />
+      <input type="text" name="tag" value="{{skill.tag}}" data-dtype="String" required />
     </div>
   </div>
   {{/unless}}
@@ -18,7 +18,7 @@
   <div class="form-group">
     <label>{{localize "FFD20.Rank"}}</label>
     <div class="form-fields">
-      <input type="text" name="skill.rank" value="{{skill.rank}}" data-dtype="Number" />
+      <input type="text" name="skill.rank" value="{{skill.rank}}" data-dtype="Number" min="0" step="1" />
     </div>
   </div>
 

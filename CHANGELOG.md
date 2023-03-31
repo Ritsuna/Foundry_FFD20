@@ -1,4 +1,24 @@
 # Changelog
+## 10.1.7 - 2023-03-30
+
+### Changelog
+- added the ability to add harmless and object to spell resistance notes on spells
+
+## 10.1.6 - 2023-03-12
+
+### Changelog
+- readded old images, migrating to better folder structure
+
+## 10.1.5 - 2023-03-12
+
+### Changelog
+- updated to match with Pathfinder 1e version 0.82.5
+
+## 10.1.4 - 2022-11-10
+
+### Changelog
+- fixed buff error when trying to apply a buff to caster level or concentration
+
 ## 10.1.3 - 2022-11-10
 
 ### Changelog
@@ -276,7 +296,7 @@
 ### Changelog
 
 - got MP working, auto MP backburnered until code can be cleaned up
-- updated from the Pathfinder 1 github
+- updated from the Final Fantasy D20 github
 
 ## 0.0.4
 

@@ -25,7 +25,7 @@
         @skills.{{s}}.subSkills.{{b}}.rank : {{subSkill.rank}}<br>
 
         {{#if subSkill.sourceDetails.length}}
-        <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+        <br/>{{localize "FFD20.FromSources"}}:<br/>
         {{#each subSkill.sourceDetails as |src|}}
         {{src.name}}: {{src.value}}<br/>
         {{/each}}
@@ -81,7 +81,7 @@
         @skills.{{s}}.rank : {{skill.rank}}<br>
 
         {{#if skill.sourceDetails.length}}
-        <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+        <br/>{{localize "FFD20.FromSources"}}:<br/>
         {{#each skill.sourceDetails as |src|}}
         {{src.name}}: {{src.value}}<br/>
         {{/each}}

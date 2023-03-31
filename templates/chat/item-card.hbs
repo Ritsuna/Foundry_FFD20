@@ -40,7 +40,7 @@
 
     {{#if hasExtraProperties}}
     {{#each extraProperties as |prop|}}
-    <div class="flexcol property-group gm-sensitive">
+    <div class="flexcol property-group gm-sensitive {{prop.css}}">
       <label>{{prop.header}}</label>
       <div class="flexrow tag-list">
         {{#each prop.value as |v|}}

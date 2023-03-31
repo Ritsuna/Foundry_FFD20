@@ -1,15 +1,19 @@
-<h2>{{localize "FFD20.CreateItemForSpell" 0=name}}</h2>
+<form autocomplete="off">
+  <h2>{{localize "FFD20.CreateItemForSpell" 0=name}}</h2>
 
-<div>
   {{!-- Spell Level --}}
   <div class="form-group">
     <label>{{localize "FFD20.SpellLevel"}}</label>
-    <input type="number" min="0" step="1" name="sl" value="{{sl}}" placeholder="1" />
+    <div class="form-fields">
+      <input type="number" data-dtype="Number" min="0" step="1" name="sl" value="{{sl}}" placeholder="1" />
+    </div>
   </div>
 
   {{!-- Caster Level --}}
   <div class="form-group">
     <label>{{localize "FFD20.CasterLevel"}}</label>
-    <input type="number" min="1" step="1" name="cl" value="{{cl}}" placeholder="1" />
+    <div class="form-fields">
+      <input type="number" data-dtype="Number" min="1" step="1" name="cl" value="{{cl}}" placeholder="1" />
+    </div>
   </div>
-</div>
+</form>

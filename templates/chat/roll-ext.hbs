@@ -32,7 +32,7 @@
 
 {{#if hasProperties}}
 {{#each properties as |prop|}}
-<div class="flexcol property-group gm-sensitive general-notes">
+<div class="flexcol property-group gm-sensitive general-notes {{prop.css}}">
   <label>{{prop.header}}</label>
   <div class="flexrow tag-list">
     {{#each prop.value as |v|}}

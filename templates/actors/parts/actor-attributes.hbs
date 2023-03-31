@@ -80,10 +80,10 @@
             <th class="tooltip">
                 {{localize "FFD20.ACP"}}
                 <div class="tooltipcontent">
-                    @attributes.acp.total : {{system.attributes.acp.total}}
+                    @attributes.acp.total : {{system.attributes.acp.total}}<br>
 
                     {{#if sourceDetails.system.attributes.acp.total.length}}
-                    <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                    <br/>{{localize "FFD20.FromSources"}}:<br/>
                     {{#each sourceDetails.system.attributes.acp.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                     {{/if}}
 
@@ -100,10 +100,10 @@
             <th class="tooltip">
                 {{localize "FFD20.MaxDexShort"}}
                 <div class="tooltipcontent">
-                    @attributes.maxDexBonus : {{system.attributes.maxDexBonus}}
+                    @attributes.maxDexBonus : {{system.attributes.maxDexBonus}}<br>
 
                     {{#if sourceDetails.system.attributes.maxDexBonus.length}}
-                    <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                    <br/>{{localize "FFD20.FromSources"}}:<br/>
                     {{#each sourceDetails.system.attributes.maxDexBonus as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
                     {{/if}}
 

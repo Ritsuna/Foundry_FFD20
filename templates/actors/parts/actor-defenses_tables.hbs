@@ -6,10 +6,10 @@
                 <div class="tooltipcontent">
                 @attributes.ac.{{id}}.total : {{ac.total}}<br/>
                 @armor.type : {{../rollData.armor.type}}<br/>
-                @shield.type : {{../rollData.shield.type}}
+                @shield.type : {{../rollData.shield.type}}<br>
 
                 {{#if ac.sourceDetails.length}}
-                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                <br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each ac.sourceDetails as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
@@ -23,10 +23,10 @@
             {{/each}}
             <th class="tooltip">
                 <div class="tooltipcontent">
-                @attributes.cmd.total : {{system.attributes.cmd.total}}
+                @attributes.cmd.total : {{system.attributes.cmd.total}}<br>
 
                 {{#if sourceDetails.system.attributes.cmd.total.length}}
-                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                <br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each sourceDetails.system.attributes.cmd.total as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
@@ -39,10 +39,10 @@
             </th>
             <th class="tooltip">
                 <div class="tooltipcontent">
-                @attributes.cmd.flatFootedTotal : {{system.attributes.cmd.flatFootedTotal}}
+                @attributes.cmd.flatFootedTotal : {{system.attributes.cmd.flatFootedTotal}}<br>
 
                 {{#if sourceDetails.system.attributes.cmd.flatFootedTotal.length}}
-                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                <br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each sourceDetails.system.attributes.cmd.flatFootedTotal as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
@@ -76,10 +76,10 @@
             {{#each system.attributes.savingThrows as |savingThrow id|}}
             <th class="saving-throw tooltip" data-savingthrow="{{id}}" data-draggable="true">
                 <div class="tooltipcontent">
-                @attributes.savingThrows.{{id}}.total : {{savingThrow.total}}
+                @attributes.savingThrows.{{id}}.total : {{savingThrow.total}}<br>
 
                 {{#if savingThrow.sourceDetails.length}}
-                <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                <br/>{{localize "FFD20.FromSources"}}:<br/>
                 {{#each savingThrow.sourceDetails as |src|}}
                 {{src.name}}: {{src.value}}<br/>
                 {{/each}}
@@ -92,10 +92,10 @@
             {{/each}}
             <th class="tooltip">
                 <div class="tooltipcontent">
-                @attributes.sr.total : {{system.attributes.sr.total}}
+                @attributes.sr.total : {{system.attributes.sr.total}}<br>
 
                 {{#if sourceDetails.system.attributes.sr.total.length}}
-                  <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+                  <br/>{{localize "FFD20.FromSources"}}:<br/>
                   {{#each sourceDetails.system.attributes.sr.total as |src|}}
                     {{src.name}}: {{src.value}}<br/>
                   {{/each}}

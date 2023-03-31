@@ -136,19 +136,19 @@
           {{!-- Value --}}
           {{#if attr.value.fakeName}}
             <div data-action="input-text" data-for=".{attr.value.id}}-description-input" data-attr-name="{{attr.value.name}}">
-              <input class="{{#if attr.value.id}}{{attr.value.name}}-description-input{{/if}}" type="text" readonly value="{{attr.value.value}}"/>
+              <input class="{{#if attr.value.id}}{{attr.value.name}}-description-input{{/if}}" type="text" data-dtype="Number" readonly value="{{attr.value.value}}"/>
             </div>
           {{else}}
-            <input class="{{#if attr.value.id}}{{attr.value.name}}-description-input{{/if}} select-on-click" name="{{attr.value.name}}" type="text" value="{{attr.value.value}}"/>
+            <input class="{{#if attr.value.id}}{{attr.value.name}}-description-input{{/if}} select-on-click" name="{{attr.value.name}}" data-dtype="Number" type="text" value="{{attr.value.value}}"/>
           {{/if}}
           <span>/</span>
           {{!-- Max --}}
           {{#if attr.max.fakeName}}
             <div data-action="input-text" data-for=".{attr.max.id}}-description-input" data-attr-name="{{attr.max.name}}">
-              <input class="{{#if attr.max.id}}{{attr.max.name}}-description-input{{/if}}" type="text" readonly value="{{attr.max.value}}"/>
+              <input class="{{#if attr.max.id}}{{attr.max.name}}-description-input{{/if}}" type="text" data-dtype="Number" readonly value="{{attr.max.value}}"/>
             </div>
           {{else}}
-            <input class="{{#if attr.max.id}}{{attr.max.name}}-description-input{{/if}} select-on-click" name="{{attr.max.name}}" type="text" value="{{attr.max.value}}"/>
+            <input class="{{#if attr.max.id}}{{attr.max.name}}-description-input{{/if}} select-on-click" name="{{attr.max.name}}" data-dtype="Number" type="text" value="{{attr.max.value}}"/>
           {{/if}}
         </div>
       {{/if}}

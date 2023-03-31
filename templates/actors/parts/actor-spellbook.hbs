@@ -99,11 +99,11 @@
         <div class="form-group spellcasting-class tooltip">
           <div class="tooltipcontent">
             @cl : {{spellbook.orig.cl.total}}<br>
-            @spells.{{spellbookIndex}}.cl.total : {{spellbook.orig.cl.total}}
+            @spells.{{spellbookIndex}}.cl.total : {{spellbook.orig.cl.total}}<br>
 
             {{#with (lookup sourceDetails.system.attributes.spells.spellbooks spellbookIndex)}}
             {{#if cl.total.length}}
-            <br/><br/>{{localize "FFD20.FromSources"}}:<br/>
+            <br/>{{localize "FFD20.FromSources"}}:<br/>
             {{#each cl.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
             {{/if}}
             {{/with}}

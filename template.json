@@ -436,16 +436,16 @@
                 "concentrationNotes": "",
                 "clNotes": "",
                 "ability": "cha",
-                "autoSpellLevelCalculation": false,
-                "autoSpellLevels": false,
+                "autoSpellLevelCalculation": true,
+                "autoSpellLevels": true,
                 "psychic": false,
                 "arcaneSpellFailure": true,
                 "hasCantrips": true,
                 "spellPreparationMode": "spontaneous",
                 "baseDCFormula": "10 + @sl + @ablMod",
-                "spontaneous": true,
+                "spontaneous": false,
                 "spellPoints": {
-                  "useSystem": true
+                  "useSystem": false
                 },
                 "spells": {
                   "spell0": {
@@ -1169,8 +1169,6 @@
       "multischool": "",
       "subschool": "",
       "types": "",
-      "nonlethal": false,
-      "conditionals": [],
       "components": {
         "value": "",
         "verbal": true,
@@ -1191,11 +1189,11 @@
       "preparation": {
         "preparedAmount": 0,
         "maxAmount": 0,
-        "autoDeductCharges": true,
         "spontaneousPrepared": true
       },
       "atWill": false,
       "sr": true,
+      "srinfo":"",
       "shortDescription": "",
       "showInQuickbar": false,
       "domain": false,
