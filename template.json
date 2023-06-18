@@ -1162,6 +1162,9 @@
         "bloodline": []
       },
       "level": 1,
+      "spellPoints": {
+        "cost": "@sl"
+      },
       "clOffset": 0,
       "slOffset": 0,
       "multi": false,

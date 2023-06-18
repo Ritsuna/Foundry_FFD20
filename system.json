@@ -3,7 +3,7 @@
   "name": "ffd20",
   "title": "Final Fantasy d20",
   "description": "FFd20 using Pathfinder 1e v0.82.5 as a base in the Foundry VTT environment.",
-  "version": "10.1.7",
+  "version": "10.1.8",
   "author": "Ritsu Voices",
   "authors": [
     { "name": "Ritsu Voices", "ko-fi": "the_voices" },
@@ -41,5 +41,5 @@
   "flags": { "allowBugReporter": true },
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/10.1.7.zip"
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/10.1.8.zip"
 }
