@@ -16,7 +16,7 @@
     </div>
 
     {{!-- Hide Held items globally --}}
-    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideHeld_Hint"}}">
+    <div class="form-group" data-tooltip="FFD20.TooltipWorldConfigHideHeld_Hint" data-tooltip-direction="UP">
         <label>{{localize "FFD20.TooltipWorldConfigHideHeld"}}</label>
         <div class="form-fields">
             <input type="checkbox" name="hideHeld" data-dtype="Boolean" {{checked data.hideHeld}}/>
@@ -24,7 +24,7 @@
     </div>
 
     {{!-- Hide Armor globally --}}
-    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideArmor_Hint"}}">
+    <div class="form-group" data-tooltip="FFD20.TooltipWorldConfigHideArmor_Hint" data-tooltip-direction="UP">
         <label>{{localize "FFD20.TooltipWorldConfigHideArmor"}}</label>
         <div class="form-fields">
             <input type="checkbox" name="hideArmor" data-dtype="Boolean" {{checked data.hideArmor}}/>
@@ -32,7 +32,7 @@
     </div>
 
     {{!-- Hide Buffs globally --}}
-    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideBuffs_Hint"}}">
+    <div class="form-group" data-tooltip="FFD20.TooltipWorldConfigHideBuffs_Hint" data-tooltip-direction="UP">
         <label>{{localize "FFD20.TooltipWorldConfigHideBuffs"}}</label>
         <div class="form-fields">
             <input type="checkbox" name="hideBuffs" data-dtype="Boolean" {{checked data.hideBuffs}}/>
@@ -40,7 +40,7 @@
     </div>
 
     {{!-- Hide Conditions globally --}}
-    <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideConditions_Hint"}}">
+    <div class="form-group" data-tooltip="FFD20.TooltipWorldConfigHideConditions_Hint" data-tooltip-direction="UP">
         <label>{{localize "FFD20.TooltipWorldConfigHideConditions"}}</label>
         <div class="form-fields">
             <input type="checkbox" name="hideConditions" data-dtype="Boolean" {{checked data.hideConditions}}/>
@@ -48,26 +48,31 @@
     </div>
 
     {{!-- Hide Name globally --}}
-    <div class="form-fields">
-        <div class="form-group" title="{{localize "FFD20.TooltipWorldConfigHideActorNameByDisposition_Hint"}}">
-            <label for="hideActorNameByDisposition">{{localize "FFD20.TooltipWorldConfigHideActorNameByDisposition"}}</label>
-            <div class="form-fields">
-                <select data-dtype="Number" name="hideActorNameByDisposition" id="hideActorNameByDisposition">
-                    {{#select data.hideActorNameByDisposition}}
-                    <option value="-2">{{localize "FFD20.Disposition.None"}}</option>
-                    <option value="-1">{{localize "FFD20.Disposition.Hostile"}}</option>
-                    <option value="0">{{localize "FFD20.Disposition.Non-Friendly"}}</option>
-                    <option value="1">{{localize "FFD20.Disposition.All"}}</option>
-                    {{/select}}
-                </select>
-            </div>
-        </div>
+    <div class="form-group" data-tooltip="FFD20.TooltipWorldConfigNameMinimumPermission_Hint" data-tooltip-direction="UP">
+        <label>{{localize "FFD20.TooltipWorldConfigNameMinimumPermission"}}</label>
+        <select data-dtype="Number" name="minimumPermission">
+            {{selectOptions permissions selected=data.minimumPermission localize=true}}
+        </select>
+    </div>
 
-        <div class="form-group">
-            <label>{{localize "FFD20.TooltipWorldConfigHideActorNameReplacement"}}</label>
-            <div class="form-fields">
-                <input type="text" name="hideActorNameReplacement" value="{{data.hideActorNameReplacement}}"/>
-            </div>
+    <div class="form-group" data-tooltip="FFD20.TooltipWorldConfigHideActorNameByDisposition_Hint" data-tooltip-direction="UP">
+        <label for="hideActorNameByDisposition">{{localize "FFD20.TooltipWorldConfigHideActorNameByDisposition"}}</label>
+        <div class="form-fields">
+            <select data-dtype="Number" name="hideActorNameByDisposition" id="hideActorNameByDisposition">
+                {{#select data.hideActorNameByDisposition}}
+                <option value="-2">{{localize "FFD20.Disposition.None"}}</option>
+                <option value="-1">{{localize "FFD20.Disposition.Hostile"}}</option>
+                <option value="0">{{localize "FFD20.Disposition.Non-Friendly"}}</option>
+                <option value="1">{{localize "FFD20.Disposition.All"}}</option>
+                {{/select}}
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "FFD20.TooltipWorldConfigHideActorNameReplacement"}}</label>
+        <div class="form-fields">
+            <input type="text" name="hideActorNameReplacement" value="{{data.hideActorNameReplacement}}"/>
         </div>
     </div>
 

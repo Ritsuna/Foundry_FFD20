@@ -2,10 +2,7 @@
 <h3 class="form-header">{{localize "FFD20.Aura"}}</h3>
 
 {{!-- Caster Level --}}
-<div class="form-group tooltip">
-  <div class="tooltipcontent">
-    @item.cl : {{system.cl}}
-  </div>
+<div class="form-group" data-tooltip="@item.cl : {{system.cl}}">
   <label class="header">{{localize "FFD20.CasterLevel"}}</label>
   <div class="form-fields">
     <input type="text" class="select-on-click" name="system.cl" value="{{system.cl}}" placeholder="{{localize "FFD20.CasterLevel"}}" data-dtype="Number"/>
@@ -13,11 +10,8 @@
 </div>
 
 {{!-- Aura --}}
-<div class="form-group tooltip">
-  <div class="tooltipcontent">
-    @item.auraStrength : {{auraStrength}}
-  </div>
-  <label class="header">{{localize "FFD20.Aura"}}</label>
+<div class="form-group" data-tooltip="@item.auraStrength : {{auraStrength}}">
+  <label class="header">{{localize "FFD20.School"}}</label>
   {{#if system.aura.custom}}
   <div class="form-fields">
     <label class="aura-strength">{{auraStrength_name}}</label>

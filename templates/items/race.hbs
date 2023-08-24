@@ -2,10 +2,10 @@
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
 
     <div class="header-details flexrow">
-      <h1 class="itemname">
+      <h1 class="item-name">
         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
       </h1>
       <div class="item-subtitle">
@@ -28,7 +28,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab flexcol" data-group="primary" data-tab="description">
-      {{editor descriptionHTML.identified target="system.description.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+      {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Details Tab --}}
@@ -59,7 +59,7 @@
             <li class="tag {{k}}">{{v}}</li>
           {{/each}}
         </ul>
-        <a class="entry-selector" for="system.subTypes" data-fields="{{localize "FFD20.RaceSubtypePlural"}}" data-dtypes="String"><i class="fas fa-edit"></i></a>
+        <a class="entry-selector" for="system.subTypes" data-fields="{{localize "FFD20.RaceSubtypePlural"}}" data-dtypes="String" data-flat="true"><i class="fas fa-edit"></i></a>
       </div>
 
       {{!-- Proficiencies --}}
@@ -79,6 +79,12 @@
         {{/each}}
         </ol>
       </div>
+
+      {{!-- Advanced --}}
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="changes">

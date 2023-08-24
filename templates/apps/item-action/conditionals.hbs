@@ -5,7 +5,7 @@
 <ol class="conditionals form-group">
   {{#each data.conditionals as |conditional a|}}
   <li class="conditional flexcolumn" data-conditional="{{conditional._id}}"><div class="conditional flexrow" data-conditional="{{conditional._id}}">
-      <input class="conditional-default" type="checkbox" title="{{localize "FFD20.Default"}}" name="conditionals.{{a}}.default" {{checked this.default}}/>
+      <input class="conditional-default" type="checkbox" data-tooltip="FFD20.Default" name="conditionals.{{a}}.default" {{checked this.default}}/>
       <input class="conditional-name" type="text" name="conditionals.{{a}}.name" value="{{lookup this "name"}}"
       placeholder="{{localize "FFD20.Name"}}"/>
       <a class="delete-conditional conditional-control delete-conditional"><i class="fas fa-trash"></i></a>

@@ -5,18 +5,13 @@
       <label>{{localize "FFD20.SkillBonusRankFormula"}}</label>
       <input class="formula" type="text" name="system.details.bonusSkillRankFormula" value="{{system.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}"/>
     </li>
-    <a class="skill-lock-button{{#unless @root.skillsLocked}} unlocked{{/unless}}" title="{{localize "FFD20.ToggleSkillLock"}}"></a>
+    <a class="skill-lock-button{{#unless @root.skillsLocked}} unlocked{{/unless}}" data-tooltip="FFD20.ToggleSkillLock"></a>
   </ol>
   {{#unless useBGSkills}}
   <ol class="form-group">
     <li class="flexrow skill-rank-info tooltip">
       <span class="tooltipcontent">
-        {{#if sourceData.skillRanks}}
-        {{localize "FFD20.FromSources"}}:<br/>
-        {{#each sourceData.skillRanks as |src|}}
-        {{src.name}}: {{src.value}}<br/>
-        {{/each}}
-        {{/if}}
+        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceData.skillRanks label="FFD20.FromSources" skipLine=true}}
       </span>
       <table class="skill-ranks">
         <thead>
@@ -38,12 +33,7 @@
   <ol class="form-group tooltip">
     <li class="flexrow skill-rank-info">
       <span class="tooltipcontent">
-        {{#if sourceData.skillRanks}}
-        {{localize "FFD20.FromSources"}}:<br/>
-        {{#each sourceData.skillRanks as |src|}}
-        {{src.name}}: {{src.value}}<br/>
-        {{/each}}
-        {{/if}}
+        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceData.skillRanks label="FFD20.FromSources" skipLine=true}}
       </span>
       <table class="skill-ranks">
         <thead>

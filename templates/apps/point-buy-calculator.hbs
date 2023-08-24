@@ -1,28 +1,26 @@
-<form autocomplete="off" onsubmit="event.preventDefault();">
-  <ol class="item-list">
+<form autocomplete="off">
+  <ol class="ability-list">
     {{#each abilities as |abl|}}
-    <li class="item flexrow" data-ability="{{abl.key}}">
-      <div class="item-name">
-        <h4>
-          {{abl.name}}
-        </h4>
-      </div>
+    <li class="ability flexrow" data-ability="{{abl.key}}">
+      <span class="name">
+        {{abl.name}}
+      </span>
 
       {{!-- Subtract --}}
-      <div class="ability-controls">
-        <a class="ability-control subtract">
+      <div class="controls">
+        <a class="control subtract">
           <i class="fas fa-minus"></i>
         </a>
       </div>
 
       {{!-- Current Value --}}
-      <span class="item-detail ability-value">
+      <span class="value">
         {{abl.value}}
       </span>
 
       {{!-- Add --}}
-      <div class="ability-controls">
-        <a class="ability-control add">
+      <div class="controls">
+        <a class="control add">
           <i class="fas fa-plus"></i>
         </a>
       </div>
@@ -31,28 +29,23 @@
   </ol>
 
   <div class="info">
-    <p>{{localize "FFD20.PointBuyCalculatorSpent"}}: {{points}}</p>
-    <table>
+    <p class="usage">
+      {{localize "FFD20.PointBuyCalculatorSpent"}}: {{points}}
+      {{#if invalidPoints}}
+        <i class="fa-solid fa-triangle-exclamation" data-tooltip="FFD20.PointBuyCalculatorInvalidPoints"></i>
+      {{/if}}
+    </p>
+    <table class="categories">
       <tr>
         <th>{{localize "FFD20.PointBuyCalculatorCampaignType"}}</th>
         <th>{{localize "FFD20.PointBuyCalculatorPoints"}}</th>
       </tr>
-      <tr>
-        <td>{{localize "FFD20.PointBuyCalculatorLowFantasy"}}</td>
-        <td>10</td>
+      {{#each limits}}
+      <tr{{#if (eq @root.closest key)}} class="closest"{{/if}} data-category="{{key}}">
+        <td>{{localize label}}</td>
+        <td>{{points}}</td>
       </tr>
-      <tr>
-        <td>{{localize "FFD20.PointBuyCalculatorStandardFantasy"}}</td>
-        <td>15</td>
-      </tr>
-      <tr>
-        <td>{{localize "FFD20.PointBuyCalculatorHighFantasy"}}</td>
-        <td>20</td>
-      </tr>
-      <tr>
-        <td>{{localize "FFD20.PointBuyCalculatorEpicFantasy"}}</td>
-        <td>25</td>
-      </tr>
+      {{/each}}
     </table>
     <p>
       <i class="fas fa-exclamation-triangle"></i> {{localize "FFD20.PointBuyCalculatorWarning"}}

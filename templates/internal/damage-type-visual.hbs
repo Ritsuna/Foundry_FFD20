@@ -2,7 +2,7 @@
 {{#if (or data.values.length data.custom)}}
 <div class="damage-type-visual">
   {{#each data.values as |d|}}
-  <div class="damage-type" title="{{localize (lookup (lookup ../damageTypes d) "name")}}">
+  <div class="damage-type" data-tooltip="{{localize (lookup (lookup ../damageTypes d) "name")}}">
     {{#if (lookup (lookup ../damageTypes d) "icon")}}
     <i class="{{lookup (lookup ../damageTypes d) "icon"}} icon" style="color: {{lookup (lookup ../damageTypes d) "color"}}"></i>
     {{else}}
@@ -20,6 +20,6 @@
 {{!-- No damage type values --}}
 {{else}}
 <div class="damage-type-visual empty"{{#if name}} data-name="{{name}}"{{/if}}>
-  <span>{{localize "FFD20.DamageType"}}</span>
+  <span>{{localize "FFD20.Undefined"}}</span>
 </div>
 {{/if}}

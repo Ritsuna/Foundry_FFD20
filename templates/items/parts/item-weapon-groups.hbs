@@ -1,7 +1,7 @@
-<div class="form-group {{system.weaponGroups.cssClass}} tooltip">
+<div class="form-group weapon-groups">
   <label for="system.weaponGroups">{{localize "FFD20.WeaponGroups"}}</label>
   <ul class="traits-list tag-list">
-    {{#each system.weaponGroups.selected as |v k|}}
+    {{#each weaponGroups.selected as |v k|}}
       <li class="tag {{k}}">{{v}}</li>
     {{/each}}
   </ul>

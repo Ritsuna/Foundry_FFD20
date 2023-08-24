@@ -1,21 +1,21 @@
-<div class="flexrow summary-header">
-  <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
+<div class="summary-header">
+  <img class="profile" src="{{actor.img}}" data-edit="img"/>
 
   <div class="flexcol">
     <div class="flexrow name-xp">
       <div>
-        <h1 class="charname">
-          <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}" title="{{localize "FFD20.CharacterName"}}"/>
+        <h1 class="char-name">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}" data-tooltip="FFD20.CharacterName"/>
         </h1>
       </div>
 
       {{#if isCharacter}}
       <div class="hd-level character tooltip">
         <span class="tooltipcontent">
-          @attributes.hd.total : {{system.attributes.hd.total}}
+          <span class="span2 align-left">@attributes.hd.total :</span><span class="span1 align-right"> {{system.attributes.hd.total}}</span>
           {{#if system.details.mythicTier}}
           <br />
-          @details.mythicTier : {{system.details.mythicTier}}
+          <span class="span2 align-left">@details.mythicTier :</span><span class="span1 align-right">{{system.details.mythicTier}}</span>
           {{/if}}
         </span>
 
@@ -72,8 +72,8 @@
               {{#if system.details.mythicTier}}
               <th class="tier">{{localize "FFD20.Tier"}}</th>
               {{/if}}
-              <th>{{localize "FFD20.ChallengeRatingShort"}}</th>
-              <th>{{localize "FFD20.Experience"}}</th>
+              <th class="challenge-rating">{{localize "FFD20.ChallengeRatingShort"}}</th>
+              <th class="experience">{{localize "FFD20.Experience"}}</th>
             </tr>
           </thead>
           <tbody>
@@ -86,7 +86,7 @@
                 {{system.details.mythicTier}}
               </td>
               {{/if}}
-              <td>
+              <td class="challenge-rating">
                 <span class="text-box cr-input" name="system.details.cr.base">{{labels.cr}}</span>
               </td>
               <td class="experience">
@@ -97,12 +97,11 @@
         </table>
 
         <span class="tooltipcontent">
-          @attributes.hd.total : {{system.attributes.hd.total}}<br/>
-          @details.cr.base : {{system.details.cr.base}}<br/>
-          @details.cr.total : {{system.details.cr.total}}
+          <span class="span2 align-left">@attributes.hd.total :</span><span class="span1 align-right"> {{system.attributes.hd.total}}</span>
+          <span class="span2 align-left">@details.cr.base :</span><span class="span1 align-right"> {{system.details.cr.base}}</span>
+          <span class="span2 align-left">@details.cr.total :</span><span class="span1 align-right"> {{system.details.cr.total}}</span>
           {{#if system.details.mythicTier}}
-          <br />
-          @details.mythicTier : {{system.details.mythicTier}}
+          <span class="span2 align-left">@details.mythicTier :</span><span class="span1 align-right"> {{system.details.mythicTier}}</span>
           {{/if}}
         </span>
       </div>
@@ -112,56 +111,54 @@
     {{!-- Character Summary --}}
     <div class="character-summary flexrow">
       <div>
-        <input type="text" name="system.details.gender" value="{{system.details.gender}}" placeholder="{{localize "FFD20.Gender"}}" title="{{localize "FFD20.Gender"}}"/>
+        <input type="text" name="system.details.gender" value="{{system.details.gender}}" placeholder="{{localize "FFD20.Gender"}}" data-tooltip="FFD20.Gender"/>
       </div>
       <div>
-        <input type="text" name="system.details.deity" value="{{system.details.deity}}" placeholder="{{localize "FFD20.Deity"}}" title="{{localize "FFD20.Deity"}}"/>
+        <input type="text" name="system.details.deity" value="{{system.details.deity}}" placeholder="{{localize "FFD20.Deity"}}" data-tooltip="FFD20.Deity"/>
       </div>
       <div>
-        <input type="text" name="system.details.age" value="{{system.details.age}}" placeholder="{{localize "FFD20.Age"}}" title="{{localize "FFD20.Age"}}"/>
+        <input type="text" name="system.details.age" value="{{system.details.age}}" placeholder="{{localize "FFD20.Age"}}" data-tooltip="FFD20.Age"/>
       </div>
       <div>
-        <input type="text" name="system.details.height" value="{{system.details.height}}" placeholder="{{localize "FFD20.Height"}}" title="{{localize "FFD20.Height"}}"/>
+        <input type="text" name="system.details.height" value="{{system.details.height}}" placeholder="{{localize "FFD20.Height"}}" data-tooltip="FFD20.Height"/>
       </div>
       <div>
-        <input type="text" name="system.details.weight" value="{{system.details.weight}}" placeholder="{{localize "FFD20.Weight"}}" title="{{localize "FFD20.Weight"}}"/>
+        <input type="text" name="system.details.weight" value="{{system.details.weight}}" placeholder="{{localize "FFD20.Weight"}}" data-tooltip="FFD20.Weight"/>
       </div>
 
       {{!-- Alignment --}}
-      <div class="controls alignment flexrow" title="{{localize "FFD20.Alignment"}}">
+      <div class="controls alignment flexrow" data-tooltip="FFD20.Alignment">
         {{#if labels.alignment}}<span>{{labels.alignment}}</span>{{else}}<span class="placeholder">{{localize "FFD20.Alignment"}}</span>{{/if}}
         <a class="control alignment"><i class="fas fa-cog"></i></a>
       </div>
     </div>
 
-    {{!-- Race information --}}
     <div class="flexrow">
-      <div class="race-container item flexrow" {{#if race}}data-item-id="{{race._id}}"{{/if}} title="{{localize "FFD20.Race"}}">
-        <div class="race item-image rollable" style="background-image: url({{race.img}})" title="{{labels.race}}">
+      <div class="race-container item flexrow" {{#if race}}data-item-id="{{race._id}}"{{/if}} data-tooltip="FFD20.Race">
+        <div class="race item-image rollable" style="background-image: url({{race.img}})" data-tooltip="{{labels.race}}<br>{{localize "FFD20.DisplayInChat"}}">
           {{#unless race}}{{localize "FFD20.Race"}}{{/unless}}
         </div>
 
         <div class="item-controls flexcol">
           {{#if owner}}
-          {{#unless race}}
-          <a class="item-control add" title="{{localize "FFD20.CreateItem"}}"><i class="fas fa-plus"></i></a>
-          <a data-action="compendium" data-action-target="races" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
-          {{/unless}}
           {{#if race}}
-          <a class="item-control edit" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>
-          <a class="item-control delete" title="{{localize "FFD20.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+          <a class="item-control edit" data-tooltip="FFD20.EditItem"><i class="fas fa-edit"></i></a>
+          <a class="item-control delete" data-tooltip="FFD20.DeleteItem"><i class="fas fa-trash"></i></a>
+          {{else}}
+          <a class="item-control add" data-tooltip="FFD20.CreateItem"><i class="fas fa-plus"></i></a>
+          <a data-action="compendium" data-action-target="races" data-tooltip="FFD20.OpenCompendium"><i class="fas fa-folder-plus"></i></a>
           {{/if}}
           {{/if}}
         </div>
 
-        {{#if race}}
         <div class="race-info tag-list">
+          {{#if race}}
           <span class="tag type3">{{lookup config.creatureTypes race.system.creatureType}}</span>
           {{#each race.system.subTypes as |v|}}
           <span class="tag">{{v}}</span>
           {{/each}}
+          {{/if}}
         </div>
-        {{/if}}
       </div>
       <div class="flexrow item-list misc-header-items">
         {{!-- Rest --}}
@@ -173,7 +170,7 @@
   </div>
 </div>
 
-{{!-- Contains HP and speed, add Limit Breaks and MP here --}}
+{{!-- Header Attributes --}}
 <div class="attributes flexrow">
     {{#unless useWoundsAndVigor}}
     <div class='health-details pseudo-table tooltip'>
@@ -197,15 +194,12 @@
         </li>
       </ul>
       <div class="tooltipcontent">
-        @attributes.hp.value : {{system.attributes.hp.value}}<br/>
-        @attributes.hp.max : {{system.attributes.hp.max}}<br/>
-        @attributes.hp.temp : {{system.attributes.hp.temp}}<br/>
-        @attributes.hp.nonlethal : {{system.attributes.hp.nonlethal}}<br>
+        <span class="span2 align-left">@attributes.hp.value :</span><span class="span1 align-right"> {{system.attributes.hp.value}}</span>
+        <span class="span2 align-left">@attributes.hp.max :</span><span class="span1 align-right"> {{system.attributes.hp.max}}</span>
+        <span class="span2 align-left">@attributes.hp.temp :</span><span class="span1 align-right"> {{system.attributes.hp.temp}}</span>
+        <span class="span2 align-left">@attributes.hp.nonlethal :</span><span class="span1 align-right"> {{system.attributes.hp.nonlethal}}</span>
 
-        {{#if sourceDetails.system.attributes.hp.max.length}}
-        <br/>{{localize "FFD20.FromSources"}}:<br/>
-        {{#each sourceDetails.system.attributes.hp.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-        {{/if}}
+        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.hp.max }}
       </div>
     </div>
     {{else}}
@@ -214,15 +208,12 @@
       {{!-- Vigor --}}
       <div class='flexcol vigor tooltip'>
         <div class="tooltipcontent">
-          @attributes.vigor.min : {{system.attributes.vigor.min}}<br/>
-          @attributes.vigor.value : {{system.attributes.vigor.value}}<br/>
-          @attributes.vigor.max : {{system.attributes.vigor.max}}<br/>
-          @attributes.vigor.temp : {{system.attributes.vigor.temp}}<br>
+          <span class="span2 align-left">@attributes.vigor.min :</span><span class="span1 align-right"> {{system.attributes.vigor.min}}</span>
+          <span class="span2 align-left">@attributes.vigor.value :</span><span class="span1 align-right"> {{system.attributes.vigor.value}}</span>
+          <span class="span2 align-left">@attributes.vigor.max :</span><span class="span1 align-right"> {{system.attributes.vigor.max}}</span>
+          <span class="span2 align-left">@attributes.vigor.temp :</span><span class="span1 align-right"> {{system.attributes.vigor.temp}}</span>
 
-          {{#if sourceDetails.system.attributes.vigor.max.length}}
-          <br/>{{localize "FFD20.FromSources"}}:<br/>
-          {{#each sourceDetails.system.attributes.vigor.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-          {{/if}}
+          {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.vigor.max }}
         </div>
 
         <h3 class='header'>{{localize "FFD20.Vigor"}}</h3>
@@ -248,14 +239,11 @@
       {{!-- Wounds --}}
       <div class='flexcol wounds tooltip'>
         <div class="tooltipcontent">
-          @attributes.wounds.min : {{system.attributes.wounds.min}}<br/>
-          @attributes.wounds.value : {{system.attributes.wounds.value}}<br/>
-          @attributes.wounds.max : {{system.attributes.wounds.max}}<br/>
+          <span class="span2 align-left">@attributes.wounds.min :</span><span class="span1 align-right"> {{system.attributes.wounds.min}}</span>
+          <span class="span2 align-left">@attributes.wounds.value :</span><span class="span1 align-right"> {{system.attributes.wounds.value}}</span>
+          <span class="span2 align-left">@attributes.wounds.max :</span><span class="span1 align-right"> {{system.attributes.wounds.max}}</span>
 
-          {{#if sourceDetails.system.attributes.wounds.max.length}}
-          <br/>{{localize "FFD20.FromSources"}}:<br/>
-          {{#each sourceDetails.system.attributes.wounds.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-          {{/if}}
+          {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.wounds.max }}
         </div>
 
         <h3 class='header'>{{localize "FFD20.Wounds"}}</h3>
@@ -295,55 +283,27 @@
         </li>
       </ul>
       <div class="tooltipcontent">
-        @attributes.mp.value : {{system.attributes.mp.value}}<br/>
-        @attributes.mp.max : {{system.attributes.mp.max}}<br/>
-        @attributes.mp.temp : {{system.attributes.mp.temp}}<br/>
-        @attributes.mp.recover : {{system.attributes.mp.recover}}<br/>
-        {{#if sourceDetails.system.attributes.mp.max.length}}
-        <br/>{{localize "FFD20.FromSources"}}:<br/>
-        {{#each sourceDetails.system.attributes.mp.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-        {{/if}}
+        <span class="span2 align-left"></span>@attributes.mp.value :</span><span class="span1 align-right"></span>{{system.attributes.mp.value}}</span>
+        <span class="span2 align-left"></span>@attributes.mp.max :</span><span class="span1 align-right"></span>{{system.attributes.mp.max}}</span>
+        <span class="span2 align-left"></span>@attributes.mp.temp :</span><span class="span1 align-right"></span>{{system.attributes.mp.temp}}</span>
+        <span class="span2 align-left"></span>@attributes.mp.recover :</span><span class="span1 align-right"></span>{{system.attributes.mp.recover}}</span>
+
+        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.mp.max }}
       </div>
     </div>
-</div>
-<div class="attributes flexrow">
-    <div class='limitbreak-details pseudo-table tooltip'>
-      <h3 class='header'>{{localize "FFD20.LimitBreak"}}</h3>
-      <ul class='flexrow'>
-        <li class='flexcol current'>
-          <h4 class='sub-header'>{{localize "FFD20.Current"}}</h4>
-          <span class="value text-box direct wheel-change allow-relative limitbreak-current-input" name="system.attributes.limitbreak.value" data-dtype="Number">{{system.attributes.limitbreak.value}}</span>
-        </li>
-        <li class='flexcol maximum'>
-          <h4 class='sub-header'>{{localize "FFD20.Maximum"}}</h4>
-          <span class="value text-box readonly limitbreak-max">{{system.attributes.limitbreak.max}}</span>
-        </li>
-        <li class='flexcol temp'>
-          <h4 class='sub-header'>{{localize "FFD20.TempShort"}}</h4>
-          <span class="value text-box direct allow-relative limitbreak-temp-input" name="system.attributes.limitbreak.temp" data-dtype="Number">{{#if system.attributes.limitbreak.temp}}{{system.attributes.limitbreak.temp}}{{/if}}</span>
-        </li>
-      </ul>
-      <div class="tooltipcontent">
-        @attributes.limitbreak.value : {{system.attributes.limitbreak.value}}<br/>
-        @attributes.limitbreak.max : {{system.attributes.limitbreak.max}}<br/>
-        @attributes.limitbreak.temp : {{system.attributes.limitbreak.temp}}<br/>
-        {{#if sourceDetails.system.attributes.limitbreak.max.length}}
-        <br/>{{localize "FFD20.FromSources"}}:<br/>
-        {{#each sourceDetails.system.attributes.limitbreak.max as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-        {{/if}}
-      </div>
-    </div>
+  </div>
     <div class='speed-details flexcol pseudo-table'>
       <h3 class='header'>{{localize "FFD20.Speed"}}</h3>
       <ul class='flexrow'>
         <li class='flexcol land tooltip'>
           <div class="tooltipcontent">
-            @attributes.speed.land.total : {{convertDistance system.attributes.speed.land.total}}<br>
-
-            {{#if (or sourceDetails.system.attributes.speed.land.base.length sourceDetails.system.attributes.speed.land.add.length)}}
-              <br/>{{localize "FFD20.FromSources"}}:<br/>
-              {{#each sourceDetails.system.attributes.speed.land.base as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
-              {{#each sourceDetails.system.attributes.speed.land.add as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
+            <span class="span2 align-left">@attributes.speed.land.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.land.total}}</span>
+            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.land.base forceLabel=1 isDistance=true skipLabel=0}}
+            
+            {{#if sourceDetails.system.attributes.speed.land.base.length}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.land.add skipLabel=1 skipLine=true isDistance=true}}
+            {{else}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.land.add skipLabel=0 isDistance=true}}
             {{/if}}
           </div>
           <h4 class='sub-header'>{{localize "FFD20.SpeedLand_Short"}}</h4>
@@ -353,12 +313,13 @@
         </li>
         <li class='flexcol climb tooltip'>
           <div class="tooltipcontent">
-            @attributes.speed.climb.total : {{convertDistance system.attributes.speed.climb.total}}<br>
-
-            {{#if (or sourceDetails.system.attributes.speed.climb.base.length sourceDetails.system.attributes.speed.climb.add.length)}}
-              <br/>{{localize "FFD20.FromSources"}}:<br/>
-              {{#each sourceDetails.system.attributes.speed.climb.base as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
-              {{#each sourceDetails.system.attributes.speed.climb.add as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
+            <span class="span2 align-left">@attributes.speed.climb.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.climb.total}}</span>
+            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.climb.base forceLabel=1 isDistance=true skipLabel=0}}
+            
+            {{#if sourceDetails.system.attributes.speed.climb.base.length}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.climb.add skipLabel=1 skipLine=true isDistance=true}}
+            {{else}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.climb.add skipLabel=0 isDistance=true}}
             {{/if}}
           </div>
           <h4 class='sub-header'>{{localize "FFD20.SpeedClimb_Short"}}</h4>
@@ -368,12 +329,13 @@
         </li>
         <li class='flexcol swim tooltip'>
           <div class="tooltipcontent">
-            @attributes.speed.swim.total : {{convertDistance system.attributes.speed.swim.total}}<br>
-
-            {{#if (or sourceDetails.system.attributes.swim.land.base.length sourceDetails.system.attributes.swim.land.add.length)}}
-              <br/>{{localize "FFD20.FromSources"}}:<br/>
-              {{#each sourceDetails.system.attributes.speed.swim.base as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
-              {{#each sourceDetails.system.attributes.speed.swim.add as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
+            <span class="span2 align-left">@attributes.speed.swim.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.swim.total}}</span>
+            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.swim.base forceLabel=1 isDistance=true skipLabel=0}}
+            
+            {{#if sourceDetails.system.attributes.speed.swim.base.length}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.swim.add skipLabel=1 skipLine=true isDistance=true}}
+            {{else}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.swim.add skipLabel=0 isDistance=true}}
             {{/if}}
           </div>
 
@@ -384,12 +346,13 @@
         </li>
         <li class='flexcol burrow tooltip'>
           <div class="tooltipcontent">
-            @attributes.speed.burrow.total : {{convertDistance system.attributes.speed.burrow.total}}<br>
-
-            {{#if (or sourceDetails.system.attributes.speed.burrow.base.length sourceDetails.system.attributes.speed.burrow.add.length)}}
-              <br/>{{localize "FFD20.FromSources"}}:<br/>
-              {{#each sourceDetails.system.attributes.speed.burrow.base as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
-              {{#each sourceDetails.system.attributes.speed.burrow.add as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
+            <span class="span2 align-left">@attributes.speed.burrow.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.burrow.total}}</span>
+            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.burrow.base forceLabel=1 isDistance=true skipLabel=0}}
+            
+            {{#if sourceDetails.system.attributes.speed.burrow.base.length}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.burrow.add skipLabel=1 skipLine=true isDistance=true}}
+            {{else}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.burrow.add skipLabel=0 isDistance=true}}
             {{/if}}
           </div>
           <h4 class='sub-header'>{{localize "FFD20.SpeedBurrow_Short"}}</h4>
@@ -399,12 +362,14 @@
         </li>
         <li class='flexcol fly tooltip'>
           <div class="tooltipcontent">
-            @attributes.speed.fly.total : {{system.attributes.speed.fly.total}}<br/>
-            @attributes.speed.fly.maneuverability : "{{system.attributes.speed.fly.maneuverability}}"<br>
-            {{#if (or sourceDetails.system.attributes.speed.fly.base.length sourceDetails.system.attributes.speed.fly.add.length)}}
-              <br/>{{localize "FFD20.FromSources"}}:<br/>
-              {{#each sourceDetails.system.attributes.speed.fly.base as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
-              {{#each sourceDetails.system.attributes.speed.fly.add as |src|}}{{src.name}}: {{convertDistance src.value}}<br/>{{/each}}
+            <span class="span2 align-left">@attributes.speed.fly.total :</span><span class="span1 align-right"> {{system.attributes.speed.fly.total}}</span>
+            <span class="span2 align-left">@attributes.speed.fly.maneuverability :</span><span class="span1 align-right"> "{{system.attributes.speed.fly.maneuverability}}"</span>
+            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.fly.base forceLabel=1 isDistance=true skipLabel=0}}
+            
+            {{#if sourceDetails.system.attributes.speed.fly.base.length}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.fly.add skipLabel=1 skipLine=true isDistance=true}}
+            {{else}}
+              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.fly.add skipLabel=0 isDistance=true}}
             {{/if}}
           </div>
           <h4 class='sub-header'>{{localize "FFD20.SpeedFly_Short"}}</h4>
@@ -425,95 +390,18 @@
       </select>
     </div>
 </div>
-{{!-- Contains extra class resources here --}}
-<div class="attributes flexrow">
-  {{#if system.classResource.res1.on}}
-    <div class='class-resource pseudo-table tooltip'>
-      <h3 class='header'>{{system.classResource.res1.name}}</h3>
-      <ul class='flexrow'>
-        <li class='flexcol current'>
-          <h4 class='sub-header'>{{localize "FFD20.Current"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res1.value" data-dtype="Number">{{system.classResource.res1.value}}</span>
-        </li>
-        <li class='flexcol maximum'>
-          <h4 class='sub-header'>{{localize "FFD20.Maximum"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res1.max" data-dtype="Number">{{system.classResource.res1.max}}</span>
-        </li>
-      </ul>
-      <div class="tooltipcontent">
-        @classResource.res1.value : {{system.classResource.res1.value}}<br/>
-        @classResource.res1.max : {{system.classResource.res1.max}}<br/>
-      </div>
-    </div>
-  {{/if}}
-  {{#if system.classResource.res2.on}}
-    <div class='class-resource pseudo-table tooltip'>
-      <h3 class='header'>{{system.classResource.res2.name}}</h3>
-      <ul class='flexrow'>
-        <li class='flexcol current'>
-          <h4 class='sub-header'>{{localize "FFD20.Current"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res2.value" data-dtype="Number">{{system.classResource.res2.value}}</span>
-        </li>
-        <li class='flexcol maximum'>
-          <h4 class='sub-header'>{{localize "FFD20.Maximum"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res2.max" data-dtype="Number">{{system.classResource.res2.max}}</span>
-        </li>
-      </ul>
-      <div class="tooltipcontent">
-        @classResource.res2.value : {{system.classResource.res2.value}}<br/>
-        @classResource.res2.max : {{system.classResource.res2.max}}<br/>
-      </div>
-    </div>
-  {{/if}}
-  {{#if system.classResource.res3.on}}
-    <div class='class-resource pseudo-table tooltip'>
-      <h3 class='header'>{{system.classResource.res3.name}}</h3>
-      <ul class='flexrow'>
-        <li class='flexcol current'>
-          <h4 class='sub-header'>{{localize "FFD20.Current"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res3.value" data-dtype="Number">{{system.classResource.res3.value}}</span>
-        </li>
-        <li class='flexcol maximum'>
-          <h4 class='sub-header'>{{localize "FFD20.Maximum"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res3.max" data-dtype="Number">{{system.classResource.res3.max}}</span>
-        </li>
-      </ul>
-      <div class="tooltipcontent">
-        @classResource.res3.value : {{system.classResource.res3.value}}<br/>
-        @classResource.res3.max : {{system.classResource.res3.max}}<br/>
-      </div>
-    </div>
-  {{/if}}
-  {{#if system.classResource.res4.on}}
-    <div class='class-resource pseudo-table tooltip'>
-      <h3 class='header'>{{system.classResource.res4.name}}</h3>
-      <ul class='flexrow'>
-        <li class='flexcol current'>
-          <h4 class='sub-header'>{{localize "FFD20.Current"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res4.value" data-dtype="Number">{{system.classResource.res4.value}}</span>
-        </li>
-        <li class='flexcol maximum'>
-          <h4 class='sub-header'>{{localize "FFD20.Maximum"}}</h4>
-          <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.classResource.res4.max" data-dtype="Number">{{system.classResource.res4.max}}</span>
-        </li>
-      </ul>
-      <div class="tooltipcontent">
-        @classResource.res4.value : {{system.classResource.res4.value}}<br/>
-        @classResource.res4.max : {{system.classResource.res4.max}}<br/>
-      </div>
-    </div>
-  {{/if}}
-</div>
 
-{{!-- This is for adding classes and seeing quick information --}}
+{{!-- Footer --}}
 
 <section class="subdetails-body">
   <div class="quick-info">
     <div class="flexcol">
-      {{!-- Roll Defenses --}}
+      {{!-- Display Defenses --}}
       <li class="generic-defenses flexrow" data-drag="defenses">
-        <div class="rollable image-d20"></div>
-        <label><h3>{{localize "FFD20.Defenses"}}</h3></label>
+        <h3>
+          <i class="fa-solid fa-dice-d20 rollable"></i>
+          {{localize "FFD20.Defenses"}}
+        </h3>
       </li>
 
       {{> "systems/ffd20/templates/actors/parts/actor-defenses_tables.hbs"}}
@@ -521,13 +409,27 @@
       <table>
         <thead>
           <tr>
-            <th class="attribute bab" data-attribute="bab">
+            <th class="attribute bab tooltip" data-attribute="bab">
+              <span class="tooltipcontent">
+                <span class="span2 align-left">@attributes.bab.total :</span><span class="span1 align-right"> {{system.attributes.bab.total}}</span>
+                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.bab.total }}
+              </span>
+
               <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.BABAbbr"}}</span></a>
             </th>
-            <th class="attribute cmb" data-attribute="cmb">
+            <th class="attribute cmb tooltip" data-attribute="cmb">
+              {{> "systems/ffd20/templates/actors/parts/actor-cmb.hbs"}}
+
               <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.CMBAbbr"}}</span></a>
             </th>
-            <th class="attribute initiative" data-attribute="initiative">
+            <th class="attribute initiative tooltip" data-attribute="initiative">
+              <span class="tooltipcontent">
+                <span class="span2 align-left">@attributes.init.total :</span><span class="span1 align-right"> {{system.attributes.init.total}}</span>
+                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.init.total }}
+
+                {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.init"}}
+              </span>
+
               <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.Initiative"}}</span></a>
             </th>
           </tr>
@@ -535,34 +437,15 @@
 
         <tbody>
           <tr>
-            <td class="tooltip bab">
-              <span class="tooltipcontent">
-                @attributes.bab.total : {{system.attributes.bab.total}}<br>
-
-                {{#if sourceDetails.system.attributes.bab.total.length}}
-                <br/>{{localize "FFD20.FromSources"}}:<br/>
-                {{#each sourceDetails.system.attributes.bab.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-                {{/if}}
-              </span>
-
+            <td class="bab">
               {{system.attributes.bab.total}}
             </td>
 
-            <td class="tooltip cmb">
-              {{> "systems/ffd20/templates/actors/parts/actor-cmb.hbs"}}
+            <td class="cmb">
+              {{numberFormat system.attributes.cmb.total decimals=0 sign=true}}
             </td>
 
-            <td class="tooltip initiative">
-              <span class="tooltipcontent">
-                @attributes.init.total : {{system.attributes.init.total}}<br>
-
-                {{#if sourceDetails.system.attributes.init.total.length}}
-                  <br/>{{localize "FFD20.FromSources"}}:<br/>
-                  {{#each sourceDetails.system.attributes.init.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-                {{/if}}
-
-                {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.init"}}
-              </span>
+            <td class="initiative">
               {{system.attributes.init.total}}
             </td>
           </tr>
@@ -575,7 +458,7 @@
 
     <ol class="quick-actions">
       {{#each quickActions as |i|}}
-      <li class="item" data-item-id="{{i.item.id}}" data-type="{{i.item.type}}" style="border-color: {{i.color1}};" title="{{i.item.name}}">
+      <li class="item" data-item-id="{{i.item.id}}" data-type="{{i.item.type}}" data-tooltip="{{i.item.name}}">
         <img src="{{i.item.img}}">
         <span class="icon-label">{{i.item.name}}</span>
         {{#if i.haveAnyCharges}}
@@ -596,10 +479,12 @@
   <div class="classes-body">
     <h2>{{localize "FFD20.ClassPlural"}}</h2>
 
-    <ol class="inventory-list">
+    <ol class="item-groups-list">
       <ol class="item-list" data-type="class">
-        <li class="inventory-header flexrow">
-          <h3 class="item-name flexrow">{{localize "FFD20.ItemTypeClass"}}</h3>
+        <li class="item-list-header flexrow">
+          <div class="item-name">
+            <h3>{{localize "FFD20.ItemTypeClass"}}</h3>
+          </div>
 
           <div class="item-detail item-feat-level"><span>{{localize "FFD20.Level"}}</span></div>
 
@@ -609,10 +494,10 @@
 
           {{#if owner}}
           <div class="item-controls">
-            <a class="item-control item-create" title="Create Item" data-type="class">
+            <a class="item-control item-create" data-tooltip="FFD20.CreateItem" data-type="class">
               <i class="fas fa-plus"></i>
             </a>
-            <a data-action="compendium" data-action-target="classes" title="{{localize "FFD20.OpenCompendium"}}"><i class="fas fa-folder-plus"></i></a>
+            <a data-action="compendium" data-action-target="classes" data-tooltip="FFD20.OpenCompendium"><i class="fas fa-folder-plus"></i></a>
           </div>
           {{/if}}
         </li>
@@ -620,14 +505,14 @@
         {{#if classes.length}}
         {{#each classes as |item iid|}}
         <li class="item flexrow {{#unless isCharged}}uncharged{{/unless}}" data-item-id="{{item.id}}">
-          <div class="item-name flexrow rollable">
-            <div class="item-image" style='background-image: url("{{item.img}}")'></div>
+          <div class="item-name rollable">
+            <div class="item-image" style='background-image: url("{{item.img}}")' data-tooltip="FFD20.DisplayInChat"></div>
             <h4>{{item.name}}</h4>
           </div>
 
           <div class="item-detail item-feat-level tooltip">
             <span>{{localize "FFD20.Level"}} {{item.level}}</span>
-            <span class="tooltipcontent">@classes.{{item.tag}}.level : {{item.level}}</span>
+            <span class="tooltipcontent"><span class="span2">@classes.{{item.tag}}.level :</span><span class="span1"> {{item.level}}</span></span>
           </div>
 
           {{#if ../levelUp}}
@@ -640,9 +525,9 @@
 
           {{#if ../owner}}
           <div class="item-controls">
-            <a class="item-control item-edit" title="{{localize "FFD20.EditItem"}}"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-duplicate" title="{{localize "FFD20.DuplicateItem"}}"><i class="fas fa-copy"></i></a>
-            <a class="item-control item-delete" title="{{localize "FFD20.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+            <a class="item-control item-edit" data-tooltip="FFD20.EditItem"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-duplicate" data-tooltip="FFD20.DuplicateItem"><i class="fas fa-copy"></i></a>
+            <a class="item-control item-delete" data-tooltip="FFD20.DeleteItem"><i class="fas fa-trash"></i></a>
           </div>
           {{/if}}
         </li>

@@ -9,8 +9,8 @@
       {{/select}}
     </select>
     <span class="tooltipcontent">
-      @traits.size : {{system.traits.size}}<br>
-      @size : {{@root.rollData.size}}
+      <span class="span2 align-left">@traits.size :</span><span class="span1 align-right"> {{system.traits.size}}</span>
+      <span class="span2 align-left">@size :</span><span class="span1 align-right"> {{@root.rollData.size}}</span>
     </span>
   </div>
 
@@ -24,7 +24,7 @@
       {{/select}}
     </select>
     <span class="tooltipcontent">
-      @traits.stature : {{system.traits.stature}}
+      <span class="span2 align-left">@traits.stature :</span><span class="span1 align-right"> {{system.traits.stature}}</span>
     </span>
   </div>
 
@@ -38,19 +38,39 @@
     <a class="senses-selector"><i class="fas fa-edit"></i></a>
   </div>
 
-  <div class="form-group {{#unless system.traits.dr}}inactive{{/unless}} tooltip">
-    <label>{{localize "FFD20.DamRed"}}</label>
-    <input type="text" name="system.traits.dr" value="{{system.traits.dr}}" placeholder="{{localize "FFD20.None"}}"/>
+  <div class="form-group {{#unless system.traits.aura.custom}}inactive{{/unless}} tooltip">
+    <label>{{localize "FFD20.AuraPlural"}}</label>
+    <input type="text" name="system.traits.aura.custom" value="{{system.traits.aura.custom}}" placeholder="{{localize "FFD20.None"}}"/>
     <span class="tooltipcontent">
-      @traits.dr
+      <span class="span3">@traits.aura.custom</span>
     </span>
+  </div>
+
+  <div class="form-group {{#unless system.traits.dr}}inactive{{/unless}} data-selector tooltip">
+    <label for="system.traits.dr.value">{{localize "FFD20.DamRed"}}</label>
+    <ul class="traits-list tooltip tag-list">
+      {{#each dr as |value key|}}
+        <li class="tag {{key}}">{{value}}</li>
+      {{/each}}
+      {{#if sourceDetails.system.traits.dr.length}}
+        <div class="tooltipcontent">
+          <span class="span3">@traits.dr.total</span>
+          <span class="span3"><br></span>
+          <span class="span3">{{localize "FFD20.FromSources"}}:</span>
+          {{#each sourceDetails.system.traits.dr as |src|}}
+            <span class="span2 align-left">{{src.name}}:</span><span class="span1 align-left">{{src.value}}</span>
+          {{/each}}
+        </div>
+      {{/if}}
+    </ul>
+    <a class="resistance-selector" for="system.traits.dr" data-options="dr" data-fields="{{localize "FFD20.Application.DamageResistanceSelector.DamageAmount"}};{{localize "FFD20.Application.DamageResistanceSelector.Bypassed"}};{{localize "FFD20.Application.DamageResistanceSelector.CombinationType"}};{{localize "FFD20.Application.DamageResistanceSelector.Bypassed"}}" data-dtypes="Number;String;Boolean;String"><i class="fas fa-edit"></i></a>
   </div>
 
   <div class="form-group {{#unless system.traits.regen}}inactive{{/unless}} tooltip">
     <label>{{localize "FFD20.Regeneration"}}</label>
     <input type="text" name="system.traits.regen" value="{{system.traits.regen}}" placeholder="{{localize "FFD20.None"}}"/>
     <span class="tooltipcontent">
-      @traits.regen
+      <span class="span3">@traits.regen</span>
     </span>
   </div>
 
@@ -58,23 +78,35 @@
     <label>{{localize "FFD20.FastHealing"}}</label>
     <input type="text" name="system.traits.fastHealing" value="{{system.traits.fastHealing}}" placeholder="{{localize "FFD20.None"}}"/>
     <span class="tooltipcontent">
-      @traits.fastHealing
+      <span class="span3">@traits.fastHealing</span>
     </span>
   </div>
 
   <div class="form-group {{#unless system.traits.eres}}inactive{{/unless}} tooltip">
-    <label>{{localize "FFD20.EnRes"}}</label>
-    <input type="text" name="system.traits.eres" value="{{system.traits.eres}}" placeholder="{{localize "FFD20.None"}}"/>
-    <span class="tooltipcontent">
-      @traits.eres
-    </span>
+    <label for="system.traits.eres.value">{{localize "FFD20.EnRes"}}</label>
+    <ul class="traits-list tooltip tag-list">
+      {{#each eres as |value key|}}
+        <li class="tag {{key}}">{{value}}</li>
+      {{/each}}
+      {{#if sourceDetails.system.traits.eres.length}}
+        <div class="tooltipcontent">
+          <span class="span3">@traits.eres.total</span>
+          <span class="span3"><br></span>
+          <span class="span3">{{localize "FFD20.FromSources"}}:</span>
+          {{#each sourceDetails.system.traits.eres as |src|}}
+            <span class="span2 align-left">{{src.name}}:</span><span class="span1 align-left">{{src.value}}</span>
+          {{/each}}
+        </div>
+      {{/if}}
+    </ul>
+    <a class="resistance-selector" for="system.traits.eres"  data-options="eres" data-fields="{{localize "FFD20.Application.DamageResistanceSelector.DamageAmount"}};{{localize "FFD20.Application.DamageResistanceSelector.Resisted"}};{{localize "FFD20.Application.DamageResistanceSelector.CombinationType"}};{{localize "FFD20.Application.DamageResistanceSelector.Resisted"}}" data-dtypes="Number;String;Boolean;String"><i class="fas fa-edit"></i></a>
   </div>
 
   <div class="form-group {{#unless system.traits.cres}}inactive{{/unless}} tooltip">
     <label>{{localize "FFD20.ConRes"}}</label>
     <input type="text" name="system.traits.cres" value="{{system.traits.cres}}" placeholder="{{localize "FFD20.None"}}"/>
     <span class="tooltipcontent">
-      @traits.cres
+      <span class="span3">@traits.cres</span>
     </span>
   </div>
 
@@ -87,8 +119,8 @@
     </ul>
     <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
     <span class="tooltipcontent">
-      @traits.di.value<br>
-      @traits.di.custom
+      <span class="span3">@traits.di.value</span>
+      <span class="span3">@traits.di.custom</span>
     </span>
   </div>
 
@@ -101,8 +133,8 @@
     </ul>
     <a class="trait-selector" data-options="damageTypes"><i class="fas fa-edit"></i></a>
     <span class="tooltipcontent">
-      @traits.dv.value<br>
-      @traits.dv.custom
+      <span class="span3">@traits.dv.value</span>
+      <span class="span3">@traits.dv.custom</span>
     </span>
   </div>
 
@@ -115,8 +147,8 @@
     </ul>
     <a class="trait-selector" data-options="conditionTypes"><i class="fas fa-edit"></i></a>
     <span class="tooltipcontent">
-      @traits.ci.value<br>
-      @traits.ci.custom
+      <span class="span3">@traits.ci.value</span>
+      <span class="span3">@traits.ci.custom</span>
     </span>
   </div>
 
@@ -128,10 +160,12 @@
       {{/each}}
       {{#if sourceDetails.system.traits.languages.length}}
         <div class="tooltipcontent">
-          @traits.languages.total<br>
-          <br>
-          {{localize "FFD20.FromSources"}}:<br/>
-          {{#each sourceDetails.system.traits.languages as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+          <span class="span3">@traits.languages.total</span>
+          <span class="span3"><br></span>
+          <span class="span3">{{localize "FFD20.FromSources"}}:</span>
+          {{#each sourceDetails.system.traits.languages as |src|}}
+          <span class="span1 align-left">{{src.name}}:</span><span class="span2 align-left">{{src.value}}</span>
+          {{/each}}
         </div>
       {{/if}}
     </ul>
@@ -149,10 +183,12 @@
         {{/each}}
         {{#if sourceDetails.system.traits.weaponProf.length}}
           <div class="tooltipcontent">
-            @traits.weaponProf.total<br>
-            <br>
-            {{localize "FFD20.FromSources"}}:<br/>
-            {{#each sourceDetails.system.traits.weaponProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            <span class="span3">@traits.weaponProf.total</span>
+            <span class="span3"><br></span>
+            <span class="span3">{{localize "FFD20.FromSources"}}:</span>
+            {{#each sourceDetails.system.traits.weaponProf as |src|}}
+              <span class="span1 align-left">{{src.name}}:</span><span class="span2 align-left">{{src.value}}</span>
+            {{/each}}
           </div>
         {{/if}}
       </ul>
@@ -169,10 +205,12 @@
         {{/each}}
         {{#if sourceDetails.system.traits.armorProf.length}}
           <div class="tooltipcontent">
-            @traits.armorProf.total<br>
-            <br>
-            {{localize "FFD20.FromSources"}}:<br/>
-            {{#each sourceDetails.system.traits.armorProf as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+            <span class="span3">@traits.armorProf.total</span>
+            <span class="span3"><br></span>
+            <span class="span3">{{localize "FFD20.FromSources"}}:</span>
+            {{#each sourceDetails.system.traits.armorProf as |src|}}
+              <span class="span1 align-left">{{src.name}}:</span><span class="span2 align-left">{{src.value}}</span>
+            {{/each}}
           </div>
         {{/if}}
       </ul>
@@ -186,7 +224,7 @@
       <input type="checkbox" name="system.attributes.quadruped" {{checked system.attributes.quadruped}}/>
     </label>
     <span class="tooltipcontent">
-      @attributes.quadruped : {{system.attributes.quadruped}}<br>
+      <span class="span2 align-left">@attributes.quadruped :</span><span class="span1 align-right"> {{system.attributes.quadruped}}</span>
     </span>
   </div>
 
@@ -195,12 +233,7 @@
     <input class="select-on-click" type="text" name="system.attributes.energyDrain" value="{{system.attributes.energyDrain}}"
                                                           placeholder="0" data-dtype="Number" />
     <span class="tooltipcontent">
-      @attributes.energyDrain : {{system.attributes.energyDrain}}<br>
+      <span class="span2 align-left">@attributes.energyDrain :</span><span class="span1 align-right"> {{system.attributes.energyDrain}}</span>
     </span>
-  </div>
-
-  {{!-- Point Buy Calculator --}}
-  <div class="form-group">
-    <button type="button" class="pointbuy-calculator">{{localize "FFD20.PointBuyCalculator"}}</button>
   </div>
 </div>

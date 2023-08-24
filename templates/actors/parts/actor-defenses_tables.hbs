@@ -4,17 +4,11 @@
             {{#each system.attributes.ac as |ac id|}}
             <th class="tooltip">
                 <div class="tooltipcontent">
-                @attributes.ac.{{id}}.total : {{ac.total}}<br/>
-                @armor.type : {{../rollData.armor.type}}<br/>
-                @shield.type : {{../rollData.shield.type}}<br>
+                <span class="span2 align-left">@attributes.ac.{{id}}.total :</span> <span class="span1 align-right">{{ac.total}}</span>
+                <span class="span2 align-left">@armor.type :</span> <span class="span1 align-right">{{../rollData.armor.type}}</span>
+                <span class="span2 align-left">@shield.type :</span> <span class="span1 align-right">{{../rollData.shield.type}}</span>
 
-                {{#if ac.sourceDetails.length}}
-                <br/>{{localize "FFD20.FromSources"}}:<br/>
-                {{#each ac.sourceDetails as |src|}}
-                {{src.name}}: {{src.value}}<br/>
-                {{/each}}
-                {{/if}}
-
+                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=ac.sourceDetails plain=true}}
                 {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.ac"}}
                 </div>
 
@@ -23,15 +17,9 @@
             {{/each}}
             <th class="tooltip">
                 <div class="tooltipcontent">
-                @attributes.cmd.total : {{system.attributes.cmd.total}}<br>
+                <span class="span2 align-left">@attributes.cmd.total :</span> <span class="span1 align-right">{{system.attributes.cmd.total}}</span>
 
-                {{#if sourceDetails.system.attributes.cmd.total.length}}
-                <br/>{{localize "FFD20.FromSources"}}:<br/>
-                {{#each sourceDetails.system.attributes.cmd.total as |src|}}
-                {{src.name}}: {{src.value}}<br/>
-                {{/each}}
-                {{/if}}
-
+                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.cmd.total }}
                 {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.cmd"}}
                 </div>
 
@@ -39,14 +27,9 @@
             </th>
             <th class="tooltip">
                 <div class="tooltipcontent">
-                @attributes.cmd.flatFootedTotal : {{system.attributes.cmd.flatFootedTotal}}<br>
+                <span class="span2 align-left">@attributes.cmd.flatFootedTotal :</span> <span class="span1 align-right">{{system.attributes.cmd.flatFootedTotal}}</span>
 
-                {{#if sourceDetails.system.attributes.cmd.flatFootedTotal.length}}
-                <br/>{{localize "FFD20.FromSources"}}:<br/>
-                {{#each sourceDetails.system.attributes.cmd.flatFootedTotal as |src|}}
-                {{src.name}}: {{src.value}}<br/>
-                {{/each}}
-                {{/if}}
+                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.cmd.flatFootedTotal }}
                 </div>
 
                 {{localize "FFD20.CMDFFAbbr"}}
@@ -76,14 +59,10 @@
             {{#each system.attributes.savingThrows as |savingThrow id|}}
             <th class="saving-throw tooltip" data-savingthrow="{{id}}" data-draggable="true">
                 <div class="tooltipcontent">
-                @attributes.savingThrows.{{id}}.total : {{savingThrow.total}}<br>
+                <span class="span2 align-left">@attributes.savingThrows.{{id}}.total :</span> <span class="span1 align-right">{{savingThrow.total}}</span>
 
-                {{#if savingThrow.sourceDetails.length}}
-                <br/>{{localize "FFD20.FromSources"}}:<br/>
-                {{#each savingThrow.sourceDetails as |src|}}
-                {{src.name}}: {{src.value}}<br/>
-                {{/each}}
-                {{/if}}
+                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=savingThrow.sourceDetails plain=true}}
+
                 {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "savingThrow." id)}}
                 </div>
 
@@ -92,14 +71,9 @@
             {{/each}}
             <th class="tooltip">
                 <div class="tooltipcontent">
-                @attributes.sr.total : {{system.attributes.sr.total}}<br>
+                <span class="span2 align-left">@attributes.sr.total :</span> <span class="span1 align-right">{{system.attributes.sr.total}}</span>
 
-                {{#if sourceDetails.system.attributes.sr.total.length}}
-                  <br/>{{localize "FFD20.FromSources"}}:<br/>
-                  {{#each sourceDetails.system.attributes.sr.total as |src|}}
-                    {{src.name}}: {{src.value}}<br/>
-                  {{/each}}
-                {{/if}}
+                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.sr.total }}
 
                 {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.sr"}}
                 </div>

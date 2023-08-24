@@ -2,17 +2,17 @@
 <nav class="sheet-navigation tabs spellbooks" data-group="spellbooks">
   {{#each system.attributes.spells.spellbooks as |spellbook a|}}
   {{#if spellbook.inUse}}
-  <a class="item title-case" data-tab="{{a}}" data-group="spellbooks">{{localize spellbook.label}}</a>
+  <a class="item" data-tab="{{a}}" data-group="spellbooks">{{spellbook.label}}</a>
   {{/if}}
   {{/each}}
 </nav>
 
 <section class="spellbooks-body">
-  {{#each spellbookData as |spellbook a|}}
+  {{#each spellbookData as |spellbook bookId|}}
   {{#if spellbook.orig.inUse}}
-  <div class="tab spellbook-group flexcol" data-group="spellbooks" data-tab="{{a}}">
-  {{~> "systems/ffd20/templates/actors/parts/actor-spellbook.hbs" spellbook=spellbook spellbookIndex=a
-    data=../data owner=../owner filters=../filters.spellbook isCharacter=../isCharacter
+  <div class="tab spellbook-group flexcol" data-group="spellbooks" data-tab="{{bookId}}">
+  {{~> "systems/ffd20/templates/actors/parts/actor-spellbook.hbs" spellbook=spellbook bookId=bookId
+    data=../data filters=../filters.spellbook isCharacter=../isCharacter
     spellFailure=../spellFailure hiddenElems=../hiddenElems sourceDetails=../sourceDetails}}
   </div>
   {{/if}}

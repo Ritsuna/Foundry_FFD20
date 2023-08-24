@@ -1,0 +1,9 @@
+{{#each entries as |entry|}}
+  <li class="directory-item flexrow {{#if entry.__hidden}}hidden{{/if}}" data-uuid="{{entry.__uuid}}">
+    <img class="profile" src="{{entry.img}}" data-tooltip="{{entry.name}}" loading="lazy" />
+    <div class="flexcol">
+      <h4 class="entry-name"><a>{{entry.name}}</a></h4>
+      <span class="entry-source">{{entry.__packLabel}}</span>
+    </div>
+  </li>
+{{/each}}

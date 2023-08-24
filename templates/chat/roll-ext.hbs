@@ -1,7 +1,7 @@
 {{#if flavor}}
 <span class="flavor-text">
   {{#if compendiumEntry}}
-  <a title="{{localize "FFD20.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"{{#if compendiumEntryType}} data-document-type="{{compendiumEntryType}}"{{/if}}>
+  <a data-tooltip="FFD20.OpenAssociatedCompendiumEntry" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"{{#if compendiumEntryType}} data-document-type="{{compendiumEntryType}}"{{/if}}>
     <i class="fas fa-book"></i>
   </a>
   {{/if}}
@@ -11,7 +11,7 @@
 
 {{#unless flavor}}
 {{#if compendiumEntry}}
-<a title="{{localize "FFD20.OpenAssociatedCompendiumEntry"}}" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"{{#if compendiumEntryType}} data-document-type="{{compendiumEntryType}}"{{/if}}>
+<a data-tooltip="FFD20.OpenAssociatedCompendiumEntry" data-action="open-compendium-entry" data-compendium-entry="{{compendiumEntry}}"{{#if compendiumEntryType}} data-document-type="{{compendiumEntryType}}"{{/if}}>
   <i class="fas fa-book"></i>
 </a>
 {{/if}}
@@ -20,7 +20,7 @@
 {{#if formula}}
 <div class="dice-roll">
   <div class="dice-result">
-      <h4 class="dice-total{{#if isNat20}} natural-20{{/if}}{{#if isCrit}} critical-threat success{{/if}}{{#if isFumble}} failure{{/if}}">{{total}}</h4>
+      <h4 data-natural="{{natural}}" data-bonus="{{bonus}}" class="dice-total{{#if isNat20}} natural-20{{/if}}{{#if isNat1}} natural-1 failure{{/if}}{{#if isCrit}} critical-threat success{{/if}}">{{total}}</h4>
       {{{tooltip}}}
   </div>
 </div>

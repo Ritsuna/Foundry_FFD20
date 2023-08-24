@@ -2,7 +2,7 @@
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img" />
 
     {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
   </header>
@@ -23,7 +23,7 @@
     {{> "systems/ffd20/templates/items/parts/item-description.hbs"}}
 
     {{!-- Contents Tab --}}
-    <div class="tab flexcol" data-group="primary" data-tab="contents">
+    <div class="tab flexcol contents" data-group="primary" data-tab="contents">
 
       {{!-- Equipment Status --}}
       {{#if isGM}}
@@ -50,7 +50,7 @@
           {{#each config.currencies as |l k|}}
           <label class="denomination {{k}}">{{l}}</label>
           <input type="text" class="select-on-click" name="system.currency.{{k}}" value="{{#if (lookup ../system.currency k)}}{{lookup ../system.currency k}}{{/if}}" data-dtype="String"/>
-          <a class="convert-currency" data-type="{{k}}" data-category="currency" title="{{localize "FFD20.ConvertCurrency"}}"><i class="fas fa-long-arrow-alt-left"></i></a>
+          <a class="convert-currency" data-type="{{k}}" data-category="currency" data-tooltip="FFD20.ConvertCurrency"><i class="fas fa-long-arrow-alt-left"></i></a>
           {{/each}}
         </ol>
       </div>
@@ -83,6 +83,5 @@
       {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
     {{/unless}}
-
   </section>
 </form>

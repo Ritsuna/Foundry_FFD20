@@ -12,6 +12,11 @@
     <input type="checkbox" name="naturalAttack.primaryAttack" {{checked data.naturalAttack.primaryAttack}}/> {{localize "FFD20.PrimaryAttack"}}
   </label>
   {{/if}}
+
+  {{!-- Touch --}}
+  <label class="checkbox">
+    <input type="checkbox" name="touch" {{checked data.touch}}/> {{localize "FFD20.TouchAttackShort"}}
+  </label>
 </div>
 
 {{#if (or (eq item.type "attack") (eq item.type "weapon"))}}
@@ -39,16 +44,7 @@
 </div>
 
 {{#if data.actionType}}
-{{#if isSpell}}
-<div class="form-group">
-  <label>{{localize "FFD20.SpellEffect"}}</label>
-  <div class="form-fields">
-    <input type="text" name="spellEffect" value="{{data.spellEffect}}" placeholder="{{localize "FFD20.SpellEffectExample"}}"/>
-  </div>
-</div>
-{{/if}}
-
-{{#if hasAttackRoll }}
+{{#if hasAttackRoll}}
 {{!-- Attack Name --}}
 <h3 class="form-header">{{localize "FFD20.Attack"}}</h3>
 <div class="form-group">
@@ -65,6 +61,15 @@
     <input class="formula" type="text" name="attackBonus" value="{{data.attackBonus}}" placeholder="{{localize "FFD20.Formula"}}"/>
   </div>
 </div>
+
+{{#if isNaturalAttack}}
+<div class="form-group">
+  <label>{{localize "FFD20.SecondaryAttackModifier"}}</label>
+  <div class="form-fields">
+    <input type="text" class="formula" name="naturalAttack.secondary.attackBonus" value="{{data.naturalAttack.secondary.attackBonus}}" data-dtype="String" placeholder="{{localize "FFD20.Formula"}}" />
+  </div>
+</div>
+{{/if}}
 
 {{#unless isCombatManeuver}}
 <div class="form-group">
@@ -126,7 +131,7 @@
     <div class="form-fields">
       <input type="text" class="formulaic-attacks formula" name="formulaicAttacks.count.formula" value="{{data.formulaicAttacks.count.formula}}" data-dtype="String" placeholder="e.g. ceil(@attributes.bab.total / 5) - 1" />
       {{!-- to avoid disappearance of .value --}}
-      <input type="text" disabled class="formula-result small" name="formulaicAttacks.count.value" value="{{data.formulaicAttacks.count.value}}" title="{{localize 'FFD20.FormulaResult'}}" placeholder="0" data-dtype="Number" />
+      <input type="text" disabled class="formula-result small" name="formulaicAttacks.count.value" value="{{data.formulaicAttacks.count.value}}" data-tooltip="FFD20.FormulaResult" placeholder="0" data-dtype="Number" />
     </div>
   </div>
   <div class="form-group">
@@ -138,7 +143,7 @@
   <div class="form-group">
     <label>{{localize 'FFD20.AttackName'}}</label>
     <div class="form-fields">
-      <input type="text" name="formulaicAttacks.label" value="{{data.formulaicAttacks.label}}" title="{{localize 'FFD20.FormulaAttackHint'}}" data-dtype="String" placeholder="{{localize 'FFD20.FormulaAttack'}}" />
+      <input type="text" name="formulaicAttacks.label" value="{{data.formulaicAttacks.label}}" data-tooltip="FFD20.FormulaAttackHint" data-dtype="String" placeholder="{{localize 'FFD20.FormulaAttack'}}" />
     </div>
   </div>
 </div>
@@ -158,16 +163,22 @@
       {{/select}}
     </select>
     <select name="ability.damageMult" data-dtype="Number">
-      {{#select data.ability.damageMult}}
-      <option value="0.5">x0.5</option>
-      <option value="1" {{#unless data.ability.damageMult}}selected="selected"{{/unless}}>x1</option>
-      <option value="1.5">x1.5</option>
-      <option value="2">x2</option>
-      <option value="2.5">x2.5</option>
-      {{/select}}
+      {{selectOptions config.abilityDamageMultipliers selected=data.ability.damageMult nameAttr="value" labelAttr="label"}}
     </select>
   </div>
 </div>
+
+{{#if isNaturalAttack}}
+<div class="form-group">
+  <label>{{localize "FFD20.SecondaryAttackAbilityMultiplier"}}</label>
+  <div class="form-fields">
+    <label style="flex:1;"><!-- Ensure Alignment --></label>
+    <select name="naturalAttack.secondary.damageMult" data-dtype="Number">
+      {{selectOptions config.abilityDamageMultipliers selected=data.naturalAttack.secondary.damageMult nameAttr="value" labelAttr="label"}}
+    </select>
+  </div>
+</div>
+{{/if}}
 
 {{!-- Damage Formula --}}
 <div class="damage" data-key="damage.parts">
@@ -177,8 +188,8 @@
   <ol class="damage-parts form-group tooltip">
     {{#each data.damage.parts as |part i| }}
     <li class="damage-part flexrow" data-damage-part="{{i}}">
-      <input class="damage-formula formula" type="text" name="damage.parts.{{i}}.0" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{lookup this "0"}}"/>
-      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=(lookup this "1") name=(concat "damage.parts." i ".1") damageTypes=@root.damageTypes}}
+      <input class="damage-formula formula" type="text" name="damage.parts.{{i}}.formula" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{formula}}"/>
+      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=type name=(concat "damage.parts." i ".type") damageTypes=@root.damageTypes}}
       <a class="damage-control delete-damage"><i class="fas fa-trash"></i></a>
     </li>
     {{/each}}
@@ -189,8 +200,9 @@
 </div>
 
 {{#unless isCombatManeuver}}
-<hr>
 {{!-- Critical Damage Bonus Formula --}}
+{{#if hasCritDamage}}
+<hr>
 <div class="damage" data-key="damage.critParts">
   <h4 class="damage-header">
     {{#unless isHealing }}{{localize "FFD20.CritDamageBonusFormula"}}{{ else }}{{localize "FFD20.CritHealingBonusFormula"}}{{/unless}}
@@ -198,16 +210,18 @@
   <ol class="damage-parts form-group tooltip">
     {{#each data.damage.critParts as |part i| }}
     <li class="damage-part flexrow" data-damage-part="{{i}}">
-      <input class="damage-formula formula" type="text" name="damage.critParts.{{i}}.0" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{lookup this "0"}}"/>
-      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=(lookup this "1") name=(concat "damage.critParts." i ".1") damageTypes=@root.damageTypes}}
+      <input class="damage-formula formula" type="text" name="damage.critParts.{{i}}.formula" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{formula}}"/>
+      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=type name=(concat "damage.critParts." i ".type") damageTypes=@root.damageTypes}}
       <a class="damage-control delete-damage"><i class="fas fa-trash"></i></a>
     </li>
     {{/each}}
     <li class="damage-part flexrow"><a class="damage-control add-damage"><i class="fas fa-plus"></i> {{localize "FFD20.AddCriticalDamage"}}</a></li>
   </ol>
 </div>
+{{/if}}
 
 {{!-- Non-critical Damage Bonus Formula --}}
+{{#if hasNonCritDamage}}
 <hr>
 <div class="damage" data-key="damage.nonCritParts">
   <h4 class="damage-header">
@@ -216,14 +230,15 @@
   <ol class="damage-parts form-group">
     {{#each data.damage.nonCritParts as |part i| }}
     <li class="damage-part flexrow" data-damage-part="{{i}}">
-      <input class="damage-formula formula" type="text" name="damage.nonCritParts.{{i}}.0" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{lookup this "0"}}"/>
-      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=(lookup this "1") name=(concat "damage.nonCritParts." i ".1") damageTypes=@root.damageTypes}}
+      <input class="damage-formula formula" type="text" name="damage.nonCritParts.{{i}}.formula" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{formula}}"/>
+      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=type name=(concat "damage.nonCritParts." i ".type") damageTypes=@root.damageTypes}}
       <a class="damage-control delete-damage"><i class="fas fa-trash"></i></a>
     </li>
     {{/each}}
     <li class="damage-part flexrow"><a class="damage-control add-damage"><i class="fas fa-plus"></i> {{localize "FFD20.AddNonCriticalDamage"}}</a></li>
   </ol>
 </div>
+{{/if}}
 
 {{!-- Power Attack/Deadly Aim properties --}}
 {{#if hasAttackRoll}}
@@ -231,47 +246,21 @@
 <div class="form-group">
   <label>{{localize "FFD20.Multiplier"}}</label>
   <div class="form-fields">
-    <input type="text" name="powerAttack.multiplier" value="{{data.powerAttack.multiplier}}" data-dtype="String" placeholder="{{localize "FFD20.Held"}}" />
+    <input type="number" name="powerAttack.multiplier" value="{{data.powerAttack.multiplier}}" data-dtype="Number" placeholder="{{localize "FFD20.Held"}}" />
   </div>
 </div>
 
 <div class="form-group">
   <label>{{localize "FFD20.DamageBonus"}}</label>
   <div class="form-fields">
-    <input type="text" name="powerAttack.damageBonus" value="{{data.powerAttack.damageBonus}}" data-dtype="Number" />
+    <input type="number" name="powerAttack.damageBonus" value="{{data.powerAttack.damageBonus}}" data-dtype="Number" />
   </div>
 </div>
 
 <div class="form-group">
   <label>{{localize "FFD20.CriticalMultiplier"}}</label>
   <div class="form-fields">
-    <input type="text" name="powerAttack.critMultiplier" value="{{data.powerAttack.critMultiplier}}" data-dtype="Number" />
-  </div>
-</div>
-{{/if}}
-
-{{!-- Secondary Natural Attack properties --}}
-{{#if isNaturalAttack}}
-<h3 class="form-header">{{localize "FFD20.SecondaryAttack"}}</h3>
-<div class="form-group">
-  <label>{{localize "FFD20.AttackPenalty"}}</label>
-  <div class="form-fields">
-    <input type="text" class="formula" name="naturalAttack.secondary.attackBonus" value="{{data.naturalAttack.secondary.attackBonus}}" data-dtype="String" placeholder="{{localize "FFD20.Formula"}}" />
-  </div>
-</div>
-
-<div class="form-group">
-  <label>{{localize "FFD20.AbilityMultiplier"}}</label>
-  <div class="form-fields">
-  <select name="naturalAttack.secondary.damageMult" data-dtype="Number">
-    {{#select data.naturalAttack.secondary.damageMult}}
-    <option value="0.5" {{#unless data.naturalAttack.secondary.damageMult}}selected="selected"{{/unless}}>x0.5</option>
-    <option value="1">x1</option>
-    <option value="1.5">x1.5</option>
-    <option value="2">x2</option>
-    <option value="2.5">x2.5</option>
-    {{/select}}
-  </select>
+    <input type="number" name="powerAttack.critMultiplier" value="{{data.powerAttack.critMultiplier}}" data-dtype="Number" />
   </div>
 </div>
 {{/if}}
@@ -280,9 +269,9 @@
 {{!-- Saving Throw --}}
 <h3 class="form-header">{{localize "FFD20.SavingThrow"}}</h3>
 <div class="form-group input-select">
-  <label>{{#unless isSpell}}{{localize "FFD20.DC"}}{{else}}{{localize "FFD20.DCOffset"}}{{/unless}}</label>
+  <label>{{#unless isSpell}}{{localize "FFD20.DCFormula"}}{{else}}{{localize "FFD20.DCOffsetFormula"}}{{/unless}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="save.dc" value="{{data.save.dc}}" placeholder="{{#unless isSpell}}{{localize "FFD20.DC"}}{{else}}{{localize "FFD20.DCOffset"}}{{/unless}}"/>
+    <input class="formula" type="text" name="save.dc" value="{{data.save.dc}}" placeholder="0"/>
     <select name="save.type">
       {{#select data.save.type}}
       <option value=""></option>

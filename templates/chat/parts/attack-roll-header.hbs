@@ -1,5 +1,5 @@
-<header class="card-header flexrow">
-  <img src="{{item.img}}" title="{{name}}" width="36" height="36" />
+<header class="card-header type-color type-{{item.type}} flexrow">
+  <img src="{{item.img}}" data-tooltip="{{name}}" width="36" height="36" />
   {{#if name}}<h3 class="item-name">{{name}}</h3>{{/if}}
 </header>
 
@@ -17,7 +17,7 @@
 </div>
 
 {{#if range}}
-  <div class="card-range gm-sensitive" data-range="{{range}}" {{#if rangeFormula}}title="{{rangeFormula}}"{{/if}}>
+  <div class="card-range gm-sensitive" data-range="{{range}}" {{#if rangeFormula}}data-tooltip="{{rangeFormula}}"{{/if}}>
     {{localize "FFD20.Range"}}: {{rangeLabel}}
   </div>
 {{/if}}

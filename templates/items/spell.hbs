@@ -2,10 +2,10 @@
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
 
     <div class="header-details flexrow">
-      <h1 class="itemname">
+      <h1 class="item-name">
         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
       </h1>
 
@@ -42,7 +42,7 @@
 
       {{!-- Spell Description --}}
       <h2>{{localize "FFD20.Description"}}</h2>
-      {{editor shortDescription target="system.shortDescription" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+      {{editor shortDescription target="system.shortDescription" button=true editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Details Tab --}}
@@ -59,7 +59,7 @@
           <select name="system.spellbook">
             {{#select system.spellbook}}
             {{#each spellbooks as |spellbook a|}}
-            <option value="{{a}}">{{localize spellbook.label}}</option>
+            <option value="{{a}}">{{spellbook.label}}</option>
             {{/each}}
             {{/select}}
           </select>
@@ -73,7 +73,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.SpellLevel"}}</label>
         <div class="form-fields">
-          <select name="system.level" data-dtype="Number">
+          <select name="system.level" data-dtype="Number" data-tooltip="@sl : {{system.level}}<br>@item.level : {{system.level}}">
             {{#select system.level}}
             {{#each config.spellLevels as |name lvl|}}
             <option value="{{lvl}}">{{name}}</option>
@@ -87,22 +87,22 @@
 
       <div class="form-group stacked">
         <div class="data-selector">
-          <a class="entry-selector" for="system.learnedAt.class" data-fields="{{localize "FFD20.CasterLevel"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <a class="entry-selector" for="system.learnedAt.class" data-fields="{{localize "FFD20.CasterLevel"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number" data-flag="true"><i class="fas fa-edit"></i></a>
           <label for="system.learnedAt.class">{{localize "FFD20.CasterLevel"}}</label>
         </div>
 
         <div class="data-selector">
-          <a class="entry-selector" for="system.learnedAt.domain" data-fields="{{localize "FFD20.Domain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <a class="entry-selector" for="system.learnedAt.domain" data-fields="{{localize "FFD20.Domain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number" data-flag="true"><i class="fas fa-edit"></i></a>
           <label for="system.learnedAt.domain">{{localize "FFD20.Domain"}}</label>
         </div>
 
         <div class="data-selector">
-          <a class="entry-selector" for="system.learnedAt.subDomain" data-fields="{{localize "FFD20.SubDomain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <a class="entry-selector" for="system.learnedAt.subDomain" data-fields="{{localize "FFD20.SubDomain"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number" data-flag="true"><i class="fas fa-edit"></i></a>
           <label for="system.learnedAt.subDomain">{{localize "FFD20.SubDomain"}}</label>
         </div>
 
         <div class="data-selector">
-          <a class="entry-selector" for="system.learnedAt.bloodline" data-fields="{{localize "FFD20.Bloodline"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number"><i class="fas fa-edit"></i></a>
+          <a class="entry-selector" for="system.learnedAt.bloodline" data-fields="{{localize "FFD20.Bloodline"}};{{localize "FFD20.Level"}}" data-dtypes="String;Number" data-flag="true"><i class="fas fa-edit"></i></a>
           <label for="system.learnedAt.bloodline">{{localize "FFD20.Bloodline"}}</label>
         </div>
       </div>
@@ -143,7 +143,7 @@
       </div>
       {{/if}}
 
-      {{!-- Subschool and type --}}
+      {{!-- Subschool --}}
       <div class="form-group flexrow">
         <label>{{localize "FFD20.SubSchool"}}</label>
         <div class="form-fields">
@@ -175,7 +175,7 @@
           <input type="checkbox" name="system.atWill" {{checked system.atWill}}/> {{localize "FFD20.SpellPrepAtWill"}}
         </label>
 
-        <label class="checkbox" title="{{localize "FFD20.HelpDomainSpell"}}">
+        <label class="checkbox" data-tooltip="FFD20.HelpDomainSpell">
           <input type="checkbox" name="system.domain" {{checked system.domain}}/> {{localize "FFD20.Domain"}}/{{localize "FFD20.School"}}
         </label>
 
@@ -240,17 +240,16 @@
 
       {{!-- Material Components --}}
       {{#if system.components.material}}
-      <h3>{{localize "FFD20.SpellcastingMaterials"}}</h3>
       <div class="form-group">
-        <label>{{localize "FFD20.Description"}}</label>
+        <label>{{localize "FFD20.SpellMaterialDescription"}}</label>
         <div class="form-fields">
           <input class="materials" type="text" name="system.materials.value" value="{{system.materials.value}}"/>
         </div>
       </div>
       <div class="form-group">
-        <label>{{localize "FFD20.Value"}}</label>
+        <label>{{localize "FFD20.SpellMaterialValue"}}</label>
         <div class="form-fields">
-          <input type="text" data-dtype="Number" name="system.materials.gilValue" value="{{system.materials.gilValue}}" placeholder="0" />
+          <input class="material-value" type="number" data-dtype="Number" name="system.materials.gilValue" value="{{system.materials.gilValue}}" placeholder="0" />
         </div>
       </div>
       {{/if}}
@@ -293,13 +292,27 @@
       {{/unless}}
 
       {{#unless isAtWill}}
-      {{#unless usesSpellpoints}}
-      <div class="spell-misc form-group stacked">
-        <label class="checkbox">
-          <input type="checkbox" name="system.preparation.autoDeductCharges" {{checked system.preparation.autoDeductCharges}}/> {{localize "FFD20.AutoDeductCharges"}}
-        </label>
+      {{#if usesSpellpoints}}
+      <div class="form-group spellpoint-cost">
+        <label>{{localize "FFD20.SpellPointsCost"}}</label>
+        <div class="form-fields">
+          <input type="text" class="formula" name="system.spellPoints.cost" value="{{system.spellPoints.cost}}" placeholder="{{defaultChargeFormula}}">
+        </div>
       </div>
-      {{/unless}}
+      {{else}}
+      <div class="form-group charge-cost">
+        <label>
+          {{#if isSpell}}
+          {{localize "FFD20.CastsPerDayUsedFormula"}}
+          {{else}}
+          {{localize "FFD20.ChargeCostFormula"}}
+          {{/if}}
+        </label>
+        <div class="form-fields">
+          <input type="text" class="formula" name="system.uses.autoDeductChargesCost" value="{{system.uses.autoDeductChargesCost}}" placeholder="{{defaultChargeFormula}}">
+        </div>
+      </div>
+      {{/if}}
       {{/unless}}
 
       <h3 class="form-header">{{localize "FFD20.Offsets"}}</h3>
@@ -336,6 +349,12 @@
         </div>
       </div>
       {{/unless}}
+
+      {{!-- Advanced --}}
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">

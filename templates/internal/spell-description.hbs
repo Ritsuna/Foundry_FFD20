@@ -1,11 +1,15 @@
 <div class="spell-description">
   <p>
-  <strong>{{localize "FFD20.School"}}</strong>&nbsp;{{{label.school}}}{{#if label.multi}}&nbsp;{{{label.multischool}}}{{/if}}{{#if label.subschool}}&nbsp;({{{label.subschool}}}){{/if}}{{#if label.types}}&nbsp;[{{{label.types}}}]{{/if}};
-    {{#if learnedAt.class}}<strong>{{localize "FFD20.Level"}}</strong>&nbsp;{{{learnedAt.class}}};{{/if}}
-    {{#if learnedAt.domain}}<strong>{{localize "FFD20.Domain"}}</strong>&nbsp;{{{learnedAt.domain}}};{{/if}}
-    {{#if learnedAt.subDomain}}<strong>{{localize "FFD20.SubDomain"}}</strong>&nbsp;{{{learnedAt.subDomain}}};{{/if}}
-    {{#if learnedAt.elementalSchool}}<strong>{{localize "FFD20.ElementalSchool"}}</strong>&nbsp;{{{learnedAt.elementalSchool}}};{{/if}}
-    {{#if learnedAt.bloodline}}<strong>{{localize "FFD20.Bloodline"}}</strong>&nbsp;{{{learnedAt.bloodline}}};{{/if}}
+  <strong>{{localize "FFD20.School"}}</strong>&nbsp;{{{label.school}}}{{#if label.subschool}}&nbsp;({{{label.subschool}}}){{/if}}{{#if label.types}}&nbsp;[{{{label.types}}}]{{/if}}
+  {{~#unless chatcard}}
+    {{~#if learnedAt.class}}; <strong>{{localize "FFD20.Level"}}</strong>&nbsp;{{{learnedAt.class}}}{{/if}}
+    {{~#if learnedAt.domain}}; <strong>{{localize "FFD20.Domain"}}</strong>&nbsp;{{{learnedAt.domain}}}{{/if}}
+    {{~#if learnedAt.subDomain}}; <strong>{{localize "FFD20.SubDomain"}}</strong>&nbsp;{{{learnedAt.subDomain}}}{{/if}}
+    {{~#if learnedAt.elementalSchool}}; <strong>{{localize "FFD20.ElementalSchool"}}</strong>&nbsp;{{{learnedAt.elementalSchool}}}{{/if}}
+    {{~#if learnedAt.bloodline}}; <strong>{{localize "FFD20.Bloodline"}}</strong>&nbsp;{{{learnedAt.bloodline}}}{{/if}}
+  {{else}};
+    <strong>{{localize "FFD20.Level"}}</strong> {{data.level}}
+  {{/unless}}
   </p>
   <p>
   {{#if label.castingTime}}<strong>{{localize "FFD20.CastingTime"}}</strong>&nbsp;{{{label.castingTime}}}<br>{{/if}}
@@ -19,7 +23,7 @@
   {{#if label.duration}}<strong>{{localize "FFD20.Duration"}}</strong>&nbsp;{{{label.duration}}}<br>{{/if}}
     {{#if useDCandSR}}
       <strong>{{localize "FFD20.SavingThrow"}}</strong>&nbsp;{{{label.savingThrow}}};&nbsp;
-      <strong>{{localize "FFD20.SpellResistance"}}</strong>&nbsp;{{{label.sr}}}{{#if label.srinfo}}&nbsp;({{{label.srinfo}}}){{/if}}<br>
+      <strong>{{localize "FFD20.SpellResistance"}}</strong>&nbsp;{{{label.sr}}}<br>
     {{/if}}
   </p>
 </div>

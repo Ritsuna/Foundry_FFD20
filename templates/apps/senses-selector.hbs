@@ -60,7 +60,7 @@
   <div class="form-group">
     <label>{{localize "FFD20.SenseSC"}}*</label>
     <div class="form-fields">
-      <input type="checkbox" data-dtype="Boolean" name="system.traits.senses.sc" {{checked system.traits.senses.sc}} />
+      <input type="number" data-dtype="Number" name="system.traits.senses.sc" value="{{converted.system.traits.senses.sc}}" min="0" placeholder="0" />
     </div>
   </div>
 

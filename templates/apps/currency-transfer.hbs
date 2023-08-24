@@ -2,13 +2,13 @@
     <div class="form-group">
       <label>{{localize "FFD20.CurrencyPlatinumGilP"}}</label>
       <div class="form-fields">
-        <button class="cur-range down" type="button" title="None" tabindex="-1">
+        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
         </button>
         <input type="number" name="pgil" placeholder="0" value="{{dest.amount.pgil}}" data-dtype="Number">
         <label>/</label>
         <span class="text-box readonly">{{source.amount.pgil}}</span>
-        <button class="cur-range up" type="button" title="All" tabindex="-1">
+        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-up"></i>
         </button>
       </div>
@@ -17,13 +17,13 @@
     <div class="form-group">
       <label>{{localize "FFD20.CurrencyGilP"}}</label>
       <div class="form-fields">
-        <button class="cur-range down" type="button" title="None" tabindex="-1">
+        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
         </button>
         <input type="number" name="gil" placeholder="0" value="{{dest.amount.gil}}" data-dtype="Number">
         <label>/</label>
         <span class="text-box readonly">{{source.amount.gil}}</span>
-        <button class="cur-range up" type="button" title="All" tabindex="-1">
+        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-up"></i>
         </button>
       </div>
@@ -32,13 +32,13 @@
     <div class="form-group">
       <label>{{localize "FFD20.CurrencySilverGilP"}}</label>
       <div class="form-fields">
-        <button class="cur-range down" type="button" title="None" tabindex="-1">
+        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
         </button>
         <input type="number" name="sgil" placeholder="0" value="{{dest.amount.sgil}}" data-dtype="Number">
         <label>/</label>
         <span class="text-box readonly">{{source.amount.sgil}}</span>
-        <button class="cur-range up" type="button" title="All" tabindex="-1">
+        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-up"></i>
         </button>
       </div>
@@ -47,13 +47,13 @@
     <div class="form-group">
       <label>{{localize "FFD20.CurrencyCopperGilP"}}</label>
       <div class="form-fields">
-        <button class="cur-range down" type="button" title="None" tabindex="-1">
+        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-down"></i>
         </button>
         <input type="number" name="cgil" placeholder="0" value="{{dest.amount.cgil}}" data-dtype="Number">
         <label>/</label>
         <span class="text-box readonly">{{source.amount.cgil}}</span>
-        <button class="cur-range up" type="button" title="All" tabindex="-1">
+        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
           <i class="fas fa-arrow-alt-circle-up"></i>
         </button>
       </div>
@@ -64,7 +64,7 @@
       <div class="form-fields">
         <label></label>
         <label>/</label>
-        <label>{{total}} gil</label>
+        <label>{{total}} {{localize "FFD20.CurrencyGil"}}</label>
       </div>
     </div>
 

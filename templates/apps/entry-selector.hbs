@@ -9,11 +9,15 @@
     <tbody>
       {{#each entries as |entry index|}}
       <tr class="entry" data-index="{{index}}">
-        {{#each entry as |v k|}}
-        {{#with v}}
-        <td><input type="text" class="textarea" data-index="{{k}}" value="{{0}}" data-dtype="{{1}}" name="{{index}}-{{k}}" /></td>
-        {{/with}}
-        {{/each}}
+        {{#if @root.isFlat}}
+          <td><input type="text" class="textarea" data-index="{{index}}" value="{{0}}" data-dtype="{{1}}" name="{{index}}" /></td>
+        {{else}}
+          {{#each entry as |v k|}}
+          {{#with v}}
+          <td><input type="text" class="textarea" data-index="{{k}}" value="{{0}}" data-dtype="{{1}}" name="{{index}}-{{k}}" /></td>
+          {{/with}}
+          {{/each}}
+        {{/if}}
         <td class="entry-control"><a class="entry-control delete-entry"><i class="fas fa-minus"></i></a></td>
       </tr>
       {{/each}}

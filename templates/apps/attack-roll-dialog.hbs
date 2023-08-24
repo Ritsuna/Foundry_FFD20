@@ -66,13 +66,7 @@
   <div class="form-group select">
     <label>{{localize "FFD20.DamageAbility"}}</label>
     <select name="damage-ability-multiplier">
-      {{#select attributes.damage-ability-multiplier}}
-      <option value="0.5">x0.5</option>
-      <option value="1">x1</option>
-      <option value="1.5">x1.5</option>
-      <option value="2">x2</option>
-      <option value="2.5">x2.5</option>
-      {{/select}}
+      {{selectOptions config.abilityDamageMultipliers selected=attributes.damage-ability-multiplier nameAttr="value" labelAttr="label"}}
     </select>
   </div>
   {{/if}}{{/if}}
@@ -126,8 +120,8 @@
     </div>
     {{#each attacks as |atk idx|}}
     <div class="attack" data-index="{{idx}}">
-      <input class="name" disabled type="text" name="attack.{{idx}}.label" value="{{atk.label}}" title="{{localize "FFD20.Name"}}" />
-      <input class="bonus" disabled type="text" name="attack.{{idx}}.attackBonusTotal" value="{{atk.attackBonusTotal}}" title="{{localize "FFD20.AttackRollBonus"}}" />
+      <input class="name" disabled type="text" name="attack.{{idx}}.label" value="{{atk.label}}" data-tooltip="FFD20.Name" />
+      <input class="bonus" disabled type="text" name="attack.{{idx}}.attackBonusTotal" value="{{atk.attackBonusTotal}}" data-tooltip="FFD20.AttackRollBonus" />
       {{#if @root.usesAmmo}}
         <div class="ammo ammo-select">
           <div class="flexrow">
@@ -145,8 +139,8 @@
               <span>{{localize "FFD20.None"}}</span>
 
               <div class="controls">
-                <a data-type="set-default" title="{{localize "FFD20.Default"}}"><i class="fas fa-cog"></i></a>
-                <a data-type="set-all" title="{{localize "FFD20.ApplyToAll"}}"><i class="fas fa-plus"></i></a>
+                <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fas fa-cog"></i></a>
+                <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fas fa-plus"></i></a>
               </div>
             </li>
             {{!-- Ammo items --}}
@@ -156,8 +150,8 @@
                 <span>{{ammo.data.name}} ({{ammo.data.system.quantity}})</span>
 
                 <div class="controls">
-                  <a data-type="set-default" title="{{localize "FFD20.Default"}}"><i class="fas fa-cog"></i></a>
-                  <a data-type="set-all" title="{{localize "FFD20.ApplyToAll"}}"><i class="fas fa-plus"></i></a>
+                  <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fas fa-cog"></i></a>
+                  <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fas fa-plus"></i></a>
                 </div>
               </li>
             {{/each}}

@@ -41,7 +41,6 @@
             "userPenalty": 0
           }
         },
-        "resources": {},
         "attributes": {
           "hpAbility": "con",
           "cmbAbility": "str",
@@ -116,11 +115,6 @@
             "max": 0,
             "temp": 0,
             "recover": 0
-          },
-          "limitbreak": {
-            "value": 0,
-            "base": 0,
-            "max": 0
           },
           "init": {
             "value": 0,
@@ -769,7 +763,6 @@
             "rank": 0
           }
         },
-        "customSkills": {},
         "traits": {
           "size": "med",
           "senses": {
@@ -790,8 +783,14 @@
             "sc": false,
             "custom": ""
           },
-          "dr": "",
-          "eres": "",
+          "dr": {
+            "value": [],
+            "custom": ""
+          },
+          "eres": {
+            "value": [],
+            "custom": ""
+          },
           "cres": "",
           "regen": "",
           "fastHealing": "",
@@ -831,8 +830,7 @@
       "templates": ["common"],
       "details": {
         "xp": {
-          "value": 0,
-          "max": 0
+          "value": 0
         },
         "height": "",
         "weight": "",
@@ -919,7 +917,6 @@
       "itemDescription": {
         "description": {
           "value": "",
-          "chat": "",
           "unidentified": ""
         },
         "tags": []
@@ -945,7 +942,6 @@
           "price": 0,
           "name": ""
         },
-        "identifiedName": "",
         "cl": 0,
         "aura": {
           "custom": false,
@@ -955,7 +951,7 @@
       "action": {
         "actions": [],
         "uses": {
-          "per": null,
+          "per": "",
           "value": 0,
           "maxFormula": ""
         },
@@ -1017,7 +1013,7 @@
     },
     "class": {
       "templates": ["itemDescription", "changes", "links", "tagged", "proficiencies", "flags", "scriptCalls"],
-      "classType": "base",
+      "subType": "base",
       "classSubType": "none",
       "parentClass": "",
       "level": 1,
@@ -1048,7 +1044,7 @@
     },
     "buff": {
       "templates": ["itemDescription", "changes", "contextNotes", "links", "tagged", "flags", "scriptCalls"],
-      "buffType": "temp",
+      "subType": "temp",
       "active": false,
       "level": 0,
       "duration": {
@@ -1059,7 +1055,7 @@
     },
     "consumable": {
       "templates": ["itemDescription", "physicalItem", "action", "links", "tagged", "flags", "scriptCalls"],
-      "consumableType": "potion",
+      "subType": "potion",
       "uses": {
         "value": 0,
         "maxFormula": "",
@@ -1086,7 +1082,8 @@
         "hasAttack"
       ],
       "equipped": true,
-      "equipmentType": "armor",
+      "subType": "armor",
+      "baseTypes": [],
       "equipmentSubtype": "lightArmor",
       "armor": {
         "value": 0,
@@ -1102,17 +1099,7 @@
       "showInQuickbar": false,
       "isMateria": false,
       "materiaRarity": "common",
-      "materiaSlot": "unslotted",
-      "materiaLevel":"0",
-      "materiaCombatXp": {
-        "value": 0,
-        "next": 0,
-        "lv0": 0,
-        "lv1": 0,
-        "lv2": 0,
-        "lv3": 0,
-        "mastered": 0
-      }
+      "materiaSlot": "unslotted"
     },
     "feat": {
       "templates": [
@@ -1126,7 +1113,7 @@
         "flags",
         "scriptCalls"
       ],
-      "featType": "feat",
+      "subType": "feat",
       "associations": {
         "classes": []
       },
@@ -1156,10 +1143,10 @@
     "spell": {
       "templates": ["itemDescription", "action", "links", "flags", "scriptCalls"],
       "learnedAt": {
-        "class": [],
-        "domain": [],
-        "subDomain": [],
-        "bloodline": []
+        "class": {},
+        "domain": {},
+        "subDomain": {},
+        "bloodline": {}
       },
       "level": 1,
       "spellPoints": {
@@ -1216,11 +1203,12 @@
         "enhancable",
         "hasAttack"
       ],
+      "baseTypes": [],
       "weaponGroups": {
         "value": [],
         "custom": ""
       },
-      "weaponType": "simple",
+      "subType": "simple",
       "weaponSubtype": "light",
       "properties": {},
       "showInQuickbar": true,
@@ -1234,7 +1222,8 @@
         "charges": []
       },
       "ammoType": "",
-      "attackType": "",
+      "subType": "",
+      "baseTypes": [],
       "weaponGroups": {
         "value": [],
         "custom": ""
@@ -1248,9 +1237,9 @@
     },
     "container": {
       "templates": ["itemDescription", "physicalItem", "inventory", "flags"],
-      "basePrice": 0,
+      "price": 0,
       "unidentified": {
-        "basePrice": 0
+        "price": 0
       }
     }
   }

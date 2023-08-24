@@ -10,8 +10,12 @@
     {{/each}}
   </ol>
   <div class="form-group stacked">
-    <label>{{localize "FFD20.Special"}}</label>
+    <label>{{localize "FFD20.Custom"}}</label>
     <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
+    <p class="hint">
+      <i class="fa-solid fa-circle-info"></i>
+      {{localize "FFD20.Application.TraitSelector.CustomHint"}}
+    </p>
   </div>
   <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize updateButton}}</button>
 </form>

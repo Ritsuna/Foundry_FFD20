@@ -4,7 +4,7 @@
   {{#if skill.arbitrary}}
   <li class="skill arbitrary" data-skill="{{s}}">
     <div class="skill-name">
-      <a class="skill-control skill-create" title="Add Skill">
+      <a class="skill-control skill-create" data-tooltip="FFD20.AddSkill">
         <i class="fas fa-plus"></i>
       </a>
       {{#if compendiumEntry}}
@@ -15,21 +15,18 @@
       <h4>{{skill.label}}</h4>
       {{/if}}
     </div>
-    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
+    <div class="action roll" data-tooltip="FFD20.RollSkill">
+      <i class="fa-solid fa-dice-d20"></i>
+    </div>
   </li>
   {{#each skill.subSkills as |subSkill b|}}
   <li class="sub-skill {{#if subSkill.untrained}}untrained{{/if}}" data-skill="{{b}}" data-main-skill="{{s}}">
     <div class="skill-name tooltip">
       <span class="tooltipcontent">
-        @skills.{{s}}.subSkills.{{b}}.mod : {{subSkill.mod}}<br>
-        @skills.{{s}}.subSkills.{{b}}.rank : {{subSkill.rank}}<br>
+        <span class="span2 align-left">@skills.{{s}}.subSkills.{{b}}.mod :</span><span class="span1 align-right"> {{subSkill.mod}}</span>
+        <span class="span2 align-left">@skills.{{s}}.subSkills.{{b}}.rank :</span><span class="span1 align-right"> {{subSkill.rank}}</span>
 
-        {{#if subSkill.sourceDetails.length}}
-        <br/>{{localize "FFD20.FromSources"}}:<br/>
-        {{#each subSkill.sourceDetails as |src|}}
-        {{src.name}}: {{src.value}}<br/>
-        {{/each}}
-        {{/if}}
+        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=subSkill.sourceDetails }}
 
         {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "skill." s ".subSkills." b)}}
       </span>
@@ -41,35 +38,34 @@
       <h4>{{subSkill.name}}</h4>
       {{/if}}
     </div>
-    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
-    <span class="text-box skill-mod" title="{{localize "FFD20.SkillModTooltip"}}">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
-    <span class="text-box skill-rank" name="system.skills.{{s}}.subSkills.{{b}}.rank" data-dtype="Number" title="{{localize "FFD20.SkillRankPlural"}}" data-placeholder="{{localize "FFD20.Rank"}}">{{#if subSkill.rank}}{{subSkill.rank}}{{/if}}</span>
-    <label class="checkbox skill-cs">
-      <abbr title="{{localize "FFD20.CSTooltip"}}">{{localize "FFD20.CS"}}</abbr> <input type="checkbox" disabled {{checked subSkill.cs}}/>
+    <div class="action roll" data-tooltip="FFD20.RollSkill">
+      <i class="fa-solid fa-dice-d20"></i>
+    </div>
+    <span class="text-box skill-mod" data-tooltip="FFD20.SkillModTooltip">{{numberFormat subSkill.mod decimals=0 sign=true}}</span>
+    <span class="text-box skill-rank" name="system.skills.{{s}}.subSkills.{{b}}.rank" data-dtype="Number" data-tooltip="FFD20.SkillRankPlural" data-placeholder="{{localize "FFD20.Rank"}}">{{#if subSkill.rank}}{{subSkill.rank}}{{/if}}</span>
+    <label class="checkbox skill-cs" data-tooltip="FFD20.CSTooltip">
+      <abbr>{{localize "FFD20.CS"}}</abbr>
+      <input type="checkbox" disabled {{checked subSkill.cs}}/>
     </label>
-    <label class="checkbox skill-acp">
-      <abbr title="{{localize "FFD20.ACPTooltip"}}">{{localize "FFD20.ACP"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.subSkills.{{b}}.acp"{{#if @root.skillsLocked}} disabled{{/if}} {{checked subSkill.acp}}/>
+    <label class="checkbox skill-acp" data-tooltip="FFD20.ACPTooltip">
+      <abbr>{{localize "FFD20.ACP"}}</abbr>
+      <input type="checkbox" class="lockable" name="system.skills.{{s}}.subSkills.{{b}}.acp"{{#if @root.skillsLocked}} disabled{{/if}} {{checked subSkill.acp}}/>
     </label>
-    <label class="checkbox skill-rt">
-      <abbr title="{{localize "FFD20.RTTooltip"}}">{{localize "FFD20.RT"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.subSkills.{{b}}.rt"{{#if @root.skillsLocked}} disabled{{/if}} {{checked subSkill.rt}}/>
+    <label class="checkbox skill-rt" data-tooltip="FFD20.RTTooltip">
+      <abbr>{{localize "FFD20.RT"}}</abbr>
+      <input type="checkbox" class="lockable" name="system.skills.{{s}}.subSkills.{{b}}.rt"{{#if @root.skillsLocked}} disabled{{/if}} {{checked subSkill.rt}}/>
     </label>
     <div class="skill-ability">
-      <select class="skill-ability" name="system.skills.{{s}}.subSkills.{{b}}.ability" data-dtype="String"{{#if @root.skillsLocked}} disabled{{/if}}>
-        {{#select subSkill.ability}}
+      <select class="skill-ability locakble" name="system.skills.{{s}}.subSkills.{{b}}.ability" data-dtype="String"{{#if @root.skillsLocked}} disabled{{/if}}>
         <option value=''><!-- None --></option>
-        {{#each ../../config.abilitiesShort as |ability a|}}
-        <option value="{{a}}">{{ability}}</option>
-        {{/each}}
-        {{/select}}
+        {{selectOptions @root.config.abilitiesShort selected=subSkill.ability}}
       </select>
     </div>
-    <div class="skill-controls">
-      {{#unless @root.skillsLocked}}
+    <div class="skill-controls lockable{{#if @root.skillsLocked}} hide-contents{{/if}}">
       {{#if @root.owner}}
-      <a class="skill-control skill-edit" title="{{localize "FFD20.EditSkill"}}"><i class="fas fa-edit"></i></a>
-      <a class="skill-control skill-delete" title="Delete Skill"><i class="fas fa-trash"></i></a>
+      <a class="skill-control skill-edit" data-tooltip="FFD20.EditSkill"><i class="fas fa-edit"></i></a>
+      <a class="skill-control skill-delete" data-tooltip="FFD20.DeleteSkill"><i class="fas fa-trash"></i></a>
       {{/if}}
-      {{/unless}}
     </div>
   </li>
   {{/each}}
@@ -77,15 +73,10 @@
   <li class="skill {{#if skill.untrained}}untrained{{/if}}" data-skill="{{s}}">
     <div class="skill-name tooltip">
       <span class="tooltipcontent">
-        @skills.{{s}}.mod : {{skill.mod}}<br>
-        @skills.{{s}}.rank : {{skill.rank}}<br>
+        <span class="span2 align-left">@skills.{{s}}.mod :</span><span class="span1 align-right"> {{skill.mod}}</span>
+        <span class="span2 align-left">@skills.{{s}}.rank :</span><span class="span1 align-right"> {{skill.rank}}</span>
 
-        {{#if skill.sourceDetails.length}}
-        <br/>{{localize "FFD20.FromSources"}}:<br/>
-        {{#each skill.sourceDetails as |src|}}
-        {{src.name}}: {{src.value}}<br/>
-        {{/each}}
-        {{/if}}
+        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=skill.sourceDetails }}
 
         {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "skill." s)}}
       </span>
@@ -97,36 +88,32 @@
       <h4>{{#if skill.custom}}{{skill.name}}{{else}}{{skill.label}}{{/if}}</h4>
       {{/if}}
     </div>
-    <div class="rollable"><img src="icons/dice/d20black.svg"></div>
-    <span class="text-box skill-mod" title="{{localize "FFD20.SkillModTooltip"}}">{{numberFormat skill.mod decimals=0 sign=true}}</span>
-    <span class="text-box skill-rank" name="system.skills.{{s}}.rank" data-dtype="Number" title="{{localize "FFD20.SkillRankPlural"}}" data-placeholder="{{localize "FFD20.Rank"}}">{{#if skill.rank}}{{skill.rank}}{{/if}}</span>
+    <div class="action roll" data-tooltip="FFD20.RollSkill">
+      <i class="fa-solid fa-dice-d20"></i>
+    </div>
+    <span class="text-box skill-mod" data-tooltip="FFD20.SkillModTooltip">{{numberFormat skill.mod decimals=0 sign=true}}</span>
+    <span class="text-box skill-rank" name="system.skills.{{s}}.rank" data-dtype="Number" data-tooltip="FFD20.SkillRankPlural" data-placeholder="{{localize "FFD20.Rank"}}">{{#if skill.rank}}{{skill.rank}}{{/if}}</span>
     <label class="checkbox skill-cs">
-      <abbr title="{{localize "FFD20.CSTooltip"}}">{{localize "FFD20.CS"}}</abbr> <input type="checkbox" disabled {{checked skill.cs}}/>
+      <abbr data-tooltip="FFD20.CSTooltip">{{localize "FFD20.CS"}}</abbr> <input type="checkbox" disabled {{checked skill.cs}}/>
     </label>
     <label class="checkbox skill-acp">
-      <abbr title="{{localize "FFD20.ACPTooltip"}}">{{localize "FFD20.ACP"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.acp"{{#if @root.skillsLocked}} disabled{{/if}} {{checked skill.acp}}/>
+      <abbr data-tooltip="FFD20.ACPTooltip">{{localize "FFD20.ACP"}}</abbr> <input type="checkbox" class="lockable" name="system.skills.{{s}}.acp"{{#if @root.skillsLocked}} disabled{{/if}} {{checked skill.acp}}/>
     </label>
     <label class="checkbox skill-rt">
-      <abbr title="{{localize "FFD20.RTTooltip"}}">{{localize "FFD20.RT"}}</abbr> <input type="checkbox" name="system.skills.{{s}}.rt"{{#if @root.skillsLocked}} disabled{{/if}} {{checked skill.rt}}/>
+      <abbr data-tooltip="FFD20.RTTooltip">{{localize "FFD20.RT"}}</abbr> <input type="checkbox" class="lockable" name="system.skills.{{s}}.rt"{{#if @root.skillsLocked}} disabled{{/if}} {{checked skill.rt}}/>
     </label>
     <div class="skill-ability">
-      <select class="skill-ability" name="system.skills.{{s}}.ability" data-dtype="String"{{#if @root.skillsLocked}} disabled{{/if}}>
-        {{#select skill.ability}}
+      <select class="skill-ability lockable" name="system.skills.{{s}}.ability" data-dtype="String"{{#if @root.skillsLocked}} disabled{{/if}}>
         <option value=''><!-- None --></option>
-        {{#each ../config.abilitiesShort as |ability a|}}
-        <option value="{{a}}">{{ability}}</option>
-        {{/each}}
-        {{/select}}
+        {{selectOptions @root.config.abilitiesShort selected=skill.ability}}
       </select>
     </div>
-    <div class="skill-controls">
-      {{#unless @root.skillsLocked}}
-      {{#if ../owner}}
-      <a class="skill-control skill-edit" title="{{localize "FFD20.EditSkill"}}"><i class="fas fa-edit"></i></a>
+    <div class="skill-controls lockable{{#if @root.skillsLocked}} hide-contents{{/if}}">
+      {{#if @root.owner}}
+      <a class="skill-control skill-edit" data-tooltip="FFD20.EditSkill"><i class="fas fa-edit"></i></a>
       {{#if skill.custom}}
-      <a class="skill-control skill-delete" title="{{localize "FFD20.DeleteSkill"}}"><i class="fas fa-trash"></i></a>
+      <a class="skill-control skill-delete" data-tooltip="FFD20.DeleteSkill"><i class="fas fa-trash"></i></a>
       {{/if}}{{/if}}
-      {{/unless}}
     </div>
   </li>
   {{/if}}

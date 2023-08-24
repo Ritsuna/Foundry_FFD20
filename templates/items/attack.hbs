@@ -2,10 +2,10 @@
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
 
     <div class="header-details flexrow">
-      <h1 class="itemname">
+      <h1 class="item-name">
         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
       </h1>
 
@@ -16,7 +16,7 @@
 
       <ul class="summary">
         <li>
-          {{lookup config.attackTypes system.attackType }}
+          {{lookup config.attackTypes system.subType }}
         </li>
       </ul>
     </div>
@@ -35,7 +35,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab flexcol" data-group="primary" data-tab="description">
-      {{editor descriptionHTML.identified target="system.description.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+      {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Details Tab --}}
@@ -81,8 +81,8 @@
       <div class="form-group">
         <label>{{localize "FFD20.AttackType"}}</label>
         <div class="form-fields">
-          <select name="system.attackType">
-            {{#select system.attackType}}
+          <select name="system.subType">
+            {{#select system.subType}}
             {{#each config.attackTypes as |name type|}}
             <option value="{{type}}">{{name}}</option>
             {{/each}}
@@ -107,11 +107,20 @@
       </div>
       {{/unless}}
 
+      {{!-- Base Types --}}
+      {{> "systems/ffd20/templates/items/parts/item-base-types.hbs"}}
+
       {{!-- Weapon Groups --}}
       {{> "systems/ffd20/templates/items/parts/item-weapon-groups.hbs"}}
 
-      {{!-- Advanced Tag --}}
-      {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{!-- Advanced --}}
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
+
+      {{! Identifier Tag }}
+      {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="links">

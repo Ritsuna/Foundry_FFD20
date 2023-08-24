@@ -1,6 +1,6 @@
 <form autocomplete="off" class="flexcol">
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{data.img}}" title="{{data.name}}" data-edit="img">
+    <img class="profile" src="{{data.img}}" data-tooltip="{{data.name}}" data-edit="img">
     <div class="header-details flexrow">
       <h1 class="action-name">
         <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "FFD20.ActionName"}}" />
@@ -24,7 +24,7 @@
         <label>{{localize "FFD20.Tag"}}</label>
         <input type="text" placeholder="{{tag}}" value="{{data.tag}}" name="tag" />
       </div>
-      {{editor descriptionHTML target="description" button=true owner=owner editable=owner engine="prosemirror" collaborate=false}}
+      {{editor descriptionHTML target="description" button=true editable=owner engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Action Activation --}}

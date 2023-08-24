@@ -2,32 +2,25 @@
 <div class="form-group input-select">
   <label>{{localize "FFD20.ActivationCost"}}</label>
   <div class="form-fields">
-    <input type="text" name="{{#unless unchainedActionEconomy}}activation.cost{{else}}unchainedAction.activation.cost{{/unless}}"
-      value="{{#unless unchainedActionEconomy}}{{data.activation.cost}}{{else}}{{data.unchainedAction.activation.cost}}{{/unless}}" data-dtype="Number" placeholder=""/>
-    {{#unless unchainedActionEconomy}}
-    <select name="activation.type">
-      {{#select data.activation.type}}
+    <input type="text" name="activation{{#if unchainedActionEconomy}}.unchained{{/if}}.cost"
+      value="{{@root.activation.cost}}" data-dtype="Number" placeholder=""/>
+    <select name="activation{{#if unchainedActionEconomy}}.unchained{{/if}}.type">
       <option value=""></option>
-      {{#each config.abilityActivationTypes as |name key|}}
-      <option value="{{key}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
+      {{selectOptions @root.abilityActivationTypes selected=@root.activation.type}}
     </select>
-    {{else}}
-    <select name="unchainedAction.activation.type">
-      {{#select data.unchainedAction.activation.type}}
-      <option value=""></option>
-      {{#each config.abilityActivationTypes_unchained as |name key|}}
-      <option value="{{key}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
-    {{/unless}}
   </div>
 </div>
 
-{{#if hasActivationType}}
 <hr>
+{{#if isSpell}}
+<div class="form-group">
+  <label>{{localize "FFD20.SpellEffect"}}</label>
+  <div class="form-fields">
+    <input type="text" name="spellEffect" value="{{data.spellEffect}}" placeholder="{{localize "FFD20.SpellEffectExample"}}">
+  </div>
+</div>
+{{/if}}
+
 {{!-- Ability Target --}}
 <div class="form-group input-select-select">
   <label>{{localize "FFD20.Target"}}</label>
@@ -135,23 +128,25 @@
 {{/unless}}
 
 <h3 class="form-header">{{localize "FFD20.LimitedUses"}}</h3>
-{{#if (or (eq isSpell false) (eq usesSpellPoints true))}}
 <h4 class="form-header">{{localize "FFD20.Item"}}</h4>
-<div class="form-group stacked">
+<div class="form-group">
   <label>
-    {{#if isSpell}}
+    {{#if usesSpellPoints}}
     {{localize "FFD20.SpellPointsCost"}}
+    {{else if isSpell}}
+    {{localize "FFD20.CastsPerDayUsedFormula"}}
     {{else}}
-    {{localize "FFD20.AutoDeductCharges"}}
+    {{localize "FFD20.ChargeCost"}}
     {{/if}}
   </label>
-  <div class="flexrow">
-    <input type="checkbox" name="uses.autoDeductCharges" {{checked data.uses.autoDeductCharges}}/>
-    {{#if data.uses.autoDeductCharges}}<input class="formula" type="text" name="uses.autoDeductChargesCost" placeholder="{{localize "FFD20.DeductChargeFormulaPlaceholder"}}"
-      value="{{data.uses.autoDeductChargesCost}}" />{{/if}}
+  <div class="form-fields">
+    {{#if usesSpellPoints}}
+    <input class="formula" type="text" name="uses.spellPointCost" placeholder="{{defaultChargeFormula}}" value="{{data.uses.spellPointCost}}" />
+    {{else}}
+    <input class="formula" type="text" name="uses.autoDeductChargesCost" placeholder="{{defaultChargeFormula}}" value="{{data.uses.autoDeductChargesCost}}" />
+    {{/if}}
   </div>
 </div>
-{{/if}}
 
 <h4 class="form-header">{{localize "FFD20.Action"}}</h4>
 <div class="form-group stacked">
@@ -179,4 +174,3 @@
   </div>
   {{/if}}
 </div>
-{{/if}}

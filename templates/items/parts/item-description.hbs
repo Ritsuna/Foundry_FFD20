@@ -9,96 +9,6 @@
   <div class="flexrow description-container">
     <div class="item-properties">
       {{#if isPhysical}}
-      {{#unless descriptionAttributes}}
-      {{#if isMateria}}
-      {{else}}
-      {{!-- Quantity --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Quantity"}}</label>
-        <input class="select-on-click" type="text" name="system.quantity" value="{{system.quantity}}" data-dtype="Number"/>
-      </div>
-
-      {{!-- Weight --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Weight"}} ({{system.weight.units}})</label>
-        <input class="select-on-click" type="text" name="system.weight.converted" value="{{numberFormat system.weight.converted decimals=2}}" data-dtype="Number"/>
-      </div>{{/if}}
-
-      {{!-- Price --}}
-      {{#if showIdentifyDescription}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Price"}} ({{system.priceUnits}})</label>
-        <input class="select-on-click" type="text" name="system.price" value="{{numberFormat system.price decimals=2}}" data-dtype="Number"/>
-      </div>
-
-      <div class="form-group">
-        <label>{{localize "FFD20.UnidentifiedPriceShort"}}</label>
-        <input class="select-on-click" type="text" name="system.unidentified.price" value="{{numberFormat system.unidentified.price decimals=2}}" data-dtype="Number"/>
-      </div>
-      {{else}}
-      {{#if showUnidentifiedData}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Price"}} ({{system.priceUnits}})</label>
-        <input class="select-on-click" type="text" name="system.unidentified.price" value="{{system.unidentified.price}}" data-dtype="Number"/>
-      </div>
-      {{else}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Price"}} ({{system.priceUnits}})</label>
-        <input class="select-on-click" type="text" name="system.price" value="{{system.price}}" data-dtype="Number"/>
-      </div>
-      {{/if}}
-      {{/if}}
-
-      {{!-- Hit Points --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.HPShort"}}</label>
-        <input class="select-on-click" type="text" name="system.hp.value" value="{{system.hp.value}}" data-dtype="Number" style="flex: 0 0 32px"/>
-        <span>/</span>
-        <input class="select-on-click" type="text" name="system.hp.max" value="{{system.hp.max}}" data-dtype="Number" style="flex: 0 0 32px"/>
-      </div>
-
-      {{!-- Hardness --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Hardness"}}</label>
-        <input class="select-on-click" type="text" name="system.hardness" value="{{system.hardness}}" data-dtype="Number"/>
-      </div>
-      {{!-- Materia level --}}
-      {{#if isMateria}}
-      <div class="form-group">
-        <label>{{localize "FFD20.MateriaLevel"}}</label>
-        <span style="padding-left: 5px;">{{system.materiaLevel}}</span>
-        {{!--<input class="select-on-click" type="text" name="system.materiaLevel" value="{{system.materiaLevel}}" data-dtype="Number" style="flex: 0 0 60px"/> --}}
-      </div>
-      {{!-- Materia exp --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.MateriaCombatXp"}}</label>
-        <input class="select-on-click" type="text" name="system.materiaCombatXp.value" value="{{system.materiaCombatXp.value}}" data-dtype="Number" style="flex: 0 0 40px"/>
-        <span>/ </span><span style="padding-left: 5px;">{{system.materiaCombatXp.next}}</span>
-        {{!-- <input type="text" name="system.materiaCombatXp.next" style="flex: 0 0 40px" value="{{system.materiaCombatXp.next}}"/> --}}
-      </div>
-      {{!-- Materia Slot --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Slot"}}</label>
-        <span name="system.slot" style="padding-left: 5px; flex: 0 0 100px;">{{labels.slot}}</span>
-      </div>
-      <div class="form-group">
-        <label>{{localize "FFD20.MateriaSlot"}}</label>
-        <select name="system.materiaSlot">
-          {{#select system.materiaSlot}}
-          {{#each config.materiaSlot as |name type|}}
-          <option value="{{type}}">{{localize name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
-      </div>
-      {{/if}}
-
-      {{!-- Carried Flag --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Carried"}}</label>
-        <input type="checkbox" name="system.carried" {{checked system.carried}}/>
-      </div>
-      {{else}}
       {{#each descriptionAttributes as |attr|}}
       {{#if attr.isBoolean}}
       <div class="form-group">
@@ -153,7 +63,6 @@
         </div>
       {{/if}}
       {{/each}}
-      {{/unless}}
       {{/if}}
 
       {{!-- Properties --}}
@@ -167,18 +76,18 @@
     {{#if showIdentifyDescription}}
     <section class="description-body">
       <div class="tab description-group flexcol" data-group="description" data-tab="identified">
-      {{editor descriptionHTML.identified target="system.description.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+      {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
       </div>
 
       <div class="tab description-group flexcol" data-group="description" data-tab="unidentified">
-      {{editor descriptionHTML.unidentified target="system.description.unidentified" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+      {{editor descriptionHTML.unidentified target="system.description.unidentified" button=true editable=editable engine="prosemirror" collaborate=false}}
       </div>
     </section>
     {{else}}
     {{#if showUnidentifiedData}}
-    {{editor descriptionHTML.unidentified target="system.description.unidentified" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+    {{editor descriptionHTML.unidentified target="system.description.unidentified" button=true editable=editable engine="prosemirror" collaborate=false}}
     {{else}}
-    {{editor descriptionHTML.identified target="system.description.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+    {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
     {{/if}}
     {{/if}}
   </div>

@@ -1,0 +1,43 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+  <table>
+    <thead>
+      {{#each fields as |value|}}
+      <th>{{value}}</th>
+      {{/each}}
+      <th class="resistance-control"></th>
+    </thead>
+    <tbody>
+      {{#each entries as |entry index|}}
+      <tr class="resistance" data-index="{{index}}">
+        <td><input type="number" class="textarea" data-index="amount" value={{entry.amount}} data-dtype={{@root.dtypes.[0]}} name="{{index}}-amount" /></td>
+        <td><select data-index="types0" value={{entry.types.[0]}} data-dtype={{@root.dtypes.[1]}} name="{{index}}-types0">
+            {{#if @root.isDR}}
+              {{selectOptions @root.damages localize=true selected=entry.types.[0] blank="FFD20.Application.DamageResistanceSelector.TypeNothing"}}
+            {{else}}
+              {{selectOptions @root.damages localize=true selected=entry.types.[0]}}
+            {{/if}}
+            </select>
+        </td>
+        <td><select data-index="operator" value={{entry.operator}} data-dtype={{@root.dtypes.[2]}} name="{{index}}-comboChoice">
+            {{selectOptions @root.operators localize=true selected=entry.operator}}
+            </select>
+        </td>
+        <td><select data-index="types1" value={{entry.types.[1]}} data-dtype={{@root.dtypes.[3]}} name="{{index}}-types1">
+            {{selectOptions @root.damages localize=true selected=entry.types.[1] blank="Nothing"}}
+            </select>
+        </td>
+        <td class="resistance-control"><a class="resistance-control delete-resistance"><i class="fas fa-minus"></i></a></td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+  <a class="resistance-control add-resistance"><i class="fas fa-plus"></i> {{localize "FFD20.AddEntry"}}</a>
+
+  <div class="form-group stacked">
+    <label>{{localize "FFD20.Special"}}</label>
+    <input type="text" name="custom" value="{{@root.custom}}" data-dtype="String"/>
+  </div>
+
+  <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize "FFD20.UpdateActor"}}</button>
+</form>

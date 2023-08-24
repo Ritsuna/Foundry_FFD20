@@ -1,7 +1,7 @@
 <form class="{{ cssClass }} flexcol" autocomplete="off">
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{ item.img }}" title="{{ item.name }}" data-edit="img" />
+    <img class="profile" src="{{ item.img }}" data-tooltip="{{ item.name }}" data-edit="img" />
 
     <div class="header-details flexrow">
       {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
@@ -44,7 +44,7 @@
 
       {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
 
-      <h3 class="form-header">Weapon Details</h3>
+      <h3 class="form-header">{{localize "FFD20.WeaponDetails"}}</h3>
       {{#if (and owner owned)}}
       <label class="checkbox">
         <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}} />
@@ -60,8 +60,8 @@
       <div class="form-group">
         <label>{{localize "FFD20.Category"}}</label>
         <div class="form-fields">
-          <select name="system.weaponType">
-            {{#select system.weaponType}}
+          <select name="system.subType">
+            {{#select system.subType}}
             {{#each weaponCategories.types as |name type|}}
             <option value="{{ type }}">{{ name }}</option>
             {{/each}}
@@ -101,15 +101,15 @@
         </div>
       </div>
 
+      {{!-- Base Types --}}
+      {{> "systems/ffd20/templates/items/parts/item-base-types.hbs"}}
+
       {{!-- Weapon Groups --}}
       {{> "systems/ffd20/templates/items/parts/item-weapon-groups.hbs"}}
 
       {{!-- Equipment Status --}}
       <h3 class="form-header">{{localize "FFD20.EquipmentStatus"}}</h3>
       <div class="form-group stacked">
-        <label class="checkbox">
-          <input type="checkbox" name="system.equipped" {{checked system.equipped}} /> {{localize "FFD20.Equipped"}}
-        </label>
         {{#if isGM}}
         <label class="checkbox">
           <input type="checkbox" name="system.identified" {{checked system.identified}} /> {{localize "FFD20.Identified"}}
@@ -120,6 +120,10 @@
         </label>
         <label class="checkbox">
           <input type="checkbox" name="system.broken" {{checked system.broken}} /> {{localize "FFD20.Broken"}}
+        </label>
+
+        <label class="checkbox">
+          <input type="checkbox" name="system.proficient" {{checked system.proficient}}/> {{localize "FFD20.Proficient"}}
         </label>
       </div>
 
@@ -141,9 +145,17 @@
           <input type="text" name="system.enh" value="{{ system.enh }}" data-dtype="Number" placeholder="0" />
         </div>
       </div>
+      {{/unless}}
 
-      {{!-- Advanced Tag --}}
-      {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{!-- Advanced --}}
+      {{#unless showUnidentifiedData}}
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
+
+      {{! Identifier Tag }}
+      {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
       {{/unless}}
     </div>
 

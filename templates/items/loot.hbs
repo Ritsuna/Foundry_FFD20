@@ -2,7 +2,7 @@
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header loot-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img" />
 
     <div class="header-details flexrow">
       {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
@@ -69,11 +69,21 @@
           </div>
         </div>
 
-        <div class="form-group" title="{{localize "FFD20.AbundantDesc"}}">
+        <div class="form-group" data-tooltip="FFD20.AbundantDesc">
           <label class="checkbox">
             <input type="checkbox" name="flags.ffd20.abundant" {{checked item.flags.ffd20.abundant}} /> {{localize "FFD20.Abundant"}}
           </label>
         </div>
+
+        {{! Recovery Chance}}
+        {{#unless item.flags.ffd20.abundant}}
+        <div class="form-group">
+          <label>{{localize "FFD20.RecoverChancePercentage"}}</label>
+          <div class="form-fields">
+            <input type="number" name="system.recoverChance" data-dtype="Number" placeholder="50" min="0" max="100" value="{{system.recoverChance}}">
+          </div>
+        </div>
+        {{/unless}}
       {{/if}}
 
       <hr>
@@ -88,8 +98,16 @@
       </label>
       {{/if}}
 
-      {{!-- Advanced Tag --}}
-      {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{!-- Advanced --}}
+      {{#unless showUnidentifiedData}}
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
+
+      {{! Identifier Tag }}
+      {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{/unless}}
     </div>
 
     {{!-- Changes Tab --}}

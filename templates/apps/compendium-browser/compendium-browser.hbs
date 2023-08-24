@@ -1,0 +1,46 @@
+<div class="compendium-browser flexrow" data-type="{{type}}">
+  <aside class="sidebar flexcol">
+    <div class="entry-filter search-form formgroup flexrow">
+      <input type="search" name="filter" value="{{query}}" placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}" autocomplete="off" />
+      <i class="fas fa-search"></i>
+    </div>
+
+    <div class="filter-container">
+      {{#each filters as |filter|}}
+        <div class="filter" data-filter-id="{{filter.id}}">
+          <h3 class="rollable">{{filter.label}}
+            {{#if filter.active}}<i class="fas fa-filter"></i>×{{filter.activeCount}}{{/if}}
+          </h3>
+          <div class="filter-content flexcol {{filter.collapsed}}">
+            {{> (lookup . "template") filter=filter}}
+          </div>
+        </div>
+      {{/each}}
+    </div>
+
+    <div class="buttons flexrow">
+      <button class="refresh">{{localize "FFD20.Refresh"}}</button>
+      <button class="reset">{{localize "FFD20.Reset"}}</button>
+    </div>
+  </aside>
+
+  <div class="directory-container flexcol">
+  {{#unless loading}}
+    <div class="top flexrow">
+      <span>{{localize "FFD20.TotalItems" count=itemCount}}</span>
+      <span>{{localize "FFD20.FilteredItems" count=filteredItemCount}}</span>
+    </div>
+  {{/unless}}
+    <ol class="directory-list">
+      {{#if loading}}
+        <li class="compendium-loading flexcol">
+          <i class="fas fa-spinner fa-spin"></i>
+          {{localize "FFD20.LoadingItemsFromIndexes" items=loadingInfo.entryCount indexes=loadingInfo.indexCount}}
+        </li>
+      {{else}}
+        {{> systems/ffd20/templates/apps/compendium-browser/entries.hbs entries=entries}}
+        <li class="directory-bottom"></li>
+      {{/if}}
+    </ol>
+  </div>
+</div>

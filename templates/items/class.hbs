@@ -2,10 +2,10 @@
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img"/>
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
 
     <div class="header-details flexrow">
-      <h1 class="itemname">
+      <h1 class="item-name">
         <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
       </h1>
 
@@ -16,10 +16,9 @@
 
       <ul class="summary">
         <li>
-          {{lookup config.classTypes system.classType}}
+          {{lookup config.classTypes system.subType}}
         </li>
-        <li class="tooltip">
-          <span class="tooltipcontent">@classes.{{item.system.tag}}.level : {{system.level}}</span>
+        <li data-tooltip="@classes.{{system.tag}}.level : {{system.level}}<br>@item.level : {{system.level}}{{#unless isMythicPath}}<br>@classes.{{system.tag}}.hitDice : {{system.hitDice}}{{/unless}}">
           <input type="text" name="system.level" value="{{system.level}}" placeholder="{{#if isMythicPath}}{{localize "FFD20.Tier"}}{{else}}{{localize "FFD20.Level"}}{{/if}}" data-dtype="Number"/>
         </li>
       </ul>
@@ -40,7 +39,7 @@
 
     {{!-- Description Tab --}}
     <div class="tab flexcol" data-group="primary" data-tab="description">
-      {{editor descriptionHTML.identified target="system.description.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+      {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
     </div>
 
     {{!-- Details Tab --}}
@@ -50,8 +49,8 @@
       <div class="form-group">
         <label>{{localize "FFD20.ClassType"}}</label>
         <div class="form-fields">
-          <select name="system.classType">
-            {{#select system.classType}}
+          <select name="system.subType">
+            {{#select system.subType}}
             {{#each config.classTypes as |name type|}}
             <option value="{{type}}">{{name}}</option>
             {{/each}}
@@ -98,19 +97,21 @@
 
       {{!-- HD --}}
       <div class="form-group">
-        <label>{{localize "FFD20.HitDie"}}</label>
+        <label>{{#if isMythicPath}}{{localize "FFD20.HealthPerTier"}}{{else}}{{localize "FFD20.HitDie"}}{{/if}}</label>
         <div class="form-fields">
-          <input type="text" name="system.hd" value="{{system.hd}}" data-dtype="Number" />
+          <input type="text" name="system.hd" value="{{system.hd}}" data-dtype="Number" data-tooltip="@classes.{{system.tag}}.hd"/>
         </div>
       </div>
 
       {{!-- HD count --}}
+      {{#unless isMythicPath}}
       <div class="form-group">
         <label>{{localize "FFD20.CustomHitDice"}}</label>
         <div class="form-fields">
           <input type="text" class="formula" name="system.customHD" value="{{system.customHD}}" data-dtype="String" placeholder="{{localize "FFD20.CustomHitDiceHint"}}"/>
         </div>
       </div>
+      {{/unless}}
 
       {{!-- Hit Points --}}
       {{#unless healthConfig.auto}}
@@ -199,16 +200,13 @@
         </div>
       </div>
 
-      {{!-- Proficiencies --}}
-      {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
-
       <h4 class="form-header">{{localize "FFD20.SavingThrowPlural"}}</h4>
 
       {{!-- Saving Throws --}}
       {{#each system.savingThrows as |savingThrow id|}}
       <div class="form-group">
         <label>{{savingThrow.label}}</label>
-        <select name="system.savingThrows.{{id}}.value">
+        <select name="system.savingThrows.{{id}}.value" data-tooltip="@classes.{{@root.system.tag}}.savingThrows.{{id}} : {{savingThrow.base}}">
           {{#select savingThrow.value}}
           <option value="">{{localize "FFD20.None"}}</option>
           {{#each ../config.classSavingThrows as |name value|}}
@@ -223,14 +221,66 @@
       </div>
       {{/each}}
 
-      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+      {{! Spellcasting Configuration }}
+      <h4 class="form-header">{{localize "FFD20.SpellCasting"}}</h4>
 
-      <div class="form-group">
-        <label>{{localize "FFD20.Tag"}}</label>
-        <input {{#unless system.useCustomTag}}disabled{{/unless}} type="text" name="system.tag" value="{{system.tag}}" placeholder="{{localize "FFD20.Tag"}}" />
-        <label>{{localize "FFD20.Custom"}}</label>
-        <input type="checkbox" name="system.useCustomTag" {{checked system.useCustomTag}} />
+      <div class="form-group spellcasting-type">
+        <label>{{localize "FFD20.Type"}}</label>
+        <div class="form-fields">
+          <select name="system.casting.type">
+            <option value="">{{localize "FFD20.None"}}</option>
+            {{selectOptions casting.types selected=system.casting.type localize=true}}
+          </select>
+        </div>
       </div>
+
+      {{#if system.casting.type}}
+      <div class="form-group spellcasting-progression">
+        <label>{{localize "FFD20.Spellcasting.Progression.Label"}}</label>
+        <div class="form-fields">
+          <select name="system.casting.progression">
+            <option value="">{{localize "FFD20.None"}}</option>
+            {{selectOptions casting.progression selected=system.casting.progression localize=true}}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group spellcasting-ability">
+        <label>{{localize "FFD20.SpellcastingAbility"}}</label>
+        <div class="form-fields">
+          <select name="system.casting.ability">
+            <option value="">{{localize "FFD20.None"}}</option>
+            {{selectOptions config.abilities selected=system.casting.ability}}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group spellcasting-spells">
+        <label>{{localize "FFD20.Spellcasting.Type.Label"}}</label>
+        <div class="form-fields">
+          <select name="system.casting.spells">
+            <option value="">{{localize "FFD20.None"}}</option>
+            {{selectOptions casting.spells selected=system.casting.spells localize=true}}
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group spellcasting-cantrips">
+        <label class="checkbox">
+          <input type="checkbox" name="system.casting.cantrips" data-dtype="Boolean" {{checked system.casting.cantrips}}>
+          {{localize "FFD20.HasCantrips"}}
+        </label>
+      </div>
+
+      {{#unless hasSpellbook}}
+      <div class="form-group create-spellbook">
+        <button name="create-spellbook" type="button">
+          <i class="fa-solid fa-book"></i>
+          {{localize "FFD20.CreateSpellbook"}}
+        </button>
+      </div>
+      {{/unless}}
+      {{/if}}
 
       {{#if isBaseClass}}
       <h4 class="form-header">{{localize "FFD20.FavouredClassBonuses"}}</h4>
@@ -239,7 +289,7 @@
       {{#each system.fc as |fc id|}}
       <div class="form-group">
         <label>{{fc.label}}</label>
-        <input type="text" name="system.fc.{{id}}.value" value="{{fc.value}}" data-dtype="Number" />
+        <input type="text" name="system.fc.{{id}}.value" value="{{fc.value}}" data-dtype="Number" data-tooltip="@classes.{{@root.system.tag}}.fc.{{id}}" />
       </div>
       {{/each}}
       <div class="form-group">
@@ -247,6 +297,9 @@
         <input type="text" name="system.fc.alt.notes" value="{{system.fc.alt.notes}}" data-dtype="String" />
       </div>
       {{/if}}
+
+      {{!-- Proficiencies --}}
+      {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
 
       <h4 class="form-header">{{localize "FFD20.ClassSkills"}}</h4>
 
@@ -261,6 +314,15 @@
         {{/each}}
         </ol>
       </div>
+
+      {{!-- Advanced --}}
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
+
+      {{! Identifier Tag }}
+      {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
     </div>
 
     <div class="tab flexcol" data-group="primary" data-tab="changes">

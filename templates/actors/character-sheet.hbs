@@ -1,4 +1,4 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
 
   {{#unless hasClasses}}<span class="warning">{{localize "FFD20.Info_MissingClass"}}</span>{{/unless}}
 
@@ -22,12 +22,9 @@
 
     {{!-- Details --}}
     <div class="tab summary flexcol" data-group="primary" data-tab="summary">
-      <div class="header-summary flexcol">
-        {{> "systems/ffd20/templates/actors/parts/actor-summary.hbs"}}
-      </div>
+      {{> "systems/ffd20/templates/actors/parts/actor-summary.hbs"}}
     </div>
 
-    {{!-- Attributes Tab --}}
     <div class="tab attributes flexcol" data-group="primary" data-tab="attributes">
       {{> "systems/ffd20/templates/actors/parts/actor-attributes.hbs"}}
     </div>
@@ -48,7 +45,7 @@
     </div>
 
     {{!-- Skills Tab --}}
-    <div class="tab skills flexcol" data-group="primary" data-tab="skills">
+    <div class="tab skills flexcol{{#if @root.skillsLocked}} locked{{/if}}" data-group="primary" data-tab="skills">
       {{> "systems/ffd20/templates/actors/parts/actor-skills-front.hbs"}}
     </div>
 
@@ -75,10 +72,8 @@
         {{editor notesHTML target="system.details.notes.value" button=true editable=editable engine="prosemirror" collaborate=false}}
       </div>
 
-      {{#if table_magicItems}}
-      <div>
-        {{{table_magicItems}}}
-      </div>
+      {{#if magicItems}}
+      {{> "systems/ffd20/templates/internal/table_magic-items.hbs" items=magicItems}}
       {{/if}}
     </div>
 

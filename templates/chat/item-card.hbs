@@ -1,7 +1,9 @@
 <div class="ffd20 chat-card item-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
-  <header class="card-header flexrow">
-    <img src="{{item.img}}" title="{{name}}" width="36" height="36"/>
-    <h3 class="item-name">{{name}}</h3>
+  <header class="card-header type-color type-{{item.type}} flexrow">
+    <img src="{{item.img}}" data-tooltip="{{name}}" width="36" height="36"/>
+    <div class="item-name">
+      <h3>{{name}}</h3>
+    </div>
   </header>
 
   <div class="card-content">

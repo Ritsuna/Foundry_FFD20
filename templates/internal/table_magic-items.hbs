@@ -1,4 +1,6 @@
-<h2>{{localize "FFD20.MagicItems"}}</h2>
+
+{{#*inline "magicItemTable"}}
+<h2>{{localize "FFD20.MagicItems"}} ({{#if identified}}{{localize "FFD20.Identified"}}{{else}}{{localize "FFD20.Unidentified"}}{{/if}})</h2>
 <table class="magic-items-table">
   <thead>
     <tr>
@@ -7,21 +9,27 @@
       <th class="cl">{{localize "FFD20.CasterLevel"}}</th>
       {{#if isGM}}
       <th class="identify-dc">{{localize "FFD20.IdentifyDC"}}</th>
-      <th class="identify"><i class="icon icon-quill-ink large" title="{{localize "FFD20.Identified"}}"></i></th>
+      <th class="identify"><i class="icon icon-quill-ink large" data-tooltip="FFD20.Identified"></i></th>
       {{/if}}
     </tr>
   </thead>
   <tbody>
-  {{#each items as |item|}}
-    <tr class="item" data-item-id="{{item.id}}">
-      <td class="nocenter"><img src="{{item.img}}" width="24" height="24">{{item.name}}{{#if item.quantity}} (x{{item.quantity}}){{/if}}</td>
-      <td>{{{item.school}}}</td>
-      <td>{{item.cl}}</td>
-      {{#if ../isGM}}
-      <td>{{item.identifyDC}}</td>
-      <td>
-        <a class="item-control item-identify">
-          {{#if item.identified}}
+  {{#each items}}
+    <tr class="item" data-item-id="{{id}}">
+      <td class="nocenter"{{#if unidentifiedName}} data-tooltip="{{unidentifiedName}}"{{/if}} data-tooltip-direction="UP">
+        <div class="item-name">
+          <img src="{{img}}" class="image" width="24" height="24">
+          <span class="name">{{name}}</span>
+          {{#if (gt quantity 1)}}<span class="quantity"> (x{{quantity}})</span>{{/if}}
+        </div>
+      </td>
+      <td class="aura">{{aura.strength}} <b>{{aura.school}}</b></td>
+      <td class="caster-level">{{cl}}</td>
+      {{#if @root.isGM}}
+      <td class="identify-dc">{{identifyDC}}</td>
+      <td class="controls">
+        <a class="item-control item-identify" data-tooltip="{{#if identified}}FFD20.Unidentify{{else}}FFD20.Identify{{/if}}">
+          {{#if identified}}
           <i class="fas fa-check"></i>
           {{else}}
           <i class="fas fa-times"></i>
@@ -33,3 +41,15 @@
   {{/each}}
   </tbody>
 </table>
+{{/inline}}
+
+{{#if (or items.identified.length items.unidentified.length)}}
+<div class="magic-items">
+  {{#if items.identified.length}}
+  {{> magicItemTable items=items.identified identified=true}}
+  {{/if}}
+  {{#if items.unidentified.length}}
+  {{> magicItemTable items=items.unidentified identified=false}}
+  {{/if}}
+</div>
+{{/if}}

@@ -1,0 +1,8 @@
+{{#each filter.choices as |choice i|}}
+  <div class="form-group input">
+    <label for="filter-{{../id}}-choice-{{choice.key}}">{{choice.label}}</label>
+    <div class="form-fields">
+      <input type="number" name="filter.{{../id}}.choice.{{choice.key}}" value="{{choice.value}}" placeholder="{{choice.placeholder}}" id="filter-{{../id}}-choice-{{choice.key}}">
+    </div>
+  </div>
+{{/each}}

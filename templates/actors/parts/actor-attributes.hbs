@@ -18,25 +18,19 @@
                 {{!-- Ability name --}}
                 <th class="tooltip">
                     <span class="tooltipcontent">
-                        @abilities.{{id}}.total : {{ability.total}}<br/>
-                        @abilities.{{id}}.value : {{ability.value}}<br/>
-                        @abilities.{{id}}.mod : {{ability.mod}}<br/>
-                        @abilities.{{id}}.damage : {{ability.damage}}<br/>
-                        @abilities.{{id}}.drain : {{ability.drain}}<br/>
-                        @abilities.{{id}}.penalty : {{ability.penalty}}<br/>
-                        @abilities.{{id}}.base : {{ability.base}}<br/>
-                        @abilities.{{id}}.baseMod : {{ability.baseMod}}<br/>
+                        <span class="span2 align-left">@abilities.{{id}}.total :</span><span class="span1 align-right"> {{ability.total}}</span>
+                        <span class="span2 align-left">@abilities.{{id}}.value :</span><span class="span1 align-right"> {{ability.value}}</span>
+                        <span class="span2 align-left">@abilities.{{id}}.mod :</span><span class="span1 align-right"> {{ability.mod}}</span>
+                        <span class="span2 align-left">@abilities.{{id}}.damage :</span><span class="span1 align-right"> {{ability.damage}}</span>
+                        <span class="span2 align-left">@abilities.{{id}}.drain :</span><span class="span1 align-right"> {{ability.drain}}</span>
+                        <span class="span2 align-left">@abilities.{{id}}.penalty :</span><span class="span1 align-right"> {{ability.penalty}}</span>
+                        <span class="span2 align-left">@abilities.{{id}}.base :</span><span class="span1 align-right"> {{ability.base}}</span>
+                        <span class="span2 align-left">@abilities.{{id}}.baseMod :</span><span class="span1 align-right"> {{ability.baseMod}}</span>
 
-                        {{#if ability.sourceDetails.length}}
-                        <br/>{{localize "FFD20.FromSources"}} ({{localize "FFD20.AbilityScore"}}):<br/>
-                        {{#each ability.sourceDetails as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-                        {{/if}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=ability.sourceDetails sublabel="FFD20.AbilityScore" plain=true}}
 
                         {{#with (lookup ../sourceDetails.system.abilities id)}}
-                        {{#if mod.length}}
-                        <br/>{{localize "FFD20.FromSources"}} ({{localize "FFD20.Modifier"}}):<br/>
-                        {{#each mod as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
-                        {{/if}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=mod sublabel="FFD20.Modifier"}}
                         {{/with}}
 
                         {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "abilityChecks." id)}}
@@ -75,53 +69,84 @@
         </tbody>
     </table>
 
+    {{!-- Point Buy Calculator (Temporary) --}}
+    {{#if @root.inCharacterGeneration}}
+    <div class="form-group temporary">
+        <button type="button" class="pointbuy-calculator">
+            <i class="fa-solid fa-calculator"></i>
+            {{localize "FFD20.PointBuyCalculator"}}
+        </button>
+        <p class="hint">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            {{localize "FFD20.PointBuyCalculatorSetupHint"}}
+        </p>
+    </div>
+    {{/if}}
+
     <table>
         <thead>
             <th class="tooltip">
                 {{localize "FFD20.ACP"}}
                 <div class="tooltipcontent">
-                    @attributes.acp.total : {{system.attributes.acp.total}}<br>
+                    <span class="span2 align-left">@attributes.acp.total :</span><span class="span1 align-right"> {{system.attributes.acp.total}}</span>
 
+                    {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.acp.total forceLabel=1 forceCheck=system.attributes.acp.total }}
+                    
                     {{#if sourceDetails.system.attributes.acp.total.length}}
-                    <br/>{{localize "FFD20.FromSources"}}:<br/>
-                    {{#each sourceDetails.system.attributes.acp.total as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.acp.armorBonus sublabel="FFD20.EquipTypeArmor"}}
+                    {{else}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.acp.armorBonus sublabel="FFD20.EquipTypeArmor" bypassLabel=true}}
                     {{/if}}
 
-                    {{#if sourceDetails.system.attributes.acp.armorBonus.length}}
-                    <br/>{{localize "FFD20.EquipTypeArmor"}}:<br/>
-                    {{#each sourceDetails.system.attributes.acp.armorBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
-                    {{/if}}
-                    {{#if sourceDetails.system.attributes.acp.shieldBonus.length}}
-                    <br/>{{localize "FFD20.EquipTypeShield"}}:<br/>
-                    {{#each sourceDetails.system.attributes.acp.shieldBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
+                    {{#if (or sourceDetails.system.attributes.acp.total.length sourceDetails.system.attributes.acp.armorBonus.length)}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.acp.shieldBonus sublabel="FFD20.EquipTypeShield"}}
+                    {{else}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.acp.shieldBonus sublabel="FFD20.EquipTypeShield" bypassLabel=true}}
                     {{/if}}
                 </div>
             </th>
             <th class="tooltip">
                 {{localize "FFD20.MaxDexShort"}}
                 <div class="tooltipcontent">
-                    @attributes.maxDexBonus : {{system.attributes.maxDexBonus}}<br>
+                    <span class="span2 align-left">@attributes.maxDexBonus :</span><span class="span1 align-right"> {{system.attributes.maxDexBonus}}</span>
+
+                    {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.maxDexBonus forceLabel=1 forceCheck=system.attributes.maxDexBonus}}
 
                     {{#if sourceDetails.system.attributes.maxDexBonus.length}}
-                    <br/>{{localize "FFD20.FromSources"}}:<br/>
-                    {{#each sourceDetails.system.attributes.maxDexBonus as |src|}}{{src.name}}: {{src.value}}<br/>{{/each}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.mDex.armorBonus sublabel="FFD20.EquipTypeArmor"}}
+                    {{else}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.mDex.armorBonus sublabel="FFD20.EquipTypeArmor" bypassLabel=true}}
                     {{/if}}
 
-                    {{#if sourceDetails.system.attributes.mDex.armorBonus.length}}
-                    <br/>{{localize "FFD20.EquipTypeArmor"}}:<br/>
-                    {{#each sourceDetails.system.attributes.mDex.armorBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
-                    {{/if}}
-                    {{#if sourceDetails.system.attributes.mDex.shieldBonus.length}}
-                    <br/>{{localize "FFD20.EquipTypeShield"}}:<br/>
-                    {{#each sourceDetails.system.attributes.mDex.shieldBonus as |src|}}{{src.name}}: {{numberFormat src.value decimals=0 sign=true}}<br/>{{/each}}
+                    {{#if (or sourceDetails.system.attributes.maxDexBonus.length sourceDetails.system.attributes.mDex.armorBonus.length)}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.mDex.shieldBonus sublabel="FFD20.EquipTypeShield"}}
+                    {{else}}
+                        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.mDex.shieldBonus sublabel="FFD20.EquipTypeShield" bypassLabel=true}}
                     {{/if}}
                 </div>
             </th>
+            {{#if asf}}
+            <th class="tooltip">
+                {{localize "FFD20.ArcaneSpellFailureAbbr"}}
+
+                {{#if asf.sources.length}}
+                <div class="tooltipcontent">
+                    <span class="span3">{{localize "FFD20.FromSources"}}:</span>
+                    {{#each asf.sources}}
+                    <span class="span2 align-left">{{item.name}} :</span><span class="span1 align-right"> {{asf}}%</span>
+                    {{/each}}
+                </div>
+                {{/if}}
+            </th>
+            {{/if}}
         </thead>
 
         <tbody>
             <td class="acp">{{system.attributes.acp.total}}</td>
             <td class="maxdex">{{system.attributes.maxDexBonus}}</td>
+            {{#if asf}}
+            <td class="asf">{{asf.total}}%</td>
+            {{/if}}
         </tbody>
     </table>
 </div>

@@ -1,0 +1,34 @@
+{{#if filter.hasControls}}
+  <div class="filter-controls flexrow">
+    {{#if filter.hasSearch}}
+      <div class="choice-filter search-form control formgroup flexrow">
+        <input type="search" name="choice-query" value="{{choiceQuery}}" placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}" autocomplete="off" />
+        <i class="fas fa-search"></i>
+      </div>
+    {{/if}}
+    {{#if filter.boolean}}
+      <button class="control boolean" data-tooltip="FFD20.FilterBooleanOperatorHint" data-tooltip-="RIGHT">
+        <i class="fas fa-ballot-check"></i>
+        {{#if (eq filter.boolean "AND")}}{{localize "FFD20.All"}}
+        {{else}}{{localize "FFD20.Any"}}
+        {{/if}}
+      </button>
+    {{/if}}
+  </div>
+{{/if}}
+<ul class="filter-choices">
+  {{#each filter.choices as |choice i|}}
+    <li class="filter-choice flexrow" data-choice="{{choice.key}}">
+      <input
+        type="checkbox"
+        name="filter.{{../id}}.choice.{{choice.key}}"
+        id="{{@root.id}}.filter.{{../id}}.choice.{{choice.key}}"
+        {{checked choice.active}}
+      />
+      <label for="{{@root.id}}.filter.{{../id}}.choice.{{choice.key}}">
+        {{choice.label}}
+      </label>
+    </li>
+  {{/each}}
+</ul>
+<span class="no-choices hidden">{{localize "FFD20.FilterNoChoices"}}</span>

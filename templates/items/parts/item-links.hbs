@@ -24,20 +24,20 @@
 
         <th class="links-controls"></th>
       </tr>
-      {{#each link.items as |item|}}
-      <tr class="links-item" data-link={{item.id}}>
+      {{#each link.items as |item index|}}
+      <tr class="links-item{{#if item.broken}} broken-link{{/if}}" {{#if item.id}}data-item-id="{{item.id}}"{{/if}} {{#if item.uuid}}data-uuid="{{item.uuid}}" data-tooltip="UUID: {{item.uuid}}"{{/if}}>
 
         {{!-- Link name and image --}}
         <td class="links-item-name">
           <div>
             <img src="{{item.img}}" width="24" height="24">
-            <span>{{item.name}}</span>
+            <span>{{item.name}}{{#if item.broken}} [×]{{/if}}</span>
           </div>
         </td>
 
         {{#each link.fields as |fv fk|}}
         <td class="links-item-extra-field">
-          <input type="text" data-dtype="{{fv.type}}" value="{{lookup item fk}}" name="system.links.{{link.id}}.{{item._index}}.{{fk}}" />
+          <input type="text" data-dtype="{{fv.type}}" value="{{lookup item fk}}" name="system.links.{{link.id}}.{{item.index}}.{{fk}}" />
         </td>
         {{/each}}
 
@@ -45,7 +45,7 @@
         <td class="links-controls">
           <div>
             {{#if ../../owner}}
-            <a class="link-control delete-link" title="{{localize "FFD20.DeleteItem"}}"><i class="fas fa-trash"></i></a>
+            <a class="link-control delete-link" data-tooltip="FFD20.DeleteItem"><i class="fas fa-trash"></i></a>
             {{/if}}
           </div>
         </td>

@@ -1,0 +1,42 @@
+<form autocomplete='off'>
+	<p>{{localize "FFD20.Troubleshooter.Prelude"}}</p>
+	<h2>{{localize "FFD20.Troubleshooter.Steps.Label"}}</h2>
+	<ol>
+		<li>{{{localize "FFD20.Troubleshooter.Steps.Help" link=links.help}}}</li>
+		<li><a href='{{links.faq}}'>{{localize "FFD20.Troubleshooter.Steps.FAQ"}}</a></li>
+		<li>{{localize "FFD20.Troubleshooter.Steps.Log"}}
+		<li>
+			{{localize "FFD20.Troubleshooter.Steps.Modules"}}
+			<ul>
+				<li>{{localize "FFD20.Troubleshooter.Steps.DisableModules"}}</li>
+
+				<li>{{{localize "FFD20.Troubleshooter.Steps.ModuleSuggest" link=links.helpmodule}}}</li>
+			</ul>
+		</li>
+		<li>{{{localize "FFD20.Troubleshooter.Steps.Discord" link=links.foundry.discord}}}
+			<ul>
+				<li>{{{localize "FFD20.Troubleshooter.Steps.DiscordChannel" channel=links.foundry.channel}}}</li>
+			</ul>
+		</li>
+		<li>{{{localize "FFD20.Troubleshooter.Steps.Report" reportlink=links.report}}}</li>
+	</ol>
+
+	<hr>
+
+	<h2>{{localize "FFD20.Troubleshooter.Actions.Label"}}</h2>
+
+	<button type="button" data-action="migrate" data-target="world" {{#unless isGM}}disabled{{/unless}}>
+		<i class="progress spinner fa-solid fa-spinner"></i>
+		<h3>{{localize "FFD20.Troubleshooter.Actions.MigrateWorld"}}</h3>
+		<i class="progress check fa-solid fa-check"></i>
+	</button>
+	<p class="hint">{{{localize "FFD20.Troubleshooter.Actions.MigrateWorldHint"}}}</p>
+
+	<button type="button" data-action="migrate" data-target="modules" {{#unless isGM}}disabled{{/unless}}>
+		<i class="progress spinner fa-solid fa-spinner"></i>
+		<h3>{{localize "FFD20.Troubleshooter.Actions.MigrateModules"}}</h3>
+		<i class="progress check fa-solid fa-check"></i>
+	</button>
+	<p class="hint">{{{localize "FFD20.Troubleshooter.Actions.MigrateModulesHint"}}}</p>
+
+</form>

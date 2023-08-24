@@ -1,13 +1,13 @@
 <form autocomplete="off">
   <nav class="sheet-tabs tabs">
-    <a class="item" data-tab="base"><i class="fas fa-heartbeat"></i> {{localize "SETTINGS.ffd20HealthConfigTabBase"}}</a>
-    <a class="item" data-tab="variants"><i class="fas fa-prescription-bottle-alt"></i> {{localize "SETTINGS.ffd20HealthConfigTabVariant"}}</a>
+    <a class="item" data-tab="base"><i class="fas fa-heartbeat"></i> {{localize "SETTINGS.pf1HealthConfigTabBase"}}</a>
+    <a class="item" data-tab="variants"><i class="fas fa-prescription-bottle-alt"></i> {{localize "SETTINGS.pf1HealthConfigTabVariant"}}</a>
   </nav>
 
   <div class="tabbed">
   <!-- Base Tab -->
     <section class="tab" data-tab="base">
-      <p class="notes">{{localize 'SETTINGS.ffd20HealthConfigInstructions'}}</p>
+      <p class="notes">{{localize 'SETTINGS.pf1HealthConfigInstructions'}}</p>
       <div id="hitdice">
         <label class="index table-header">{{localize 'FFD20.HitDie'}}</label>
         {{#each hitdieOptions}}
@@ -19,8 +19,8 @@
           <div class="switch">
             <input class="switch-check" type="checkbox" {{#if opt.auto}}checked{{/if}} name="hitdice.{{hd}}.auto" id="hitdice.{{hd}}.auto">
             <label class="switch-label" for="hitdice.{{hd}}.auto">
-              <span class="switch-auto">{{localize 'SETTINGS.ffd20HealthComputeAuto'}}</span>
-              <span class="switch-manual">{{localize 'SETTINGS.ffd20HealthComputeManual'}}</span>
+              <span class="switch-auto">{{localize 'SETTINGS.pf1HealthComputeAuto'}}</span>
+              <span class="switch-manual">{{localize 'SETTINGS.pf1HealthComputeManual'}}</span>
             </label>
           </div>
           <span><input type="text" data-dtype="Number" name="hitdice.{{hd}}.rate" value="{{opt.rate}}"></span>
@@ -30,7 +30,7 @@
       </div>
 
       <div class="form-group">
-        <label>{{localize 'SETTINGS.ffd20HealthRoundingName'}}</label>
+        <label>{{localize 'SETTINGS.pf1HealthRoundingName'}}</label>
         <select name="rounding">
           {{#select rounding}}
             <option value="up">&uarr;</option>
@@ -38,18 +38,18 @@
             <option value="down">&darr;</option>
           {{/select}}
         </select>
-        <p class="notes">{{localize 'SETTINGS.ffd20HealthRoundingHint'}}</p>
+        <p class="notes">{{localize 'SETTINGS.pf1HealthRoundingHint'}}</p>
       </div>
 
       <div class="form-group">
-        <label>{{localize 'SETTINGS.ffd20HealthContinuityName'}}</label>
+        <label>{{localize 'SETTINGS.pf1HealthContinuityName'}}</label>
         <select name="continuity">
           {{#select continuity}}
-            <option value="continuous">{{localize 'SETTINGS.ffd20HealthContinuityContinuous'}}</option>
-            <option value="discrete">{{localize 'SETTINGS.ffd20HealthContinuityDiscrete'}}</option>
+            <option value="continuous">{{localize 'SETTINGS.pf1HealthContinuityContinuous'}}</option>
+            <option value="discrete">{{localize 'SETTINGS.pf1HealthContinuityDiscrete'}}</option>
           {{/select}}
         </select>
-        <p class="notes">{{localize 'SETTINGS.ffd20HealthContinuityHint'}}</p>
+        <p class="notes">{{localize 'SETTINGS.pf1HealthContinuityHint'}}</p>
       </div>
     </section>
 
@@ -57,46 +57,46 @@
     <section class="tab" data-tab="variants">
       <!-- Wounds & Vigor -->
       <div class="form-group">
-        <label>{{localize 'SETTINGS.ffd20HealthConfigWoundsAndVigorPCName'}}</label>
+        <label>{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorPCName'}}</label>
         <input type="checkbox" {{#if variants.pc.useWoundsAndVigor}}checked{{/if}} name="variants.pc.useWoundsAndVigor">
-        <p class="notes">{{localize 'SETTINGS.ffd20HealthConfigWoundsAndVigorPCHint'}}</p>
+        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorPCHint'}}</p>
       </div>
 
       <div class="form-group">
-        <label>{{localize 'SETTINGS.ffd20HealthConfigWoundsAndVigorNPCName'}}</label>
+        <label>{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorNPCName'}}</label>
         <input type="checkbox" {{#if variants.npc.useWoundsAndVigor}}checked{{/if}} name="variants.npc.useWoundsAndVigor">
-        <p class="notes">{{localize 'SETTINGS.ffd20HealthConfigWoundsAndVigorNPCHint'}}</p>
+        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorNPCHint'}}</p>
       </div>
 
       <!-- Wound Thresholds -->
       <div class="form-group">
-        <label>{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdsPCName'}}</label>
+        <label>{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsPCName'}}</label>
         <select data-dtype="Number" name="variants.pc.useWoundThresholds">
         {{#select variants.pc.useWoundThresholds}}
-            <option value="0">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdDisabled'}}</option>
-            <option value="1">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdNormal'}}</option>
-            <option value="2">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdGritty'}}</option>
+            <option value="0">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdDisabled'}}</option>
+            <option value="1">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdNormal'}}</option>
+            <option value="2">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdGritty'}}</option>
         {{/select}}
         </select>
-        <p class="notes">{{localize 'SETTINGS.ffd20HealthConfigWoundsThresholdsPCHint'}}</p>
+        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsThresholdsPCHint'}}</p>
       </div>
 
       <div class="form-group">
-        <label>{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdsNPCName'}}</label>
+        <label>{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsNPCName'}}</label>
         <select data-dtype="Number" name="variants.npc.useWoundThresholds">
         {{#select variants.npc.useWoundThresholds}}
-            <option value="0">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdDisabled'}}</option>
-            <option value="1">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdNormal'}}</option>
-            <option value="2">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdGritty'}}</option>
+            <option value="0">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdDisabled'}}</option>
+            <option value="1">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdNormal'}}</option>
+            <option value="2">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdGritty'}}</option>
         {{/select}}
         </select>
-        <p class="notes">{{localize 'SETTINGS.ffd20HealthConfigWoundsThresholdsNPCHint'}}</p>
+        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsThresholdsNPCHint'}}</p>
       </div>
 
       <div class="form-group">
-        <label>{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdsPCOverrideName'}}</label>
+        <label>{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsPCOverrideName'}}</label>
         <input data-dtype="Boolean" type="checkbox" {{#if variants.pc.allowWoundThresholdOverride}}checked{{/if}} name="variants.pc.allowWoundThresholdOverride">
-        <p class="notes">{{localize 'SETTINGS.ffd20HealthConfigWoundThresholdsPCOverrideHint'}}</p>
+        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsPCOverrideHint'}}</p>
       </div>
     </section>
   </div>

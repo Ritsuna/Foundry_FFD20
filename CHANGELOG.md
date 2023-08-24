@@ -1,61 +1,84 @@
+<!-- markdownlint-disable MD024 -->
 # Changelog
+
+## 10.2.0 - 2023-08-30
+
+- updated to v10/11 and pf1e v9.4 and prepping for change over to module rather then standalone system
+
+### Changelog
+
 ## 10.1.7 - 2023-03-30
 
 ### Changelog
+
 - added the ability to add harmless and object to spell resistance notes on spells
 
 ## 10.1.6 - 2023-03-12
 
 ### Changelog
+
 - readded old images, migrating to better folder structure
 
 ## 10.1.5 - 2023-03-12
 
 ### Changelog
+
 - updated to match with Pathfinder 1e version 0.82.5
 
 ## 10.1.4 - 2022-11-10
 
 ### Changelog
+
 - fixed buff error when trying to apply a buff to caster level or concentration
 
 ## 10.1.3 - 2022-11-10
 
 ### Changelog
-- fixed inviability
+
+- fixed invisibility
 - fixed damage types
-- still broken is the tags for weapon, armor and languages outside of charater interface(they still work, just not easly visable)
+- still broken is the tags for weapon, armor and languages outside of character interface(they still work, just not easily visible)
 
 # Changelog
+
 ## 10.1.2 - 2022-10-20
+
 ### Changelog
+
 - update to foundry v10 and pf1 0.82.2
 
 # Changelog
+
 ## 10.1.0 - 2022-10-20
 
 ### Changelog
+
 - update to pf1 0.82.0
 
 # Changelog
+
 ## 9.1.0 - 2022-10-20
 
 ### Changelog
+
 - update to pf1 0.80.0
 
 ## 0.2.26 - 2022-10-18
 
 ### Changelog
+
 - update to pf1 0.79.2
 
 ## 0.2.25
 
 ### Bug Fixes
+
 - CMB and CMD bug fix
 
 ## 0.2.24
 
 ### Change Log
+
 - Updated to follow 0.79.1
 
 ### Bug Fixes
@@ -96,40 +119,50 @@
 ## 0.2.23
 
 ### Change Log
+
 - small updates
 
 ## 0.2.2
+
 ### Change Log
+
 - fixed missing materia information
 
 ## 0.2.1
+
 ### Change Log
+
 - fixed a few bugs
-- Updated to match PF1e version 0.79.0 and to be compatable with Foundry 0.8.9
+- Updated to match PF1e version 0.79.0 and to be compatible with Foundry 0.8.9
 
 ## 0.2.0
+
 ### Change Log
-- Updated to match PF1e version 0.78.18 and to be compatable with Foundry 0.8.8
+
+- Updated to match PF1e version 0.78.18 and to be compatible with Foundry 0.8.8
 
 ## 0.1.25
 
 ### Change Log
+
 - added more spell class combos
 
 ## 0.1.24
 
 ### Change Log
+
 - added more spell class combos
 
 ## 0.1.23
 
 ### Change Log
-- MP bug, again
 
+- MP bug, again
 
 ## 0.1.18 to 0.1.22
 
 ### Change Log
+
 - added another school combo
 - fixed a few small bugs
 - Fixed bonus mp bug
@@ -138,6 +171,7 @@
 ## 0.1.17
 
 ### Change Log
+
 - Updated to pf1e 77.24
 - filled out a bit more on schools
 - smaller coins added
@@ -145,39 +179,46 @@
 ## 0.1.16
 
 ### Change Log
+
 - upped Encumbrance limits to STR 50
 - This system will not be getting updated to 0.8.6 for some time
 
 ## 0.1.14
 
 ### Change Log
+
 - Added divination school type
 
 ## 0.1.14
 
 ### Change Log
+
 - Added luck and unluck
 - added another multi-school type
 
 ## 0.1.13
 
 ### Change Log
+
 - added fields for up to 4 extra resources
 - added information to be entered for multi-school spells
 
 ## 0.1.12
 
 ### Change Log
-- added ffxiv fan kit inmages
+
+- added ffxiv fan kit images
 
 ## 0.1.11
 
 ### Change Log
+
 - fixes for a few backend problems
 
 ## 0.1.10
 
 ### Change Log
+
 - Updated to match PF1 version 0.77.21 4/16/2012 sans step 4.5 as it breaks mp
 - Cleaned a few more errors
 - added status effects to the information
@@ -186,67 +227,81 @@
 ## 0.1.9
 
 ### Change Log
+
 - Updated to match PF1 version 0.77.20
 - Cleaned a few errors
 
 ## 0.1.8
 
 ### Bug Fixes
+
 - fixed some backend code for meteria
 
 ## 0.1.7
 
 ### Bug Fixes
+
 - fixed some backend code for alchemicals
 
 ## 0.1.6
 
 ### Bug Fixes
+
 - more fixed  backend code
 
 ## 0.1.5
 
 ### Bug Fixes
+
 - fixed some backend code
 
 ## 0.1.4
 
 ### Bug Fixes
+
 - handling of currency
 - a few small cleanups of calls
 
 ## 0.1.3
 
 ### Bug Fixes
-- fixed bonus mp for non-casters, you dont get any
+
+- fixed bonus mp for non-casters, you don't get any
 
 ## 0.1.2
 
 ### Bug Fixes
+
 - fixed bonus mp to calculate after all modifications to stats are done
 
 ## 0.1.1
 
 ### Bug Fixes
+
 - corrected some spell casting mp information
 
 ## 0.1.0
 
 ### WARNINGS and WORKAROUNDS
+
 - Currently Limitbreaks are fussy, current workaround is to link it to the @attributes.limitbreak.max with charges but this can cause too many charges. please ask your players to remember this and not abuse it
 - Materia exp is using the full value of combat exp gained, this is to reduce the amount of math the player needs to do. I dont know how exp distribution works so im not touching it yet.
 
 ### Bug Fixes
+
 - character sheet error fixed
 
 ### Change Log
+
 - Got MP calculations to work
 - cleaned up some
 
 ### Update log
+
 - updated from the pf1 github on 3/6/2021
 
 ### Database work
+
 - cleaned up some possable errors
 
 ## 0.0.9
@@ -259,7 +314,6 @@
 ### Changelog
 
 - updated compendium search function for classes
-
 
 ## 0.0.8
 
@@ -284,7 +338,6 @@
 ### Bug Fixes
 
 - fixed exp and non-exp class calclations
-
 
 ## 0.0.5
 

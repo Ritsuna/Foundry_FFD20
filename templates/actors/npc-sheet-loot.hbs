@@ -1,20 +1,20 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}}" autocomplete="off">
 
   <nav class="sheet-navigation tabs" data-group="primary">
     <a class="item" data-tab="inventory">{{ localize "FFD20.Inventory" }}</a>
     <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
   </nav>
-
+  
   <section class="primary-body">
 
     {{!-- Inventory Tab --}}
     <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
       <header class="sheet-header flexrow">
-        <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
-
+        <img class="profile" src="{{actor.img}}" data-tooltip="{{actor.name}}" data-edit="img"/>
+        
         <div class="header-details flexcol">
           <div class="header-top flexrow">
-            <h1 class="charname">
+            <h1 class="char-name">
               <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}"/>
             </h1>
           </div>
@@ -25,7 +25,7 @@
               {{!-- Sell Multiplier --}}
               <li>
                 <input type="text" name="flags.ffd20.sellMultiplier" value="{{sellMultiplier}}" placeholder="{{localize "FFD20.HelpSellMultiplierN"}}" data-dtype="Number"
-                  title="{{localize "FFD20.HelpSellMultiplier"}}" />
+                  data-tooltip="FFD20.HelpSellMultiplier" />
               </li>
             </ul>
           </div>
@@ -38,16 +38,14 @@
     {{!-- Notes Tab --}}
     <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
       <div class="primary-content">
-        {{editor notesHTML target="system.details.notes.value" button=true owner=owner editable=editable engine="prosemirror" collaborate=false}}
+        {{editor notesHTML target="system.details.notes.value" button=true editable=editable engine="prosemirror" collaborate=false}}
       </div>
 
-      {{#if table_magicItems}}
-      <div>
-        {{{table_magicItems}}}
-      </div>
+      {{#if magicItems}}
+      {{> "systems/ffd20/templates/internal/table_magic-items.hbs" items=magicItems}}
       {{/if}}
     </div>
 
   </section>
-
+  
 </form>

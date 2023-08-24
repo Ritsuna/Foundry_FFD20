@@ -1,0 +1,81 @@
+{{!-- Ability Score Linking --}}
+<div class="ability-scores">
+  <h2>{{localize "FFD20.AbilityScoreLinks"}}</h2>
+
+  <div class="links">
+    {{!-- General --}}
+    <div class="general">
+      <h3>{{localize "FFD20.General"}}</h3>
+
+      {{!-- Hit Points --}}
+      <label>{{localize "FFD20.HitPoints"}}</label>
+      <select name="system.attributes.hpAbility">
+        {{selectOptions @root.config.abilities selected=system.attributes.hpAbility blank=""}}
+      </select>
+    </div>
+
+    {{!-- Saving Throws --}}
+    <div class="saving-throws">
+      <h3>{{localize "FFD20.SavingThrowPlural"}}</h3>
+
+      {{#each system.attributes.savingThrows}}
+      <label>{{label}}</label>
+      <select name="system.attributes.savingThrows.{{@key}}.ability">
+        {{selectOptions @root.config.abilities selected=ability blank=""}}
+      </select>
+      {{/each}}
+    </div>
+
+    {{!-- Combat --}}
+    <div class="combat">
+      <h3>{{localize "FFD20.Combat"}}</h3>
+
+      {{!-- Initiative --}}
+      <label>{{localize "FFD20.Initiative"}}</label>
+      <select name="system.attributes.init.ability">
+        {{selectOptions @root.config.abilities selected=system.attributes.init.ability blank=""}}
+      </select>
+
+      {{!-- CMB --}}
+      <label>{{localize "FFD20.CMB"}}</label>
+      <select name="system.attributes.cmbAbility">
+        {{selectOptions @root.config.abilities selected=system.attributes.cmbAbility blank=""}}
+      </select>
+
+      <label>{{localize "FFD20.Melee"}}</label>
+      <select name="system.attributes.attack.meleeAbility">
+        {{selectOptions @root.config.abilities selected=system.attributes.attack.meleeAbility blank=""}}
+      </select>
+
+      <label>{{localize "FFD20.Ranged"}}</label>
+      <select name="system.attributes.attack.rangedAbility">
+        {{selectOptions @root.config.abilities selected=system.attributes.attack.rangedAbility blank=""}}
+      </select>
+    </div>
+
+    {{!-- Defense --}}
+    <div class="defenses">
+      <h3>{{localize "FFD20.Defense"}}</h3>
+
+      <label>{{localize "FFD20.ArmorClass"}}</label>
+      <select name="system.attributes.ac.normal.ability">
+        {{selectOptions @root.config.abilities selected=system.attributes.ac.normal.ability blank=""}}
+      </select>
+
+      <label>{{localize "FFD20.ACTouch"}}</label>
+      <select name="system.attributes.ac.touch.ability">
+        {{selectOptions @root.config.abilities selected=system.attributes.ac.touch.ability blank=""}}
+      </select>
+
+      <label>{{localize "FFD20.CMDAbbr"}} ({{localize "FFD20.AbilityStr"}})</label>
+      <select name="system.attributes.cmd.strAbility">
+        {{selectOptions @root.config.abilities selected=system.attributes.cmd.strAbility blank=""}}
+      </select>
+
+      <label>{{localize "FFD20.CMDAbbr"}} ({{localize "FFD20.AbilityDex"}})</label>
+      <select name="system.attributes.cmd.dexAbility">
+        {{selectOptions @root.config.abilities selected=system.attributes.cmd.dexAbility blank=""}}
+      </select>
+    </div>
+  </div>
+</div>

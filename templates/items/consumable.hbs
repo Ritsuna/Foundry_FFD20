@@ -2,7 +2,7 @@
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" title="{{item.name}}" data-edit="img" />
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img" />
 
     <div class="header-details flexrow">
       {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
@@ -12,7 +12,7 @@
           {{itemType}}
         </li>
         <li>
-          {{#unless showUnidentifiedData}}{{lookup config.consumableTypes system.consumableType }}{{/unless}}
+          {{#unless showUnidentifiedData}}{{lookup config.consumableTypes system.subType }}{{/unless}}
         </li>
       </ul>
     </div>
@@ -56,14 +56,15 @@
       {{#unless showUnidentifiedData}}
       <div class="form-group">
         <label>{{localize "FFD20.Type"}}</label>
-        <select name="system.consumableType">
-          {{#select system.consumableType}}
+        <select name="system.subType">
+          {{#select system.subType}}
           {{#each config.consumableTypes as |name type|}}
           <option value="{{type}}">{{name}}</option>
           {{/each}}
           {{/select}}
         </select>
       </div>
+      {{/unless}}
 
       {{#if isGM}}
       <label class="checkbox">
@@ -71,8 +72,15 @@
       </label>
       {{/if}}
 
-      {{!-- Advanced Tag --}}
-      {{> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{!-- Advanced --}}
+      {{#unless showUnidentifiedData}}
+      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
+
+      {{! Identifier Tag }}
+      {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
       {{/unless}}
     </div>
 
