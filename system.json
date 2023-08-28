@@ -36,8 +36,8 @@
     {
       "name": "Equipment",
       "packs": [
-        "weapons-and-ammo", 
-        "armors-and-shields", 
+        "weapons-and-ammo",
+        "armors-and-shields",
         "items"
       ],
       "color": "#777777"
@@ -54,7 +54,7 @@
     {
       "name": "Roll Tables",
       "packs": [
-        "roll-tables", 
+        "roll-tables",
         "ultimate-equipment"
       ],
       "color": "#005755"
