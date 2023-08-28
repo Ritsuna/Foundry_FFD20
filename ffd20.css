@@ -26,29 +26,29 @@
   --color-border-light-secondary: #b5b3a4;
 }
 :root {
-  --pf1-color-text-hover: #aa0200;
-  --pf1-success: #18520b;
-  --pf1-failure: #aa0200;
-  --pf1-roll-critical: #d8e9ba;
-  --pf1-roll-success: #92cbe9;
-  --pf1-roll-failure: #dfa1a1;
-  --pf1-quick-action-default-border: gray;
-  --pf1-quick-action-attack-border: crimson;
-  --pf1-quick-action-weapon-border: silver;
-  --pf1-quick-action-equipment-border: violet;
-  --pf1-quick-action-consumable-border: limegreen;
-  --pf1-quick-action-feat-border: darkorange;
-  --pf1-quick-action-spell-border: blueviolet;
-  --pf1-item-hover-text: var(--color-text-dark-primary);
-  --pf1-item-hover-shadow: 0 0 10px red;
-  --pf1-item-list-hover-bg: rgba(140, 130, 110, 0.25);
-  --pf1-item-list-hover-text: var(--color-text-dark-primary);
-  --pf1-item-list-bg: rgba(175, 175, 175, 0.3);
-  --pf1-item-list-bg-alt: rgba(210, 210, 210, 0.3);
-  --pf1-compendium-item-border: #ccc;
-  --pf1-warning-bg: #cece00;
-  --pf1-warning-border: #909000;
-  --pf1-dark-bg: #191813;
+  --ffd20-color-text-hover: #aa0200;
+  --ffd20-success: #18520b;
+  --ffd20-failure: #aa0200;
+  --ffd20-roll-critical: #d8e9ba;
+  --ffd20-roll-success: #92cbe9;
+  --ffd20-roll-failure: #dfa1a1;
+  --ffd20-quick-action-default-border: gray;
+  --ffd20-quick-action-attack-border: crimson;
+  --ffd20-quick-action-weapon-border: silver;
+  --ffd20-quick-action-equipment-border: violet;
+  --ffd20-quick-action-consumable-border: limegreen;
+  --ffd20-quick-action-feat-border: darkorange;
+  --ffd20-quick-action-spell-border: blueviolet;
+  --ffd20-item-hover-text: var(--color-text-dark-primary);
+  --ffd20-item-hover-shadow: 0 0 10px red;
+  --ffd20-item-list-hover-bg: rgba(140, 130, 110, 0.25);
+  --ffd20-item-list-hover-text: var(--color-text-dark-primary);
+  --ffd20-item-list-bg: rgba(175, 175, 175, 0.3);
+  --ffd20-item-list-bg-alt: rgba(210, 210, 210, 0.3);
+  --ffd20-compendium-item-border: #ccc;
+  --ffd20-warning-bg: #cece00;
+  --ffd20-warning-border: #909000;
+  --ffd20-dark-bg: #191813;
 }
 /* ----------------------------------------- */
 /*  All PF1 Apps                           */
@@ -486,8 +486,8 @@
 }
 .ffd20.sheet .editable .rollable:hover,
 .ffd20.sheet .editable .action.roll:hover {
-  color: var(--pf1-item-hover-text);
-  text-shadow: var(--pf1-item-hover-shadow);
+  color: var(--ffd20-item-hover-text);
+  text-shadow: var(--ffd20-item-hover-shadow);
   cursor: pointer;
 }
 .ffd20.sheet .editable .rollable:hover .tooltipcontent,
@@ -983,14 +983,14 @@
 .ffd20.level-up form .tab .list-selector a.item {
   display: flex;
   align-items: center;
-  background-color: var(--pf1-item-list-bg);
+  background-color: var(--ffd20-item-list-bg);
 }
 .ffd20.level-up form .tab .list-selector a.item:nth-child(even) {
-  background-color: var(--pf1-item-list-bg-alt);
+  background-color: var(--ffd20-item-list-bg-alt);
 }
 .ffd20.level-up form .tab .list-selector a.item:hover {
-  background-color: var(--pf1-item-list-hover-bg);
-  color: var(--pf1-item-list-hover-text);
+  background-color: var(--ffd20-item-list-hover-bg);
+  color: var(--ffd20-item-list-hover-text);
 }
 .ffd20.level-up form .tab .list-selector a.item.active {
   background-color: rgba(32, 32, 96, 0.2);
@@ -1040,14 +1040,14 @@
   height: 2.8em;
   flex: 0 0 2.8em;
   overflow-y: auto;
-  background-color: var(--pf1-item-list-bg);
+  background-color: var(--ffd20-item-list-bg);
 }
 .ffd20.level-up form .tab .ability-scores ul .ability-score:nth-child(even) {
-  background-color: var(--pf1-item-list-bg-alt);
+  background-color: var(--ffd20-item-list-bg-alt);
 }
 .ffd20.level-up form .tab .ability-scores ul .ability-score:hover {
-  background-color: var(--pf1-item-list-hover-bg);
-  color: var(--pf1-item-list-hover-text);
+  background-color: var(--ffd20-item-list-hover-bg);
+  color: var(--ffd20-item-list-hover-text);
 }
 .ffd20.level-up form .tab .ability-scores ul .ability-score.active {
   background-color: rgba(32, 32, 96, 0.2);
@@ -1295,7 +1295,7 @@
   color: blue;
 }
 .ffd20.attack-dialog .attacks .attack .ammo-select ul li:hover {
-  background-color: var(--pf1-item-list-hover-bg);
+  background-color: var(--ffd20-item-list-hover-bg);
 }
 .ffd20.attack-dialog .attacks .attack .ammo-select ul li:hover .controls {
   display: flex;
@@ -1742,9 +1742,9 @@
 }
 .app.ffd20.troubleshooter form button .progress.spinner {
   color: gray;
-  animation: pf1-constant-spin 2.5s infinite linear;
+  animation: ffd20-constant-spin 2.5s infinite linear;
 }
-@keyframes pf1-constant-spin {
+@keyframes ffd20-constant-spin {
   from {
     transform: rotate(0deg);
   }
@@ -1899,8 +1899,8 @@
 .app.ffd20 .compendium-browser .directory-container .directory-list .directory-item {
   list-style: none;
   align-items: center;
-  border-bottom: 1px solid var(--pf1-compendium-item-border);
-  border-right: 1px solid var(--pf1-compendium-item-border);
+  border-bottom: 1px solid var(--ffd20-compendium-item-border);
+  border-right: 1px solid var(--ffd20-compendium-item-border);
 }
 .app.ffd20 .compendium-browser .directory-container .directory-list .directory-item:hover {
   background-color: rgba(0, 0, 0, 0.05);
@@ -2005,8 +2005,8 @@
 }
 .ffd20.sheet.actor .warning {
   flex: 0;
-  background-color: var(--pf1-warning-bg);
-  border: 1px solid var(--pf1-warning-border);
+  background-color: var(--ffd20-warning-bg);
+  border: 1px solid var(--ffd20-warning-border);
   border-radius: 2px;
 }
 .ffd20.sheet.actor .tab-footer {
@@ -2243,16 +2243,6 @@
 .ffd20.sheet.actor .tab.summary .attributes .manapoint-details .speed-details {
   flex: 3.5;
 }
-.ffd20.sheet.actor .tab.summary .attributes .class-resource {
-  flex: 2;
-  border-right: 1px solid black;
-  margin-right: 1px;
-}
-.ffd20.sheet.actor .tab.summary .attributes .limitbreak-details {
-  border-right: 1px solid black;
-  margin-right: 1px;
-  flex: 3;
-}
 .ffd20.sheet.actor .tab.summary .attributes .maneuverability-details {
   flex: 1;
 }
@@ -2351,14 +2341,14 @@
 }
 .ffd20.sheet.actor .attributes .traits > * {
   flex: 0 0 24px;
-  background-color: var(--pf1-item-list-bg);
+  background-color: var(--ffd20-item-list-bg);
 }
 .ffd20.sheet.actor .attributes .traits > *:nth-child(even) {
-  background-color: var(--pf1-item-list-bg-alt);
+  background-color: var(--ffd20-item-list-bg-alt);
 }
 .ffd20.sheet.actor .attributes .traits > *:hover {
-  background-color: var(--pf1-item-list-hover-bg);
-  color: var(--pf1-item-list-hover-text);
+  background-color: var(--ffd20-item-list-hover-bg);
+  color: var(--ffd20-item-list-hover-text);
 }
 .ffd20.sheet.actor .attributes .traits > *.active {
   background-color: rgba(32, 32, 96, 0.2);
@@ -2456,16 +2446,16 @@
   display: grid;
   grid-template-columns: auto 24px 3em repeat(5, 4em) 40px;
   height: 2em;
-  background-color: var(--pf1-item-list-bg);
+  background-color: var(--ffd20-item-list-bg);
 }
 .ffd20.sheet.actor ul.skills-list li.skill:nth-child(even),
 .ffd20.sheet.actor ul.skills-list li.sub-skill:nth-child(even) {
-  background-color: var(--pf1-item-list-bg-alt);
+  background-color: var(--ffd20-item-list-bg-alt);
 }
 .ffd20.sheet.actor ul.skills-list li.skill:hover,
 .ffd20.sheet.actor ul.skills-list li.sub-skill:hover {
-  background-color: var(--pf1-item-list-hover-bg);
-  color: var(--pf1-item-list-hover-text);
+  background-color: var(--ffd20-item-list-hover-bg);
+  color: var(--ffd20-item-list-hover-text);
 }
 .ffd20.sheet.actor ul.skills-list li.skill.active,
 .ffd20.sheet.actor ul.skills-list li.sub-skill.active {
@@ -3213,8 +3203,8 @@
   padding: 0;
 }
 .ffd20.sheet.item .details .form-group.uses-source [data-item-id]:hover .item-name {
-  color: var(--pf1-item-hover-text);
-  text-shadow: var(--pf1-item-hover-shadow);
+  color: var(--ffd20-item-hover-text);
+  text-shadow: var(--ffd20-item-hover-shadow);
   cursor: pointer;
 }
 .ffd20.sheet.item .details span.sep {
@@ -3580,7 +3570,7 @@
 }
 .ffd20.sheet .action.roll > i:hover {
   animation: dice-spin 250ms cubic-bezier(0.6, -0.28, 0.735, 0.045) 1 forwards;
-  color: var(--pf1-color-text-hover);
+  color: var(--ffd20-color-text-hover);
 }
 .ffd20.sheet .item-groups-list {
   overflow: hidden scroll;
@@ -3892,17 +3882,17 @@
 .ffd20.sheet .item-list .item {
   padding: 0 2px;
   border-bottom: 1px solid #c9c7b8;
-  background-color: var(--pf1-item-list-bg);
+  background-color: var(--ffd20-item-list-bg);
 }
 .ffd20.sheet .item-list .item:last-child {
   border-bottom: none;
 }
 .ffd20.sheet .item-list .item:nth-child(even) {
-  background-color: var(--pf1-item-list-bg-alt);
+  background-color: var(--ffd20-item-list-bg-alt);
 }
 .ffd20.sheet .item-list .item:hover {
-  background-color: var(--pf1-item-list-hover-bg);
-  color: var(--pf1-item-list-hover-text);
+  background-color: var(--ffd20-item-list-hover-bg);
+  color: var(--ffd20-item-list-hover-text);
 }
 .ffd20.sheet .item-list .item.active {
   background-color: rgba(32, 32, 96, 0.2);
@@ -3966,25 +3956,25 @@
   height: 20px;
 }
 .ffd20.sheet.actor .quick-actions .item {
-  border: 2px solid var(--pf1-quick-action-default-border);
+  border: 2px solid var(--ffd20-quick-action-default-border);
 }
 .ffd20.sheet.actor .quick-actions .item[data-type="feat"] {
-  border-color: var(--pf1-quick-action-feat-border);
+  border-color: var(--ffd20-quick-action-feat-border);
 }
 .ffd20.sheet.actor .quick-actions .item[data-type="attack"] {
-  border-color: var(--pf1-quick-action-attack-border);
+  border-color: var(--ffd20-quick-action-attack-border);
 }
 .ffd20.sheet.actor .quick-actions .item[data-type="weapon"] {
-  border-color: var(--pf1-quick-action-weapon-border);
+  border-color: var(--ffd20-quick-action-weapon-border);
 }
 .ffd20.sheet.actor .quick-actions .item[data-type="equipment"] {
-  border-color: var(--pf1-quick-action-equipment-border);
+  border-color: var(--ffd20-quick-action-equipment-border);
 }
 .ffd20.sheet.actor .quick-actions .item[data-type="consumable"] {
-  border-color: var(--pf1-quick-action-consumable-border);
+  border-color: var(--ffd20-quick-action-consumable-border);
 }
 .ffd20.sheet.actor .quick-actions .item[data-type="spell"] {
-  border-color: var(--pf1-quick-action-spell-border);
+  border-color: var(--ffd20-quick-action-spell-border);
 }
 .ffd20.sheet.actor .tab.combat .combat-header {
   flex: 0;
@@ -4089,25 +4079,25 @@
   overflow: hidden;
 }
 #hud .actions .control-icon {
-  border: 2px solid var(--pf1-quick-action-default-border);
+  border: 2px solid var(--ffd20-quick-action-default-border);
 }
 #hud .actions .control-icon.type-feat {
-  border-color: var(--pf1-quick-action-feat-border);
+  border-color: var(--ffd20-quick-action-feat-border);
 }
 #hud .actions .control-icon.type-attack {
-  border-color: var(--pf1-quick-action-attack-border);
+  border-color: var(--ffd20-quick-action-attack-border);
 }
 #hud .actions .control-icon.type-weapon {
-  border-color: var(--pf1-quick-action-weapon-border);
+  border-color: var(--ffd20-quick-action-weapon-border);
 }
 #hud .actions .control-icon.type-equipment {
-  border-color: var(--pf1-quick-action-equipment-border);
+  border-color: var(--ffd20-quick-action-equipment-border);
 }
 #hud .actions .control-icon.type-consumable {
-  border-color: var(--pf1-quick-action-consumable-border);
+  border-color: var(--ffd20-quick-action-consumable-border);
 }
 #hud .actions .control-icon.type-spell {
-  border-color: var(--pf1-quick-action-spell-border);
+  border-color: var(--ffd20-quick-action-spell-border);
 }
 /* ----------------------------------------- */
 /*  Chat Cards
@@ -4283,15 +4273,15 @@
 }
 .ffd20.chat-card .inline-roll.critical-threat,
 .ffd20.chat-card .fake-inline-roll.critical-threat {
-  background-color: var(--pf1-roll-critical);
+  background-color: var(--ffd20-roll-critical);
 }
 .ffd20.chat-card .inline-roll.success,
 .ffd20.chat-card .fake-inline-roll.success {
-  background-color: var(--pf1-roll-success);
+  background-color: var(--ffd20-roll-success);
 }
 .ffd20.chat-card .inline-roll.failure,
 .ffd20.chat-card .fake-inline-roll.failure {
-  background-color: var(--pf1-roll-failure);
+  background-color: var(--ffd20-roll-failure);
 }
 .ffd20.chat-card .damage-type-visual {
   border: unset;
@@ -4312,13 +4302,13 @@
 #chat .chat-message .dice-roll .roll.die.success,
 #chat .chat-message .dice-roll .roll.fatedie.success,
 #chat .chat-message .dice-roll .roll.coin.heads {
-  color: var(--pf1-roll-success);
+  color: var(--ffd20-roll-success);
   filter: sepia(0.5) hue-rotate(60deg);
 }
 #chat .chat-message .dice-roll .roll.die.failure,
 #chat .chat-message .dice-roll .roll.fatedie.failure,
 #chat .chat-message .dice-roll .roll.coin.tails {
-  color: var(--pf1-roll-failure);
+  color: var(--ffd20-roll-failure);
   filter: sepia(0.5) hue-rotate(-60deg);
 }
 .message .attack-targets {
@@ -4365,11 +4355,11 @@
   flex: 0 0 16px;
 }
 .message .attack-targets .target .saving-throws > div .value.success {
-  color: var(--pf1-success);
+  color: var(--ffd20-success);
   font-weight: bold;
 }
 .message .attack-targets .target .saving-throws > div .value.failure {
-  color: var(--pf1-failure);
+  color: var(--ffd20-failure);
   font-weight: bold;
 }
 .message .attack-targets .target img.target-image {
@@ -4964,7 +4954,7 @@ input.text-box {
 }
 #hitdice .table-header {
   color: var(--color-text-light-highlight);
-  background: var(--pf1-dark-bg);
+  background: var(--ffd20-dark-bg);
   font-weight: bold;
   text-shadow: 1px 1px black;
 }
@@ -4984,7 +4974,7 @@ input.text-box {
   width: calc(100% - 2px);
 }
 #hitdice .switch-label > span.switch-auto {
-  background-color: var(--pf1-dark-bg);
+  background-color: var(--ffd20-dark-bg);
   color: var(--color-text-light-highlight);
 }
 #hitdice .switch-check:not(:checked) + .switch-label .switch-auto {

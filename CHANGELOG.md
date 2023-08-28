@@ -1,11 +1,17 @@
 <!-- markdownlint-disable MD024 -->
 # Changelog
 
-## 10.2.0 - 2023-08-30
-
-- updated to v10/11 and pf1e v9.4 and prepping for change over to module rather then standalone system
+## 10.2.1 - 2023-08-30
 
 ### Changelog
+
+- fixed missing div tag
+
+## 10.2.0 - 2023-08-30
+
+### Changelog
+
+- updated to v10/11 and pf1e v9.4 and prepping for change over to module rather then standalone system
 
 ## 10.1.7 - 2023-03-30
 

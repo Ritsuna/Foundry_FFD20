@@ -172,7 +172,7 @@
 
 {{!-- Header Attributes --}}
 <div class="attributes flexrow">
-    {{#unless useWoundsAndVigor}}
+  {{#unless useWoundsAndVigor}}
     <div class='health-details pseudo-table tooltip'>
       <h3 class='header'>{{localize "FFD20.HitPoints"}}</h3>
       <ul class='flexrow'>
@@ -202,7 +202,7 @@
         {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.hp.max }}
       </div>
     </div>
-    {{else}}
+  {{else}}
     {{!-- Wounds & Vigor --}}
     <div class='health-details flexrow wounds-vigor pseudo-table'>
       {{!-- Vigor --}}
@@ -261,8 +261,8 @@
         </ul>
       </div>
     </div>
-    {{/unless}}
-    <div class='manapoint-details pseudo-table tooltip'>
+  {{/unless}}
+  <div class='manapoint-details pseudo-table tooltip'>
       <h3 class='header'>{{localize "FFD20.ManaPoints"}}</h3>
       <ul class='flexrow'>
         <li class='flexcol current'>
@@ -290,9 +290,10 @@
 
         {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.mp.max }}
       </div>
-    </div>
   </div>
-    <div class='speed-details flexcol pseudo-table'>
+</div>
+<div class="attributes flexrow">
+  <div class='speed-details flexcol pseudo-table'>
       <h3 class='header'>{{localize "FFD20.Speed"}}</h3>
       <ul class='flexrow'>
         <li class='flexcol land tooltip'>
