@@ -1144,9 +1144,7 @@
       "templates": ["itemDescription", "action", "links", "flags", "scriptCalls"],
       "learnedAt": {
         "class": {},
-        "domain": {},
-        "subDomain": {},
-        "bloodline": {}
+        "domain": {}
       },
       "level": 1,
       "spellPoints": {

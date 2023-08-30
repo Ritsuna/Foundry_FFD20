@@ -4,9 +4,6 @@
   {{~#unless chatcard}}
     {{~#if learnedAt.class}}; <strong>{{localize "FFD20.Level"}}</strong>&nbsp;{{{learnedAt.class}}}{{/if}}
     {{~#if learnedAt.domain}}; <strong>{{localize "FFD20.Domain"}}</strong>&nbsp;{{{learnedAt.domain}}}{{/if}}
-    {{~#if learnedAt.subDomain}}; <strong>{{localize "FFD20.SubDomain"}}</strong>&nbsp;{{{learnedAt.subDomain}}}{{/if}}
-    {{~#if learnedAt.elementalSchool}}; <strong>{{localize "FFD20.ElementalSchool"}}</strong>&nbsp;{{{learnedAt.elementalSchool}}}{{/if}}
-    {{~#if learnedAt.bloodline}}; <strong>{{localize "FFD20.Bloodline"}}</strong>&nbsp;{{{learnedAt.bloodline}}}{{/if}}
   {{else}};
     <strong>{{localize "FFD20.Level"}}</strong> {{data.level}}
   {{/unless}}
