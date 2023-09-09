@@ -283,11 +283,10 @@
         </li>
       </ul>
       <div class="tooltipcontent">
-        <span class="span2 align-left"></span>@attributes.mp.value :</span><span class="span1 align-right"></span>{{system.attributes.mp.value}}</span>
-        <span class="span2 align-left"></span>@attributes.mp.max :</span><span class="span1 align-right"></span>{{system.attributes.mp.max}}</span>
-        <span class="span2 align-left"></span>@attributes.mp.temp :</span><span class="span1 align-right"></span>{{system.attributes.mp.temp}}</span>
-        <span class="span2 align-left"></span>@attributes.mp.recover :</span><span class="span1 align-right"></span>{{system.attributes.mp.recover}}</span>
-
+        <span class="span2 align-left">@attributes.mp.value :</span><span class="span1 align-right">{{system.attributes.mp.value}}</span>
+        <span class="span2 align-left">@attributes.mp.max :</span><span class="span1 align-right">{{system.attributes.mp.max}}</span>
+        <span class="span2 align-left">@attributes.mp.temp :</span><span class="span1 align-right">{{system.attributes.mp.temp}}</span>
+        <span class="span2 align-left">@attributes.mp.recover :</span><span class="span1 align-right">{{system.attributes.mp.recover}}</span>
         {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.mp.max }}
       </div>
   </div>
@@ -300,7 +299,7 @@
           <div class="tooltipcontent">
             <span class="span2 align-left">@attributes.speed.land.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.land.total}}</span>
             {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.land.base forceLabel=1 isDistance=true skipLabel=0}}
-            
+
             {{#if sourceDetails.system.attributes.speed.land.base.length}}
               {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.land.add skipLabel=1 skipLine=true isDistance=true}}
             {{else}}
@@ -316,7 +315,7 @@
           <div class="tooltipcontent">
             <span class="span2 align-left">@attributes.speed.climb.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.climb.total}}</span>
             {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.climb.base forceLabel=1 isDistance=true skipLabel=0}}
-            
+
             {{#if sourceDetails.system.attributes.speed.climb.base.length}}
               {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.climb.add skipLabel=1 skipLine=true isDistance=true}}
             {{else}}
@@ -332,7 +331,7 @@
           <div class="tooltipcontent">
             <span class="span2 align-left">@attributes.speed.swim.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.swim.total}}</span>
             {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.swim.base forceLabel=1 isDistance=true skipLabel=0}}
-            
+
             {{#if sourceDetails.system.attributes.speed.swim.base.length}}
               {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.swim.add skipLabel=1 skipLine=true isDistance=true}}
             {{else}}
@@ -349,7 +348,7 @@
           <div class="tooltipcontent">
             <span class="span2 align-left">@attributes.speed.burrow.total :</span><span class="span1 align-right"> {{convertDistance system.attributes.speed.burrow.total}}</span>
             {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.burrow.base forceLabel=1 isDistance=true skipLabel=0}}
-            
+
             {{#if sourceDetails.system.attributes.speed.burrow.base.length}}
               {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.burrow.add skipLabel=1 skipLine=true isDistance=true}}
             {{else}}
@@ -366,7 +365,7 @@
             <span class="span2 align-left">@attributes.speed.fly.total :</span><span class="span1 align-right"> {{system.attributes.speed.fly.total}}</span>
             <span class="span2 align-left">@attributes.speed.fly.maneuverability :</span><span class="span1 align-right"> "{{system.attributes.speed.fly.maneuverability}}"</span>
             {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.fly.base forceLabel=1 isDistance=true skipLabel=0}}
-            
+
             {{#if sourceDetails.system.attributes.speed.fly.base.length}}
               {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.speed.fly.add skipLabel=1 skipLine=true isDistance=true}}
             {{else}}
