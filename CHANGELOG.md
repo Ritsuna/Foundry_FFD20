@@ -1,6 +1,12 @@
 <!-- markdownlint-disable MD024 -->
 # Changelog
 
+## 10.2.2 to 10.2.6 - 2023-09-13
+
+### Changelog
+
+- fixed small errors and added the drag and drop fix from pf1e
+
 ## 10.2.1 - 2023-08-30
 
 ### Changelog
