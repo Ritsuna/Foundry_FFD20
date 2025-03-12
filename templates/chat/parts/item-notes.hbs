@@ -1,0 +1,10 @@
+{{#if notes}}
+<div class="flexcol property-group gm-sensitive {{css}} {{cssExtra}}">
+	<label>{{header}}</label>
+	<div class="flexrow tag-list">
+		{{#each notes}}
+    <span class="tag"{{#if source}} data-tooltip="{{localize "FFD20.SourceNote" source=source}}"{{/if}}>{{{text}}}</span>
+		{{/each}}
+	</div>
+</div>
+{{/if}}

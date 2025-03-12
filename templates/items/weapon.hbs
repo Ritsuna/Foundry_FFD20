@@ -1,24 +1,58 @@
-<form class="{{ cssClass }} flexcol" autocomplete="off">
+<form class="{{ cssClass }} flexcol" autocomplete="off" data-tooltip-class="ffd20">
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{ item.img }}" data-tooltip="{{ item.name }}" data-edit="img" />
+    <img class="profile" src="{{ item.img }}" data-tooltip="{{ item.name }}" data-edit="img">
 
     <div class="header-details flexrow">
       {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
 
       <ul class="summary">
-        <li>
-          {{ itemType }}
-        </li>
-        <li>
-          {{ labels.weaponType }}
-        </li>
-        <li>
-          {{ labels.weaponSubtype }}
-        </li>
       </ul>
     </div>
   </header>
+
+  {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      <h4 class="item-subtype">{{labels.subType}}</h4>
+
+      <h4 class="childtype">{{labels.childType}}</h4>
+    </header>
+
+    {{#if (and showIdentified (gt system.enh 0))}}
+    <label class="enhancement">
+      <span>{{localize "FFD20.Enhancement"}}</span>
+      <span class="value">{{numberFormat system.enh sign=true}}</span>
+    </label>
+    {{/if}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-aura.hbs"}}
+
+    {{! Property Lists }}
+    {{#if system.weaponGroups.total.size}}
+    <ul class="property-list weapon-groups">
+      <h5>{{localize "FFD20.WeaponGroups"}}</h5>
+        {{#each system.weaponGroups.names}}
+        <li class="property weapon-group weapon-group-{{@key}}">{{this}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
+    {{! Weapon Groups}}
+    {{#if labels.properties.length}}
+    <ul class="property-list weapon-groups">
+      <h5>{{localize "FFD20.Properties"}}</h5>
+        {{#each labels.properties}}
+        <li class="property">{{this}}</li>
+        {{/each}}
+    </ul>
+    {{/if}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
@@ -42,17 +76,9 @@
     <div class="tab details" data-group="primary" data-tab="details">
       {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
 
-      {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
-
-      <h3 class="form-header">{{localize "FFD20.WeaponDetails"}}</h3>
       {{#if (and owner owned)}}
-      <label class="checkbox">
-        <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}} />
-        {{localize "FFD20.ShowInQuickbar"}}
-      </label>
-
       <div class="form-group">
-        <button type="button" name="create-attack">{{localize "FFD20.CreateAttack"}}</button>
+        <button type="button" name="create-attack" {{disabled (not @root.editable)}}>{{localize "FFD20.CreateAttack"}}</button>
       </div>
       {{/if}}
 
@@ -61,11 +87,7 @@
         <label>{{localize "FFD20.Category"}}</label>
         <div class="form-fields">
           <select name="system.subType">
-            {{#select system.subType}}
-            {{#each weaponCategories.types as |name type|}}
-            <option value="{{ type }}">{{ name }}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions weaponCategories.types selected=system.subType}}
           </select>
         </div>
       </div>
@@ -75,11 +97,7 @@
         <label>{{localize "FFD20.Type"}}</label>
         <div class="form-fields">
           <select name="system.weaponSubtype">
-            {{#select system.weaponSubtype}}
-            {{#each weaponCategories.subTypes as |name type|}}
-            <option value="{{ type }}">{{ name }}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions weaponCategories.subTypes selected=system.weaponSubtype}}
           </select>
         </div>
       </div>
@@ -87,19 +105,38 @@
       {{!-- Weapon Size --}}
       {{> "systems/ffd20/templates/items/parts/item-size.hbs" allowAutoResizing=true}}
 
+      {{!-- Hands Needed--}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Hands"}}</label>
+        <div class="form-fields">
+          <input type="number" name="system.hands" value="{{system.hands}}" min="1" step="1" placeholder="1">
+        </div>
+      </div>
+
       {{!-- Weapon Hold Type --}}
+      {{#unless isRanged}}
       <div class="form-group">
         <label>{{localize "FFD20.Held"}}</label>
         <div class="form-fields">
           <select name="system.held">
-            {{#select system.held}}
-            {{#each config.weaponHoldTypes as |name type|}}
-            <option value="{{ type }}">{{ name }}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions @root.config.weaponHoldTypes selected=system.held}}
           </select>
         </div>
       </div>
+      {{/unless}}
+
+      {{#unless showUnidentifiedData}}
+      {{!-- Enhancement Bonus --}}
+      <div class="form-group" data-tooltip="@item.enh : {{system.enh}}">
+        <label>{{localize "FFD20.EnhancementBonus"}}</label>
+        <div class="form-fields">
+          <input type="number" name="system.enh" value="{{system.enh}}" placeholder="0" min="0" step="1">
+        </div>
+      </div>
+      {{/unless}}
+
+      {{!-- Ammo Config --}}
+      {{> "systems/ffd20/templates/items/parts/item-ammo.hbs"}}
 
       {{!-- Base Types --}}
       {{> "systems/ffd20/templates/items/parts/item-base-types.hbs"}}
@@ -108,22 +145,16 @@
       {{> "systems/ffd20/templates/items/parts/item-weapon-groups.hbs"}}
 
       {{!-- Equipment Status --}}
-      <h3 class="form-header">{{localize "FFD20.EquipmentStatus"}}</h3>
+      <h3 class="form-header">{{localize "FFD20.Properties"}}</h3>
+
       <div class="form-group stacked">
-        {{#if isGM}}
-        <label class="checkbox">
-          <input type="checkbox" name="system.identified" {{checked system.identified}} /> {{localize "FFD20.Identified"}}
+        {{#if @root.showIdentifiedData}}
+        <label class="checkbox artifact">
+          <input type="checkbox" name="system.artifact" {{checked system.artifact}}> {{localize "FFD20.Artifact"}}
         </label>
         {{/if}}
-        <label class="checkbox">
-          <input type="checkbox" name="system.masterwork" {{checked system.masterwork}} /> {{localize "FFD20.Masterwork"}}
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" name="system.broken" {{checked system.broken}} /> {{localize "FFD20.Broken"}}
-        </label>
-
-        <label class="checkbox">
-          <input type="checkbox" name="system.proficient" {{checked system.proficient}}/> {{localize "FFD20.Proficient"}}
+        <label class="checkbox timeworn">
+          <input type="checkbox" name="system.timeworn" {{checked system.timeworn}}> {{localize "FFD20.Timeworn"}}
         </label>
       </div>
 
@@ -133,23 +164,43 @@
       <div class="form-group stacked weapon-properties">
         {{#each config.weaponProperties as |name prop|}}
         <label class="checkbox">
-          <input type="checkbox" name="system.properties.{{ prop }}" {{checked (lookup ../system.properties prop)}}/>
+          <input type="checkbox" name="system.properties.{{ prop }}" {{checked (lookup @root.system.properties prop)}}>
           {{ name }}
         </label>
         {{/each}}
       </div>
-
-      <div class="form-group">
-        <label>{{localize "FFD20.EnhancementBonus"}}</label>
-        <div class="form-fields">
-          <input type="text" name="system.enh" value="{{ system.enh }}" data-dtype="Number" placeholder="0" />
-        </div>
-      </div>
       {{/unless}}
+
+      <h3 class="form-header">{{localize "FFD20.Misc"}}</h3>
+      <div class="form-group stacked">
+        <label class="checkbox">
+          <input type="checkbox" name="system.proficient" {{checked system.proficient}}> {{localize "FFD20.Proficient"}}
+        </label>
+      </div>
+
+      {{!-- Aura --}}
+      {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
+
+      <h3 class="form-header">{{localize "FFD20.Materials.Label"}}</h3>
+
+      {{!-- Base Material --}}
+      {{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Base" value_ref="system.material.base.value" value=system.material.base.value custom_ref="system.material.base.custom" custom=system.material.base.custom choices=materialCategories.basics}}
+
+      {{!-- Chosen Material --}}
+      {{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Normal" value_ref="system.material.normal.value" value=system.material.normal.value custom_ref="system.material.normal.custom" custom=system.material.normal.custom choices=materialCategories.materials}}
+
+      {{!-- Material Addon --}}
+      {{> "systems/ffd20/templates/items/parts/item-materials-addon.hbs" reference="system.material.addon"}}
+
+      {{!-- Alignment Types --}}
+      {{> "systems/ffd20/templates/items/parts/item-alignments.hbs" reference="system.alignments" value=system.alignments}}
+
+      {{!-- Creature Type --}}
+      {{~> "systems/ffd20/templates/items/parts/item-creature-type.hbs"}}
 
       {{!-- Advanced --}}
       {{#unless showUnidentifiedData}}
-      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
 
       {{! Tags }}
       {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
@@ -161,19 +212,19 @@
 
     {{!-- Changes Tab --}}
     {{#unless showUnidentifiedData}}
-    <div class="tab flexcol" data-group="primary" data-tab="changes">
+    <div class="tab changes" data-group="primary" data-tab="changes">
       {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
     {{/unless}}
 
     {{!-- Links Tab --}}
-    <div class="tab flexcol" data-group="primary" data-tab="links">
+    <div class="tab links" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
 
     {{!-- Advanced Tab --}}
     {{#unless showUnidentifiedData}}
-    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
       {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
     {{/unless}}

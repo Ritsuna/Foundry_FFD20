@@ -1,0 +1,12 @@
+<fieldset class="pf1-v2 custom-vision">
+	<legend>{{localize "FFD20.Title"}}</legend>
+
+	<div class="form-group slim" data-tooltip="FFD20.CustomVisionRules.Description">
+		<label for="{{appId}}-pf1-custom-vision">{{localize "FFD20.CustomVisionRules.Label"}}</label>
+		<div class="form-fields">
+			<input id="{{appId}}-pf1-custom-vision" type="checkbox" name="flags.ffd20.customVisionRules" data-dtype="Boolean" {{checked enabled}} {{disabled noSystemVision}}>
+		</div>
+	</div>
+
+	<p class="hint">{{localize "FFD20.CustomVisionRules.ConfigHint"}}</p>
+</fieldset>

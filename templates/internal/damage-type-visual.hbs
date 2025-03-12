@@ -1,25 +1,24 @@
-{{!-- Damage type indicators --}}
-{{#if (or data.values.length data.custom)}}
-<div class="damage-type-visual">
-  {{#each data.values as |d|}}
-  <div class="damage-type" data-tooltip="{{localize (lookup (lookup ../damageTypes d) "name")}}">
-    {{#if (lookup (lookup ../damageTypes d) "icon")}}
-    <i class="{{lookup (lookup ../damageTypes d) "icon"}} icon" style="color: {{lookup (lookup ../damageTypes d) "color"}}"></i>
+<div class="damage-type-visual{{#unless damage.types.size}} empty{{/unless}}"{{#if name}} data-name="{{name}}"{{/if}}>
+{{#if damage.types.size}}
+  {{! Standard Damage }}
+  {{#each damage.standard}}
+  <span class="damage-type" data-tooltip="{{name}}">
+    {{#if icon}}
+    <i class="{{icon}} icon-pf" style="color: {{color}}"></i>
     {{else}}
-    <img class="icon" src="{{lookup (lookup ../damageTypes d) "img"}}">
+    <img class="icon-pf" src="{{img}}">
     {{/if}}
-    {{#if (and (eq ../data.values.length 1) (not ../data.custom))}}
-    <span class="name">{{localize (lookup (lookup ../damageTypes d) "name")}}</span>
+    {{#if (eq ../damage.types.size 1)}}
+    <span class="name">{{name}}</span>
     {{/if}}
-  </div>
+  </span>
   {{/each}}
-  {{#if data.custom}}
-  <span class="custom">{{data.custom}}</span>
+  {{! Custom Damage }}
+  {{#if damage.custom.size}}
+  <span class="custom">{{#each damage.custom}}{{this}}{{#unless @last}};{{/unless}}{{/each}}</span>
   {{/if}}
-</div>
-{{!-- No damage type values --}}
 {{else}}
-<div class="damage-type-visual empty"{{#if name}} data-name="{{name}}"{{/if}}>
+  {{!-- No types --}}
   <span>{{localize "FFD20.Undefined"}}</span>
-</div>
 {{/if}}
+</div>

@@ -1,94 +1,24 @@
-<div class="tab flexcol" data-group="primary" data-tab="description">
-  {{#if showIdentifyDescription}}
-  <nav class="sheet-navigation tabs subtabs description" data-group="description">
-    <a class="item" data-tab="identified">{{localize "FFD20.Identified"}}</a>
-    <a class="item" data-tab="unidentified">{{localize "FFD20.Unidentified"}}</a>
-  </nav>
+<div class="tab description{{#if @root.isIdentified}} identified{{/if}}" data-group="primary" data-tab="description">
+  {{#if isPhysical}}
+    <div class="unidentified-description description-content{{#unless system.description.unidentified}} empty{{/unless}}">
+    {{#if showBothDescriptions}}
+      <h3 class="form-header">{{localize "FFD20.UnidentifiedDescription"}}</h3>
+    {{/if}}
+
+      {{editor descriptionHTML.unidentified target="system.description.unidentified" toggle=_editorState.system.description.unidentified button=_editorState.system.description.unidentified engine="prosemirror" editable=@root.editable}}
+      <!-- prose-mirror name="system.description.unidentified" value="{{system.description.unidentified}}" {{#if _editorState.system.description.unidentified}}toggled{{/if}}>{{{descriptionHTML.unidentified}}}</prose-mirror -->
+    </div>
   {{/if}}
 
-  <div class="flexrow description-container">
-    <div class="item-properties">
-      {{#if isPhysical}}
-      {{#each descriptionAttributes as |attr|}}
-      {{#if attr.isBoolean}}
-      <div class="form-group">
-        <label>{{attr.label}}</label>
-        <input type="checkbox" name="{{attr.name}}" {{checked attr.value}}/>
-      </div>
+  {{#if showIdentified}}
+    <div class="identified-description description-content{{#unless system.description.identified}} empty{{/unless}}">
+      {{#if showBothDescriptions}}
+      <h3 class="form-header">{{localize "FFD20.IdentifiedDescription"}}{{#if (not @root.isIdentified)}} <i class="unidentified fa-solid fa-eye-slash" data-tooltip="FFD20.Hidden"></i>{{/if}}</h3>
       {{/if}}
-      {{#if attr.isNumber}}
-      <div class="form-group">
-        <label>{{attr.label}}</label>
-        {{#if attr.fakeName}}
-          <div data-action="input-text" data-for=".{{attr.id}}-description-input" data-attr-name="{{attr.name}}" {{#if (or attr.inputValue (eq attr.inputValue 0))}}data-input-value="{{attr.inputValue}}"{{/if}}>
-          <input class="{{#if attr.id}}{{attr.id}}-description-input{{/if}}" type="number" readonly data-dtype="Number" value="{{numberFormat attr.value decimals=attr.decimals}}"/>
-        </div>
-        {{else}}
-        <input class="{{#if attr.id}}{{attr.name}}-description-input{{/if}} select-on-click" name="{{attr.name}}" type="number" data-dtype="Number" value="{{numberFormat attr.value decimals=attr.decimals}}"/>
-        {{/if}}
-      </div>
-      {{/if}}
-      {{#if attr.isString}}
-      <div class="form-group">
-        <label>{{attr.label}}</label>
-        {{#if attr.fakeName}}
-        <div data-action="input-text" data-for=".{{attr.id}}-description-input" data-attr-name="{{attr.name}}">
-          <input class="{{#if attr.id}}{{attr.name}}-description-input{{/if}}" type="text" readonly value="{{attr.value}}"/>
-        </div>
-        {{else}}
-        <input class="{{#if attr.id}}{{attr.name}}-description-input{{/if}}" name="{{attr.name}}" type="text" value="{{attr.value}}"/>
-        {{/if}}
-      </div>
-      {{/if}}
-      {{#if attr.isRange}}
-        <div class="form-group">
-          <label>{{attr.label}}</label>
-          {{!-- Value --}}
-          {{#if attr.value.fakeName}}
-            <div data-action="input-text" data-for=".{attr.value.id}}-description-input" data-attr-name="{{attr.value.name}}">
-              <input class="{{#if attr.value.id}}{{attr.value.name}}-description-input{{/if}}" type="text" data-dtype="Number" readonly value="{{attr.value.value}}"/>
-            </div>
-          {{else}}
-            <input class="{{#if attr.value.id}}{{attr.value.name}}-description-input{{/if}} select-on-click" name="{{attr.value.name}}" data-dtype="Number" type="text" value="{{attr.value.value}}"/>
-          {{/if}}
-          <span>/</span>
-          {{!-- Max --}}
-          {{#if attr.max.fakeName}}
-            <div data-action="input-text" data-for=".{attr.max.id}}-description-input" data-attr-name="{{attr.max.name}}">
-              <input class="{{#if attr.max.id}}{{attr.max.name}}-description-input{{/if}}" type="text" data-dtype="Number" readonly value="{{attr.max.value}}"/>
-            </div>
-          {{else}}
-            <input class="{{#if attr.max.id}}{{attr.max.name}}-description-input{{/if}} select-on-click" name="{{attr.max.name}}" data-dtype="Number" type="text" value="{{attr.max.value}}"/>
-          {{/if}}
-        </div>
-      {{/if}}
-      {{/each}}
-      {{/if}}
-
-      {{!-- Properties --}}
-      <ol class="properties-list">
-        {{#each itemProperties}}
-        <li>{{this}}</li>
-        {{/each}}
-      </ol>
+      {{editor descriptionHTML.identified target="system.description.value" toggle=_editorState.system.description.value button=_editorState.system.description.value engine="prosemirror" editable=@root.editable}}
+      <!-- prose-mirror name="system.description.value" value="{{system.description.value}}" {{#if _editorState.system.description.value}}toggled{{/if}}>{{{descriptionHTML.identified}}}</prose-mirror -->
     </div>
+  {{/if}}
 
-    {{#if showIdentifyDescription}}
-    <section class="description-body">
-      <div class="tab description-group flexcol" data-group="description" data-tab="identified">
-      {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
-      </div>
-
-      <div class="tab description-group flexcol" data-group="description" data-tab="unidentified">
-      {{editor descriptionHTML.unidentified target="system.description.unidentified" button=true editable=editable engine="prosemirror" collaborate=false}}
-      </div>
-    </section>
-    {{else}}
-    {{#if showUnidentifiedData}}
-    {{editor descriptionHTML.unidentified target="system.description.unidentified" button=true editable=editable engine="prosemirror" collaborate=false}}
-    {{else}}
-    {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
-    {{/if}}
-    {{/if}}
-  </div>
+  {{> "systems/ffd20/templates/items/parts/item-instructions.hbs"}}
 </div>

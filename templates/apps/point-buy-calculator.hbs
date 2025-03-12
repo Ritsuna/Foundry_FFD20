@@ -1,56 +1,54 @@
-<form autocomplete="off">
+<section class="form-body" data-tooltip-class="pf1-v2">
   <ol class="ability-list">
     {{#each abilities as |abl|}}
-    <li class="ability flexrow" data-ability="{{abl.key}}">
+      <li class="ability flexrow" data-ability="{{abl.key}}">
       <span class="name">
         {{abl.name}}
       </span>
 
-      {{!-- Subtract --}}
-      <div class="controls">
-        <a class="control subtract">
-          <i class="fas fa-minus"></i>
-        </a>
-      </div>
+        {{!-- Subtract --}}
+        <div class="controls">
+          <a class="control subtract" data-action="control">
+            <i class="fa-solid fa-minus" inert></i>
+          </a>
+        </div>
 
-      {{!-- Current Value --}}
-      <span class="value">
-        {{abl.value}}
-      </span>
+        {{!-- Current Value --}}
+        <span class="value">
+          {{abl.value}}
+        </span>
 
-      {{!-- Add --}}
-      <div class="controls">
-        <a class="control add">
-          <i class="fas fa-plus"></i>
-        </a>
-      </div>
-    </li>
+        {{!-- Add --}}
+        <div class="controls">
+          <a class="control add" data-action="control">
+            <i class="fa-solid fa-plus" inert></i>
+          </a>
+        </div>
+      </li>
     {{/each}}
   </ol>
 
   <div class="info">
-    <p class="usage">
-      {{localize "FFD20.PointBuyCalculatorSpent"}}: {{points}}
+    <p class="usage {{#if invalidPoints}}invalid{{/if}}">
+      {{localize "FFD20.Application.PointBuy.Spent"}}: {{points}}
       {{#if invalidPoints}}
-        <i class="fa-solid fa-triangle-exclamation" data-tooltip="FFD20.PointBuyCalculatorInvalidPoints"></i>
+        <i class="fa-solid fa-triangle-exclamation" data-tooltip="FFD20.Application.PointBuy.InvalidPoints"></i>
       {{/if}}
     </p>
     <table class="categories">
       <tr>
-        <th>{{localize "FFD20.PointBuyCalculatorCampaignType"}}</th>
-        <th>{{localize "FFD20.PointBuyCalculatorPoints"}}</th>
+        <th>{{localize "FFD20.Application.PointBuy.CampaignType"}}</th>
+        <th>{{localize "FFD20.Application.PointBuy.Points"}}</th>
       </tr>
       {{#each limits}}
-      <tr{{#if (eq @root.closest key)}} class="closest"{{/if}} data-category="{{key}}">
-        <td>{{localize label}}</td>
-        <td>{{points}}</td>
-      </tr>
+        <tr{{#if (eq @root.closest key)}} class="closest"{{/if}} data-category="{{key}}">
+          <td>{{localize label}}</td>
+          <td>{{points}}</td>
+        </tr>
       {{/each}}
     </table>
     <p>
-      <i class="fas fa-exclamation-triangle"></i> {{localize "FFD20.PointBuyCalculatorWarning"}}
+      <i class="fa-solid fa-exclamation-triangle" inert></i> {{localize "FFD20.Application.PointBuy.Warning"}}
     </p>
   </div>
-
-  <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize "FFD20.Confirm"}}</button>
-</form>
+</section>

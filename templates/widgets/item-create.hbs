@@ -1,0 +1,39 @@
+<section data-tooltip-class="ffd20">
+  <div class="form-group">
+    <label>{{localize "Name"}}</label>
+    <div class="form-fields">
+      <input type="text" name="name" placeholder="{{defaultName}}" value="{{name}}" autofocus>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "Type"}}</label>
+    <div class="form-fields">
+      <select name="type">
+        {{selectOptions choices.types selected=type localize=true}}
+      </select>
+    </div>
+  </div>
+
+  {{#if choices.subtypes}}
+  <div class="form-group">
+    <label>{{localize "FFD20.Subtype"}}</label>
+    <div class="form-fields">
+      <select name="system.subType">
+        {{selectOptions choices.subtypes selected=subtype localize=true}}
+      </select>
+    </div>
+  </div>
+  {{/if}}
+
+  {{#if choices.folders}}
+  <div class="form-group">
+    <label>{{ localize "DOCUMENT.Folder" }}</label>
+    <div class="form-fields">
+      <select name="folder">
+        {{selectOptions choices.folders selected=folder blank=""}}
+      </select>
+    </div>
+  </div>
+  {{/if}}
+</section>

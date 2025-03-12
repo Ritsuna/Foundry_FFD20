@@ -1,0 +1,101 @@
+<form autocomplete="off" data-tooltip-class="ffd20">
+  <header>
+    <nav class="tabs" data-group="sources">
+      {{#each @root.sources}}
+      <div class="nav-entry source {{#if stub}} stub{{/if}}" data-group="sources" data-tab="source-{{@key}}" data-index="{{@key}}">
+        <span class='name'>
+          {{#if registry}}
+          {{registry.name}}
+          {{else}}
+          {{#if title}}{{title}}{{else}}{{localize "FFD20.ContentSource.NewEntry"}}{{/if}}
+          {{/if}}
+        </span>
+        {{#unless stub}}
+        {{#if @root.editable}}
+        <a class="control" data-action="delete" data-index="{{@key}}" data-tooltip="FFD20.ContentSource.DelEntry">
+          <i class="fa-solid fa-trash-can" inert></i>
+        </a>
+        {{/if}}
+        {{/unless}}
+      </div>
+      {{/each}}
+    </nav>
+
+    <a class="control {{#unless canAdd}}disabled{{/unless}}" data-action="add" data-tooltip="FFD20.ContentSource.AddEntry"><i class="fa-solid fa-plus" inert></i></a>
+  </header>
+
+  <section data-group="sources" class="content">
+    {{#each @root.sources}}
+    <div class="tab source" data-tab="source-{{@key}}" data-group="sources">
+      <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.Title"}}</label>
+        <div class="form-fields" {{#if registry}}data-tooltip="FFD20.ContentSource.Autofill"{{/if}}>
+          <input name="system.sources.{{@key}}.title" type="text"
+            {{#if registry}}
+            value="{{registry.name}}" readonly
+            {{else}}
+            value="{{title}}" placeholder="{{localize "FFD20.ContentSource.Info.TitleHint"}}"
+            {{/if}}
+            >
+          {{#if registry.abbr}}
+            <input class="abbr" type="text" value="{{registry.abbr}}" size="3" readonly>
+          {{/if}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.Edition"}}</label>
+        <div class="form-fields">
+          <input name="system.sources.{{@key}}.edition" type="number" value="{{edition}}" placeholder="{{localize "FFD20.ContentSource.Info.EditionHint"}}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.Pages"}}</label>
+        <div class="form-fields">
+          <input name="system.sources.{{@key}}.pages" type="text" value="{{pages}}" placeholder="{{localize "FFD20.ContentSource.Info.PagesHint"}}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.ID"}}</label>
+        <div class="form-fields">
+          <input name="system.sources.{{@key}}.id" type="text" value="{{id}}" placeholder="{{localize "FFD20.ContentSource.Info.IDHint"}}" list="{{@root.uuid}}-content-sources">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.Errata"}}</label>
+        <div class="form-fields">
+          <input name="system.sources.{{@key}}.errata" type="text" value="{{errata}}" placeholder="{{localize "FFD20.ContentSource.Info.ErrataHint"}}">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.Release"}}</label>
+        <div class="form-fields" {{#if registry}}data-tooltip="FFD20.ContentSource.Autofill"{{/if}}>
+          <input type="text" placeholder="{{localize "FFD20.ContentSource.DateFormat"}}"
+            {{#if registry.date}}
+            value="{{registry.date}}" readonly
+            {{else}}
+            name="system.sources.{{@key}}.date" value="{{date}}"
+            {{/if}}>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.Publisher"}}</label>
+        <div class="form-fields" {{#if registry}}data-tooltip="FFD20.ContentSource.Autofill"{{/if}}>
+          <input name="system.sources.{{@key}}.publisher" type="text"
+            {{#if registry}}
+            value="{{registry.publisher}}" readonly
+            {{else}}
+            value="{{publisher}}" placeholder="{{localize "FFD20.ContentSource.Info.PublisherHint"}}"
+            {{/if}}
+            >
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </section>
+
+  <datalist id="{{@root.uuid}}-content-sources">
+    {{#each @root.registry}}
+    <option value="{{id}}">{{name}}{{#if abbr}} ({{abbr}}){{/if}}</option>
+    {{/each}}
+  </datalist>
+</form>

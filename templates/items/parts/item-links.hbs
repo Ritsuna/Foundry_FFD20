@@ -8,46 +8,50 @@
 
   {{#each links.list as |link|}}
   {{!-- Children Tab --}}
-  <div class="tab flexcol" data-group="links" data-tab="{{link.id}}">
+  <div class="tab" data-group="links" data-tab="{{link.id}}">
     {{!-- Info --}}
     <div class="help-text">
-      <i class="help-icon fas fa-info-circle"></i> {{link.help}}
+      <i class="help-icon fa-solid fa-info-circle"></i> {{link.help}}
     </div>
 
     <table class="item-links">
       <tr>
         <th>{{localize "FFD20.Item"}}</th>
 
-        {{#each link.fields as |fv fk|}}
-        <th class="links-item-extra-field">{{fv.label}}</th>
+        {{#each link.fields}}
+        <th class="extra-field">{{label}}</th>
         {{/each}}
 
-        <th class="links-controls"></th>
+        <th class="controls"></th>
       </tr>
-      {{#each link.items as |item index|}}
-      <tr class="links-item{{#if item.broken}} broken-link{{/if}}" {{#if item.id}}data-item-id="{{item.id}}"{{/if}} {{#if item.uuid}}data-uuid="{{item.uuid}}" data-tooltip="UUID: {{item.uuid}}"{{/if}}>
-
+      {{#each link.items}}
+      <tr class="links-item{{#if broken}} broken-link{{/if}}" data-uuid="{{uuid}}" data-index="{{@index}}">
         {{!-- Link name and image --}}
-        <td class="links-item-name">
-          <div>
-            <img src="{{item.img}}" width="24" height="24">
-            <span>{{item.name}}{{#if item.broken}} [×]{{/if}}</span>
-          </div>
+        <td class="item-name">
+          <img src="{{img}}" width="24" height="24">
+          <span class="name">
+            {{#if name}}{{name}}{{else}}{{uuid}}{{/if}}
+            {{#if broken}}<i class="fa-solid fa-link-slash" data-tooltip="FFD20.Missing"></i>{{/if}}
+          </span>
+          {{#if uuid}}
+          <a class="source-item" data-uuid="{{uuid}}" data-tooltip="UUID: {{uuid}}">
+            <i class="fa-solid fa-book compendium-icon" inert></i>
+          </a>
+          {{/if}}
         </td>
 
-        {{#each link.fields as |fv fk|}}
-        <td class="links-item-extra-field">
-          <input type="text" data-dtype="{{fv.type}}" value="{{lookup item fk}}" name="system.links.{{link.id}}.{{item.index}}.{{fk}}" />
+        {{#each link.fields}}
+        <td class="extra-field">
+          <input type="text" data-dtype="{{type}}" value="{{lookup .. @key}}" name="system.links.{{link.id}}.{{../index}}.{{@key}}">
         </td>
         {{/each}}
 
         {{!-- Link Controls --}}
-        <td class="links-controls">
-          <div>
-            {{#if ../../owner}}
-            <a class="link-control delete-link" data-tooltip="FFD20.DeleteItem"><i class="fas fa-trash"></i></a>
-            {{/if}}
-          </div>
+        <td class="controls">
+          {{#if @root.owner}}
+          <a class="link-control delete-link" data-uuid="{{uuid}}" data-index="{{@index}}" data-type="{{../id}}"
+            data-tooltip="FFD20.DeleteItem"><i class="fa-solid fa-trash" inert></i></a>
+          {{/if}}
         </td>
       </tr>
       {{/each}}

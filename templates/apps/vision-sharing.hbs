@@ -1,0 +1,25 @@
+<section data-tooltip-class="ffd20">
+  <div class="form-group">
+    <label>{{localize "FFD20.Default"}}</label>
+    <div class="form-fields">
+      <select name="default" data-dtype="Boolean">
+        {{selectOptions @root.levels selected=default localize=true}}
+      </select>
+    </div>
+  </div>
+
+  <hr>
+
+  {{#each users}}
+  <div class="form-group">
+    <label>{{user.name}}</label>
+    <div class="form-fields">
+      <select name="users.{{user.id}}">
+        {{selectOptions @root.levels selected=level blank="FFD20.Default" localize=true}}
+      </select>
+    </div>
+  </div>
+  {{/each}}
+
+  <hr>
+</section>

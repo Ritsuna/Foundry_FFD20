@@ -1,44 +1,46 @@
-<form class="{{cssClass}}" autocomplete="off">
+<form class="{{cssClass}}" data-tooltip-class="ffd20" autocomplete="off">
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{actor.img}}" data-tooltip="{{actor.name}}" data-edit="img">
+
+    <div class="header-details flexcol">
+      <div class="header-top flexrow">
+        <h1 class="char-name">
+          <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}">
+        </h1>
+      </div>
+
+      {{!-- Options --}}
+      <div class="flexcol">
+        <ul class="summary options">
+          {{!-- Sell Multiplier --}}
+          <li>
+            <label data-tooltip="FFD20.HelpSellMultiplier">
+              {{localize "FFD20.HelpSellMultiplierN"}}
+              <input class="value sell-rate blended" type="number" name="flags.ffd20.sellMultiplier" value="{{sellMultiplier}}" placeholder="0.5" min="0" step="0.01" data-dtype="Number">
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
 
   <nav class="sheet-navigation tabs" data-group="primary">
     <a class="item" data-tab="inventory">{{ localize "FFD20.Inventory" }}</a>
     <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
   </nav>
-  
+
   <section class="primary-body">
 
     {{!-- Inventory Tab --}}
     <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
-      <header class="sheet-header flexrow">
-        <img class="profile" src="{{actor.img}}" data-tooltip="{{actor.name}}" data-edit="img"/>
-        
-        <div class="header-details flexcol">
-          <div class="header-top flexrow">
-            <h1 class="char-name">
-              <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}"/>
-            </h1>
-          </div>
-
-          {{!-- Options --}}
-          <div class="flexcol">
-            <ul class="summary options">
-              {{!-- Sell Multiplier --}}
-              <li>
-                <input type="text" name="flags.ffd20.sellMultiplier" value="{{sellMultiplier}}" placeholder="{{localize "FFD20.HelpSellMultiplierN"}}" data-dtype="Number"
-                  data-tooltip="FFD20.HelpSellMultiplier" />
-              </li>
-            </ul>
-          </div>
-        </div>
-      </header>
-
       {{> "systems/ffd20/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
     </div>
 
     {{!-- Notes Tab --}}
     <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
       <div class="primary-content">
-        {{editor notesHTML target="system.details.notes.value" button=true editable=editable engine="prosemirror" collaborate=false}}
+        {{editor notesHTML target="system.details.notes.value" toggle=_editorState.system.details.notes.value button=_editorState.system.details.notes.value engine="prosemirror" editable=@root.editable}}
+        <!-- prose-mirror name="system.details.notes.value" value="{{system.details.notes.value}}" {{#if _editorState.system.details.notes.value}}toggled{{/if}}>{{{notesHTML}}}</prose-mirror -->
       </div>
 
       {{#if magicItems}}
@@ -47,5 +49,5 @@
     </div>
 
   </section>
-  
+
 </form>

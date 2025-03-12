@@ -3,27 +3,38 @@
 <div class="form-group stacked">
   {{!-- Nonlethal --}}
   <label class="checkbox">
-    <input type="checkbox" name="nonlethal" {{checked data.nonlethal}}/> {{localize "FFD20.Nonlethal"}}
+    <input type="checkbox" name="nonlethal" {{checked data.nonlethal}}> {{localize "FFD20.Nonlethal"}}
+  </label>
+
+  {{!-- MP damage --}}
+  <label class="checkbox">
+    <input type="checkbox" name="manadamage" {{checked data.manadamage}}> {{localize "FFD20.ManaDamage"}}
   </label>
 
   {{!-- Primary Attack --}}
   {{#if isNaturalAttack}}
   <label class="checkbox">
-    <input type="checkbox" name="naturalAttack.primaryAttack" {{checked data.naturalAttack.primaryAttack}}/> {{localize "FFD20.PrimaryAttack"}}
+    <input type="checkbox" name="naturalAttack.primary" {{checked data.naturalAttack.primary}}> {{localize "FFD20.PrimaryAttack"}}
   </label>
   {{/if}}
 
+  {{!-- Splash --}}
+  <label class="checkbox">
+    <input type="checkbox" name="splash" {{checked data.splash}}> {{localize "FFD20.Splash"}}
+  </label>
+
   {{!-- Touch --}}
   <label class="checkbox">
-    <input type="checkbox" name="touch" {{checked data.touch}}/> {{localize "FFD20.TouchAttackShort"}}
+    <input type="checkbox" name="touch" {{checked data.touch}}> {{localize "FFD20.TouchAttackShort"}}
   </label>
+
 </div>
 
 {{#if (or (eq item.type "attack") (eq item.type "weapon"))}}
 <div class="form-group">
   <label>{{localize "FFD20.EnhancementBonusOverride"}}</label>
   <div class="form-fields">
-    <input type="number" min="0" step="1" name="enh.value" value="{{data.enh.value}}" data-dtype="Number" placeholder="{{itemEnh}}" />
+    <input type="number" min="0" step="1" name="enh.value" value="{{data.enh.value}}" placeholder="{{itemEnh}}">
   </div>
 </div>
 {{/if}}
@@ -33,24 +44,35 @@
   <label>{{localize "FFD20.ActionType"}}</label>
   <div class="form-fields">
     <select name="actionType">
-      {{#select data.actionType}}
-      <option value=""></option>
-      {{#each config.itemActionTypes as |name type|}}
-      <option value="{{type}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
+      {{selectOptions config.itemActionTypes selected=data.actionType}}
     </select>
   </div>
 </div>
 
-{{#if data.actionType}}
-{{#if hasAttackRoll}}
+{{!-- Held Override --}}
+{{#if canHold}}
+<div class="form-group select">
+  <label>{{localize "FFD20.Held"}}</label>
+  <div class="form-fields">
+    <select name="held">
+      {{#if inheritedHeld}}
+      <option value="">{{localize "FFD20.InheritAs" inherited=@root.inheritedHeld}}</option>
+      {{/if}}
+      {{selectOptions @root.config.weaponHoldTypes selected=data.held}}
+    </select>
+  </div>
+</div>
+{{else}}
+<input type="hidden" name="held" value="">
+{{/if}}
+
+{{#if hasAttack}}
 {{!-- Attack Name --}}
 <h3 class="form-header">{{localize "FFD20.Attack"}}</h3>
 <div class="form-group">
   <label>{{localize "FFD20.AttackName"}}</label>
   <div class="form-fields">
-    <input type="text" name="attackName" value="{{data.attackName}}" placeholder="{{localize "FFD20.Attack"}}" />
+    <input type="text" name="attackName" value="{{data.attackName}}" placeholder="{{localize "FFD20.Attack"}}">
   </div>
 </div>
 
@@ -58,7 +80,14 @@
 <div class="form-group">
   <label>{{localize "FFD20.AttackRollBonus"}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="attackBonus" value="{{data.attackBonus}}" placeholder="{{localize "FFD20.Formula"}}"/>
+    <input class="formula" type="text" name="attackBonus" value="{{data.attackBonus}}" placeholder="{{localize "FFD20.Formula"}}">
+  </div>
+</div>
+
+<div class="form-group">
+  <label>{{localize "FFD20.BABOverride"}}</label>
+  <div class="form-fields">
+    <input class="formula" type="text" name="bab" value="{{data.bab}}" placeholder="@attributes.bab.total">
   </div>
 </div>
 
@@ -66,29 +95,31 @@
 <div class="form-group">
   <label>{{localize "FFD20.SecondaryAttackModifier"}}</label>
   <div class="form-fields">
-    <input type="text" class="formula" name="naturalAttack.secondary.attackBonus" value="{{data.naturalAttack.secondary.attackBonus}}" data-dtype="String" placeholder="{{localize "FFD20.Formula"}}" />
+    <input type="text" class="formula" name="naturalAttack.secondary.attackBonus" value="{{data.naturalAttack.secondary.attackBonus}}" placeholder="{{@root.config.naturalAttacks.secondary.penalty}}">
   </div>
 </div>
+{{else}}
+<input type="hidden" name="naturalAttack.secondary.attackBonus" value="">
 {{/if}}
 
 {{#unless isCombatManeuver}}
 <div class="form-group">
   <label>{{localize "FFD20.CriticalThreatRange"}}</label>
   <div class="form-fields">
-    <input type="text" name="ability.critRange" value="{{data.ability.critRange}}" data-dtype="Number"/>
+    <input type="text" name="ability.critRange" value="{{data.ability.critRange}}" data-dtype="Number">
   </div>
 </div>
 
 <div class="form-group">
   <label>{{localize "FFD20.CriticalMultiplier"}}</label>
   <div class="form-fields">
-    <input type="text" name="ability.critMult" value="{{data.ability.critMult}}" data-dtype="Number"/>
+    <input type="text" name="ability.critMult" value="{{data.ability.critMult}}" data-dtype="Number">
   </div>
 </div>
 <div class="form-group">
   <label>{{localize "FFD20.CriticalConfirmBonus"}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="critConfirmBonus" value="{{data.critConfirmBonus}}" placeholder="{{localize "FFD20.Formula"}}"/>
+    <input class="formula" type="text" name="critConfirmBonus" value="{{data.critConfirmBonus}}" placeholder="{{localize "FFD20.Formula"}}">
   </div>
 </div>
 {{/unless}}
@@ -98,73 +129,83 @@
   <label>{{localize "FFD20.AttackAbility"}}</label>
   <div class="form-fields">
     <select name="ability.attack">
-      {{#select data.ability.attack}}
-      <option value=""></option>
-      {{#each config.abilities as |ability a|}}
-      <option value="{{a}}">{{ability}}</option>
-      {{/each}}
-      {{/select}}
+      {{selectOptions choices.ability selected=data.ability.attack blank=""}}
     </select>
   </div>
 </div>
 {{/if}}
 
-{{#if hasAttackRoll}}
-<h3 class="form-header">{{localize "FFD20.ExtraAttacks"}}</h3>
+{{#if hasAttack}}
+<div class="form-group multi-attack-type">
+  <label>{{localize "FFD20.ExtraAttacks.Label"}}</label>
+  <div class="form-fields">
+    <select name="extraAttacks.type">
+      {{selectOptions extraAttacksTypes selected=data.extraAttacks.type blank=(localize "FFD20.None")}}
+    </select>
+  </div>
+</div>
+
+{{#if extraAttacksConfig.allowCustom}}
+<h3 class="form-header">{{localize "FFD20.ExtraAttacks.Label"}}</h3>
+
+{{#if extraAttacksConfig.manual}}
 <ol class="attack-parts form-group">
-  {{#each data.attackParts as |part a|}}
-  <li class="attack-part flexrow" data-attack-part="{{a}}">
-    <input class="formula" type="text" name="attackParts.{{a}}.0" placeholder="{{localize "FFD20.AttackBonusFormula"}}" value="{{lookup this "0"}}"/>
-    <input type="text" name="attackParts.{{a}}.1" placeholder="{{localize "FFD20.Name"}}" value="{{lookup this "1"}}"/>
-    <a class="attack-control delete-attack"><i class="fas fa-trash"></i></a>
+  {{#each data.extraAttacks.manual as |part idx|}}
+  <li class="attack-part flexrow" data-attack-part="{{idx}}">
+    <input class="formula" type="text" name="extraAttacks.manual.{{idx}}.formula" placeholder="{{localize "FFD20.ExtraAttacks.ModifierFormula"}}" value="{{formula}}">
+    <input type="text" name="extraAttacks.manual.{{idx}}.name" placeholder="{{localize "FFD20.Name"}}" value="{{name}}">
+    <a class="attack-control delete-attack"><i class="fa-solid fa-trash" inert></i></a>
   </li>
   {{/each}}
-  <li class="attack-part flexrow"><a class="attack-control add-attack"><i class="fas fa-plus"></i> {{localize "FFD20.AddAttack"}}</a></li>
+  <li class="attack-part flexrow"><a class="attack-control add-attack"><i class="fa-solid fa-plus" inert></i> {{localize "FFD20.ExtraAttacks.Add"}}</a></li>
 </ol>
+{{/if}}
 <hr>
 
-{{!-- Formulaic Extra Attacks --}}
-<h4 class="attack-header">{{localize 'FFD20.FormulaicExtraAttacks'}}</h4>
+{{#if extraAttacksConfig.formula}}
+{{!-- Formula-based Extra Attacks --}}
+<h4 class="attack-header">{{localize 'FFD20.ExtraAttacks.Formula.Label'}}</h4>
 <div class="formulaic-attacks-box">
   <div class="form-group">
-    <label>{{localize 'FFD20.FormulaicAttacksCount'}}</label>
+    <label>{{localize 'FFD20.ExtraAttacks.Formula.Count'}}</label>
     <div class="form-fields">
-      <input type="text" class="formulaic-attacks formula" name="formulaicAttacks.count.formula" value="{{data.formulaicAttacks.count.formula}}" data-dtype="String" placeholder="e.g. ceil(@attributes.bab.total / 5) - 1" />
-      {{!-- to avoid disappearance of .value --}}
-      <input type="text" disabled class="formula-result small" name="formulaicAttacks.count.value" value="{{data.formulaicAttacks.count.value}}" data-tooltip="FFD20.FormulaResult" placeholder="0" data-dtype="Number" />
+      <input type="text" class="formulaic-attacks formula" name="extraAttacks.formula.count" value="{{data.extraAttacks.formula.count}}" placeholder="{{localize "FFD20.Formula"}}">
     </div>
   </div>
   <div class="form-group">
-    <label>{{localize 'FFD20.AttackBonusFormula'}}</label>
+    <label>{{localize 'FFD20.ExtraAttacks.ModifierFormula'}}</label>
     <div class="form-fields">
-      <input type="text" class="formula" name="formulaicAttacks.bonus.formula" value="{{data.formulaicAttacks.bonus.formula}}" data-dtype="String" placeholder="e.g. @formulaicAttack * -5" />
+      <input type="text" class="formula" name="extraAttacks.formula.bonus" value="{{data.extraAttacks.formula.bonus}}" data-tooltip="FFD20.ExtraAttacks.ModifierTooltip" placeholder="{{localize "FFD20.Formula"}}">
     </div>
   </div>
   <div class="form-group">
     <label>{{localize 'FFD20.AttackName'}}</label>
     <div class="form-fields">
-      <input type="text" name="formulaicAttacks.label" value="{{data.formulaicAttacks.label}}" data-tooltip="FFD20.FormulaAttackHint" data-dtype="String" placeholder="{{localize 'FFD20.FormulaAttack'}}" />
+      <input type="text" name="extraAttacks.formula.label" value="{{data.extraAttacks.formula.label}}" data-tooltip="FFD20.ExtraAttacks.Formula.LabelTooltip" placeholder="{{localize 'FFD20.ExtraAttacks.Formula.LabelDefault'}}">
     </div>
   </div>
 </div>
+{{/if}}
+{{/if}}
 {{/if}}
 
 {{!-- Damage Ability --}}
 <h3 class="form-header">{{localize "FFD20.Damage"}}</h3>
 <div class="form-group select">
-  <label>{{localize "FFD20.DamageAbility"}}</label>
+  <label>{{localize "FFD20.AbilityBonus"}}</label>
   <div class="form-fields">
     <select name="ability.damage">
-      {{#select data.ability.damage}}
-      <option value=""></option>
-      {{#each config.abilities as |ability a|}}
-      <option value="{{a}}">{{ability}}</option>
-      {{/each}}
-      {{/select}}
+      {{selectOptions choices.ability selected=data.ability.damage blank=""}}
     </select>
     <select name="ability.damageMult" data-dtype="Number">
-      {{selectOptions config.abilityDamageMultipliers selected=data.ability.damageMult nameAttr="value" labelAttr="label"}}
+      {{#if canHold}}
+      <option value="">{{localize "FFD20.HeldMult" mult=heldAbilityMultiplier}}</option>
+      {{/if}}
+      {{selectOptions config.abilityDamageMultipliers selected=data.ability.damageMult valueAttr="value" labelAttr="label"}}
     </select>
+    <label>{{localize "FFD20.MaxShort"}}</label>
+    <input type="number" class="max-ability" name="ability.max" value="{{data.ability.max}}"
+      placeholder="∞" data-tooltip="FFD20.MaxAbilityHint" step="1">
   </div>
 </div>
 
@@ -174,7 +215,7 @@
   <div class="form-fields">
     <label style="flex:1;"><!-- Ensure Alignment --></label>
     <select name="naturalAttack.secondary.damageMult" data-dtype="Number">
-      {{selectOptions config.abilityDamageMultipliers selected=data.naturalAttack.secondary.damageMult nameAttr="value" labelAttr="label"}}
+      {{selectOptions config.abilityDamageMultipliers selected=data.naturalAttack.secondary.damageMult valueAttr="value" labelAttr="label"}}
     </select>
   </div>
 </div>
@@ -183,19 +224,22 @@
 {{!-- Damage Formula --}}
 <div class="damage" data-key="damage.parts">
   <h4 class="damage-header">
-    {{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}
+    {{localize "FFD20.BaseFormula"}}
   </h4>
   <ol class="damage-parts form-group tooltip">
-    {{#each data.damage.parts as |part i| }}
+    {{#each action.damage.parts as |part i| }}
     <li class="damage-part flexrow" data-damage-part="{{i}}">
-      <input class="damage-formula formula" type="text" name="damage.parts.{{i}}.formula" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{formula}}"/>
-      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=type name=(concat "damage.parts." i ".type") damageTypes=@root.damageTypes}}
-      <a class="damage-control delete-damage"><i class="fas fa-trash"></i></a>
+      <input class="damage-formula formula" type="text" name="damage.parts.{{i}}.formula" placeholder="{{localize "FFD20.DamageFormulaHint"}}" value="{{formula}}">
+      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" damage=this name=(concat "damage.parts." i ".types")}}
+      <a class="damage-control delete-damage"><i class="fa-solid fa-trash" inert></i></a>
     </li>
     {{/each}}
-    <li class="damage-part flexrow"><a class="damage-control add-damage"><i class="fas fa-plus"></i>
-        {{#unless isHealing}}{{localize "FFD20.AddDamage"}}{{else}}{{localize "FFD20.AddHealing"}}{{/unless}}
-      </a></li>
+    <li class="damage-part flexrow">
+      <a class="damage-control add-damage">
+        <i class="fa-solid fa-plus" inert></i>
+        {{localize "FFD20.AddBaseInstance"}}
+      </a>
+    </li>
   </ol>
 </div>
 
@@ -205,17 +249,22 @@
 <hr>
 <div class="damage" data-key="damage.critParts">
   <h4 class="damage-header">
-    {{#unless isHealing }}{{localize "FFD20.CritDamageBonusFormula"}}{{ else }}{{localize "FFD20.CritHealingBonusFormula"}}{{/unless}}
+    {{localize "FFD20.OnCritBonusFormula"}}
   </h4>
   <ol class="damage-parts form-group tooltip">
-    {{#each data.damage.critParts as |part i| }}
+    {{#each action.damage.critParts as |part i| }}
     <li class="damage-part flexrow" data-damage-part="{{i}}">
-      <input class="damage-formula formula" type="text" name="damage.critParts.{{i}}.formula" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{formula}}"/>
-      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=type name=(concat "damage.critParts." i ".type") damageTypes=@root.damageTypes}}
-      <a class="damage-control delete-damage"><i class="fas fa-trash"></i></a>
+      <input class="damage-formula formula" type="text" name="damage.critParts.{{i}}.formula" placeholder="{{localize "FFD20.DamageFormulaHint"}}" value="{{formula}}">
+      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" damage=this name=(concat "damage.critParts." i ".types")}}
+      <a class="damage-control delete-damage"><i class="fa-solid fa-trash" inert></i></a>
     </li>
     {{/each}}
-    <li class="damage-part flexrow"><a class="damage-control add-damage"><i class="fas fa-plus"></i> {{localize "FFD20.AddCriticalDamage"}}</a></li>
+    <li class="damage-part flexrow">
+      <a class="damage-control add-damage">
+        <i class="fa-solid fa-plus" inert></i>
+        {{localize "FFD20.AddOnCritInstance"}}
+      </a>
+    </li>
   </ol>
 </div>
 {{/if}}
@@ -225,107 +274,100 @@
 <hr>
 <div class="damage" data-key="damage.nonCritParts">
   <h4 class="damage-header">
-    {{#unless isHealing }}{{localize "FFD20.NonCritDamageBonusFormula"}}{{ else }}{{localize "FFD20.NonCritHealingBonusFormula"}}{{/unless}}
+    {{localize "FFD20.NonMultBonusFormula"}}
   </h4>
   <ol class="damage-parts form-group">
-    {{#each data.damage.nonCritParts as |part i| }}
+    {{#each action.damage.nonCritParts as |part i| }}
     <li class="damage-part flexrow" data-damage-part="{{i}}">
-      <input class="damage-formula formula" type="text" name="damage.nonCritParts.{{i}}.formula" placeholder="{{#unless isHealing }}{{localize "FFD20.DamageFormula"}}{{ else }}{{localize "FFD20.HealingFormula"}}{{/unless}}" value="{{formula}}"/>
-      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=type name=(concat "damage.nonCritParts." i ".type") damageTypes=@root.damageTypes}}
-      <a class="damage-control delete-damage"><i class="fas fa-trash"></i></a>
+      <input class="damage-formula formula" type="text" name="damage.nonCritParts.{{i}}.formula" placeholder="{{localize "FFD20.DamageFormulaHint"}}" value="{{formula}}">
+      {{> "systems/ffd20/templates/internal/damage-type-visual.hbs" damage=this name=(concat "damage.nonCritParts." i ".types")}}
+      <a class="damage-control delete-damage"><i class="fa-solid fa-trash" inert></i></a>
     </li>
     {{/each}}
-    <li class="damage-part flexrow"><a class="damage-control add-damage"><i class="fas fa-plus"></i> {{localize "FFD20.AddNonCriticalDamage"}}</a></li>
+    <li class="damage-part flexrow">
+      <a class="damage-control add-damage">
+        <i class="fa-solid fa-plus" inert></i>
+        {{localize "FFD20.AddNonMultInstance"}}
+      </a>
+    </li>
   </ol>
 </div>
 {{/if}}
 
 {{!-- Power Attack/Deadly Aim properties --}}
-{{#if hasAttackRoll}}
+{{#if hasAttack}}
 <h3 class="form-header">{{localize "FFD20.PowerAttack"}}/{{localize "FFD20.DeadlyAim"}}</h3>
 <div class="form-group">
   <label>{{localize "FFD20.Multiplier"}}</label>
   <div class="form-fields">
-    <input type="number" name="powerAttack.multiplier" value="{{data.powerAttack.multiplier}}" data-dtype="Number" placeholder="{{localize "FFD20.Held"}}" />
+    <input type="number" name="powerAttack.multiplier" value="{{data.powerAttack.multiplier}}" placeholder="{{localize "FFD20.HeldMult" mult=paMultiplier}}" min="0">
   </div>
 </div>
 
 <div class="form-group">
   <label>{{localize "FFD20.DamageBonus"}}</label>
   <div class="form-fields">
-    <input type="number" name="powerAttack.damageBonus" value="{{data.powerAttack.damageBonus}}" data-dtype="Number" />
+    <input type="number" name="powerAttack.damageBonus" value="{{data.powerAttack.damageBonus}}" min="0" step="1">
   </div>
 </div>
 
 <div class="form-group">
   <label>{{localize "FFD20.CriticalMultiplier"}}</label>
   <div class="form-fields">
-    <input type="number" name="powerAttack.critMultiplier" value="{{data.powerAttack.critMultiplier}}" data-dtype="Number" />
+    <input type="number" name="powerAttack.critMultiplier" value="{{data.powerAttack.critMultiplier}}" min="0" step="1">
   </div>
 </div>
 {{/if}}
 {{/unless}}
 
+{{#if (and hasDamage (not isHealing))}}
+{{! Materials & Other Damage Modifiers }}
+<h3 class="form-header">{{localize "FFD20.DamageModifiers"}}</h3>
+
+{{!-- Chosen Material --}}
+{{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.NormalOverride" value_ref="material.normal.value" value=data.material.normal.value custom_ref="material.normal.custom" custom=data.material.normal.custom choices=materialCategories.materials}}
+
+{{!-- Material Addon --}}
+{{> "systems/ffd20/templates/items/parts/item-materials-addon.hbs" reference="material.addon" label="FFD20.Materials.AddonOverride"}}
+
+{{!-- Alignment Types --}}
+{{> "systems/ffd20/templates/items/parts/item-alignments.hbs" reference="alignments" value=data.alignments label="FFD20.AttackAlignmentOverride" isAction=true}}
+{{/if}}
+
 {{!-- Saving Throw --}}
 <h3 class="form-header">{{localize "FFD20.SavingThrow"}}</h3>
 <div class="form-group input-select">
+  {{#if data.save.type}}
   <label>{{#unless isSpell}}{{localize "FFD20.DCFormula"}}{{else}}{{localize "FFD20.DCOffsetFormula"}}{{/unless}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="save.dc" value="{{data.save.dc}}" placeholder="0"/>
+    <input class="formula" type="text" name="save.dc" value="{{data.save.dc}}" placeholder="0">
     <select name="save.type">
-      {{#select data.save.type}}
-      <option value=""></option>
-      {{#each config.savingThrows as |save type|}}
-      <option value="{{type}}">{{save}}</type>
-      {{/each}}
-      {{/select}}
+      {{selectOptions config.savingThrows selected=data.save.type blank=(localize "FFD20.None")}}
     </select>
   </div>
+  {{else}}
+  <label>{{localize "FFD20.Type"}}</label>
+  <div class="form-fields">
+    <select name="save.type">
+      {{selectOptions config.savingThrows selected=data.save.type blank=(localize "FFD20.None")}}
+    </select>
+  </div>
+  {{/if}}
 </div>
 
+{{#if data.save.type}}
 <div class="form-group input-select">
   <label>{{localize "FFD20.SavingThrowEffect"}}</label>
   <div class="form-fields">
-    <input type="text" name="save.description" value="{{data.save.description}}" placeholder="{{localize "FFD20.DCDescriptionExample"}}"/>
+    <input type="text" name="save.description" value="{{data.save.description}}" placeholder="{{localize "FFD20.DCDescriptionExample"}}">
   </div>
 </div>
-
-{{!-- Attack Notes --}}
-<h3 class="form-header">{{localize "FFD20.Notes"}}</h3>
-{{#if hasAttackRoll}}
-<div class="form-group stacked notes attack" data-name="attackNotes">
-  <table>
-    <thead>
-      <th>{{localize "FFD20.AttackNotes"}}</th>
-      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
-    </thead>
-    <tbody>
-      {{#each data.attackNotes as |entry index|}}
-      <tr class="entry" data-index="{{index}}">
-        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="attackNotes.{{index}}" /></td>
-        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
 {{/if}}
 
-{{!-- Effect Notes --}}
-<div class="form-group stacked notes effect" data-name="effectNotes">
-  <table>
-    <thead>
-      <th>{{localize "FFD20.EffectNotes"}}</th>
-      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
-    </thead>
-    <tbody>
-      {{#each data.effectNotes as |entry index|}}
-      <tr class="entry" data-index="{{index}}">
-        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="effectNotes.{{index}}" /></td>
-        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+<div class="form-group stacked">
+  <label class="checkbox">
+    <input type="checkbox" name="save.harmless" {{checked (and (not hasDamage) data.save.harmless)}} {{disabled hasDamage}}>
+    {{#if hasDamage}}<input type="hidden" name="save.harmless" data-dtype="Boolean" value="false">{{/if}}
+    {{localize "FFD20.Harmless"}}
+  </label>
 </div>
-{{/if}}

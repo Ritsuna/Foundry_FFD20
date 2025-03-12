@@ -1,0 +1,15 @@
+<div class="form-group conditions">
+  <label>{{localize "FFD20.ConditionPlural"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+    {{#if @root.causedConditions.length}}
+    {{#each @root.causedConditions}}
+      <li class="tag {{@key}}">{{this}}</li>
+    {{/each}}
+    {{else}}
+      <span class="placeholder">{{localize "FFD20.None"}}</span>
+    {{/if}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.ConditionPlural" data-for="system.conditions" data-options="conditions" data-tooltip="FFD20.Edit"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
+</div>

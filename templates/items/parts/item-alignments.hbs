@@ -1,0 +1,28 @@
+<div class="form-group stacked">
+  <h4 class="form-header">
+    {{#if label}}
+      {{localize label}}
+    {{else}}
+      {{localize "FFD20.AttackAlignment"}}
+    {{/if}}
+  </h4>
+  <div class="form-group stacked material-alignments">
+    {{#with alignmentTypes}}
+      {{#each choices as |label choice|}}
+      <label class="checkbox"
+        {{#if ../../isAction}}
+        data-tooltip=
+          {{#if (ne (lookup ../values choice) null)}}
+            "FFD20.DamageAlignment.Override"
+          {{else}}
+            "FFD20.DamageAlignment.Inherit"
+          {{/if}}
+        {{/if}}>
+        <input type="checkbox" class="alignmentCheckbox{{#if ../../isAction}} actionCheckbox{{/if}}"
+          data-type="{{choice}}" name="{{../../reference}}.{{choice}}" {{checked (eq (lookup ../values choice) true)}}>
+        {{label}}
+      </label>
+      {{/each}}
+    {{/with}}
+  </div>
+</div>

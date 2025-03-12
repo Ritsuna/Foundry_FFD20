@@ -1,0 +1,342 @@
+{
+  "title": "FFD20.Tours.ActorSheet.Title",
+  "description": "FFD20.Tours.ActorSheet.Description",
+  "canBeResumed": true,
+  "display": true,
+  "actorId": "AQQnEgudQaoQsLF6",
+  "compendiumId": "ffd20.basic-monsters",
+  "steps": [
+    {
+      "id": "go-to-basic-monsters",
+      "selector": "li.directory-item.folder li[data-pack='ffd20.basic-monsters']",
+      "title": "FFD20.Tours.ActorSheet.GoToBasicMonsters.Title",
+      "content": "FFD20.Tours.ActorSheet.GoToBasicMonsters.Content"
+    },
+    {
+      "id": "highlight-street-magician-in-compendium",
+      "selector": "li.directory-item.actor[data-document-id='AQQnEgudQaoQsLF6']",
+      "title": "FFD20.Tours.ActorSheet.HighlightStreetMagicianInCompendium.Title",
+      "content": "FFD20.Tours.ActorSheet.HighlightStreetMagicianInCompendium.Content"
+    },
+    {
+      "id": "highlight-sheet",
+      "selector": "div.sheet.ffd20",
+      "title": "FFD20.Tours.ActorSheet.HighlightSheet.Title",
+      "content": "FFD20.Tours.ActorSheet.HighlightSheet.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "tooltips-with-definitions",
+      "title": "FFD20.Tours.ActorSheet.TooltipsWithDefinitions.Title",
+      "content": "FFD20.Tours.ActorSheet.TooltipsWithDefinitions.Content"
+    },
+    {
+      "id": "roll-buttons",
+      "selector": "div.sheet.ffd20 section.subdetails-body div.quick-info div.flexcol:has(li.generic-defenses) h3 i.fa-dice-d20",
+      "title": "FFD20.Tours.ActorSheet.RollButtons.Title",
+      "content": "FFD20.Tours.ActorSheet.RollButtons.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "other-common-buttons",
+      "title": "FFD20.Tours.ActorSheet.OtherCommonButtons.Title",
+      "content": "FFD20.Tours.ActorSheet.OtherCommonButtons.Content"
+    },
+    {
+      "id": "sheet-tabs",
+      "selector": "div.sheet.ffd20 nav.sheet-navigation",
+      "title": "FFD20.Tours.ActorSheet.SheetTabs.Title",
+      "content": "FFD20.Tours.ActorSheet.SheetTabs.Content"
+    },
+    {
+      "id": "details-in-sheet",
+      "selector": "div.sheet.ffd20 div.summary-header",
+      "title": "FFD20.Tours.ActorSheet.DetailsInSheet.Title",
+      "content": "FFD20.Tours.ActorSheet.DetailsInSheet.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "hd-cr-and-experience",
+      "selector": "div.sheet.ffd20 div.summary-header div.hd-level",
+      "title": "FFD20.Tours.ActorSheet.HdCrAndExperience.Title",
+      "content": "FFD20.Tours.ActorSheet.HdCrAndExperience.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "rest-button",
+      "selector": "div.sheet.ffd20 div.summary-header div.misc-header-items:has(button.rest)",
+      "title": "FFD20.Tours.ActorSheet.RestButton.Title",
+      "content": "FFD20.Tours.ActorSheet.RestButton.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "race",
+      "selector": "div.sheet.ffd20 div.summary-header div.race",
+      "title": "FFD20.Tours.ActorSheet.Race.Title",
+      "content": "FFD20.Tours.ActorSheet.Race.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "hit-points-and-speed",
+      "selector": "div.sheet.ffd20 div.attributes:has(div.health-details)",
+      "title": "FFD20.Tours.ActorSheet.HitPointsAndSpeed.Title",
+      "content": "FFD20.Tours.ActorSheet.HitPointsAndSpeed.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "quick-actions-in-summary",
+      "selector": "div.sheet.ffd20 section.subdetails-body div.quick-info",
+      "title": "FFD20.Tours.ActorSheet.QuickActionsInSummary.Title",
+      "content": "FFD20.Tours.ActorSheet.QuickActionsInSummary.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "classes",
+      "selector": "div.sheet.ffd20 div.classes-body",
+      "title": "FFD20.Tours.ActorSheet.Classes.Title",
+      "content": "FFD20.Tours.ActorSheet.Classes.Content",
+      "sheetTab": {
+        "tabName": "summary",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "attributes-tab",
+      "selector": "div.sheet.ffd20 div.tab.attributes[data-tab='attributes']",
+      "title": "FFD20.Tours.ActorSheet.AttributesTab.Title",
+      "content": "FFD20.Tours.ActorSheet.AttributesTab.Content",
+      "sheetTab": {
+        "tabName": "attributes",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "ability-scores-section",
+      "selector": "div.sheet.ffd20 div.attributes div.ability-scores",
+      "title": "FFD20.Tours.ActorSheet.AbilityScoresSection.Title",
+      "content": "FFD20.Tours.ActorSheet.AbilityScoresSection.Content",
+      "sheetTab": {
+        "tabName": "attributes",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "traits-section",
+      "selector": "div.sheet.ffd20 div.attributes div.traits",
+      "title": "FFD20.Tours.ActorSheet.TraitsSection.Title",
+      "content": "FFD20.Tours.ActorSheet.TraitsSection.Content",
+      "sheetTab": {
+        "tabName": "attributes",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "resistances-and-immunities-dialog",
+      "title": "FFD20.Tours.ActorSheet.ResistancesAndImmunitiesDialog.Title",
+      "content": "FFD20.Tours.ActorSheet.ResistancesAndImmunitiesDialog.Content"
+    },
+    {
+      "id": "combat-tab",
+      "selector": "div.sheet.ffd20 div.tab.combat[data-tab='combat']",
+      "title": "FFD20.Tours.ActorSheet.CombatTab.Title",
+      "content": "FFD20.Tours.ActorSheet.CombatTab.Content",
+      "sheetTab": {
+        "tabName": "combat",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "filter-options",
+      "selector": "div.sheet.ffd20 div.tab.combat div.inventory-filters",
+      "title": "FFD20.Tours.ActorSheet.FilterOptions.Title",
+      "content": "FFD20.Tours.ActorSheet.FilterOptions.Content",
+      "sheetTab": {
+        "tabName": "combat",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "inventory-tab",
+      "selector": "div.sheet.ffd20 div.tab.inventory[data-tab='inventory']",
+      "title": "FFD20.Tours.ActorSheet.InventoryTab.Title",
+      "content": "FFD20.Tours.ActorSheet.InventoryTab.Content",
+      "sheetTab": {
+        "tabName": "inventory",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "items-details",
+      "selector": "div.sheet.ffd20 div.tab.inventory ol[data-list='equipment'] li.item-list-header",
+      "title": "FFD20.Tours.ActorSheet.ItemsDetails.Title",
+      "content": "FFD20.Tours.ActorSheet.ItemsDetails.Content",
+      "sheetTab": {
+        "tabName": "inventory",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "features-tab",
+      "selector": "div.sheet.ffd20 div.tab.features[data-tab='feats']",
+      "title": "FFD20.Tours.ActorSheet.FeaturesTab.Title",
+      "content": "FFD20.Tours.ActorSheet.FeaturesTab.Content",
+      "sheetTab": {
+        "tabName": "feats",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "charges",
+      "selector": "div.sheet.ffd20 div.tab.features ol[data-list='classFeat'] li.item div.item-detail.item-uses:has(span.max)",
+      "title": "FFD20.Tours.ActorSheet.Charges.Title",
+      "content": "FFD20.Tours.ActorSheet.Charges.Content",
+      "sheetTab": {
+        "tabName": "feats",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "skills-tab",
+      "selector": "div.sheet.ffd20 div.tab.skills[data-tab='skills']",
+      "title": "FFD20.Tours.ActorSheet.SkillsTab.Title",
+      "content": "FFD20.Tours.ActorSheet.SkillsTab.Content",
+      "sheetTab": {
+        "tabName": "skills",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "unlock-skills",
+      "selector": "div.sheet.ffd20 div.tab.skills a.skill-lock-button",
+      "title": "FFD20.Tours.ActorSheet.UnlockSkills.Title",
+      "content": "FFD20.Tours.ActorSheet.UnlockSkills.Content",
+      "sheetTab": {
+        "tabName": "skills",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "add-subskill",
+      "selector": "div.sheet.ffd20 div.tab.skills li[data-skill='crf'] a.skill-create",
+      "title": "FFD20.Tours.ActorSheet.AddSubskill.Title",
+      "content": "FFD20.Tours.ActorSheet.AddSubskill.Content",
+      "sheetTab": {
+        "tabName": "skills",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "buffs-tab",
+      "selector": "div.sheet.ffd20 div.tab.buffs[data-tab='buffs']",
+      "title": "FFD20.Tours.ActorSheet.BuffsTab.Title",
+      "content": "FFD20.Tours.ActorSheet.BuffsTab.Content",
+      "sheetTab": {
+        "tabName": "buffs",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "condition-duration",
+      "selector": "div.sheet.ffd20 div.tab.buffs a[data-condition-id='bleed']",
+      "title": "FFD20.Tours.ActorSheet.ConditionDuration.Title",
+      "content": "FFD20.Tours.ActorSheet.ConditionDuration.Content",
+      "sheetTab": {
+        "tabName": "buffs",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "spells-tab",
+      "selector": "div.sheet.ffd20 div.tab.spellbook[data-tab='spellbook']",
+      "title": "FFD20.Tours.ActorSheet.SpellsTab.Title",
+      "content": "FFD20.Tours.ActorSheet.SpellsTab.Content",
+      "sheetTab": {
+        "tabName": "spellbook",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "spellbooks-tab",
+      "selector": "div.sheet.ffd20 div.tab.spellbook nav.tabs.spellbooks",
+      "title": "FFD20.Tours.ActorSheet.SpellbooksTab.Title",
+      "content": "FFD20.Tours.ActorSheet.SpellbooksTab.Content",
+      "sheetTab": {
+        "tabName": "spellbook",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "spellbooks-configuration",
+      "selector": "div.sheet.ffd20 div.tab.spellbook a[data-for='spellbook-info_primary']",
+      "title": "FFD20.Tours.ActorSheet.SpellbooksConfiguration.Title",
+      "content": "FFD20.Tours.ActorSheet.SpellbooksConfiguration.Content",
+      "sheetTab": {
+        "tabName": "spellbook",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "biography-tab",
+      "selector": "div.sheet.ffd20 div.tab.biography[data-tab='biography']",
+      "title": "FFD20.Tours.ActorSheet.BiographyTab.Title",
+      "content": "FFD20.Tours.ActorSheet.BiographyTab.Content",
+      "sheetTab": {
+        "tabName": "biography",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "notes-tab",
+      "selector": "div.sheet.ffd20 div.tab.actor-notes[data-tab='notes']",
+      "title": "FFD20.Tours.ActorSheet.NotesTab.Title",
+      "content": "FFD20.Tours.ActorSheet.NotesTab.Content",
+      "sheetTab": {
+        "tabName": "notes",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "magic-items-table",
+      "title": "FFD20.Tours.ActorSheet.MagicItemsTable.Title",
+      "content": "FFD20.Tours.ActorSheet.MagicItemsTable.Content",
+      "sheetTab": {
+        "tabName": "notes",
+        "group": "primary"
+      }
+    },
+    {
+      "id": "settings-tab",
+      "selector": "div.sheet.ffd20 div.tab.settings[data-tab='settings']",
+      "title": "FFD20.Tours.ActorSheet.SettingsTab.Title",
+      "content": "FFD20.Tours.ActorSheet.SettingsTab.Content",
+      "sheetTab": {
+        "tabName": "settings",
+        "group": "primary"
+      }
+    }
+  ]
+}

@@ -1,18 +1,66 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}} flexcol" autocomplete="off" data-tooltip-class="ffd20">
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
 
     <div class="header-details flexrow">
       <h1 class="item-name">
-        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}">
       </h1>
-      <div class="item-subtitle">
-        <h4 class="item-type">{{localize "FFD20.Race"}}</h4>
-      </div>
+
+      {{! Content Source }}
+      {{~> "systems/ffd20/templates/internal/content-source-view.hbs"}}
     </div>
   </header>
+
+  {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      <h4 class="size">{{lookup config.actorSizes system.size}}</h4>
+
+      {{#if (gt raceCreatureTypes.length 1)}}
+      <ul class="property-list types">
+        <h5>{{localize "FFD20.TypePlural"}}</h5>
+
+        {{#each raceCreatureTypes}}
+        <li class="property type">{{this}}</li>
+        {{/each}}
+      </ul>
+      {{else}}
+      <h4 class="creature-type">{{raceCreatureTypes.[0]}}</h4>
+      {{/if}}
+    </header>
+
+    <ul class="property-list subtypes">
+      <h5>{{localize "FFD20.RaceSubtypePlural"}}</h5>
+      {{#if raceCreatureSubtypes.length}}
+      {{#each raceCreatureSubtypes}}
+      <li class="property subtype">{{this}}</li>
+      {{/each}}
+      {{else}}
+      <li class="no-properties">{{localize "FFD20.NonApplicable"}}</li>
+      {{/if}}
+    </ul>
+
+    {{! Languages }}
+    {{#if system.languages.base.length}}
+    <ul class="property-list languages">
+      <h5>{{localize "FFD20.Languages"}}</h5>
+      {{#each languages.selected as |v k|}}
+        <li class="property language {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+
+    {{! Speeds }}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
@@ -27,75 +75,63 @@
   <section class="primary-body">
 
     {{!-- Description Tab --}}
-    <div class="tab flexcol" data-group="primary" data-tab="description">
-      {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{editor descriptionHTML.identified target="system.description.value" button=_editorState.system.description.value engine="prosemirror" editable=@root.editable}}
+      <!--prose-mirror name="system.description.value" value="{{system.description.value}}" {{#if _editorState.system.description.value}}toggled{{/if}}>{{{descriptionHTML.identified}}}</prose-mirror-->
     </div>
 
     {{!-- Details Tab --}}
     <div class="tab details" data-group="primary" data-tab="details">
 
+      {{!-- Creature Type --}}
+      {{~> "systems/ffd20/templates/items/parts/item-creature-type.hbs"}}
+
       {{!-- Race Size --}}
       {{> "systems/ffd20/templates/items/parts/item-size.hbs" allowAutoResizing=false}}
 
-      {{!-- Racial Type --}}
-      <div class="form-group">
-        <label>{{localize "FFD20.CreatureType"}}</label>
-        <div class="form-fields">
-          <select name="system.creatureType">
-            {{#select system.creatureType}}
-            {{#each config.creatureTypes as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
-          </select>
-        </div>
+      <div class="form-group stacked">
+        {{! Quadruped }}
+        <label class="checkbox quadruped">
+          <input type="checkbox" name="system.quadruped" {{checked system.quadruped}}>
+          {{localize "FFD20.Quadruped"}}
+        </label>
       </div>
 
-      {{!-- Subtypes --}}
-      <div class="form-group subtypes">
-        <label for="system.subTypes">{{localize "FFD20.RaceSubtypePlural"}}</label>
-        <ul class="subtype-list traits-list tag-list">
-          {{#each system.subTypes as |v k|}}
-            <li class="tag {{k}}">{{v}}</li>
-          {{/each}}
-        </ul>
-        <a class="entry-selector" for="system.subTypes" data-fields="{{localize "FFD20.RaceSubtypePlural"}}" data-dtypes="String" data-flat="true"><i class="fas fa-edit"></i></a>
+      {{!-- Movement --}}
+      <div class="form-group movement">
+        <label>{{localize "FFD20.Movement.Label"}}</label>
+        <div class="form-fields">
+          <ul class="traits-list tag-list">
+            {{#each speeds}}
+            <li class='speed {{mode}} tag'>{{localize "FFD20.Movement.Short" speed=value mode=(localize label) unit=@root.distanceUnit}}{{#if descriptor}} ({{localize descriptor}}){{/if}}</li>
+            {{/each}}
+          </ul>
+          <a class="speed-editor"><i class="fa-solid fa-edit" inert></i></a>
+        </div>
       </div>
 
       {{!-- Proficiencies --}}
       {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
 
-      <!-- Class Skills -->
-      <h4 class="form-header">{{localize "FFD20.ClassSkills"}}</h4>
-
-      <div class="form-group">
-        <ol class="item-list">
-        {{#each skills as |skill key|}}
-        <li class="item flexrow" data-skill="{{key}}">
-          <label class="checkbox skill-cs">
-            <input type="checkbox" name="system.classSkills.{{key}}" {{checked skill.classSkill}} /> {{skill.name}}
-          </label>
-        </li>
-        {{/each}}
-        </ol>
-      </div>
+      {{!-- Class Skills --}}
+      {{~> "systems/ffd20/templates/items/parts/item-class-skills.hbs"}}
 
       {{!-- Advanced --}}
-      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
 
       {{! Tags }}
       {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="changes">
+    <div class="tab changes" data-group="primary" data-tab="changes">
       {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="links">
+    <div class="tab links" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
       {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
   </section>

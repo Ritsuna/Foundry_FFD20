@@ -1,25 +1,23 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}} flexcol" autocomplete="off" data-tooltip-class="ffd20">
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
 
     <div class="header-details flexrow">
       <h1 class="item-name">
-        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.BuffName"}}"/>
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.BuffName"}}">
       </h1>
 
-      <div class="item-subtitle">
-        <h4 class="item-type">{{itemType}}</h4>
-        <span class="item-status">{{itemStatus}}</span>
-      </div>
+      {{! Content Source }}
+      {{~> "systems/ffd20/templates/internal/content-source-view.hbs"}}
 
       <ul class="summary">
-        <li>
-          {{labels.subType}}
-        </li>
-        <li data-tooltip="@item.level : {{system.level}}">
-          <input type="text" name="system.level" data-dtype="Number" value="{{#if system.level}}{{system.level}}{{/if}}" placeholder="{{localize "FFD20.Level"}}"/>
+        <li data-tooltip="@item.level : {{#if system.level}}{{system.level}}{{else}}0{{/if}}">
+          <label>
+            {{localize "FFD20.Level"}}:
+            <input class="value level blended" type="text" name="system.level" data-dtype="Number" value="{{system.level}}" placeholder="0">
+          </label>
         </li>
         <li>
           <label>
@@ -29,6 +27,21 @@
       </ul>
     </div>
   </header>
+
+    {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      <h4 class="item-subtype">{{labels.subType}}</h4>
+    </header>
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-conditions.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
@@ -43,8 +56,11 @@
   <section class="primary-body">
 
     {{!-- Description Tab --}}
-    <div class="tab flexcol" data-group="primary" data-tab="description">
-      {{editor descriptionHTML.identified target="system.description.value" button=true editable=editable engine="prosemirror" collaborate=false}}
+    <div class="tab description" data-group="primary" data-tab="description">
+      {{editor descriptionHTML.identified target="system.description.value" button=_editorState.system.description.value engine="prosemirror" editable=@root.editable}}
+      <!--prose-mirror name="system.description.value" value="{{system.description.value}}" {{#if _editorState.system.description.value}}toggled{{/if}}>{{{descriptionHTML.identified}}}</prose-mirror-->
+
+      {{> "systems/ffd20/templates/items/parts/item-instructions.hbs"}}
     </div>
 
     {{!-- Details Tab --}}
@@ -53,7 +69,7 @@
 
       {{! Buff Subtype }}
       <div class="form-group">
-        <label>{{localize "FFD20.Type"}}</label>
+        <label>{{localize "FFD20.Category"}}</label>
         <div class="form-fields">
           <select name="system.subType">
           {{selectOptions config.buffTypes selected=system.subType}}
@@ -61,37 +77,51 @@
         </div>
       </div>
 
-      {{! Hide From Token}}
-      <div class="form-group">
-        <label>{{localize "FFD20.HideFromToken"}}</label>
-        <input type="checkbox" name="system.hideFromToken" {{checked system.hideFromToken}} />
-      </div>
-
-      <h3 class="form-header">{{localize "FFD20.Details"}}</h3>
-
       {{!-- Duration --}}
       <div class="form-group input-select">
         <label>{{localize "FFD20.Duration"}}</label>
         <div class="form-fields">
-          {{#unless (eq system.duration.units "turn")}}
-          <input class="formula" type="text" name="system.duration.value" value="{{system.duration.value}}" placeholder="{{localize "FFD20.Formula"}}"/>
+          {{#unless noDurationTiming}}
+          <input class="formula roll" type="text" name="system.duration.value" value="{{system.duration.value}}" placeholder="{{localize "FFD20.Formula"}}">
           {{/unless}}
           <select name="system.duration.units">
-            {{#select system.duration.units}}
-            <option value=""></option>
-            {{#each config.timePeriodsShort as |name key|}}
-            <option value="{{key}}">{{lookup @root.config.timePeriods key}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions config.timePeriodsShort selected=system.duration.units blank=(localize "FFD20.Infinite")}}
           </select>
         </div>
+      </div>
+
+      {{#unless noDurationTiming}}
+      <div class="form-group">
+        <label>{{localize "FFD20.DurationEndTiming"}}</label>
+        <div class="form-fields">
+          <select name="system.duration.end">
+            {{selectOptions config.durationEndEvents selected=system.duration.end}}
+          </select>
+        </div>
+      </div>
+      {{/unless}}
+
+      {{! Conditions }}
+      {{~> "systems/ffd20/templates/items/parts/item-conditions.hbs"}}
+
+      <h3 class="form-header">{{localize "FFD20.Properties"}}</h3>
+
+      {{! Hide From Token}}
+      <div class="form-group stacked">
+        <label class="checkbox">
+          <input type="checkbox" name="system.hideFromToken" {{checked system.hideFromToken}}>
+          {{localize "FFD20.HideFromToken"}}
+        </label>
       </div>
 
       {{!-- Proficiencies --}}
       {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
 
+      {{!-- Creature Type --}}
+      {{~> "systems/ffd20/templates/items/parts/item-creature-type.hbs"}}
+
       {{!-- Advanced --}}
-      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
 
       {{! Tags }}
       {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
@@ -101,15 +131,15 @@
     </div>
 
     {{!-- Changes Tab --}}
-    <div class="tab flexcol" data-group="primary" data-tab="changes">
+    <div class="tab changes" data-group="primary" data-tab="changes">
       {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="links">
+    <div class="tab links" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
       {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
   </section>

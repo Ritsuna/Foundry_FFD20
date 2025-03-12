@@ -1,8 +1,8 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}} flexcol" autocomplete="off" data-tooltip-class="ffd20">
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img" />
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
 
     <div class="header-details flexrow">
       {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
@@ -16,7 +16,7 @@
         </li>
         <li>
           {{#if isMateria}}
-          {{system.materiaRarity}}
+          {{labels.materiaRarity}}
           {{else}}
           {{#if hasMultipleSlots}}
           {{#unless showUnidentifiedData}}
@@ -28,6 +28,86 @@
       </ul>
     </div>
   </header>
+
+  {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      <h4 class="item-subtype">
+        {{#if labels.childTypeDistinct}}
+        {{labels.childType}}
+        {{else}}
+        {{labels.subType}}
+        {{#if isMateria}}
+        </h4>
+        <h4 class="item-subtype">{{labels.childType}}</h4>
+        <h4 class="materia-rarity">{{labels.materiaRarity}}
+        {{/if}}
+        {{/if}}
+      </h4>
+
+      {{#if hasMultipleSlots}}
+      {{#if (and isMateria (eq system.slot "slotless"))}}
+      <h4 class="slot">{{localize "FFD20.EquipSlots.anySlot"}}</h4>
+      {{else}}
+      <h4 class="slot">{{labels.slot}}</h4>
+      {{/if}}
+      {{#if isMateria}}
+      <h4 class="slotted">{{labels.slotted}}</h4>
+      {{/if}}
+      {{/if}}
+    </header>
+
+    {{#if (and showIdentified (gt system.armor.enh 0))}}
+    <label class="enhancement">
+      <span>{{localize "FFD20.Enhancement"}}</span>
+      <span class="value">{{numberFormat system.armor.enh sign=true}}</span>
+    </label>
+    {{/if}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-aura.hbs"}}
+    {{#unless isMateria}}
+      {{#if (or labels.armor labels.mdex labels.acp)}}
+      <div class="details">
+        <h5>{{localize "FFD20.Details"}}</h5>
+        {{#if labels.armor}}
+        <label class="armor-class">
+          <span>{{localize "FFD20.ACNormal"}}</span>
+          {{#if labels.broken}}
+          <span class="value effective">{{labels.armorValueEffective}}</span>
+          <span class="value original">{{labels.armorValue}}</span>
+          {{else}}
+          <span class="value effective">{{labels.armorValue}}</span>
+          {{/if}}
+        </label>
+        {{/if}}
+        {{#if labels.acp}}
+        <label class="acp">
+          <span>{{localize "FFD20.ACP"}}</span>
+          <span class="value">{{labels.acpEffective}}</span>
+        </label>
+        {{/if}}
+        {{#if labels.mdex}}
+        <label class="mdex">
+          <span>{{localize "FFD20.MaxDexShort"}}</span>
+          <span class="value">{{numberFormat system.armor.dex sign=true}}</span>
+        </label>
+        {{/if}}
+        {{#if system.spellFailure}}
+        <label class="asf">
+          <span>{{localize "FFD20.ArcaneSpellFailureAbbr"}}</span>
+          <span class="value">{{system.spellFailure}}%</span>
+        </label>
+        {{/if}}
+      </div>
+      {{/if}}
+    {{/unless}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
@@ -52,16 +132,12 @@
       {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
 
       {{!-- Equipment Type --}}
-      <h3 class="form-header">{{localize "FFD20.InventoryArmorEquipment"}}</h3>
+      {{#if showIdentified}}
       <div class="form-group">
         <label>{{localize "FFD20.Type"}}</label>
         <div class="form-fields">
           <select name="system.subType">
-            {{#select system.subType}}
-            {{#each equipmentCategories.types as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions equipmentCategories.types selected=system.subType}}
           </select>
         </div>
       </div>
@@ -72,11 +148,19 @@
         <label>{{localize "FFD20.Category"}}</label>
         <div class="form-fields">
           <select name="system.equipmentSubtype">
-            {{#select system.equipmentSubtype}}
-            {{#each equipmentCategories.subTypes as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions equipmentCategories.subTypes selected=system.equipmentSubtype}}
+          </select>
+        </div>
+      </div>
+      {{/if}}
+
+      {{!-- Materia Rarity --}}
+      {{#if isMateria}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Materia.Rarity.Label"}}</label>
+        <div class="form-fields">
+          <select name="system.materiaRarity">
+            {{selectOptions materiaRarity selected=system.materiaRarity}}
           </select>
         </div>
       </div>
@@ -84,48 +168,60 @@
 
       {{!-- Equipment Slot --}}
       {{#if hasMultipleSlots}}
+        <div class="form-group">
+          <label>{{localize "FFD20.Slot"}}</label>
+          <div class="form-fields">
+            <select name="system.slot">
+              {{selectOptions equipmentSlots selected=system.slot}}
+            </select>
+          </div>
+        </div>
+      {{else}}
+        <input type="hidden" name="system.slot" value="{{system.subType}}">
+      {{/if}}
+
+      {{!-- Materia Slotted --}}
+      {{#if isMateria}}
       <div class="form-group">
-        <label>{{localize "FFD20.Slot"}}</label>
+        <label>{{localize "FFD20.Materia.Slot.Slotted"}}</label>
         <div class="form-fields">
-          <select name="system.slot">
-            {{#select system.slot}}
-            {{#each equipmentSlots as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
-            {{/select}}
+          <select name="system.slotted">
+            {{selectOptions equipmentSlotted selected=system.slotted}}
           </select>
         </div>
       </div>
       {{else}}
-      <input type="hidden" name="system.slot" value="{{system.subType}}" />
+      <input type="hidden" name="system.slotted" value="{{system.slotted}}">
       {{/if}}
 
-      {{!-- Materia Rarity --}}
-      {{#if isMateria}}
-      <div class="form-group">
-        <label>{{localize "FFD20.MateriaRarity"}}</label>
-        <select name="system.materiaRarity">
-          {{#select system.materiaRarity}}
-          {{#each config.materiaRarity as |name type|}}
-          <option value="{{type}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
-      </div>
-      {{else}}
+      {{/if}}
+
+    {{#unless isMateria}}
       {{!-- Equipment Size --}}
       {{> "systems/ffd20/templates/items/parts/item-size.hbs" allowAutoResizing=true}}
+    {{/unless}}
+
+      {{!-- Hands Needed--}}
+      {{#if variableHands}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Hands"}}</label>
+        <div class="form-fields">
+          <input type="number" name="system.hands" value="{{system.hands}}" min="0" step="1" placeholder="0">
+        </div>
+      </div>
       {{/if}}
+
       {{!-- Base Types --}}
       {{> "systems/ffd20/templates/items/parts/item-base-types.hbs"}}
 
-      <hr>
+    {{#unless isMateria}}
+      <h3 class="form-header">{{localize "FFD20.ArmorOrShield"}}</h3>
 
       {{!-- Armor Class --}}
       <div class="form-group">
         <label>{{localize "FFD20.ArmorClass"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.armor.value" value="{{system.armor.value}}" data-dtype="Number"/>
+          <input type="number" name="system.armor.value" value="{{system.armor.value}}" min="0" step="1">
         </div>
       </div>
 
@@ -134,7 +230,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.EnhancementBonus"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.armor.enh" value="{{system.armor.enh}}" data-dtype="Number"/>
+          <input type="number" name="system.armor.enh" value="{{system.armor.enh}}" min="0" step="1">
         </div>
       </div>
       {{/unless}}
@@ -143,7 +239,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.MaxDexterityModifier"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.armor.dex" value="{{system.armor.dex}}" placeholder="{{localize "FFD20.Unlimited"}}" data-dtype="Number"/>
+          <input type="number" name="system.armor.dex" value="{{system.armor.dex}}" placeholder="{{localize "FFD20.Unlimited"}}" step="1">
         </div>
       </div>
 
@@ -151,7 +247,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.ArmorCheckPenalty"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.armor.acp" value="{{system.armor.acp}}" data-dtype="Number" placeholder="0"/>
+          <input type="number" name="system.armor.acp" value="{{system.armor.acp}}" placeholder="0" min="0" step="1">
         </div>
       </div>
 
@@ -159,7 +255,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.ArcaneSpellFailure"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.spellFailure" value="{{system.spellFailure}}" data-dtype="Number" placeholder="0"/>
+          <input type="number" name="system.spellFailure" value="{{system.spellFailure}}" placeholder="0" min="0" step="1">
         </div>
       </div>
 
@@ -167,44 +263,51 @@
 
       {{!-- Equipment Status --}}
       <div class="form-group stacked">
-        {{#if isGM}}
-        <label class="checkbox">
-          <input type="checkbox" name="system.identified" {{checked system.identified}}/> {{localize "FFD20.Identified"}}
+        {{#if @root.showIdentifiedData}}
+        <label class="checkbox artifact">
+          <input type="checkbox" name="system.artifact" {{checked system.artifact}}> {{localize "FFD20.Artifact"}}
         </label>
         {{/if}}
-        <label class="checkbox">
-          <input type="checkbox" name="system.masterwork" {{checked system.masterwork}}/> {{localize "FFD20.Masterwork"}}
+        <label class="checkbox timeworn">
+          <input type="checkbox" name="system.timeworn" {{checked system.timeworn}}> {{localize "FFD20.Timeworn"}}
         </label>
-        <label class="checkbox">
-          <input type="checkbox" name="system.broken" {{checked system.broken}}/> {{localize "FFD20.Broken"}}
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" name="system.nonlethal" {{checked system.nonlethal}}/> {{localize "FFD20.Nonlethal"}}
-        </label>
-        <label class="checkbox">
-          <input type="checkbox" name="system.proficient" {{checked system.proficient}}/> {{localize "FFD20.ProficientAttack"}}
+        <label class="checkbox nonlethal">
+          <input type="checkbox" name="system.nonlethal" {{checked system.nonlethal}}> {{localize "FFD20.Nonlethal"}}
         </label>
       </div>
 
-      <h4 class="form-header">{{localize "FFD20.Misc"}}</h4>
+      <h3 class="form-header">{{localize "FFD20.Misc"}}</h3>
 
       <div class="form-group stacked">
-        {{#if owner}}
         <label class="checkbox">
-          <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}}/> {{localize "FFD20.ShowInQuickbar"}}
+          <input type="checkbox" name="system.proficient" {{checked system.proficient}}> {{localize "FFD20.ProficientAttack"}}
         </label>
-        {{/if}}
       </div>
+    {{/unless}}
 
       {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
 
+      {{!-- Equipment Materials --}}
+      {{#if (or (eq item.subType "armor") (eq item.subType "shield"))}}
+        <h3 class="form-header">{{localize "FFD20.Materials.Label"}}</h3>
+        {{!-- Base Material --}}
+        {{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Base" value_ref="system.armor.material.base.value" value=system.armor.material.base.value custom_ref="system.armor.material.base.custom" custom=system.armor.material.base.custom choices=materialCategories.basics}}
+
+        {{!-- Chosen Material --}}
+        {{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Normal" value_ref="system.armor.material.normal.value" value=system.armor.material.normal.value custom_ref="system.armor.material.normal.custom" custom=system.armor.material.normal.custom choices=materialCategories.materials}}
+
+        {{> "systems/ffd20/templates/items/parts/item-materials-addon.hbs" reference="system.armor.material.addon"}}
+      {{/if}}
 
       {{!-- Proficiencies --}}
       {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
 
+      {{!-- Creature Type --}}
+      {{~> "systems/ffd20/templates/items/parts/item-creature-type.hbs"}}
+
       {{!-- Advanced --}}
       {{#unless showUnidentifiedData}}
-      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
 
       {{! Tags }}
       {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
@@ -216,17 +319,17 @@
 
     {{!-- Changes Tab --}}
     {{#unless showUnidentifiedData}}
-    <div class="tab flexcol" data-group="primary" data-tab="changes">
+    <div class="tab changes" data-group="primary" data-tab="changes">
       {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
     {{/unless}}
 
-    <div class="tab flexcol" data-group="primary" data-tab="links">
+    <div class="tab links" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
 
     {{#unless showUnidentifiedData}}
-    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
       {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
     {{/unless}}

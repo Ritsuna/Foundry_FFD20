@@ -1,0 +1,44 @@
+{{#if errors}}
+<h3>{{localize "FFD20.Migration.Dialog.Errors"}}</h3>
+<ul class="issue-list errors">
+  <li class="header">
+    <h3 class="center">{{localize "FFD20.Migration.Issues.UUID"}}</h3>
+    <h3>{{localize "FFD20.Name"}}</h3>
+    <h3>{{localize "FFD20.Migration.Issues.Message"}}</h3>
+  </li>
+  {{#each errors}}
+  <li class="issue error">
+    <span class="id">
+      <a data-uuid="{{entry.uuid}}" data-tooltip="{{entry.uuid}}">
+        <i class="fa-solid fa-passport" inert></i>
+      </a>
+    </span>
+    <span class="name">{{entry.name}}</span>
+    <span class="message">{{error.message}}</span>
+  </li>
+  {{/each}}
+</ul>
+{{/if}}
+{{#if invalid}}
+<h3>{{localize "FFD20.Migration.Dialog.InvalidDocuments"}}</h3>
+<ul class="issue-list invalid-documents">
+  <li class="header">
+    <h3 class="center">{{localize "FFD20.Migration.Issues.ID"}}</h3>
+    <h3>{{localize "FFD20.Type"}}</h3>
+    <h3>{{localize "FFD20.Name"}}</h3>
+  </li>
+  {{#each invalid}}
+  <li class="issue document">
+    <span class="id">
+      <a data-id="{{entry.id}}" data-tooltip="{{entry.id}}">
+        <i class="fa-solid fa-passport" inert></i>
+      </a>
+    </span>
+    <span class="type">{{entry.type}}</span>
+    <span class="name">{{entry.name}}</span>
+  </li>
+  {{/each}}
+</ul>
+{{/if}}
+
+<hr>

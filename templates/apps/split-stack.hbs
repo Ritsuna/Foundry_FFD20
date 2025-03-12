@@ -1,0 +1,16 @@
+<div class="flexrow stacks">
+  <div class="stack-size">
+    <label>{{localize "FFD20.Dialog.SplitItem.Keep"}}</label>
+    <input type="number" value="{{keep}}" min="1" step="{{step}}" max="{{max}}" class="left" placeholder="1" required>
+  </div>
+
+  <div class="stack-drag">
+    <label></label>
+    <input type="range" value="{{initial}}" min="1" step="{{step}}" max="{{max}}" class="slider">
+  </div>
+
+  <div class="stack-size">
+    <label>{{localize "FFD20.Dialog.SplitItem.Split"}}</label>
+    <input type="number" name="value" value="{{initial}}" min="1" step="{{step}}" max="{{max}}" class="split" placeholder="1" required>
+  </div>
+</div>

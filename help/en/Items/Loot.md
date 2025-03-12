@@ -1,3 +1,3 @@
 # Loot
 
-Loot items are all types of physical items that don't fit in other major categories, such as trade goods and ammunition.
+Loot items are all types of physical items that don't have a specific item type, such as trade goods and ammunition.

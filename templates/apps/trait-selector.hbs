@@ -1,21 +1,48 @@
-<form autocomplete="off" onsubmit="event.preventDefault();">
+<section class="form-body {{cssClass}}" data-tooltip-class="pf1-v2">
+  {{#unless hideSearch}}
+    <input type="search" name="search" value="{{search}}"
+           placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}">
+  {{/unless}}
   <ol class="trait-list">
-    {{#each choices as |choice key|}}
-    <li>
-      <label class="checkbox">
-        <input type="checkbox" name="{{key}}" data-dtype="Boolean" {{checked choice.chosen}}>
-        {{choice.label}}
-      </label>
-    </li>
+    {{#each choices}}
+      <li data-choice="{{@key}}">
+        <label class="checkbox">
+          <input type="checkbox" name="choices.{{@key}}" data-dtype="Boolean" {{checked chosen}}>
+          {{label}}
+        </label>
+      </li>
     {{/each}}
   </ol>
-  <div class="form-group stacked">
-    <label>{{localize "FFD20.Custom"}}</label>
-    <input type="text" name="custom" value="{{custom}}" data-dtype="String"/>
-    <p class="hint">
-      <i class="fa-solid fa-circle-info"></i>
-      {{localize "FFD20.Application.TraitSelector.CustomHint"}}
-    </p>
-  </div>
-  <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize updateButton}}</button>
-</form>
+
+  {{! Custom }}
+  {{#if hasCustom}}
+    <div class="form-group stacked custom-tags">
+      <h3>{{localize "FFD20.Custom"}}</h3>
+      <ul class="custom-tag-list">
+        {{#each custom}}
+          <li class="custom-tag" data-custom-tag="{{this}}">
+            <a data-custom-tag="{{this}}" {{#if @root.editable}}data-action="delete"{{/if}}>
+              <span>{{this}}</span>
+              {{#if @root.editable}}
+              <i class="fa-solid fa-delete-left" inert></i>
+              {{/if}}
+            </a>
+          </li>
+        {{/each}}
+        {{#unless custom.length}}
+          <li class="info" inert>{{localize "FFD20.Application.TraitSelector.NoCustomEntries"}}</li>
+        {{/unless}}
+      </ul>
+
+      {{#if editable}}
+      <input type="text" name="custom"
+        placeholder="{{localize "FFD20.Application.TraitSelector.CustomPlaceholder"}}">
+
+      <p class="hint">
+        <i class="fa-solid fa-circle-info" inert></i>
+        {{localize "FFD20.Application.TraitSelector.CustomHint"}}
+      </p>
+      {{/if}}
+    </div>
+  {{/if}}
+</section>

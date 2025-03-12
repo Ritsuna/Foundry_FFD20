@@ -1,0 +1,16 @@
+{{#each filter.choices as |choice i|}}
+  <div class="form-group input">
+    {{#if choice.label}}
+      <label for="{{@root.id}}-filter-{{../id}}-choice-{{choice.key}}">{{choice.label}}</label>
+    {{/if}}
+    <div class="form-fields">
+      <input
+        type="{{choice.type}}"
+        name="filter.{{../id}}.choice.{{choice.key}}"
+        value="{{choice.value}}"
+        placeholder="{{choice.placeholder}}"
+        id="{{@root.id}}-filter-{{../id}}-choice-{{choice.key}}"
+      >
+    </div>
+  </div>
+{{/each}}

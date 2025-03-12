@@ -7,4 +7,6 @@
 
 ## Miscellaneous Actor Types
 
-- [Basic](Help/Actors/Basic)
+- [Haunt](Help/Actors/Haunt)
+- [Trap](Help/Actors/Trap)
+- [Vehicle](Help/Actors/Vehicle)

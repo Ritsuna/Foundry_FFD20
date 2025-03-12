@@ -1,0 +1,14 @@
+<h3 class="form-header">{{localize "FFD20.ClassSkills"}}</h3>
+
+<div class="class-skills">
+  <ol class="skill-list">
+  {{#each skills}}
+    <li class="skill{{#if custom}} custom{{/if}}" data-skill="{{key}}">
+      <label class="checkbox skill-cs">
+        <input type="checkbox" name="system.classSkills.{{key}}" {{checked isCS}}> {{name}}
+        {{#if custom}}<i class="fa-solid fa-user-pen fa-fw" data-tooltip="FFD20.CustomSkill"></i>{{/if}}
+      </label>
+    </li>
+  {{/each}}
+  </ol>
+</div>

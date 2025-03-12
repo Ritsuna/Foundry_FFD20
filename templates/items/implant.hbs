@@ -1,0 +1,141 @@
+<form class="{{cssClass}} flexcol" autocomplete="off" data-tooltip-class="ffd20">
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
+
+    <div class="header-details flexrow">
+      {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
+
+      <ul class="summary">
+        {{#if isCybertech}}
+        <label class="checkbox">
+          <input type="checkbox" name="system.disabled" {{checked system.disabled}}> {{localize "FFD20.Disabled"}}
+        </label>
+        {{/if}}
+      </ul>
+    </div>
+  </header>
+
+  {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      <h4 class="item-subtype">
+        {{labels.subType}}
+      </h4>
+
+      <h4 class="slot">{{labels.slot}}</h4>
+    </header>
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    <label>
+      <span>{{localize "FFD20.Cybertech.Implantation"}}</span>
+      <input type="number" name="system.implant" value="{{system.implant}}" placeholder="0" min="0" step="1">
+    </label>
+    <label>
+      <span>{{localize "FFD20.Cybertech.Install"}}</span>
+      <input type="number" name="system.install" value="{{system.install}}" placeholder="0" min="0" step="1">
+    </label>
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-aura.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
+
+  {{!-- Item Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item" data-tab="description">{{localize "FFD20.Description"}}</a>
+    <a class="item" data-tab="details">{{localize "FFD20.Details"}}</a>
+    {{#unless showUnidentifiedData}}
+    <a class="item" data-tab="changes">{{localize "FFD20.Changes"}}</a>
+    {{/unless}}
+    <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
+    {{#unless showUnidentifiedData}}
+    <a class="item" data-tab="advanced">{{localize "FFD20.Advanced"}}</a>
+    {{/unless}}
+  </nav>
+
+  {{!-- Item Sheet Body --}}
+  <section class="primary-body">
+    {{!-- Description Tab --}}
+    {{> "systems/ffd20/templates/items/parts/item-description.hbs"}}
+
+    {{!-- Details Tab --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
+
+      {{!-- Type --}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Type"}}</label>
+        <div class="form-fields">
+          <select name="system.subType">
+            {{selectOptions subTypes selected=system.subType}}
+          </select>
+        </div>
+      </div>
+
+      {{!-- Slot --}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Slot"}}</label>
+        <div class="form-fields">
+          <select name="system.slot">
+            {{selectOptions slots selected=system.slot}}
+          </select>
+        </div>
+      </div>
+
+      {{!-- Equipment Size --}}
+      {{> "systems/ffd20/templates/items/parts/item-size.hbs" allowAutoResizing=true}}
+
+      {{!-- Properties --}}
+      <h3 class="form-header">{{localize "FFD20.Properties"}}</h3>
+      <div class="form-group stacked">
+        {{#if @root.showIdentifiedData}}
+        <label class="checkbox artifact">
+          <input type="checkbox" name="system.artifact" {{checked system.artifact}}> {{localize "FFD20.Artifact"}}
+        </label>
+        {{/if}}
+        <label class="checkbox timeworn">
+          <input type="checkbox" name="system.timeworn" {{checked system.timeworn}}> {{localize "FFD20.Timeworn"}}
+        </label>
+        <label class="checkbox nonlethal">
+          <input type="checkbox" name="system.nonlethal" {{checked system.nonlethal}}> {{localize "FFD20.Nonlethal"}}
+        </label>
+      </div>
+
+      {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
+
+      {{!-- Proficiencies --}}
+      {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
+
+      {{!-- Advanced --}}
+      {{#unless showUnidentifiedData}}
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
+
+      {{! Identifier Tag }}
+      {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{/unless}}
+    </div>
+
+    {{!-- Changes Tab --}}
+    {{#unless showUnidentifiedData}}
+    <div class="tab changes" data-group="primary" data-tab="changes">
+      {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
+    </div>
+    {{/unless}}
+
+    <div class="tab links" data-group="primary" data-tab="links">
+      {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
+    </div>
+
+    {{#unless showUnidentifiedData}}
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
+      {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
+    </div>
+    {{/unless}}
+  </section>
+</form>

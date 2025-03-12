@@ -1,0 +1,13 @@
+<section class="form-body" data-tooltip-class="pf1-v2">
+  {{! Dice So Nice }}
+  {{formGroup fields.diceSoNice value=settings.diceSoNice disabled=(not dsnFound) localize="true" classes="module dice-so-nice"
+    label="FFD20.Application.Settings.Integration.Modules.dice-so-nice.Label" hint="FFD20.Application.Settings.Integration.Modules.dice-so-nice.Info"}}
+
+  {{! Drag Ruler }}
+  {{formGroup fields.dragRuler value=settings.dragRuler disabled=(not drFound) localize=true classes="module drag-ruler"
+    label="FFD20.Application.Settings.Integration.Modules.drag-ruler.Label" hint="FFD20.Application.Settings.Integration.Modules.drag-ruler.Info"}}
+
+  {{! Babele }}
+  {{formGroup fields.babele value=settings.babele disabled=(not bFound) localize=true classes="module babele"
+    label="FFD20.Application.Settings.Integration.Modules.babele.Label" hint="FFD20.Application.Settings.Integration.Modules.babele.Info"}}
+</section>

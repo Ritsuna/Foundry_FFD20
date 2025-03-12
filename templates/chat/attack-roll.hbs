@@ -1,45 +1,42 @@
 {{!-- Apply Damage button/widget --}}
 {{#*inline "applyDamageButton"}}
   {{!-- Apply full damage --}}
-  <a class="inline-action" data-action="applyDamage" data-value="{{#if isHealing}}-{{/if}}{{damage}}" data-tooltip="{{#if isHealing}}FFD20.ApplyHealing{{else}}FFD20.ApplyDamage{{/if}}"
-      data-tags="{{#if nonlethal}}nonlethal{{/if}}">
-    <i class="fas fa-hammer"></i>
-    <i class="absolute fas fa-plus"></i>
+  <a class="inline-action" data-action="applyDamage" data-type="{{type}}" data-value="{{#if isHealing}}-{{/if}}{{damage.total}}" data-ratio="1" data-tooltip="{{#if isHealing}}FFD20.ApplyHealing{{else}}FFD20.ApplyDamage{{/if}}"
+      data-tags="{{#if nonlethal}}nonlethal{{/if}}{{#if manadamage}}manadamage{{/if}}">
+    <i class="fa-solid fa-hammer" inert></i>
+    <i class="absolute fa-solid fa-plus" inert></i>
   </a>
   {{!-- Apply half damage --}}
-  <a class="inline-action" data-action="applyDamage" data-value="{{#if isHealing}}-{{/if}}{{halfNumber damage}}" data-tooltip="FFD20.ApplyHalf"
-      data-tags="{{#if nonlethal}}nonlethal{{/if}}">
-    <i class="fas fa-hammer"></i>
-    <i class="absolute">½</i>
+  <a class="inline-action" data-action="applyDamage" data-type="{{type}}" data-value="{{#if isHealing}}-{{/if}}{{damage.half}}" data-ratio="0.5" data-tooltip="FFD20.ApplyHalf"
+      data-tags="{{#if nonlethal}}nonlethal{{/if}}{{#if manadamage}}manadamage{{/if}}">
+    <i class="fa-solid fa-hammer" inert></i>
+    <i class="absolute" inert>½</i>
   </a>
 {{/inline}}
 
 {{!-- Damage row partial --}}
 {{#*inline "damageRow"}}
   <tr>
-    {{#if dr.normal}}
-      <td class="roll">
-        <a class="inline-roll inline-dsn-hidden inline-result" data-tooltip="{{dr.normal.formula}}" data-roll="{{json-string dr.normal}}">
-          <i class="fas fa-dice-d20"></i> {{dr.normal.total}}
-        </a>
+    {{#with dr.normal}}
+      <td class="roll damage normal">
+        {{{inlineRoll.outerHTML}}}
       </td>
-      <td class="damage-types">{{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=dr.normal.damageType damageTypes=@root.damageTypes}}</td>
+      <td class="damage-types">{{> "systems/ffd20/templates/internal/damage-type-visual.hbs" damage=damageType}}</td>
     {{else}}
       <td></td>
       <td></td>
-    {{/if}}
+    {{/with}}
+
     {{#if atk.hasCritConfirm}}
-    {{#if dr.crit}}
-      <td class="roll">
-        <a class="inline-roll inline-dsn-hidden inline-result" data-tooltip="{{dr.crit.formula}}" data-roll="{{json-string dr.crit}}">
-          <i class="fas fa-dice-d20"></i> {{dr.crit.total}}
-        </a>
+    {{#with dr.crit}}
+      <td class="roll damage critical">
+        {{{inlineRoll.outerHTML}}}
       </td>
-      <td class="damage-type">{{> "systems/ffd20/templates/internal/damage-type-visual.hbs" data=dr.crit.damageType damageTypes=@root.damageTypes}}</td>
+      <td class="damage-type">{{> "systems/ffd20/templates/internal/damage-type-visual.hbs" damage=damageType}}</td>
     {{else}}
       <td></td>
       <td></td>
-    {{/if}}
+    {{/with}}
     {{/if}}
   </tr>
 {{/inline}}
@@ -54,7 +51,15 @@
           <th class="attack-flavor" {{#if atk.hasCritConfirm}}colspan="4"{{else}}colspan="2"{{/if}}>
             {{atk.attack.flavor}}
             {{#if atk.rollData.d20}}
-            <i class="fas fa-dice-d20" data-tooltip="FFD20.CustomRollDesc"></i>
+            <i class="fa-solid fa-dice-d20" data-tooltip="FFD20.CustomRollDesc"></i>
+            {{else if atk.attack.isStatic}}
+            {{#with atk.method}}
+              {{#if icon}}
+              <span class="part-method" data-tooltip="{{label}}" aria-label="{{localize label}}">
+                {{{icon}}}
+              </span>
+              {{/if}}
+            {{/with}}
             {{/if}}
           </th>
         </tr>
@@ -71,7 +76,7 @@
             <a class="attack-damage total fake-inline-roll inline-result" data-tooltip="FFD20.Total">
               {{atk.damage.total}}
             </a>
-            {{> applyDamageButton damage=atk.damage.total isHealing=atk.isHealing nonlethal=atk.nonlethal}}
+            {{> applyDamageButton damage=atk.damage isHealing=atk.isHealing nonlethal=atk.nonlethal manadamage=atk.manadamage}}
           </th>
         </tr>
         {{/if}}
@@ -80,38 +85,36 @@
       <tbody>
         {{#if atk.hasAttack}}
         <tr class="attack">
-          <td {{#if atk.hasCritConfirm}}colspan="2"{{else}}colspan="4"{{/if}} class="roll">
-            <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.attack.isNat20}} natural-20 success{{/if}}{{#if atk.attack.isNat1}} natural-1 failure{{/if}}{{#if atk.attack.isCrit}} critical-threat{{/if}}"
-            data-tooltip="{{atk.attack.formula}}" data-roll="{{json-string atk.attack}}">
-            <i class="fas fa-dice-d20"></i> {{atk.attack.total}}
-            </a>
+          <td {{#if atk.hasCritConfirm}}colspan="2"{{else}}colspan="4"{{/if}} class="roll normal">
+            {{{atk.attack.inlineRoll.outerHTML}}}
           </td>
           {{#if atk.hasCritConfirm}}
-          <td colspan="2" class="roll">
-            <a class="inline-roll inline-dsn-hidden inline-result{{#if atk.critConfirm.isNat20}} success{{/if}}{{#if atk.critConfirm.isNat1}} natural-1 failure{{/if}}"
-            data-tooltip="{{atk.critConfirm.formula}}" data-roll="{{json-string atk.critConfirm}}">
-            <i class="fas fa-dice-d20"></i> {{atk.critConfirm.total}}
-            </a>
+          <td colspan="2" class="roll critical">
+            {{#if atk.critConfirm.armorAsDR}}
+            {{! Armor as DR – Defense DC }}
+            <span>{{localize "FFD20.DefenseDC"}}:</span>
+            {{/if}}
+            {{{atk.critConfirm.inlineRoll.outerHTML}}}
           </td>
           {{/if}}
         </tr>
 
         {{#if atk.hasDamage}}
         <tr class="damage">
-          <th colspan="2">
+          <th colspan="2" data-damage-type="normal">
             {{atk.damage.flavor}}
             <a class="fake-inline-roll inline-dsn-hidden inline-result" data-tooltip="FFD20.Total">
               {{atk.damage.total}}
             </a>
-            {{> applyDamageButton damage=atk.damage.total isHealing=atk.isHealing nonlethal=atk.nonlethal}}
+            {{> applyDamageButton damage=atk.damage isHealing=atk.isHealing nonlethal=atk.nonlethal manadamage=atk.manadamage type="normal"}}
           </th>
           {{#if atk.hasCritConfirm}}
-          <th colspan="2">
+          <th colspan="2" data-damage-type="critical">
             {{atk.critDamage.flavor}}
             <a class="fake-inline-roll inline-dsn-hidden inline-result" data-tooltip="FFD20.Total">
               {{atk.critDamage.total}}
             </a>
-            {{> applyDamageButton damage=atk.critDamage.total isHealing=atk.isHealing nonlethal=atk.nonlethal}}
+            {{> applyDamageButton damage=atk.critDamage isHealing=atk.isHealing nonlethal=atk.nonlethal manadamage=atk.manadamage type="critical"}}
           </th>
           {{/if}}
         </tr>
@@ -147,20 +150,23 @@
 
   {{!-- Ammo --}}
   {{#if atk.ammo}}
-    <div class="ammo group-container" data-ammo-id="{{atk.ammo.id}}">
-      <label class="group-title">{{localize "FFD20.LootTypeAmmoSingle"}}</label>
-      <img src="{{atk.ammo.img}}" />
+    <div class="ammo group-container" data-ammo-id="{{atk.ammo.id}}" data-ammo-quantity="{{atk.ammo.quantity}}" data-tooltip="{{localize "FFD20.AmmoRemaining" quantity=atk.ammo.remaining}}">
+      <label class="group-title">{{localize "FFD20.Subtypes.Item.loot.ammo.Single"}}</label>
+      <img src="{{atk.ammo.img}}">
+      {{#if (gt atk.ammo.quantity 1)}}
+      <span class="quantity">{{atk.ammo.quantity}}×</span>
+      {{/if}}
       <span class="name">{{atk.ammo.name}}</span>
 
       {{!-- Recover --}}
       <a class="inline-action" data-action="recoverAmmo" data-tooltip="FFD20.RecoverAmmunition">
-        <i class="fas fa-rocket"></i>
+        <i class="fa-solid fa-rocket" inert></i>
       </a>
 
       {{!-- Force Recover --}}
       <a class="inline-action" data-action="forceRecoverAmmo" data-tooltip="FFD20.ForceRecover">
-        <i class="fas fa-rocket"></i>
-        <i class="absolute fas fa-plus"></i>
+        <i class="fa-solid fa-rocket" inert></i>
+        <i class="absolute fa-solid fa-plus" inert></i>
       </a>
     </div>
   {{/if}}
@@ -192,7 +198,7 @@
       </div>
       {{/each}}
       {{#if ../hasSave}}
-      <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}"
+      <button data-action="save" data-dc="{{../save.dc}}" data-save="{{../save.type}}"
         {{#if ../save.gmSensitiveLabel}} data-gm-sensitive-inner="{{../save.gmSensitiveLabel}}"{{/if}}
         data-tags="{{item.tags}}">{{../save.label}}</button>
       {{/if}}
@@ -200,7 +206,7 @@
     {{else}}
     <div class="card-button-group flexcol">
       {{#if ../hasSave}}
-      <button data-action="save" data-dc="{{../save.dc}}" data-type="{{../save.type}}"
+      <button data-action="save" data-dc="{{../save.dc}}" data-save="{{../save.type}}"
         {{#if ../save.gmSensitiveLabel}} data-gm-sensitive-inner="{{../save.gmSensitiveLabel}}"{{/if}}
         data-tags="{{item.tags}}">{{../save.label}}</button>
       {{/if}}

@@ -1,9 +1,8 @@
 {
   "id": "ffd20",
-  "name": "ffd20",
   "title": "Final Fantasy d20",
-  "description": "FFd20 using Pathfinder 1e v9.4 as a base in the Foundry VTT environment.",
-  "version": "10.2.6",
+  "description": "FFd20 using Pathfinder 1e v11.3 as a base in the Foundry VTT environment.",
+  "version": "12.11.3.0",
   "authors": [
     {
       "name": "Ritsu Voices",
@@ -34,19 +33,28 @@
   "styles": ["ffd20.css"],
   "packFolders": [
     {
+      "name": "Actors",
+      "packs": ["basic-monsters"],
+      "color": "#CE5C00"
+    },
+    {
       "name": "Equipment",
       "packs": [
         "weapons-and-ammo",
         "armors-and-shields",
-        "items"
-      ],
+        "items",
+        "technology"],
       "color": "#777777"
     },
     {
-      "name": "Character Building",
+      "name": "Pathfinder Content",
       "packs": [
+        "classes",
+        "companion-features",
+        "racial-hd",
         "feats",
         "monster-templates",
+        "template-abilities",
         "monster-abilities"
       ],
       "color": "#996300"
@@ -58,13 +66,46 @@
         "ultimate-equipment"
       ],
       "color": "#005755"
+    },
+    {
+      "name": "Conditions",
+      "packs": ["buffs"],
+      "color": "#792291"
+    },
+    {
+      "name": "Macros",
+      "packs": ["macros"],
+      "color": "#60747b"
     }
   ],
   "packs": [
     {
-      "name": "commonbuffs",
-      "label": "Pathfinder Common Buffs",
-      "path": "packs/commonbuffs.db",
+      "name": "basic-monsters",
+      "label": "FFD20.PACKS.monsters",
+      "type": "Actor",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      }
+    },
+    {
+      "name": "classes",
+      "label": "FFD20.PACKS.classes",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      }
+    },
+    {
+      "name": "companion-features",
+      "label": "FFD20.PACKS.companion-features",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      }
+    },
+    {
+      "name": "buffs",
+      "label": "FFD20.PACKS.buffs",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -72,8 +113,7 @@
     },
     {
       "name": "feats",
-      "label": "Pathfinder Feats",
-      "path": "packs/feats.db",
+      "label": "FFD20.PACKS.feats",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -81,8 +121,7 @@
     },
     {
       "name": "items",
-      "label": "Pathfinder Items",
-      "path": "packs/items.db",
+      "label": "FFD20.PACKS.items",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -90,8 +129,7 @@
     },
     {
       "name": "armors-and-shields",
-      "label": "Pathfinder Armor and Shields",
-      "path": "packs/armors-and-shields.db",
+      "label": "FFD20.PACKS.armors-and-shields",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -99,8 +137,15 @@
     },
     {
       "name": "weapons-and-ammo",
-      "label": "Pathfinder Weapons and Ammo",
-      "path": "packs/weapons-and-ammo.db",
+      "label": "FFD20.PACKS.weapons-and-ammo",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      }
+    },
+    {
+      "name": "technology",
+      "label": "FFD20.PACKS.technology",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -108,17 +153,15 @@
     },
     {
       "name": "monster-abilities",
-      "label": "Pathfinder Monster Abilities",
-      "path": "packs/monster-abilities.db",
+      "label": "FFD20.PACKS.monster-abilities",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
       }
     },
     {
-      "name": "racialhd",
-      "label": "Pathfinder Racial HD",
-      "path": "packs/racial-hd.db",
+      "name": "racial-hd",
+      "label": "FFD20.PACKS.racial-hd",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -126,17 +169,23 @@
     },
     {
       "name": "monster-templates",
-      "label": "Pathfinder Monster Templates",
-      "path": "packs/monster-templates.db",
+      "label": "FFD20.PACKS.monster-templates",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
       }
     },
     {
-      "name": "sample-macros",
-      "label": "Sample Macros",
-      "path": "packs/sample-macros.db",
+      "name": "template-abilities",
+      "label": "FFD20.PACKS.template-abilities",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "LIMITED"
+      }
+    },
+    {
+      "name": "macros",
+      "label": "FFD20.PACKS.macros",
       "type": "Macro",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -144,8 +193,7 @@
     },
     {
       "name": "roll-tables",
-      "label": "Roll Tables",
-      "path": "packs/roll-tables.db",
+      "label": "FFD20.PACKS.roll-tables",
       "type": "RollTable",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -153,17 +201,15 @@
     },
     {
       "name": "ultimate-equipment",
-      "label": "Pathfinder Ultimate Equipment",
-      "path": "packs/ultimate-equipment.db",
+      "label": "FFD20.PACKS.ultimate-equipment",
       "type": "RollTable",
       "ownership": {
         "PLAYER": "OBSERVER"
       }
     },
     {
-      "name": "pf1e-rules",
-      "label": "Pathfinder 1e Rules",
-      "path": "packs/pf1e-rules.db",
+      "name": "rules",
+      "label": "FFD20.PACKS.rules",
       "type": "JournalEntry",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -179,29 +225,60 @@
   ],
   "socket": true,
   "initiative": "1d20 + @attributes.init.total + (@attributes.init.total / 100)",
-  "gridDistance": 5,
-  "gridUnits": "ft",
+  "grid": {
+    "distance": 5,
+    "diagonals": 4,
+    "units": "ft"
+  },
   "primaryTokenAttribute": "attributes.hp",
   "secondaryTokenAttribute": null,
-  "minimumCoreVersion": "10",
+  "documentTypes": {
+    "ActiveEffect": {
+      "buff": {}
+    },
+    "ChatMessage": {
+      "check": {},
+      "item": {
+        "htmlFields": ["item.description"]
+      },
+      "action": {
+        "htmlFields": ["item.description", "action.description"]
+      }
+    }
+  },
   "compatibility": {
-    "minimum": "10",
-    "verified": "11",
-    "maximum": "11"
+    "minimum": "12",
+    "verified": "12",
+    "maximum": "13"
   },
   "relationships": {
     "recommends": [
       {
         "id": "ffd20-content",
         "type": "module"
+      },
+      {
+        "id": "pf1e-for-ffd20-content",
+        "type": "module"
+      },
+      {
+        "id": "pf1-statblock-converter",
+        "type": "module"
+      },
+      {
+        "id": "statblock-library",
+        "type": "module"
       }
     ]
   },
+  "media": [
+    {
+      "type": "setup",
+      "thumbnail": "systems/ffd20/ffd20-logo.webp"
+    }
+  ],
   "bugs": "https://github.com/Ritsuna/Foundry_FFD20/-/issues",
-  "flags": {
-    "allowBugReporter": true
-  },
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/10.2.6.zip"
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/12.11.3.0.zip"
 }

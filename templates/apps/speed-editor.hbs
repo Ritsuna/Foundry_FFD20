@@ -1,0 +1,50 @@
+<section class="form-body" data-tooltip-class="pf1-v2">
+  {{! Base Land Speed}}
+  <div class="form-group">
+    <label for="movement-speed-land-{{item.id}}">{{localize "FFD20.Movement.Mode.land"}} <span class="units">({{units}})</span></label>
+    <div class="form-fields">
+      <input id="movement-speed-land-{{item.id}}" type="number" name="system.speeds.land" min="0" step="{{step}}" value="{{speeds.land}}">
+    </div>
+  </div>
+
+  {{! Fly Speed}}
+  <div class="form-group">
+    <label for="movement-speed-fly-{{item.id}}">{{localize "FFD20.Movement.Mode.fly"}} <span class="units">({{units}})</span></label>
+    <div class="form-fields">
+      <input id="movement-speed-fly-{{item.id}}" type="number" name="system.speeds.fly" min="0" step="{{step}}" value="{{speeds.fly}}">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="maneuverability-fly-{{item.id}}">{{localize "FFD20.Movement.FlyManeuverability.Label"}}</label>
+    <div class="form-fields">
+      <select id="maneuverability-fly-{{item.id}}" name="system.speeds.flyManeuverability">
+        {{selectOptions flyManeuverability selected=speeds.flyManeuverability localize=true}}
+      </select>
+    </div>
+  </div>
+
+  {{! Swim Speed }}
+  <div class="form-group">
+    <label for="movement-speed-swim-{{item.id}}">{{localize "FFD20.Movement.Mode.swim"}} <span class="units">({{units}})</span></label>
+    <div class="form-fields">
+      <input id="movement-speed-swim-{{item.id}}" type="number" name="system.speeds.swim" min="0" step="{{step}}" value="{{speeds.swim}}">
+    </div>
+  </div>
+
+  {{! Climb Speed }}
+  <div class="form-group">
+    <label for="movement-speed-climb-{{item.id}}">{{localize "FFD20.Movement.Mode.climb"}} <span class="units">({{units}})</span></label>
+    <div class="form-fields">
+      <input id="movement-speed-climb-{{item.id}}" type="number" name="system.speeds.climb" min="0" step="{{step}}" value="{{speeds.climb}}">
+    </div>
+  </div>
+
+  {{! Burrow Speed }}
+  <div class="form-group">
+    <label for="movement-speed-burrow-{{item.id}}">{{localize "FFD20.Movement.Mode.burrow"}} <span class="units">({{units}})</span></label>
+    <div class="form-fields">
+      <input id="movement-speed-burrow-{{item.id}}" type="number" name="system.speeds.burrow" min="0" step="{{step}}" value="{{speeds.burrow}}">
+    </div>
+  </div>
+</section>

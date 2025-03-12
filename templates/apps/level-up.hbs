@@ -1,40 +1,49 @@
-<form class="{{cssClass}}" autocomplete="off">
-  <div class="tab section flexcol" data-section="{{section.name}}" data-section-index="{{sectionIdx}}">
-    <h2 class="form-header">{{localize section.label}}</h2>
-
-    {{#if section.items}}
-      <div class="flexrow">
-        <nav class="list-selector" data-content="{{section.name}}">
-          {{#each section.items as |item a|}}
-            <a class="item{{#if (eq item.id ../section.currentItem.id)}} active{{/if}}" data-id="{{item.id}}" data-target="{{item.target}}" data-type="{{item.type}}">
-              {{#if item.img}}
-                <img src="{{item.img}}"></img>
-              {{else}}
-                <span class="fake-img"></span>
-              {{/if}}
-              <span class="name">{{item.name}}</span>
-            </a>
-          {{/each}}
-        </nav>
-
-        <div class="content {{section.name}}-body">
-          {{#with section.currentItem}}
-            {{#if (eq type "html")}}
-              {{> (lookup . "target") ..}}
-            {{/if}}
-          {{/with}}
-        </div>
-      </div>
-    {{/if}}
-
-    {{#if section.template}}
-      {{> (lookup section "template") .}}
-    {{/if}}
+<form autocomplete="off" data-tooltip-class="ffd20">
+  <div class="summary">
+    <h2>{{localize "FFD20.LevelUp.Summary.Label"}}</h2>
+    {{> "systems/ffd20/templates/apps/level-up/summary.hbs"}}
   </div>
 
-  <div class="nav-buttons">
-    <button type="button" disabled data-type="previous">{{localize "FFD20.Previous"}}</button>
-    <button type="button" disabled data-type="next">{{localize "FFD20.Next"}}</button>
-    <button type="submit" disabled data-type="submit">{{localize "FFD20.Submit"}}</button>
-  </div>
+  <section>
+    <div class="segment health">
+      <h2>{{localize "FFD20.LevelUp.Health.Label"}}</h2>
+      {{> "systems/ffd20/templates/apps/level-up/health.hbs"}}
+    </div>
+
+    <div class="segment fcb">
+      <h2>{{localize "FFD20.LevelUp.FC.Label"}}</h2>
+      {{> "systems/ffd20/templates/apps/level-up/fcb.hbs"}}
+    </div>
+
+    <div class="segment ability-score">
+      <h2>{{localize "FFD20.LevelUp.AbilityScore.Label"}}</h2>
+      {{#if abilityScore.new}}
+      {{> "systems/ffd20/templates/apps/level-up/ability-score.hbs"}}
+      {{else if abilityScore.next}}
+        {{#if isMythic}}
+          <p class="info">{{localize "FFD20.LevelUp.AbilityScore.NextTier" tier=abilityScore.next}}</p>
+        {{else}}
+          <p class="info">{{localize "FFD20.LevelUp.AbilityScore.NextLevel" level=abilityScore.next}}</p>
+        {{/if}}
+      {{/if}}
+    </div>
+  </section>
+
+  <footer class="buttons">
+    <button type="button" data-action="skip" data-tooltip="FFD20.LevelUp.SkipHint">
+      <i class="fa-solid fa-pen" inert></i>
+      {{localize "FFD20.Manual"}}
+    </button>
+
+    <div class="padding"> </div>
+
+    <select name="visibility">
+      {{selectOptions visibilityOptions selected=visibility localize=true blank="FFD20.Default"}}
+    </select>
+
+    <button type="submit" {{#unless ready}}disabled{{/unless}} data-action="commit">
+      <i class="fa-solid fa-floppy-disk" inert></i>
+      {{localize "FFD20.Finish"}}
+    </button>
+  </footer>
 </form>

@@ -1,0 +1,23 @@
+<div class="col actions">
+  <div class="below">
+    {{#each actions}}
+    <div data-item-id="{{id}}" data-item-type="{{type}}"
+      class="control-icon token-quick-action type-{{type}}"
+      data-tooltip="{{name}}">
+      <img src="{{img}}" width="36" height="36" inert>
+      {{#if isCharged}}
+        <charges inert>
+        {{~#if recharging~}}
+        <span class='recharge'>+{{uses}}</span>
+        {{~else~}}
+        <span class='remaining'>{{uses}}</span>
+          {{~#if max~}}
+          <span class='delimiter' >/</span ><span class='max'>{{max}}</span>
+          {{~/if~}}
+        {{~/if~}}
+        </charges>
+      {{/if}}
+    </div>
+    {{/each}}
+  </div>
+</div>

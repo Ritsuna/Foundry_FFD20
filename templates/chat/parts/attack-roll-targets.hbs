@@ -1,41 +1,54 @@
 <div class="attack-targets">
   <h2>{{localize "FFD20.Targets"}}</h2>
-  {{#each targets as |t|}}
-    <div class="target" data-uuid="{{t.uuid}}">
+  {{#each targets}}
+    <div class="target" data-uuid="{{uuid}}">
       {{!-- Saving Throws --}}
-      <div class="saving-throws" data-gm-sensitive-uuid="{{t.uuid}}">
-        <div class="fort click" data-saving-throw="fort" data-tooltip="FFD20.SavingThrowFort">
-          <i class="icon icon-heart-plus"></i>
+      <div class="saving-throws" data-gm-sensitive-uuid="{{uuid}}">
+        <div class="fort click" data-save="fort" data-tooltip="FFD20.SavingThrowFort">
+          <i class="icon-pf icon-heart-plus"></i>
           <span class="value"></span>
         </div>
-        <div class="ref click" data-saving-throw="ref" data-tooltip="FFD20.SavingThrowRef">
-          <i class="icon icon-divert"></i>
+        <div class="ref click" data-save="ref" data-tooltip="FFD20.SavingThrowRef">
+          <i class="icon-pf icon-divert"></i>
           <span class="value"></span>
         </div>
-        <div class="will click" data-saving-throw="will" data-tooltip="FFD20.SavingThrowWill">
-          <i class="icon icon-brain"></i>
+        <div class="will click" data-save="will" data-tooltip="FFD20.SavingThrowWill">
+          <i class="icon-pf icon-brain"></i>
           <span class="value"></span>
         </div>
       </div>
 
       {{!-- Portrait --}}
-      <img class="target-image" src="{{t.img}}"/>
+      <img class="target-image" src="{{img}}">
 
       {{!-- AC --}}
-      <div class="ac" data-gm-sensitive-uuid="{{t.uuid}}">
-        <div class="normal" data-tooltip="FFD20.ACNormal">
-          <i class="fas fa-shield-alt"></i>
-          <span class="value">{{t.actorData.system.attributes.ac.normal.total}}</span>
+      {{#if @root.action.isCombatManeuver}}
+      <div class="cmd" data-gm-sensitive-uuid="{{uuid}}">
+        <div class="normal" data-tooltip="FFD20.CMDAbbr">
+          <i class="fa-solid fa-shield-alt" inert></i>
+          <span class="value">{{actor.system.attributes.cmd.total}}</span>
         </div>
-        <div class="touch" data-tooltip="FFD20.ACTouch">
-          <i class="fas fa-hand-point-up"></i>
-          <span class="value">{{t.actorData.system.attributes.ac.touch.total}}</span>
-        </div>
-        <div class="flatFooted" data-tooltip="FFD20.ACFlatFooted">
-          <i class="fas fa-shoe-prints"></i>
-          <span class="value">{{t.actorData.system.attributes.ac.flatFooted.total}}</span>
+        <div class="flatFooted" data-tooltip="FFD20.CMDFlatFooted">
+          <i class="fa-solid fa-shoe-prints" inert></i>
+          <span class="value">{{actor.system.attributes.cmd.flatFootedTotal}}</span>
         </div>
       </div>
+      {{else}}
+      <div class="ac" data-gm-sensitive-uuid="{{uuid}}">
+        <div class="normal" data-tooltip="FFD20.ACNormal">
+          <i class="fa-solid fa-shield-alt" inert></i>
+          <span class="value">{{actor.system.attributes.ac.normal.total}}</span>
+        </div>
+        <div class="touch" data-tooltip="FFD20.ACTouch">
+          <i class="fa-solid fa-hand-point-up" inert></i>
+          <span class="value">{{actor.system.attributes.ac.touch.total}}</span>
+        </div>
+        <div class="flatFooted" data-tooltip="FFD20.ACFlatFooted">
+          <i class="fa-solid fa-shoe-prints" inert></i>
+          <span class="value">{{actor.system.attributes.ac.flatFooted.total}}</span>
+        </div>
+      </div>
+      {{/if}}
     </div>
   {{/each}}
 </div>

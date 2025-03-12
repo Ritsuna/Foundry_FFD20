@@ -1,17 +1,14 @@
-<form class="{{cssClass}} ffd20-sheet" autocomplete="off">
-
-  <!-- HEADER -->
+<form class="{{cssClass}} pf1-sheet" data-tooltip-class="ffd20" autocomplete="off">
   <header class="sheet-header">
     <h1 class="char-name">
-      <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}"/>
+      <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}" readonly>
     </h1>
   </header>
 
-  <!-- BODY -->
   <section class="sheet-body tab">
-    <img class="sheet-profile" src="{{actor.img}}" data-tooltip="{{actor.name}}" data-edit="img"/>
+    <img class="sheet-profile" src="{{actor.img}}" data-edit="img">
     <div class="tab biography">
-      {{editor biographyHTML target="system.details.biography.value" button=true editable=editable engine="prosemirror" collaborate=false}}
+      {{{biographyHTML}}}
     </div>
   </section>
 </form>

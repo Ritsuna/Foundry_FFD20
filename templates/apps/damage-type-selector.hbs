@@ -1,54 +1,46 @@
-<form class="ffd20 damage-type-selector" autocomplete="off">
-  <div class="flexrow damage-type-container">
-    <div class="flexcol damage-type-categories">
-      {{#each damageCategories as |category categoryKey|}}
-      <div class="damage-types" data-category="{{categoryKey}}">
-        <label>{{localize category.label}}</label>
-        <div class="icon-row">
-          {{#each category.data as |dt|}}
-          <div class="damage-type{{#if (arrayHas array=@root.data.values value=dt._id)}} toggled{{/if}}" data-id="{{dt._id}}">
-            {{!-- Icon --}}
-            {{#if dt.icon}}
-            <i class="{{dt.icon}} icon" style="color: {{dt.color}}"></i>
-            {{else}}
-            <img class="icon" src="{{dt.img}}">
-            {{/if}}
-            {{!-- Name --}}
-            <span class="name">{{localize dt.name}}</span>
-            <input type="checkbox" {{checked (arrayHas array=@root.data.values value=dt._id)}} />
+{{#*inline "damagetype"}}
+  <div class="damage-type{{#if enabled}} toggled{{/if}}" data-action="toggleDamageType" data-id="{{id}}">
+    {{!-- Icon --}}
+    {{#if icon}}
+      <i class="{{icon}} icon-pf" style="color: {{color}}"></i>
+    {{else}}
+      <img class="icon" src="{{img}}">
+    {{/if}}
+    {{!-- Name --}}
+    <span class="name">{{name}}</span>
+    <input type="checkbox" {{checked enabled}}>
+  </div>
+{{/inline}}
+
+<section class="form-body" data-tooltip-class="pf1-v2">
+  <div class="damage-type-container">
+    <div class="damage-type-categories">
+      {{#each categories}}
+        <div class="damage-types" data-category="{{@key}}">
+          <label>{{localize label}}</label>
+          <div class="icon-row">
+            {{#each types}}
+              {{> "damagetype"}}
+            {{/each}}
           </div>
-          {{/each}}
         </div>
-      </div>
       {{/each}}
     </div>
 
     <div class="damage-modifiers">
       <label>{{localize "FFD20.DamageModifiers"}}</label>
       <div class="icon-row">
-        {{#each damageModifiers as |dt|}}
-        <div class="damage-type{{#if (arrayHas array=@root.data.values value=dt._id)}} toggled{{/if}}" data-id="{{dt._id}}">
-            {{!-- Icon --}}
-            {{#if dt.icon}}
-            <i class="{{dt.icon}} icon" style="color: {{dt.color}}"></i>
-            {{else}}
-            <img class="icon" src="{{dt.img}}">
-            {{/if}}
-            {{!-- Name --}}
-          <span class="name">{{localize dt.name}}</span>
-          <input type="checkbox" {{checked (arrayHas array=@root.data.values value=dt._id)}} />
-        </div>
+        {{#each modifiers}}
+          {{> "damagetype"}}
         {{/each}}
       </div>
     </div>
   </div>
 
-  <div class="flexrow misc-container">
+  <div class="misc-container">
     <div class="form-group custom">
       <label>{{localize "FFD20.Custom"}}</label>
-      <input type="text" name="custom" value="{{@root.data.custom}}" />
+      <input type="text" name="custom" value="{{@root.customTypes}}">
     </div>
   </div>
-
-  <button type="submit" name="submit"><i class="far fa-save"></i> {{ localize "Save Changes" }}</button>
-</form>
+</section>

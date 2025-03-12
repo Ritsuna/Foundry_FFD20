@@ -1,22 +1,33 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}} flexcol" autocomplete="off" data-tooltip-class="ffd20">
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img" />
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
 
     <div class="header-details flexrow">
       {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
 
       <ul class="summary">
-        <li>
-          {{itemType}}
-        </li>
-        <li>
-          {{#unless showUnidentifiedData}}{{lookup config.consumableTypes system.subType }}{{/unless}}
-        </li>
       </ul>
     </div>
   </header>
+
+    {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      {{#if @root.showIdentifiedData}}
+      <h4 class="item-subtype">{{labels.subType}}</h4>
+      {{/if}}
+    </header>
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-aura.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
@@ -38,43 +49,46 @@
     <div class="tab details" data-group="primary" data-tab="details">
       {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
 
+      {{!-- Consumable Type --}}
+      {{#unless showUnidentifiedData}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Type"}}</label>
+        <select name="system.subType">
+          {{selectOptions config.consumableTypes selected=system.subType}}
+        </select>
+      </div>
+
+      {{#if hasSpellType}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Spellcasting.Type.Label"}}</label>
+        <select name="system.spellType">
+          {{selectOptions @root.config.spellcasting.spells selected=system.spellType blank="FFD20.NonApplicable" localize=true}}
+        </select>
+      </div>
+      {{/if}}
+      {{/unless}}
+
       <h3 class="form-header">{{localize "FFD20.Properties"}}</h3>
 
       <div class="form-group stacked">
-        {{#if owner}}
-        <label class="checkbox">
-          <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}}/> {{localize "FFD20.ShowInQuickbar"}}
+        <label class="checkbox timeworn">
+          <input type="checkbox" name="system.timeworn" {{checked system.timeworn}}>
+          {{localize "FFD20.Timeworn"}}
+        </label>
+
+        {{#if @root.showIdentifiedData}}
+        <label class="checkbox artifact">
+          <input type="checkbox" name="system.artifact" {{checked system.artifact}}>
+          {{localize "FFD20.Artifact"}}
         </label>
         {{/if}}
       </div>
 
       {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
 
-      <h3 class="form-header">{{localize "FFD20.Details"}}</h3>
-
-      {{!-- Consumable Type --}}
-      {{#unless showUnidentifiedData}}
-      <div class="form-group">
-        <label>{{localize "FFD20.Type"}}</label>
-        <select name="system.subType">
-          {{#select system.subType}}
-          {{#each config.consumableTypes as |name type|}}
-          <option value="{{type}}">{{name}}</option>
-          {{/each}}
-          {{/select}}
-        </select>
-      </div>
-      {{/unless}}
-
-      {{#if isGM}}
-      <label class="checkbox">
-        <input type="checkbox" name="system.identified" {{checked system.identified}}/> {{localize "FFD20.Identified"}}
-      </label>
-      {{/if}}
-
       {{!-- Advanced --}}
       {{#unless showUnidentifiedData}}
-      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
 
       {{! Tags }}
       {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
@@ -84,12 +98,12 @@
       {{/unless}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="links">
+    <div class="tab links" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
 
     {{#unless showUnidentifiedData}}
-    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
       {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
     {{/unless}}

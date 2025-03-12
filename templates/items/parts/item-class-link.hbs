@@ -1,0 +1,11 @@
+{{#if @root.canClassLink}}
+<div class="form-group associated-class">
+	<label>{{localize "FFD20.AssociatedClass"}}</label>
+  <div class="form-fields">
+    <select name="system.class" {{#if @root.hasClassLink}}data-tooltip="@class.level : {{@root.rollData.class.level}}"{{/if}}>
+      <option value="">{{localize "FFD20.NonApplicable"}}</option>
+      {{selectOptions @root.classes selected=@root.system.class}}
+    </select>
+  </div>
+</div>
+{{/if}}

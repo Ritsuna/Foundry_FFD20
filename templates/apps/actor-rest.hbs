@@ -1,26 +1,22 @@
-<form class="{{cssClass}}" autocomplete="off">
-  <div class="flexcol">
-    <div class="form-group stacked">
-      <label class="checkbox">
-        <input type="checkbox" name="restoreHealth" checked/> {{localize "FFD20.RestoreHealth"}}
-      </label>
+<section class="form-body flexcol" data-tooltip-class="pf1-v2">
+  <div class="form-group inline-stacked">
+    <label class="checkbox">
+      <input type="checkbox" name="restoreHealth" checked> {{localize "FFD20.RestoreHealth"}}
+    </label>
 
-      <label class="checkbox">
-        <input type="checkbox" name="restoreDailyUses" checked/> {{localize "FFD20.RestoreDailyUses"}}
-      </label>
+    <label class="checkbox">
+      <input type="checkbox" name="restoreDailyUses" checked> {{localize "FFD20.RestoreDailyUses"}}
+    </label>
 
-      <label class="checkbox">
-        <input type="checkbox" name="longTermCare"/> {{localize "FFD20.LongTermCare"}}
-      </label>
-    </div>
-
-    <div class="form-group">
-      <label>{{localize "FFD20.Duration"}}</label>
-      <input type="number" data-dtype="Number" name="hours" value="8"/> {{localize "FFD20.TimeHour"}}
-    </div>
+    <label class="checkbox">
+      <input type="checkbox" name="longTermCare"> {{localize "FFD20.LongTermCare"}}
+    </label>
   </div>
 
-  <button type="submit" name="submit">
-    {{localize "FFD20.Rest"}}
-  </button>
-</form>
+  <div class="form-group">
+    <label>{{localize "FFD20.Duration"}}</label>
+    <div class="form-fields">
+      <input type="number" name="hours" value="8" min="0" step="1" placeholder="0"> {{localize "FFD20.Time.Period.hour.Label"}}
+    </div>
+  </div>
+</section>

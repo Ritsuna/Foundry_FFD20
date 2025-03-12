@@ -5,11 +5,11 @@
   <thead>
     <tr>
       <th class="name">{{localize "FFD20.Item"}}</th>
-      <th class="aura">{{localize "FFD20.Aura"}}</th>
+      <th class="aura">{{localize "FFD20.Aura.Single"}}</th>
       <th class="cl">{{localize "FFD20.CasterLevel"}}</th>
       {{#if isGM}}
       <th class="identify-dc">{{localize "FFD20.IdentifyDC"}}</th>
-      <th class="identify"><i class="icon icon-quill-ink large" data-tooltip="FFD20.Identified"></i></th>
+      <th class="identify"><i class="icon-pf icon-quill-ink" data-tooltip="FFD20.Identified"></i></th>
       {{/if}}
     </tr>
   </thead>
@@ -30,9 +30,9 @@
       <td class="controls">
         <a class="item-control item-identify" data-tooltip="{{#if identified}}FFD20.Unidentify{{else}}FFD20.Identify{{/if}}">
           {{#if identified}}
-          <i class="fas fa-check"></i>
+          <i class="fa-solid fa-check" inert></i>
           {{else}}
-          <i class="fas fa-times"></i>
+          <i class="fa-solid fa-times" inert></i>
           {{/if}}
         </a>
       </td>

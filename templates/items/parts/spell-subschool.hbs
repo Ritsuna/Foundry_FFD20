@@ -1,0 +1,11 @@
+<div class="form-group flexrow subschool">
+  <label>{{localize "FFD20.Subschool"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+      {{#each subschool.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.Subschool" data-for="system.subschool" data-options="subschool" data-school={{system.school}}><i class="fa-solid fa-edit" inert></i></a>
+  </div>
+</div>

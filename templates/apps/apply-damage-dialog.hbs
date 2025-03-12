@@ -1,0 +1,182 @@
+<section>
+  {{! Base Damage }}
+  <div class="form-group">
+    <label>{{#if isHealing}}{{localize "FFD20.Healing"}}{{else}}{{localize "FFD20.Damage"}}{{/if}}</label>
+    <div class="form-fields">
+      <input type="number" name="value" value="{{value}}" min="0" step="1">
+    </div>
+  </div>
+
+  {{! Instances }}
+  {{#if (and instances.length (not isHealing))}}
+  <div class="form-group instances">
+    <label>{{localize "FFD20.Application.Damage.Instances"}}</label>
+    <div class="form-fields">
+      {{#each instances}}
+      <span class="instance">
+        <span class="value">{{value}}</span>
+        <span class="types">{{label}}</span>
+      </span>
+      {{/each}}
+    </div>
+  </div>
+  {{/if}}
+
+  {{! Options }}
+  <div class="form-group stacked">
+    {{#unless useWoundsAndVigor}}
+    <label class="checkbox">
+      <input type="checkbox" name="options.asNonlethal" {{checked options.asNonlethal}}>
+      {{localize "FFD20.Nonlethal"}}
+    </label>
+
+    {{#if isHealing}}
+    <label class="checkbox" data-tooltip="FFD20.Application.Damage.DualHealHint">
+      <input type="checkbox" name="options.dualHeal" {{checked options.dualHeal}} {{disabled (or options.asWounds options.asNonlethal)}}>
+      {{localize "FFD20.Application.Damage.DualHeal"}}
+    </label>
+    {{/if}}
+    {{else}}
+    <label class="checkbox">
+      <input type="checkbox" name="options.asWounds" {{checked options.asWounds}}>
+      {{localize "FFD20.Application.Damage.AsWounds"}}
+    </label>
+    {{/unless}}
+    <label class="checkbox">
+      <input type="checkbox" name="options.asManaDamage" {{checked options.asManaDamage}}>
+      {{localize "FFD20.ManaDamage"}}
+    </label>
+
+  </div>
+
+
+  {{! Reduction for all }}
+  <div class="form-group">
+    <label>{{localize "FFD20.Application.Damage.ReduceBy"}}</label>
+    <div class="form-fields">
+      <input type="number" name="reduction" value="{{reduction}}" min="0" step="1" placeholder="0" autofocus>
+    </div>
+  </div>
+
+  {{! Targets }}
+  <div class="targets">
+    {{#each targets as |target targetIdx|}}
+    <div class="target" data-uuid="{{uuid}}">
+      <h4 class="target-ident">
+        <span class="name">{{name}}</span>
+        <span class="total" data-tooltip="FFD20.Total">{{value}}</span>
+      </h4>
+
+      <input type="hidden" name="targets.{{targetIdx}}.uuid" value="{{uuid}}">
+
+      <div class="switch ratio">
+        <label class="switch-option">
+          <input type="radio" name="targets.{{targetIdx}}.ratio" value="1.5" data-dtype="Number" {{checked (eq ratio 1.5)}}>
+          <span class="value">×1.5</span>
+        </label>
+        <label class="switch-option">
+          <input type="radio" name="targets.{{targetIdx}}.ratio" value="1" data-dtype="Number" {{checked (eq ratio 1)}}>
+          <span class="value">×1.0</span>
+        </label>
+        <label class="switch-option">
+          <input type="radio" name="targets.{{targetIdx}}.ratio" value="0.5" data-dtype="Number" {{checked (eq ratio 0.5)}}>
+          <span class="value">×0.5</span>
+        </label>
+        <label class="switch-option">
+          <input type="radio" name="targets.{{targetIdx}}.ratio" value="" data-dtype="Number" {{checked (eq ratio null)}}>
+          <span>{{localize "FFD20.None"}}</span>
+        </label>
+      </div>
+
+      <div class="target-reduction">
+        <span>{{localize "FFD20.Application.Damage.ReduceBy"}}:</span>
+        <input type="number" name="targets.{{targetIdx}}.reduction" placeholder="0" value="{{reduction}}" min="0" step="1">
+        +
+        <span class='choice-totals'>{{reductionChoices}}</span>
+      </div>
+
+      <div class="resistances">
+        {{! DR, ER, Hardness}}
+        {{#if haveDER}}
+          {{#if (and dr.length activeDR @root.hasPhysical)}}
+          <div class="reduction-category physical-reduction">
+            <h6>{{localize "FFD20.DamRed"}}</h6>
+            <ul>
+            {{#each dr}}
+              {{#if enabled}}
+              <li class="reduction-choice">
+                <label>
+                  <input type="checkbox" name="targets.{{targetIdx}}.dr.{{@index}}.active"
+                    data-types="{{typeIds}}" data-value="{{value}}" data-operator="{{operator}}" {{checked active}}>
+                  {{label}}
+                </label>
+              </li>
+              {{else}}
+                <input type="hidden" name="targets.{{targetIdx}}.dr.{{@index}}.active" data-dtype="Boolean" value="false">
+              {{/if}}
+            {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+          {{#if hardness}}
+          <div class="reduction-category hardness">
+            <h6>{{localize "FFD20.Hardness"}}</h6>
+            <ul>
+              <li class="reduction-choice">
+                <label>
+                  <input type="checkbox" name="targets.{{targetIdx}}.reductions.hardness" {{checked reductions.hardness}}>
+                  {{hardness}}
+                </label>
+              </li>
+            </ul>
+          </div>
+          {{/if}}
+          {{#if (and eres.length activeER @root.hasEnergy)}}
+          <div class="reduction-category energy-resistance">
+            <h6>{{localize "FFD20.EnRes"}}</h6>
+            <ul>
+            {{#each eres}}
+              {{#if enabled}}
+              <li class="reduction-choice">
+                <label>
+                  <input type="checkbox" name="targets.{{targetIdx}}.eres.{{@index}}.active" {{checked active}}>
+                  {{label}}
+                </label>
+              </li>
+              {{else}}
+                <input type="hidden" name="targets.{{targetIdx}}.eres.{{@index}}.active" data-dtype="Boolean" value="false">
+              {{/if}}
+            {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+        {{/if}}
+
+        {{! Damage Immunities and Vulnerabilities }}
+        {{#if haveDIV}}
+          {{#if di.length}}
+          <div class="reduction-category immunity">
+            <h6>{{localize "FFD20.DamImm"}}</h6>
+            <ul>
+            {{#each di}}
+              <li class="immunity-choice"><a data-type="immunity">{{this}}</a></li>
+            {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+          {{#if dv.length}}
+          <div class="reduction-category vulnerability">
+            <h6>{{localize "FFD20.DamVuln"}}</h6>
+            <ul>
+            {{#each dv}}
+              <li class="vulnerability-choice"><a data-type="vulnerability">{{this}}</a></li>
+            {{/each}}
+            </ul>
+          </div>
+          {{/if}}
+        {{/if}}
+      </div>
+    </div>
+    {{/each}}
+  </div>
+</section>

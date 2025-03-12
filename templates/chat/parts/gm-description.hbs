@@ -1,18 +1,20 @@
-<div class="gm-sensitive-always identified-info">
+<div class="identified-info">
   <section class="item-description">
     <header class="flexrow description-header">
-      <h3 class="item-name">{{name}}{{#if hasCombinedName}} ({{actionName}}){{/if}}</h3>
+      <h3 class="item-name">{{item.name}}{{#if hasUniqueActionName}} ({{action.name}}){{/if}}</h3>
       <div class="description-metadata">
-        <i class="fas fa-user-secret"></i>
+        <i class="fa-solid fa-user-secret" inert></i>
       </div>
     </header>
-    {{{description}}}
+    {{{item.description}}}
   </section>
-  {{#if (and actionName actionDescription)}}
+  {{#if (and action.name action.description)}}
     {{#if description}}<hr>{{/if}}
     <section class="action-description">
-      <h3 class="action-name">{{actionName}}</h3>
-      {{{actionDescription}}}
+      {{#if hasUniqueActionName}}
+      <h3 class="action-name">{{action.name}}</h3>
+      {{/if}}
+      {{{action.description}}}
     </section>
   {{/if}}
 </div>

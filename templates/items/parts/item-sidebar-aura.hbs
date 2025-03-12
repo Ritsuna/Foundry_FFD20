@@ -1,0 +1,15 @@
+{{#if (and showIdentifiedData identify.dc aura)}}
+<h5>{{localize "FFD20.Aura.Single"}}</h5>
+<label>{{aura.school}} ({{aura.strengthLabel}})</label>
+
+<label class="identify-dc">
+  <span>{{localize "FFD20.IdentifyDC"}}</span>
+  <span class='value'>{{identify.dc}}</span>
+</label>
+{{#if (and isGM system.cursed)}}
+<label class="curse-dc">
+  <span>{{localize "FFD20.IdentifyCurseDC"}}</span>
+  <span class='value'>{{identify.curse}}</span>
+</label>
+{{/if}}
+{{/if}}

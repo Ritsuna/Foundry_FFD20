@@ -1,87 +1,76 @@
 {{!-- Skill Rank Info --}}
-<div class="flexcol skill-rank">
-  <ol class="form-group">
-    <li class="flexrow skill-rank-formula">
+<header class="flexcol skill-ranks">
+  <div class="form-group">
+    {{! Arbitrary Bonus SKill Ranks}}
+    <div class="flexrow skill-rank-formula">
       <label>{{localize "FFD20.SkillBonusRankFormula"}}</label>
-      <input class="formula" type="text" name="system.details.bonusSkillRankFormula" value="{{system.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}"/>
-    </li>
+      <input class="formula" type="text" name="system.details.bonusSkillRankFormula" value="{{system.details.bonusSkillRankFormula}}" placeholder="{{localize "FFD20.Formula"}}">
+    </div>
+    {{! Skill Lock Toggle }}
     <a class="skill-lock-button{{#unless @root.skillsLocked}} unlocked{{/unless}}" data-tooltip="FFD20.ToggleSkillLock"></a>
-  </ol>
-  {{#unless useBGSkills}}
-  <ol class="form-group">
-    <li class="flexrow skill-rank-info tooltip">
-      <span class="tooltipcontent">
-        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceData.skillRanks label="FFD20.FromSources" skipLine=true}}
-      </span>
-      <table class="skill-ranks">
-        <thead>
-          <tr>
-            <th>{{localize "FFD20.SkillRankPlural"}}</th>
-            <th>{{localize "FFD20.Used"}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="center ranks-max">{{skillRanks.allowed}}</td>
-            <td class="center ranks-used">{{skillRanks.used}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </li>
-  </ol>
-  {{else}}
-  <ol class="form-group tooltip">
-    <li class="flexrow skill-rank-info">
-      <span class="tooltipcontent">
-        {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceData.skillRanks label="FFD20.FromSources" skipLine=true}}
-      </span>
-      <table class="skill-ranks">
-        <thead>
-          <tr>
-            <th>{{localize "FFD20.SkillRankPlural"}}</th>
-            <th>{{localize "FFD20.Used"}}</th>
-            <th>{{localize "FFD20.AdventureRanksToBG"}}</th>
-            <th>{{localize "FFD20.BGSkillRanks"}}</th>
-            <th>{{localize "FFD20.BGUsed"}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="center ranks-max">{{skillRanks.allowed}}</td>
-            <td class="center ranks-used">{{skillRanks.used}}</td>
-            <td class="center ranks-transferred">{{skillRanks.sentToBG}}</td>
-            <td class="center ranks-max-bg">{{skillRanks.bgAllowed}}</td>
-            <td class="center ranks-used-bg">{{skillRanks.bgUsed}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </li>
-  </ol>
-  {{/unless}}
-</div>
+  </div>
+
+  {{! Skill Ranks }}
+  <div class="flexrow skill-ranks">
+    <div class="info-box-joined adventure" data-tooltip-extended="skills.adventure">
+      <div class="info-box available">
+        <h5>{{localize "FFD20.SkillRankPlural"}}</h5>
+        <span class="value">{{skillRanks.allowed}}</span>
+      </div>
+      <div class="info-box used">
+        <h5>{{localize "FFD20.Used"}}</h5>
+        <span class="value">{{skillRanks.used}}</span>
+      </div>
+    </div>
+
+    {{#if useBGSkills}}
+    <div class="info-box transferred">
+      <h5>{{localize "FFD20.Transferred"}}</h5>
+      <span class="value">{{skillRanks.sentToBG}}</span>
+    </div>
+
+    <div class="info-box-joined background" data-tooltip-extended="skills.background">
+      <div class="info-box available">
+        <h5>{{localize "FFD20.BGSkillRanks"}}</h5>
+        <span class="value">{{skillRanks.bgAllowed}}</span>
+      </div>
+      <div class="info-box used">
+        <h5>{{localize "FFD20.BGUsed"}}</h5>
+        <span class="value">{{skillRanks.bgUsed}}</span>
+      </div>
+    </div>
+    {{/if}}
+
+    <div class="info-box acp" data-tooltip-extended="acp">
+      <h5>{{localize "FFD20.ACP"}}</h5>
+      <span class="value">{{system.attributes.acp.total}}</span>
+    </div>
+  </div>
+</header>
 
 {{#if useBGSkills}}
+{{! Background Skills }}
 <nav class="sheet-navigation tabs" data-group="skillset">
   <a class="item" data-tab="adventure" data-group="skillset">{{localize "FFD20.SkillTypeAdventure"}}</a>
   <a class="item" data-tab="background" data-group="skillset">{{localize "FFD20.SkillTypeBackground"}}</a>
 </nav>
 
 <section class="skillset-body">
-  <div class="tab flexcol" data-group="skillset" data-tab="adventure">
+  {{! Adventure Skills }}
+  <div class="tab" data-group="skillset" data-tab="adventure">
     {{> "systems/ffd20/templates/actors/parts/actor-skills.hbs" skillset=skillsets.adventure.skills isBackgroundSkills="false" skillGroup="adventure"}}
   </div>
 
-  <div class="tab flexcol" data-group="skillset" data-tab="background">
+  {{! Background Skills }}
+  <div class="tab" data-group="skillset" data-tab="background">
     {{> "systems/ffd20/templates/actors/parts/actor-skills.hbs" skillset=skillsets.background.skills isBackgroundSkills="true" skillGroup="background"}}
   </div>
 </section>
 {{else}}
-<nav class="sheet-navigation tabs" data-group="skillset" style="display: none">
-  <a class="item" data-tab="all">{{localize "FFD20.AllSkills"}}</a>
-</nav>
-
+{{! Normal Skills }}
 <section class="skillset-body">
-  <div class="tab flexcol" data-group="skillset" data-tab="all">
+  {{! All Skills }}
+  <div class="tab active" data-group="skillset" data-tab="all">
     {{> "systems/ffd20/templates/actors/parts/actor-skills.hbs" skillset=skillsets.all.skills isBackgroundSkills="false" skillGroup="adventure"}}
   </div>
 </section>

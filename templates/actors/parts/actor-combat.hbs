@@ -1,109 +1,53 @@
-{{!-- Misc Combat Header --}}
-<div class="combat-header">
-  <table>
-    <thead>
-      <tr>
-        <th class="attribute bab tooltip" data-attribute="bab">
-          <span class="tooltipcontent">
-            <span class="span2 align-left">@attributes.bab.total :</span><span class="span1 align-right"> &nbsp;{{system.attributes.bab.total}}</span>
-            
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.bab.total }}
-          </span>
+<header>
+  {{! BAB }}
+  <div class="info-box attribute bab" data-attribute="bab" data-tooltip-extended="bab">
+    <h5><a class="rollable"><span>{{localize "FFD20.BABAbbr"}}</span></a></h5>
+    <span class="value">
+      {{#if iteratives}}
+      {{iteratives}}
+      {{else}}
+      {{numberFormat system.attributes.bab.total decimals=0 sign=true}}
+      {{/if}}
+    </span>
+  </div>
 
-          <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.BABAbbr"}}</span></a>
-        </th>
-        <th class="attribute cmb tooltip" data-attribute="cmb">
-          {{> "systems/ffd20/templates/actors/parts/actor-cmb.hbs"}}
+  {{! CMB }}
+  <div class="info-box attribute attack cmb" data-attribute="cmb" {{#unless system.config.noManeuvers}}data-tooltip-extended="cmb"{{/unless}}>
+    <h5><a class="{{#unless system.config.noManeuvers}}rollable{{else}}disabled{{/unless}}" data-type="cmb" data-ranged="false">{{localize "FFD20.CMBAbbr"}}</a></h5>
+    <span class="value">
+      {{#if system.config.noManeuvers}}
+      <i class="fa-solid fa-minus" inert></i>
+      {{else}}
+      {{numberFormat system.attributes.cmb.total decimals=0 sign=true}}
+      {{/if}}
+    </span>
+  </div>
 
-          <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.CMBAbbr"}}</span></a>
-        </th>
-        <th class="attribute attack melee tooltip" data-attack="melee">
-          <span class="tooltipcontent">
-            <span class="span3">…</span>
-            <span class="span2 align-left">+ @attributes.attack.shared :</span> <span class="span1 align-right"> &nbsp;{{system.attributes.attack.shared}}</span>
-            <span class="span2 align-left">+ @attributes.attack.general :</span> <span class="span1 align-right"> &nbsp;{{system.attributes.attack.general}}</span>
-            <span class="span2 align-left">+ @attributes.attack.melee :</span> <span class="span1 align-right"> &nbsp;{{system.attributes.attack.melee}}</span>
-            
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.attack.shared }}
-            {{#if genericAttacks.melee.ability}}<span class="span1 align-left">{{lookup @root.config.abilities genericAttacks.melee.ability}} :</span><span class="span1 align-rightspaced"> {{numberFormat genericAttacks.melee.abilityMod decimals=0 sign=true}}</span><span class="span1 align-right"></span>{{/if}}
-            {{#if (ne @root.system.traits.size "med")}}<span class="span1 align-left">{{localize "FFD20.Size"}} : </span><span class="span1 align-rightspaced">{{lookup @root.config.sizeMods @root.system.traits.size }}</span><span class="span1 align-right"></span>{{/if}}
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.attack.general skipLine=true skipLabel=1}}
+  <div class="info-box-joined generic-attacks">
+    {{! Melee }}
+    <div class="info-box attribute attack melee weapon" data-tooltip-extended="generic.attack.melee">
+      <h5><a class="rollable" data-type="weapon" data-ranged="false"><span>{{localize "FFD20.Melee"}}</span></a></h5>
+      <span class="value">{{numberFormat genericAttacks.melee.modifier decimals=0 sign=true}}</span>
+    </div>
 
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.attack.melee skipLine=true skipLabel=1}}
-          </span>
-          <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.Melee"}}</span></a>
-        </th>
-        <th class="attribute attack ranged tooltip" data-attack="ranged">
-          <span class="tooltipcontent">
-            <span class="span3">…</span>
-            <span class="span2 align-left">+ @attributes.attack.shared :</span> <span class="span1 align-right"> &nbsp;{{system.attributes.attack.shared}}</span>
-            <span class="span2 align-left">+ @attributes.attack.general :</span> <span class="span1 align-right"> &nbsp;{{system.attributes.attack.general}}</span>
-            <span class="span2 align-left">+ @attributes.attack.ranged :</span> <span class="span1 align-right"> &nbsp;{{system.attributes.attack.ranged}}</span>
+    {{! Ranged }}
+    <div class="info-box attribute attack ranged weapon" data-tooltip-extended="generic.attack.ranged">
+      <h5><a class="rollable" data-type="weapon" data-ranged="true"><span>{{localize "FFD20.Ranged"}}</span></a></h5>
+      <span class="value">{{numberFormat genericAttacks.ranged.modifier decimals=0 sign=true}}</span>
+    </div>
+  </div>
 
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.attack.shared }}
-            {{#if genericAttacks.ranged.ability}}<span class="span1 align-left">{{lookup @root.config.abilities genericAttacks.ranged.ability}} :</span><span class="span1 align-rightspaced"> {{numberFormat genericAttacks.ranged.abilityMod decimals=0 sign=true}}</span><span class="span1 align-right"></span>{{/if}}
-            {{#if (ne @root.system.traits.size "med")}}<span class="span1 align-left">{{localize "FFD20.Size"}} :</span> <span class="span1 align-rightspaced"> &nbsp;{{lookup @root.config.sizeMods @root.system.traits.size }}</span><span class="span1 align-right"></span>{{/if}}
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.attack.general skipLine=true skipLabel=1}}
-
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.attack.ranged skipLine=true skipLabel=1}}
-          </span>
-          <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.Ranged"}}</span></a>
-        </th>
-        <th class="attribute initiative tooltip" data-attribute="initiative">
-          <span class="tooltipcontent">
-            <span class="span2 align-left">@attributes.init.total :</span><span class="span1 align-right"> &nbsp;{{system.attributes.init.total}}</span>
-            {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.init.total }}
-
-            {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.init"}}
-          </span>
-
-          <a class="rollable"><i class="fas fa-dice"></i><span>{{localize "FFD20.Initiative"}}</span></a>
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td class="bab">
-          {{#if iteratives}}
-          {{iteratives}}
-          {{else}}
-          {{numberFormat system.attributes.bab.total decimals=0 sign=true}}
-          {{/if}}
-        </td>
-
-        <td class="cmb">
-          {{numberFormat system.attributes.cmb.total decimals=0 sign=true}}
-        </td>
-
-        <td class="generic-melee">
-          {{numberFormat genericAttacks.melee.modifier decimals=0 sign=true}}
-        </td>
-
-        <td class="generic-ranged">
-          {{numberFormat genericAttacks.ranged.modifier decimals=0 sign=true}}
-        </td>
-
-        <td class="initiative">
-          {{system.attributes.init.total}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  {{! Initiative }}
+  <div class="info-box attribute initiative" data-attribute="initiative" data-tooltip-extended="init">
+    <h5><a class="rollable"><span>{{localize "FFD20.Initiative"}}</span></a></h5>
+    <span class="value">{{numberFormat system.attributes.init.total sign=true}}</span>
+  </div>
+</header>
 
 <hr>
 
 {{!-- Attack Filters --}}
-<div class="inventory-filters flexrow">
-  {{~> "systems/ffd20/templates/internal/item-search.hbs" category="attacks"}}
-
-  <ul class="filter-list flexrow" data-filter="attacks">
-    {{#each sections as |section sid|}}
-      <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
-    {{/each}}
-  </ul>
-</div>
+{{> "systems/ffd20/templates/actors/parts/actor-item-nav-filters.hbs" category="attacks" sections=sections}}
 
 {{!-- Attacks Header --}}
 <div class="combat-attacks">
@@ -111,13 +55,13 @@
     <ol class="item-groups-list">
     {{#each sections as |section sid|}}
     {{#unless section._hidden}}
-      <ol class="item-list" data-type="attack" data-subtype="{{sid}}">
-        <li class="item-list-header flexrow attacks-{{sid}}">
+      <ol class="item-list" data-list="{{id}}" data-type="{{create.type}}" data-subtype="{{create.system.subType}}">
+        <li class="item-list-header flexrow attacks-{{id}}">
           <div class="item-name">
             <h3>{{section.label}}</h3>
           </div>
 
-          {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon icon-magic-palm large" data-tooltip="FFD20.Type"></i></div>{{/if}}
+          {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon-pf icon-magic-palm" data-tooltip="FFD20.Type"></i></div>{{/if}}
 
           <div class="item-detail item-attacks">
             <label>{{localize "FFD20.Attacks"}}</label>
@@ -131,15 +75,15 @@
               <label>{{localize "FFD20.Range"}}</label>
           </div>
 
-          <div class="item-detail item-actions"><i class="icon icon-gears large" data-tooltip="FFD20.ActionPlural"></i></div>
+          <div class="item-detail item-actions"><i class="icon-pf icon-gears" data-tooltip="FFD20.ActionPlural"></i></div>
 
-          <div class="item-detail item-uses"><i class="icon icon-battery-pack large" data-tooltip="FFD20.ChargePlural"></i></div>
+          <div class="item-detail item-uses"><i class="icon-pf icon-battery-pack" data-tooltip="FFD20.ChargePlural"></i></div>
 
-          {{#if ../owner}}
+          {{#if @root.owner}}
           <div class="item-controls">
-            {{#if section.canCreate}}
-            <a class="item-control item-create" data-tooltip="FFD20.CreateItem" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
-              <i class="fas fa-plus"></i> {{localize "FFD20.Add"}}
+            {{#if interface.create}}
+            <a class="item-control item-create" data-tooltip="FFD20.CreateItem" data-create="{{path}}">
+              <i class="fa-solid fa-plus" inert></i>
             </a>
             {{/if}}
           </div>
@@ -147,7 +91,7 @@
         </li>
 
         {{#each section.items as |item iid|}}
-        <li class="item flexrow" data-item-id="{{item.id}}">
+        <li class="item flexrow{{#if isBroken}} broken{{/if}}" data-item-id="{{item.id}}">
           <div class="item-name rollable">
             <div class="item-image" style='background-image: url("{{item.img}}")' data-tooltip="FFD20.DisplayInChat"></div>
             <h4>{{item.name~}}</h4>
@@ -155,68 +99,25 @@
 
           {{#if section.showTypes}}
           <div class="item-detail item-type">
-            <span>{{lookup ../../config.attackTypes item.subType}}</span>
+            <span>{{lookup @root.config.attackTypes item.subType}}</span>
           </div>
           {{/if}}
 
-          <div class="item-detail item-attacks tooltip">
+          <div class="item-detail item-attacks" data-tooltip-extended="item.{{item.id}}.attacks">
             {{#if item.hasAttack}}
-            <label>{{actionAttacks item.document.firstAction @root.rollData}}</label>
-            <span class="tooltipcontent">
-              <span class="span3">
-                {{#each item.document.attackArray~}}
-                  {{numberFormat this decimals=0 sign=true}}{{#unless @last}}/{{/unless}}
-                {{~/each}}
-              </span>
-              
-              {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=item.document.attackSources label="FFD20.Details"}}
-            </span>
+            <label>{{attackSummary}}</label>
             {{/if}}
           </div>
 
-          <div class="item-detail item-damage tooltip">
+          <div class="item-detail item-damage tooltip" data-tooltip-extended="item.{{item.id}}.damage">
             {{#if item.hasDamage}}
-              <label class="resolved-formula">{{actionDamage item.document.firstAction @root.rollData}}</label>
-              <span class="tooltipcontent">
-                <span class="span3">{{actionDamage item.document.firstAction @root.rollData combine=false}}</span>
-                <span class="span3"><br/>{{localize "FFD20.Details"}}:</span>
-                {{#with item.document.firstAction}}
-                  {{#each data.damage.parts as |pt ix|}}
-                    <span class="span1 align-left">{{pt.formula}}</span><span class="span1 align-rightspaced">&nbsp;</span><span class="span1 align-right">{{#if pt.type}} [{{damageTypes pt.type}}]{{/if}}</span>
-                  {{/each}}
-                  {{#if data.damage.nonCritParts}}
-                    {{#each data.damage.nonCritParts as |pt|}}
-                      <span class="span1 align-left">{{pt.formula}}</span><span class="span1 align-rightspaced">&nbsp;</span><span class="span1 align-right">{{#if pt.type}} [{{damageTypes pt.type}}]{{/if}}</span>
-                    {{/each}}
-                  {{/if}}
-                  {{#if data.ability.damage}}
-                    <span class="span1 align-left">{{abilityMod data.ability.damage @root.rollData data.ability.damageMult}}</span><span class="span1 align-rightspaced">&nbsp;</span><span class="span1 align-right"> [{{lookup @root.config.abilities data.ability.damage}}]</span>
-                  {{/if}}
-                  {{#each allDamageSources}}
-                    {{#if @first}}<span class="span3"><br></span>{{/if}}
-                    <span class="span1 align-left">{{flavor}} :</span><span class="span1 align-rightspaced"> {{value}}</span> <span class="span1 align-right"> [{{#if type}}{{type}}{{else}}{{lookup @root.config.bonusModifiers modifier}}{{/if}}]</span>
-                  {{/each}}
-                  {{#if (optionalConditionals item)}}
-                    <span class="span3">+ {{localize "FFD20.Conditionals"}}</span>
-                  {{/if}}
-                  {{#if damage.critParts}}
-                    <span class="span3">+ {{localize "FFD20.CritDamageBonusFormula"}}</span>
-                  {{/if}}
-                {{/with}}
-              </span>
+              <label class="resolved-formula">{{actionDamage item.document.defaultAction}}</label>
             {{/if}}
           </div>
 
-          <div class="item-detail item-range tooltip">
+          <div class="item-detail item-range" data-tooltip-extended="item.{{item.id}}.range">
             {{#if item.hasRange}}
-            <label>{{actionRange item.document.firstAction @root.rollData}}</label>
-              {{#if (or (gt item.range.maxIncrements 1) (ne item.range.minUnits ""))}}
-              <span class="tooltipcontent">
-                <span class="span3">{{localize "FFD20.MaximumRangeIncrements"}} : {{item.range.maxIncrements}}</span>
-                <span class="span2 align-left">{{localize "FFD20.Range"}} :</span><span class="span1 align-right">
-                {{item.range.min}} {{distanceUnit "ft"}} – {{item.range.max}} {{distanceUnit item.range.units}}</span>
-              </span>
-              {{/if}}
+            <label>{{actionRange item.document.defaultAction @root.rollData}}</label>
             {{/if}}
           </div>
 
@@ -224,29 +125,29 @@
             <div class="item-action">
               {{#if item.hasAction}}
               <a class="item-control item-action action roll" data-tooltip="FFD20.PerformAttack">
-                <i class="fa-solid fa-dice-d20"></i>
+                <i class="fa-solid fa-dice-d20" inert></i>
               </a>
               {{/if}}
             </div>
           </div>
 
-          <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
+          <div class="item-detail item-uses flexrow" data-tooltip-extended="item.{{item.id}}.resources">
             {{#if item.isCharged}}
-            <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.uses.value}}</span>
+            <span class="text-box value allow-relative" data-wheel-step="1" data-dtype="Number">{{item.charges}}</span>
             <span class="sep"> / </span>
-            <span class="text-box readonly">{{item.uses.max}}</span>
-            <span class="tooltipcontent">
-              <span class="span2 align-left">@resources.{{item.tag}}.value :</span><span class="span1 align-right"> {{item.uses.value}}</span>
-              <span class="span2 align-left">@resources.{{item.tag}}.max :</span><span class="span1 align-right"> {{item.uses.max}}</span>
-            </span>
+            <span class="max">{{item.maxCharges}}</span>
+            {{else if item.usesAmmo}}
+            <span class="ammo-remaining">{{item.ammoRemaining}}</span>
             {{/if}}
           </div>
 
-          {{#if ../../owner}}
+          {{#if @root.owner}}
           <div class="item-controls">
-            <a class="item-control item-edit" data-tooltip="FFD20.EditItem"><i class="fas fa-edit"></i></a>
-            <a class="item-control item-duplicate" data-tooltip="FFD20.DuplicateItem"><i class="fas fa-copy"></i></a>
-            <a class="item-control item-delete" data-tooltip="FFD20.DeleteItem"><i class="fas fa-trash"></i></a>
+            <a class="item-control item-edit" data-tooltip="FFD20.EditItem"><i class="fa-solid fa-edit" inert></i></a>
+            {{#if ../interface.create}}
+            <a class="item-control item-duplicate" data-tooltip="FFD20.DuplicateItem"><i class="fa-solid fa-copy" inert></i></a>
+            <a class="item-control item-delete" data-tooltip="FFD20.DeleteItem"><i class="fa-solid fa-trash" inert></i></a>
+            {{/if}}
           </div>
           {{/if}}
         </li>
@@ -274,13 +175,13 @@
     {{!-- Natural Armor --}}
     <li class="natural-armor flexrow">
       <h3>{{localize "FFD20.BuffTarACNatural"}}</h3>
-      <span class="text-box direct" name="system.attributes.naturalAC" data-dtype="Number">{{system.attributes.naturalAC}}</span>
+      <input name="system.attributes.naturalAC" type="number" value="{{system.attributes.naturalAC}}" placeholder="0" min="0" step="1">
     </li>
 
     <li class="flexrow">
       <h3>{{localize "FFD20.SpellResistance"}}</h3>
       <input class="formula" name="system.attributes.sr.formula" type="text" placeholder="{{localize "FFD20.Formula"}}"
-        value="{{#if system.attributes.sr.formula}}{{system.attributes.sr.formula}}{{/if}}"/>
+        value="{{#if system.attributes.sr.formula}}{{system.attributes.sr.formula}}{{/if}}">
     </li>
   </ul>
 

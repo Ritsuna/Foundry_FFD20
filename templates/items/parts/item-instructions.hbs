@@ -1,0 +1,18 @@
+{{#if @root.showIdentifiedData}}
+<fieldset class="instructions{{#unless descriptionHTML.instructions}} placeholder{{/unless}}">
+  <legend><i class="icon fa-solid fa-circle-info fa-fw"></i> {{localize "FFD20.Instructions"}}</legend>
+  {{#if descriptionHTML.instructions}}
+  <div class="instruction-content">
+    {{{descriptionHTML.instructions}}}
+  </div>
+  {{else}}
+  <label class="placeholder">{{localize "FFD20.NoInstrutions"}}</label>
+  {{/if}}
+
+  <div class="controls">
+    {{#if @root.editable}}
+    <a class="html-editor control" data-action="html-editor" data-path="system.description.instructions" data-tooltip="FFD20.Edit"><i class="fa-solid fa-edit" inert></i></a>
+    {{/if}}
+  </div>
+</fieldset>
+{{/if}}

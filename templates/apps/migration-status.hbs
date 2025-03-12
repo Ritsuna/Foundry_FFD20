@@ -1,0 +1,25 @@
+<footer>
+  <h3 class="status {{#if completed}}completed{{else}}in-progress{{/if}}">
+    {{#if completed}}
+    <i class="fa-solid fa-check-double fa-beat" inert></i>
+    {{localize "FFD20.Migration.Dialog.Completed"}}
+    {{else}}
+    <i class="fa-regular fa-hourglass-half fa-spin" inert></i>
+    {{localize "FFD20.Migration.Dialog.Ongoing"}}
+    {{/if}}
+  </h3>
+
+  {{#if (and completed typeChanges)}}
+  <div class="refresh-required">
+    <p class="info">
+      <i class="fa-solid fa-triangle-exclamation" inert></i>
+      {{localize "FFD20.Migration.Dialog.RefreshRequired"}}
+      <i class="fa-solid fa-triangle-exclamation" inert></i>
+    </p>
+    <button type="button" data-action="reload-all">
+      <i class="fa-solid fa-arrows-rotate" inert></i>
+      {{localize "FFD20.Migration.Dialog.ReloadAll"}}
+    </button>
+  </div>
+  {{/if}}
+</footer>

@@ -1,0 +1,8 @@
+{{#if conditions.size}}
+<ul class="property-list conditions">
+  <h5>{{localize "FFD20.ConditionPlural"}}</h5>
+  {{#each conditions}}
+  <li class="property condition">{{this}}</li>
+  {{/each}}
+</ul>
+{{/if}}

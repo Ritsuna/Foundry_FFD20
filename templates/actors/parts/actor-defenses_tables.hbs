@@ -1,94 +1,59 @@
-<table class='defenses'>
-    <thead>
-        <tr>
-            {{#each system.attributes.ac as |ac id|}}
-            <th class="tooltip">
-                <div class="tooltipcontent">
-                <span class="span2 align-left">@attributes.ac.{{id}}.total :</span> <span class="span1 align-right">{{ac.total}}</span>
-                <span class="span2 align-left">@armor.type :</span> <span class="span1 align-right">{{../rollData.armor.type}}</span>
-                <span class="span2 align-left">@shield.type :</span> <span class="span1 align-right">{{../rollData.shield.type}}</span>
+<div class="defenses">
+  {{! Armor Class and CMD }}
+  <div class="ac-cmd">
+    {{! AC, TAC and FFAC }}
+    <div class="info-box-joined ac-tac-ffac">
+    {{#each system.attributes.ac as |ac id|}}
+      <div class="info-box ac-{{id}}" data-tooltip-extended="ac.{{id}}">
+        <h5>{{ac.label}}</h5>
+        <span class="value">{{ac.total}}</span>
+      </div>
+    {{/each}}
+    </div>
 
-                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=ac.sourceDetails plain=true}}
-                {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.ac"}}
-                </div>
+    <div class="info-box-joined cmd-ff">
+      {{! CMD }}
+      <div class="info-box cmd" {{#unless system.config.noManeuvers}}data-tooltip-extended="cmd.total"{{/unless}}>
+        <h5>{{localize "FFD20.CMDAbbr"}}</h5>
+        <span class="value">
+          {{#if system.config.noManeuvers}}
+          <i class="fa-solid fa-minus" inert></i>
+          {{else}}
+          {{system.attributes.cmd.total}}
+          {{/if}}
+        </span>
+      </div>
 
-                {{ac.label}}
-            </th>
-            {{/each}}
-            <th class="tooltip">
-                <div class="tooltipcontent">
-                <span class="span2 align-left">@attributes.cmd.total :</span> <span class="span1 align-right">{{system.attributes.cmd.total}}</span>
+      {{! FF CMD }}
+      <div class="info-box ffcmd" {{#unless system.config.noManeuvers}}data-tooltip-extended="cmd.flatFootedTotal"{{/unless}}>
+        <h5>{{localize "FFD20.CMDFFAbbr"}}</h5>
+        <span class="value">
+          {{#if system.config.noManeuvers}}
+          <i class="fa-solid fa-minus" inert></i>
+          {{else}}
+          {{system.attributes.cmd.flatFootedTotal}}
+          {{/if}}
+        </span>
+      </div>
+    </div>
+  </div>
 
-                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.cmd.total }}
-                {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.cmd"}}
-                </div>
+  {{! Saving Throws and Spell Resistance }}
+  <div class="saves-sr">
+    {{! Saves }}
+    <div class="info-box-joined saves">
+      {{#each system.attributes.savingThrows as |savingThrow id|}}
+      <div class="info-box saving-throw {{id}}" data-savingthrow="{{id}}" data-tooltip-extended="save.{{id}}">
+        <h5><a class="rollable">{{label}}</a></h5>
+        <span class="value">{{numberFormat savingThrow.total decimals=0 sign=true}}</span>
+      </div>
+      {{/each}}
+    </div>
 
-                {{localize "FFD20.CMDAbbr"}}
-            </th>
-            <th class="tooltip">
-                <div class="tooltipcontent">
-                <span class="span2 align-left">@attributes.cmd.flatFootedTotal :</span> <span class="span1 align-right">{{system.attributes.cmd.flatFootedTotal}}</span>
-
-                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.cmd.flatFootedTotal }}
-                </div>
-
-                {{localize "FFD20.CMDFFAbbr"}}
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            {{#each system.attributes.ac as |ac id|}}
-            <td class='ac-{{id}}'>
-                {{ac.total}}
-            </td>
-            {{/each}}
-            <td class='cmd'>
-                {{system.attributes.cmd.total}}
-            </td>
-            <td class='cmd-ff'>
-                {{system.attributes.cmd.flatFootedTotal}}
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-<table>
-    <thead>
-        <tr>
-            {{#each system.attributes.savingThrows as |savingThrow id|}}
-            <th class="saving-throw tooltip" data-savingthrow="{{id}}" data-draggable="true">
-                <div class="tooltipcontent">
-                <span class="span2 align-left">@attributes.savingThrows.{{id}}.total :</span> <span class="span1 align-right">{{savingThrow.total}}</span>
-
-                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=savingThrow.sourceDetails plain=true}}
-
-                {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target=(concat "savingThrow." id)}}
-                </div>
-
-                <a class="rollable"><i class="fas fa-dice"></i><span>{{savingThrow.label}}</span></a>
-            </th>
-            {{/each}}
-            <th class="tooltip">
-                <div class="tooltipcontent">
-                <span class="span2 align-left">@attributes.sr.total :</span> <span class="span1 align-right">{{system.attributes.sr.total}}</span>
-
-                {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceDetails.system.attributes.sr.total }}
-
-                {{> "systems/ffd20/templates/actors/parts/actor-contextNotes.hbs" target="misc.sr"}}
-                </div>
-
-                {{localize "FFD20.SpellResistance"}}
-            </th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <tr>
-            {{#each system.attributes.savingThrows as |savingThrow id|}}
-            <td class='{{id}}'>{{numberFormat savingThrow.total decimals=0 sign=true}}</td>
-            {{/each}}
-            <td class='sr'>{{system.attributes.sr.total}}</td>
-        </tr>
-    </tbody>
-</table>
+    {{! SR }}
+    <div class="info-box sr" data-tooltip-extended="sr">
+      <h5>{{localize "FFD20.SpellResistance"}}</h5>
+      <span class="value">{{system.attributes.sr.total}}</span>
+    </div>
+  </div>
+</div>

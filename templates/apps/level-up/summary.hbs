@@ -1,9 +1,77 @@
-{{#each summary as |sum sumKey|}}
-  <div class="summary summary-{{sumKey}}">
-    <h2>{{localize sum.label}}</h2>
+<h3>
+  <label>{{#if isMythic}}{{localize "FFD20.LevelUp.NewTier"}}{{else}}{{localize "FFD20.LevelUp.NewLevel"}}{{/if~}}:</label>
+  <span class="value">{{level.new}}</span>
+</h3>
 
-    {{#if sum.template}}
-      {{> (lookup sum "template") .. summary=sum}}
+<div class="details">
+  <div class="feats{{#unless level.feats}} disabled{{/unless}}">
+    <label>{{localize "FFD20.Feats"}}:</label> <span class="value">{{numberFormat level.feats sign=true}}</span>
+  </div>
+  <div class="bab{{#unless level.bab}} disabled{{/unless}}">
+    <label>{{localize "FFD20.BABAbbr"}}</label> <span class="value">{{numberFormat level.bab sign=true}}</span>
+  </div>
+  <div class="save fort{{#unless level.fort}} disabled{{/unless}}">
+    <label>{{localize "FFD20.SavingThrowFort"}}</label> <span class="value">{{numberFormat level.fort sign=true}}</span>
+  </div>
+  <div class="save ref{{#unless level.ref}} disabled{{/unless}}">
+    <label>{{localize "FFD20.SavingThrowRef"}}</label> <span class="value">{{numberFormat level.ref sign=true}}</span>
+  </div>
+  <div class="save will{{#unless level.will}} disabled{{/unless}}">
+    <label>{{localize "FFD20.SavingThrowWill"}}</label> <span class="value">{{numberFormat level.will sign=true}}</span>
+  </div>
+  <div class="save skill{{#unless (or skills.delta.ranks skills.delta.bg)}} disabled{{/unless}}">
+    {{#if useBackgroundSkills}}
+    <h4>{{localize "FFD20.SkillRankPlural"}}</h4>
+    <div class="adventure">
+      <label>{{localize "FFD20.SkillTypeAdventure"}}</label>: <span class="value">{{numberFormat skills.delta.ranks sign=true}}</span>
+    </div>
+    <div class="background">
+      <label>{{localize "FFD20.SkillTypeBackground"}}</label>: <span class="value">{{numberFormat skills.delta.bg sign=true}}</span>
+    </div>
+    {{else}}
+    <label>{{localize "FFD20.SkillRankPlural"}}</label> <span class="value">{{numberFormat level.skills sign=true}}</span>
     {{/if}}
   </div>
-{{/each}}
+</div>
+
+<div class="health">
+  <h3>{{localize "FFD20.LevelUp.Health.Label"}}</h3>
+  {{#unless isMythic}}
+  <label>{{localize "FFD20.HitDie"}}:</label>
+  <span class="value hit-die">{{localize "FFD20.DieSize" size=health.hitDie}}</span>
+  <br>
+  {{#if health.ability.key}}
+  <label>{{lookup config.abilities health.ability.key}}</label>
+  <span class="value ability-mod">{{numberFormat health.ability.mod sign=true}}</span>
+  <br>
+  {{/if}}
+  {{/unless}}
+  {{#if (ne health.type "roll")}}
+  <label>{{localize "FFD20.HitPoints"}}:</label>
+  <span class="value delta">
+    {{numberFormat health.value sign=true}}
+  </span>
+  {{else}}
+  <label>{{localize "FFD20.HitPoints"}}:</label>
+  <span class="value delta">
+    {{localize "FFD20.DieSize" size=health.hitDie}}
+    {{#if health.value}}{{numberFormat health.value sign=true}}{{/if}}
+  </span>
+  {{/if}}
+</div>
+
+<div class="features{{#unless associations.length}} disabled{{/unless}}">
+  <h3>{{localize "FFD20.NewClassFeaturePlural"}}</h3>
+  <ul class="item-list">
+    {{#if associations.length}}
+    {{#each associations}}
+    <li class="item" data-item-uuid="{{uuid}}">
+      <img src="{{img}}">
+      <span class="item-name">{{name}}</span>
+    </li>
+    {{/each}}
+    {{else}}
+    <li>{{localize "FFD20.None"}}</li>
+    {{/if}}
+  </ul>
+</div>

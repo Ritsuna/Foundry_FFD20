@@ -1,30 +1,27 @@
-<div class="ability-scores">
-  <ul>
-    {{#each section.abilities as |abl key|}}
-      <li class="ability-score{{#if abl.isEnhanced}} enhanced{{/if}}" data-key="{{ key }}">
-      <span class="name">{{ abl.name }}</span>
-      <div class="value{{#if (gt abl.added 0)}} changed{{/if}}">
-        {{#if (gt abl.added 0)}}
-          <a class="operator" data-operator="subtract"><i class="fas fa-minus"></i></a>
-        {{else}}
-          <span class="fake-operator"></span>
-        {{/if}}
+<ul class="ability-scores">
+  {{#each abilityScore.upgrades}}
+  <li class="ability-score{{#if isEnhanced}} enhanced{{/if}}" data-key="{{key}}">
+    <label class="name">{{label}}</label>
+    {{#if isValid}}
+    <span class="value{{#if (gt added 0)}} changed{{/if}}" data-tooltip="{{localize "FFD20.Base"}}: {{value}}">{{total}}</span>
+    {{else}}
+    <span class="value disabled">—</span>
+    {{/if}}
+    <div class="controls {{#if isNull}}disabled{{/if}}">
+      <a class="operator {{#if isAvailable}}enabled{{else}}disabled{{/if}}" data-operator="add"><i class="fa-solid fa-plus fa-fw" inert></i></a>
+      <a class="operator {{#if isModified}}enabled{{else}}disabled{{/if}}" data-operator="subtract"><i class="fa-solid fa-minus fa-fw" inert></i></a>
+    </div>
+  </li>
+  {{/each}}
+</ul>
 
-        <span>{{ abl.value }}</span>
-
-        {{#if (gt ../section.value 0)}}
-          <a class="operator" data-operator="add"><i class="fas fa-plus"></i></a>
-        {{else}}
-          <span class="fake-operator"></span>
-        {{/if}}
-      </div>
-    </li>
-    {{/each}}
-  </ul>
-
-  <footer>
-    <span class="points-left">
-      {{ localize "FFD20.LevelUp.AbilityScore.PointsLeft" value=section.value }}
-    </span>
-  </footer>
-</div>
+<footer>
+  <span class="points-left">
+    {{localize "FFD20.LevelUp.AbilityScore.PointsLeft" value=abilityScore.available}}
+    {{#if (eq abilityScore.available 0)}}
+    <span class="ready"><i class="fa-solid fa-check fa-fw" inert></i></span>
+    {{else}}
+    <span class="unused"><i class="fa-solid fa-hourglass-half fa-fw" inert></i></i></span>
+    {{/if}}
+  </span>
+</footer>

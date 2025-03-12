@@ -1,15 +1,15 @@
-<div class="compendium-browser flexrow" data-type="{{type}}">
+<div class="compendium-browser-content" data-type="{{type}}">
   <aside class="sidebar flexcol">
     <div class="entry-filter search-form formgroup flexrow">
-      <input type="search" name="filter" value="{{query}}" placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}" autocomplete="off" />
-      <i class="fas fa-search"></i>
+      <input type="search" name="filter" value="{{query}}" placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}" autocomplete="off" autofocus>
+      <i class="fa-solid fa-search" inert></i>
     </div>
 
     <div class="filter-container">
       {{#each filters as |filter|}}
         <div class="filter" data-filter-id="{{filter.id}}">
-          <h3 class="rollable">{{filter.label}}
-            {{#if filter.active}}<i class="fas fa-filter"></i>×{{filter.activeCount}}{{/if}}
+          <h3>{{filter.label}}
+            {{#if filter.active}}<span class="filter-count"><i class="fa-solid fa-filter" inert></i>×{{filter.activeCount}}</span>{{/if}}
           </h3>
           <div class="filter-content flexcol {{filter.collapsed}}">
             {{> (lookup . "template") filter=filter}}
@@ -19,22 +19,22 @@
     </div>
 
     <div class="buttons flexrow">
-      <button class="refresh">{{localize "FFD20.Refresh"}}</button>
-      <button class="reset">{{localize "FFD20.Reset"}}</button>
+      <button class="reload refresh">{{localize "FFD20.CompendiumBrowser.ReloadPacks"}}</button>
+      <button class="reset clear-filters">{{localize "FFD20.CompendiumBrowser.ClearFilters"}}</button>
     </div>
   </aside>
 
   <div class="directory-container flexcol">
-  {{#unless loading}}
+    {{#unless loading}}
     <div class="top flexrow">
       <span>{{localize "FFD20.TotalItems" count=itemCount}}</span>
       <span>{{localize "FFD20.FilteredItems" count=filteredItemCount}}</span>
     </div>
-  {{/unless}}
+    {{/unless}}
     <ol class="directory-list">
       {{#if loading}}
         <li class="compendium-loading flexcol">
-          <i class="fas fa-spinner fa-spin"></i>
+          <i class="fa-solid fa-spinner fa-spin" inert></i>
           {{localize "FFD20.LoadingItemsFromIndexes" items=loadingInfo.entryCount indexes=loadingInfo.indexCount}}
         </li>
       {{else}}

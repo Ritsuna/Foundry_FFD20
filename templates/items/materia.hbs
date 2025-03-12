@@ -1,0 +1,176 @@
+<form class="{{cssClass}} flexcol" autocomplete="off" data-tooltip-class="ffd20">
+
+  {{!-- Item Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
+
+    <div class="header-details flexrow">
+      {{> "systems/ffd20/templates/items/parts/item-name.hbs"}}
+
+      <ul class="summary">
+        <li>
+          {{itemType}}
+        </li>
+        <li>
+          {{#unless showUnidentifiedData}}{{labels.equipmentSubtype}}{{/unless}}
+        </li>
+        <li>
+          {{system.materiaRarity}}
+        </li>
+      </ul>
+    </div>
+  </header>
+
+  {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      <h4 class="item-subtype">
+        {{#if labels.childTypeDistinct}}
+        {{labels.childType}}
+        {{else}}
+        {{labels.subType}}
+        {{/if}}
+      </h4>
+
+      <h4 class="slot">{{labels.slot}}</h4>
+    </header>
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-aura.hbs"}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
+
+  {{!-- Item Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="details">{{ localize "FFD20.Details" }}</a>
+    {{#unless showUnidentifiedData}}
+    <a class="item" data-tab="changes">{{ localize "FFD20.Changes" }}</a>
+    {{/unless}}
+    <a class="item" data-tab="links">{{localize "FFD20.Links"}}</a>
+    {{#unless showUnidentifiedData}}
+    <a class="item" data-tab="advanced">{{localize "FFD20.Advanced"}}</a>
+    {{/unless}}
+  </nav>
+
+  {{!-- Item Sheet Body --}}
+  <section class="primary-body">
+    {{!-- Description Tab --}}
+    {{> "systems/ffd20/templates/items/parts/item-description.hbs"}}
+
+    {{!-- Details Tab --}}
+    <div class="tab details" data-group="primary" data-tab="details">
+      {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
+
+      {{!-- Equipment Type --}}
+      {{#if showIdentified}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Type"}}</label>
+        <div class="form-fields">
+          <select name="system.subType">
+            {{selectOptions equipmentCategories.types selected=system.subType}}
+          </select>
+        </div>
+      </div>
+
+      {{!-- Equipment Subtype --}}
+      {{#if hasSubCategory}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Category"}}</label>
+        <div class="form-fields">
+          <select name="system.equipmentSubtype">
+            {{selectOptions equipmentCategories.subTypes selected=system.equipmentSubtype}}
+          </select>
+        </div>
+      </div>
+      {{/if}}
+
+      {{!-- Equipment Slot --}}
+      {{#if hasMultipleSlots}}
+      <div class="form-group">
+        <label>{{localize "FFD20.Slot"}}</label>
+        <div class="form-fields">
+          <select name="system.slot">
+            {{selectOptions equipmentSlots selected=system.slot}}
+          </select>
+        </div>
+      </div>
+      {{else}}
+      <input type="hidden" name="system.slot" value="{{system.subType}}">
+      {{/if}}
+
+      {{!-- Materia Rarity --}}
+      {{#if isMateria}}
+      <div class="form-group">
+        <label>{{localize "FFD20.MateriaRarity"}}</label>
+        <select name="system.materia.Rarity">
+          {{#select system.materiaRarity}}
+          {{#each config.materiaRarity as |name type|}}
+          <option value="{{type}}">{{name}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+      </div>
+      {{/if}}
+      {{/if}}
+
+      {{!-- Equipment Size --}}
+      {{> "systems/ffd20/templates/items/parts/item-size.hbs" allowAutoResizing=true}}
+
+      {{!-- Properties --}}
+      <h3 class="form-header">{{localize "FFD20.Properties"}}</h3>
+
+      {{!-- Equipment Status --}}
+      <div class="form-group stacked">
+        {{#if @root.showIdentifiedData}}
+        <label class="checkbox artifact">
+          <input type="checkbox" name="system.artifact" {{checked system.artifact}}> {{localize "FFD20.Artifact"}}
+        </label>
+        {{/if}}
+        <label class="checkbox timeworn">
+          <input type="checkbox" name="system.timeworn" {{checked system.timeworn}}> {{localize "FFD20.Timeworn"}}
+        </label>
+        <label class="checkbox nonlethal">
+          <input type="checkbox" name="system.nonlethal" {{checked system.nonlethal}}> {{localize "FFD20.Nonlethal"}}
+        </label>
+      </div>
+
+      {{> "systems/ffd20/templates/items/parts/item-aura.hbs"}}
+
+      {{!-- Proficiencies --}}
+      {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
+
+      {{!-- Advanced --}}
+      {{#unless showUnidentifiedData}}
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
+
+      {{! Tags }}
+      {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
+
+      {{! Identifier Tag }}
+      {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+      {{/unless}}
+    </div>
+
+    {{!-- Changes Tab --}}
+    {{#unless showUnidentifiedData}}
+    <div class="tab changes" data-group="primary" data-tab="changes">
+      {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
+    </div>
+    {{/unless}}
+
+    <div class="tab links" data-group="primary" data-tab="links">
+      {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
+    </div>
+
+    {{#unless showUnidentifiedData}}
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
+      {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
+    </div>
+    {{/unless}}
+  </section>
+</form>

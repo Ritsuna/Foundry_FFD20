@@ -1,26 +1,18 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
+<form class="{{cssClass}} flexcol" autocomplete="off" data-tooltip-class="ffd20">
 
   {{!-- Item Sheet Header --}}
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img"/>
+    <img class="profile" src="{{item.img}}" data-tooltip="{{item.name}}" data-edit="img">
 
     <div class="flexrow header-details">
       <h1 class="item-name">
-        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}"/>
+        <input name="name" type="text" value="{{item.name}}" placeholder="{{localize "FFD20.ItemName"}}">
       </h1>
 
+      {{! Content Source }}
+      {{~> "systems/ffd20/templates/internal/content-source-view.hbs"}}
+
       <ul class="summary">
-        <li>
-          {{labels.featType}}
-
-          {{#if (and (eq system.subType "trait") labels.traitType)}}
-          [{{labels.traitType}}]
-          {{/if}}
-
-          {{#if labels.abilityType}}
-          ({{labels.abilityType}})
-          {{/if}}
-        </li>
         <li>
           <label>
             <input type="checkbox" name="system.disabled" {{checked system.disabled}}> {{localize "FFD20.Disabled"}}
@@ -29,6 +21,47 @@
       </ul>
     </div>
   </header>
+
+  {{!-- Sidebar --}}
+  <section class="sidebar">
+    <header>
+      <h3 class="item-type">{{itemType}}</h3>
+
+      <h4 class="item-subtype">{{labels.featType}} ({{labels.abilityType}})</h4>
+
+      {{#if labels.traitType}}
+      <h4 class="trait-type">{{labels.traitType}}</h4>
+      {{/if}}
+
+      {{#if labels.raceType}}
+      <h4 class="trait-racetype">{{labels.raceType}}</h4>
+      {{/if}}
+
+      {{#if labels.traitCategory}}
+      <h4 class="trait-category">{{labels.traitCategory}}</h4>
+      {{/if}}
+    </header>
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-inputs.hbs"}}
+
+    {{#if (and (eq system.subType "racial") system.racePoints)}}
+    <label class="race-points">
+      <span>{{localize "FFD20.RacePoints"}}</span>
+      <span class="value">{{system.racePoints}}</span>
+    </label>
+    {{/if}}
+
+    {{#if system.associations.classes.length}}
+    <ul class="property-list classes">
+      <h5>{{localize "FFD20.Classes"}}</h5>
+      {{#each system.associations.classes}}
+      <li class="property generic-tag">{{this}}</li>
+      {{/each}}
+    </ul>
+    {{/if}}
+
+    {{> "systems/ffd20/templates/items/parts/item-sidebar-tags.hbs"}}
+  </section>
 
   {{!-- Item Sheet Navigation --}}
   <nav class="sheet-navigation tabs" data-group="primary">
@@ -49,27 +82,16 @@
     <div class="tab details" data-group="primary" data-tab="details">
       {{> "systems/ffd20/templates/items/parts/item-actions.hbs"}}
 
-      <h3 class="form-header">{{localize "FFD20.Details"}}</h3>
-
       {{!-- Feat Type --}}
       <div class="form-group select">
         <label>{{localize "FFD20.Type"}}</label>
         <div class="form-fields">
           <select name="system.subType" value="{{system.subType}}">
-            {{#select system.subType}}
-            {{#each config.featTypes as |type a|}}
-            <option value="{{a}}">{{type}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions config.featTypes selected=system.subType}}
           </select>
 
           <select name="system.abilityType" value="{{system.abilityType}}">
-            {{#select system.abilityType}}
-            <option value="none"></option>
-            {{#each config.abilityTypes as |type a|}}
-            <option value="{{a}}">{{localize type.short}}</option>
-            {{/each}}
-            {{/select}}
+            {{selectOptions abilityTypes selected=system.abilityType}}
           </select>
         </div>
       </div>
@@ -78,80 +100,111 @@
       {{#if (eq system.subType "trait")}}
       <div class="form-group select">
         <label>{{localize "FFD20.TraitType"}}</label>
-        <select name="system.traitType">
-          <option value=""></option>
-          {{selectOptions config.traitTypes selected=system.traitType}}
-        </select>
+        <div class="form-fields">
+          <select name="system.traitType">
+            <option value=""></option>
+            {{selectOptions config.traitTypes selected=system.traitType}}
+          </select>
+        </div>
+      </div>
+
+      {{! Racial trait }}
+      {{else if (eq system.subType "racial")}}
+      <div class="form-group select">
+        <label>{{localize "FFD20.Category"}}</label>
+        <div class="form-fields">
+          <select name="system.traitCategory">
+            <option value=""></option>
+            {{selectOptions config.racialTraitCategories selected=system.traitCategory}}
+          </select>
+        </div>
+      </div>
+      <div class="form-group select">
+        <label>{{localize "FFD20.RaceType"}}</label>
+        <div class="form-fields">
+          <select name="system.traitType">
+            <option value=""></option>
+            {{selectOptions config.raceTypes selected=system.traitType}}
+          </select>
+        </div>
+      </div>
+      <div class="form-group select">
+        <label>{{localize "FFD20.RacePoints"}}</label>
+        <div class="form-fields">
+          <input type="number" name="system.racePoints" value="{{system.racePoints}}" placeholder="0" min="0" step="1">
+        </div>
       </div>
       {{/if}}
 
-      {{!-- Feat Tags --}}
-      <div class="form-group stacked">
-        {{#if isClassFeature}}
+      {{!-- Feat class associations --}}
+      {{#if isClassFeature}}
+      <div class="form-group">
         <div class="data-selector">
-          <a class="entry-selector" for="system.associations.classes" data-fields="{{localize "FFD20.ClassPlural"}}" data-flat="true" data-dtypes="String"><i class="fas fa-edit"></i></a>
-          <label for="system.associations.classes">{{localize "FFD20.ClassPlural"}}</label>
+          <a class="entry-selector" data-for="system.associations.classes" data-fields="FFD20.ClassPlural" data-flat="true" data-dtypes="String" data-title="FFD20.LinkTypeClassAssociations"><i class="fa-solid fa-edit" inert></i></a>
+          <label>{{localize "FFD20.ClassPlural"}}</label>
         </div>
-        {{/if}}
       </div>
+      {{/if}}
 
       {{#if isTemplate}}
       <div class="form-group">
         <label>{{localize "FFD20.CROffset"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.crOffset" class="formula" value="{{system.crOffset}}" placeholder="{{localize "FFD20.Formula"}}" />
+          <input type="text" name="system.crOffset" class="formula" value="{{system.crOffset}}" placeholder="{{localize "FFD20.Formula"}}">
         </div>
       </div>
-      {{/if}}
-
       <div class="form-group stacked">
-        {{#if owner}}
-        {{#unless isTemplate}}
         <label class="checkbox">
-          <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}}/> {{localize "FFD20.ShowInQuickbar"}}
+            <input type="checkbox" name="system.inherited" {{checked system.inherited}}>
+            {{localize "FFD20.Template.Inherited"}}
+          </label>
+          <label class="checkbox">
+            <input type="checkbox" name="system.acquired" {{checked system.acquired}}>
+            {{localize "FFD20.Template.Acquired"}}
+          </label>
+        <label class="checkbox">
+          <input type="checkbox" name="system.simple"  {{checked system.simple}} >
+          {{localize "FFD20.Template.Simple"}}
         </label>
-        {{/unless}}
-        {{/if}}
+        <label class="checkbox">
+          <input type="checkbox" name="system.summons" {{checked system.summons}} >
+          {{localize "FFD20.Template.UsableWithSummons"}}
+        </label>
       </div>
+      {{/if}}
 
       {{!-- Proficiencies --}}
       {{~> "systems/ffd20/templates/items/parts/item-proficiencies.hbs"}}
 
-      <!-- Class Skills -->
-      <h4 class="form-header">{{localize "FFD20.ClassSkills"}}</h4>
+      {{!-- Class Skills --}}
+      {{~> "systems/ffd20/templates/items/parts/item-class-skills.hbs"}}
 
-      <div class="form-group">
-        <ol class="item-list">
-        {{#each skills as |skill key|}}
-        <li class="item flexrow" data-skill="{{key}}">
-          <label class="checkbox skill-cs">
-            <input type="checkbox" name="system.classSkills.{{key}}" {{checked skill.classSkill}} /> {{skill.name}}
-          </label>
-        </li>
-        {{/each}}
-        </ol>
-      </div>
+      {{!-- Creature Type --}}
+      {{~> "systems/ffd20/templates/items/parts/item-creature-type.hbs"}}
 
       {{!-- Advanced --}}
-      <h4 class="form-header">{{localize "FFD20.Advanced"}}</h4>
+      <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
 
       {{! Tags }}
       {{~> "systems/ffd20/templates/items/parts/item-tags.hbs"}}
 
       {{! Identifier Tag }}
       {{~> "systems/ffd20/templates/items/parts/item-tag.hbs"}}
+
+      {{!-- Associated Class --}}
+      {{> "systems/ffd20/templates/items/parts/item-class-link.hbs"}}
     </div>
 
     {{!-- Changes Tab --}}
-    <div class="tab flexcol" data-group="primary" data-tab="changes">
+    <div class="tab changes" data-group="primary" data-tab="changes">
       {{~> "systems/ffd20/templates/items/parts/item-changes.hbs"}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="links">
+    <div class="tab links" data-group="primary" data-tab="links">
       {{> "systems/ffd20/templates/items/parts/item-links.hbs"}}
     </div>
 
-    <div class="tab flexcol" data-group="primary" data-tab="advanced">
+    <div class="tab advanced" data-group="primary" data-tab="advanced">
       {{> "systems/ffd20/templates/items/parts/item-advanced.hbs"}}
     </div>
   </section>

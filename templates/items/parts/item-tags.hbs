@@ -1,9 +1,11 @@
 <div class="form-group tags">
 	<label>{{localize "FFD20.Tags"}}</label>
-	<ul class="tag-list">
-		{{#each system.tags as |tag|}}
-		<li class="tag">{{tag}}</li>
-		{{/each}}
-	</ul>
-    <a class="entry-selector" for="system.tags" data-fields="{{localize "FFD20.Tags"}}" data-dtypes="String" data-flat="true"><i class="fas fa-edit"></i></a>
+  <div class="form-fields">
+    <ul class="tag-list">
+      {{#each system.tags as |tag|}}
+      <li class="tag">{{tag}}</li>
+      {{/each}}
+    </ul>
+    <a class="entry-selector" data-for="system.tags" data-fields="FFD20.Tags" data-dtypes="String" data-flat="true" data-title="FFD20.Tags"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
 </div>

@@ -1,30 +1,67 @@
-<form autocomplete="off" onsubmit="event.preventDefault();">
+<section class="form-body {{cssClass}}" data-tooltip-class="pf1-v2">
   <table>
-    <thead>
-      {{#each fields as |v|}}
-      <th>{{v}}</th>
-      {{/each}}
-      <th class="entry-control"></th>
-    </thead>
+    <colgroup>
+      <col class="grip">
+      {{#if (or @root.isBoolean @root.isFlat)}}
+      <col class="key no-value">
+      {{else}}
+      <col class="key">
+      <col class="value">
+      {{/if}}
+      <col class="controls">
+    </colgroup>
+    {{#if (gt fields.length 1)}}
+      <thead>
+      <tr data-drop="true" data-index="0">
+        {{#if editable}}
+        <th class="drag-control"></th>
+        {{/if}}
+        {{#each fields}}
+          <th>{{localize this}}</th>
+        {{/each}}
+        {{#if editable}}
+        <th class="entry-control"></th>
+        {{/if}}
+      </tr>
+      </thead>
+    {{/if}}
     <tbody>
-      {{#each entries as |entry index|}}
-      <tr class="entry" data-index="{{index}}">
+    {{#each entries as |entry index|}}
+      <tr class="entry" data-drop="true" data-index="{{index}}">
+        <td class="drag-control" {{#if @root.editable}}data-drag="true"{{/if}}>
+          {{#if @root.editable}}
+          <i class="fa-solid fa-bars" inert></i>
+          {{/if}}
+        </td>
         {{#if @root.isFlat}}
-          <td><input type="text" class="textarea" data-index="{{index}}" value="{{0}}" data-dtype="{{1}}" name="{{index}}" /></td>
+          <td>
+            <input type="text" class="textarea" data-index="{{index}}"
+                   value="{{0}}" data-dtype="{{1}}" name="{{index}}">
+          </td>
         {{else}}
-          {{#each entry as |v k|}}
-          {{#with v}}
-          <td><input type="text" class="textarea" data-index="{{k}}" value="{{0}}" data-dtype="{{1}}" name="{{index}}-{{k}}" /></td>
-          {{/with}}
+          {{#each entry as |field subindex|}}
+            {{#with field}}
+              <td>
+                <input type="text" class="textarea" data-index="{{subindex}}"
+                       value="{{0}}" data-dtype="{{1}}" name="{{index}}-{{subindex}}">
+              </td>
+            {{/with}}
           {{/each}}
         {{/if}}
-        <td class="entry-control"><a class="entry-control delete-entry"><i class="fas fa-minus"></i></a></td>
+        <td class="entry-control">
+          {{#if @root.editable}}
+          <button type="button" data-action="deleteEntry" class="entry-control icon-button delete-entry">
+            <i class="fa-solid fa-trash" inert></i>
+          </button>
+          {{/if}}
+        </td>
       </tr>
-      {{/each}}
+    {{/each}}
     </tbody>
   </table>
-
-  <a class="entry-control add-entry"><i class="fas fa-plus"></i> {{localize "FFD20.AddEntry"}}</a>
-
-  <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{localize "FFD20.UpdateItem"}}</button>
-</form>
+  {{#if editable}}
+  <div class="add-entry">
+    <a data-action="addEntry"><i class="far fa-plus"></i> {{localize "FFD20.AddEntry"}}</a>
+  </div>
+  {{/if}}
+</section>

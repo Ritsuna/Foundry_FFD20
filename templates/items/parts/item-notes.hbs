@@ -1,0 +1,20 @@
+<div class="card-notes {{css}}" data-name="{{name}}" data-tooltip="{{hint}}">
+  {{! Header }}
+  <div class="header">
+    <label>{{localize title}}</label>
+    <div class="header controls">
+      <a class="add-entry" data-action="add" data-name="{{name}}"><i class="fa-solid fa-plus fa-fw" inert></i> {{localize "FFD20.AddNote"}}</a>
+    </div>
+  </div>
+
+  <ul class="note-list">
+  {{#each notes}}
+    <li class="note" data-index="{{@index}}">
+      <input type="text" value="{{this}}" name="{{../name}}.{{@index}}">
+      <div class="controls entry" data-index="{{@index}}">
+        <a class="delete-entry" data-action="delete" data-index="{{@index}}" data-name="{{../name}}" data-tooltip="FFD20.Delete"><i class="fa-solid fa-minus fa-fw" inert></i></a>
+      </div>
+    </li>
+  {{/each}}
+  </ul>
+</div>

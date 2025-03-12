@@ -1,0 +1,30 @@
+<div class="spell-description">
+  <p>
+  <strong>{{localize "FFD20.School"}}</strong>&nbsp;{{{labels.school}}}{{#if (eq system.school "multi")}}{{#if labels.multischool}}&nbsp;({{{labels.multischool}}}){{/if}}{{/if}}{{#if labels.subschool}}&nbsp;({{{labels.subschool}}}){{/if}}{{#if labels.descriptors}}&nbsp;[{{{labels.descriptors}}}]{{/if}}
+  {{~#unless chatcard}}
+    {{~#if learnedAt.class}}; <strong>{{localize "FFD20.Level"}}</strong>&nbsp;{{{learnedAt.class}}}{{/if}}
+    {{~#if learnedAt.domain}}; <strong>{{localize "FFD20.Domain"}}</strong>&nbsp;{{{learnedAt.domain}}}{{/if}}
+  {{else}};
+    <strong>{{localize "FFD20.Level"}}</strong> {{system.level}}
+  {{/unless}}
+  </p>
+  {{#if (or labels.activation labels.components)}}
+  <p>
+  {{#if labels.activation}}<strong>{{localize "FFD20.CastingTime"}}</strong>&nbsp;{{{labels.activation}}}<br>{{/if}}
+  {{#if labels.components}}<strong>{{localize "FFD20.Components"}}</strong>&nbsp;{{{labels.components}}}<br>{{/if}}
+  </p>
+  {{/if}}
+  <p>
+  {{#if labels.range}}<strong>{{localize "FFD20.Range"}}</strong>&nbsp;{{{labels.range}}}<br>{{/if}}
+  {{#if labels.area}}<strong>{{localize "FFD20.Area"}}</strong>&nbsp;{{{labels.area}}}<br>{{/if}}
+  {{#if labels.targets}}<strong>{{localize "FFD20.Targets"}}</strong>&nbsp;{{{labels.targets}}}<br>{{/if}}
+  {{#if labels.effect}}<strong>{{localize "FFD20.Effect"}}</strong>&nbsp;{{{labels.effect}}}<br>{{/if}}
+  {{#if labels.duration}}<strong>{{localize "FFD20.Duration"}}</strong>&nbsp;<span{{#if labels.durationFormula}} data-tooltip="{{localize "FFD20.Formula"}}: {{labels.durationFormula}}"{{/if}}>{{#if variableDuration}}≈{{/if}}{{{labels.duration}}}</span><br>{{/if}}
+  {{#if useDCandSR}}
+    <strong>{{localize "FFD20.SavingThrow"}}</strong>&nbsp;{{{labels.savingThrow}}};
+    <strong>{{localize "FFD20.SpellResistance"}}</strong>&nbsp;{{{labels.sr}}}
+    {{~#if labels.harmless}}; <strong>{{localize "FFD20.Harmless"}}</strong>&nbsp;{{{labels.harmless}}}{{/if}}
+    <br>
+  {{/if}}
+  </p>
+</div>

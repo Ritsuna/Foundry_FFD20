@@ -1,144 +1,100 @@
 <div class="ffd20 chat-card defense-card" data-actor-id="{{actor.id}}"{{#if tokenUuid}} data-token-uuid="{{tokenUuid}}"{{/if}}>
-  <header class="card-header type-color flexrow">
-    <h3 class="actor-name">{{name}} - {{localize "FFD20.Defenses"}}</h3>
+  <header class="card-header type-color defenses flexrow">
+    <h3 class="actor-name">{{localize "FFD20.Defenses"}}</h3>
   </header>
 
-  <div>
-    {{#if ac}}
-    <div class="defense ac">
-      <table>
-        <thead>
-          <tr>
-            <th>{{localize "FFD20.ACNormal"}}</th>
-            <th>{{localize "FFD20.ACTouch"}}</th>
-            <th>{{localize "FFD20.ACFlatFooted"}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{ac.normal}}</td>
-            <td>{{ac.touch}}</td>
-            <td>{{ac.flatFooted}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    {{#if ac.notes}}
-    <div class="flexcol property-group">
-      <label>{{localize "FFD20.ACNotes"}}</label>
-      <div class="flexrow tag-list">
-        {{#each ac.notes as |v|}}
-        <span class="tag">{{{v}}}</span>
-        {{/each}}
+  {{#with ac}}
+  <div class="defense">
+    <div class="info-box-joined ac">
+      <div class="info-box">
+        <h5>{{localize "FFD20.ACNormal"}}</h5>
+        <span class="value">{{normal}}</span>
       </div>
-    </div>
-    {{/if}}
-    {{/if}}
-
-    {{#if cmd}}
-    <div class="defense cmd">
-      <table>
-        <thead>
-          <tr>
-            <th>{{localize "FFD20.CMDAbbr"}}</th>
-            <th>{{localize "FFD20.CMDFlatFooted"}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{cmd.normal}}</td>
-            <td>{{cmd.flatFooted}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    {{#if cmd.notes}}
-    <div class="flexcol property-group">
-      <label>{{localize "FFD20.CMDNotes"}}</label>
-      <div class="flexrow tag-list">
-        {{#each cmd.notes as |v|}}
-        <span class="tag">{{{v}}}</span>
-        {{/each}}
+      <div class="info-box">
+        <h5>{{localize "FFD20.ACTouch"}}</h5>
+        <span class="value">{{touch}}</span>
       </div>
-    </div>
-    {{/if}}
-    {{/if}}
-
-    {{#if (or misc.sr misc.srNotes.length)}}
-    <div class="defense misc">
-      <table>
-        <thead>
-          <tr>
-            <th>{{localize "FFD20.SpellResistance"}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{misc.sr}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    {{#if misc.srNotes}}
-    <div class="flexcol property-group">
-      <label>{{localize "FFD20.SpellResistanceNotes"}}</label>
-      <div class="flexrow tag-list">
-        {{#each misc.srNotes as |v|}}
-        <span class="tag">{{{v}}}</span>
-        {{/each}}
+      <div class="info-box">
+        <h5>{{localize "FFD20.ACFFAbbr"}}</h5>
+        <span class="value">{{flatFooted}}</span>
       </div>
-    </div>
-    {{/if}}
-    {{/if}}
-
-    {{#if misc.drNotes}}
-    <div class="flexcol property-group">
-      <label>{{localize "FFD20.DamRed"}}</label>
-      <div class="flexrow tag-list">
-        {{#each misc.drNotes as |v|}}
-        <span class="tag">{{{v}}}</span>
-        {{/each}}
-      </div>
-    </div>
-    {{/if}}
-
-    {{#if misc.energyResistance}}
-    <div class="flexcol property-group">
-      <label>{{localize "FFD20.EnRes"}}</label>
-      <div class="flexrow tag-list">
-        {{#each misc.energyResistance as |v|}}
-        <span class="tag">{{{v}}}</span>
-        {{/each}}
-      </div>
-    </div>
-    {{/if}}
-
-    {{#if regen}}
-    <div class="defense regen">
-      <table>
-        <thead>
-          <tr>
-            <th>{{localize "FFD20.Regeneration"}}</th>
-            <th>{{localize "FFD20.FastHealing"}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>{{#if regen.regen}}{{regen.regen}}{{else}}{{localize "FFD20.NonApplicable"}}{{/if}}</td>
-            <td>{{#if regen.fastHealing}}{{regen.fastHealing}}{{else}}{{localize "FFD20.NonApplicable"}}{{/if}}</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-    {{/if}}
-
-    <div class="saving-throws flexrow">
-      <button data-action="defense-save" data-save="fort">{{localize "FFD20.SavingThrowFort"}}</button>
-      <button data-action="defense-save" data-save="ref">{{localize "FFD20.SavingThrowRef"}}</button>
-      <button data-action="defense-save" data-save="will">{{localize "FFD20.SavingThrowWill"}}</button>
     </div>
   </div>
+
+  {{> "systems/ffd20/templates/chat/parts/item-notes.hbs" header=(localize "FFD20.ACNotes") notes=notes}}
+  {{/with}}
+
+  {{#if (or cmd misc.sr)}}
+  <div class="defense">
+    {{#if cmd}}
+    <div class="info-box-joined cmd">
+      <div class="info-box cmd normal">
+        <h5>{{localize "FFD20.CMDAbbr"}}</h5>
+        <span class="value">{{cmd.normal}}</span>
+      </div>
+      <div class="info-box cmd flatfooted">
+        <h5>{{localize "FFD20.CMDFFAbbr"}}</h5>
+        <span class="value">{{cmd.flatFooted}}</span>
+      </div>
+    </div>
+    {{/if}}
+    {{#if misc.sr}}
+    <div class="info-box sr">
+      <h5>{{localize "FFD20.SpellResistanceAbbr"}}</h5>
+      <span class="value">{{misc.sr}}</span>
+    </div>
+    {{/if}}
+  </div>
+
+  {{> "systems/ffd20/templates/chat/parts/item-notes.hbs" header=(localize "FFD20.CMDNotes") notes=cmd.notes}}
+  {{/if}}
+
+  {{> "systems/ffd20/templates/chat/parts/item-notes.hbs" header=(localize "FFD20.SpellResistance") notes=misc.srNotes}}
+
+  {{> "systems/ffd20/templates/chat/parts/item-notes.hbs" header=(localize "FFD20.DamRed") notes=misc.drNotes}}
+
+  {{#if misc.hardness}}
+  <div class="flexcol property-group">
+    <label>{{localize "FFD20.Hardness"}}</label>
+    <div class="flexrow tag-list">
+      <span class="tag">{{{misc.hardness}}}</span>
+    </div>
+  </div>
+  {{/if}}
+
+  {{> "systems/ffd20/templates/chat/parts/item-notes.hbs" header=(localize "FFD20.EnRes") notes=misc.erNotes}}
+
+  {{#with regen}}
+  <div class="defense regen">
+    <div class="info-box regen">
+      <h5>{{localize "FFD20.Regeneration"}}</h5>
+      <span class="value">{{#if regen}}{{regen}}{{else}}{{localize "FFD20.NonApplicable"}}{{/if}}</span>
+    </div>
+    <div class="info-box fastheal">
+      <h5>{{localize "FFD20.FastHealing"}}</h5>
+      <span class="value">{{#if fastHealing}}{{fastHealing}}{{else}}{{localize "FFD20.NonApplicable"}}{{/if}}</span>
+    </div>
+  </div>
+  {{/with}}
+
+  {{> "systems/ffd20/templates/chat/parts/item-notes.hbs" header=(localize "FFD20.ConditionPlural") notes=misc.conditions}}
+
+  <div class="saving-throws flexrow">
+    <button data-action="save" data-save="fort" data-as="speaker">
+      <label>{{localize "FFD20.SavingThrowFort"}}</label>
+      <span>{{numberFormat saves.fort sign=true}}</span>
+    </button>
+    <button data-action="save" data-save="ref" data-as="speaker">
+      <label>{{localize "FFD20.SavingThrowRef"}}</label>
+      <span>{{numberFormat saves.ref sign=true}}</span>
+    </button>
+    <button data-action="save" data-save="will" data-as="speaker">
+      <label>{{localize "FFD20.SavingThrowWill"}}</label>
+      <span>{{numberFormat saves.will sign=true}}</span>
+    </button>
+  </div>
+
+  {{#with saves}}
+  {{> "systems/ffd20/templates/chat/parts/item-notes.hbs" header=(localize "FFD20.SaveNotes") notes=notes}}
+  {{/with}}
 </div>

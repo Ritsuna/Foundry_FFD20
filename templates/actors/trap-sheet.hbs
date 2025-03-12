@@ -1,0 +1,273 @@
+<form class="{{cssClass}} flexcol" data-tooltip-class="ffd20" autocomplete="off">
+
+  {{!-- NPC Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img">
+
+    <div class="header-details flexcol">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}">
+      </h1>
+    </div>
+  </header>
+
+  {{!-- NPC Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item" data-tab="summary">{{localize "FFD20.Summary"}}</a>
+    <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
+  </nav>
+
+  <section class="primary-body">
+    <div class="tab summary" data-group="primary" data-tab="summary">
+      {{!-- HD/XP reward --}}
+      <div class="hd-level flexcol" data-tooltip-extended="level">
+        <div class="inputs">
+          <div class="info-box-joined level">
+            <div class="info-box challenge-rating">
+              <h5>{{localize "FFD20.ChallengeRatingShort"}}</h5>
+              <span name="system.cr.base" data-dtype="Number" readonly class="value text-box cr-input">{{labels.cr}}</span>
+            </div>
+          </div>
+
+          {{#unless disableExperience}}
+          <div class="info-box experience">
+            <h5>{{localize "FFD20.Experience"}}</h5>
+
+            <div class="value flexrow">
+              <span class="reward">{{system.xp.value}}</span>
+            </div>
+          </div>
+          {{/unless}}
+        </div>
+      </div>
+
+
+      {{!-- Details --}}
+      <div class="details info-box-header">
+        <h3>{{localize "FFD20.Details"}}</h3>
+        {{!-- Type --}}
+        <div class="info-box type">
+          <h5>{{localize "FFD20.Type"}}</h5>
+          <select name="system.type">
+            {{selectOptions trapTypes selected=system.type}}
+          </select>
+          <label class="checkbox" data-tooltip="FFD20.Trap.Tooltips.Technology">
+            <input type="checkbox" name="system.technology" {{checked system.technology}}> {{localize "FFD20.Trap.Labels.Technology"}}
+          </label>
+        </div>
+
+        {{!-- Perception DC --}}
+        <div class="info-box perception" data-tooltip-extended="detect">
+          <h5>{{localize "FFD20.Trap.Labels.PerceptionDC"}}</h5>
+          <span class="value text-box direct">
+            {{formInput fields.perception value=system.perception}}
+          </span>
+        </div>
+
+        {{!-- Disarm DC --}}
+        <div class="info-box disarm" data-tooltip-extended="disarm">
+          <h5>{{localize "FFD20.Trap.Labels.DisableDeviceDC"}}</h5>
+          <span class="value text-box direct">
+            {{formInput fields.disarm value=system.disarm}}
+          </span>
+        </div>
+      </div>
+
+      {{!-- Usage Details --}}
+      <div class="usage info-box-header">
+        <h3>{{localize "FFD20.Usage"}}</h3>
+
+        <div class="flexcol full-width">
+          {{!-- Trigger --}}
+          <div class="info-box trigger full-width">
+            <h5>{{localize "FFD20.Trigger"}}
+              {{#if hasPerceptionTrigger}}
+                ({{localize "FFD20.SkillPer"}} <i class="fa-solid fa-dice-d20 rollable" data-dtype="per" data-tooltip="FFD20.SkillPer"></i> {{numberFormat perception decimals=0 sign=true}})
+              {{/if}}
+            </h5>
+            <div class="flexrow effect-details">
+              <select name="system.trigger.type" data-tooltip="FFD20.Trap.Tooltips.Trigger.Type">
+                {{selectOptions @root.config.traps.trigger selected=system.trigger.type blank=(localize "FFD20.None")}}
+              </select>
+              <select name="system.trigger.vision" {{#if (ne system.trigger.type "visual")}}disabled{{/if}} data-tooltip="FFD20.Trap.Tooltips.Vision">
+                {{selectOptions @root.config.traps.vision selected=system.trigger.vision blank=(localize "FFD20.None")}}
+              </select>
+
+              <input class="formula" type="text" name="system.trigger.value"
+                      value="{{system.trigger.value}}" placeholder="{{localize "FFD20.Formula"}}"
+                      {{#if (not hasTriggerRange)}}disabled{{/if}}
+                      data-tooltip="FFD20.Trap.Tooltips.Trigger.{{#if (ne system.trigger.type "timed")}}Range{{else}}Time{{/if}}">
+
+              <select name="system.trigger.units" {{#if (ne system.trigger.type "timed")}}disabled{{/if}} data-tooltip="FFD20.Trap.Tooltips.Trigger.Period">
+                {{selectOptions @root.config.timePeriods selected=system.trigger.units blank=""}}
+              </select>
+            </div>
+          </div>
+          {{!-- Duration --}}
+          <div class="info-box duration full-width">
+            <h5>{{localize "FFD20.Duration"}}</h5>
+            <div class="flexrow">
+                <input class="{{#if (eq system.duration.units "spec")}}text-input{{else}}formula{{/if}}" type="text" name="system.duration.value" value="{{system.duration.value}}" placeholder="{{localize "FFD20.Formula"}}">
+                <select name="system.duration.units">
+                  {{selectOptions @root.config.timePeriods selected=system.duration.units blank=""}}
+                </select>
+              </div>
+          </div>
+          {{!-- Reset and Bypass --}}
+          <div class="flexrow effect-details">
+            {{!-- Reset --}}
+            <div class="info-box reset">
+              <h5>{{localize "FFD20.Reset"}}</h5>
+              <div class="flexrow">
+                <select name="system.reset.type" data-tooltip="FFD20.Trap.Tooltips.Reset.Type">
+                  {{selectOptions config.traps.reset selected=system.reset.type blank=(localize "FFD20.None")}}
+                </select>
+
+                <input class="{{#if (eq system.reset.units "spec")}}text-input{{else}}formula{{/if}}"
+                      type="text" name="system.reset.value" value="{{system.reset.value}}"
+                      placeholder="{{localize "FFD20.Formula"}}" {{#if (ne system.reset.type "automatic")}}disabled{{/if}}
+                      data-tooltip="FFD20.Trap.Tooltips.Reset.Time">
+
+                <select name="system.reset.units"  {{#if (ne system.reset.type "automatic")}}disabled{{/if}}
+                    data-tooltip="FFD20.Trap.Tooltips.Reset.Period">
+                {{selectOptions @root.config.timePeriods selected=system.reset.units blank=""}}
+                </select>
+              </div>
+            </div>
+            {{!-- Bypass --}}
+            <div class="info-box bypass">
+              <h5>{{localize "FFD20.Trap.Labels.Bypass"}}</h5>
+              <select name="system.bypass" data-tooltip="FFD20.Trap.Tooltips.Bypass">
+                {{selectOptions @root.config.traps.bypass selected=system.bypass blank=(localize "FFD20.None")}}
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{!-- Effect Notes --}}
+      <div class="effects info-box-header">
+        <h3>{{localize "FFD20.Trap.Labels.EffectsDetails"}}</h3>
+        <div class="effect">
+          {{formInput fields.effect enriched=effectHTML value=system.effect toggled=_editorState.system.effect disabled=(not editable)}}
+        </div>
+      </div>
+
+      {{!-- Actions --}}
+      <div class="combat-attacks">
+        <section class="attacks-body">
+          <ol class="item-groups-list">
+          {{#each attacks as |section sid|}}
+          {{#unless section._hidden}}
+            <ol class="item-list" data-list="{{id}}" data-type="{{create.type}}" data-subtype="{{create.system.subType}}">
+              <li class="item-list-header flexrow attacks-{{id}}">
+                <div class="item-name">
+                  <h3>{{section.label}}</h3>
+                </div>
+
+                {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon-pf icon-magic-palm" data-tooltip="FFD20.Type"></i></div>{{/if}}
+
+                <div class="item-detail item-attacks">
+                  <label>{{localize "FFD20.Attacks"}}</label>
+                </div>
+
+                <div class="item-detail item-damage">
+                    <label>{{localize "FFD20.Damage"}}</label>
+                </div>
+
+                <div class="item-detail item-range">
+                    <label>{{localize "FFD20.Range"}}</label>
+                </div>
+
+                <div class="item-detail item-actions"><i class="icon-pf icon-gears" data-tooltip="FFD20.ActionPlural"></i></div>
+
+                <div class="item-detail item-uses"><i class="icon-pf icon-battery-pack" data-tooltip="FFD20.ChargePlural"></i></div>
+
+                {{#if @root.owner}}
+                <div class="item-controls">
+                  {{#if interface.create}}
+                  <a class="item-control item-create" data-tooltip="FFD20.CreateItem" data-create="{{path}}">
+                    <i class="fa-solid fa-plus" inert></i>
+                  </a>
+                  {{/if}}
+                </div>
+                {{/if}}
+              </li>
+
+              {{#each section.items as |item iid|}}
+              <li class="item flexrow{{#if isBroken}} broken{{/if}}" data-item-id="{{item.id}}">
+                <div class="item-name rollable">
+                  <div class="item-image" style='background-image: url("{{item.img}}")' data-tooltip="FFD20.DisplayInChat"></div>
+                  <h4>{{item.name~}}</h4>
+                </div>
+
+                {{#if section.showTypes}}
+                <div class="item-detail item-type">
+                  <span>{{lookup @root.config.attackTypes item.subType}}</span>
+                </div>
+                {{/if}}
+
+                <div class="item-detail item-attacks" data-tooltip-extended="item.{{item.id}}.attacks">
+                  {{#if item.hasAttack}}
+                  <label>{{attackSummary}}</label>
+                  {{/if}}
+                </div>
+
+                <div class="item-detail item-damage tooltip" data-tooltip-extended="item.{{item.id}}.damage">
+                  {{#if item.hasDamage}}
+                    <label class="resolved-formula">{{actionDamage item.document.defaultAction}}</label>
+                  {{/if}}
+                </div>
+
+                <div class="item-detail item-range" data-tooltip-extended="item.{{item.id}}.range">
+                  {{#if item.hasRange}}
+                  <label>{{actionRange item.document.defaultAction @root.rollData}}</label>
+                  {{/if}}
+                </div>
+
+                <div class="item-detail item-actions">
+                  <div class="item-action">
+                    {{#if item.hasAction}}
+                    <a class="item-control item-action action roll" data-tooltip="FFD20.PerformAttack">
+                      <i class="fa-solid fa-dice-d20" inert></i>
+                    </a>
+                    {{/if}}
+                  </div>
+                </div>
+
+                <div class="item-detail item-uses flexrow" data-tooltip-extended="item.{{item.id}}.resources">
+                  {{#if item.isCharged}}
+                  <span class="text-box value allow-relative" data-wheel-step="1" data-dtype="Number">{{item.charges}}</span>
+                  <span class="sep"> / </span>
+                  <span class="max">{{item.maxCharges}}</span>
+                  {{else if item.usesAmmo}}
+                  <span class="ammo-remaining">{{item.ammoRemaining}}</span>
+                  {{/if}}
+                </div>
+
+                {{#if @root.owner}}
+                <div class="item-controls">
+                  <a class="item-control item-edit" data-tooltip="FFD20.EditItem"><i class="fa-solid fa-edit" inert></i></a>
+                  {{#if ../interface.create}}
+                  <a class="item-control item-duplicate" data-tooltip="FFD20.DuplicateItem"><i class="fa-solid fa-copy" inert></i></a>
+                  <a class="item-control item-delete" data-tooltip="FFD20.DeleteItem"><i class="fa-solid fa-trash" inert></i></a>
+                  {{/if}}
+                </div>
+                {{/if}}
+              </li>
+              {{/each}}
+            </ol>
+          {{/unless}}
+          {{/each}}
+          </ol>
+        </section>
+      </div>
+    </div>
+
+    {{!-- Notes Tab --}}
+    <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+      {{formInput fields.notes enriched=notesHTML value=system.notes toggled=_editorState.system.notes disabled=(not editable)}}
+    </div>
+  </section>
+
+</form>

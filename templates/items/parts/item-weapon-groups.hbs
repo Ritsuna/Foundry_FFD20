@@ -1,9 +1,11 @@
 <div class="form-group weapon-groups">
-  <label for="system.weaponGroups">{{localize "FFD20.WeaponGroups"}}</label>
-  <ul class="traits-list tag-list">
-    {{#each weaponGroups.selected as |v k|}}
-      <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-  </ul>
-  <a class="trait-selector" data-options="weaponGroups"><i class="fas fa-edit"></i></a>
+  <label>{{localize "FFD20.WeaponGroups"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+      {{#each weaponGroups.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.WeaponGroups" data-for="system.weaponGroups" data-options="weaponGroups"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
 </div>

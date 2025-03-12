@@ -1,20 +1,46 @@
 {{!-- Spellbook Navigation --}}
+<div class="inventory-filters spellbook-configuration tooltip">
+  <h3>{{localize "FFD20.ManaPoints"}}</h3>
+
+  <div class="info-box-joined tooltip">
+    <div class="info-box current">
+      <h5>{{localize "FFD20.Current"}}</h5>
+      <span class="value text-box direct wheel-change allow-relative mp-current-input" name="system.attributes.mp.value" data-dtype="Number">{{system.attributes.mp.value}}</span>
+    </div>
+    <div class="info-box maximum">
+      <h5>{{localize "FFD20.Maximum"}}</h5>
+      <span class="value text-box readonly mp-max">{{system.attributes.mp.max}}</span>
+    </div>
+    <div class="info-box temp">
+      <h5>{{localize "FFD20.TempShort"}}</h5>
+      <span class="value text-box direct allow-relative mp-temp-input" name="system.attributes.mp.temp" data-dtype="Number">{{#if system.attributes.mp.temp}}{{system.attributes.mp.temp}}{{/if}}</span>
+    </div>
+    <div class="info-box mpRecovery">
+      <h5>{{localize "FFD20.mpRecovery"}}</h5>
+      <span class="value text-box readonly mp-recover">{{system.attributes.mp.recover}}</span>
+    </div>
+  </div>
+</div>
+
 <nav class="sheet-navigation tabs spellbooks" data-group="spellbooks">
-  {{#each system.attributes.spells.spellbooks as |spellbook a|}}
-  {{#if spellbook.inUse}}
-  <a class="item" data-tab="{{a}}" data-group="spellbooks">{{spellbook.label}}</a>
-  {{/if}}
+  {{#each system.attributes.spells.spellbooks}}
+    {{#if inUse}}
+    <a class="item" data-tab="{{@key}}" data-group="spellbooks">
+      <span class="label">{{label}}</span>
+      <span class="caster-level">{{cl.total}}</span>
+    </a>
+    {{/if}}
   {{/each}}
 </nav>
 
 <section class="spellbooks-body">
-  {{#each spellbookData as |spellbook bookId|}}
-  {{#if spellbook.orig.inUse}}
-  <div class="tab spellbook-group flexcol" data-group="spellbooks" data-tab="{{bookId}}">
-  {{~> "systems/ffd20/templates/actors/parts/actor-spellbook.hbs" spellbook=spellbook bookId=bookId
-    data=../data filters=../filters.spellbook isCharacter=../isCharacter
-    spellFailure=../spellFailure hiddenElems=../hiddenElems sourceDetails=../sourceDetails}}
-  </div>
-  {{/if}}
+  {{#each spellbookData}}
+    {{#if inUse}}
+    <div class="tab spellbook-group flexcol" data-group="spellbooks" data-tab="{{@key}}">
+    {{~> "systems/ffd20/templates/actors/parts/actor-spellbook.hbs" spellbook=this bookId=@key
+      data=../data filters=../filters.spellbook isCharacter=@root.isCharacter
+      spellFailure=../spellFailure hiddenElems=../hiddenElems}}
+    </div>
+    {{/if}}
   {{/each}}
 </section>

@@ -1,0 +1,54 @@
+<div class="ffd20 chat-card item-card" data-actor-id="{{actor.id}}" data-item-id="{{item.id}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
+  <header class="card-header type-color type-{{item.type}} flexrow">
+    <img src="{{item.img}}" data-tooltip="{{name}}" width="36" height="36">
+    <div class="item-name">
+      <h3>{{name}}</h3>
+    </div>
+  </header>
+
+  <div class="card-content">
+    <section class="item-description">
+      {{{description}}}
+    </section>
+  </div>
+
+  <footer class="card-footer">
+    {{#if isSpell}}
+    {{#if spellFailure}}
+    <div class="spell-failure">
+      <h3>{{localize "FFD20.ArcaneSpellFailure"}}</h3>
+      <div class="dice-roll">
+        <div class="dice-result">
+          <h4 class="dice-total spell-failure {{#unless spellFailureSuccess}}failure{{/unless}}">{{spellFailure}}</h4>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+    {{/if}}
+    {{#if data.materials.value}}
+    <p><strong>{{ localize "FFD20.ChatReqMats" }}:</strong> {{data.materials.value}}</p>
+    {{/if}}
+
+    {{#if data.properties.length}}
+    <div class="flexcol property-group gm-sensitive">
+      <label>{{localize "FFD20.Tags"}}</label>
+      <div class="flexrow tag-list">
+        {{#each data.properties}}
+        <span class="tag">{{{this}}}</span>
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
+
+    {{#each properties}}
+    <div class="flexcol property-group gm-sensitive general-notes {{css}}">
+      <label>{{header}}</label>
+      <div class="flexrow tag-list">
+        {{#each value}}
+          <span class="tag">{{{this}}}</span>
+        {{/each}}
+      </div>
+    </div>
+    {{/each}}
+  </footer>
+</div>

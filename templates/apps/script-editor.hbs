@@ -1,21 +1,15 @@
-<form class="{{cssClass}} flexcol" autocomplete="off">
-    {{#if canEdit.name}}
-    <header>
-        <h1>
-            <input name="name" type="text" value="{{name}}" placeholder="{{localize "FFD20.Name"}}" data-tooltip="Name"/>
-        </h1>
-    </header>
-    {{/if}}
+<section class="form-content" data-tooltip-class="pf1-v2">
+  <header>
+    <input name="name" type="text" value="{{name}}" placeholder="{{localize "FFD20.Name"}}" data-tooltip="Name">
+  </header>
 
-    <div class="form-group stacked command">
-        <label>
-          {{localize "FFD20.Command"}}
-          <a class="help-browser" data-url="Help/Items/{{#if isScriptCall}}Script-Calls{{else}}Changes#script-operator{{/if}}"><i class="far fa-question-circle"></i></a>
-        </label>
-        <textarea name="command">{{command}}</textarea>
-    </div>
-
-    <footer class="sheet-footer flexrow">
-        <button type="submit"><i class="fas fa-save"></i> {{localize "FFD20.Save"}}</button>
-    </footer>
-</form>
+  <div class="command">
+    <label>
+      {{localize "FFD20.Command"}}
+      <a class="help-browser" data-url="Help/Items/Script-Calls">
+        <i class="far fa-question-circle"></i>
+      </a>
+    </label>
+    <textarea name="command" spellcheck="false">{{command}}</textarea>
+  </div>
+</section>

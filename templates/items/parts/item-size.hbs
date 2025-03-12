@@ -1,17 +1,13 @@
-<div class="form-group">
+<div class="form-group" data-tooltip="@item.size : {{system.size}}">
   <label>{{localize "FFD20.Size"}}</label>
   <div class="form-fields">
     <select name="system.size">
-      {{#select system.size}}
-      {{#each config.actorSizes as |name type|}}
-      <option value="{{type}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
-      {{#if allowAutoResizing}}
-      <label>
-        <input type="checkbox" name="system.resizing" data-dtype="Boolean" {{checked system.resizing}}> {{localize "FFD20.Resizing"}}
-      </label>
-      {{/if}}
+      {{selectOptions config.actorSizes selected=system.size}}
     </select>
+    {{#if allowAutoResizing}}
+    <label class="resizing checkbox">
+      <input type="checkbox" name="system.resizing" {{checked system.resizing}}> {{localize "FFD20.Resizing"}}
+    </label>
+    {{/if}}
   </div>
 </div>

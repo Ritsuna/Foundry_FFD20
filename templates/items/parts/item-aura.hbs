@@ -1,47 +1,55 @@
 {{#unless showUnidentifiedData}}
-<h3 class="form-header">{{localize "FFD20.Aura"}}</h3>
+<h3 class="form-header">{{localize "FFD20.Aura.Single"}}</h3>
 
 {{!-- Caster Level --}}
 <div class="form-group" data-tooltip="@item.cl : {{system.cl}}">
   <label class="header">{{localize "FFD20.CasterLevel"}}</label>
   <div class="form-fields">
-    <input type="text" class="select-on-click" name="system.cl" value="{{system.cl}}" placeholder="{{localize "FFD20.CasterLevel"}}" data-dtype="Number"/>
+    <input type="number" class="select-on-click" name="system.cl" value="{{system.cl}}" placeholder="{{localize "FFD20.CasterLevel"}}" min="0" step="1">
   </div>
 </div>
 
 {{!-- Aura --}}
-<div class="form-group" data-tooltip="@item.auraStrength : {{auraStrength}}">
+<div class="form-group" data-tooltip="@item.auraStrength : {{aura.strength}}">
   <label class="header">{{localize "FFD20.School"}}</label>
-  {{#if system.aura.custom}}
   <div class="form-fields">
-    <label class="aura-strength">{{auraStrength_name}}</label>
-    <input type="text" name="system.aura.school" value="{{system.aura.school}}" placeholder="{{localize "FFD20.Aura"}}"/>
-    <label class="checkbox">
-      <input type="checkbox" name="system.aura.custom" {{checked system.aura.custom}}/> {{localize "FFD20.Custom"}}
-    </label>
-  </div>
-  {{else}}
-  <div class="form-fields">
-    <label class="aura-strength">{{auraStrength_name}}</label>
+    {{#if aura.strengthLabel}}
+    <label class="aura-strength">{{aura.strengthLabel}}</label>
+    {{/if}}
+    {{#if system.aura.custom}}
+    <input type="text" name="system.aura.school" value="{{system.aura.school}}" placeholder="{{localize "FFD20.Aura.Single"}}">
+    {{else}}
     <select name="system.aura.school">
-      {{#select system.aura.school}}
-      <option value=""></option>
-      {{#each config.spellSchools as |name k|}}
-      <option value="{{k}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
+      {{selectOptions config.spellSchools selected=system.aura.school blank=(localize "FFD20.None")}}
     </select>
+    {{/if}}
     <label class="checkbox">
-      <input type="checkbox" name="system.aura.custom" {{checked system.aura.custom}}/> {{localize "FFD20.Custom"}}
+      <input type="checkbox" name="system.aura.custom" {{checked system.aura.custom}}> {{localize "FFD20.Custom"}}
     </label>
   </div>
+</div>
+
+<div class="form-group stacked">
+  {{#if @root.isGM}}
+  <label class="checkbox cursed">
+    <input type="checkbox" name="system.cursed" {{checked system.cursed}}> {{localize "FFD20.Cursed"}}
+  </label>
   {{/if}}
 </div>
 
 {{!-- Identify DC --}}
-{{#if isGM}}
-<div class="form-group">
-  <label>{{labels.identify}}</label>
+{{#if (and isGM identify.dc)}}
+<div class="form-group identification">
+  <div class='base-dc'>
+    <label>{{localize "FFD20.IdentifyDC"}}</label>
+    <span class='value'>{{identify.dc}}</span>
+  </div>
+  {{#if system.cursed}}
+  <div class='curse-dc'>
+    <label>{{localize "FFD20.IdentifyCurseDC"}}</label>
+    <span class='value'>{{identify.curse}}</span>
+  </div>
+  {{/if}}
 </div>
 {{/if}}
 {{/unless}}

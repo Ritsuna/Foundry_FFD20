@@ -1,0 +1,52 @@
+{{#if header}}
+<h3>{{{header}}}</h3>
+{{/if}}
+
+{{#each details}}
+  <span class="detail">{{key}}</span>
+  <span class="value{{#if left}} left{{/if}}">{{value}}</span>
+{{/each}}
+
+{{#each paths}}
+  <span class="path {{#if empty}} no-value{{/if}}">{{path}}</span>
+  {{#unless empty}}
+  <span class="value{{#if unit}} has-unit{{/if}} {{css}}">{{#if sign}}{{numberFormat value sign=true}}{{else}}{{value}}{{/if}}</span>
+  {{#if unit}}
+    <span class="unit">{{unit}}</span>
+  {{/if}}
+  {{/unless}}
+{{/each}}
+
+{{#if sources.length}}
+  <h4>{{#if subHeader}}{{subHeader}}{{else}}{{localize "FFD20.FromSources"}}{{/if}}</h4>
+  {{#each sources}}
+    {{#if label}}
+    <h5>{{label}}</h5>
+    {{/if}}
+    {{#each sources}}
+    <span class="flavor{{#if disabled}} disabled{{/if}}">{{name}}</span>
+
+    <span class="value{{#if ../left}} left{{/if}}{{#if ../untyped}} untyped{{/if}}{{#if disabled}} disabled{{/if}}">
+      {{#unless unvalued}}
+        {{#if isBoolean}}
+        {{value}}
+        {{else}}
+        {{#if value.length}}{{value}}{{else}}{{numberFormat value sign=true decimals=../decimals}}{{/if}}
+        {{/if}}
+      {{/unless}}
+    </span>
+    {{#unless ../untyped}}
+    <span class="type{{#if disabled}} disabled{{/if}}">{{type}}</span>
+    {{/unless}}
+    {{/each}}
+  {{/each}}
+{{/if}}
+
+{{#if notes.length}}
+<ul class="notes">
+  <h4>{{localize "FFD20.ContextNotes"}}</h4>
+  {{#each notes}}
+    <li class="note">{{{this}}}</li>
+  {{/each}}
+</u>
+{{/if}}

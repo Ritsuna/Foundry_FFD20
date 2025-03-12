@@ -1,0 +1,96 @@
+<div class="{{cssClass}}" data-tooltip-class="pf1-v2">
+  <table class="actor-list">
+    <thead class="header">
+    <tr>
+      <th colspan="2" class="name">{{localize "Name"}}</th>
+      <th class="toggle toggle-all" data-action="toggle" data-toggle="watch"
+          data-tooltip-direction="UP" data-tooltip="FFD20.Application.PartyRest.Watch">
+        <i class="fa-solid fa-eye fa-fw" inert></i>
+      </th>
+      <th class="toggle toggle-all" data-action="toggle" data-toggle="restoreHealth"
+          data-tooltip-direction="UP" data-tooltip="FFD20.RestoreHealth">
+        <i class="fa-solid fa-heart-circle-plus fa-fw" inert></i>
+      </th>
+      <th class="toggle toggle-all" data-action="toggle" data-toggle="restoreUses"
+          data-tooltip-direction="UP" data-tooltip="FFD20.RestoreDailyUses">
+        <i class="fa-solid fa-car-battery fa-fw" inert></i>
+      </th>
+      <th class="toggle toggle-all" data-action="toggle" data-toggle="longTermCare"
+          data-tooltip-direction="UP" data-tooltip="FFD20.LongTermCare">
+        <i class="fa-solid fa-house-medical-circle-check fa-fw" inert></i>
+      </th>
+    </tr>
+    </thead>
+    <tbody>
+    {{#each actors}}
+      <tr class="actor" data-actor-uuid="{{uuid}}" data-actor-index="{{@index}}" data-action="sheet">
+        <td class="image">
+          <img src="{{img}}" alt="{{name}}" class="image">
+        </td>
+        <td class="name">
+          {{name}}
+          <input name="actors.{{@index}}.uuid" value="{{uuid}}" type="hidden">
+        </td>
+        <td>
+          <input name="actors.{{@index}}.watch" type="checkbox" {{checked watch}} class="toggle" {{disabled
+            (eq @root.watches "none")}}>
+        </td>
+        <td>
+          <input name="actors.{{@index}}.options.restoreHealth" type="checkbox" {{checked options.restoreHealth}}
+                 class="toggle">
+        </td>
+        <td>
+          <input name="actors.{{@index}}.options.restoreUses" type="checkbox" {{checked options.restoreUses}}
+                 class="toggle">
+        </td>
+        <td>
+          <input name="actors.{{@index}}.options.longTermCare" type="checkbox" {{checked options.longTermCare}}
+                 class="toggle">
+        </td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+
+  <hr>
+
+  <div class="form-group duration">
+    <label>{{localize "FFD20.Duration"}}</label>
+    <div class="form-fields">
+      <input type="number" name="hours" value="{{hours}}" min="0" step="0.1">
+      {{localize "FFD20.Time.Period.hour.Label"}}
+    </div>
+  </div>
+
+  <div class="form-group watches">
+    <label>{{localize "FFD20.Application.PartyRest.Watches.Label"}}</label>
+    <div class="form-fields choices radio">
+      <input id="watches-none-{{id}}" type="radio" name="watches" value="none" {{checked (eq watches "none")}}>
+      <label for="watches-none-{{id}}" class="no-watches" data-tooltip="FFD20.Application.PartyRest.Watches.NoneHint">
+        {{localize "FFD20.None"}}
+      </label>
+      <input id="watches-solo-{{id}}" type="radio" name="watches" value="solo" {{checked (eq watches "solo")}}>
+      <label for="watches-solo-{{id}}" class="solo-watch" data-tooltip="FFD20.Application.PartyRest.Watches.SoloHint">
+        {{localize "FFD20.Application.PartyRest.Watches.Solo"}}
+      </label>
+      <input id="watches-duo-{{id}}" type="radio" name="watches" value="duo" {{checked (eq watches "duo")}} {{disabled (not duo)}}>
+      <label for="watches-duo-{{id}}" class="duo-watch" data-tooltip="FFD20.Application.PartyRest.Watches.DuoHint">
+        {{localize "FFD20.Application.PartyRest.Watches.Duo"}}
+      </label>
+    </div>
+  </div>
+
+  <div class="form-group watch-length">
+    <label>{{localize "FFD20.Application.PartyRest.Watches.Length"}}</label>
+    <div class="form-fields">
+      <label>
+        {{#if (ne watchTime 0)}}
+          <span class="shift-duration">{{numberFormatAlt watchTime decimals=1}}</span>
+          {{localize "FFD20.Application.PartyRest.Watches.PerShift"}}
+        {{else}}
+          {{localize "FFD20.Application.PartyRest.Watches.None"}}
+        {{/if}}
+      </label>
+    </div>
+  </div>
+</div>

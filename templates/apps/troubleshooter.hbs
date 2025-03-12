@@ -1,9 +1,10 @@
-<form autocomplete='off'>
+<section class="form-body {{#if isGM}}gm{{/if}} {{#if (or migrating.world migrating.modules)}}migrating{{/if}}" data-tooltip-class="pf1-v2">
 	<p>{{localize "FFD20.Troubleshooter.Prelude"}}</p>
 	<h2>{{localize "FFD20.Troubleshooter.Steps.Label"}}</h2>
 	<ol>
+    <li>{{{localize "FFD20.Troubleshooter.Steps.Foundry" link=links.foundry.kb}}}</li>
 		<li>{{{localize "FFD20.Troubleshooter.Steps.Help" link=links.help}}}</li>
-		<li><a href='{{links.faq}}'>{{localize "FFD20.Troubleshooter.Steps.FAQ"}}</a></li>
+		<li><a href="{{links.faq}}">{{localize "FFD20.Troubleshooter.Steps.FAQ"}}</a></li>
 		<li>{{localize "FFD20.Troubleshooter.Steps.Log"}}
 		<li>
 			{{localize "FFD20.Troubleshooter.Steps.Modules"}}
@@ -16,27 +17,36 @@
 		<li>{{{localize "FFD20.Troubleshooter.Steps.Discord" link=links.foundry.discord}}}
 			<ul>
 				<li>{{{localize "FFD20.Troubleshooter.Steps.DiscordChannel" channel=links.foundry.channel}}}</li>
+        <li>{{localize "FFD20.Troubleshooter.Steps.DiscordHint"}}</li>
 			</ul>
 		</li>
 		<li>{{{localize "FFD20.Troubleshooter.Steps.Report" reportlink=links.report}}}</li>
 	</ol>
 
-	<hr>
-
 	<h2>{{localize "FFD20.Troubleshooter.Actions.Label"}}</h2>
 
-	<button type="button" data-action="migrate" data-target="world" {{#unless isGM}}disabled{{/unless}}>
+  <div class="options">
+    <label class="checkbox">
+      <input type="checkbox" name="unlock" {{checked unlockPacks}} {{disabled (not isGM)}}>
+      {{localize "FFD20.Troubleshooter.Actions.UnlockPacks"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="reprocess" {{checked reprocess}}>
+      {{localize "FFD20.Troubleshooter.Actions.Reprocess"}}
+    </label>
+  </div>
+
+	<button type="button" data-action="migrate" data-target="world" {{disabled migrating.world}}>
 		<i class="progress spinner fa-solid fa-spinner"></i>
-		<h3>{{localize "FFD20.Troubleshooter.Actions.MigrateWorld"}}</h3>
+		{{localize "FFD20.Troubleshooter.Actions.MigrateWorld"}}
 		<i class="progress check fa-solid fa-check"></i>
 	</button>
 	<p class="hint">{{{localize "FFD20.Troubleshooter.Actions.MigrateWorldHint"}}}</p>
 
-	<button type="button" data-action="migrate" data-target="modules" {{#unless isGM}}disabled{{/unless}}>
+	<button type="button" data-action="migrate" data-target="modules" {{disabled (or (not isGM) migrating.modules)}}>
 		<i class="progress spinner fa-solid fa-spinner"></i>
-		<h3>{{localize "FFD20.Troubleshooter.Actions.MigrateModules"}}</h3>
+		{{localize "FFD20.Troubleshooter.Actions.MigrateModules"}}
 		<i class="progress check fa-solid fa-check"></i>
 	</button>
 	<p class="hint">{{{localize "FFD20.Troubleshooter.Actions.MigrateModulesHint"}}}</p>
-
-</form>
+</section>

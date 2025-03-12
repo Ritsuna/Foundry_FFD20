@@ -1,0 +1,57 @@
+<ul class="choices">
+  <li class="choice">
+    <label>
+      <input type="radio" name="fcb.choice" value="none" {{checked (eq fcb.choice "none")}}>
+      <h3>
+
+        {{localize "FFD20.LevelUp.FC.None.Label"}}
+      </h3>
+      <p>{{localize "FFD20.LevelUp.FC.None.Desc"}}</p>
+    </label>
+  </li>
+
+  {{#if fcb.available}}
+  <li class="choice">
+    <label>
+      <input type="radio" name="fcb.choice" value="hp" {{disabled fcb.unavailable}} {{checked (eq fcb.choice "hp")}}>
+      <h3>
+        <img class="choice-icon" src="{{icons.fcb.hp}}">
+        {{localize "FFD20.LevelUp.FC.HP.Label"}}
+        <span class="value">{{fcb.hp}}</span>
+      </h3>
+      <p>{{localize "FFD20.LevelUp.FC.HP.Desc"}}</p>
+    </label>
+  </li>
+
+  <li class="choice">
+    <label>
+      <input type="radio" name="fcb.choice" value="skill" {{disabled fcb.unavailable}} {{checked (eq fcb.choice "skill")}}>
+      <h3>
+        <img class="choice-icon" src="{{icons.fcb.skill}}">
+        {{localize "FFD20.LevelUp.FC.Skill.Label"}}
+        <span class="value">{{fcb.skill}}</span>
+      </h3>
+      <p>{{localize "FFD20.LevelUp.FC.Skill.Desc"}}</p>
+    </label>
+  </li>
+
+  <li class="choice">
+    <label>
+      <input type="radio" name="fcb.choice" value="alt" {{disabled fcb.unavailable}} {{checked (eq fcb.choice "alt")}}>
+      <h3>
+        <img class="choice-icon" src="{{icons.fcb.alt}}">
+        {{localize "FFD20.LevelUp.FC.Alt.Label"}}
+        <span class="value">{{fcb.alt}}</span>
+      </h3>
+
+      <p>{{localize "FFD20.LevelUp.FC.Alt.Desc"}}</p>
+
+      {{#if item.system.fc.alt.notes}}
+      <p class="notes">
+        {{item.system.fc.alt.notes}}
+      </p>
+      {{/if}}
+    </label>
+  </li>
+  {{/if}}
+</ul>

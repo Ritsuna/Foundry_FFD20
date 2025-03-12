@@ -1,31 +1,37 @@
-<h4 class="form-header">{{localize "FFD20.ProficienciesGranted"}}</h4>
+<h3 class="form-header">{{localize "FFD20.Proficiency.Granted"}}</h3>
 
 <div class="form-group weapon-proficiencies">
-  <label for="system.weaponProf">{{localize "FFD20.TraitWeaponProf"}}</label>
-  <ul class="traits-list tag-list">
-    {{#each weaponProf.selected as |v k|}}
-      <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-  </ul>
-  <a class="trait-selector" data-options="weaponProficiencies"><i class="fas fa-edit"></i></a>
+  <label>{{localize "FFD20.Proficiency.Weapon.LabelPlural"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+      {{#each weaponProf.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.Proficiency.Weapon.LabelPlural" data-options="weaponProficiencies" data-for="system.weaponProf"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
 </div>
 
 <div class="form-group armor-proficiencies">
-  <label for="system.armorProf">{{localize "FFD20.TraitArmorProf"}}</label>
-  <ul class="traits-list tag-list">
-    {{#each armorProf.selected as |v k|}}
-      <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-  </ul>
-  <a class="trait-selector" data-options="armorProficiencies"><i class="fas fa-edit"></i></a>
+  <label>{{localize "FFD20.Proficiency.Armor.LabelPlural"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+      {{#each armorProf.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.Proficiency.Armor.LabelPlural" data-options="armorProficiencies" data-for="system.armorProf"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
 </div>
 
 <div class="form-group languages">
-  <label for="system.languages">{{localize "FFD20.Languages"}}</label>
-  <ul class="traits-list tag-list">
-    {{#each languages.selected as |v k|}}
-      <li class="tag {{k}}">{{v}}</li>
-    {{/each}}
-  </ul>
-  <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+  <label>{{localize "FFD20.Languages"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+      {{#each languages.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.Languages" data-options="languages" data-for="system.languages"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
 </div>

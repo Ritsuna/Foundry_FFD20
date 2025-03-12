@@ -1,11 +1,53 @@
-<form autocomplete="off">
-    <div class="form-group">
-        <label class="checkbox">
-            <input type="checkbox" name="dontShowAgain" {{checked dontShowAgain}}/> {{localize "FFD20.DontShowAgain"}}
-        </label>
-    </div>
+<section class="form-body" data-tooltip-class="pf1-v2">
+  <nav class="tabs" data-group="primary">
+    {{#with changelog}}
+      <a class="active" data-action="tab" data-group="primary" data-tab="latest">{{localize "FFD20.Application.Changelog.Latest" version=version}}</a>
+      <a class="" data-action="tab" data-group="primary" data-tab="major">{{localize "FFD20.Application.Changelog.Major" major=version.major}}</a>
+      {{#if legacy.content}}
+        <a class="" data-action="tab" data-group="primary" data-tab="legacy">{{localize "FFD20.Application.Changelog.Legacy"}}</a>
+      {{/if}}
+    {{else}}
+      <a class="active" data-action="tab" data-group="primary" data-tab="error">{{localize "Error"}}</a>
+    {{/with}}
+  </nav>
 
-    <div class="content">
-        {{{changelog}}}
-    </div>
-</form>
+  <section class="content">
+    {{#with changelog}}
+      <div class="tab latest active" data-group="primary" data-tab="latest">
+        {{{latest.content}}}
+      </div>
+      <div class="tab major" data-group="primary" data-tab="major">
+        {{{latest.content}}}
+        {{{major.content}}}
+      </div>
+      {{#if legacy.content}}
+        <div class="tab legacy" data-group="primary" data-tab="legacy">
+          {{{legacy.content}}}
+        </div>
+      {{/if}}
+    {{else}}
+      {{#if error}}
+        <div class="tab error active">
+          <h2>
+            <i class="fa-solid fa-triangle-exclamation" inert></i>
+            <span class='status-code'>{{error.number}}</span>
+            <span class='message'>{{error.message}}</span>
+          </h2>
+          <label class='url'>{{error.url}}</label>
+        </div>
+      {{/if}}
+    {{/with}}
+  </section>
+
+  <footer>
+    <label class="checkbox">
+      <input type="checkbox" name="dontShowAgain" {{checked dontShowAgain}}>
+      {{localize "FFD20.Application.Changelog.DontShowAgain"}}
+    </label>
+
+    <a href="{{{link}}}" target="_blank">
+      <i class="fa-solid fa-up-right-from-square" inert></i>
+      {{localize "FFD20.Application.Changelog.OpenInBrowser"}}
+    </a>
+  </footer>
+</section>

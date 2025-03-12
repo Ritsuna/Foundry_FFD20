@@ -1,0 +1,8 @@
+{{#if system.tags.length}}
+<ul class="property-list tags">
+  <h5>{{localize "FFD20.Tags"}}</h5>
+  {{#each system.tags}}
+  <li class="property generic-tag">{{this}}</li>
+  {{/each}}
+</ul>
+{{/if}}

@@ -1,0 +1,107 @@
+<section class="form-body {{cssClass}}" data-tooltip-class="pf1-v2">
+  {{! Operator }}
+  <div class="form-group operator">
+    <label>{{localize "FFD20.Operator"}}</label>
+    <div class="form-fields radio">
+      <input id="change-operator-set-{{change.id}}" type="radio" value="add" name="change.operator" {{checked isAdd}}>
+      <label for="change-operator-set-{{change.id}}" data-tooltip="FFD20.Application.ChangeEditor.Operator.AddHint">
+        <i class="far fa-plus-minus"></i>
+        {{localize "FFD20.Application.ChangeEditor.Operator.Add"}}
+      </label>
+      <input id="change-operator-add-{{change.id}}" type="radio" value="set" name="change.operator" {{checked isSet}}>
+      <label for="change-operator-add-{{change.id}}" data-tooltip="FFD20.Application.ChangeEditor.Operator.SetHint">
+        <i class="far fa-equals"></i>
+        {{localize "FFD20.Application.ChangeEditor.Operator.Set"}}
+      </label>
+      {{#unless isValidOp}}
+        <label class="invalid">
+          <input type="radio" value="{{change.operator}}" name="change.operator" {{checked (not isValidOp)}}>
+          {{localize "FFD20.Application.ChangeEditor.Invalid"}}
+        </label>
+      {{/unless}}
+    </div>
+  </div>
+
+  {{! Target }}
+  <div class="form-group target">
+    <label>{{localize "FFD20.Target"}}</label>
+    <div class="form-fields">
+      <span class="value button change-target{{#unless isValid}} invalid{{/unless}}">
+        {{#if isValid}}
+          {{label}}
+        {{else}}
+          <i class="fa-solid fa-triangle-exclamation" inert></i>
+          {{#if isCustom}}
+          {{localize "FFD20.Missing"}}
+          {{else}}
+          {{localize "FFD20.Application.ChangeEditor.Invalid"}}
+          {{/if}}
+          {{#if label}} ({{label}}){{/if}}
+        {{/if}}
+      </span>
+    </div>
+  </div>
+
+  {{! Formula }}
+  <div class="form-group-mimic formula {{change.cssClass}}">
+    <label for="change-formula-{{change.id}}">{{localize "FFD20.Formula"}}</label>
+
+    <div class="formula-container">
+      <div class="formula-type">
+        {{#if change.isSimple}}
+            <span data-tooltip="FFD20.Application.ChangeEditor.Help.SimpleHint">
+              {{localize "FFD20.Application.ChangeEditor.Help.Simple"}}
+            </span>
+        {{else change.isDeferred}}
+          <span data-tooltip="FFD20.Application.ChangeEditor.Help.RollHint">
+            <i class="far fa-dice-d20"></i>
+            {{localize "FFD20.Application.ChangeEditor.Help.Roll"}}
+          </span>
+        {{else}}
+          <span data-tooltip="FFD20.Application.ChangeEditor.Help.ValueHint">
+            {{localize "FFD20.Application.ChangeEditor.Help.Value"}}
+          </span>
+        {{/if}}
+
+      </div>
+      <input id="change-formula-{{change.id}}" type="text" class="formula {{change.cssClass}}"
+             name="change.formula" value="{{change.formula}}" placeholder="{{localize "FFD20.Formula"}}" required>
+    </div>
+  </div>
+
+  {{! Type }}
+  <div class="form-group type">
+    <label for="change-type-{{change.id}}">{{localize "FFD20.Type"}}</label>
+    <div class="form-fields">
+      <select id="change-type-{{change.id}}" class="change-type" name="change.type">
+        {{selectOptions @root.config.bonusTypes selected=change.type}}
+      </select>
+    </div>
+  </div>
+
+  {{! Priority }}
+  <div class="form-group priority">
+    <label for="change-priority-{{change.id}}">{{localize "FFD20.Priority"}}</label>
+    <div class="form-fields">
+      <label>
+        {{#if priority.early}}
+        {{localize "FFD20.ChangePriority.Early"}}
+        {{else if priority.late}}
+        {{localize "FFD20.ChangePriority.Late"}}
+        {{else}}
+        {{localize "FFD20.ChangePriority.Normal"}}
+        {{/if}}
+      </label>
+      <input id="change-priority-{{change.id}}" type="number" value="{{change.priority}}" placeholder="0"
+        name="change.priority" step="1">
+    </div>
+  </div>
+
+  {{! Help }}
+  <p class="instructions">
+    <a class='help-browser' data-url="Help/Items/Changes">
+      <i class="far fa-question-circle"></i>
+      {{localize "FFD20.Application.ChangeEditor.Help.Link"}}
+    </a>
+  </p>
+</section>

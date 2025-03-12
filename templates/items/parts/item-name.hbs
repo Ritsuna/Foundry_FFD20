@@ -1,29 +1,23 @@
 <div class="item-name flexcol">
   {{#if isGM}}
   <h3>
-    <input name="name" type="text" value="{{name}}" placeholder="{{localize 'FFD20.ItemName'}}" />
+    <input class="identified" name="name" type="text" value="{{name}}"
+      placeholder="{{localize 'FFD20.ItemName'}}" data-tooltip="FFD20.ItemName">
   </h3>
-  <!-- <div class="flex-break"></div>-->
   <h3>
-    <input
-      name="system.unidentified.name"
-      type="text"
-      value="{{system.unidentified.name}}"
-      placeholder="{{localize 'FFD20.UnidentifiedName'}}"
-    />
+    <input class="unidentified" name="system.unidentified.name" type="text" value="{{system.unidentified.name}}"
+      placeholder="{{localize 'FFD20.UnidentifiedName'}}" data-tooltip="FFD20.UnidentifiedName">
   </h3>
   {{else if showUnidentifiedData}}
   <h1>
-    <input name="system.unidentified.name" type="text" value="{{name}}" placeholder="{{localize 'FFD20.ItemName'}}" />
+    <input name="system.unidentified.name" type="text" value="{{name}}" placeholder="{{localize 'FFD20.ItemName'}}">
   </h1>
   {{else}}
   <h1>
-    <input name="name" type="text" value="{{name}}" placeholder="{{localize 'FFD20.ItemName'}}" />
+    <input name="name" type="text" value="{{name}}" placeholder="{{localize 'FFD20.ItemName'}}">
   </h1>
   {{/if}}
 </div>
 
-<div class="item-subtitle">
-  <h4 class="item-type">{{localize "FFD20.Item"}}</h4>
-  <span class="item-status">{{ itemStatus }}</span>
-</div>
+{{! Content Source }}
+{{~> "systems/ffd20/templates/internal/content-source-view.hbs"}}

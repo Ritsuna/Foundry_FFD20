@@ -1,0 +1,13 @@
+{{#if label}}
+<p class="label">{{{label}}}</p>
+{{/if}}
+
+<input name="number" type="number"
+	{{#if placeholder}}placeholder="{{placeholder}}"{{/if}}
+	value="{{value}}"
+	min="{{min}}" max="{{max}}" step="{{step}}"
+	autofocus>
+
+{{#if hint}}
+<p class="hint">{{{hint}}}</p>
+{{/if}}

@@ -1,0 +1,53 @@
+<section class="form-body" data-tooltip-class="pf1-v2">
+  {{#*inline "documentEntry"}}
+    <li class="document-item {{#if (eq @root.selected id)}}selected{{/if}} {{#if isDisabled}}disabled{{/if}}">
+      <label>
+        <input type="radio" name="selected" value="{{id}}"
+          {{checked (eq @root.selected id)}}
+          {{#if isDisabled}}disabled{{/if}}>
+
+        <img class="image" src="{{img}}" alt="{{name}}" height="64" loading="lazy">
+
+        <span class="item-details">
+          <span class="item-name">{{name}}</span>
+          <span class="item-extras">
+            {{#each extras}}
+              {{#if value}}
+                <span class="item-extra">{{#if label}}{{localize label}}: {{/if}}{{value}}</span>
+              {{/if}}
+            {{/each}}
+          </span>
+        </span>
+      </label>
+    </li>
+  {{/inline}}
+
+  <div class="document-list-search">
+    <input class="search-input" type="search" placeholder="{{localize 'FFD20.SearchFilterPlaceholder'}}"
+           value="{{searchTerm}}">
+  </div>
+
+  <div class="document-section-wrapper">
+    {{#if empty.include}}
+      <div class="documents-section">
+        <ul class="document-sections-list">
+          {{> documentEntry empty.document}}
+        </ul>
+      </div>
+    {{/if}}
+
+    {{#each sections as |section|}}
+      <div class="documents-section">
+        {{#if @root.showSectionHeaders}}
+          <h3 class="documents-section-label">{{localize section.label}}</h3>
+        {{/if}}
+
+        <ul class="document-sections-list">
+          {{#each section.documents as |document|}}
+            {{> documentEntry document=document}}
+          {{/each}}
+        </ul>
+      </div>
+    {{/each}}
+  </div>
+</section>

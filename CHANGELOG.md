@@ -1,5 +1,40 @@
-<!-- markdownlint-disable MD024 -->
 # Changelog
+
+## 12.11.3.0 - 2025-03-12
+### Changelog
+- update to pf1e v11.3
+- fixed mp damage error
+- fixed materia item layout
+
+## 12.11.0.0 - 2025-02-01
+
+### Important Notice: Formula Syntax Changes
+
+Due to core Foundry VTT updates, some previously supported formula syntax will no longer function in the Pathfinder 1e system.
+
+- For **existing worlds**, the module [**Better Roll Formulas**](https://foundryvtt.com/packages/better-roll-formulas) (by KitKat) is recommended to ensure legacy content immediately remains compatible.
+- For **new worlds**, the system now provides additional formula functions as replacements. Refer to the system documentation (linked in the settings sidebar) for details.
+
+### Changelog
+- update to pf1e v11.0
+
+## 11.10.7.0 - 2024-09-01
+
+### Changelog
+
+- update to pf1e v10.7
+- changed version numbering to aa.bb.c.d for aa is the lowest version of foundry this system will work with, bb.c is the version of pathfinder 1e that it is in line with, and d is personal version.
+- got mp calculations worked out as well as mp recoverry finally programmed in
+
+## 10.2.7 - 2023-11-15
+
+### Changelog
+
+- update to pf1e v9.5
+- moved a few small back end things around for easier adjustments
+- fixed bonus mp from items(was not being counted before)
+- added mp on spellbook tab
+- shifting gil back to gp on backend to make migration to module easier later, gil in containers might disappear. for itempiles just change pgil to pp, gil to gp, sgil to sp, and cgil to cp
 
 ## 10.2.2 to 10.2.6 - 2023-09-13
 
@@ -231,7 +266,7 @@
 
 ### Change Log
 
-- Updated to match PF1 version 0.77.21 4/16/2012 sans step 4.5 as it breaks mp
+- Updated to match PF1e version 0.77.21 4/16/2012 sans step 4.5 as it breaks mp
 - Cleaned a few more errors
 - added status effects to the information
 - updated skills with more correct information
@@ -240,7 +275,7 @@
 
 ### Change Log
 
-- Updated to match PF1 version 0.77.20
+- Updated to match PF1e version 0.77.20
 - Cleaned a few errors
 
 ## 0.1.8

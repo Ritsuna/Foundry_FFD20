@@ -1,34 +1,17 @@
-<div class="ffd20 chat-card damage-card {{css}}" {{#if tokenId}}data-token-id="{{tokenId}}"{{/if}}>
-    <table>
-        <thead>
-            <th>
-                {{#if isHealing}}{{localize "FFD20.Healing"}}{{else}}{{localize "FFD20.Damage"}}{{/if}}
-            </th>
-        </thead>
-        <tbody>
-            <td>
-                <a class="inline-roll inline-dsn-hidden inline-result" data-tooltip="{{roll.formula}}" data-roll="{{json-string roll}}">
-                <i class="fas fa-dice-d20"></i> {{roll.total}}
-                </a>
-            </td>
-        </tbody>
-    </table>
+<div class="ffd20 chat-card damage-card dice-roll {{css}}"{{#if token}} data-token-uuid="{{token.uuid}}"{{/if}}{{#if actor}} data-actor-uuid="{{actor.uuid}}"{{/if}}>
+  <h2>{{#if isHealing}}{{localize "FFD20.Healing"}}{{else}}{{localize "FFD20.Damage"}}{{/if}}</h2>
 
-    <div class="flexcol card-buttons">
-        <div class="card-button-group flexcol">
-            {{#if isHealing}}
-            <label>{{localize "FFD20.Healing"}}</label>
-            <div class="flexrow">
-                <button type="button" data-action="applyDamage" data-value="-{{roll.total}}">{{localize "FFD20.Apply"}}</button>
-                <button type="button" data-action="applyDamage" data-value="-{{roll.totalHalved}}">{{localize "FFD20.ApplyHalf"}}</button>
-            </div>
-            {{else}}
-            <label>{{localize "FFD20.Damage"}}</label>
-            <div class="flexrow">
-                <button type="button" data-action="applyDamage" data-value="{{roll.total}}">{{localize "FFD20.Apply"}}</button>
-                <button type="button" data-action="applyDamage" data-value="{{roll.totalHalved}}">{{localize "FFD20.ApplyHalf"}}</button>
-            </div>
-            {{/if}}
-        </div>
-    </div>
+  <div class="dice-result">
+    <h3 class="roll-total{{#if hasDetails}} has-details{{/if}}">
+      <i class="fa-solid fa-dice-d20" inert></i>
+      {{total}}
+    </h3>
+
+    {{{details}}}
+  </div>
+
+  <div class="card-buttons flexrow">
+    <button type="button" data-action="applyDamage" data-value="{{value.total}}">{{localize "FFD20.Apply"}}</button>
+    <button type="button" data-action="applyDamage" data-value="{{value.half}}">{{localize "FFD20.ApplyHalf"}}</button>
+  </div>
 </div>

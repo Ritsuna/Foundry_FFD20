@@ -1,9 +1,9 @@
-<form autocomplete="off" class="flexcol">
+<form autocomplete="off" data-tooltip-class="ffd20" class="flexcol {{cssClass}}">
   <header class="sheet-header flexrow">
-    <img class="profile" src="{{data.img}}" data-tooltip="{{data.name}}" data-edit="img">
+    <img class="profile" src="{{img}}" data-edit="img">
     <div class="header-details flexrow">
       <h1 class="action-name">
-        <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "FFD20.ActionName"}}" />
+        <input name="name" type="text" value="{{data.name}}" placeholder="{{localize "FFD20.Name"}}">
       </h1>
     </div>
   </header>
@@ -19,26 +19,27 @@
   <section class="primary-body">
 
     {{!-- Action Description --}}
-    <div class="tab details" data-group="primary" data-tab="description">
+    <div class="tab description" data-group="primary" data-tab="description">
       <div class="form-group">
         <label>{{localize "FFD20.Tag"}}</label>
-        <input type="text" placeholder="{{tag}}" value="{{data.tag}}" name="tag" />
+        <input type="text" placeholder="{{data.tag}}" value="{{@root.tag}}" name="tag">
       </div>
-      {{editor descriptionHTML target="description" button=true editable=owner engine="prosemirror" collaborate=false}}
+      {{editor descriptionHTML target="description" button=_editorState.description engine="prosemirror" editable=@root.editable}}
+      <!--prose-mirror name="description" value="{{data.description}}" {{#if _editorState.description}}toggled{{/if}}>{{{descriptionHTML}}}</prose-mirror-->
     </div>
 
     {{!-- Action Activation --}}
-    <div class="tab details" data-group="primary" data-tab="activation">
+    <div class="tab activation" data-group="primary" data-tab="activation">
       {{> "systems/ffd20/templates/apps/item-action/activation.hbs"}}
     </div>
 
     {{!-- Action Effect --}}
-    <div class="tab details" data-group="primary" data-tab="action">
+    <div class="tab action" data-group="primary" data-tab="action">
       {{> "systems/ffd20/templates/apps/item-action/action.hbs"}}
     </div>
 
     {{!-- Miscellaneous --}}
-    <div class="tab flexcol" data-group="primary" data-tab="misc">
+    <div class="tab misc" data-group="primary" data-tab="misc">
       <h3 class="form-header">{{localize "FFD20.MeasureTemplate"}}</h3>
 
       {{> "systems/ffd20/templates/apps/item-action/template.hbs"}}
@@ -49,16 +50,13 @@
       <div class="form-group">
         <label>{{localize "FFD20.SoundEffect"}}</label>
         <div class="form-fields">
-          <input type="text" name="soundEffect" placeholder="path/audio.wav" value="{{data.soundEffect}}"/>
-          <button type="button" class="file-picker-alt" data-for="soundEffect" data-type="audio">
-            <i class="fas fa-file-import fa-fw"></i>
-          </button>
+          {{formInput fields.soundEffect value=data.soundEffect placeholder="path/to/audio.m4a"}}
         </div>
       </div>
     </div>
 
     {{!-- Conditionals Tab --}}
-    <div class="tab" data-group="primary" data-tab="conditionals">
+    <div class="tab condtionals" data-group="primary" data-tab="conditionals">
       {{> "systems/ffd20/templates/apps/item-action/conditionals.hbs"}}
     </div>
   </section>

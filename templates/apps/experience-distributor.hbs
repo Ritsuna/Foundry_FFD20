@@ -1,0 +1,69 @@
+<section class="form-body" data-tooltip-class="pf1-v2">
+  <div class="selectors">
+    {{!-- PC selector --}}
+    <h3>{{localize "FFD20.PCs"}}</h3>
+    <div class="actor-selector character-selector">
+      {{#each actors.characters}}
+        <label class="actor {{#if selected}}selected{{/if}}" data-id="{{id}}">
+          <img alt="{{actor.name}}" class="portrait" src="{{actor.img}}">
+          <span class="name">{{actor.name}}</span>
+          <input type="checkbox" data-id="{{id}}" {{checked selected}}>
+        </label>
+      {{/each}}
+    </div>
+
+    {{!-- NPC selector --}}
+    <h3>{{localize "FFD20.NPCs"}}</h3>
+    <div class="actor-selector npc-selector">
+      {{#each actors.npcs}}
+        <label class="actor {{#if selected}}selected{{/if}}" data-id="{{id}}">
+          <img alt="{{actor.name}}" class="portrait" src="{{actor.img}}">
+          <span class="name">{{actor.name}}</span>
+          <span class="xp">{{localize "FFD20.XPValue" value=xpLabel}}</span>
+          <input type="checkbox" data-id="{{id}}" {{checked selected}}>
+        </label>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="footer">
+    {{!-- Options --}}
+    <fieldset class="options flexcol">
+      <legend>{{localize "FFD20.Options"}}</legend>
+
+      <div class="bonus-xp form-group">
+        <label>{{localize "FFD20.Application.XPDistributor.Options.BonusExperience"}}</label>
+        <div class="form-fields">
+          <input type="number" name="bonusXP" value="{{bonusXP}}" step="1">
+        </div>
+      </div>
+    </fieldset>
+
+    {{!-- Show result --}}
+    <fieldset>
+      <legend>{{localize "FFD20.Application.XPDistributor.Reward"}}</legend>
+
+      <div class="flexcol result">
+        {{!-- Split XP --}}
+        <div class="property xp-split form-group">
+          <label>
+            <i class="fa-solid fa-people-arrows" inert></i> {{localize "FFD20.Application.XPDistributor.SplitExperience"}}
+          </label>
+          <div class="form-fields">
+            <strong class="value">+{{xp.split}}</strong>
+          </div>
+        </div>
+
+        {{!-- Total XP --}}
+        <div class="property xp-total form-group">
+          <label>
+            <i class="fa-solid fa-star" inert></i> {{localize "FFD20.Application.XPDistributor.TotalExperience"}}
+          </label>
+          <div class="form-fields">
+            <strong class="value">+{{xp.total}}</strong>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</section>

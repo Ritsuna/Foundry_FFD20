@@ -1,0 +1,69 @@
+{{#*inline "input"}}
+  {{#if isBoolean}}
+    <input type="checkbox" name="{{name}}" {{checked value}} {{disabled disabled}}>
+  {{else}}
+    <input data-action="input-text" name="{{name}}"
+      class="select-on-click{{#if tooltip}} details-tooltip{{/if}}{{#if isRelative}} relative{{/if}}"
+      {{#if tooltip}}data-tooltip-type="{{tooltip}}"{{/if}}
+      {{#with constraints}}
+      min="{{min}}" step="{{step}}" max="{{max}}"
+      {{/with}}
+      {{#if fakeValue}}data-input-value="{{inputValue}}"{{/if}}
+      type="text"
+      {{#if isNumber}}
+      value="{{numberFormat value decimals=decimals}}"
+      {{else}}
+      value="{{value}}"
+      {{/if}}
+      {{disabled disabled}} readonly>
+  {{/if}}
+{{/inline}}
+
+{{#*inline "inputGroup"}}
+  {{#if isBoolean}}
+  <label class="descriptor checkbox">
+    {{> "input"}}
+    <span>{{label}}</span>
+  </label>
+  {{else if isRange}}
+  <div class="descriptor range-value">
+    <label>
+      <span>{{label}}</span>
+      {{> "input" current}}
+    </label>
+    <span class="separator">/</span>
+    {{!-- Max --}}
+    {{> "input" max}}
+  </div>
+  {{else if isNumber}}
+  <label class="descriptor number">
+    <span>{{label}}</span>
+    {{> "input"}}
+  </label>
+  {{else}}
+  <label class="descriptor text">
+    <span>{{label}}</span>
+    {{> "input"}}
+  </label>
+  {{/if}}
+{{/inline}}
+
+{{#each descriptionAttributes}}
+{{> "inputGroup"}}
+{{/each}}
+
+{{! Quick Action }}
+{{#if isActivatable}}
+<label class="descriptor checkbox quickbar" data-tooltip="FFD20.QuickbarHint">
+  <input type="checkbox" name="system.showInQuickbar" {{checked system.showInQuickbar}}>
+  {{localize "FFD20.Quickbar"}}
+</label>
+{{/if}}
+
+{{! Combat Tab }}
+{{#if showInCombat}}
+<label class="descriptor checkbox quick-combat" data-tooltip="FFD20.QuickCombatHint">
+  <input type="checkbox" name="system.showInCombat" {{checked system.showInCombat}}>
+  {{localize "FFD20.QuickCombat"}}
+</label>
+{{/if}}

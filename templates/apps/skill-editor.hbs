@@ -1,8 +1,8 @@
-<form class="ffd20 custom-skill" autocomplete="off">
+<form class="ffd20 custom-skill" data-tooltip-class="pf1-v2" autocomplete="off">
   <div class="form-group">
     <label>{{localize "FFD20.Name"}}</label>
     <div class="form-fields">
-      <input type="text" name="skill.name" value="{{skill.name}}" data-dtype="String"{{#if skill.static}} disabled{{/if}} required />
+      <input type="text" name="skill.name" value="{{skill.name}}" {{disabled skill.static}} required>
     </div>
   </div>
 
@@ -10,42 +10,39 @@
   <div class="form-group">
     <label>{{localize "FFD20.Tag"}}</label>
     <div class="form-fields">
-      <input type="text" name="tag" value="{{skill.tag}}" data-dtype="String" required />
+      <input type="text" name="tag" value="{{skill.tag}}" required>
     </div>
   </div>
+  {{else}}
+  <input type="hidden" name="tag" value="{{skill.tag}}">
   {{/unless}}
 
   <div class="form-group">
     <label>{{localize "FFD20.Rank"}}</label>
     <div class="form-fields">
-      <input type="text" name="skill.rank" value="{{skill.rank}}" data-dtype="Number" min="0" step="1" />
+      <input type="number" name="skill.rank" value="{{skill.rank}}" min="0" step="1">
     </div>
   </div>
 
   <div class="form-group">
     <label>{{localize "FFD20.ACPLong"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="skill.acp" {{checked skill.acp}} data-dtype="Boolean" />
+      <input type="checkbox" name="skill.acp" {{checked skill.acp}}>
     </div>
   </div>
 
   <div class="form-group">
     <label>{{localize "FFD20.RTTooltip"}}</label>
     <div class="form-fields">
-      <input type="checkbox" name="skill.rt" {{checked skill.rt}} data-dtype="Boolean" />
+      <input type="checkbox" name="skill.rt" {{checked skill.rt}}>
     </div>
   </div>
 
   <div class="form-group">
     <label>{{localize "FFD20.Ability"}}</label>
     <div class="form-fields">
-      <select class="skill-ability" name="skill.ability" data-dtype="String">
-        {{#select skill.ability}}
-        <option value=""><!-- None --></option>
-        {{#each @root.config.abilities as |ability a|}}
-        <option value="{{a}}">{{ability}}</option>
-        {{/each}}
-        {{/select}}
+      <select class="skill-ability" name="skill.ability">
+        {{selectOptions @root.config.abilities selected=skill.ability blank="FFD20.None" localize=true}}
       </select>
     </div>
   </div>
@@ -57,15 +54,17 @@
     <div class="compendium-entry flexrow" data-compendium-entry="{{journal.uuid}}" data-document-type="{{journal.documentType}}">
       <a class="compendium-page">
         <span>{{journal.name}}</span>
-        <i class="fas fa-book compendium-icon"></i>
+        <i class="fa-solid fa-book compendium-icon" inert></i>
       </a>
       <div class="compendium-controls">
-        <a class="delete"><i class="fas fa-trash"></i></a>
+        <a class="delete"><i class="fa-solid fa-trash" inert></i></a>
       </div>
+    </div>
+    {{else}}
+    <div class="form-fields">
+      <span class="placeholder">{{localize "FFD20.SkillJournalHint"}}</span>
     </div>
     {{/if}}
   </div>
   {{/unless}}
-
-  <button type="submit" name="submit"><i class="far fa-save"></i> {{ localize "Save Changes" }}</button>
 </form>

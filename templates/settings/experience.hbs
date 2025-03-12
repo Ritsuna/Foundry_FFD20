@@ -1,54 +1,27 @@
-<form autocomplete="off">
-  <div class="form-group">
-    <label for="disable-experience-tracking">
-      {{localize "SETTINGS.pf1NoExpN"}}
-    </label>
-    <div class="form-fields">
-      <input type="checkbox" id="disable-experience-tracking" name="disableExperienceTracking" data-dtype="Boolean" {{checked settings.disableExperienceTracking}} />
+<section class="form-body" data-tooltip-class="pf1-v2">
+  {{formGroup fields.disable value=settings.disable localize=true classes="slim disable-experience"
+    label="FFD20.Application.Settings.Experience.Disable" hint="FFD20.Application.Settings.Experience.DisableHint"}}
+
+  <div class="{{#if (not enabled)}}hidden{{/if}}" id="experience-details">
+    {{formGroup fields.track value=settings.track localize=true disabled=settings.disable choices=model.progressionOptions blank=false
+      label="FFD20.Application.Settings.Experience.Track.Label" hint="FFD20.Application.Settings.Experience.Track.Hint"}}
+
+    <div class="{{#if (not hasCustomFormula)}}hidden{{/if}}" id="experience-custom">
+      <div class="form-group">
+        <label for="xp-custom-formula">
+          {{localize "FFD20.Formula"}}
+        </label>
+        <div class="form-fields">
+          {{formInput fields.custom.fields.formula value=settings.custom.formula placeholder=(localize "FFD20.Application.Settings.Experience.Track.CustomPlaceholder") id="xp-custom-formula" disabled=settings.disable}}
+        </div>
+      </div>
+      <p class="hint">
+        <i class="fa-solid fa-circle-info" inert></i>
+        {{{localize "FFD20.Application.Settings.Experience.Track.CustomUsage"}}}
+      </p>
     </div>
-    <p class="notes">{{localize "SETTINGS.pf1NoExpL"}}</p>
-  </div>
 
-  {{#if (not settings.disableExperienceTracking)}}
-
-  <div class="form-group">
-    <label for="xp-track">{{localize "SETTINGS.pf1ExpRateN"}}</label>
-    <div class="form-fields">
-      <select name="track" id="xp-track">
-        {{#select settings.track}}
-        <option value="slow">{{localize "FFD20.XPTrackSlow"}}</option>
-        <option value="medium">{{localize "FFD20.XPTrackMedium"}}</option>
-        <option value="fast">{{localize "FFD20.XPTrackFast"}}</option>
-        <option value="customFormula">{{localize "FFD20.XPTrackCustomFormula"}}</option>
-        {{/select}}
-      </select>
-    </div>
-    <p class="notes">{{localize "SETTINGS.pf1ExpRateL"}}</p>
+    {{formGroup fields.openDistributor value=settings.openDistributor disabled=settings.disable classes="slim"
+      label="FFD20.Application.Settings.Experience.Distributor" hint="FFD20.Application.Settings.Experience.DistributorHint" localize=true}}
   </div>
-
-  {{#if hasCustomFormula}}
-  <div class="form-group">
-    <label for="xp-custom-formula">{{localize "FFD20.Formula"}}</label>
-    <div class="form-fields">
-      <input type="text" class="formula" placeholder="{{localize "FFD20.XPTrackCustomFormulaHint"}}" name="custom.formula" value="{{settings.custom.formula}}" id="xp-custom-formula" />
-    </div>
-  </div>
-  {{/if}}
-
-  <div class="form-group">
-    <label for="open-xp-distributor">
-      {{localize "SETTINGS.pf1OpenXPDistributorN"}}
-    </label>
-    <div class="form-fields">
-      <input type="checkbox" id="open-xp-distributor" name="openXpDistributor" data-dtype="Boolean" {{checked settings.openXpDistributor}} />
-    </div>
-    <p class="notes">{{localize "SETTINGS.pf1OpenXPDistributorL"}}</p>
-  </div>
-  {{/if}}
-
-  <div class="form-group">
-    <button type="submit" name="submit" >
-      <i class="far fa-save"></i> {{localize "SETTINGS.Save"}}
-    </button>
-  </div>
-</form>
+</section>

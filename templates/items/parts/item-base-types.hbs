@@ -1,9 +1,11 @@
 <div class="form-group base-types">
-	<label>{{localize "FFD20.BaseTypes.Label"}} <a class="fas fa-info-circle" data-tooltip="{{localize "FFD20.BaseTypes.Description"}}"></a></label>
-	<ul class="tag-list">
-		{{#each system.baseTypes}}
-		<li class="tag">{{this}}</li>
-		{{/each}}
-	</ul>
-    <a class="entry-selector" for="system.baseTypes" data-fields="{{localize "FFD20.BaseTypes.Label"}}" data-dtypes="String" data-flat="true"><i class="fas fa-edit"></i></a>
+  <label>{{localize "FFD20.BaseTypes.Label"}} <a class="fa-solid fa-info-circle" data-tooltip="{{localize "FFD20.BaseTypes.Description"}}"></a></label>
+  <div class="form-fields">
+    <ul class="tag-list">
+      {{#each system.baseTypes}}
+      <li class="tag">{{this}}</li>
+      {{/each}}
+    </ul>
+    <a class="entry-selector" data-for="system.baseTypes" data-fields="{{localize "FFD20.BaseTypes.Label"}}" data-dtypes="String" data-flat="true"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
 </div>

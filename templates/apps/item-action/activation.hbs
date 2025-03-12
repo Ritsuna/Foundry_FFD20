@@ -1,12 +1,15 @@
 {{!-- Activation Cost --}}
-<div class="form-group input-select">
+<div class="form-group input-select activation-cost">
   <label>{{localize "FFD20.ActivationCost"}}</label>
   <div class="form-fields">
-    <input type="text" name="activation{{#if unchainedActionEconomy}}.unchained{{/if}}.cost"
-      value="{{@root.activation.cost}}" data-dtype="Number" placeholder=""/>
+    <input name="activation{{#if unchainedActionEconomy}}.unchained{{/if}}.cost"
+    {{#if costlessActivation}}
+      type="hidden" data-dtype="Number" value="1"
+    {{else}}
+      type="number" placeholder="1" min="1" step="1" value="{{@root.activation.cost}}"
+    {{/if}}>
     <select name="activation{{#if unchainedActionEconomy}}.unchained{{/if}}.type">
-      <option value=""></option>
-      {{selectOptions @root.abilityActivationTypes selected=@root.activation.type}}
+      {{selectOptions @root.choices.abilityActivationTypes selected=@root.action.activation.type}}
     </select>
   </div>
 </div>
@@ -14,18 +17,18 @@
 <hr>
 {{#if isSpell}}
 <div class="form-group">
-  <label>{{localize "FFD20.SpellEffect"}}</label>
+  <label>{{localize "FFD20.Effect"}}</label>
   <div class="form-fields">
-    <input type="text" name="spellEffect" value="{{data.spellEffect}}" placeholder="{{localize "FFD20.SpellEffectExample"}}">
+    <input type="text" name="effect" value="{{data.effect}}" placeholder="{{localize "FFD20.SpellEffectExample"}}">
   </div>
 </div>
 {{/if}}
 
 {{!-- Ability Target --}}
-<div class="form-group input-select-select">
+<div class="form-group input-select">
   <label>{{localize "FFD20.Target"}}</label>
   <div class="form-fields">
-    <input type="text" name="target.value" value="{{data.target.value}}"/>
+    <input type="text" name="target.value" value="{{action.target.value}}">
   </div>
 </div>
 
@@ -33,31 +36,22 @@
 <div class="form-group input-select">
   <label>{{localize "FFD20.Range"}}</label>
   <div class="form-fields">
-    {{#if canInputRange}}<input class="formula" type="text" name="range.value" value="{{data.range.value}}" placeholder="{{#unless isSpell}}{{localize "FFD20.Formula"}}{{/unless}}"/>{{/if}}
+    {{#if canInputRange}}<input class="formula" type="text" name="range.value" value="{{action.range.value}}" placeholder="{{#unless isSpell}}{{localize "FFD20.Formula"}}{{/unless}}">{{/if}}
     <select name="range.units">
-      {{#select data.range.units}}
-      <option value=""></option>
-      {{#each distanceUnits as |name key|}}
-      <option value="{{key}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
+      {{selectOptions @root.choices.distanceUnits selected=action.range.units blank=(localize "FFD20.None")}}
     </select>
   </div>
 </div>
 
-{{#if data.range.units}}
+{{!-- Only show for reach, feet, miles, and See Text --}}
+{{#if minRangeAvailable}}
 {{!-- Minimum Range --}}
 <div class="form-group input-select">
   <label>{{localize "FFD20.MinRange"}}</label>
   <div class="form-fields">
-    {{#if canInputMinRange}}<input class="formula" type="text" name="range.minValue" value="{{data.range.minValue}}" placeholder="{{#unless isSpell}}{{localize "FFD20.Formula"}}{{/unless}}"/>{{/if}}
+    {{#if canInputMinRange}}<input class="formula" type="text" name="range.minValue" value="{{data.range.minValue}}" placeholder="{{#unless isSpell}}{{localize "FFD20.Formula"}}{{/unless}}">{{/if}}
     <select name="range.minUnits">
-      {{#select data.range.minUnits}}
-      <option value=""></option>
-      {{#each distanceUnits as |name key|}}
-      <option value="{{key}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
+      {{selectOptions @root.choices.distanceUnits selected=data.range.minUnits blank=(localize "FFD20.None")}}
     </select>
   </div>
 </div>
@@ -65,69 +59,87 @@
 
 {{!-- Range Increments --}}
 {{#if showMaxRangeIncrements}}
-<div class="form-group input-select-select">
+<div class="form-group input-select">
   <label>{{localize "FFD20.MaximumRangeIncrements"}}</label>
   <div class="form-fields">
-    <input type="text" data-dtype="Number" name="range.maxIncrements" value="{{data.range.maxIncrements}}"/>
+    <input type="text" data-dtype="Number" name="range.maxIncrements" value="{{data.range.maxIncrements}}">
   </div>
 </div>
 {{/if}}
 
 {{!-- Area --}}
-<div class="form-group input-select-select">
+<div class="form-group input-select">
   <label>{{localize "FFD20.Area"}}</label>
   <div class="form-fields">
-    <input type="text" name="spellArea" value="{{data.spellArea}}"/>
+    <input type="text" name="area" value="{{data.area}}">
   </div>
 </div>
 
 {{!-- Effect Duration --}}
-<div class="form-group input-select">
+<div class="form-group input-select duration">
   <label>{{localize "FFD20.Duration"}}</label>
   <div class="form-fields">
-    {{#if isSpell}}
-    <input type="text" name="duration.value" value="{{data.duration.value}}" placeholder="{{localize "FFD20.SpellDurationExample"}}"/>
-    {{else}}
-    {{#if canInputDuration}}<input class="formula" type="text" name="duration.value" value="{{data.duration.value}}" placeholder="{{localize "FFD20.Formula"}}"/>{{/if}}
-    <select name="duration.units">
-      {{#select data.duration.units}}
-      <option value=""></option>
-      {{#each config.timePeriods as |name key|}}
-      <option value="{{key}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
+    {{#if canInputDuration}}
+    <input class="{{#if (eq data.duration.units "spec")}}text-input{{else}}formula{{/if}}" type="text" name="duration.value" value="{{data.duration.value}}" placeholder="{{localize "FFD20.Formula"}}">
     {{/if}}
+    <select name="duration.units">
+      {{selectOptions @root.config.timePeriods selected=data.duration.units blank=""}}
+    </select>
   </div>
 </div>
 
-{{!-- Uses and charges --}}
-{{#unless isSpell}}
+<div class="form-group">
+  <label></label>
+  <div class="form-fields">
+    <label class="checkbox duration-concentration">
+      <input type="checkbox" name="duration.concentration" {{checked data.duration.concentration}}>
+      {{localize "FFD20.Concentration"}}
+    </label>
+    <label class="checkbox duration-dismissable">
+      <input type="checkbox" name="duration.dismiss" {{checked data.duration.dismiss}}>
+      {{localize "FFD20.Dismissable"}}
+    </label>
+  </div>
+</div>
+
+{{!-- Ammunition --}}
 {{#if canUseAmmo}}
 <h3 class="form-header">{{localize "FFD20.Ammunition"}}</h3>
-<div class="form-group">
-  <label class="checkbox">
-    <input type="checkbox" name="usesAmmo" {{checked data.usesAmmo}} /> {{localize "FFD20.UsesAmmo"}}
-  </label>
+
+<div class="form-group ammo-type">
+  <label>{{localize "FFD20.AmmunitionType"}}</label>
+  <div class="form-fields">
+    <select name="ammo.type">
+      {{selectOptions @root.choices.ammoTypes selected=data.ammo.type}}
+    </select>
+  </div>
 </div>
 
-{{#if data.usesAmmo}}
-<div class="form-group">
-  <label>{{localize "FFD20.AmmunitionSubtype"}}</label>
-  <select name="ammoType">
-    {{#select data.ammoType}}
-    <option value=""></option>
-    {{#each config.ammoTypes as |name type|}}
-      <option value="{{type}}">{{name}}</option>
-    {{/each}}
-    {{/select}}
-  </select>
+{{#if usesAmmo}}
+<div class="form-group ammo-cost">
+  <label>{{localize "FFD20.AmmunitionPerAttack"}}</label>
+  <div class="form-fields">
+    <input type="number" name="ammo.cost" value="{{data.ammo.cost}}" placeholder="1" step="1">
+  </div>
+</div>
+
+<div class="form-group misfire">
+  <label>{{localize "FFD20.Misfire"}}</label>
+  <div class="form-fields">
+    <input type="number" min="0" step="1" max="20" name="ammo.misfire" value="{{data.ammo.misfire}}" placeholder="{{#if inheritedMisfire}}{{inheritedMisfire}}{{else}}{{localize "FFD20.None"}}{{/if}}">
+  </div>
 </div>
 {{/if}}
 {{/if}}
-{{/unless}}
 
-<h3 class="form-header">{{localize "FFD20.LimitedUses"}}</h3>
+<h3 class="form-header">{{localize "FFD20.Notes"}}</h3>
+{{!-- Effect Notes --}}
+{{~> "systems/ffd20/templates/items/parts/item-notes.hbs" name="notes.effect" title="FFD20.EffectNotes" hint="FFD20.EffectNotesHint" notes=action.notes.effect css="effect"}}
+{{!-- Footnotes --}}
+{{~> "systems/ffd20/templates/items/parts/item-notes.hbs" name="notes.footer" title="FFD20.Footnotes" hint="FFD20.FootnotesHint" notes=action.notes.footer css="footnotes"}}
+
+{{!-- Uses and charges --}}
+<h3 class="form-header">{{localize "FFD20.LimitedUses.Label"}}</h3>
 <h4 class="form-header">{{localize "FFD20.Item"}}</h4>
 <div class="form-group">
   <label>
@@ -139,12 +151,18 @@
     {{localize "FFD20.ChargeCost"}}
     {{/if}}
   </label>
-  <div class="form-fields">
+  <div class="form-fields" data-tooltip="FFD20.ChargeCostActionFormulaHint">
     {{#if usesSpellPoints}}
-    <input class="formula" type="text" name="uses.spellPointCost" placeholder="{{defaultChargeFormula}}" value="{{data.uses.spellPointCost}}" />
+    <input class="formula roll" type="text" name="uses.spellPointCost" placeholder="{{defaultChargeFormula}}" value="{{data.uses.spellPointCost}}">
     {{else}}
-    <input class="formula" type="text" name="uses.autoDeductChargesCost" placeholder="{{defaultChargeFormula}}" value="{{data.uses.autoDeductChargesCost}}" />
+    <input class="formula roll" type="text" name="uses.autoDeductChargesCost" placeholder="{{defaultChargeFormula}}" value="{{data.uses.autoDeductChargesCost}}">
     {{/if}}
+    {{#unless isSpell}}
+    <label class="checkbox">
+      <input type="checkbox" name="uses.perAttack" {{checked data.uses.perAttack}}>
+      {{localize "FFD20.PerAttack"}}
+    </label>
+    {{/unless}}
   </div>
 </div>
 
@@ -153,24 +171,20 @@
   <div class="form-group uses-per">
     <div class="form-fields">
       {{#if isSelfCharged}}
-      <input type="text" name="uses.self.value" value="{{data.uses.self.value}}" data-dtype="Number"/>
+      <input type="text" name="uses.self.value" value="{{data.uses.self.value}}" data-dtype="Number">
       <span class="sep"> / </span>
-      <input type="text" value="{{data.uses.self.max}}" disabled data-dtype="Number"/>
+      <input type="text" value="{{data.uses.self.max}}" disabled data-dtype="Number">
       {{/if}}
       <select name="uses.self.per">
-        {{#select data.uses.self.per}}
-        <option value=""></option>
-        {{#each config.limitedUsePeriods as |name key|}}
-        <option value="{{key}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
+        <option value="">{{localize "FFD20.Unlimited"}}</option>
+        {{selectOptions @root.choices.limitedUsePeriods selected=data.uses.self.per}}
       </select>
     </div>
   </div>
 
   {{#if showMaxChargeFormula}}
   <div class="form-group uses-per">
-    <input class="formula" type="text" name="uses.self.maxFormula" value="{{data.uses.self.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}"/>
+    <input class="formula" type="text" name="uses.self.maxFormula" value="{{data.uses.self.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}">
   </div>
   {{/if}}
 </div>

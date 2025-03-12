@@ -1,0 +1,12 @@
+<section class="form-body" data-tooltip-class="pf1-v2">
+  <h2>{{localize "FFD20.ChooseAnAction"}}</h2>
+
+  <div class="actions">
+    {{#each actions}}
+      <div class="action" data-action="click" data-id="{{id}}">
+        <img src="{{img}}" alt="{{name}}">
+        <span class="name">{{name}}</span>
+      </div>
+    {{/each}}
+  </div>
+</section>

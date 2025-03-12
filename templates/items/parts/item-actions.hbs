@@ -1,23 +1,23 @@
 {{!-- Inline Action --}}
 {{#*inline "listAction"}}
-  <li class="action-part item flexrow" data-item-id="{{action.data._id}}" data-item-collection="actions">
+  <li class="action-part item flexrow" data-action-id="{{action.id}}">
     <div class="item-name">
-      <div class="item-image no-hover" style='background-image: url("{{action.data.img}}")'></div>
-      <h4>{{action.data.name}}</h4>
+      <div class="item-image no-hover" style='background-image: url("{{action.img}}")'></div>
+      <h4>{{action.name}}</h4>
     </div>
 
     <div class="item-detail item-uses flexrow">
       {{#if action.isSelfCharged}}
-        <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{action.data.uses.self.value}}</span>
+        <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{action.uses.self.value}}</span>
         <span class="sep"> / </span>
-        <span class="text-box readonly">{{action.data.uses.self.max}}</span>
+        <span class="max">{{action.uses.self.max}}</span>
       {{/if}}
     </div>
 
     <div class="action-controls item-controls">
-      <a class="edit-action" data-tooltip="FFD20.EditItem"><i class="fas fa-edit"></i></a>
-      <a class="duplicate-action" data-tooltip="FFD20.DuplicateItem"><i class="fas fa-copy"></i></a>
-      <a class="delete-action" data-tooltip="FFD20.DeleteItem"><i class="fas fa-trash"></i></a>
+      <a class="edit-action" data-tooltip="FFD20.EditAction"><i class="fa-solid fa-edit" inert></i></a>
+      <a class="duplicate-action" data-tooltip="FFD20.DuplicateAction"><i class="fa-solid fa-copy" inert></i></a>
+      <a class="delete-action" data-tooltip="FFD20.DeleteAction"><i class="fa-solid fa-trash" inert></i></a>
     </div>
   </li>
 {{/inline}}
@@ -31,11 +31,11 @@
         <h3>{{localize "FFD20.ActionPlural"}}</h3>
       </div>
 
-      <div class="item-detail item-uses"><i class="icon icon-battery-pack large" data-tooltip="FFD20.ChargePlural"></i></div>
+      <div class="item-detail item-uses"><i class="icon-pf icon-battery-pack" data-tooltip="FFD20.ChargePlural"></i></div>
 
       <div class="action-controls item-controls">
-        <a class="action-control add-action">
-          <i class="fas fa-plus"></i>
+        <a class="action-control add-action" data-tooltip="FFD20.Add">
+          <i class="fa-solid fa-plus" inert></i>
         </a>
       </div>
     </li>
@@ -50,20 +50,20 @@
 {{!-- Limited Uses --}}
 {{#unless isSpell}}
 <div class="form-group uses-per">
-  <label>{{localize "FFD20.LimitedUses"}}</label>
+  <label>{{localize "FFD20.LimitedUses.Label"}}</label>
   <div class="form-fields">
     {{#if isCharged}}
-    <input type="text" name="system.uses.value" value="{{system.uses.value}}" data-dtype="Number" data-tooltip="@resources.{{system.tag}}.value : {{system.uses.value}}" {{disabled inheritCharges}} />
+    <input type="text" name="system.uses.value" value="{{system.uses.value}}" data-dtype="Number" data-tooltip="@resources.{{system.tag}}.value : {{system.uses.value}}" {{disabled inheritCharges}}>
     <span class="sep"> / </span>
-    <input type="text" value="{{system.uses.max}}" disabled data-dtype="Number" data-tooltip="@resources.{{system.tag}}.max : {{system.uses.max}}"/>
+      {{#if (eq system.uses.max null)}}
+      <i class="fa-solid fa-infinity fa-fw" inert></i>
+      {{else}}
+      <input type="text" value="{{system.uses.max}}" disabled data-dtype="Number" data-tooltip="@resources.{{system.tag}}.max : {{system.uses.max}}">
+      {{/if}}
     {{/if}}
     <select name="system.uses.per" {{disabled inheritCharges}}>
-      {{#select system.uses.per}}
-      <option value=""></option>
-      {{#each config.limitedUsePeriods as |name key|}}
-      <option value="{{key}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
+      <option value="">{{localize "FFD20.Unlimited"}}</option>
+      {{selectOptions limitedUsePeriods selected=system.uses.per}}
     </select>
   </div>
 </div>
@@ -71,73 +71,56 @@
 {{#if inheritCharges}}
 <div class="form-group uses-source">
   <label>{{localize "FFD20.ChargeSource"}}</label>
-  <div class="form-fields" data-item-id="{{inheritCharges.id}}">
+  <div class="form-fields item-link" data-item-id="{{inheritCharges.id}}">
     <img class="image" src="{{inheritCharges.img}}" width="24" height="24">
     <label class="item-name">{{inheritCharges.name}}</label>
   </div>
 </div>
 {{else}}
 <div class="form-group uses-per">
-  <input class="formula" type="text" name="system.uses.maxFormula" value="{{system.uses.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}"/>
+  <label>{{localize "FFD20.MaximumUsesFormula"}}</label>
+  <div class="form-fields">
+    <input class="formula" type="text" name="system.uses.maxFormula" value="{{system.uses.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}">
+  </div>
 </div>
 {{/if}}
-<div class="form-group charges-per-use">
+<div class="form-group charges-per-use" data-tooltip="FFD20.ChargeCostItemFormulaHint">
   <label>{{localize "FFD20.ChargeCostFormula"}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="system.uses.autoDeductChargesCost" value="{{system.uses.autoDeductChargesCost}}" placeholder="{{defaultChargeFormula}}">
+    <input class="formula roll" type="text" name="system.uses.autoDeductChargesCost" value="{{system.uses.autoDeductChargesCost}}" placeholder="{{defaultChargeFormula}}">
   </div>
 </div>
-{{#if (or (eq system.uses.per "day") (eq system.uses.per "week"))}}
-<div class="form-group charges-per-rest">
+{{#if isRechargeable}}
+<div class="form-group charges-per-recharge" data-tooltip="FFD20.RechargeFormulaHint">
   <label>{{localize "FFD20.RechargeFormula"}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="system.uses.rechargeFormula" value="{{system.uses.rechargeFormula}}" placeholder="@item.uses.max">
+    <input class="formula roll" type="text" name="system.uses.rechargeFormula" value="{{system.uses.rechargeFormula}}"
+      {{#if (eq system.uses.max null)}}
+      placeholder="@item.uses.value"
+      {{else}}
+      placeholder="@item.uses.max"
+      {{/if}}
+      {{disabled inheritCharges}}>
   </div>
 </div>
 {{/if}}
-{{#if isPhysical}}
+{{#if (and isPhysical item.hasFiniteCharges)}}
   <div class="form-group">
     <label>{{localize "FFD20.PricePerCharge"}}</label>
-    <input type="text" name="system.uses.pricePerUse" value="{{system.uses.pricePerUse}}" placeholder="0" type="Number"/>
+    <div class="form-fields">
+      <input type="text" name="system.uses.pricePerUse" value="{{system.uses.pricePerUse}}" placeholder="0" type="Number">
+    </div>
   </div>
 {{/if}}
 {{/if}}
 {{/unless}}
 
 {{#if hasAction}}
-{{!-- Attack Notes --}}
-<div class="form-group stacked notes attack" data-name="system.attackNotes">
-  <table>
-    <thead>
-      <th>{{localize "FFD20.AttackNotes"}}</th>
-      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
-    </thead>
-    <tbody>
-      {{#each system.attackNotes as |entry index|}}
-      <tr class="entry" data-index="{{index}}">
-        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="system.attackNotes.{{index}}" /></td>
-        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+{{!-- Effect (Per-Instance) Notes --}}
+{{~> "systems/ffd20/templates/items/parts/item-notes.hbs" name="system.effectNotes" title="FFD20.EffectNotes" hint="FFD20.EffectNotesHint" notes=system.effectNotes css="effect"}}
 
-{{!-- Effect Notes --}}
-<div class="form-group stacked notes effect" data-name="system.effectNotes">
-  <table>
-    <thead>
-      <th>{{localize "FFD20.EffectNotes"}}</th>
-      <th class="entry-control"><a class="add-entry"><i class="fas fa-plus"></i></a></th>
-    </thead>
-    <tbody>
-      {{#each system.effectNotes as |entry index|}}
-      <tr class="entry" data-index="{{index}}">
-        <td class="nocenter"><input type="text" data-index="{{k}}" value="{{entry}}" name="system.effectNotes.{{index}}" /></td>
-        <td class="entry-control"><a class="delete-entry"><i class="fas fa-minus"></i></a></td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</div>
+{{!-- Footnotes --}}
+{{~> "systems/ffd20/templates/items/parts/item-notes.hbs" name="system.attackNotes" title="FFD20.Footnotes" hint="FFD20.FootnotesHint" notes=system.attackNotes css="attack"}}
 {{/if}}
+
+<hr>

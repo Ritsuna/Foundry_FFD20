@@ -8,8 +8,8 @@
     <div class="flexrow">
       {{#each spellbookData as |spellbook a|}}
       <label class="checkbox">
-        <input type="checkbox" {{checked spellbook.orig.inUse}} name="system.attributes.spells.spellbooks.{{a}}.inUse">
-        {{spellbook.orig.label}}
+        <input type="checkbox" {{checked spellbook.inUse}} name="system.attributes.spells.spellbooks.{{a}}.inUse">
+        {{spellbook.label}}
       </label>
       {{/each}}
     </div>
@@ -20,74 +20,20 @@
     <h3>{{localize "FFD20.UtilityFunctions"}}</h3>
 
     <button type="button" class="pointbuy-calculator">
-      <i class="fa-solid fa-calculator"></i>
-      {{localize "FFD20.PointBuyCalculator"}}
+      <i class="fa-solid fa-calculator" inert></i>
+      {{localize "FFD20.Application.PointBuy.Title"}}
     </button>
   </div>
 </div>
 
 {{> "systems/ffd20/templates/actors/parts/actor-settings-ability-scores.hbs"}}
 
-{{!-- Optional Rules --}}
-<div class="optional-rules">
-    <h2>{{localize "FFD20.OptionalAndVariantRules"}}</h2>
-
-    {{!-- Wound Thresholds --}}
-    <div class="form-group">
-        <label>{{localize "FFD20.WoundThresholdOverride"}}</label>
-        <div class="form-fields">
-            <select data-dtype="Number" name="system.attributes.woundThresholds.override" {{#unless woundThresholds.allowWoundThresholdOverride}}disabled{{/unless}}>
-                {{#select system.attributes.woundThresholds.override}}
-                    <option value="-1">{{localize 'FFD20.Default'}}</option>
-                    <option value="0">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdDisabled'}}</option>
-                    <option value="1">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdNormal'}}</option>
-                    <option value="2">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdGritty'}}</option>
-                {{/select}}
-            </select>
-        </div>
-    </div>
+<div class="misc-settings">
+  <h2>{{localize "FFD20.Misc"}}</h2>
+  <div class="form-group stacked">
+    <label class="checkbox">
+      <input type="checkbox" name="system.config.noManeuvers" {{checked system.config.noManeuvers}}>
+      {{localize "FFD20.SETTINGS.NoManeuvers"}}
+    </label>
+  </div>
 </div>
-
-{{!-- Tooltip Settings --}}
-{{#if isGM}}
-<div class="token-tooltips">
-    <h2>{{localize "FFD20.TooltipConfigName"}}</h2>
-
-    <div class="form-group">
-        <label>{{localize "FFD20.Name"}}</label>
-        <input type="text" name="system.details.tooltip.name" placeholder="{{token.name}}" value="{{system.details.tooltip.name}}" />
-    </div>
-
-    <div class="form-group stacked">
-        <label class="checkbox">
-            <input type="checkbox" name="system.details.tooltip.hideHeld" {{checked system.details.tooltip.hideHeld}}>
-            {{localize "FFD20.HideHeld"}}
-        </label>
-
-        <label class="checkbox">
-            <input type="checkbox" name="system.details.tooltip.hideArmor" {{checked system.details.tooltip.hideArmor}}>
-            {{localize "FFD20.HideArmor"}}
-        </label>
-
-        <label class="checkbox">
-            <input type="checkbox" name="system.details.tooltip.hideBuffs" {{checked system.details.tooltip.hideBuffs}}>
-            {{localize "FFD20.HideBuffs"}}
-        </label>
-
-        <label class="checkbox">
-            <input type="checkbox" name="system.details.tooltip.hideConditions" {{checked system.details.tooltip.hideConditions}}>
-            {{localize "FFD20.HideConditions"}}
-        </label>
-
-        <label class="checkbox">
-            <input type="checkbox" name="system.details.tooltip.hideClothing" {{checked system.details.tooltip.hideClothing}}>
-            {{localize "FFD20.HideClothing"}}
-        </label>
-
-        <label class="checkbox">
-            <input type="checkbox" name="system.details.tooltip.hideName" {{checked system.details.tooltip.hideName}}>
-            {{localize "FFD20.HideName"}}
-        </label>
-    </div>
-</div>
-{{/if}}

@@ -1,0 +1,50 @@
+<div class="hd-level flexcol" data-tooltip-extended="level">
+  <div class="inputs">
+    <div class="info-box-joined level">
+      {{#if hasHD}}
+      <div class="info-box level">
+        <h5>{{#if isCharacter}}{{localize "FFD20.Level"}}{{else}}{{localize "FFD20.HitDieShort"}}{{/if}}</h5>
+        <span class="value">{{system.attributes.hd.total}}</span>
+      </div>
+      {{/if}}
+
+      {{#if system.details.mythicTier}}
+      <div class="info-box mythic">
+        <h5>{{localize "FFD20.Tier"}}</h5>
+        <span class="value tier">{{system.details.mythicTier}}</span>
+      </div>
+      {{/if}}
+
+      {{#unless isCharacter}}
+      <div class="info-box challenge-rating">
+        <h5>{{localize "FFD20.ChallengeRatingShort"}}</h5>
+        <span name="system.details.cr.base" data-dtype="Number" readonly class="value text-box cr-input">{{labels.cr}}</span>
+      </div>
+      {{/unless}}
+    </div>
+
+    {{#unless disableExperience}}
+    <div class="info-box experience">
+      <h5>{{localize "FFD20.Experience"}}</h5>
+
+      <div class="value flexrow">
+        {{#if isCharacter}}
+        <span class="text-box current direct allow-relative no-value-cap" name="system.details.xp.value" {{#if
+          minimumExperience}}data-clear-value="{{minimumExperience}}" {{/if}}
+          data-dtype="Number">{{system.details.xp.value}}</span>
+        <span class="separator"> / </span>
+        <span class="text-box max readonly">{{system.details.xp.max}}</span>
+        {{else}}
+        <span class="reward">{{system.details.xp.value}}</span>
+        {{/if}}
+      </div>
+    </div>
+    {{/unless}}
+  </div>
+
+  {{#if showXpBar}}
+  <div class="xpbar" style="--xp-bar-percent:{{system.details.xp.pct}};">
+    <span class="bar"></span>
+  </div>
+  {{/if}}
+</div>

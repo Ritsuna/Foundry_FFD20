@@ -1,112 +1,114 @@
-<form autocomplete="off">
-  <nav class="sheet-tabs tabs">
-    <a class="item" data-tab="base"><i class="fas fa-heartbeat"></i> {{localize "SETTINGS.pf1HealthConfigTabBase"}}</a>
-    <a class="item" data-tab="variants"><i class="fas fa-prescription-bottle-alt"></i> {{localize "SETTINGS.pf1HealthConfigTabVariant"}}</a>
-  </nav>
+{{#*inline "actorConfig"}}
+<fieldset class="actor-config-{{id}}">
+  {{! Hit Die Config }}
+  <table class="hitdice-table">
+    <thead>
+    <tr>
+      <th class="index table-header">
+        {{localize 'FFD20.ClassType'}}
+      </th>
+      <th class="table-header">
+        {{localize "FFD20.Application.Settings.Health.Compute"}}
+      </th>
+      <th class="table-header">
+        {{localize "FFD20.Application.Settings.Health.Rate"}}
+      </th>
+      <th class="table-header" data-tooltip="FFD20.Application.Settings.Health.CanMaximizeHint">
+        {{localize "FFD20.Application.Settings.Health.CanMaximize"}}
+      </th>
+    </tr>
+    </thead>
 
-  <div class="tabbed">
-  <!-- Base Tab -->
-    <section class="tab" data-tab="base">
-      <p class="notes">{{localize 'SETTINGS.pf1HealthConfigInstructions'}}</p>
-      <div id="hitdice">
-        <label class="index table-header">{{localize 'FFD20.HitDie'}}</label>
-        {{#each hitdieOptions}}
-          <label class="table-header">{{this}}</label>
-        {{/each}}
-
-        {{#each hitdice as |opt hd|}}
-          <label class="index">{{hd}}</label>
+    <tbody>
+      {{#each settings.classes}}
+      <tr>
+        <td class="index">
+          {{localize label}}
+        </td>
+        <td>
           <div class="switch">
-            <input class="switch-check" type="checkbox" {{#if opt.auto}}checked{{/if}} name="hitdice.{{hd}}.auto" id="hitdice.{{hd}}.auto">
-            <label class="switch-label" for="hitdice.{{hd}}.auto">
-              <span class="switch-auto">{{localize 'SETTINGS.pf1HealthComputeAuto'}}</span>
-              <span class="switch-manual">{{localize 'SETTINGS.pf1HealthComputeManual'}}</span>
+            <input class="switch-check" type="checkbox" {{checked auto}}
+              name="{{fields.auto.fieldPath}}" id="hp-conf-{{fields.auto.fieldPath}}">
+            <label class="switch-label" for="hp-conf-{{fields.auto.fieldPath}}">
+              <span class="switch-auto button">
+                <i class="fa-solid fa-gears" inert></i>
+                {{localize 'FFD20.Application.Settings.Health.ComputeAuto'}}
+              </span>
+              <span class="switch-manual button">
+                <i class="fa-solid fa-dice-d20" inert></i>
+                {{localize 'FFD20.Application.Settings.Health.ComputeManual'}}
+              </span>
             </label>
           </div>
-          <span><input type="text" data-dtype="Number" name="hitdice.{{hd}}.rate" value="{{opt.rate}}"></span>
-          <span><input type="text" data-dtype="Number" name="hitdice.{{hd}}.maximized" value="{{opt.maximized}}"></span>
-        {{/each}}
-        </ul>
-      </div>
+        </td>
+        <td>
+          {{formInput fields.rate value=rate disabled=(not auto)}}
+        </td>
+        <td>
+          {{formInput fields.maximized value=maximized}}
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 
-      <div class="form-group">
-        <label>{{localize 'SETTINGS.pf1HealthRoundingName'}}</label>
-        <select name="rounding">
-          {{#select rounding}}
-            <option value="up">&uarr;</option>
-            <option value="nearest">&#8597;</option>
-            <option value="down">&darr;</option>
-          {{/select}}
-        </select>
-        <p class="notes">{{localize 'SETTINGS.pf1HealthRoundingHint'}}</p>
-      </div>
+  {{! Variant Rules }}
+  <div class="variant-rules">
+    {{! Wounds & Vigor }}
+    {{formGroup fields.rules.fields.useWoundsAndVigor value=settings.rules.useWoundsAndVigor label="FFD20.Application.Settings.Health.WoundsAndVigor.Label" hint="FFD20.Application.Settings.Health.WoundsAndVigor.Hint" localize=true}}
 
-      <div class="form-group">
-        <label>{{localize 'SETTINGS.pf1HealthContinuityName'}}</label>
-        <select name="continuity">
-          {{#select continuity}}
-            <option value="continuous">{{localize 'SETTINGS.pf1HealthContinuityContinuous'}}</option>
-            <option value="discrete">{{localize 'SETTINGS.pf1HealthContinuityDiscrete'}}</option>
-          {{/select}}
-        </select>
-        <p class="notes">{{localize 'SETTINGS.pf1HealthContinuityHint'}}</p>
-      </div>
-    </section>
+    {{! Wound Thresholds }}
+    {{formGroup fields.rules.fields.useWoundThresholds value=settings.rules.useWoundThresholds label="FFD20.Application.Settings.Health.WoundThresholds.Label" hint="FFD20.Application.Settings.Health.WoundThresholds.Hint" localize=true}}
 
-    <!-- Variants Tab -->
-    <section class="tab" data-tab="variants">
-      <!-- Wounds & Vigor -->
-      <div class="form-group">
-        <label>{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorPCName'}}</label>
-        <input type="checkbox" {{#if variants.pc.useWoundsAndVigor}}checked{{/if}} name="variants.pc.useWoundsAndVigor">
-        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorPCHint'}}</p>
-      </div>
-
-      <div class="form-group">
-        <label>{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorNPCName'}}</label>
-        <input type="checkbox" {{#if variants.npc.useWoundsAndVigor}}checked{{/if}} name="variants.npc.useWoundsAndVigor">
-        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsAndVigorNPCHint'}}</p>
-      </div>
-
-      <!-- Wound Thresholds -->
-      <div class="form-group">
-        <label>{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsPCName'}}</label>
-        <select data-dtype="Number" name="variants.pc.useWoundThresholds">
-        {{#select variants.pc.useWoundThresholds}}
-            <option value="0">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdDisabled'}}</option>
-            <option value="1">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdNormal'}}</option>
-            <option value="2">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdGritty'}}</option>
-        {{/select}}
-        </select>
-        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsThresholdsPCHint'}}</p>
-      </div>
-
-      <div class="form-group">
-        <label>{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsNPCName'}}</label>
-        <select data-dtype="Number" name="variants.npc.useWoundThresholds">
-        {{#select variants.npc.useWoundThresholds}}
-            <option value="0">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdDisabled'}}</option>
-            <option value="1">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdNormal'}}</option>
-            <option value="2">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdGritty'}}</option>
-        {{/select}}
-        </select>
-        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundsThresholdsNPCHint'}}</p>
-      </div>
-
-      <div class="form-group">
-        <label>{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsPCOverrideName'}}</label>
-        <input data-dtype="Boolean" type="checkbox" {{#if variants.pc.allowWoundThresholdOverride}}checked{{/if}} name="variants.pc.allowWoundThresholdOverride">
-        <p class="notes">{{localize 'SETTINGS.pf1HealthConfigWoundThresholdsPCOverrideHint'}}</p>
-      </div>
-    </section>
+    {{#if (and settings.rules.useWoundsAndVigor settings.rules.useWoundThresholds)}}
+    <p class="warning">
+      <i class="fa-solid fa-triangle-exclamation" inert></i>
+      {{localize "FFD20.Application.Settings.Health.WoundThresholds.VigorConflict"}}
+    </p>
+    {{/if}}
   </div>
+</fieldset>
+{{/inline}}
+<section class="form-body scrollable" data-tooltip-class="pf1-v2">
+  <p>
+    {{localize 'FFD20.Application.Settings.Health.Instructions'}}
+  </p>
 
-  <div class="form-group">
-    <button type="submit" name="submit" >
-      <i class="far fa-save"></i> {{localize 'SETTINGS.Save'}}
-    </button>
-    <button type="button" name="reset">
-      <i class="fas fa-undo"></i> {{localize 'SETTINGS.Reset'}}
-    </button>
-  </div>
-</form>
+  {{! Actor Type }}
+  {{> "templates/generic/tab-navigation.hbs"}}
+
+  {{! PC Tab }}
+  <section class="tab {{tabs.pc.cssClass}}" data-group="{{tabs.pc.group}}" data-tab="{{tabs.pc.id}}">
+    {{> "actorConfig" id="pc" settings=settings.pc fields=fields.pc.fields}}
+  </section>
+
+  {{! NPC Tab }}
+  <section class="tab {{tabs.npc.cssClass}}" data-group="{{tabs.npc.group}}" data-tab="{{tabs.npc.id}}">
+    {{> "actorConfig" id="npc" settings=settings.npc fields=fields.npc.fields}}
+  </section>
+
+  <hr>
+
+  {{! Common Config }}
+  <fieldset class="common-config">
+    <legend>{{localize "FFD20.Application.Settings.Health.AutoConfig"}}</legend>
+
+    {{formGroup fields.maximized value=settings.maximized label="FFD20.Application.Settings.Health.MaximizedLimit" localize=true}}
+
+    {{formGroup fields.rounding value=settings.rounding label="FFD20.Application.Settings.Health.Rounding" hint="FFD20.Application.Settings.Health.RoundingHint" localize=true}}
+
+    <div class="form-group">
+      <label for="health-continuity">
+        {{localize 'FFD20.Application.Settings.Health.Continuity'}}
+      </label>
+      <div class="form-fields">
+        <select id="health-continuity" name="continuous" data-dtype="Boolean">
+          {{selectOptions model.healthContinuityOptions selected=settings.continuous localize=true}}
+        </select>
+      </div>
+      <p class="hint">
+        {{localize 'FFD20.Application.Settings.Health.ContinuityHint'}}
+      </p>
+    </div>
+  </fieldset>
+</section>

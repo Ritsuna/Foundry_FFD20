@@ -1,0 +1,87 @@
+<section class="progress-tracking">
+  <div class="categories">
+    <div class="category header">
+      <span class="label">{{localize "FFD20.Migration.Dialog.Category"}}</span>
+      <label class="value processed" data-tooltip="FFD20.Migration.Dialog.Tooltip.Processed"><i class="fa-solid fa-arrow-up-wide-short" inert></i></label>
+      <label class="delimiter"> </label>
+      <label class="value total" data-tooltip="FFD20.Migration.Dialog.Tooltip.Total"><i class="fa-solid fa-layer-group" inert></i></label>
+      <label class="value ignored" data-tooltip="FFD20.Migration.Dialog.Tooltip.Ignored"><i class="fa-solid fa-ban" inert></i></label>
+      <label class="value errors" data-tooltip="FFD20.Migration.Dialog.Tooltip.Errors"><i class="fa-solid fa-solid fa-triangle-exclamation" inert></i></label>
+      <label class="value invalid" data-tooltip="FFD20.Migration.Dialog.Tooltip.Invalid"><i class="fa-solid fa-link-slash" inert></i></label>
+      <label class="value status" data-tooltip="FFD20.Migration.Dialog.Tooltip.Status"><i class="fa-solid fa-heart-pulse" inert></i></label>
+    </div>
+    {{#each categories}}
+    <div class="category item" data-category="{{id}}">
+      <h4 class="header">
+        <span class="label">{{label}}</span>
+        <span class="current">{{currentName}}</span>
+      </h4>
+      {{#if (and (eq total 0) hasTotal)}}
+      <progress value="1" max="1">{{progressLabel}}</progress>
+      {{else}}
+      <progress value="{{progress}}" max="{{total}}">{{progressLabel}}</progress>
+      {{/if}}
+
+      <span class="padding"> </span>
+
+      {{#if isNumber}}
+        <span class="value processed">{{processed}}</span>
+        <span class="delimiter">/</span>
+        <span class="value total">{{#if hasTotal}}{{total}}{{else}}???{{/if}}</span>
+        <span class="value ignored {{#if ignored}}found{{/if}}" data-tooltip="FFD20.Migration.Dialog.Tooltip.Ignored">{{ignored}}</span>
+        <a class="value" {{#if errors.length}}data-action="show-details"{{/if}}><span class="value errors {{#if errors.length}}found has-details{{/if}}"
+          data-tooltip="FFD20.Migration.Dialog.Tooltip.Errors">{{errors.length}}</span></a>
+        <a class="value" {{#if invalid}}data-action="show-details"{{/if}}><span class="value invalid {{#if invalid}}found has-details{{/if}}"
+          data-tooltip="FFD20.Migration.Dialog.Tooltip.Invalid">{{invalid}}</span></a>
+        {{else}}
+        <span class="empty"> </span>
+      {{/if}}
+
+      <div class="status {{#if completed}}completed{{else}}in-progress{{/if}}{{#if (or errors.length invalid)}} with-errors{{/if}}">
+        {{#if completed}}
+        <i class="fa-regular fa-square-check"></i>
+        {{else}}
+        <i class="fa-regular fa-square"></i>
+        {{/if}}
+      </div>
+    </div>
+    {{else}}
+    <p>Initializing... you didn't see me</p>
+    {{/each}}
+  </div>
+
+  <div class="migration-info">
+    <p>
+    {{#if unlock}}
+    <i class="fa-solid fa-unlock-keyhole" inert></i>
+    {{localize "FFD20.Migration.Dialog.ProcessLocked"}}
+    {{else}}
+    <i class="fa-solid fa-lock" inert></i>
+    {{localize "FFD20.Migration.Dialog.IgnoreLocked"}}
+    {{/if}}
+    </p>
+    <p>
+    {{#if fast}}
+    <i class="fa-solid fa-forward-fast" inert></i>
+    {{localize "FFD20.Migration.Dialog.FastMode"}}
+    {{else}}
+    <i class="fa-solid fa-snowplow" inert></i>
+    {{localize "FFD20.Migration.Dialog.SlowMode"}}
+    {{/if}}
+    </p>
+  </div>
+
+  {{#if (or errors invalid)}}
+  <div class="error-info">
+    <i class="fa-solid fa-solid fa-triangle-exclamation" inert></i>
+    {{#if errors}}
+    <span class="detail"><label>{{localize "FFD20.Migration.Dialog.Errors"}}</label>: <span>{{errors}}</span></span>
+    {{~/if}}
+    {{#if invalid~}}
+    <span class="detail"><label>{{localize "FFD20.Migration.Dialog.InvalidDocuments"}}</label>: <span>{{invalid}}</span></span>
+    {{/if}}
+    <br>
+    <span class="instructions">{{localize "FFD20.Migration.Dialog.ErrorHelp"}}</span>
+  </div>
+  {{/if}}
+</section>

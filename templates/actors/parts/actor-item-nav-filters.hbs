@@ -1,0 +1,17 @@
+<div class="inventory-filters flexrow">
+  {{~> "systems/ffd20/templates/internal/item-search.hbs" category=category}}
+
+  <ul class="filter-list flexrow" data-category="{{category}}">
+    {{#each sections}}
+    <li class="filter-rule" data-category="{{../category}}" data-filter="{{id}}">{{label}}</li>
+    {{/each}}
+    {{#if prepared}}
+    <li class="filter-rule special prepared" data-category="{{category}}" data-filter="prepared"
+      data-tooltip="FFD20.FilterPrepared"><i class="fa-solid fa-fw fa-feather-pointed" inert></i>
+    </li>
+    {{/if}}
+    <li class="filter-rule special empty" data-category="{{category}}" data-filter="empty"
+      data-tooltip="FFD20.FilterEmpty"><i class="fa-solid fa-fw fa-folder-closed" inert></i></i>
+    </li>
+  </ul>
+</div>

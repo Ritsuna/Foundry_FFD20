@@ -1,0 +1,25 @@
+<h3 class="form-header">{{localize "FFD20.CreatureType"}}</h3>
+
+<div class="form-group creature-type">
+  <label>{{localize "FFD20.CreatureTypes.Plural"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+      {{#each creatureTypes.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.CreatureTypes.Plural" data-options="creatureTypes" data-for="system.creatureTypes"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
+</div>
+
+<div class="form-group creature-sub-type">
+  <label>{{localize "FFD20.CreatureSubTypes.Plural"}}</label>
+  <div class="form-fields">
+    <ul class="traits-list tag-list">
+      {{#each creatureSubtypes.selected as |v k|}}
+        <li class="tag {{k}}">{{v}}</li>
+      {{/each}}
+    </ul>
+    <a class="trait-selector" data-title="FFD20.CreatureSubTypes.Plural" data-options="creatureSubtypes" data-for="system.creatureSubtypes"><i class="fa-solid fa-edit" inert></i></a>
+  </div>
+</div>

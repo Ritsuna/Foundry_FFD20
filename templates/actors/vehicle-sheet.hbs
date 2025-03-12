@@ -1,0 +1,410 @@
+<form class="{{cssClass}} flexcol" data-tooltip-class="ffd20" autocomplete="off">
+
+  {{!-- Vehicle Sheet Header --}}
+  <header class="sheet-header flexrow">
+    <img class="profile" src="{{actor.img}}" title="{{name}}" data-edit="img">
+
+    <div class="header-details flexcol">
+      <h1 class="charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "FFD20.CharacterName"}}">
+      </h1>
+
+      {{!-- Options --}}
+      <div class="flexcol">
+        <ul class="summary options">
+          {{! Vehicle Type }}
+          <li data-tooltip="{{localize "FFD20.Type"}}">
+            <label for="vehicle-type-{{appId}}">{{localize "FFD20.Type"}}</label>
+            <select id="vehicle-type-{{appId}}" name="system.traits.type">
+              {{selectOptions config.vehicles.type selected=system.traits.type}}
+            </select>
+          </li>
+          {{! Vehicle Size }}
+          <li data-tooltip="{{localize "FFD20.Size"}}">
+            <label for="size-{{appId}}">{{localize "FFD20.Size"}}</label>
+            <select id="size-{{appId}}" name="system.traits.size">
+              {{selectOptions @root.vehicleSizes selected=system.traits.size.base}}
+            </select>
+          </li>
+          {{! Space }}
+          <li data-tooltip="{{localize "FFD20.Vehicles.OccupiedSpace"}}: {{#with (lookup config.vehicles.size system.traits.size.base)}}{{space}}{{/with}}">
+              <label for="squares-{{appId}}">{{localize "FFD20.Vehicles.Squares"}}</label>
+              <input id="squares-{{appId}}" name="system.squares" type="number" value="{{system.squares}}" placeholder="{{#with (lookup config.vehicles.size system.traits.size.base)}}{{space}}{{/with}}"
+              data-tooltip="{{localize "FFD20.Vehicles.Squares"}}" min="1" step="1">
+            </span>
+          </li>
+        </ul>
+        <ul class="summary options">
+          {{! Cost }}
+          <li>
+            <label for="cost-{{appId}}">{{localize "FFD20.CostGP"}}</label>
+            <input id="cost-{{appId}}" name="system.details.cost" type="number" value="{{system.details.cost}}" placeholder="{{localize "FFD20.CostGP"}}"
+              data-tooltip="{{localize "FFD20.CostGP"}}" min="0" step="1">
+          </li>
+          {{! Material }}
+          <li data-tooltip-extended="material">
+            <label for="material-{{appId}}">{{localize "FFD20.Materials.Normal"}}</label>
+            <select id="material-{{appId}}" name="system.material.base">
+              {{selectOptions config.vehicleMaterials selected=system.material.base blank=(localize "FFD20.None")}}
+            </select>
+          </li>
+          {{! Magically Hardened }}
+          <li>
+            <input id="magicallyHardened-{{appId}}" name="system.material.magicallyHardened"
+              type="checkbox" {{checked system.material.magicallyHardened}}>
+            <label for="magicallyHardened-{{appId}}" class="checkbox">{{localize "FFD20.Vehicles.MagicallyHardened"}}</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Vehicle Sheet Navigation --}}
+  <nav class="sheet-navigation tabs" data-group="primary">
+    <a class="item" data-tab="summary">{{localize "FFD20.Summary"}}</a>
+    <a class="item" data-tab="inventory">{{ localize "FFD20.Vehicles.Cargo" }}</a>
+    <a class="item" data-tab="description">{{ localize "FFD20.Description" }}</a>
+    <a class="item" data-tab="notes">{{ localize "FFD20.Notes" }}</a>
+  </nav>
+
+  <section class="primary-body">
+    {{!-- Summary Tab --}}
+    <div class="tab summary" data-group="primary" data-tab="summary">
+      {{!-- HP and Crew --}}
+      <div class="flexrow">
+        {{!-- Hit Points --}}
+        <div class="health info-box-header" data-tooltip-extended="hp">
+          <h3>{{localize "FFD20.HitPoints"}}</h3>
+
+          <div class="info-box-joined">
+            <div class="info-box current">
+              <h5>{{localize "FFD20.Current"}}</h5>
+              <span class="value">
+                <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.attributes.hp.value" data-dtype="Number">{{system.attributes.hp.value}}</span>
+              </span>
+            </div>
+            <div class="info-box maximum">
+              <h5>{{localize "FFD20.Maximum"}}</h5>
+              <span class="value">
+                <span class="text-box direct hp-max-input" name="system.attributes.hp.bonus" type="number" data-dtype="Number">{{system.attributes.hp.max}}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        {{!-- Crew --}}
+        <div class="crew info-box-header">
+          <h3>{{localize "FFD20.Vehicles.Crew"}}</h3>
+
+          <div class="info-box-joined">
+            <div class="info-box">
+              <h5>{{localize "FFD20.Current"}}</h5>
+              <span class="value text-box direct wheel-change allow-relative">
+                {{formInput fields.crew.fields.value value=system.crew.value}}
+              </span>
+            </div>
+            <div class="info-box">
+              <h5>{{localize "FFD20.Vehicles.Full"}}</h5>
+              <span class="value text-box direct wheel-change allow-relative">
+                {{formInput fields.crew.fields.max value=system.crew.max placeholder="1"}}
+              </span>
+            </div>
+            <div class="info-box">
+              <h5>{{localize "FFD20.Vehicles.Passengers"}}</h5>
+              <span class="value text-box direct wheel-change allow-relative">
+                {{formInput fields.crew.fields.passengers value=system.crew.passengers placeholder="0"}}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {{!-- Defense --}}
+      <div class="defenses info-box-header">
+        <h3><i class="fa-solid fa-dice-d20 rollable" data-dtype="defenses"></i> {{localize "FFD20.Defenses"}}</h3>
+        {{!-- AC --}}
+        <div class="info-box ac" data-tooltip-extended="ac.normal">
+          <h5>{{localize "FFD20.ACNormal"}}</h5>
+          <span class="value text-box direct" name="system.attributes.ac.normal.bonus" data-dtype="number" step="1">
+            {{system.attributes.ac.normal.total}}
+          </span>
+        </div>
+        {{!-- AC Base --}}
+        <div class="info-box ac" data-tooltip-extended="ac.touch">
+          <h5>{{localize "FFD20.ACTouch"}}</h5>
+          <span class="value text-box direct" name="system.attributes.ac.touch.bonus" data-dtype="number" step="1">
+            {{system.attributes.ac.touch.total}}
+          </span>
+        </div>
+        {{#if (eq system.traits.type "sea")}}
+          {{!-- AC Stopped in Motion --}}
+          <div class="info-box ac" data-tooltip-extended="ac.stopped">
+            <h5>{{localize "FFD20.Vehicles.ACStoppedMotion"}}</h5>
+            <span class="value text-box direct" name="system.attributes.ac.stopped.bonus" data-dtype="number" step="1">
+              {{system.attributes.ac.stopped.total}}
+            </span>
+          </div>
+        {{/if}}
+        {{!-- Hardness --}}
+        <div class="info-box ac" data-tooltip-extended="hardness">
+          <h5>{{localize "FFD20.Hardness"}}</h5>
+          <span class="value text-box direct" name="system.attributes.hardness.bonus" data-dtype="Number" step="1">
+            {{system.attributes.hardness.total}}
+          </span>
+        </div>
+        {{!-- Saving Throw --}}
+        <div class="info-box ac" data-tooltip-extended="save">
+          <h5><a class="rollable" data-dtype="saving-throws">{{localize "FFD20.SavingThrow"}}</a></h5>
+          <span class="value text-box direct" name="system.attributes.savingThrows.save.base" data-dtype="Number" step="1">
+            {{system.attributes.savingThrows.save.total}}
+          </span>
+        </div>
+      </div>
+
+      {{!-- Combat --}}
+      <div class="combat info-box-header">
+        <h3>{{localize "FFD20.Combat"}}</h3>
+
+        {{! CMB }}
+        <div class="info-box attribute attack cmb" data-tooltip-extended="cmb">
+          <h5><a class="rollable" data-type="cmb" data-ranged="false">{{localize "FFD20.CMBAbbr"}}</a></h5>
+          <span class="value">
+            <span data-dtype="Number">{{system.attributes.cmb.total}}</span>
+          </span>
+        </div>
+        {{! CMD }}
+        <div class="info-box" data-tooltip-extended="cmd.total">
+          <h5>{{localize "FFD20.CMDAbbr"}}</h5>
+          <span class="value">
+            <span name="system.attributes.cmd.value" data-dtype="Number">{{system.attributes.cmd.total}}</span>
+          </span>
+        </div>
+        {{#if (eq system.traits.type "sea")}}
+        {{! CMD Stopped }}
+          <div class="info-box" data-tooltip-extended="cmd.stoppedTotal">
+            <h5>{{localize "FFD20.Vehicles.CMDStoppedMotion"}}</h5>
+            <span class="value">
+              <span name="system.attributes.cmd.value" data-dtype="Number">{{system.attributes.cmd.stoppedTotal}}</span>
+            </span>
+          </div>
+        {{/if}}
+      </div>
+
+      {{!-- Driving --}}
+      <div class="driving info-box-header">
+        <h3>{{localize "FFD20.Driving"}}</h3>
+
+        <div class="flexrow driver">
+          <div class="flexrow driver-info">
+            {{#if driver.uuid}}
+              <img src="{{driver.img}}" title="{{driver.name}}">
+              <h3>{{driver.name}}</h3>
+              <div class="controls">
+                <a class="edit" data-edit="actor" data-actor-id="{{driver.uuid}}"><i class="fa-solid fa-edit" inert></i></a>
+                <a class="delete" data-delete="actor" data-actor-id="{{driver.uuid}}"><i class="fa-solid fa-trash" inert></i></a>
+              </div>
+            {{else}}
+              <button class="select-driver" type="button" data-tooltip="{{localize "FFD20.Vehicles.SelectDriver"}}">{{localize "FFD20.Vehicles.SelectDriver"}}</button>
+            {{/if}}
+          </div>
+          <div class="flexcol driver-skill">
+            <label>{{localize "FFD20.Vehicles.DriverSkill"}} (<i class="fa-solid fa-dice-d20 rollable" data-dtype="driverSkill"></i>{{numberFormat driver.skillBonus decimals=0 sign=true}})</label>
+            <select name="system.driver.skill">
+              {{selectOptions driver.skills selected=system.driver.skill blank="FFD20.AbilityWis" localize=true}}
+            </select>
+          </div>
+        </div>
+        <div class="driving-info">
+          {{!-- Acceleration --}}
+          <div class="info-box" data-tooltip-extended="acceleration">
+            <h5>{{localize "FFD20.Vehicles.Acceleration"}}</h5>
+            <span class="value text-box direct wheel-change speed" name="system.details.acceleration" data-dtype="Number" placeholder="{{localize "FFD20.NonApplicable"}}">
+              {{convertDistance system.details.acceleration}}
+            </span>
+          </div>
+          {{!-- Current Speed --}}
+          <div class="info-box" data-tooltip-extended="currentSpeed">
+            <h5>{{localize "FFD20.Vehicles.CurrentSpeed"}}</h5>
+            <span class="value text-box direct wheel-change speed" name="system.details.currentSpeed" data-dtype="Number" step="{{system.details.acceleration}}" placeholder="{{localize "FFD20.NonApplicable"}}">
+              {{convertDistance system.details.currentSpeed}}
+            </span>
+          </div>
+          {{!-- Max Speed --}}
+          <div class="info-box" data-tooltip-extended="maxSpeed">
+            <h5>{{localize "FFD20.Vehicles.MaximumSpeed"}}</h5>
+            <span class="value text-box direct wheel-change speed" name="system.details.maxSpeed" data-dtype="Number" placeholder="{{localize "FFD20.NonApplicable"}}">
+              {{convertDistance system.details.maxSpeed}}
+            </span>
+          </div>
+          {{!-- Propulsion --}}
+          <div class="info-box">
+            <h5>{{localize "FFD20.Vehicles.Propulsion"}}</h5>
+            <span class="value">
+              {{formInput fields.details.fields.propulsion value=system.details.propulsion}}
+            </span>
+          </div>
+          {{!-- Forward Facing --}}
+          <div class="info-box">
+            <h5>{{localize "FFD20.Vehicles.ForwardFacing"}}</h5>
+            <span class="value">
+              {{formInput fields.details.fields.forwardFacing value=system.details.forwardFacing}}
+            </span>
+          </div>
+        </div>
+        <div class="capacity">
+          {{!-- Driving Check --}}
+          <div class="info-box">
+            <h5>{{localize "FFD20.Vehicles.DrivingCheck"}}</h5>
+            <span class="value">
+              {{formInput fields.details.fields.drivingCheck value=system.details.drivingCheck}}
+            </span>
+          </div>
+          {{!-- Driving Device --}}
+          <div class="info-box">
+            <h5>{{localize "FFD20.Vehicles.DrivingDevice"}}</h5>
+            <span class="value">
+              {{formInput fields.details.fields.drivingDevice value=system.details.drivingDevice}}
+            </span>
+          </div>
+          <div class="info-box">
+            <h5>{{localize "FFD20.Vehicles.DrivingSpace"}}</h5>
+            <span class="value">
+              {{formInput fields.details.fields.drivingSpace value=system.details.drivingSpace}}
+            </span>
+          </div>
+          <div class="info-box">
+            <h5>{{localize "FFD20.Vehicles.Decks"}}</h5>
+            <span class="value text-box direct">
+              {{formInput fields.details.fields.decks value=system.details.decks}}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {{!-- Actions --}}
+      <div class="combat-attacks">
+        <section class="attacks-body">
+          <ol class="item-groups-list">
+          {{#each attacks as |section sid|}}
+          {{#unless section._hidden}}
+            <ol class="item-list" data-list="{{id}}" data-type="{{create.type}}" data-subtype="{{create.system.subType}}">
+              <li class="item-list-header flexrow attacks-{{id}}">
+                <div class="item-name">
+                  <h3>{{section.label}}</h3>
+                </div>
+
+                {{#if section.showTypes}}<div class="item-detail item-type"><i class="icon-pf icon-magic-palm" data-tooltip="FFD20.Type"></i></div>{{/if}}
+
+                <div class="item-detail item-attacks">
+                  <label>{{localize "FFD20.Attacks"}}</label>
+                </div>
+
+                <div class="item-detail item-damage">
+                    <label>{{localize "FFD20.Damage"}}</label>
+                </div>
+
+                <div class="item-detail item-range">
+                    <label>{{localize "FFD20.Range"}}</label>
+                </div>
+
+                <div class="item-detail item-actions"><i class="icon-pf icon-gears" data-tooltip="FFD20.ActionPlural"></i></div>
+
+                <div class="item-detail item-uses"><i class="icon-pf icon-battery-pack" data-tooltip="FFD20.ChargePlural"></i></div>
+
+                {{#if @root.owner}}
+                <div class="item-controls">
+                  {{#if interface.create}}
+                  <a class="item-control item-create" data-tooltip="FFD20.CreateItem" data-create="{{path}}">
+                    <i class="fa-solid fa-plus" inert></i>
+                  </a>
+                  {{/if}}
+                </div>
+                {{/if}}
+              </li>
+
+              {{#each section.items as |item iid|}}
+              <li class="item flexrow{{#if isBroken}} broken{{/if}}" data-item-id="{{item.id}}">
+                <div class="item-name rollable">
+                  <div class="item-image" style='background-image: url("{{item.img}}")' data-tooltip="FFD20.DisplayInChat"></div>
+                  <h4>{{item.name~}}</h4>
+                </div>
+
+                {{#if section.showTypes}}
+                <div class="item-detail item-type">
+                  <span>{{lookup @root.config.attackTypes item.subType}}</span>
+                </div>
+                {{/if}}
+
+                <div class="item-detail item-attacks" data-tooltip-extended="item.{{item.id}}.attacks">
+                  {{#if item.hasAttack}}
+                  <label>{{attackSummary}}</label>
+                  {{/if}}
+                </div>
+
+                <div class="item-detail item-damage tooltip" data-tooltip-extended="item.{{item.id}}.damage">
+                  {{#if item.hasDamage}}
+                    <label class="resolved-formula">{{actionDamage item.document.defaultAction}}</label>
+                  {{/if}}
+                </div>
+
+                <div class="item-detail item-range" data-tooltip-extended="item.{{item.id}}.range">
+                  {{#if item.hasRange}}
+                  <label>{{actionRange item.document.defaultAction @root.rollData}}</label>
+                  {{/if}}
+                </div>
+
+                <div class="item-detail item-actions">
+                  <div class="item-action">
+                    {{#if item.hasAction}}
+                    <a class="item-control item-action action roll" data-tooltip="FFD20.PerformAttack">
+                      <i class="fa-solid fa-dice-d20" inert></i>
+                    </a>
+                    {{/if}}
+                  </div>
+                </div>
+
+                <div class="item-detail item-uses flexrow" data-tooltip-extended="item.{{item.id}}.resources">
+                  {{#if item.isCharged}}
+                  <span class="text-box value allow-relative" data-wheel-step="1" data-dtype="Number">{{item.charges}}</span>
+                  <span class="sep"> / </span>
+                  <span class="max">{{item.maxCharges}}</span>
+                  {{else if item.usesAmmo}}
+                  <span class="ammo-remaining">{{item.ammoRemaining}}</span>
+                  {{/if}}
+                </div>
+
+                {{#if @root.owner}}
+                <div class="item-controls">
+                  <a class="item-control item-edit" data-tooltip="FFD20.EditItem"><i class="fa-solid fa-edit" inert></i></a>
+                  {{#if ../interface.create}}
+                  <a class="item-control item-duplicate" data-tooltip="FFD20.DuplicateItem"><i class="fa-solid fa-copy" inert></i></a>
+                  <a class="item-control item-delete" data-tooltip="FFD20.DeleteItem"><i class="fa-solid fa-trash" inert></i></a>
+                  {{/if}}
+                </div>
+                {{/if}}
+              </li>
+              {{/each}}
+            </ol>
+          {{/unless}}
+          {{/each}}
+          </ol>
+        </section>
+      </div>
+    </div>
+
+    {{!-- Inventory Tab --}}
+    <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
+      {{> "systems/ffd20/templates/actors/parts/actor-inventory.hbs" sections=inventory}}
+    </div>
+
+    {{!-- Description Tab --}}
+    <div class="tab actor-description flexcol" data-group="primary" data-tab="description">
+      {{formInput fields.details.fields.description enriched=descriptionHTML value=system.details.description toggled=_editorState.system.details.description disabled=(not editable)}}
+    </div>
+
+    {{!-- Notes Tab --}}
+    <div class="tab actor-notes flexcol" data-group="primary" data-tab="notes">
+      {{formInput fields.details.fields.notes enriched=notesHTML value=system.details.notes toggled=_editorState.system.details.notes disabled=(not editable)}}
+    </div>
+  </section>
+
+</form>

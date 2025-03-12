@@ -1,84 +1,74 @@
-<div class="inventory-filters flexrow">
-  {{~> "systems/ffd20/templates/internal/item-search.hbs" category="features"}}
-
-  <ul class="filter-list flexrow" data-filter="features">
-    {{#each sections as |section sid|}}
-    <li class="filter-item" data-filter="type-{{sid}}">{{section.label}}</li>
-    {{/each}}
-  </ul>
-</div>
+{{> "systems/ffd20/templates/actors/parts/actor-item-nav-filters.hbs" category="features" sections=sections}}
 
 <section class="feats-body">
   <ol class="item-groups-list">
   {{#each sections as |section sid|}}
   {{#unless section._hidden}}
-    <ol class="item-list sub-scroll scroll-feats feats-{{sid}}" data-type="feat" data-subtype="{{sid}}">
+    <ol class="item-list sub-scroll scroll-feats feats-{{id}}" data-list="{{id}}" data-type="{{create.type}}" data-subtype="{{create.system.subType}}">
       <li class="item-list-header flexrow">
         <div class="item-name">
           <h3>{{section.label}}</h3>
         </div>
 
-        {{#unless section.isClass}}
-        <div class="item-detail item-type"><i class="icon icon-magic-palm large" data-tooltip="FFD20.Type"></i></div>
-        {{/unless}}
-
-        {{#if section.hasActions}}
-        <div class="item-detail item-actions"><i class="icon icon-gears large" data-tooltip="FFD20.ActionPlural"></i></div>
-        <div class="item-detail item-uses"><i class="icon icon-battery-pack large" data-tooltip="FFD20.ChargePlural"></i></div>
-        <div class="item-detail item-usage"><i class="icon icon-hand large" data-tooltip="FFD20.Usage"></i></div>
+        {{#if section.interface.types}}
+        <div class="item-detail item-type"><i class="icon-pf icon-magic-palm" data-tooltip="FFD20.Type"></i></div>
         {{/if}}
 
-        {{#if section.isClass}}
-        <div class="item-detail item-feat-level"><i class="icon icon-upgrade large" data-tooltip="FFD20.Level"></i></div>
+        {{#if section.interface.actions}}
+        <div class="item-detail item-actions"><i class="icon-pf icon-gears" data-tooltip="FFD20.ActionPlural"></i></div>
+        <div class="item-detail item-uses"><i class="icon-pf icon-battery-pack" data-tooltip="FFD20.ChargePlural"></i></div>
+        <div class="item-detail item-usage"><i class="icon-pf icon-hand" data-tooltip="FFD20.Usage"></i></div>
         {{/if}}
 
-        {{#if ../owner}}
+        {{#if section.interface.level}}
+        <div class="item-detail item-feat-level"><i class="icon-pf icon-upgrade" data-tooltip="FFD20.Level"></i></div>
+        {{/if}}
+
+        {{#if @root.owner}}
         <div class="item-controls">
-          {{#if section.canCreate}}
-          <a class="item-control item-create" data-tooltip="FFD20.CreateItem" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
-            <i class="fas fa-plus"></i>
+          {{#if section.interface.create}}
+          <a class="item-control item-create" data-tooltip="FFD20.CreateItem" data-create="{{path}}">
+            <i class="fa-solid fa-plus" inert></i>
           </a>
           {{/if}}
-          <a data-action="compendium" data-action-target="feats" data-tooltip="FFD20.OpenCompendium"><i class="fas fa-folder-plus"></i></a>
+          <a data-action="browse" data-source="{{path}}" data-tooltip="FFD20.BrowseFeats"><i class="fa-solid fa-folder-plus" inert></i></a>
         </div>
         {{/if}}
       </li>
 
       {{#each section.items as |item iid|}}
-      <li class="item flexrow{{#unless isCharged}} uncharged{{/unless}}{{#if item.disabled}} disabled{{/if}}" data-item-id="{{item.id}}">
+      <li class="item flexrow{{#unless isCharged}} uncharged{{/unless}}{{#if item.disabled}} disabled{{/if}}" data-item-id="{{item.id}}" data-ability-type="{{abilityType}}">
         <div class="item-name rollable">
           <div class="item-image" style='background-image: url("{{item.img}}")' data-tooltip="FFD20.DisplayInChat"></div>
           <h4>{{item.name}}</h4>
         </div>
 
-        {{#unless section.isClass}}
+        {{#if section.interface.types}}
         <div class="item-detail item-type">
-          <span>{{item.abilityTypeShort}}</span>
+          <span>{{item.typelabel}}</span>
         </div>
-        {{/unless}}
+        {{/if}}
 
-        {{#if section.hasActions}}
+        {{#if section.interface.actions}}
         <div class="item-detail item-actions">
           <div class="item-action">
             {{#unless item.disabled}}
             {{#if item.hasAction}}
             <a class="item-control item-action action roll" data-tooltip="FFD20.UseFeat">
-              <i class="fa-solid fa-dice-d20"></i>
+              <i class="fa-solid fa-dice-d20" inert></i>
             </a>
             {{/if}}
             {{/unless}}
           </div>
         </div>
 
-        <div class="item-detail item-uses flexrow {{#if item.isCharged}}tooltip{{/if}}">
+        <div class="item-detail item-uses flexrow" data-tooltip-extended="item.{{item.id}}.resources">
           {{#if item.isCharged}}
-          <span class="text-box value" data-wheel-step="1" data-dtype="Number">{{item.uses.value}}</span>
-          <span class="sep"> / </span>
-          <span class="text-box">{{item.uses.max}}</span>
-          <span class="tooltipcontent">
-            <span class="span2 align-left">@resources.{{item.tag}}.value :</span><span class="span1 align-right"> {{item.uses.value}}</span>
-            <span class="span2 align-left">@resources.{{item.tag}}.max :</span><span class="span1 align-right"> {{item.uses.max}}</span>
-          </span>
+          <span class="text-box value allow-relative" data-wheel-step="1" data-dtype="Number">{{item.uses.value}}</span>
+            {{#unless item.noMaxCharges}}
+            <span class="sep"> / </span>
+            <span class="max">{{item.uses.max}}</span>
+            {{/unless}}
           {{/if}}
         </div>
         <div class="item-detail item-usage">
@@ -86,22 +76,25 @@
           <span>{{item.labels.activation}}</span>
           {{/if}}
         </div>
-        {{else if section.isClass}}
-        <div class="item-detail item-feat-level tooltip">
-          <span>{{localize "FFD20.Level"}} {{item.level}}</span>
-          <span class="tooltipcontent"><span class="span2">@classes.{{item.tag}}.level :</span><span class="span1"> {{item.level}}</span></span>
-        </div>
         {{/if}}
 
-        {{#if ../../owner}}
+        {{#if @root.owner}}
         <div class="item-controls">
-          <a class="item-control item-edit" data-tooltip="FFD20.EditItem"><i class="fas fa-edit"></i></a>
-          <a class="item-control item-duplicate" data-tooltip="FFD20.DuplicateItem"><i class="fas fa-copy"></i></a>
-          <a class="item-control item-delete" data-tooltip="FFD20.DeleteItem"><i class="fas fa-trash"></i></a>
+          <a class="item-control item-edit" data-tooltip="FFD20.EditItem"><i class="fa-solid fa-edit" inert></i></a>
+          <a class="item-control item-duplicate" data-tooltip="FFD20.DuplicateItem"><i class="fa-solid fa-copy" inert></i></a>
+          <a class="item-control item-delete" data-tooltip="FFD20.DeleteItem"><i class="fa-solid fa-trash" inert></i></a>
         </div>
         {{/if}}
       </li>
       {{/each}}
+      {{#if issues.discrepancy}}
+      <div class="feat-notifications">
+        <div class="notification-box warning">
+          <h5>{{#if issues.missing}}{{localize "FFD20.Missing"}}{{else}}{{localize "FFD20.Excess"}}{{/if}}</h5>
+          <span class="value">{{numberFormat issues.discrepancy}}</span>
+        </div>
+      </div>
+      {{/if}}
     </ol>
   {{/unless}}
   {{/each}}
@@ -109,30 +102,56 @@
 </section>
 
 <hr>
-<div class="tab-footer flexcol tooltip">
-  <span class="tooltipcontent">
-    {{> "systems/ffd20/templates/actors/parts/actor-source-details.hbs" target=sourceData.bonusFeats skipLine=true}}
-  </span>
-  <div class="flexrow form-group">
+
+<footer data-tooltip-extended="feats" data-tooltip-direction="UP">
+  {{! Arbitrary Bonus Feats }}
+  <div class="flexrow form-group extra-feats">
     <label>{{localize "FFD20.BonusFeatFormula"}}</label>
-    <input class="formula" type="text" name="system.details.bonusFeatFormula" value="{{system.details.bonusFeatFormula}}" placeholder="{{localize "FFD20.Formula"}}" />
+    <input class="formula" type="text" name="system.details.bonusFeatFormula" value="{{system.details.bonusFeatFormula}}" placeholder="{{localize "FFD20.Formula"}}">
   </div>
-  <table class='feat-counts'>
-    <thead>
-      <tr>
-        <th>{{localize "FFD20.Feats"}}</th>
-        <th>{{localize "FFD20.ByLevel"}}</th>
-        <th>{{localize "FFD20.ByBonus"}}</th>
-        <th>{{localize "FFD20.Total"}}</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td class="center owned">{{featCount.value}}</td>
-        <td class="center by-level">{{featCount.byLevel}}</td>
-        <td class="center by-bonus">{{featCount.byFormula}}</td>
-        <td class="center total">{{featCount.total}}</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+
+  {{! Feat Counts }}
+  <div class="feat-counts">
+    <div class="info-box-joined stats">
+      <div class="info-box owned">
+        <h5>{{localize "FFD20.Feats"}}</h5>
+        <span class="value">{{featCount.active}}</span>
+      </div>
+      <div class="info-box by-level">
+        <h5>{{localize "FFD20.ByLevel"}}</h5>
+        <span class="value">{{featCount.levels}}</span>
+      </div>
+      <div class="info-box by-extra">
+        <h5>{{localize "FFD20.ByBonus"}}</h5>
+        <span class="value">{{featCount.bonus}}</span>
+      </div>
+      <div class="info-box total">
+        <h5>{{localize "FFD20.Total"}}</h5>
+        <span class="value">{{featCount.max}}</span>
+      </div>
+    </div>
+
+    {{#if featCount.issues}}
+    <div class="info-box-joined issues" style="--issues:{{featCount.issues}};">
+      {{#if featCount.missing}}
+      <div class="info-box missing">
+        <h5>{{localize "FFD20.Missing"}}</h5>
+        <span class="value">{{featCount.missing}}</span>
+      </div>
+      {{else if featCount.excess}}
+      <div class="info-box excess">
+        <h5>{{localize "FFD20.Excess"}}</h5>
+        <span class="value">{{featCount.excess}}</span>
+      </div>
+      {{/if}}
+
+      {{#if featCount.disabled}}
+      <div class="info-box disabled">
+        <h5>{{localize "FFD20.Disabled"}}</h5>
+        <span class="value">{{featCount.disabled}}</span>
+      </div>
+      {{/if}}
+    </div>
+    {{/if}}
+  </div>
+</footer>

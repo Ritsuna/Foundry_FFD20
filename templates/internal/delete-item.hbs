@@ -1,0 +1,15 @@
+<p>{{localize "FFD20.DeleteItemConfirmation"}}</p>
+
+{{#if linked.length}}
+<p>
+  {{localize "FFD20.DeleteChildLinks"}}
+</p>
+<ul>
+  {{#each linked}}
+  <li>
+    <span class="name">{{name}}</span>
+    <span class="type">({{type}})</span>
+  </li>
+  {{/each}}
+</ul>
+{{/if}}

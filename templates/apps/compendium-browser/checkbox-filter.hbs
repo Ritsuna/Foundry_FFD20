@@ -2,13 +2,13 @@
   <div class="filter-controls flexrow">
     {{#if filter.hasSearch}}
       <div class="choice-filter search-form control formgroup flexrow">
-        <input type="search" name="choice-query" value="{{choiceQuery}}" placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}" autocomplete="off" />
-        <i class="fas fa-search"></i>
+        <input type="search" name="choice-query" value="{{choiceQuery}}" placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}" autocomplete="off">
+        <i class="fa-solid fa-search" inert></i>
       </div>
     {{/if}}
     {{#if filter.boolean}}
       <button class="control boolean" data-tooltip="FFD20.FilterBooleanOperatorHint" data-tooltip-="RIGHT">
-        <i class="fas fa-ballot-check"></i>
+        <i class="fa-solid fa-ballot-check" inert></i>
         {{#if (eq filter.boolean "AND")}}{{localize "FFD20.All"}}
         {{else}}{{localize "FFD20.Any"}}
         {{/if}}
@@ -22,10 +22,10 @@
       <input
         type="checkbox"
         name="filter.{{../id}}.choice.{{choice.key}}"
-        id="{{@root.id}}.filter.{{../id}}.choice.{{choice.key}}"
+        id="{{@root.id}}-filter-{{../id}}-choice-{{choice.key}}"
         {{checked choice.active}}
-      />
-      <label for="{{@root.id}}.filter.{{../id}}.choice.{{choice.key}}">
+>
+      <label for="{{@root.id}}-filter-{{../id}}-choice-{{choice.key}}">
         {{choice.label}}
       </label>
     </li>

@@ -1,16 +1,44 @@
-<form>
+<form autocomplete="off" data-tooltip-class="ffd20">
+  {{#if check}}
   <div class="form-group">
-      <label>{{localize "FFD20.BaseDice"}}</label>
-      <input class="attribute" type="text" name="d20" value="{{d20}}" placeholder="e.g. 2d20kl"/>
+      <label>{{localize "FFD20.Rolls.Check.Override"}}</label>
+      <div class="form-fields">
+        <i class="fa-solid fa-dice-d20 fa-fw" inert></i>
+        <input class="attribute" type="text" name="d20" value="{{d20}}" placeholder="{{localize "FFD20.Rolls.Check.OverrideHint"}}">
+      </div>
   </div>
+  {{/if}}
+
   <div class="form-group">
     <label>{{localize "FFD20.SituationalBonus"}}</label>
-    <input type="text" name="bonus" value="{{bonus}}" placeholder="e.g. +1d4"/>
+    <div class="form-fields">
+      <i class="fa-solid fa-plus-minus fa-fw" inert></i>
+      <input type="text" name="bonus" value="{{bonus}}" placeholder="{{localize "FFD20.Rolls.BonusHint"}}" autofocus>
+    </div>
   </div>
+
+  <div class="form-group">
+    <label>{{localize "FFD20.DifficultyClass"}}</label>
+    <div class="form-fields">
+      <i class="fa-solid fa-vial-circle-check fa-fw" inert></i>
+      {{#if editDC}}
+      <input type="number" name="dc" value="{{dc}}" placeholder="{{localize "FFD20.NonApplicable"}}" step="1">
+      {{else}}
+      <input type="hidden" name="dc" value="{{dc}}">
+      <div>
+        <label class="placeholder">{{localize "FFD20.Unknown"}}</label>
+      </div>
+      {{/if}}
+    </div>
+  </div>
+
   <div class="form-group">
     <label>{{localize "FFD20.RollMode"}}</label>
-    <select name="rollMode">
-      {{selectOptions rollModes selected=rollMode localize=true}}
-    </select>
+    <div class="form-fields">
+      <i class="fa-solid fa-eye-low-vision fa-fw" inert></i>
+      <select name="rollMode">
+        {{selectOptions rollModes selected=rollMode localize=true}}
+      </select>
+    </div>
   </div>
 </form>

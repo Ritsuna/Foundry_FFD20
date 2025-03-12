@@ -1,0 +1,61 @@
+<ul class="choices">
+  {{#if isMythic}}
+  <li class="choice">
+    <label>
+      <input type="radio" name="health.type" value="static" checked>
+      <h3>{{localize "FFD20.LevelUp.Health.Static.Label"}}<span class="value"><span class="delta">{{numberFormat health.delta sign=true}}</span></span></h3>
+      <p>{{localize "FFD20.LevelUp.Health.Static.Desc"}}</p>
+    </label>
+  </li>
+  {{else if health.auto}}
+  <li class="choice">
+    <label>
+      <input type="radio" name="health.type" value="auto" checked>
+      <h3>
+        {{localize "FFD20.LevelUp.Health.Auto.Label"}}
+        <span class="value">
+          {{#if health.maximized}}{{localize "FFD20.LevelUp.Health.Maximized.Label"}}{{/if}}
+          <span class="delta">{{numberFormat health.delta sign=true}}</span>
+        </span>
+      </h3>
+      <p>{{localize "FFD20.LevelUp.Health.Auto.Desc" rate=health.rate}}</p>
+    </label>
+  </li>
+  {{else if health.maximized}}
+  <li class="choice">
+    <label>
+      <input type="radio" name="health.type" value="max" {{checked (eq health.type "max")}}>
+      <h3>{{localize "FFD20.LevelUp.Health.Maximized.Label"}}<span class="value"><span class="delta">{{numberFormat health.hitDie sign=true}}</span></span></h3>
+      <p>{{localize "FFD20.LevelUp.Health.Maximized.Desc"}}</p>
+    </label>
+  </li>
+  {{else}}
+  <li class="choice">
+    <label>
+      <input type="radio" name="health.type" value="roll" {{checked (eq health.type "roll")}}>
+      <h3>
+        <img class="choice-icon" src="{{icons.health.roll}}">
+        {{localize "FFD20.LevelUp.Health.Roll.Label"}}
+      </h3>
+      <p>{{localize "FFD20.LevelUp.Health.Roll.Desc"}}</p>
+    </label>
+  </li>
+
+  <li class="choice">
+    <label>
+      <input type="radio" name="health.type" value="manual" {{checked (eq health.type "manual")}}>
+      <h3>
+        <img class="choice-icon" src="{{icons.health.manual}}">
+        {{localize "FFD20.LevelUp.Health.Manual.Label"}}
+      </h3>
+
+      <p>{{localize "FFD20.LevelUp.Health.Manual.Desc"}}</p>
+
+      <div class="form-group">
+        <label>{{localize "FFD20.Value"}}</label>
+        <input type="number" name="health.manual" value="{{health.manual}}" placeholder="1" min="1" step="1" max="{{health.hitDie}}">
+      </div>
+    </label>
+  </li>
+  {{/if}}
+</ul>

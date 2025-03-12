@@ -1,18 +1,31 @@
-<form>
+<form autocomplete="off" data-tooltip-class="ffd20">
   {{#if hasAttack}}
   <div class="form-group">
-      <label>{{localize "FFD20.AttackRollDice"}}</label>
-      <input class="attribute" type="text" name="d20" value="{{attributes.d20}}" placeholder="e.g. 2d20kl"/>
+    <label>{{localize "FFD20.Rolls.Check.Override"}}</label>
+    <div class="form-fields">
+      <i class="fa-solid fa-dice-d20 fa-fw" inert></i>
+      <input class="attribute" type="text" name="d20" value="{{attributes.d20}}" placeholder="{{localize "FFD20.Rolls.Check.OverrideHint"}}">
+    </div>
   </div>
   <div class="form-group">
-    <label>{{localize "FFD20.AttackRollBonus"}}</label>
-    <input class="attribute" type="text" name="attack-bonus" value="{{attributes.attack-bonus}}" placeholder="e.g. +1d4"/>
+    <label>{{localize "FFD20.Rolls.Bonus"}}</label>
+    <div class="form-fields">
+      <i class="fa-solid fa-plus-minus fa-fw" inert></i>
+      <input class="attribute" type="text" name="attack-bonus" value="{{attributes.attack-bonus}}" placeholder="{{localize "FFD20.Rolls.BonusHint"}}" autofocus>
+    </div>
   </div>
   {{/if}}
   {{#if hasDamage}}
   <div class="form-group">
-    <label>{{localize "FFD20.DamageBonus"}}</label>
-    <input class="attribute" type="text" name="damage-bonus" value="{{attributes.damage-bonus}}" placeholder="e.g. +1d4"/>
+    <label>{{#if isHealing}}{{localize "FFD20.HealBonus"}}{{else}}{{localize "FFD20.DamageBonus"}}{{/if}}</label>
+    <div class="form-fields">
+      {{#if isHealing}}
+      <i class="fa-solid fa-heart-pulse fa-fw" inert></i>
+      {{else}}
+      <i class="fa-solid fa-heart-crack fa-fw" inert></i>
+      {{/if}}
+      <input class="attribute" type="text" name="damage-bonus" value="{{attributes.damage-bonus}}" placeholder="{{#if isHealing}}{{localize "FFD20.HealBonusHint"}}{{else}}{{localize "FFD20.DamageBonusHint"}}{{/if}}">
+    </div>
   </div>
   {{/if}}
 
@@ -20,43 +33,54 @@
   {{#if (or hasAttack hasDamage)}}
   <div class="form-group stacked flags">
     <label>{{localize "FFD20.Misc"}}</label>
+    {{#if isMelee}}
     <label class="checkbox">
-      <input type="checkbox" name="haste-attack" {{checked flags.haste-attack}}/> {{localize "FFD20.Haste"}}
+      <input type="checkbox" name="flanking" {{checked flags.flanking}}> {{localize "FFD20.Flanking"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="charge" {{checked flags.charge}}> {{localize "FFD20.Charge"}}
+    </label>
+    <label class="checkbox">
+      <input type="checkbox" name="highGround" {{checked flags.highGround}}> {{localize "FFD20.HighGround"}}
+    </label>
+    {{/if}}
+    <label class="checkbox">
+      <input type="checkbox" name="haste-attack" {{checked flags.haste-attack}}> {{localize "FFD20.Haste"}}
     </label>
     {{#if isMeleeWeaponAttackAction}}
     <label class="checkbox">
-      <input type="checkbox" name="power-attack" {{checked flags.power-attack}}/> {{localize "FFD20.PowerAttack"}}
+      <input type="checkbox" name="power-attack" {{checked flags.power-attack}}> {{localize "FFD20.PowerAttack"}}
     </label>
     {{/if}}
     {{#if isRangedWeaponAttackAction}}
     <label class="checkbox">
-      <input type="checkbox" name="power-attack" {{checked flags.power-attack}}/> {{localize "FFD20.DeadlyAim"}}
+      <input type="checkbox" name="power-attack" {{checked flags.power-attack}}> {{localize "FFD20.DeadlyAim"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="manyshot" {{checked flags.manyshot}}/> {{localize "FFD20.Manyshot"}}
+      <input type="checkbox" name="manyshot" {{checked flags.manyshot}}> {{localize "FFD20.Manyshot"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="rapid-shot" {{checked flags.rapid-shot}}/> {{localize "FFD20.RapidShot"}}
+      <input type="checkbox" name="rapid-shot" {{checked flags.rapid-shot}}> {{localize "FFD20.RapidShot"}}
     </label>
     <label class="checkbox">
-      <input type="checkbox" name="point-blank-shot" {{checked flags.point-blank-shot}}/> {{localize "FFD20.PointBlankShot"}}
+      <input type="checkbox" name="point-blank-shot" {{checked flags.point-blank-shot}}> {{localize "FFD20.PointBlankShot"}}
     </label>
     {{/if}}
     {{#if isNaturalAttack}}
     <label class="checkbox">
-      <input type="checkbox" {{checked flags.primary-attack}} name="primary-attack"/> {{localize "FFD20.PrimaryAttack"}}
+      <input type="checkbox" {{checked flags.primary-attack}} name="primary-attack"> {{localize "FFD20.PrimaryAttack"}}
     </label>
     {{/if}}
   </div>
   {{/if}}
 
   {{!-- Conditionals --}}
-  {{#if item.conditionals}}
+  {{#if action.conditionals}}
   <div class="form-group stacked conditionals">
     <label>{{localize "FFD20.Conditionals"}}</label>
-    {{#each item.conditionals as |conditional a|}}
+    {{#each conditionals}}
     <label class="checkbox">
-      <input type="checkbox" data-dtype="Boolean" name="conditional.{{a}}" class="conditional" {{checked (lookup ../conditionals (concat "conditional." a))}}> {{lookup this "name"}}
+      <input type="checkbox" name="conditionals.{{conditional.id}}" class="conditional" {{checked enabled}}> {{conditional.name}}
     </label>
     {{/each}}
   </div>
@@ -65,46 +89,57 @@
   {{#if hasDamage}}{{#if hasDamageAbility}}
   <div class="form-group select">
     <label>{{localize "FFD20.DamageAbility"}}</label>
-    <select name="damage-ability-multiplier">
-      {{selectOptions config.abilityDamageMultipliers selected=attributes.damage-ability-multiplier nameAttr="value" labelAttr="label"}}
-    </select>
+    <div class="form-fields">
+      <i class="fa-solid fa-explosion fa-fw" inert></i>
+      <select name="damage-ability-multiplier" data-dtype="Number">
+        {{#if @root.held.inheritable}}
+        <option value="">{{localize "FFD20.HeldMult" mult=@root.held.mult}}</option>
+        {{/if}}
+        {{selectOptions config.abilityDamageMultipliers selected=attributes.damage-ability-multiplier valueAttr="value" labelAttr="label"}}
+      </select>
+    </div>
   </div>
   {{/if}}{{/if}}
 
-  {{#if (or isAttack isWeapon)}}
-  {{#unless isNaturalAttack}}
+  {{#if @root.held.configurable}}
   <div class="form-group select">
     <label>{{localize "FFD20.Held"}}</label>
-    <select name="held">
-      {{#select attributes.held}}
-      {{#each config.weaponHoldTypes as |name type|}}
-      <option value="{{type}}">{{name}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
+    <div class="form-fields">
+      <i class="fa-solid fa-hands fa-fw" inert></i>
+      <select name="held">
+        {{selectOptions @root.config.weaponHoldTypes selected=attributes.held}}
+      </select>
+    </div>
   </div>
-  {{/unless}}
   {{/if}}
 
   {{#if isSpell}}
   <div class="form-group">
     <label>{{localize "FFD20.CasterLevelOffset"}}</label>
-    <input class="attribute" type="number" data-dtype="Number" value="{{attributes.cl-offset}}" name="cl-offset" />
+    <div class="form-fields">
+      <input class="attribute" type="number" value="{{attributes.cl-offset}}" name="cl-offset" step="1">
+    </div>
   </div>
 
   <div class="form-group">
     <label>{{localize "FFD20.SpellLevelOffset"}}</label>
-    <input class="attribute" type="number" data-dtype="Number" value="{{attributes.sl-offset}}" name="sl-offset" />
+    <div class="form-fields">
+      <input class="attribute" type="number" value="{{attributes.sl-offset}}" name="sl-offset" step="1">
+    </div>
   </div>
 
   <div class="form-group">
     <label>{{localize "FFD20.ConcentrationCheck"}}</label>
-    <input type="checkbox" data-dtype="Boolean" name="concentration" {{checked flags.concentration}} />
+    <div class="form-fields">
+      <input type="checkbox" name="concentration" {{checked flags.concentration}}>
+    </div>
   </div>
 
   <div class="form-group">
     <label>{{localize "FFD20.CasterLevelCheck"}}</label>
-    <input type="checkbox" data-dtype="Boolean" name="cl-check" {{checked flags.cl-check}} />
+    <div class="form-fields">
+      <input type="checkbox" name="cl-check" {{checked flags.cl-check}}>
+    </div>
   </div>
   {{/if}}
 
@@ -120,18 +155,18 @@
     </div>
     {{#each attacks as |atk idx|}}
     <div class="attack" data-index="{{idx}}">
-      <input class="name" disabled type="text" name="attack.{{idx}}.label" value="{{atk.label}}" data-tooltip="FFD20.Name" />
-      <input class="bonus" disabled type="text" name="attack.{{idx}}.attackBonusTotal" value="{{atk.attackBonusTotal}}" data-tooltip="FFD20.AttackRollBonus" />
+      <label class="name" data-tooltip="FFD20.Name">{{atk.label}}</label>
+      <label class="bonus" data-tooltip="FFD20.AttackRollBonus">{{#unless abstract}}{{numberFormat atk.attackBonusTotal sign=true}}{{/unless}}</label>
       {{#if @root.usesAmmo}}
         <div class="ammo ammo-select">
           <div class="flexrow">
             {{#if atk.ammo}}
-              <img src="{{atk.ammo.data.img}}"></img>
+              <img src="{{atk.ammo.data.img}}">
               <span>{{atk.ammo.data.name}}</span>
             {{else}}
-              <span></span>
+              <span class="no-ammo-selected">{{#if @root.action.ammo.cost}}<i class="fa-solid fa-triangle-exclamation" inert></i>{{/if}} {{localize "FFD20.NotSelected"}}</span>
             {{/if}}
-            <i class="fas fa-chevron-down"></i>
+            <i class="fa-solid fa-chevron-down" inert></i>
           </div>
           <ul class="ammo-list">
             {{!-- No ammo --}}
@@ -139,19 +174,19 @@
               <span>{{localize "FFD20.None"}}</span>
 
               <div class="controls">
-                <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fas fa-cog"></i></a>
-                <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fas fa-plus"></i></a>
+                <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fa-solid fa-cog" inert></i></a>
+                <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fa-solid fa-plus" inert></i></a>
               </div>
             </li>
             {{!-- Ammo items --}}
             {{#each @root.ammo as |ammo|}}
               <li class="ammo-item{{#if ammo.isDefault}} default{{/if}}" data-id="{{ammo.data._id}}">
-                <img src="{{ammo.data.img}}"></img>
+                <img src="{{ammo.data.img}}">
                 <span>{{ammo.data.name}} ({{ammo.data.system.quantity}})</span>
 
                 <div class="controls">
-                  <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fas fa-cog"></i></a>
-                  <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fas fa-plus"></i></a>
+                  <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fa-solid fa-cog" inert></i></a>
+                  <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fa-solid fa-plus" inert></i></a>
                 </div>
               </li>
             {{/each}}
@@ -166,24 +201,23 @@
   <div class="form-group stacked">
     {{#if hasTemplate}}
     <label class="checkbox">
-      <input type="checkbox" name="measure-template" {{checked flags.measure-template}} /> {{localize "FFD20.MeasureTemplate"}}
+      <input type="checkbox" name="measure-template" {{checked flags.measure-template}}> {{localize "FFD20.MeasureTemplate"}}
     </label>
     {{/if}}
   </div>
 
   <div class="form-group">
     <label>{{localize "FFD20.RollMode"}}</label>
-    <select name="rollMode">
-      {{#select attributes.rollMode}}
-      {{#each rollModes as |label mode|}}
-      <option value="{{mode}}">{{localize label}}</option>
-      {{/each}}
-      {{/select}}
-    </select>
+    <div class="form-fields">
+      <i class="fa-solid fa-eye-low-vision fa-fw" inert></i>
+      <select name="rollMode">
+        {{selectOptions rollModes selected=attributes.rollMode localize=true}}
+      </select>
+    </div>
   </div>
 
   <div class="form-group">
-    {{#if (or isAttack isWeapon)}}
+    {{#if hasAttack}}
     <button type="button" name="attack_single">
       {{localize "FFD20.SingleAttack"}}
     </button>

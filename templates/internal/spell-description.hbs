@@ -1,6 +1,6 @@
 <div class="spell-description">
   <p>
-  <strong>{{localize "FFD20.School"}}</strong>&nbsp;{{{label.school}}}{{#if label.subschool}}&nbsp;({{{label.subschool}}}){{/if}}{{#if label.types}}&nbsp;[{{{label.types}}}]{{/if}}
+  <strong>{{localize "FFD20.School"}}</strong>&nbsp;{{{label.school}}} {{#if (eq labels.school "multi")}}&nbsp;({{{label.multischool}}}){{/if}}{{#if label.subschool}}&nbsp;({{{label.subschool}}}){{/if}}{{#if label.descriptors}}&nbsp;[{{{label.descriptors}}}]{{/if}}
   {{~#unless chatcard}}
     {{~#if learnedAt.class}}; <strong>{{localize "FFD20.Level"}}</strong>&nbsp;{{{learnedAt.class}}}{{/if}}
     {{~#if learnedAt.domain}}; <strong>{{localize "FFD20.Domain"}}</strong>&nbsp;{{{learnedAt.domain}}}{{/if}}
@@ -8,19 +8,23 @@
     <strong>{{localize "FFD20.Level"}}</strong> {{data.level}}
   {{/unless}}
   </p>
+  {{#if (or label.castingTime label.components)}}
   <p>
   {{#if label.castingTime}}<strong>{{localize "FFD20.CastingTime"}}</strong>&nbsp;{{{label.castingTime}}}<br>{{/if}}
   {{#if label.components}}<strong>{{localize "FFD20.Components"}}</strong>&nbsp;{{{label.components}}}<br>{{/if}}
   </p>
+  {{/if}}
   <p>
   {{#if label.range}}<strong>{{localize "FFD20.Range"}}</strong>&nbsp;{{{label.range}}}<br>{{/if}}
   {{#if label.area}}<strong>{{localize "FFD20.Area"}}</strong>&nbsp;{{{label.area}}}<br>{{/if}}
   {{#if label.targets}}<strong>{{localize "FFD20.Targets"}}</strong>&nbsp;{{{label.targets}}}<br>{{/if}}
   {{#if label.effect}}<strong>{{localize "FFD20.Effect"}}</strong>&nbsp;{{{label.effect}}}<br>{{/if}}
-  {{#if label.duration}}<strong>{{localize "FFD20.Duration"}}</strong>&nbsp;{{{label.duration}}}<br>{{/if}}
-    {{#if useDCandSR}}
-      <strong>{{localize "FFD20.SavingThrow"}}</strong>&nbsp;{{{label.savingThrow}}};&nbsp;
-      <strong>{{localize "FFD20.SpellResistance"}}</strong>&nbsp;{{{label.sr}}}<br>
-    {{/if}}
+  {{#if label.duration}}<strong>{{localize "FFD20.Duration"}}</strong>&nbsp;<span{{#if label.durationFormula}} data-tooltip="{{localize "FFD20.Formula"}}: {{label.durationFormula}}"{{/if}}>{{#if variableDuration}}≈{{/if}}{{{label.duration}}}</span><br>{{/if}}
+  {{#if useDCandSR}}
+    <strong>{{localize "FFD20.SavingThrow"}}</strong>&nbsp;{{{label.savingThrow}}};
+    <strong>{{localize "FFD20.SpellResistance"}}</strong>&nbsp;{{{label.sr}}}
+    {{~#if label.harmless}}; <strong>{{localize "FFD20.Harmless"}}</strong>&nbsp;{{{label.harmless}}}{{/if}}
+    <br>
+  {{/if}}
   </p>
 </div>

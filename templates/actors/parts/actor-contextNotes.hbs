@@ -1,6 +1,0 @@
-{{#if (hasContextNotes @root.actor target)}}
-<span class="span3"><br/>{{localize "FFD20.ContextNotes"}}</span>
-{{#each (contextNotes @root.actor target)}}
-  <span class="tooltipcontent-context">{{{this}}}</span>
-{{/each}}
-{{/if}}

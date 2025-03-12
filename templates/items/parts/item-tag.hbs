@@ -1,7 +1,6 @@
 <div class="form-group">
   <label>{{localize "FFD20.Identifier"}}</label>
-  <input {{#unless system.useCustomTag}}disabled{{/unless}} type="text" name="system.tag" value="{{system.tag}}"
-  placeholder="{{system.tag}}" />
-  <label>{{localize "FFD20.Custom"}}</label>
-  <input type="checkbox" name="system.useCustomTag" {{checked system.useCustomTag}} />
+  <div class="form-fields">
+    <input type="text" name="system.tag" value="{{tag}}" placeholder="{{system.tag}}">
+  </div>
 </div>
