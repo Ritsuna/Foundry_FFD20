@@ -55,6 +55,13 @@
         </div>
       </div>
       <div class="form-group">
+        <label>{{localize "FFD20.ContentSource.Info.URL"}}</label>
+        <div class="form-fields">
+          <input name="system.sources.{{@key}}.url" type="text" value="{{url}}" placeholder="{{localize "FFD20.ContentSource.Info.URL"}}">
+        </div>
+      </div>
+
+      <div class="form-group">
         <label>{{localize "FFD20.ContentSource.Info.ID"}}</label>
         <div class="form-fields">
           <input name="system.sources.{{@key}}.id" type="text" value="{{id}}" placeholder="{{localize "FFD20.ContentSource.Info.IDHint"}}" list="{{@root.uuid}}-content-sources">

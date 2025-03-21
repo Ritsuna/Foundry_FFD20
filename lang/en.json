@@ -2636,6 +2636,7 @@
       "Pages": "p. {pages}",
       "Autofill": "Autofilled from source registry.",
       "DateFormat": "YYYY-MM-DD",
+      "URL": "URL",
       "Errors": {
         "DuplicateID": "Source entry with same ID already exists."
       },
@@ -2652,7 +2653,8 @@
         "Pages": "Pages",
         "PagesHint": "Page number, range (e.g. 276-278), or list (e.g. 124,270)",
         "Publisher": "Publisher",
-        "PublisherHint": "e.g. Paizo"
+        "PublisherHint": "e.g. Paizo",
+        "URL": "URL"
       }
     },
     "Application": {

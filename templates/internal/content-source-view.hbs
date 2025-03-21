@@ -20,6 +20,10 @@
     {{#if pages}}
     <span class="pages">{{localize "FFD20.ContentSource.Pages" pages=pages}}</span>
     {{/if}}
+    {{#if url}}
+    <span class="date">{{date}}</span>
+    <span class="url"><a href="{{url}}">{{url}}</a></span>
+    {{/if}}
     {{#if ../bookSources.extras}}<span class="extra-source-count">{{numberFormat ../bookSources.extras.length sign=true}}</span>{{/if}}
   {{else}}
     >{{localize "FFD20.ContentSource.Missing"}}
