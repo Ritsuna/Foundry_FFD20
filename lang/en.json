@@ -1218,7 +1218,10 @@
         "martial": "Martial Weapons",
         "firearm": "Firearms",
         "siege": "Siege Weaponry",
-        "heavy": "Heavy Weaponry"
+        "heavy": "Heavy Weaponry",
+        "exotic": "Exotic Weaponry",
+        "chef": "Chef Weaponry",
+        "power": "Power Weaponry"
       },
       "Granted": "Granted Proficiencies",
       "Penalty": "Proficiency Penalty"

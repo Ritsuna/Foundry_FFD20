@@ -378,21 +378,22 @@
       </div>
       {{/unless}}
 
-      {{!-- Materials --}}
-      {{#if hasDamage}}
-      <h3 class="form-header">{{localize "FFD20.Materials.Label"}}</h3>
-      {{!-- Base Material --}}
-      {{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Base" value_ref="system.material.base.value" value=system.material.base.value custom_ref="system.material.base.custom" custom=system.material.base.custom choices=materialCategories.basics}}
+      {{!-- Materials
+        {{#if hasDamage}}
+        <h3 class="form-header">{{localize "FFD20.Materials.Label"}}</h3>
+        Base Material
+        > "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Base" value_ref="system.material.base.value" value=system.material.base.value custom_ref="system.material.base.custom" custom=system.material.base.custom choices=materialCategories.basics}}
 
-      {{!-- Chosen Material --}}
-      {{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Normal" value_ref="system.material.normal.value" value=system.material.normal.value custom_ref="system.material.normal.custom" custom=system.material.normal.custom choices=materialCategories.materials}}
+         Chosen Material 
+        {{> "systems/ffd20/templates/items/parts/item-materials.hbs" label="FFD20.Materials.Normal" value_ref="system.material.normal.value" value=system.material.normal.value custom_ref="system.material.normal.custom" custom=system.material.normal.custom choices=materialCategories.materials}}
 
-      {{!-- Material Addon --}}
-      {{> "systems/ffd20/templates/items/parts/item-materials-addon.hbs" reference="system.material.addon"}}
+        Material Addon 
+        {{> "systems/ffd20/templates/items/parts/item-materials-addon.hbs" reference="system.material.addon"}}
 
-      {{!-- Alignment Types --}}
-      {{> "systems/ffd20/templates/items/parts/item-alignments.hbs" reference="system.alignments" value=system.alignments}}
-      {{/if}}
+        Alignment Types 
+        {{> "systems/ffd20/templates/items/parts/item-alignments.hbs" reference="system.alignments" value=system.alignments}}
+        {{/if}}
+      --}}
 
       {{!-- Advanced --}}
       <h3 class="form-header">{{localize "FFD20.Advanced"}}</h3>
