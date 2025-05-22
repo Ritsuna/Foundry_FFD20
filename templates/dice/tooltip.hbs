@@ -1,38 +1,41 @@
 <div class="dice-tooltip">
-  {{#each parts}}
-  <section class="tooltip-part">
-    <div class="dice">
-      <header class="part-header flexrow">
-        {{#if icon}}
-        <span class="part-method" data-tooltip="{{method}}" aria-label="{{localize method}}">
-            {{{icon}}}
-        </span>
-        {{/if}}
-        <span class="part-formula">{{formula}}</span>
-        <span class="part-flavor {{css}}">{{#if flavor}}{{flavor}}{{else}}{{localize "FFD20.Undefined"}}{{/if}}</span>
-        <span class="part-total">{{total}}</span>
-      </header>
-      <ol class="dice-rolls">
-        {{#each rolls}}
-        <li class="roll {{classes}}">{{{result}}}</li>
-        {{/each}}
-      </ol>
-    </div>
-  </section>
-  {{/each}}
+  {{! .wrapper is used by Foundry }}
+  <div class="wrapper">
+    {{#each parts}}
+    <section class="tooltip-part">
+      <div class="dice">
+        <header class="part-header flexrow">
+          {{#if icon}}
+          <span class="part-method" data-tooltip="{{method}}" aria-label="{{localize method}}">
+              {{{icon}}}
+          </span>
+          {{/if}}
+          <span class="part-formula">{{formula}}</span>
+          <span class="part-flavor {{css}}">{{#if flavor}}{{flavor}}{{else}}{{localize "FFD20.Undefined"}}{{/if}}</span>
+          <span class="part-total">{{total}}</span>
+        </header>
+        <ol class="dice-rolls">
+          {{#each rolls}}
+          <li class="roll {{classes}}">{{{result}}}</li>
+          {{/each}}
+        </ol>
+      </div>
+    </section>
+    {{/each}}
 
-  {{#each numericParts}}
-  <section class="tooltip-part">
-    <div class="dice">
-      <header class="part-header flexrow">
-        <span class="part-formula"></span>
-        <span class="part-flavor {{css}}">{{#if flavor}}{{flavor}}{{else}}{{localize "FFD20.Undefined"}}{{/if}}</span>
-        <span class="part-total">
-          {{#if (gte total 0)}}<span class="part-prefix">+</span>{{/if}}
-          {{~total~}}
-        </span>
-      </header>
-    </div>
-  </section>
-  {{/each}}
+    {{#each numericParts}}
+    <section class="tooltip-part">
+      <div class="dice">
+        <header class="part-header flexrow">
+          <span class="part-formula"></span>
+          <span class="part-flavor {{css}}">{{#if flavor}}{{flavor}}{{else}}{{localize "FFD20.Undefined"}}{{/if}}</span>
+          <span class="part-total">
+            {{#if (gte total 0)}}<span class="part-prefix">+</span>{{/if}}
+            {{~total~}}
+          </span>
+        </header>
+      </div>
+    </section>
+    {{/each}}
+  </div>
 </div>

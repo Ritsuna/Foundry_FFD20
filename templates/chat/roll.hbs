@@ -1,4 +1,4 @@
-<div class="dice-roll">
+<div class="dice-roll" data-action="expandRoll">
   {{#if flavor}}
   <div class="dice-flavor">{{flavor}}</div>
   {{/if}}
@@ -6,7 +6,7 @@
   <div class="dice-result">
     <h3 class="roll-total dice-total{{#if hasDetails}} has-details{{/if}}" data-tooltip="{{formula}}">
       <i class="fa-solid fa-dice-d20" inert></i>
-      {{total}}
+      <span class="total">{{total}}</span>
     </h3>
 
     {{{details}}}

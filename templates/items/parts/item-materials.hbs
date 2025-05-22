@@ -1,16 +1,16 @@
 <div class="form-group">
-    <label>{{localize label}}</label>
-    <div class="form-fields">
-      {{#if custom}}
-        <input type="text" name={{value_ref}} value="{{value}}" placeholder="{{localize label}}">
-      {{else}}
-        <select name={{value_ref}}>
-          {{selectOptions choices selected=value blank=(localize "FFD20.None")}}
-        </select>
-      {{/if}}
-      <label class="checkbox">
-          <input type="checkbox" name={{custom_ref}} {{checked custom}}>
-          {{localize "FFD20.Custom"}}
-        </label>
-    </div>
+  <label>{{localize label}}</label>
+  <div class="form-fields">
+    {{#if custom}}
+      <input type="text" name="{{value_ref}}" value="{{value}}" placeholder="{{localize label}}">
+    {{else}}
+      <select name="{{value_ref}}">
+        {{selectOptions choices selected=value blank=(localize "FFD20.None")}}
+      </select>
+    {{/if}}
+    <label class="checkbox">
+      <input type="checkbox" name="{{custom_ref}}" {{checked custom}}>
+      {{localize "FFD20.Custom"}}
+    </label>
+  </div>
 </div>

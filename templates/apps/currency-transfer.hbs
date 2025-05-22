@@ -1,74 +1,75 @@
 <form class="currency-transfer" data-tooltip-class="ffd20" autocomplete="off">
-    <div class="form-group">
-      <label>{{localize "FFD20.Currency.Full.pp"}}</label>
-      <div class="form-fields">
-        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
-        </button>
-        <input type="number" name="pp" placeholder="0" value="{{dest.amount.pp}}" step="1">
-        <label>/</label>
-        <span class="text-box readonly">{{source.amount.pp}}</span>
-        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
-        </button>
-      </div>
+  <div class="form-group">
+    <label>{{localize "FFD20.Currency.Full.pp"}}</label>
+    <div class="form-fields">
+      <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
+      </button>
+      <input type="number" name="pp" placeholder="0" value="{{dest.amount.pp}}" step="1">
+      <label>/</label>
+      <span class="text-box readonly">{{source.amount.pp}}</span>
+      <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
+      </button>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label>{{localize "FFD20.Currency.Full.gp"}}</label>
-      <div class="form-fields">
-        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
-        </button>
-        <input type="number" name="gp" placeholder="0" value="{{dest.amount.gp}}" step="1">
-        <label>/</label>
-        <span class="text-box readonly">{{source.amount.gp}}</span>
-        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
-        </button>
-      </div>
+  <div class="form-group">
+    <label>{{localize "FFD20.Currency.Full.gp"}}</label>
+    <div class="form-fields">
+      <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
+      </button>
+      <input type="number" name="gp" placeholder="0" value="{{dest.amount.gp}}" step="1">
+      <label>/</label>
+      <span class="text-box readonly">{{source.amount.gp}}</span>
+      <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
+      </button>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label>{{localize "FFD20.Currency.Full.sp"}}</label>
-      <div class="form-fields">
-        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
-        </button>
-        <input type="number" name="sp" placeholder="0" value="{{dest.amount.sp}}" step="1">
-        <label>/</label>
-        <span class="text-box readonly">{{source.amount.sp}}</span>
-        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
-        </button>
-      </div>
+  <div class="form-group">
+    <label>{{localize "FFD20.Currency.Full.sp"}}</label>
+    <div class="form-fields">
+      <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
+      </button>
+      <input type="number" name="sp" placeholder="0" value="{{dest.amount.sp}}" step="1">
+      <label>/</label>
+      <span class="text-box readonly">{{source.amount.sp}}</span>
+      <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
+      </button>
     </div>
+  </div>
 
-    <div class="form-group">
-      <label>{{localize "FFD20.Currency.Full.cp"}}</label>
-      <div class="form-fields">
-        <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
-        </button>
-        <input type="number" name="cp" placeholder="0" value="{{dest.amount.cp}}" step="1">
-        <label>/</label>
-        <span class="text-box readonly">{{source.amount.cp}}</span>
-        <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
-          <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
-        </button>
-      </div>
+  <div class="form-group">
+    <label>{{localize "FFD20.Currency.Full.cp"}}</label>
+    <div class="form-fields">
+      <button class="cur-range down" type="button" data-tooltip="FFD20.None" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-down" inert></i>
+      </button>
+      <input type="number" name="cp" placeholder="0" value="{{dest.amount.cp}}" step="1">
+      <label>/</label>
+      <span class="text-box readonly">{{source.amount.cp}}</span>
+      <button class="cur-range up" type="button" data-tooltip="FFD20.All" tabindex="-1">
+        <i class="fa-solid fa-arrow-alt-circle-up" inert></i>
+      </button>
     </div>
+  </div>
 
-    <div class="form-group currency-total">
-      <label>{{localize "FFD20.Total"}}</label>
-      <div class="form-fields">
-        <label></label>
-        <label>/</label>
-        <label>{{localize "FFD20.Currency.Inline.gp" value=total}}</label>
-      </div>
+  <div class="form-group currency-total">
+    <label>{{localize "FFD20.Total"}}</label>
+    <div class="form-fields">
+      <label></label>
+      <label>/</label>
+      <label>{{localize "FFD20.Currency.Inline.gp" value=total}}</label>
     </div>
+  </div>
 
-    <button type="submit" class="submit">
-        <i class="fa-solid fa-save" inert></i> {{localize "FFD20.Application.CurrencyTransfer.Send"}}
-    </button>
+  <button type="submit" class="submit">
+    <i class="fa-solid fa-floppy-disk" inert></i>
+    {{localize "FFD20.Application.CurrencyTransfer.Send"}}
+  </button>
 </form>

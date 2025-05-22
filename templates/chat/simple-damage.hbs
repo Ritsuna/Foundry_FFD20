@@ -1,4 +1,4 @@
-<div class="ffd20 chat-card damage-card dice-roll {{css}}"{{#if token}} data-token-uuid="{{token.uuid}}"{{/if}}{{#if actor}} data-actor-uuid="{{actor.uuid}}"{{/if}}>
+<div class="ffd20 chat-card damage-card dice-roll {{css}}"{{#if token}} data-token-uuid="{{token.uuid}}"{{/if}}{{#if actor}} data-actor-uuid="{{actor.uuid}}"{{/if}} data-action="expandRoll">
   <h2>{{#if isHealing}}{{localize "FFD20.Healing"}}{{else}}{{localize "FFD20.Damage"}}{{/if}}</h2>
 
   <div class="dice-result">

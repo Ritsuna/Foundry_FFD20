@@ -7,7 +7,7 @@
       </div>
     {{/if}}
     {{#if filter.boolean}}
-      <button class="control boolean" data-tooltip="FFD20.FilterBooleanOperatorHint" data-tooltip-="RIGHT">
+      <button class="control boolean" data-tooltip="FFD20.FilterBooleanOperatorHint">
         <i class="fa-solid fa-ballot-check" inert></i>
         {{#if (eq filter.boolean "AND")}}{{localize "FFD20.All"}}
         {{else}}{{localize "FFD20.Any"}}
@@ -18,7 +18,7 @@
 {{/if}}
 <ul class="filter-choices">
   {{#each filter.choices as |choice i|}}
-    <li class="filter-choice flexrow" data-choice="{{choice.key}}">
+    <li class="filter-choice flexrow {{#if hidden}}hidden-entry{{/if}}" data-choice="{{choice.key}}">
       <input
         type="checkbox"
         name="filter.{{../id}}.choice.{{choice.key}}"

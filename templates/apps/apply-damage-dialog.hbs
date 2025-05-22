@@ -51,12 +51,16 @@
 
 
   {{! Reduction for all }}
+  {{#if multiTarget}}
   <div class="form-group">
     <label>{{localize "FFD20.Application.Damage.ReduceBy"}}</label>
     <div class="form-fields">
       <input type="number" name="reduction" value="{{reduction}}" min="0" step="1" placeholder="0" autofocus>
     </div>
   </div>
+  {{else}}
+  <input type="hidden" name="reduction" data-dtype="Number" value="0">
+  {{/if}}
 
   {{! Targets }}
   <div class="targets">
@@ -64,7 +68,7 @@
     <div class="target" data-uuid="{{uuid}}">
       <h4 class="target-ident">
         <span class="name">{{name}}</span>
-        <span class="total" data-tooltip="FFD20.Total">{{value}}</span>
+        <span class="total" data-tooltip="FFD20.Total">{{totalValue}}</span>
       </h4>
 
       <input type="hidden" name="targets.{{targetIdx}}.uuid" value="{{uuid}}">
@@ -98,16 +102,16 @@
       <div class="resistances">
         {{! DR, ER, Hardness}}
         {{#if haveDER}}
-          {{#if (and dr.length activeDR @root.hasPhysical)}}
+          {{#if (and dr.length visibleDR @root.hasPhysical)}}
           <div class="reduction-category physical-reduction">
             <h6>{{localize "FFD20.DamRed"}}</h6>
             <ul>
             {{#each dr}}
-              {{#if enabled}}
+              {{#if visible}}
               <li class="reduction-choice">
                 <label>
                   <input type="checkbox" name="targets.{{targetIdx}}.dr.{{@index}}.active"
-                    data-types="{{typeIds}}" data-value="{{value}}" data-operator="{{operator}}" {{checked active}}>
+                    data-types="{{typeIds}}" data-value="{{value}}" data-operator="{{operator}}" {{checked active}} {{disabled disabled}}>
                   {{label}}
                 </label>
               </li>
@@ -131,15 +135,15 @@
             </ul>
           </div>
           {{/if}}
-          {{#if (and eres.length activeER @root.hasEnergy)}}
+          {{#if (and eres.length visibleER @root.hasEnergy)}}
           <div class="reduction-category energy-resistance">
             <h6>{{localize "FFD20.EnRes"}}</h6>
             <ul>
             {{#each eres}}
-              {{#if enabled}}
+              {{#if visible}}
               <li class="reduction-choice">
                 <label>
-                  <input type="checkbox" name="targets.{{targetIdx}}.eres.{{@index}}.active" {{checked active}}>
+                  <input type="checkbox" name="targets.{{targetIdx}}.eres.{{@index}}.active" {{checked active}} {{disabled disabled}}>
                   {{label}}
                 </label>
               </li>

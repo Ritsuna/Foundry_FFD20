@@ -78,10 +78,10 @@ See [Formulas](Help/Formulas) article for more help in how to write damage formu
 #### Advanced Formulas
 
 Critical-only bonus damage that is not multiplied:
-`(@critCount == 1) ? 1d6 : 0`
+`if(eq(@critCount, 1), 1d6)`
 
 Damage only on the second attack:
-`(@attackCount == 1) ? 2d8 : 0`
+`if(eq(@attackCount, 1), 2d8)`
 
 ## Miscellaneous
 

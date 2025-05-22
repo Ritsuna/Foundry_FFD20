@@ -12,7 +12,7 @@
   {{/if}}
 </span>
 
-<div class="dice-roll">
+<div class="dice-roll" data-action="expandRoll">
   <div class="dice-result">
     {{! Total Result }}
     <h3 class="roll-total dice-total has-details{{#if isNat20}} natural-20{{/if}}{{#if isNat1}} natural-1 failure{{/if}}{{#if isCrit}} critical-threat success{{/if}}{{#if isSuccess}} success{{else if isFailure}} failure{{/if}}"

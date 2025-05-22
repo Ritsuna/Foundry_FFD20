@@ -94,7 +94,7 @@ Defaults to `0` if power attack is disabled.
 
 Zero-indexed counter for which attack is being processed. So if this was placed as damage bonus, it would give you `0`, `1`, `2`, `3`, etc. bonus to damage as the attacks progress.
 
-Can also be used for ternaries to add modifications to specific attack, e.g. `@attackCount == 0 ? 4 : 0` would add 4 to first attack but no other.
+Can also be used for ternaries to add modifications to specific attack, e.g. `eq(@attackCount, 0) * 4` would add 4 to first attack but no other.
 
 #### `@base` & `@previous`
 
@@ -208,6 +208,8 @@ Alias for `ifelse()` with `if(a, b)` being equivalent of `ifelse(a, b, 0)`, the 
 **Example:** `if(gt(@attributes.hd.total, 5), 2)` – gives 2 if HD is greater than 5, and zero otherwise.
 
 ### Basic Logic Functions
+
+These return one (`1`) if the comparison is true, and zero (`0`) if not, allowing simple math logic.
 
 | Function              | Name  | Math | Example                                                         | Example Explanation                                                   |
 | :-------------------- | :---- | :--- | :-------------------------------------------------------------- | :-------------------------------------------------------------------- |

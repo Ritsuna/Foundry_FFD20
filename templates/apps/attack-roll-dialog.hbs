@@ -156,7 +156,7 @@
     {{#each attacks as |atk idx|}}
     <div class="attack" data-index="{{idx}}">
       <label class="name" data-tooltip="FFD20.Name">{{atk.label}}</label>
-      <label class="bonus" data-tooltip="FFD20.AttackRollBonus">{{#unless abstract}}{{numberFormat atk.attackBonusTotal sign=true}}{{/unless}}</label>
+      <label class="bonus {{#if abstract}}abstract{{/if}}" data-tooltip="FFD20.AttackRollBonus">{{numberFormat atk.attackBonusTotal sign=true}}</label>
       {{#if @root.usesAmmo}}
         <div class="ammo ammo-select">
           <div class="flexrow">
@@ -179,16 +179,16 @@
               </div>
             </li>
             {{!-- Ammo items --}}
-            {{#each @root.ammo as |ammo|}}
-              <li class="ammo-item{{#if ammo.isDefault}} default{{/if}}" data-id="{{ammo.data._id}}">
-                <img src="{{ammo.data.img}}">
-                <span>{{ammo.data.name}} ({{ammo.data.system.quantity}})</span>
+            {{#each @root.ammo}}
+            <li class="ammo-item{{#if isDefault}} default{{/if}}{{#if used}} used{{/if}}{{#if (eq ../ammo.id id)}} current{{/if}}" data-id="{{id}}">
+              <img src="{{document.img}}">
+              <span>{{document.name}} ({{#if abundant}}<i class="fa-solid fa-infinity fa-fw"></i>{{else}}{{document.system.quantity}}{{#if used}} - {{used}}{{/if}}{{/if}})</span>
 
-                <div class="controls">
-                  <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fa-solid fa-cog" inert></i></a>
-                  <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fa-solid fa-plus" inert></i></a>
-                </div>
-              </li>
+              <div class="controls">
+                <a data-type="set-default" data-tooltip="FFD20.Default"><i class="fa-solid fa-cog" inert></i></a>
+                <a data-type="set-all" data-tooltip="FFD20.ApplyToAll"><i class="fa-solid fa-plus" inert></i></a>
+              </div>
+            </li>
             {{/each}}
           </ul>
         </div>

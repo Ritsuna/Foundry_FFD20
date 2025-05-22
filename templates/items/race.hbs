@@ -21,7 +21,10 @@
 
       <h4 class="size">{{lookup config.actorSizes system.size}}</h4>
 
-      {{#if (gt raceCreatureTypes.length 1)}}
+      {{#if raceCreatureTypes.length}}
+      {{#if (eq raceCreatureTypes.length 1)}}
+      <h4 class="creature-type">{{raceCreatureTypes.[0]}}</h4>
+      {{else}}
       <ul class="property-list types">
         <h5>{{localize "FFD20.TypePlural"}}</h5>
 
@@ -29,8 +32,7 @@
         <li class="property type">{{this}}</li>
         {{/each}}
       </ul>
-      {{else}}
-      <h4 class="creature-type">{{raceCreatureTypes.[0]}}</h4>
+      {{/if}}
       {{/if}}
     </header>
 

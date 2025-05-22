@@ -167,13 +167,13 @@
 </div>
 
 <h4 class="form-header">{{localize "FFD20.Action"}}</h4>
-<div class="form-group stacked">
-  <div class="form-group uses-per">
+<div class="uses-per">
+  <div class="form-group">
     <div class="form-fields">
       {{#if isSelfCharged}}
-      <input type="text" name="uses.self.value" value="{{data.uses.self.value}}" data-dtype="Number">
+      <input type="number" name="uses.self.value" value="{{data.uses.self.value}}" step="1" min="0" max="{{action.uses.self.max}}">
       <span class="sep"> / </span>
-      <input type="text" value="{{data.uses.self.max}}" disabled data-dtype="Number">
+      <input type="number" value="{{action.uses.self.max}}" disabled>
       {{/if}}
       <select name="uses.self.per">
         <option value="">{{localize "FFD20.Unlimited"}}</option>
@@ -183,8 +183,11 @@
   </div>
 
   {{#if showMaxChargeFormula}}
-  <div class="form-group uses-per">
-    <input class="formula" type="text" name="uses.self.maxFormula" value="{{data.uses.self.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}">
+  <div class="form-group max-formula">
+    <label>{{localize "FFD20.MaximumUsesFormula"}}</label>
+    <div class="form-fields">
+      <input class="formula" type="text" name="uses.self.maxFormula" value="{{data.uses.self.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}">
+    </div>
   </div>
   {{/if}}
 </div>

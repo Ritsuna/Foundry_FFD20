@@ -3,12 +3,14 @@
 <div class="form-group stacked">
   {{!-- Nonlethal --}}
   <label class="checkbox">
-    <input type="checkbox" name="nonlethal" {{checked data.nonlethal}}> {{localize "FFD20.Nonlethal"}}
+    <input type="checkbox" name="nonlethal" {{checked data.nonlethal}}>
+    {{localize "FFD20.Nonlethal"}}
   </label>
 
   {{!-- MP damage --}}
   <label class="checkbox">
-    <input type="checkbox" name="manadamage" {{checked data.manadamage}}> {{localize "FFD20.ManaDamage"}}
+    <input type="checkbox" name="manadamage" {{checked data.manadamage}}>
+    {{localize "FFD20.ManaDamage"}}
   </label>
 
   {{!-- Primary Attack --}}
@@ -106,22 +108,28 @@
 <div class="form-group">
   <label>{{localize "FFD20.CriticalThreatRange"}}</label>
   <div class="form-fields">
-    <input type="text" name="ability.critRange" value="{{data.ability.critRange}}" data-dtype="Number">
+    <input type="number" name="ability.critRange" value="{{data.ability.critRange}}" min="0" step="1" max="20"
+      placeholder="{{localize "FFD20.NonApplicable"}}">
+  </div>
+</div>
+
+{{#if action.ability.critRange}}
+<div class="form-group">
+  <label>{{localize "FFD20.CriticalMultiplier"}}</label>
+  <div class="form-fields">
+    <input type="number" name="ability.critMult" value="{{data.ability.critMult}}" min="1" step="1"
+      placeholder="{{localize "FFD20.NonApplicable"}}" {{disabled (not action.ability.critRange)}}>
   </div>
 </div>
 
 <div class="form-group">
-  <label>{{localize "FFD20.CriticalMultiplier"}}</label>
-  <div class="form-fields">
-    <input type="text" name="ability.critMult" value="{{data.ability.critMult}}" data-dtype="Number">
-  </div>
-</div>
-<div class="form-group">
   <label>{{localize "FFD20.CriticalConfirmBonus"}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="critConfirmBonus" value="{{data.critConfirmBonus}}" placeholder="{{localize "FFD20.Formula"}}">
+    <input class="formula" type="text" name="critConfirmBonus" value="{{data.critConfirmBonus}}"
+      placeholder="{{localize "FFD20.Formula"}}" {{disabled (not canCrit)}}>
   </div>
 </div>
+{{/if}}
 {{/unless}}
 
 {{!-- Attack Ability --}}
@@ -129,7 +137,7 @@
   <label>{{localize "FFD20.AttackAbility"}}</label>
   <div class="form-fields">
     <select name="ability.attack">
-      {{selectOptions choices.ability selected=data.ability.attack blank=""}}
+      {{selectOptions choices.attackAbility selected=data.ability.attack blank=(localize "FFD20.NonApplicable")}}
     </select>
   </div>
 </div>
@@ -190,14 +198,14 @@
 {{/if}}
 
 {{!-- Damage Ability --}}
-<h3 class="form-header">{{localize "FFD20.Damage"}}</h3>
+<h3 class="form-header">{{#if isHealing}}{{localize "FFD20.Healing"}}{{else}}{{localize "FFD20.Damage"}}{{/if}}</h3>
 <div class="form-group select">
   <label>{{localize "FFD20.AbilityBonus"}}</label>
   <div class="form-fields">
     <select name="ability.damage">
-      {{selectOptions choices.ability selected=data.ability.damage blank=""}}
+      {{selectOptions choices.damageAbility selected=data.ability.damage blank=(localize "FFD20.NonApplicable")}}
     </select>
-    <select name="ability.damageMult" data-dtype="Number">
+    <select name="ability.damageMult" data-dtype="Number" {{disabled (not data.ability.damage)}}>
       {{#if canHold}}
       <option value="">{{localize "FFD20.HeldMult" mult=heldAbilityMultiplier}}</option>
       {{/if}}
@@ -205,7 +213,7 @@
     </select>
     <label>{{localize "FFD20.MaxShort"}}</label>
     <input type="number" class="max-ability" name="ability.max" value="{{data.ability.max}}"
-      placeholder="∞" data-tooltip="FFD20.MaxAbilityHint" step="1">
+      placeholder="∞" data-tooltip="FFD20.MaxAbilityHint" step="1" {{disabled (not data.ability.damage)}}>
   </div>
 </div>
 
@@ -311,12 +319,14 @@
   </div>
 </div>
 
+{{#if canCrit}}
 <div class="form-group">
   <label>{{localize "FFD20.CriticalMultiplier"}}</label>
   <div class="form-fields">
     <input type="number" name="powerAttack.critMultiplier" value="{{data.powerAttack.critMultiplier}}" min="0" step="1">
   </div>
 </div>
+{{/if}}
 {{/if}}
 {{/unless}}
 

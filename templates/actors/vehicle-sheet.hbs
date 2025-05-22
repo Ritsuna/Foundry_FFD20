@@ -37,7 +37,9 @@
         <ul class="summary options">
           {{! Cost }}
           <li>
-            <label for="cost-{{appId}}">{{localize "FFD20.CostGP"}}</label>
+            <label for="cost-{{appId}}">
+              {{localize "FFD20.Price"}}&nbsp;<span class="unit">{{labels.currency}}</span>
+            </label>
             <input id="cost-{{appId}}" name="system.details.cost" type="number" value="{{system.details.cost}}" placeholder="{{localize "FFD20.CostGP"}}"
               data-tooltip="{{localize "FFD20.CostGP"}}" min="0" step="1">
           </li>
@@ -365,8 +367,10 @@
                 <div class="item-detail item-uses flexrow" data-tooltip-extended="item.{{item.id}}.resources">
                   {{#if item.isCharged}}
                   <span class="text-box value allow-relative" data-wheel-step="1" data-dtype="Number">{{item.charges}}</span>
+                  {{#unless item.noMaxCharges}}
                   <span class="sep"> / </span>
                   <span class="max">{{item.maxCharges}}</span>
+                  {{/unless}}
                   {{else if item.usesAmmo}}
                   <span class="ammo-remaining">{{item.ammoRemaining}}</span>
                   {{/if}}

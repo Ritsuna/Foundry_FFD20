@@ -13,7 +13,6 @@
 }
 :root {
   --pf1-nav-height: 1.3em;
-  --pf1-sheet-background: url("../../ui/parchment.jpg") repeat;
   --pf1-border-groove: 2px groove #eeede0;
   --pf1-damage-icon-size: 4rem;
 }
@@ -133,6 +132,8 @@
   flex: 1;
   display: flex;
   flex-flow: column;
+  --color-border-dark-3: #333;
+  --color-text-light-highlight: #f0f0e0;
   border: 1px solid var(--color-border-dark-3);
   border-radius: 0.3em;
 }
@@ -1091,10 +1092,13 @@ form.application.pf1-v2.apply-damage .window-content .resistances h6 {
 form.application.pf1-v2.apply-damage .window-content .resistances ul {
   display: flex;
   flex-flow: row wrap;
-  gap: 0 0.5rem;
+  gap: 0 0.3rem;
 }
 form.application.pf1-v2.apply-damage .window-content .resistances ul > li {
   margin: 0;
+}
+form.application.pf1-v2.apply-damage .window-content .resistances ul > li > label {
+  padding: 0 3px;
 }
 form.application.pf1-v2.apply-damage .window-content .resistances > .reduction-category {
   flex: 1 12em;
@@ -1103,7 +1107,7 @@ form.application.pf1-v2.apply-damage .window-content .resistances > .reduction-c
 form.application.pf1-v2.apply-damage .window-content .resistances > .reduction-category > h6 {
   border-width: 1px;
   text-decoration: underline;
-  margin: 0;
+  margin: 0 0 0.3rem 0;
 }
 form.application.pf1-v2.apply-damage .window-content .resistances > .reduction-category > ul {
   list-style: none;
@@ -1140,8 +1144,16 @@ form.application.pf1-v2.apply-damage .window-content .resistances .reduction-cho
   content: "✔ ";
   visibility: hidden;
 }
+form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label:has(input:checked) {
+  background-color: var(--pf1-apply-damage-choice-bg);
+  outline: 1px solid var(--pf1-apply-damage-choice-outline);
+  border-radius: 0.3rem;
+}
 form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label:has(input:checked)::before {
   visibility: visible;
+}
+form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label:has(input:disabled) {
+  text-decoration: line-through;
 }
 form.application.pf1-v2.apply-damage .window-content .resistances :is(.immunity-choice, .vulnerability-choice) a {
   cursor: default;
@@ -1206,6 +1218,14 @@ form.application.pf1-v2.apply-damage[inert] {
 }
 .theme-dark form.application.pf1-v2.apply-damage .total {
   color: gold;
+}
+.theme-light form.application.pf1-v2.apply-damage {
+  --pf1-apply-damage-choice-bg: var(--pf1-bg-dark-05);
+  --pf1-apply-damage-choice-outline: var(--color-border-light-2);
+}
+.theme-dark form.application.pf1-v2.apply-damage {
+  --pf1-apply-damage-choice-bg: var(--color-cool-4);
+  --pf1-apply-damage-choice-outline: var(--color-border-dark-4);
 }
 dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content {
   gap: unset;
@@ -1360,7 +1380,15 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   margin: 4px 0;
   border: unset;
 }
-.app.ffd20.compendium-browser .window-content > div aside.sidebar .filter-container > .filter h3:hover {
+.app.ffd20.compendium-browser .window-content > div aside.sidebar .filter-container > .filter h3:hover:not(:has(a:hover)) {
+  color: var(--color-text-dark-primary);
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+.app.ffd20.compendium-browser .window-content > div aside.sidebar .filter-container > .filter h3:hover:not(:has(a:hover)) > a {
+  text-shadow: none;
+}
+.app.ffd20.compendium-browser .window-content > div aside.sidebar .filter-container > .filter h3 > a:hover {
   color: var(--color-text-dark-primary);
   text-shadow: 0 0 10px red;
   cursor: pointer;
@@ -1396,6 +1424,9 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   margin: 0;
   padding: 0;
   list-style: none;
+}
+.app.ffd20.compendium-browser .window-content > div aside.sidebar .filter-container > .filter .filter-content .filter-choice.hidden-entry {
+  display: none;
 }
 .app.ffd20.compendium-browser .window-content > div aside.sidebar .filter-container > .filter .filter-content .no-choices {
   text-align: center;
@@ -1485,6 +1516,7 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
 }
 .pf1-v2.application.pointbuy-calculator .info .usage.invalid {
   color: var(--pf1-v2-text-warning);
+  text-shadow: var(--pf1-v2-text-warning-shadow);
 }
 .pf1-v2.application.pointbuy-calculator .info .categories {
   margin: 0;
@@ -1611,6 +1643,9 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
 .ffd20.attack-dialog .attacks :is(.attack, .attack-header) .bonus {
   flex: 0 0 64px;
 }
+.ffd20.attack-dialog .attacks :is(.attack, .attack-header) .bonus.abstract {
+  color: var(--pf1-tan);
+}
 .ffd20.attack-dialog .attacks :is(.attack, .attack-header) .ammo {
   flex: 0 0 160px;
 }
@@ -1696,6 +1731,12 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
 .ffd20.attack-dialog .attacks .attack .ammo-select ul li.default {
   color: blue;
 }
+.ffd20.attack-dialog .attacks .attack .ammo-select ul li.current {
+  font-weight: bold;
+}
+.ffd20.attack-dialog .attacks .attack .ammo-select ul li.used {
+  font-style: italic;
+}
 .ffd20.attack-dialog .attacks .attack .ammo-select ul li:hover {
   background-color: var(--pf1-item-list-hover-bg);
 }
@@ -1719,11 +1760,11 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
 /* ----------------------------------------- */
 /* Level Up Dialog
 /* ----------------------------------------- */
-.ffd20.level-up {
+.app.ffd20.level-up {
   min-width: 820px;
   min-height: 440px;
 }
-.ffd20.level-up form {
+.app.ffd20.level-up form {
   display: grid;
   grid-template-columns: 16em 2fr;
   grid-template-rows: min-content 1fr min-content;
@@ -1731,11 +1772,11 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   gap: 3px;
   overflow: hidden;
 }
-.ffd20.level-up form > nav {
+.app.ffd20.level-up form > nav {
   gap: 1px;
   grid-area: nav;
 }
-.ffd20.level-up form > nav > .item {
+.app.ffd20.level-up form > nav > .item {
   flex: 1;
   font-family: "Modesto Condensed Bold", "Signika", "Palatino Linotype", serif;
   font-variant: small-caps;
@@ -1746,31 +1787,31 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   background: rgba(155, 155, 155, 0.3);
   border-radius: 0.5em 0.5em 0 0;
 }
-.ffd20.level-up form > nav > .item.active {
+.app.ffd20.level-up form > nav > .item.active {
   background-color: rgba(155, 155, 155, 0.5);
 }
-.ffd20.level-up form > footer {
+.app.ffd20.level-up form > footer {
   grid-area: footer;
 }
-.ffd20.level-up form > .summary {
+.app.ffd20.level-up form > .summary {
   grid-area: sidebar;
   display: flex;
   flex-flow: column nowrap;
   gap: 0.3em;
 }
-.ffd20.level-up form > .summary h3 {
+.app.ffd20.level-up form > .summary h3 {
   margin: 0 0 3px;
 }
-.ffd20.level-up form > .summary .disabled {
+.app.ffd20.level-up form > .summary .disabled {
   opacity: 0.6;
 }
-.ffd20.level-up form > .summary .value {
+.app.ffd20.level-up form > .summary .value {
   color: darkgreen;
 }
-.ffd20.level-up form > .summary h4 {
+.app.ffd20.level-up form > .summary h4 {
   margin: 0;
 }
-.ffd20.level-up form h2 {
+.app.ffd20.level-up form h2 {
   font-family: "Modesto Condensed Bold", "Signika", "Palatino Linotype", serif;
   font-variant: small-caps;
   font-size: var(--font-size-24);
@@ -1778,7 +1819,7 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   padding: 0 0.2em;
   background-color: var(--pf1-bg-dark-1);
 }
-.ffd20.level-up form ul.choices {
+.app.ffd20.level-up form ul.choices {
   flex: 1;
   list-style: none;
   padding: 0;
@@ -1787,61 +1828,61 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   flex-flow: row wrap;
   gap: 1px;
 }
-.ffd20.level-up form ul.choices li {
+.app.ffd20.level-up form ul.choices li {
   flex: 1;
   padding: 0.2em 0.5em;
   border: 1px solid transparent;
   border-radius: 0.3em;
 }
-.ffd20.level-up form ul.choices li input[type="radio"] {
+.app.ffd20.level-up form ul.choices li input[type="radio"] {
   display: none;
 }
-.ffd20.level-up form ul.choices li.choice {
+.app.ffd20.level-up form ul.choices li.choice {
   flex: 1 calc(50% - 1px);
 }
-.ffd20.level-up form ul.choices li.choice > label {
+.app.ffd20.level-up form ul.choices li.choice > label {
   display: block;
   cursor: pointer;
   height: 100%;
 }
-.ffd20.level-up form ul.choices li.choice .form-group label {
+.app.ffd20.level-up form ul.choices li.choice .form-group label {
   pointer-events: none;
 }
-.ffd20.level-up form ul.choices li.choice h3 {
+.app.ffd20.level-up form ul.choices li.choice h3 {
   display: flex;
   gap: 0.3em;
 }
-.ffd20.level-up form ul.choices li.choice img {
+.app.ffd20.level-up form ul.choices li.choice img {
   flex: 0 24px;
   width: 24px;
   height: 24px;
 }
-.ffd20.level-up form ul.choices li.choice:hover {
+.app.ffd20.level-up form ul.choices li.choice:hover {
   border: 1px solid gray;
   background: rgba(155, 155, 155, 0.1);
 }
-.ffd20.level-up form ul.choices li h3 {
+.app.ffd20.level-up form ul.choices li h3 {
   font-size: var(--font-size-16);
   line-height: 1.5;
   position: relative;
 }
-.ffd20.level-up form ul.choices li h3 .value {
+.app.ffd20.level-up form ul.choices li h3 .value {
   position: absolute;
   right: 0;
   color: green;
 }
-.ffd20.level-up form ul.choices li:has(input:checked) {
+.app.ffd20.level-up form ul.choices li:has(input:checked) {
   background: rgba(155, 155, 155, 0.2);
   border: 1px dashed var(--color-border-light-tertiary);
 }
-.ffd20.level-up form ul.choices li:has(input:checked) h3::after {
+.app.ffd20.level-up form ul.choices li:has(input:checked) h3::after {
   content: " ✔";
   color: green;
 }
-.ffd20.level-up form ul.choices li:has(input:disabled) {
+.app.ffd20.level-up form ul.choices li:has(input:disabled) {
   opacity: 0.6;
 }
-.ffd20.level-up form .item-list {
+.app.ffd20.level-up form .item-list {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1850,18 +1891,18 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   flex-flow: column nowrap;
   gap: 1px;
 }
-.ffd20.level-up form .item-list > .item {
+.app.ffd20.level-up form .item-list > .item {
   display: flex;
   flex-flow: row nowrap;
   gap: 3px;
   cursor: pointer;
 }
-.ffd20.level-up form .item-list > .item > img {
+.app.ffd20.level-up form .item-list > .item > img {
   flex: 0 24px;
   width: 24px;
   height: 24px;
 }
-.ffd20.level-up form > section {
+.app.ffd20.level-up form > section {
   display: flex;
   flex-flow: column nowrap;
   gap: 3px;
@@ -1869,14 +1910,14 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   scrollbar-width: thin;
   scrollbar-color: var(--pf1-scrollbar-handle) var(--pf1-scrollbar-background);
 }
-.ffd20.level-up form > section h2,
-.ffd20.level-up form > section h3 {
+.app.ffd20.level-up form > section h2,
+.app.ffd20.level-up form > section h3 {
   flex: 1 100%;
 }
-.ffd20.level-up form > section .summary label {
+.app.ffd20.level-up form > section .summary label {
   font-weight: bold;
 }
-.ffd20.level-up form > section .segment.ability-score ul {
+.app.ffd20.level-up form > section .segment.ability-score ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -1884,64 +1925,64 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   flex-flow: row wrap;
   gap: 1px;
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score {
   display: flex;
   flex-flow: row nowrap;
   flex: 1 33%;
   gap: 0.5em;
   align-items: center;
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .name {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .name {
   flex: 1;
   text-align: right;
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .value {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .value {
   display: flex;
   flex-flow: row nowrap;
   flex: 0 1em;
   text-align: center;
   font-weight: bold;
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .value.disabled {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .value.disabled {
   color: var(--pf1-beige);
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .name,
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .value {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .name,
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .value {
   font-size: var(--font-size-16);
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .controls {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .controls {
   display: flex;
   flex-flow: column nowrap;
   gap: 0;
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .controls .operator {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .controls .operator {
   flex: 0;
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score .controls .operator.disabled {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score .controls .operator.disabled {
   pointer-events: none;
 }
-.ffd20.level-up form > section .segment.ability-score ul .ability-score.enhanced span {
+.app.ffd20.level-up form > section .segment.ability-score ul .ability-score.enhanced span {
   color: steelblue;
 }
-.ffd20.level-up form > section .segment.ability-score footer {
+.app.ffd20.level-up form > section .segment.ability-score footer {
   display: flex;
   flex-direction: column;
   border-top: 1px solid var(--pf1-crimson);
   align-items: center;
 }
-.ffd20.level-up form > section .segment.ability-score footer .points-left {
+.app.ffd20.level-up form > section .segment.ability-score footer .points-left {
   font-size: var(--font-size-16);
   line-height: 1.5;
 }
-.ffd20.level-up form > section .segment.ability-score footer .points-left > .ready {
+.app.ffd20.level-up form > section .segment.ability-score footer .points-left > .ready {
   color: green;
 }
-.ffd20.level-up form > section .segment.fcb .notes {
+.app.ffd20.level-up form > section .segment.fcb .notes {
   border: 1px dashed var(--color-border-light-tertiary);
   border-radius: 0.5em;
   padding: 0 0.3em;
 }
-.ffd20.level-up form > footer {
+.app.ffd20.level-up form > footer {
   display: flex;
   flex-flow: row nowrap;
   flex: 0 3em;
@@ -1950,20 +1991,20 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   padding: 0.4em;
   border-top: var(--pf1-border-groove);
 }
-.ffd20.level-up form > footer.buttons > .padding {
+.app.ffd20.level-up form > footer.buttons > .padding {
   flex: 1;
 }
-.ffd20.level-up form > footer.buttons > button {
+.app.ffd20.level-up form > footer.buttons > button {
   flex: 1;
 }
-.ffd20.level-up form > footer.buttons > button:disabled {
+.app.ffd20.level-up form > footer.buttons > button:disabled {
   opacity: 0.6;
 }
-.ffd20.level-up form > footer.buttons > select {
+.app.ffd20.level-up form > footer.buttons > select {
   flex: 0;
 }
-.ffd20.level-up form > footer.buttons > select,
-.ffd20.level-up form > footer.buttons > button {
+.app.ffd20.level-up form > footer.buttons > select,
+.app.ffd20.level-up form > footer.buttons > button {
   line-height: 2;
   height: unset;
 }
@@ -2756,6 +2797,9 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet .temporary .hint {
   text-align: center;
 }
+.ffd20.sheet form.editable label:has(input:not(:disabled)) {
+  cursor: pointer;
+}
 .ffd20.sheet .action.roll {
   justify-self: center;
   display: inline-flex;
@@ -2913,7 +2957,7 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.sheet .item-list-header .item-name .item-image:hover:not(.no-hover),
 .ffd20.sheet .item .item-name .item-image:hover:not(.no-hover) {
-  background-image: url(icons/misc/info.svg) !important;
+  background-image: var(--icon-info) !important;
   background-size: contain;
 }
 .ffd20.sheet .item-list-header .item-name h4,
@@ -3766,6 +3810,15 @@ form.application.pf1-v2.html-editor .editor {
   --menu-background: rgba(0, 0, 0, 0.1);
   --color-control-bg: #d9d8c8;
 }
+.ffd20.sheet.actor.vehicle form .unit {
+  opacity: 0.6;
+}
+.ffd20.sheet.actor.vehicle form .unit::before {
+  content: "(";
+}
+.ffd20.sheet.actor.vehicle form .unit::after {
+  content: ")";
+}
 .ffd20.sheet.actor.loot {
   min-height: 560px;
   min-width: 630px;
@@ -3929,7 +3982,7 @@ form.application.pf1-v2.html-editor .editor {
   color: var(--pf1-tan);
 }
 .ffd20.actor.sheet form .tab.summary .summary-header .race .item-image.rollable:hover {
-  background-image: url(sheets/actors/parts/icons/misc/info.svg) !important;
+  background-image: var(--icon-info) !important;
   background-size: contain;
 }
 .ffd20.actor.sheet form .tab.summary .summary-header .race .info {
@@ -4114,9 +4167,6 @@ form.application.pf1-v2.html-editor .editor {
   font-size: inherit;
   line-height: inherit;
   border-radius: 3px;
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
   user-select: text;
 }
 .ffd20.sheet.actor .tab.spellbook .spellbook-group .spell-uses .spell-input-readonly {
@@ -4567,7 +4617,7 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.item.sheet form .tab.changes .changes-list .change input.invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(sheets/items/parts/icons/misc/hazard-sign.svg) no-repeat 99% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 99% 50% var(--pf1-bg-dark-0);
   background-size: contain;
 }
 .active.locked-tooltip.ffd20.change-menu {
@@ -4580,7 +4630,7 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.item.sheet form input[type="text"].formula:invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(sheets/items/parts/icons/misc/hazard-sign.svg) no-repeat 99% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 99% 50% var(--pf1-bg-dark-0);
   background-size: contain;
 }
 .ffd20.sheet .tab.links table .extra-field {
@@ -4902,6 +4952,13 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.item form > .sidebar label > span.separator {
   flex: 0;
 }
+.ffd20.sheet.item form.editable > .sidebar input:not(:disabled) {
+  pointer-events: all;
+  cursor: text;
+}
+.ffd20.sheet.item form.editable > .sidebar input:not(:disabled)[type="checkbox"] {
+  cursor: pointer;
+}
 .ffd20.sheet.item form.editable > .sidebar input:is([type="number"], [type="text"]) {
   color: var(--color-text-dark-primary);
   opacity: 1;
@@ -4917,8 +4974,13 @@ form.application.pf1-v2.html-editor .editor {
   flex: 0;
   margin: 0;
   line-height: inherit;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2px;
 }
 .ffd20.sheet:is(.item, .action) form .card-notes > * {
+  width: 100%;
+  flex: 0;
   padding: 0.2em 0.3em;
   align-self: center;
 }
@@ -4941,6 +5003,9 @@ form.application.pf1-v2.html-editor .editor {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 2px;
 }
 .ffd20.sheet:is(.item, .action) form .card-notes > .note-list > li {
   display: flex;
@@ -5000,7 +5065,7 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.action form .conditionals .change input[type="text"]:invalid,
 .ffd20.sheet.action form .conditionals .context-note input[type="text"]:invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(sheets/actions/icons/misc/hazard-sign.svg) no-repeat 95% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 95% 50% var(--pf1-bg-dark-0);
   background-size: contain;
 }
 .ffd20.sheet.action form .conditionals .change select,
@@ -5010,7 +5075,7 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.action form .conditionals .change select:invalid,
 .ffd20.sheet.action form .conditionals .context-note select:invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(sheets/actions/icons/misc/hazard-sign.svg) no-repeat 75% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 75% 50% var(--pf1-bg-dark-0);
   background-size: contain;
 }
 .ffd20.sheet.action form .conditionals .change button.edit-change-contents,
@@ -5048,7 +5113,8 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.action form .conditionals .change .context-note-target.invalid,
 .ffd20.sheet.action form .conditionals .context-note .context-note-target.invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(sheets/actions/icons/misc/hazard-sign.svg) no-repeat 95% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 95% 50% var(--pf1-bg-dark-0);
+  background-size: contain;
 }
 .ffd20.sheet.action form .conditionals .change .conditional-default,
 .ffd20.sheet.action form .conditionals .context-note .conditional-default {
@@ -5079,12 +5145,14 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.action form .conditionals .conditional select:invalid,
 .ffd20.sheet.action form .conditionals .conditional-modifier select:invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(sheets/actions/icons/misc/hazard-sign.svg) no-repeat 80% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 80% 50% var(--pf1-bg-dark-0);
+  background-size: contain;
 }
 .ffd20.sheet.action form .conditionals .conditional input[type="text"]:invalid,
 .ffd20.sheet.action form .conditionals .conditional-modifier input[type="text"]:invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(sheets/actions/icons/misc/hazard-sign.svg) no-repeat 100% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 100% 50% var(--pf1-bg-dark-0);
+  background-size: contain;
 }
 .ffd20.sheet.action form .conditionals .conditional .conditional-name,
 .ffd20.sheet.action form .conditionals .conditional-modifier .conditional-name,
@@ -5169,7 +5237,7 @@ form.application.pf1-v2.html-editor .editor {
   flex: 0 8em;
 }
 .journal-sheet .ffd20.page-nesting {
-  color: var(--color-text-dark-6);
+  color: var(--color-text-subtle, var(--color-text-dark-6));
 }
 .ffd20.sheet.actor {
   min-width: 672px;
@@ -5898,39 +5966,6 @@ form.application.pf1-v2.html-editor .editor {
   color: var(--pf1-olive);
   border: unset;
 }
-.ffd20.sheet.item form .damage-parts,
-.ffd20.sheet.item form .attack-parts {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.ffd20.sheet.item form .damage-parts .damage-part,
-.ffd20.sheet.item form .attack-parts .damage-part,
-.ffd20.sheet.item form .damage-parts .attack-part,
-.ffd20.sheet.item form .attack-parts .attack-part {
-  flex: 0 0 100%;
-  padding: 2px;
-}
-.ffd20.sheet.item form .damage-parts .damage-part input,
-.ffd20.sheet.item form .attack-parts .damage-part input,
-.ffd20.sheet.item form .damage-parts .attack-part input,
-.ffd20.sheet.item form .attack-parts .attack-part input {
-  flex: 3;
-  margin-right: 3px;
-}
-.ffd20.sheet.item form .damage-parts .damage-part input:not(:first-child),
-.ffd20.sheet.item form .attack-parts .damage-part input:not(:first-child),
-.ffd20.sheet.item form .damage-parts .attack-part input:not(:first-child),
-.ffd20.sheet.item form .attack-parts .attack-part input:not(:first-child) {
-  margin-left: 5px;
-}
-.ffd20.sheet.item form .damage-parts .damage-part select,
-.ffd20.sheet.item form .attack-parts .damage-part select,
-.ffd20.sheet.item form .damage-parts .attack-part select,
-.ffd20.sheet.item form .attack-parts .attack-part select {
-  margin-left: 5px;
-  flex: 1;
-}
 .ffd20.sheet.item form .tab.details .actions .action-controls {
   flex: 0 64px;
 }
@@ -5961,65 +5996,8 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.sheet.item form .tab.changes .context-notes .context-note .context-note-target.invalid {
   border: var(--pf1-invalid-input-border);
-  background: url(icons/misc/hazard-sign.svg) no-repeat 95% 50% var(--pf1-bg-dark-0);
+  background: var(--icon-warning) no-repeat 95% 50% var(--pf1-bg-dark-0);
   background-size: contain;
-}
-.ffd20.sheet.item form .conditionals .conditional,
-.ffd20.sheet.item form .conditionals .conditional-modifier {
-  padding: 1px;
-}
-.ffd20.sheet.item form .conditionals .conditional select,
-.ffd20.sheet.item form .conditionals .conditional-modifier select {
-  max-width: max-content;
-  min-width: 80px;
-  flex: 1;
-  border: 1px solid var(--pf1-tan);
-  background: var(--pf1-bg-dark-0);
-}
-.ffd20.sheet.item form .conditionals .conditional select:not(:first-child),
-.ffd20.sheet.item form .conditionals .conditional-modifier select:not(:first-child) {
-  margin-left: 5px;
-}
-.ffd20.sheet.item form .conditionals .conditional select:invalid,
-.ffd20.sheet.item form .conditionals .conditional-modifier select:invalid {
-  border: var(--pf1-invalid-input-border);
-  background: url(icons/misc/hazard-sign.svg) no-repeat 80% 50% var(--pf1-bg-dark-0);
-  background-size: contain;
-}
-.ffd20.sheet.item form .conditionals .conditional input[type="text"],
-.ffd20.sheet.item form .conditionals .conditional-modifier input[type="text"] {
-  height: 24px;
-  border: 1px solid var(--pf1-tan);
-  background: var(--pf1-bg-dark-0);
-}
-.ffd20.sheet.item form .conditionals .conditional input[type="text"]:invalid,
-.ffd20.sheet.item form .conditionals .conditional-modifier input[type="text"]:invalid {
-  border: var(--pf1-invalid-input-border);
-  background: url(icons/misc/hazard-sign.svg) no-repeat 100% 50% var(--pf1-bg-dark-0);
-  background-size: contain;
-}
-.ffd20.sheet.item form .conditionals .conditional input[type="text"]:not(:first-child),
-.ffd20.sheet.item form .conditionals .conditional-modifier input[type="text"]:not(:first-child) {
-  margin-left: 5px;
-}
-.ffd20.sheet.item form .conditionals .conditional input[class*="conditional-name"]:not(:first-child),
-.ffd20.sheet.item form .conditionals .conditional-modifier input[class*="conditional-name"]:not(:first-child) {
-  margin-left: 0;
-}
-.ffd20.sheet.item form .conditionals .conditional .conditional-name,
-.ffd20.sheet.item form .conditionals .conditional-modifier .conditional-name,
-.ffd20.sheet.item form .conditionals .conditional .conditional-formula,
-.ffd20.sheet.item form .conditionals .conditional-modifier .conditional-formula {
-  min-width: 140px;
-}
-.ffd20.sheet.item form .conditionals .conditional .conditional-damage-type,
-.ffd20.sheet.item form .conditionals .conditional-modifier .conditional-damage-type {
-  min-width: 90px;
-  max-width: 200px;
-}
-.ffd20.sheet.item form .conditionals .conditional .form-group,
-.ffd20.sheet.item form .conditionals .conditional-modifier .form-group {
-  padding-left: 30px;
 }
 .ffd20.sheet.item form .controls a {
   flex: 0;
@@ -6033,77 +6011,80 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.item form .controls a.disabled {
   color: var(--color-text-dark-inactive);
 }
-.ffd20.sheet.item form .recharge span {
-  line-height: 24px;
-  flex: 0 0 80px;
-}
-.ffd20.sheet.item form .recharge label.checkbox {
-  flex: 0 0 80px;
-  text-align: right;
-}
-.ffd20.sheet.item form .formula,
-.ffd20.sheet.item form .text-input {
-  flex: 10 0 80px;
-}
-.ffd20.sheet.item form .formula .result .small,
-.ffd20.sheet.item form .text-input .result .small {
-  flex: 0 10 20px;
-}
 .ffd20.sheet.item form .weapon-properties label.checkbox {
-  flex: 0 0 98px;
+  flex: 0 98px;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] .description-content {
+.ffd20.sheet.item form div[data-tab="description"] .description-content {
   overflow: hidden;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] .description-content.unidentified-description {
+.ffd20.sheet.item form div[data-tab="description"] .description-content.unidentified-description {
   max-height: min-content;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] .description-content.identified-description {
+.ffd20.sheet.item form div[data-tab="description"] .description-content.identified-description {
   flex: 3;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] .description-content .editor {
+.ffd20.sheet.item form div[data-tab="description"] .description-content .editor {
   flex: 1;
   min-height: 3rem;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] .description-content .editor.prosemirror {
+.ffd20.sheet.item form div[data-tab="description"] .description-content .editor.prosemirror {
   min-height: 10rem;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] .description-content {
+.ffd20.sheet.item form div[data-tab="description"] .description-content {
   display: flex;
   flex-flow: column nowrap;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] .description-content:has(.editor.prosemirror) {
+.ffd20.sheet.item form div[data-tab="description"] .description-content:has(.editor.prosemirror) {
   flex: 3;
 }
-.ffd20.sheet.item form div[data-tab="description"][data-group="primary"] h3 .unidentified {
+.ffd20.sheet.item form div[data-tab="description"] h3 .unidentified {
   font-size: 70%;
 }
-.ffd20.sheet.item form footer {
-  flex: 0;
-}
-.ffd20.sheet.item form .tab[data-tab="advanced"] .tags .form-group {
+.ffd20.sheet.item form .tab[data-tab="advanced"] .flags .form-group {
   align-items: flex-start;
 }
-#hud .actions .control-icon {
+#token-hud .actions .control-icon {
   border: 2px solid var(--pf1-quick-action-default-border);
+  padding: 0;
 }
-#hud .actions .control-icon.type-feat {
+#token-hud .actions .control-icon.type-feat {
   border-color: var(--pf1-quick-action-feat-border);
 }
-#hud .actions .control-icon.type-attack {
+#token-hud .actions .control-icon.type-attack {
   border-color: var(--pf1-quick-action-attack-border);
 }
-#hud .actions .control-icon.type-weapon {
+#token-hud .actions .control-icon.type-weapon {
   border-color: var(--pf1-quick-action-weapon-border);
 }
-#hud .actions .control-icon.type-equipment {
+#token-hud .actions .control-icon.type-equipment {
   border-color: var(--pf1-quick-action-equipment-border);
 }
-#hud .actions .control-icon.type-consumable {
+#token-hud .actions .control-icon.type-consumable {
   border-color: var(--pf1-quick-action-consumable-border);
 }
-#hud .actions .control-icon.type-spell {
+#token-hud .actions .control-icon.type-spell {
   border-color: var(--pf1-quick-action-spell-border);
+}
+#token-hud .actions .control-icon > img {
+  filter: none;
+}
+#token-hud .status-effects .effect-control {
+  border-radius: 2px;
+}
+#token-hud .status-effects .effect-control.auxiliary {
+  outline: 1px var(--pf1-effect-aux-outline) inset;
+  opacity: 0.7;
+}
+#token-hud .status-effects .effect-control.active {
+  outline: 2px var(--pf1-effect-primary-outline) inset;
+}
+.theme-dark #token-hud .status-effects {
+  --pf1-effect-primary-outline: gold;
+  --pf1-effect-aux-outline: orangered;
+}
+.theme-light #token-hud .status-effects {
+  --pf1-effect-primary-outline: #00acd3;
+  --pf1-effect-aux-outline: #00909f;
 }
 /* ----------------------------------------- */
 /*  Chat Cards
@@ -6165,9 +6146,6 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.chat-card .card-content .item-description *,
 .ffd20.chat-card .card-content .action-description * {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  -ms-user-select: text;
   user-select: text;
 }
 .ffd20.chat-card .card-content .item-description p:empty,
@@ -6597,17 +6575,18 @@ form.application.pf1-v2.html-editor .editor {
 a.pf1-link {
   white-space: nowrap;
   word-break: break-all;
-  display: inline-block;
+  display: inline;
 }
 a.pf1-link.content,
 a.pf1-link.button {
-  outline: 1px solid var(--color-border-light-tertiary);
+  outline: 1px solid var(--pf1-button-outline);
   border-radius: 5px;
   padding: 0 4px;
-  background: #ddd;
+  background: var(--pf1-button-bg, #ddd);
+  color: var(--pf1-button-text);
 }
 a.pf1-link.broken {
-  background: #ecc;
+  background: var(--pf1-button-broken-bg, #ecc);
   outline: unset;
   color: var(--color-level-error);
   cursor: initial;
@@ -6622,6 +6601,21 @@ a.pf1-info {
 }
 a.pf1-info > i {
   color: var(--color-text-dark-5);
+}
+.theme-dark a.pf1-link {
+  --pf1-button-bg: #ddd;
+  --pf1-button-broken-bg: #ecc;
+  --pf1-button-outline: var(--color-border-light-tertiary, var(--color-border-light-secondary));
+  --pf1-button-text: inherit;
+}
+.theme-light a.pf1-link {
+  --pf1-button-bg: #ddd;
+  --pf1-button-broken-bg: #ecc;
+  --pf1-button-outline: var(--color-border-light-tertiary, var(--color-border-light-secondary));
+  --pf1-button-text: inherit;
+}
+.theme-light a.pf1-link:hover {
+  --pf1-button-text: black;
 }
 .chat-message.ffd20 header.message-header h4.message-sender {
   border: unset;
@@ -6672,6 +6666,8 @@ a.pf1-info > i {
 .chat-message .ffd20.chat-card.defense-card .saving-throws button {
   display: flex;
   flex-flow: column nowrap;
+  gap: 0;
+  height: unset;
   line-height: unset;
   align-items: center;
 }
@@ -6683,8 +6679,12 @@ a.pf1-info > i {
 }
 .chat-message .ffd20.chat-card.damage-card h2 {
   background-color: var(--pf1-bg-dark-05);
+  font-size: var(--font-size-18);
   font-variant: small-caps;
   font-weight: bold;
+  line-height: 1.2;
+  font-family: var(--font-sans);
+  border-bottom: 1px solid #782e22;
 }
 .chat-message .ffd20.chat-card.damage-card .roll-total {
   border: none;
@@ -6708,27 +6708,27 @@ a.pf1-info > i {
 .chat-message.ffd20.basic-check .message-content .dice-result .roll-total.has-details {
   cursor: pointer;
 }
-.message.ffd20 .level-up .level-change {
+.message :is(.level-up, .ffd20.level-up) .level-change {
   margin-bottom: 4px;
 }
-.message.ffd20 .level-up div.part {
+.message :is(.level-up, .ffd20.level-up) div.part {
   margin-bottom: 4px;
 }
-.message.ffd20 .level-up :is(h1, h2) {
+.message :is(.level-up, .ffd20.level-up) :is(h1, h2) {
   margin: 0 0 0.3rem 0;
   border-bottom: 1px solid brown;
 }
-.message.ffd20 .level-up h1 {
+.message :is(.level-up, .ffd20.level-up) h1 {
   font-size: var(--font-size-28);
 }
-.message.ffd20 .level-up h2 {
+.message :is(.level-up, .ffd20.level-up) h2 {
   font-size: var(--font-size-20);
   margin-top: 0.3rem;
 }
-.message.ffd20 .level-up .item {
+.message :is(.level-up, .ffd20.level-up) .item {
   margin-bottom: 4px;
 }
-.message.ffd20 .level-up .item img {
+.message :is(.level-up, .ffd20.level-up) .item img {
   display: inline-block;
   vertical-align: middle;
 }
@@ -6779,11 +6779,8 @@ a.pf1-info > i {
 .icon-pf {
   background-color: black;
   mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
   mask-position: center;
-  -webkit-mask-position: center;
   mask-size: cover;
-  -webkit-mask-size: cover;
   width: 24px;
   height: 24px;
 }
@@ -6798,67 +6795,51 @@ a.pf1-info > i {
 }
 .icon-pf.icon-gears {
   mask-image: url(icons/actions/gears.svg);
-  -webkit-mask-image: url(icons/actions/gears.svg);
 }
 .icon-pf.icon-inventory-slot {
   mask-image: url(icons/actions/inventory-slot.svg);
-  -webkit-mask-image: url(icons/actions/inventory-slot.svg);
 }
 .icon-pf.icon-coins {
   mask-image: url(icons/actions/coins.svg);
-  -webkit-mask-image: url(icons/actions/coins.svg);
 }
 .icon-pf.icon-weight {
   mask-image: url(icons/actions/weight.svg);
-  -webkit-mask-image: url(icons/actions/weight.svg);
 }
 .icon-pf.icon-quill-ink {
   mask-image: url(icons/actions/quill-ink.svg);
-  -webkit-mask-image: url(icons/actions/quill-ink.svg);
 }
 .icon-pf.icon-wheelbarrow {
   mask-image: url(icons/actions/wheelbarrow.svg);
-  -webkit-mask-image: url(icons/actions/wheelbarrow.svg);
 }
 .icon-pf.icon-battle-gear {
   mask-image: url(icons/actions/battle-gear.svg);
-  -webkit-mask-image: url(icons/actions/battle-gear.svg);
 }
 .icon-pf.icon-battery-pack {
   mask-image: url(icons/actions/battery-pack.svg);
-  -webkit-mask-image: url(icons/actions/battery-pack.svg);
 }
 .icon-pf.icon-magic-palm {
   mask-image: url(icons/actions/magic-palm.svg);
-  -webkit-mask-image: url(icons/actions/magic-palm.svg);
 }
 .icon-pf.icon-hand {
   mask-image: url(icons/actions/hand.svg);
-  -webkit-mask-image: url(icons/actions/hand.svg);
 }
 .icon-pf.icon-upgrade {
   mask-image: url(icons/actions/upgrade.svg);
-  -webkit-mask-image: url(icons/actions/upgrade.svg);
 }
 .icon-pf.icon-expense {
   mask-image: url(icons/actions/expense.svg);
-  -webkit-mask-image: url(icons/actions/expense.svg);
 }
 .icon-pf.icon-spell-book {
   mask-image: url(icons/actions/spell-book.svg);
-  -webkit-mask-image: url(icons/actions/spell-book.svg);
 }
 .icon-pf.icon-brain {
   mask-image: url(icons/actions/brain.svg);
-  -webkit-mask-image: url(icons/actions/brain.svg);
 }
 .icon-pf.icon-heart-plus {
   mask-image: url(icons/actions/heart-plus.svg);
-  -webkit-mask-image: url(icons/actions/heart-plus.svg);
 }
 .icon-pf.icon-divert {
   mask-image: url(icons/actions/divert.svg);
-  -webkit-mask-image: url(icons/actions/divert.svg);
 }
 .ffd20 form .form-group.stacked label {
   flex: 0 0 100%;
@@ -6991,6 +6972,13 @@ a.pf1-info > i {
 .compendium-sidebar .ffd20.action-buttons .colspan-2 {
   grid-column: span 2;
 }
+.compendium-sidebar .ffd20.action-buttons.v13 button {
+  color: var(--color-text-primary);
+  border: 1px solid var(--button-border-color);
+}
+.compendium-sidebar .ffd20.action-buttons.v13 button::after {
+  background: unset;
+}
 #token-hud .col.actions {
   height: calc(100% + 150px);
   width: 100%;
@@ -6998,19 +6986,20 @@ a.pf1-info > i {
 }
 #token-hud .col.actions charges {
   position: absolute;
-  font-size: var(--font-size-12);
-  bottom: 2px;
-  right: 2px;
-  line-height: 1em;
+  bottom: 0;
+  right: 0;
   padding: 2px;
   padding-left: 3px;
-  padding-bottom: 0;
-  background-color: var(--pf1-bg-dark-5);
+  padding-bottom: 1px;
   border: 1px solid rgba(255, 255, 255, 0.5);
   border-bottom: unset;
   border-right: unset;
   border-top-left-radius: 5px;
   border-bottom-right-radius: 3px;
+  background-color: var(--pf1-bg-dark-5);
+  font-size: 0.5rem;
+  line-height: 1em;
+  color: var(--color-light-2);
 }
 .col.actions .below {
   position: absolute;
@@ -7223,6 +7212,7 @@ a.pf1-info > i {
   font-size: var(--font-size-12);
   outline: 1px dotted orange;
   background: rgba(0, 0, 0, 0.8);
+  text-align: center;
   --color-underline-header: #782e22;
 }
 #tooltip.ffd20 code {
@@ -7435,57 +7425,34 @@ a.pf1-info > i {
   margin-left: 0.3em;
 }
 .ra-spin {
-  -webkit-animation: ra-spin 2s infinite linear;
   animation: ra-spin 2s infinite linear;
-}
-@-webkit-keyframes ra-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
 }
 @keyframes ra-spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
 .ra-rotate-90 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
-  -webkit-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 .ra-rotate-180 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-  -webkit-transform: rotate(180deg);
-  -ms-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 .ra-rotate-270 {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
-  -webkit-transform: rotate(270deg);
-  -ms-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 .ra-flip-horizontal {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=0);
-  -webkit-transform: scale(-1, 1);
-  -ms-transform: scale(-1, 1);
   transform: scale(-1, 1);
 }
 .ra-flip-vertical {
   filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-  -webkit-transform: scale(1, -1);
-  -ms-transform: scale(1, -1);
   transform: scale(1, -1);
 }
 :root .ra-rotate-90,
@@ -9085,7 +9052,8 @@ body {
   --pf1-v2-text-dark: var(--pf1-v2-text);
   --pf1-v2-text-inverted: var(--pf1-v2-text-light);
   --pf1-v2-text-success: #26b231;
-  --pf1-v2-text-warning: #ee9b3a;
+  --pf1-v2-text-warning: #ac5c00;
+  --pf1-v2-text-warning-shadow: 0 0 0.3px orangered;
   --pf1-v2-text-highlight: var(--pf1-v2-text-tertiary);
   /** Shadow **/
   --pf1-v2-shadow-primary: hsl(var(--pf1-v2-primary-h), var(--pf1-v2-primary-s), calc(var(--pf1-v2-primary-l) + 25%));
@@ -9191,7 +9159,6 @@ body {
   font-size: var(--font-size-12);
   padding: 0.25rem 0.5rem;
   backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 .application.pf1-v2 {
   background-color: var(--pf1-v2-background-app);
@@ -9273,6 +9240,9 @@ body {
 .application.pf1-v2 .window-content .form-footer button {
   height: calc(1.25 * var(--input-height));
 }
+.application.pf1-v2 label:has(input:not(:disabled)) {
+  cursor: pointer;
+}
 .application.pf1-v2 label.checkbox {
   height: unset;
   line-height: unset;
@@ -9286,4 +9256,13 @@ body {
   width: var(--font-size-16);
   height: var(--font-size-16);
   background-color: var(--color-select-option-bg);
+}
+:is(.ffd20, .pf1-v2) {
+  --icon-info: url("icons/misc/info.svg");
+  --icon-warning: url("../../icons/svg/hazard.svg");
+  --pf1-sheet-background: url("../../ui/parchment.jpg") repeat;
+}
+.ffd20 .disabled,
+.pf1-v2 .disabled {
+  pointer-events: inherit;
 }

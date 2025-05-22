@@ -54,7 +54,7 @@
 
         {{#if section.interface.value}}
         <div class="item-detail item-value">
-          <span>{{price}} {{localize "FFD20.CurrencyGP"}}</span>
+          <span>{{localize @root.labels.itemValue value=price.stack}}</span>
         </div>
         {{/if}}
 

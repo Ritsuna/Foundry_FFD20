@@ -1,4 +1,5 @@
 <div class="compendium-browser-content" data-type="{{type}}">
+  {{! Sidebar }}
   <aside class="sidebar flexcol">
     <div class="entry-filter search-form formgroup flexrow">
       <input type="search" name="filter" value="{{query}}" placeholder="{{localize "FFD20.SearchFilterPlaceholder"}}" autocomplete="off" autofocus>
@@ -6,24 +7,34 @@
     </div>
 
     <div class="filter-container">
-      {{#each filters as |filter|}}
-        <div class="filter" data-filter-id="{{filter.id}}">
-          <h3>{{filter.label}}
-            {{#if filter.active}}<span class="filter-count"><i class="fa-solid fa-filter" inert></i>×{{filter.activeCount}}</span>{{/if}}
+      {{#each filters}}
+        <div class="filter" data-filter-id="{{id}}">
+          <h3>
+            {{label}}
+            {{#if active}}
+            <a class="filter-count" data-action="clear-filter" data-tooltip="FFD20.CompendiumBrowser.ActiveFilters" data-tooltip-direction="UP"><i class="fa-solid fa-filter" inert></i>×{{activeCount}}</a>
+            {{/if}}
           </h3>
-          <div class="filter-content flexcol {{filter.collapsed}}">
-            {{> (lookup . "template") filter=filter}}
+          <div class="filter-content flexcol {{collapsed}}">
+            {{> (lookup . "template") filter=this}}
           </div>
         </div>
       {{/each}}
     </div>
 
     <div class="buttons flexrow">
-      <button class="reload refresh">{{localize "FFD20.CompendiumBrowser.ReloadPacks"}}</button>
-      <button class="reset clear-filters">{{localize "FFD20.CompendiumBrowser.ClearFilters"}}</button>
+      <button class="reload refresh">
+        <i class="fa-solid fa-rotate" inert></i>
+        {{localize "FFD20.CompendiumBrowser.ReloadPacks"}}
+      </button>
+      <button class="reset clear-filters">
+        <i class="fa-solid fa-filter-circle-xmark" inert></i>
+        {{localize "FFD20.CompendiumBrowser.ClearFilters"}}
+      </button>
     </div>
   </aside>
 
+  {{! Entries }}
   <div class="directory-container flexcol">
     {{#unless loading}}
     <div class="top flexrow">

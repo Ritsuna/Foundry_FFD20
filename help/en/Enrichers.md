@@ -137,10 +137,12 @@ The key is damage formula instead.
 | :--------------------- | :--------------------------------------------- |
 | `@Damage[2d4]`         | Rolls 2d4 and damages the actors by that much. |
 | `@Damage[6;nonlethal]` | Causes 6 nonlethal damage.                     |
+| `@Damage[1d6;wounds]`  | Causes 2d4 wounds.                             |
 
 #### Special Options
 
 - `nonlethal` - Adds nonlethal damage.
+- `wounds` - Causes damage to wounds. Without this damage is applied to vigor.
 - `card` - Generates a card for use instead of applying directly. No targeting is required.
 
 ### `@Draw`
@@ -170,11 +172,13 @@ The key is heal formula instead.
 | `@Heal[3d6]`         | Rolls 3d6 and heals the actors by that much. |
 | `@Heal[6;nonlethal]` | Heals 6 nonlethal damage.                    |
 | `@Heal[17;dual]`     | Heals 17 health _and_ nonlethal damage.      |
+| `@Heal[3;wounds]`    | Heals 3 wounds.                              |
 
 #### Special Options
 
 - `nonlethal` - Heals nonlethal damage.
 - `dual` - Heals both normal health and nonlethal.
+- `wounds` - Heal wounds. Without this heals vigor.
 - `card` - Generates a card for use instead of applying directly. No targeting is required.
 
 ### `@Save`

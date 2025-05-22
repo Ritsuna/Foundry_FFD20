@@ -5,12 +5,12 @@
     <div class="form-fields radio">
       <input id="change-operator-set-{{change.id}}" type="radio" value="add" name="change.operator" {{checked isAdd}}>
       <label for="change-operator-set-{{change.id}}" data-tooltip="FFD20.Application.ChangeEditor.Operator.AddHint">
-        <i class="far fa-plus-minus"></i>
+        <i class="fa-solid fa-plus-minus" inert></i>
         {{localize "FFD20.Application.ChangeEditor.Operator.Add"}}
       </label>
       <input id="change-operator-add-{{change.id}}" type="radio" value="set" name="change.operator" {{checked isSet}}>
       <label for="change-operator-add-{{change.id}}" data-tooltip="FFD20.Application.ChangeEditor.Operator.SetHint">
-        <i class="far fa-equals"></i>
+        <i class="fa-solid fa-equals" inert></i>
         {{localize "FFD20.Application.ChangeEditor.Operator.Set"}}
       </label>
       {{#unless isValidOp}}
@@ -49,12 +49,12 @@
     <div class="formula-container">
       <div class="formula-type">
         {{#if change.isSimple}}
-            <span data-tooltip="FFD20.Application.ChangeEditor.Help.SimpleHint">
-              {{localize "FFD20.Application.ChangeEditor.Help.Simple"}}
-            </span>
+          <span data-tooltip="FFD20.Application.ChangeEditor.Help.SimpleHint">
+            {{localize "FFD20.Application.ChangeEditor.Help.Simple"}}
+          </span>
         {{else change.isDeferred}}
           <span data-tooltip="FFD20.Application.ChangeEditor.Help.RollHint">
-            <i class="far fa-dice-d20"></i>
+            <i class="fa-solid fa-dice-d20"></i>
             {{localize "FFD20.Application.ChangeEditor.Help.Roll"}}
           </span>
         {{else}}
@@ -100,7 +100,7 @@
   {{! Help }}
   <p class="instructions">
     <a class='help-browser' data-url="Help/Items/Changes">
-      <i class="far fa-question-circle"></i>
+      <i class="fa-regular fa-question-circle fa-fw" inert></i>
       {{localize "FFD20.Application.ChangeEditor.Help.Link"}}
     </a>
   </p>

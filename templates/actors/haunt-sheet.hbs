@@ -288,8 +288,10 @@
                 <div class="item-detail item-uses flexrow" data-tooltip-extended="item.{{item.id}}.resources">
                   {{#if item.isCharged}}
                   <span class="text-box value allow-relative" data-wheel-step="1" data-dtype="Number">{{item.charges}}</span>
+                  {{#unless item.noMaxCharges}}
                   <span class="sep"> / </span>
                   <span class="max">{{item.maxCharges}}</span>
+                  {{/unless}}
                   {{else if item.usesAmmo}}
                   <span class="ammo-remaining">{{item.ammoRemaining}}</span>
                   {{/if}}
