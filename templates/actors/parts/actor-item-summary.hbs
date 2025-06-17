@@ -5,7 +5,7 @@
 
   {{#if unidentifiedDescription}}
   <div class="description unidentified">
-    {{#if identifiedDescription}}
+    {{#if (and identifiedDescription showIdentified)}}
     <h3>{{localize "FFD20.UnidentifiedDescription"}}</h3>
     {{/if}}
     {{{unidentifiedDescription}}}

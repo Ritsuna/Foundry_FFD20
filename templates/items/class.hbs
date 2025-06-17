@@ -167,7 +167,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.SkillsPerLevel"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.skillsPerLevel" value="{{system.skillsPerLevel}}" data-dtype="Number">
+          <input type="number" name="system.skillsPerLevel" value="{{system.skillsPerLevel}}" min="0" step="1" placeholder="0">
         </div>
       </div>
 
@@ -296,7 +296,7 @@
 
       {{!-- Favoured Class Bonuses --}}
       {{#each system.fc as |fc id|}}
-      <div class="form-group" data-tooltip="@classes.{{@root.system.tag}}.fc.{{id}}.value : {{fc.value}}">
+      <div class="form-group" data-tooltip="@classes.{{@root.system.tag}}.fc.{{id}} : {{fc.value}}">
         <label>{{fc.label}}</label>
         <input type="number" name="system.fc.{{id}}.value" value="{{fc.value}}" min="0" step="1" placeholder="0">
       </div>

@@ -9,7 +9,7 @@
     {{~#if errata}}{{localize "FFD20.ContentSource.Info.Errata"}}: {{errata}}<br>{{else if date}}{{localize "FFD20.ContentSource.Info.Release"}}: {{date}}<br>{{/if~}}
     {{~#if publisher}}{{localize "FFD20.ContentSource.Info.Publisher"}}: {{publisher}}<br>{{/if~}}
     {{#with ../bookSources.extras}}
-      <h4>{{localize "FFD20.ContentSource.Extras"}}</h4>
+      <h5>{{localize "FFD20.ContentSource.Extras"}}</h5>
       <p>{{#each this}}{{title}}<br>{{/each}}
     {{/with}}
     "{{/if}}>

@@ -269,7 +269,7 @@
       <div class="misc-components form-group">
         <label>{{localize "FFD20.SpellComponents.Misc"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.components.value" value="{{system.components.value}}">
+          <input type="text" name="system.components.value" value="{{system.components.value}}" placeholder="{{localize "FFD20.NonApplicable"}}">
         </div>
       </div>
 
@@ -356,7 +356,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.CasterLevelOffset"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.clOffset" value="{{system.clOffset}}" data-dtype="Number">
+          <input type="number" name="system.clOffset" value="{{system.clOffset}}" placeholder="0" step="1">
         </div>
       </div>
 
@@ -364,7 +364,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.SpellLevelOffset"}}</label>
         <div class="form-fields">
-          <input type="text" name="system.slOffset" value="{{system.slOffset}}" data-dtype="Number">
+          <input type="number" name="system.slOffset" value="{{system.slOffset}}" placeholder="0" step="1">
         </div>
       </div>
 

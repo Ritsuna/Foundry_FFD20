@@ -25,20 +25,6 @@
     </div>
     {{/if}}
     {{/if}}
-    {{#if data.materials.value}}
-    <p><strong>{{ localize "FFD20.ChatReqMats" }}:</strong> {{data.materials.value}}</p>
-    {{/if}}
-
-    {{#if data.properties.length}}
-    <div class="flexcol property-group gm-sensitive">
-      <label>{{localize "FFD20.Tags"}}</label>
-      <div class="flexrow tag-list">
-        {{#each data.properties}}
-        <span class="tag">{{{this}}}</span>
-        {{/each}}
-      </div>
-    </div>
-    {{/if}}
 
     {{#each properties}}
     <div class="flexcol property-group gm-sensitive general-notes {{css}}">

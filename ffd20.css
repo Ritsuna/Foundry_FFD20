@@ -763,11 +763,6 @@
   height: 100%;
   overflow: hidden;
 }
-.ffd20.sheet .window-content .tab section.subdetails-body {
-  overflow: hidden auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--pf1-scrollbar-handle) var(--pf1-scrollbar-background);
-}
 .ffd20.sheet .window-content .tab section.secret {
   height: unset;
   overflow: unset;
@@ -1050,6 +1045,7 @@ form.application.pf1-v2.apply-damage .window-content .targets > .target {
 form.application.pf1-v2.apply-damage .window-content .target-ident {
   display: flex;
   flex-flow: row nowrap;
+  font-family: inherit;
 }
 form.application.pf1-v2.apply-damage .window-content .target-ident > .name {
   flex: 1;
@@ -1061,13 +1057,17 @@ form.application.pf1-v2.apply-damage .window-content .target-ident > .total {
 form.application.pf1-v2.apply-damage .window-content .target-ident > .total::before {
   content: "±";
 }
-form.application.pf1-v2.apply-damage .window-content .instances > * {
+form.application.pf1-v2.apply-damage .window-content .instances > div {
   display: flex;
   flex-flow: row wrap;
+  gap: 2px;
 }
-form.application.pf1-v2.apply-damage .window-content .instances > * .instance {
+form.application.pf1-v2.apply-damage .window-content .instances > div .instance {
   flex: 1 100%;
   padding: 0 0.5rem;
+}
+form.application.pf1-v2.apply-damage .window-content input:read-only {
+  border: unset;
 }
 form.application.pf1-v2.apply-damage .window-content .target-reduction {
   display: flex;
@@ -1126,10 +1126,10 @@ form.application.pf1-v2.apply-damage .window-content .resistances > .reduction-c
 form.application.pf1-v2.apply-damage .window-content .resistances > .reduction-category > ul > li:last-child a::after {
   content: unset;
 }
-form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice:hover {
+form.application.pf1-v2.apply-damage .window-content .resistances :is(.reduction-choice, .immunity-choice):hover {
   text-shadow: 0 0 8px var(--pf1-v2-shadow-primary);
 }
-form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label {
+form.application.pf1-v2.apply-damage .window-content .resistances :is(.reduction-choice, .immunity-choice) > label {
   display: inline-flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -1137,22 +1137,22 @@ form.application.pf1-v2.apply-damage .window-content .resistances .reduction-cho
   cursor: pointer;
   color: var(--pf1-v2-text-link);
 }
-form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label input {
+form.application.pf1-v2.apply-damage .window-content .resistances :is(.reduction-choice, .immunity-choice) > label input {
   display: none;
 }
-form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label::before {
+form.application.pf1-v2.apply-damage .window-content .resistances :is(.reduction-choice, .immunity-choice) > label::before {
   content: "✔ ";
   visibility: hidden;
 }
-form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label:has(input:checked) {
+form.application.pf1-v2.apply-damage .window-content .resistances :is(.reduction-choice, .immunity-choice) > label:has(input:checked) {
   background-color: var(--pf1-apply-damage-choice-bg);
   outline: 1px solid var(--pf1-apply-damage-choice-outline);
   border-radius: 0.3rem;
 }
-form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label:has(input:checked)::before {
+form.application.pf1-v2.apply-damage .window-content .resistances :is(.reduction-choice, .immunity-choice) > label:has(input:checked)::before {
   visibility: visible;
 }
-form.application.pf1-v2.apply-damage .window-content .resistances .reduction-choice > label:has(input:disabled) {
+form.application.pf1-v2.apply-damage .window-content .resistances :is(.reduction-choice, .immunity-choice) > label:has(input:disabled) {
   text-decoration: line-through;
 }
 form.application.pf1-v2.apply-damage .window-content .resistances :is(.immunity-choice, .vulnerability-choice) a {
@@ -1190,6 +1190,22 @@ form.application.pf1-v2.apply-damage .window-content .switch .switch-option:has(
 }
 form.application.pf1-v2.apply-damage .window-content .switch .switch-option:has(input:checked):hover {
   background-color: var(--pf1-switch-active-hover);
+}
+form.application.pf1-v2.apply-damage .window-content .tag-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: var(--font-size-13);
+  display: flex;
+  flex-flow: row wrap;
+  gap: 2px 3px;
+}
+form.application.pf1-v2.apply-damage .window-content .tag-list .tag {
+  background-color: var(--pf1-bg-dark-0);
+  border: 1px dashed var(--pf1-bg-dark-1);
+  border-radius: 3px;
+  padding: 0 0.2rem;
+  margin: 0;
 }
 form.application.pf1-v2.apply-damage[inert] {
   opacity: 0.6;
@@ -4007,7 +4023,15 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.actor.sheet form .tab.summary .quick-info > div {
   gap: 2px;
 }
-.ffd20.actor.sheet form .classes-body .item-controls {
+.ffd20.actor.sheet form .subdetails-body {
+  overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.ffd20.actor.sheet form .subdetails-body .classes-body {
+  overflow: hidden;
+}
+.ffd20.actor.sheet form .subdetails-body .classes-body .item-controls {
   flex: 0 0 68px;
 }
 .ffd20.sheet.actor form .tab.attributes .armor-attributes {
@@ -4537,30 +4561,39 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.item form .item-properties input:focus {
   background: var(--pf1-bg-dark-0);
 }
-.ffd20.item.sheet form .tab.changes :is(.changes-list, .changeflags-list) .item-list-header {
+.ffd20.item.sheet form .tab.changes :is(.changes-list, .changeflags-list, .contextnotes-list) .item-list-header {
   display: flex;
   flex-flow: row nowrap;
   gap: 1em;
-  padding-right: 5px;
 }
-.ffd20.item.sheet form .tab.changes :is(.changes-list, .changeflags-list) .item-list-header h3 {
+.ffd20.item.sheet form .tab.changes :is(.changes-list, .changeflags-list, .contextnotes-list) .item-list-header h3 {
   border: unset;
   flex: 1;
 }
-.ffd20.item.sheet form .tab.changes :is(.changes-list, .changeflags-list) .item-list-header .controls {
-  flex: 0;
+.ffd20.item.sheet form .tab.changes :is(.changes-list, .changeflags-list, .contextnotes-list) .item-list-header .controls {
+  flex: 0 1.5rem;
+}
+.ffd20.item.sheet form .tab.changes .controls {
+  flex: 0 1.5rem;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+}
+.ffd20.item.sheet form .tab.changes .changes-list .controls {
+  grid-row: span 2;
 }
 .ffd20.item.sheet form .tab.changes .changes-list > .changes {
   display: flex;
   flex-flow: column nowrap;
-  gap: 0;
+  gap: 2px 0;
 }
 .ffd20.item.sheet form .tab.changes .changes-list .change {
   display: grid;
-  grid-template-columns: min-content 1fr min-content;
+  grid-template-columns: min-content 1fr 1.5rem;
   grid-template-rows: min-content;
   gap: 1px 0.3em;
-  padding: 1px 0.3em;
+  padding: 0;
 }
 .ffd20.item.sheet form .tab.changes .changes-list .change:nth-child(even) {
   background-color: var(--pf1-bg-dark-0);
@@ -4603,12 +4636,6 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.item.sheet form .tab.changes .changes-list .change :is(.target, .type, .priority) {
   white-space: nowrap;
-  align-items: center;
-}
-.ffd20.item.sheet form .tab.changes .changes-list .change .controls {
-  grid-row: span 2;
-  display: flex;
-  flex-flow: row wrap;
   align-items: center;
 }
 .ffd20.item.sheet form .tab.changes .changes-list .change input {
@@ -4791,6 +4818,9 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.item.type-class .tab.details .formula + .average {
   white-space: nowrap;
 }
+.ffd20.sheet.item.type-class .tab.details .form-group label ~ label {
+  flex: 0;
+}
 .ffd20.sheet.item form > .sidebar {
   grid-row: span 2;
   border-right: 1px groove var(--color-border-light-1);
@@ -4963,9 +4993,12 @@ form.application.pf1-v2.html-editor .editor {
   color: var(--color-text-dark-primary);
   opacity: 1;
 }
-.ffd20.sheet.item form.editable > .sidebar input:hover {
+.ffd20.sheet.item form.editable > .sidebar input:is(:hover, :focus) {
   box-shadow: 0 0 8px red;
-  border-color: black;
+  border-color: var(--color-border-dark-5);
+}
+.ffd20.sheet.item form.editable > .sidebar input:focus {
+  border-color: var(--color-border-dark-1);
 }
 .ffd20.sheet.item form .script-calls .item-list .item-controls {
   flex: 0 60px;
@@ -5235,6 +5268,9 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.sheet.action form select[name="save.type"] {
   flex: 0 8em;
+}
+.ffd20.sheet.action form .per-attack {
+  flex: 0;
 }
 .journal-sheet .ffd20.page-nesting {
   color: var(--color-text-subtle, var(--color-text-dark-6));
@@ -7217,6 +7253,23 @@ a.pf1-info > i {
 }
 #tooltip.ffd20 code {
   padding: unset;
+  padding: 0 3px;
+  color: var(--color-light-1, white);
+}
+#tooltip.ffd20 :is(h1, h2, h3, h4, h5, h6) {
+  color: var(--color-light-1);
+  margin: 0.3rem 0;
+  font-family: inherit;
+}
+#tooltip.ffd20 p:first-child {
+  margin-top: 0;
+}
+#tooltip.ffd20 p:last-child {
+  margin-bottom: 0;
+}
+#tooltip.ffd20 h5 {
+  font-size: var(--font-size-16);
+  border-bottom: 1px solid var(--color-underline-header);
 }
 #tooltip.ffd20.extended {
   --font-h4-size: var(--font-size-14);
@@ -7240,7 +7293,6 @@ a.pf1-info > i {
 #tooltip.ffd20.extended > hr {
   grid-column: span 4;
   text-align: center;
-  margin: 0;
 }
 #tooltip.ffd20.extended :is(h3, h4) {
   min-width: min-content;
@@ -9265,4 +9317,12 @@ body {
 .ffd20 .disabled,
 .pf1-v2 .disabled {
   pointer-events: inherit;
+}
+.ffd20 input,
+.pf1-v2 input {
+  --input-box-shadow: none;
+  transition: border-color 0.5s, outline-color 0.5s, box-shadow 0.5s;
+}
+.chat-message .ffd20 .dice-tooltip[popover] {
+  color: var(--color-text-primary);
 }

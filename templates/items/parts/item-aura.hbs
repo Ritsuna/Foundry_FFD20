@@ -5,7 +5,7 @@
 <div class="form-group" data-tooltip="@item.cl : {{system.cl}}">
   <label class="header">{{localize "FFD20.CasterLevel"}}</label>
   <div class="form-fields">
-    <input type="number" class="select-on-click" name="system.cl" value="{{system.cl}}" placeholder="{{localize "FFD20.CasterLevel"}}" min="0" step="1">
+    <input type="number" class="select-on-click" name="system.cl" value="{{data.cl}}" placeholder="0" min="0" step="1">
   </div>
 </div>
 
@@ -17,14 +17,14 @@
     <label class="aura-strength">{{aura.strengthLabel}}</label>
     {{/if}}
     {{#if system.aura.custom}}
-    <input type="text" name="system.aura.school" value="{{system.aura.school}}" placeholder="{{localize "FFD20.Aura.Single"}}">
+    <input type="text" name="system.aura.school" value="{{data.aura.school}}" placeholder="{{localize "FFD20.Aura.Single"}}">
     {{else}}
     <select name="system.aura.school">
-      {{selectOptions config.spellSchools selected=system.aura.school blank=(localize "FFD20.None")}}
+      {{selectOptions config.spellSchools selected=data.aura.school blank=(localize "FFD20.None")}}
     </select>
     {{/if}}
     <label class="checkbox">
-      <input type="checkbox" name="system.aura.custom" {{checked system.aura.custom}}> {{localize "FFD20.Custom"}}
+      <input type="checkbox" name="system.aura.custom" {{checked data.aura.custom}}> {{localize "FFD20.Custom"}}
     </label>
   </div>
 </div>

@@ -49,6 +49,7 @@
 
 {{!-- Limited Uses --}}
 {{#unless isSpell}}
+{{#if showIdentified}}
 <div class="form-group uses-per">
   <label>{{localize "FFD20.LimitedUses.Label"}}</label>
   <div class="form-fields">
@@ -80,7 +81,7 @@
 <div class="form-group uses-per">
   <label>{{localize "FFD20.MaximumUsesFormula"}}</label>
   <div class="form-fields">
-    <input class="formula" type="text" name="system.uses.maxFormula" value="{{system.uses.maxFormula}}" placeholder="{{localize "FFD20.MaximumUsesFormula"}}">
+    <input class="formula" type="text" name="system.uses.maxFormula" value="{{system.uses.maxFormula}}" placeholder="{{localize "FFD20.Infinite"}}">
   </div>
 </div>
 {{/if}}
@@ -111,6 +112,7 @@
       <input type="text" name="system.uses.pricePerUse" value="{{system.uses.pricePerUse}}" placeholder="0" type="Number">
     </div>
   </div>
+{{/if}}
 {{/if}}
 {{/if}}
 {{/unless}}

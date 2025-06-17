@@ -28,7 +28,7 @@
 <div class="form-group input-select">
   <label>{{localize "FFD20.Target"}}</label>
   <div class="form-fields">
-    <input type="text" name="target.value" value="{{action.target.value}}">
+    <input type="text" name="target.value" value="{{action.target.value}}" placeholder="{{localize "FFD20.NonApplicable"}}">
   </div>
 </div>
 
@@ -71,7 +71,7 @@
 <div class="form-group input-select">
   <label>{{localize "FFD20.Area"}}</label>
   <div class="form-fields">
-    <input type="text" name="area" value="{{data.area}}">
+    <input type="text" name="area" value="{{data.area}}" placeholder="{{localize "FFD20.NonApplicable"}}">
   </div>
 </div>
 
@@ -83,7 +83,7 @@
     <input class="{{#if (eq data.duration.units "spec")}}text-input{{else}}formula{{/if}}" type="text" name="duration.value" value="{{data.duration.value}}" placeholder="{{localize "FFD20.Formula"}}">
     {{/if}}
     <select name="duration.units">
-      {{selectOptions @root.config.timePeriods selected=data.duration.units blank=""}}
+      {{selectOptions @root.config.timePeriods selected=data.duration.units blank=(localize "FFD20.NonApplicable")}}
     </select>
   </div>
 </div>
@@ -158,7 +158,7 @@
     <input class="formula roll" type="text" name="uses.autoDeductChargesCost" placeholder="{{defaultChargeFormula}}" value="{{data.uses.autoDeductChargesCost}}">
     {{/if}}
     {{#unless isSpell}}
-    <label class="checkbox">
+    <label class="checkbox per-attack">
       <input type="checkbox" name="uses.perAttack" {{checked data.uses.perAttack}}>
       {{localize "FFD20.PerAttack"}}
     </label>

@@ -1,10 +1,9 @@
 <div class="tab description{{#if @root.isIdentified}} identified{{/if}}" data-group="primary" data-tab="description">
   {{#if isPhysical}}
     <div class="unidentified-description description-content{{#unless system.description.unidentified}} empty{{/unless}}">
-    {{#if showBothDescriptions}}
+      {{#if showBothDescriptions}}
       <h3 class="form-header">{{localize "FFD20.UnidentifiedDescription"}}</h3>
-    {{/if}}
-
+      {{/if}}
       {{editor descriptionHTML.unidentified target="system.description.unidentified" toggle=_editorState.system.description.unidentified button=_editorState.system.description.unidentified engine="prosemirror" editable=@root.editable}}
       <!-- prose-mirror name="system.description.unidentified" value="{{system.description.unidentified}}" {{#if _editorState.system.description.unidentified}}toggled{{/if}}>{{{descriptionHTML.unidentified}}}</prose-mirror -->
     </div>

@@ -1,0 +1,3370 @@
+{
+  "FFD20": {
+    "ACFlatFooted": "Impreparato",
+    "ACNormal": "CA",
+    "ACNotes": "Note CA",
+    "ACP": "PAP",
+    "ACPArmor": "PAP (Armatura)",
+    "ACPLong": "Penalità di Armatura alla Prova",
+    "ACPShield": "PAP (Scudo)",
+    "ACPTooltip": "Penalità di Armatura alla Prova",
+    "ACTouch": "Contatto",
+    "Ability": "Caratteristica",
+    "AbilityCha": "Carisma",
+    "AbilityCon": "Costituzione",
+    "AbilityDamage": "Danno Caratteristica",
+    "AbilityDex": "Destrezza",
+    "AbilityDrain": "Risucchio Caratteristica",
+    "AbilityInt": "Intelligenza",
+    "AbilityScore": "Modificatore di Caratteristica",
+    "AbilityShortCha": "Car",
+    "AbilityShortCon": "Cos",
+    "AbilityShortDex": "Des",
+    "AbilityShortInt": "Int",
+    "AbilityShortStr": "For",
+    "AbilityShortWis": "Sag",
+    "AbilityStr": "Forza",
+    "AbilityTest": "Prova di Caratteristica su {ability}",
+    "AbilityWis": "Saggezza",
+    "AccessibilityConfigHint": "Cambia le configurazioni di accessibilità",
+    "AccessibilityConfigLabel": "Accessibilità",
+    "AccessibilityConfigName": "Configurazioni di Accessibilità",
+    "AccessibilityFontSize": "Grandezza Font",
+    "AccessibilityFontSizeHint": "Cambia la grandezza del font in alcuni aspetti del gioco (ad esempio le card degli attacchi mostrate in chat)",
+    "Action": "Azione",
+    "ActionPlural": "Azioni",
+    "ActionType": "Tipo d'Azione",
+    "ActivationCost": "Costo di Attivazione",
+    "Active": "Attivo",
+    "Add": "Crea",
+    "AddConditional": "Aggiungi Condizione",
+    "AddEffect": "Aggiungi Effetto",
+    "Advanced": "Avanzate",
+    "Age": "Età",
+    "Alignment": "Allineamento",
+    "All": "Tutto",
+    "AllSkills": "Tutte le Abilità",
+    "AmountPrepared": "{count} Preparate",
+    "Apply": "Applica",
+    "ApplyCriticalDamage": "Applica Danno Critico",
+    "ApplyCriticalHealing": "Applica Cura Critica",
+    "ApplyDamage": "Applica Danno",
+    "ApplyHalf": "Applica Metà",
+    "ApplyHealing": "Applica Cura",
+    "ArcaneSpellFailure": "Fallimento Incantesimi Arcani",
+    "Area": "Area",
+    "ArmorCheckPenalty": "Penalità di Armatura alla Prova",
+    "ArmorClass": "Classe Armatura",
+    "Attack": "Attacco",
+    "AttackAbility": "Caratteristica di Attacco",
+    "AttackAction": "Azione di Attacco",
+    "AttackDetails": "Dettagli dell'Attacco",
+    "AttackPenalty": "Penalità di Attacco",
+    "AttackRollBonus": "Bonus al Tiro per Colpire",
+    "AttackRollPlural": "Tiri per Colpire",
+    "AttackType": "Tipo di Attacco",
+    "AttackUsage": "Utilizzi Attacco",
+    "Attacks": "Attacchi",
+    "Attributes": "Attributi",
+    "AutoDeductCharges": "Sottrai automaticamente le cariche",
+    "AutomaticSpellSlots": "Slot Incantesimo Automatici",
+    "BAB": "Bonus Attacco Base",
+    "BABAbbr": "BAB",
+    "BGSkillRanks": "Gradi di Abilità per Background",
+    "BGUsed": "Background in Uso",
+    "Base": "Base",
+    "BaseDCFormula": "Formula di Base CD",
+    "BaseWeaponCritical": "Critico di Base dell'Arma",
+    "BaseWeaponDamage": "Danno di Base dell'Arma",
+    "Biography": "Biografia",
+    "Bloodline": "Stirpe",
+    "BonusAttackFormula": "Formula del Bonus all'Attacco",
+    "BonusCarryStrength": "Bonus di Forza alla Capacità di Trasporto",
+    "BonusDamageFormula": "Formula del Bonus al Danno",
+    "BonusFeatFormula": "Formula Telenti Bonus",
+    "Broken": "Rotto",
+    "BrowseBestiary": "Sfoglia Bestiario",
+    "BrowseClasses": "Sfoglia Classi",
+    "BrowseFeats": "Sfoglia Talenti",
+    "BrowseItems": "Sfoglia Oggetti",
+    "BrowseRaces": "Sfoglia Razze",
+    "BrowseSpells": "Sfoglia Incantesimi",
+    "BuffName": "Nome Effetto",
+    "BuffTarAC": "CA",
+    "BuffTarACArmor": "CA Armatura",
+    "BuffTarACGeneric": "CA Generica",
+    "BuffTarACNatural": "Armatura Naturale",
+    "BuffTarACShield": "CA Scudo",
+    "BuffTarAbilityChecks": "Prove di Caratteristica",
+    "BuffTarChaChecks": "Prove di Carisma",
+    "BuffTarChaSkills": "Abilità sul Carisma",
+    "BuffTarConChecks": "Prove di Costituzione",
+    "BuffTarConSkills": "Abilità su Costituzione",
+    "BuffTarDexChecks": "Prove di Destrezza",
+    "BuffTarDexSkills": "Abilità su Destrezza",
+    "BuffTarIntChecks": "Prove di Intelligenza",
+    "BuffTarIntSkills": "Abilità su Intelligenza",
+    "BuffTarSpecificSkill": "Abilità Specifica",
+    "BuffTarSpells": "Incantesimi",
+    "BuffTarStrChecks": "Prove di Forza",
+    "BuffTarStrSkills": "Abilità su Forza",
+    "BuffTarWisChecks": "Prove di Saggezza",
+    "BuffTarWisSkills": "Abilità su Saggezza",
+    "Buffs": "Effetti",
+    "ByBonus": "Per Bonus",
+    "ByLevel": "Per Livello",
+    "CLNotes": "Note Livello Incantatore",
+    "CMB": "Bonus Manovra in Combattimento",
+    "CMBAbbr": "BMC",
+    "CMBAbility": "Caratteristica BMC",
+    "CMDAbbr": "DMC",
+    "CMDFFAbbr": "DMC Impreparato",
+    "CMDFlatFooted": "DMC Impreparato",
+    "CMDNotes": "Note DMC",
+    "CROffset": "Offset Grado Sfida",
+    "CS": "AdC",
+    "CSTooltip": "Abilità di Classe",
+    "Carried": "Trasportato",
+    "CarryAboveHead": "Sopra la Testa",
+    "CarryDragPush": "Trascinare e Spingere",
+    "CarryHeavyLoad": "Carico Pesante",
+    "CarryLabel": "Sta trasportando {lbs} lbs",
+    "CarryLabelKg": "Sta trasportando {kg} kg",
+    "CarryLightLoad": "Carico Leggero",
+    "CarryMediumLoad": "Carico Medio",
+    "CarryOffGround": "Alzare da Terra",
+    "Cast": "Lancia incantesimo",
+    "CasterLevel": "Livello Incantatore",
+    "CasterLevelBonusFormula": "Formula Bonus LI",
+    "CasterLevelCheck": "Prova del Livello Incantatore",
+    "CasterLevelNotes": "Note Livello Incantatore",
+    "CasterLevelOffset": "Offset Livello Incantatore",
+    "CastingTime": "Tempo di Lancio",
+    "CastsLeft": "Utilizzi rimanenti",
+    "Category": "Categoria",
+    "ChallengeRatingShort": "GS",
+    "Changelog": "Note di Rilascio",
+    "Changes": "Modifiche",
+    "CharacterName": "Nome del Personaggio",
+    "ChargeCost": "Costo Carica",
+    "ChargePlural": "Cariche",
+    "ChatOtherFormula": "Altra Formula",
+    "ChatReqMats": "Materiali Richiesti",
+    "CheckFlags": "Flag",
+    "ClassAbilities": "Privilegi di Classe",
+    "ClassFeaturePlural": "Privilegi di Classe",
+    "ClassPlural": "Classi",
+    "ClassSkills": "Abilità di Classe",
+    "ClassType": "Tipo di Classe",
+    "Classes": "Classi",
+    "Combat": "Combattimento",
+    "CombatInfo_Header": "Combattimento",
+    "CombatInfo_Round": "Round {round}",
+    "Compendium": "Compendio",
+    "Components": "Componenti",
+    "ConImm": "Immunità alle Condizioni",
+    "ConRes": "Resistenze alle Condizioni",
+    "Concentration": "Concentrazione",
+    "ConcentrationBonusFormula": "Formula Bonus Concentrazione",
+    "ConcentrationCheck": "Prova di Concentrazione",
+    "ConcentrationNotes": "Note Concentrazione",
+    "ConditionPlural": "Condizioni",
+    "Conditionals": "Modificatori Condizionali",
+    "Confirm": "Conferma",
+    "ConsumableType": "Tipo di Consumabile",
+    "ContextNotes": "Note Contestuali",
+    "ConvertCurrency": "Converti Monete",
+    "CostGP": "Costo (MO)",
+    "CreateAttack": "Crea Attacco",
+    "CreateItem": "Crea Elemento",
+    "CreateItemForSpell": "Crea Oggetto per {name}",
+    "CreateItemPotion": "Pozione",
+    "CreateItemPotionOf": "Pozione di {name}",
+    "CreateItemScroll": "Pergamena",
+    "CreateItemScrollOf": "Pergamena di {name}",
+    "CreateItemWand": "Bacchetta",
+    "CreateItemWandOf": "Bacchetta di {name}",
+    "CreatureType": "Tipo di Creatura",
+    "Creatures": "Creature",
+    "Critical": "Critico",
+    "CriticalConfirmBonus": "Bonus per Confema del Critico",
+    "CriticalConfirmation": "Conferma del Critico",
+    "CriticalMultiplier": "Moltiplicatore Critico",
+    "CriticalThreatRange": "Intervallo di Minaccia del Critico",
+    "Currency": {
+      "Label": "Monete",
+      "Weightless": "Monete senza peso",
+      "Full": {
+        "sp": "Argento",
+        "cp": "Rame",
+        "pp": "Platino",
+        "gp": "Oro"
+      },
+      "Inline": {
+        "gp": "{value} mo",
+        "sp": "{value} ma",
+        "cp": "{value} mr",
+        "pp": "{value} mp"
+      },
+      "Abbr": {
+        "pp": "MP",
+        "gp": "MO",
+        "sp": "MA",
+        "cp": "MR"
+      }
+    },
+    "Current": "Attuali",
+    "Custom": "Personalizzato",
+    "CustomColor": "Colore Personalizzato",
+    "CustomTexture": "Texture Personalizzata",
+    "DC": "CD",
+    "DCDescriptionExample": "es.: Riflessi dimezza",
+    "DCOffset": "Offset CD",
+    "DamImm": "Immunità ai Danni",
+    "DamRed": "Riduzione del Danno",
+    "DamVuln": "Vulnerabilità ai Danni",
+    "Damage": "Danno",
+    "DamageAbility": "Caratteristica dei Danni",
+    "DamageBonus": "Bonus ai Danni",
+    "DamageCritical": "Danno Critico",
+    "DamageFormula": "Formula dei Danni",
+    "DamageRoll": "Tiro per i Danni",
+    "DamageRollPlural": "Tiri per i Danni",
+    "DamageType": "Tipo di Danno",
+    "DeadlyAim": "Mira Letale",
+    "Default": "Default",
+    "Defenses": "Difese",
+    "Deity": "Divinità",
+    "DeleteItem": "Elimina Elemento",
+    "DeleteItemConfirmation": "Sei sicuro di voler eliminare questo elemento?",
+    "Description": "Descrizione",
+    "Details": "Dettagli",
+    "Disabled": "Disabilitato",
+    "Domain": "Dominio",
+    "DontShowAgain": "Non mostrare il changelog dopo gli aggiornamenti del sistema",
+    "Drain": "Risucchio",
+    "DuplicateItem": "Duplica Elemento",
+    "Duration": "Durata",
+    "EditItem": "Modifica Elemento",
+    "Effect": "Effetto",
+    "EffectNotes": "Note Effetto",
+    "Effects": "Effetti",
+    "ElementalSchool": "Scuola Elementale",
+    "EnRes": "Resistenze alle Energie",
+    "Enabled": "Abilitato",
+    "Enchantments": "Incantamenti",
+    "Encumbrance": "Ingombro",
+    "EnhancementBonus": "Bonus di Potenziamento",
+    "EquipmentSubtype": "Sottotipo di Equipaggiamento",
+    "EquipmentType": "Tipo di Equipaggiamento",
+    "Equipped": "Equipaggiato",
+    "Experience": "Esperienza",
+    "ExperienceConfigHint": "Configura aspetti dell'avanzamento di livello.",
+    "ExperienceConfigLabel": "Configura Esperienza",
+    "ExperienceConfigName": "Configurazione Esperienza",
+    "ExtraAttacks": {
+      "Label": "Attacchi Extra",
+      "Standard": "Iterattivi",
+      "Advanced": "Iterativi + Personalizzato",
+      "Flurry": "Raffica di Colpi",
+      "FlurryFlavor": "Raffica",
+      "FlurryAttack": "Raffica #{0}",
+      "Custom": "Personalizzato",
+      "Add": "Aggiungi Attacco Extra",
+      "Formula": {
+        "Label": "Da Formula",
+        "LabelDefault": "Attacco #{0}",
+        "LabelTooltip": "Inserisci <code>{0}</code> per visualizzare il contatore delle iterazioni.",
+        "Count": "Formula Numero Attacchi"
+      },
+      "ModifierFormula": "Formula Modificatore Attacco",
+      "ModifierTooltip": "<code>@formulaicAttack</code> può essere utilizzato per indicare quanti attacchi ci sono in sequenza.",
+      "UnFlurry": "Raffica di Colpi (Rivisitato)"
+    },
+    "FastHealing": "Guarigione Rapida",
+    "FeatPlural": "Talenti",
+    "Feats": "Talenti",
+    "Features": "Talenti",
+    "FilteredItems": "{count} Oggetti Filtrati",
+    "ForceRecover": "Forza Recupero",
+    "Formula": "Formula",
+    "FromSources": "Provenienti da",
+    "FullAttack": "Attacco Completo",
+    "FullRoundAttack": "Attacco Round Completo",
+    "Gender": "Genere",
+    "GiveItem": "Dai Oggetto",
+    "Good": "Buono",
+    "HPAbility": "Caratteristica Punti Ferita",
+    "HPShort": "PF",
+    "Hardness": "Durezza",
+    "Healing": "Cura",
+    "HealingFormula": "Formula della Cura",
+    "Health": "Punti Ferita",
+    "Height": "Altezza",
+    "Held": "Impugnatura",
+    "HelpSellMultiplier": "Il tasso a cui gli oggetti che vengono venduti.<br>Il valore di default è 0.5.<br>Le Merci di Scambio si vendono sempre a prezzo pieno (1.0).",
+    "HelpSellMultiplierN": "Tasso di Vendita",
+    "HideFromToken": "Nascondi dal token",
+    "High": "Alto",
+    "HitDice": "Dadi Vita",
+    "HitDie": "Dado Vita",
+    "HitDieShort": "DV",
+    "HitPoints": "Punti Ferita",
+    "Identified": "Identificato",
+    "IdentifyDC": "CD Identificare",
+    "IdentifyDCNumber": "CD Identificare {dc}",
+    "ImmuneTo": "Immune a {immunity}",
+    "ImmunityPlural": "Immunità",
+    "InfoShort": "Info",
+    "Info_FirstClass": "Trascina e rilascia da {browser}<br>oppure fai clic sul pulsante {create} qui sopra per iniziare da zero.",
+    "Info_FirstClass_Compendium": "Compendio delle Classi",
+    "Info_MissingClass": "Il tuo personaggio non ha una classe. Vai nella sezione Classi presente nel Sommario della scheda del personaggio.",
+    "InitiallyPrepared": "Preparati inizialmente",
+    "Initiative": "Iniziativa",
+    "InitiativeBonus": "Bonus di Iniziativa",
+    "Inventory": "Inventario",
+    "InventoryConsumables": "Consumabili",
+    "InventoryContainers": "Contenitori",
+    "InventoryWeapons": "Armi",
+    "Item": "Oggetto",
+    "ItemName": "Nome Elemento",
+    "ItemWeight": "Peso",
+    "Items": "Oggetti",
+    "Kgs": "kg",
+    "Languages": "Linguaggi",
+    "Lbs": "lbs",
+    "LearnedAt": "Imparato a",
+    "LeftToPrepare": "Rimanenti da preparare",
+    "Level": "Livello",
+    "LevelDrain": "Livelli Negativi",
+    "LimitedUses": {
+      "Label": "Utilizzi Limitati",
+      "Periods": {
+        "round": "Per Round",
+        "single": "Uso Singolo",
+        "minute": "Al Minuto",
+        "hour": "A Ora",
+        "day": "Al Giorno",
+        "week": "Alla Settimana",
+        "charges": "Cariche"
+      }
+    },
+    "LinkHelpCharges": "Gli elementi collegati ereditano e condividono le cariche dall'elemento padre collegato (questo elemento).",
+    "LinkHelpChildren": "I figli collegati vengono eleminati dall'attore quanto il collegamento padre viene eliminato.",
+    "LinkHelpClassAssociations": "Gli elementi collegati all'associazione di classe vengono aggiunti automaticamente all'attore al livello di classe appropriato. A differenza di altri collegamenti di elementi, questi devono essere collegati da un compendio.",
+    "LinkTypeCharges": "Cariche",
+    "LinkTypeChildren": "Figli",
+    "LinkTypeClassAssociations": "Associazione di Classe",
+    "Links": "Collegamenti",
+    "LongTermCare": "Cura a Lungo Termine",
+    "Low": "Basso",
+    "MagicItems": "Oggetti Magici",
+    "Masterwork": "Perfetto",
+    "MaxDexArmor": "Bonus Destrezza Max (Armatura)",
+    "MaxDexShield": "Bonus Destrezza Max (Scudo)",
+    "MaxDexShort": "Des Max",
+    "MaxDexterityModifier": "Modificatore Destrezza Massimo",
+    "MaxFormula": "Formula del Massimo",
+    "Maximum": "Massimo",
+    "MaximumUsesFormula": "Formula degli Utilizzi Massimi",
+    "MeasureTemplate": "Sagoma di Misurazione",
+    "Medium": "Medio",
+    "Melee": "In Mischia",
+    "Misc": "Vari",
+    "MiscShort": "Vari",
+    "Modifier": "Modificatore",
+    "Multiplier": "Moltiplicatore",
+    "Name": "Nome",
+    "No": "No",
+    "NonApplicable": "N/A",
+    "None": "Nessuno",
+    "Nonlethal": "Non Letali",
+    "Normal": "Normale",
+    "NotEquipped": "Non Equipaggiato",
+    "Notes": "Note",
+    "NotificationCreatedAttack": "Attacco creato per {item}",
+    "OpenAssociatedCompendiumEntry": "Apri nel compendio",
+    "OpenCompendium": "Apri Compendio",
+    "Other": "Altro",
+    "Penalty": "Penalità",
+    "PerformAttack": "Esegui Attacco",
+    "Permanent": "Permanente",
+    "PointBlankShot": "Tiro Ravvicinato",
+    "Poor": "Scarso",
+    "PowerAttack": "Attacco Poderoso",
+    "Prepared": "Preparato",
+    "Price": "Prezzo",
+    "PrimaryAttack": "Attacco Principale",
+    "Priority": "Priorità",
+    "Proficient": "Competente",
+    "Quadruped": "Quadrupede",
+    "Quantity": "Quantità",
+    "QuickActions": "Azioni Rapide",
+    "QuickInfo": "Informazioni Rapide",
+    "RT": "RA",
+    "RTTooltip": "Richiede Addestramento",
+    "Race": "Razza",
+    "RaceSubtypePlural": "Sottotipi",
+    "Races": "Razze",
+    "RacialTraitPlural": "Tratti Razziali",
+    "Range": "Gittata",
+    "RangeNote": "Gittata: {distance} {units}",
+    "Ranged": "A Distanza",
+    "Rank": "Grado",
+    "RapidShot": "Tiro Rapido",
+    "Recover": "Recupero",
+    "RecoverAmmunition": "Recupero Munizioni",
+    "RecoverChancePercentage": "% Chance di Recupero",
+    "ReducedMovementSpeed": "Velocità di Movimento Ridotta",
+    "Refresh": "Aggiorna",
+    "Regeneration": "Rigenerazione",
+    "Requirements": "Requisiti",
+    "Rest": "Riposo",
+    "RestoreDailyUses": "Recupera utilizzi giornalieri",
+    "RestoreHealth": "Recupera Punti Ferita",
+    "RestoredOnRest": "Ripristinato al Riposo",
+    "RollBABMacroName": "{actor}: Tira Bonus di Attacco Base",
+    "RollCLMacroName": "{actor}: Tira Livello Incantatore ({book})",
+    "RollCMBMacroName": "{actor}: Tira Bonus di Manovra in Combattimento",
+    "RollConcentrationMacroName": "{actor}: Tira Concentrazione ({book})",
+    "DisplayDefensesMacroName": "{actor}: Tira Difese",
+    "RollMode": "Modalità Tiro",
+    "RollSkillMacroName": "{actor}: Tira {skill}",
+    "Save": "Salva",
+    "SaveNotes": "Note Tiro Salvezza",
+    "SavingThrow": "Tiro Salvezza",
+    "SavingThrowButtonLabel": "{type} CD {dc}",
+    "SavingThrowEffect": "Effetto Tiro Salvezza",
+    "SavingThrowFort": "Tempra",
+    "SavingThrowPlural": "Tiri Salvezza",
+    "SavingThrowRef": "Riflessi",
+    "SavingThrowRoll": "Tiro Salvezza su {save}",
+    "SavingThrowWill": "Volontà",
+    "School": "Scuola",
+    "SeeText": "Vedi Testo",
+    "Senses": "Sensi",
+    "SetTo": "Imposta a {value}",
+    "Settings": "Impostazioni",
+    "ShowInQuickbar": "Mostra nella Quickbar",
+    "SingleAttack": "Attacco Singolo",
+    "SituationalBonus": "Bonus Situazionali",
+    "Size": "Taglia",
+    "SkillAcr": "Acrobazia",
+    "SkillApr": "Valutare",
+    "SkillArt": "Artistica",
+    "SkillBlf": "Raggirare",
+    "SkillBonusRankFormula": "Formula per Gradi Bonus",
+    "SkillCheck": "Prova di Abilità di {skill}",
+    "SkillClm": "Scalare",
+    "SkillCrf": "Artigianato",
+    "SkillDev": "Disattivare Congegni",
+    "SkillDip": "Diplomazia",
+    "SkillDis": "Camuffare",
+    "SkillEsc": "Artista della Fuga",
+    "SkillFly": "Volare",
+    "SkillHan": "Addestrare Animali",
+    "SkillHea": "Guarire",
+    "SkillInt": "Intimidire",
+    "SkillKAr": "Conoscenze (Arcane)",
+    "SkillKDu": "Conoscenze (Dungeon)",
+    "SkillKEn": "Conoscenze (Ingegneria)",
+    "SkillKGe": "Conoscenze (Geografia)",
+    "SkillKHi": "Conoscenze (Storia)",
+    "SkillKLo": "Conoscenze (Locali)",
+    "SkillKNa": "Conoscenze (Natura)",
+    "SkillKNo": "Conoscenze (Nobiltà)",
+    "SkillKPl": "Conoscenze (Piani)",
+    "SkillKRe": "Conoscenze (Religioni)",
+    "SkillLin": "Linguistica",
+    "SkillLor": "Sapienza",
+    "SkillModTooltip": "Modificatore di Abilità",
+    "SkillName": "Nome Abilità",
+    "SkillPer": "Percezione",
+    "SkillPrf": "Intrattenere",
+    "SkillPro": "Professione",
+    "SkillRankPlural": "Gradi di Abilità",
+    "SkillRid": "Cavalcare",
+    "SkillSen": "Intuizione",
+    "SkillSlt": "Rapidità di Mano",
+    "SkillSpl": "Sapienza Magica",
+    "SkillSte": "Furtività",
+    "SkillSur": "Sopravvivenza",
+    "SkillSwm": "Nuotare",
+    "SkillTypeAdventure": "Avventura",
+    "SkillTypeBackground": "Background",
+    "SkillUMD": "Utilizzare Congegni Magici",
+    "Skills": "Abilità",
+    "SkillsPerLevel": "Abilità/Livello",
+    "Slot": "Slot",
+    "SoundEffect": "Effetto Sonoro",
+    "Source": "Fonte",
+    "Special": "Speciale",
+    "SpellBook": "Libro degli Incantesimi",
+    "SpellCasting": "Lancio Incantesimi",
+    "SpellComponents": {
+      "DFVariants": {
+        "FDF": "F/FD",
+        "DF": "FD",
+        "MDF": "M/FD"
+      },
+      "Type": {
+        "focus": {
+          "Abbr": "F",
+          "Label": "Focus"
+        },
+        "divineFocus": {
+          "Label": "Focus Divino",
+          "Abbr": "FD"
+        },
+        "verbal": {
+          "Label": "Verbale",
+          "Abbr": "V"
+        },
+        "somatic": {
+          "Label": "Somatica",
+          "Abbr": "S"
+        },
+        "thought": {
+          "Label": "Pensiero",
+          "Abbr": "P"
+        },
+        "emotion": {
+          "Label": "Emozione",
+          "Abbr": "E"
+        },
+        "material": {
+          "Label": "Materiale",
+          "Abbr": "M",
+          "Desc": "Descrizione materiale",
+          "Value": "valore materiale"
+        }
+      },
+      "Label": "Componenti Incantesimi",
+      "Misc": "Componenti vari"
+    },
+    "SpellDamage": "Danno Incantesimo",
+    "SpellEffect": "Effetto Incantesimo",
+    "SpellEffectExample": "es.: un globo d'acido",
+    "SpellEffects": "Effetti Incantesimo",
+    "SpellLevel": "Livello Incantesimo",
+    "SpellLevelOffset": "Offset Livello Incantesimo",
+    "SpellPoints": "Punti Incantesimo",
+    "SpellPointsCost": "Costo in Punti Incantesimo",
+    "SpellPointsCurrent": "Punti Incantesimo Attuali",
+    "SpellPointsMax": "Punti Incantesimo Massimi",
+    "SpellPrepAtWill": "A Volontà",
+    "SpellPrepPrepared": "Preparato",
+    "SpellPrepSpontaneous": "Spontaneo",
+    "SpellPreparationType": "Tipo di Preparazione Incantesimi",
+    "SpellResistance": "Resistenza agli Incantesimi",
+    "SpellResistanceNote": "Resistenza agli Incantesimi {0}",
+    "SpellResistanceNotes": "Note Resistenza Incantesimi",
+    "SpellSchool": "Scuola Incantesimo",
+    "SpellTypesExample": "es.: acido, malvagio",
+    "SpellbookUsage": "Uso Libro degli Incantesimi",
+    "SpellcastingAbility": "Caratteristica Incantatore",
+    "SpellcastingClass": "Classe da Incantatore",
+    "Spells": "Incantesimi",
+    "SpellsTotalEachDay": "Incantesimi totali al giorno",
+    "SubDomain": "Sottodominio",
+    "SubSchool": "Sottoscuola",
+    "SubSchoolExample": "es.: convocazione, compulsione",
+    "Summary": "Sommario",
+    "Tag": "Tag",
+    "Tags": "Tag",
+    "Target": "Bersaglio",
+    "Targets": "Bersagli",
+    "TempHP": "Punti Ferita Temporanei",
+    "TempShort": "Temp.",
+    "TemplatePlural": "Archetipi",
+    "TemplateType": "Tipo di Sagoma",
+    "Temporary": "Temporaneo",
+    "Tier": "Rango",
+    "Total": "Totale",
+    "TotalItems": "{count} Oggetti Totali",
+    "TraitPlural": "Tratti",
+    "Type": "Tipo",
+    "TypePlural": "Tipi",
+    "Unidentified": "Non Identificato",
+    "UnidentifiedName": "Nome da Non Identificato",
+    "UnidentifiedPriceShort": "Prezzo (Non Identificato)",
+    "Unlimited": "Illimitato",
+    "Unprepared": "Non Preparato",
+    "Untrained": "Non Addestrato",
+    "UpdateActor": "Aggiorna Attore",
+    "UpdateItem": "Aggiorna Oggetto",
+    "Usage": "Utilizzo",
+    "Use": "Usa",
+    "UseFeat": "Usa Talento",
+    "UseItem": "Usa Oggetto",
+    "UseSpell": "Usa Incantesimo",
+    "UseSpellPoints": "Usa Punti Incantesimo",
+    "Used": "Utilizzati",
+    "Uses": "Utilizzi",
+    "Value": "Valore",
+    "Vigor": "Vigore",
+    "Vision": "Visione",
+    "VulnerableTo": "Vulnerabile a {vulnerability}",
+    "WeaponDamage": "Danno dell'Arma",
+    "WeaponHoldTypeNormal": "Normale",
+    "WeaponHoldTypeOffhand": "Mano Secondaria",
+    "WeaponHoldTypeTwoHanded": "A Due Mani",
+    "WeaponProperties": "Proprietà dell'Arma",
+    "WeaponSize": "Taglia dell'Arma",
+    "WeaponSubtype": "Sottotipo di Arma",
+    "WeaponSubtypeRanged": "A Distanza",
+    "WeaponType": "Tipo di Arma",
+    "WeaponTypeExotic": "Esotica",
+    "WeaponTypeMartial": "Da Guerra",
+    "WeaponTypeSimple": "Semplice",
+    "WeaponTypeSplash": "A Spargimento",
+    "Weight": "Peso",
+    "Wounds": "Ferite",
+    "Yes": "Sì",
+    "SpellBookPlural": "Libri degli Incantesimi",
+    "AbilityScoreLinks": "Collegamenti Modificatori Caratteristica",
+    "Stature": "Statura",
+    "StatureLong": "Lungo",
+    "StatureTall": "Alto",
+    "SearchFilterPlaceholder": "Cerca…",
+    "Feature": "Talento",
+    "General": "Generale",
+    "OptionalAndVariantRules": "Varianti e Regole Opzionali",
+    "WoundThresholdOverride": "Gestione Soglie di Ferimento",
+    "HideHeld": "Nascondi Oggetti Impugnati",
+    "HideArmor": "Nascondi Armatura",
+    "HideBuffs": "Nascondi Effetto",
+    "HideConditions": "Nascondi Condizioni",
+    "HideClothing": "Nasconti Abbigliamento",
+    "HideName": "Nascondi Nome",
+    "SpellbookName": "Nome Libro Incantesimi",
+    "SpellSlotAbilityBonus": "Slot Incantesimi Bonus",
+    "DomainSlotValue": "Slot di Dominio/Scuola",
+    "DomainSlotValueDesc": "Numero di slot bonus che gli incantesimi di Dominio/Scuola hanno per ciascun livello di incantesimo.",
+    "AutoSpellClassLevelOffset": {
+      "Formula": "Modificatore Livello Classe",
+      "InfoBox": "Se hai una classe di prestigio che altera il tuo livello di classe, aggiungine il livello qui (e.g. @classes.mysticTheurge.level)"
+    },
+    "AutoCalculateSpellSlots": "calcolo Automatico Slot Incantesimi",
+    "HasCantrips": "Ha Trucchetti/Orazioni",
+    "Arcanist": "Arcanista",
+    "RedMantisAssassin": "Assassino Mantide Rossa",
+    "SpellsKnown": "Inc. Conosciuti",
+    "CastPerDay": "Lanci al Giorno",
+    "PreparePerDay": "Prep. al Giorno",
+    "Modifications": "Modificatori",
+    "SpellSlotCost": "Costo Slot Incantesimi",
+    "AttackName": "Nome Attacco",
+    "AddNote": "Aggiungi Nota",
+    "AddChange": "Aggiungi Modifica",
+    "LevelUp": {
+      "Chat": {
+        "Header": "Report Nuovo Livello",
+        "Health": {
+          "Header": "Salute",
+          "Roll": "Risultato del dado: {add}",
+          "Manual": "Valore Manuale: {add}",
+          "Auto": "Automatico: {add}",
+          "Static": "Statico: {add}"
+        },
+        "FC": {
+          "Header": "Bonus Classe Preferita"
+        },
+        "Extra": {
+          "Header": "Extra",
+          "NewFeat": "Hai 1 nuovo Talento da scegliere",
+          "NewFeats": "Hai {newValue} nuovi Talenti da scegliere"
+        },
+        "AbilityScore": {
+          "Gain": "{abl}: +{value}",
+          "Header": "Aumento Punteggio Caratteristica"
+        }
+      },
+      "Health": {
+        "Static": {
+          "Desc": "Ottieni una quantità di PF definita dalla tua classe.",
+          "Label": "Statico"
+        },
+        "Maximized": {
+          "Desc": "Ottieni il massimo numero di PF possibile per questo livello in base al tuo dado vita.",
+          "Label": "Massimizzato"
+        },
+        "Roll": {
+          "Desc": "I tuoi punti ferita per questo livello saranno tirati usando il tuo dado vita.",
+          "Label": "Tiro"
+        },
+        "Manual": {
+          "Label": "Manuale",
+          "Desc": "Sarai tu a decidere quanti punti ferita guadagnare per questo livello."
+        },
+        "Label": "Salute",
+        "Auto": {
+          "Label": "Auto",
+          "Desc": "I tuoi punti ferita vengono impostati automaticamente in base al tasso predefinito ({rate}%)."
+        }
+      },
+      "FC": {
+        "Label": "Bonus Classe Preferita",
+        "HP": {
+          "Label": "Punti Ferita",
+          "Desc": "Guadagni un solo punto ferita."
+        },
+        "Skill": {
+          "Desc": "Ottieni un singolo grado abilità da spendere liberamente.",
+          "Label": "Punti Abilità"
+        },
+        "Alt": {
+          "Desc": "Ottieni qualcosa di specifico per la tua combinazione di classe e razza.",
+          "Label": "Alternativo"
+        },
+        "None": {
+          "Label": "Nessuno",
+          "Desc": "Non guadagni nulla perché questa classe non può avere BCP o perché non hai scelto un bonus."
+        }
+      },
+      "AbilityScore": {
+        "Label": "Punteggio di Caratteristica",
+        "PointsLeft": "Punti rimanenti: {value}",
+        "Item": {
+          "Name": "Punti caratteristica Aggiunti",
+          "Desc": "<p>Questa funzione viene utilizzata per tenere traccia dei cambiamenti del tuo punteggio di caratteristica derivanti dall'ottenimento del dado vita.</p>"
+        },
+        "NextLevel": "Successivamente ottenuto al livello del personaggio {level}.",
+        "NextTier": "Successivamente ottenuto al livello mitico {tier}."
+      },
+      "SkipHint": "Aggiungi il livello di classe così com'è, ignorando le scelte in questa finestra di dialogo. Le associazioni di classe e altri miglioramenti di base (come BAB) vengono comunque aggiunti.",
+      "Add": "Aggiungi {class}",
+      "Increase": "Livello + {class}",
+      "Action": "Livello +",
+      "NewLevel": "Nuovo Livello",
+      "NewTier": "Nuovo Tier",
+      "Summary": {
+        "Label": "Riepilogo",
+        "AdventureSkills": "Gradi di abilità avventura",
+        "BackgroundSkills": "Gadi abilità di Background"
+      }
+    },
+    "FavouredClassBonus": {
+      "Label": "Bonus Classe Preferita",
+      "HP": "Punto Ferita",
+      "Skill": "Abilità",
+      "Alt": "Alt"
+    },
+    "MinRange": "Gittata Minima",
+    "MaximumRangeIncrements": "Max Incrementi di gittata",
+    "AddClass": "Aggiunta Classe",
+    "Info": {
+      "AddClassDialog": "Puoi tenere premuto Shift per saltare questo step.",
+      "AddClassDialog_Desc": "Scegliendo Normale si apre un breve Wizard, mentre scegliendo RAW si aggiungerà la classe senza alterazioni.",
+      "NotFunctioning": "Il sistema (al momento) non usa questa funzionalità"
+    },
+    "DeleteItemTitle": "Elimina Elemento: {name}",
+    "Haste": "Velocità",
+    "DisableLightLowLightVision": "Disabilita Vista Crepuscolare per la fonte di luce",
+    "BuffTarAllAttackRolls": "Tutti gli Attacchi",
+    "BuffTarAllDamageRolls": "Tutti i Danni",
+    "BuffTarAllSavingThrows": "Tutti i Tiri Salvezza",
+    "BuffTarAllSkills": "Tutte le Abilità",
+    "BuffTarAllAbilityChecks": "Tutte le prove Caratteristica",
+    "BuffTarAllSpeeds": "Tutte le Velocità",
+    "BuffTarBonusSkillRanks": "Bonus Gradi Abilità",
+    "BuffTarMeleeAttack": "Attacco in Mischia",
+    "BuffTarRangedAttack": "Tiri di Attacco a Distanza",
+    "Defense": "Difesa",
+    "BuffTarACTouch": "CA Contatto",
+    "BuffTarACFlatFooted": "CA Impreparato",
+    "CMD": "Difesa Manovra Combattimento",
+    "BuffTarBonusFeats": "Bonus Talenti",
+    "AbilityStrMod": "Mod. Forza",
+    "AbilityDexMod": "Mod. Destrezza",
+    "AbilityConMod": "Mod. Costituzione",
+    "AbilityIntMod": "Mod. Intelligenza",
+    "AbilityWisMod": "Mod. Saggezza",
+    "AbilityChaMod": "Mod. Carisma",
+    "SpellRangeShort": "25 ft. + 5 ft./2 livelli",
+    "SpellRangeMedium": "100 ft. + 10 ft./livello",
+    "SpellRangeLong": "400 ft. + 40 ft./livello",
+    "SpellRangeShortMetric": "7.5 m + 1.5 m/2 livelli",
+    "SpellRangeMediumMetric": "30 m + 3 m/livello",
+    "SpellRangeLongMetric": "120 m + 12 m/livello",
+    "Action_DisplayDefenses": "Mostra Difese",
+    "AmmoDepleted": "Munizioni Esaurite!",
+    "AmmoRemaining": "Munizioni rimanenti: {quantity}",
+    "Application": {
+      "ChangeTargetSelector": {
+        "Title": "Seleziona Cambio Target",
+        "InvalidChoice": "La scelta non è valida per l'attore attuale."
+      },
+      "ContextNoteTargetSelector": {
+        "Title": "Seleziona Nota contestuale Target"
+      },
+      "Settings": {
+        "Experience": {
+          "DisableHint": "Disabilita le funzionalità di progressione dei Punti Esperienza, come barre dell'esperienza, rilevamento dell'aumento di livello, soglie PE, ecc.",
+          "Track": {
+            "CustomUsage": "La formula dell'esperienza personalizzata è cumulativa. Ciò significa, ad esempio, che per imitare l'esperienza in stile PF2 dovresti semplicemente inserire <code>1000</code>, poiché ogni singolo livello richiede esattamente 1000 punti esperienza, mentre impostandolo su <code>@level * 1000</code> significherebbe che ogni singolo livello richiederebbe mille PE in più rispetto al livello precedente. Utilizza i normali dati di tiro del personaggio con l'aggiunta di <code>@level</code> per il livello da ottenere.",
+            "Hint": "La velocità con cui i personaggi avanzano di livello",
+            "Label": "Progressione Esperienza",
+            "Options": {
+              "Slow": "Lento",
+              "Custom": "Personalizzato",
+              "Medium": "Medio",
+              "Fast": "Veloce"
+            },
+            "CustomPlaceholder": "es. '@level * 1000'"
+          },
+          "Title": "Configurazione Esperienza",
+          "Name": "Configurazione Esperienza",
+          "Label": "Configura Esperienza",
+          "Hint": "Configura gli aspetti relativi al passaggio di livello.",
+          "Reset": "Ripristina la configurazione dell'esperienza ai valori predefiniti.",
+          "Disable": "Disabilita Progressione Esperienza",
+          "Distributor": "Apri Distributore PE",
+          "DistributorHint": "Apre il distributore di PE alla fine del combattimento, a meno che non si tenga premuto Maiusc quando si conferma l'eliminazione del combattimento"
+        },
+        "Player": "Giocatore",
+        "World": "Mondo",
+        "Integration": {
+          "Title": "Integrazione Modulo",
+          "Label": "Configura Integrazione",
+          "Hint": "Modifica i moduli ai quali il sistema aggiunge funzionalità speciali.",
+          "Reset": "Ripristina i valori predefiniti della configurazione di integrazione.",
+          "Modules": {
+            "dice-so-nice": {
+              "Label": "Dice So Nice",
+              "Info": "Attiva DSN dove il sistema offusca i dati dei tiri raggruppandoli in base al contesto."
+            },
+            "drag-ruler": {
+              "Label": "Drag Ruler",
+              "Info": "Aggiunge il provider di velocità a Drag Ruler."
+            },
+            "enhanced-terrain-layer": {
+              "Label": "Enhanced Terrain Layer",
+              "Info": "Migliora il supporto all'integrazione di <em>Drag Ruler</em>."
+            },
+            "babele": {
+              "Label": "Babele",
+              "Info": "Ritarda la preparazione dei dati dei pacchetti in modo che vengano prese in considerazione le traduzioni di Babele."
+            }
+          }
+        },
+        "Health": {
+          "Instructions": "Calcolo della salute per i vari tipi di classi. Per riferimento, Pathfinder Society usa la seguente configurazione per i personaggi dei giocatori: calcolo automatico, tasso 0,5, un DV massimizzato, arrotondamento, continuità discreta.",
+          "Discrete": "Discreta",
+          "Class": {
+            "racial": "Razziale",
+            "pc": "PG",
+            "npc": "PNG",
+            "base": "Base"
+          },
+          "WoundsAndVigor": {
+            "PCHint": "Utilizza il set di regole opzionale Ferite e Vigore per i personaggi dei giocatori.",
+            "PC": "Ferite e Vigore per i PG",
+            "NPC": "Ferite e Vigore per i PNG",
+            "NPCHint": "Utilizza il set di regole opzionale Ferite e Vigore per i personaggi non giocanti.",
+            "Label": "Ferite e Vigore",
+            "Hint": "Per questo tipo di attore, usa il set di regole opzionale Ferite e Vigore."
+          },
+          "ContinuityHint": "La salute può essere calcolata in modo discreto o continuo. La salute discreta viene arrotondata a ogni livello, il che significa che le creature riceveranno una quantità stabile di salute per ogni DV. La salute continua viene arrotondata dopo che ogni fonte di DV è stata valutata, il che significa che le creature riceveranno una quantità fluttuante di salute per ogni DV.",
+          "Title": "Configurazione Salute",
+          "Label": "Configura Salute",
+          "Hint": "Configura il calcolo della salute per gli attori.",
+          "Reset": "Ripristina la configurazione di Salute ai valori predefiniti. Salva per confermare.",
+          "TabBase": "Base",
+          "TabVariant": "Regole Alternative",
+          "Rate": "Rateo",
+          "CanMaximize": "Può Massimizzare",
+          "CanMaximizeHint": "Conta ai fini del calcolo dei dadi vita massimizzati.",
+          "ComputeAuto": "Auto",
+          "ComputeManual": "Manuale",
+          "MaximizedLimit": "Limite DV massimizzato",
+          "Rounding": "Arrotondamento Salute",
+          "RoundingHint": "I valori di salute devono essere numeri interi. In che modo arrotondarli?",
+          "RoundingDown": "Per Difetto",
+          "RoundingNearest": "Più vicino",
+          "Continuity": "Continuità Salute",
+          "Continuous": "Continua",
+          "WoundThresholds": {
+            "PC": "Soglie di Ferimento per i PG",
+            "PCHint": "Utilizzare il set di regole opzionale per le Soglie di Ferimento per i personaggi dei giocatori.",
+            "NPC": "Soglie di Ferimento per i PNG",
+            "Disabled": "Disabilitato",
+            "Normal": "Normale",
+            "Gritty": "Cruento",
+            "VigorConflict": "Le Soglie di Ferimento non hanno effetto se è abilitata anche la regola opzionale Ferite e Vigore.",
+            "NPCHint": "Utilizzare il set di regole opzionale per le Soglie di Ferimento per i personaggi non giocanti.",
+            "Label": "Soglie di Ferimento",
+            "Hint": "Utilizzare il set di regole facoltativo per la soglia di ferimento per questo tipo di attore."
+          },
+          "RoundingUp": "Per Eccesso",
+          "Compute": "Calcola",
+          "AutoConfig": "Configurazione Salute Automatica"
+        },
+        "Performance": {
+          "Title": "Configurazione delle prestazioni",
+          "Button": "Impostazioni delle prestazioni",
+          "Hint": "Regola le impostazioni che incidono sulle prestazioni.",
+          "Reset": "Ripristina i valori predefiniti della configurazione delle prestazioni.",
+          "Options": {
+            "reachLimit": {
+              "Label": "Limite evidenziazione Portata",
+              "Hint": "LViene disegnata la portata massima in quadrati evidenziati. Il valore predefinito è 60 (300 piedi). Il primo incremento è visualizzato completamente indipendentemente da questa impostazione. I valori inferiori a 10 disattivano completamente l'evidenziazione della portata."
+            }
+          }
+        }
+      },
+      "Changelog": {
+        "DontShowAgain": "Non mostrare il changelog dopo gli aggiornamenti di sistema",
+        "Title": "Changelog",
+        "OpenInBrowser": "Apri nel Browser",
+        "Latest": "Ultimo",
+        "Major": "Maggiore",
+        "Legacy": "Legacy"
+      },
+      "DamageResistanceSelector": {
+        "Resisted": "Contro",
+        "DRTitle": "Selezione della Riduzione Danno",
+        "ERTitle": "Selezione Resistenza Energia",
+        "DamageAmount": "Quantità",
+        "Bypassed": "Bypassato da",
+        "CombinationType": "Operatore",
+        "CombinationOr": "o",
+        "CombinationAnd": "e",
+        "CombinationFormattedOr": "{type1} o {type2}",
+        "CombinationFormattedAnd": "{type1} e {type2}"
+      },
+      "PartyRest": {
+        "Watches": {
+          "NoneHint": "Nessuno sta facendo la guardia.",
+          "PerShift": "Ore per turno",
+          "None": "No guardie",
+          "Length": "Durata turno di guardia",
+          "Solo": "Solo",
+          "SoloHint": "Una sola persona sta di guardia.",
+          "Duo": "Duo",
+          "DuoHint": "Due persone stanno di guardia contemporaneamente.<br>Sono necessarie almeno 4 persone.",
+          "Label": "Guardie"
+        },
+        "Title": "Riposo Party",
+        "Watch": "Guardia",
+        "Rested": "Il gruppo di {people} si è riposato completamente! Sono trascorse {ore} ora/e."
+      },
+      "ChangeEditor": {
+        "Help": {
+          "SimpleHint": "Supporta solo termini numerici, senza variabili o lanci di dadi.",
+          "Roll": "Tiro",
+          "Link": "Informazioni sulle modifiche",
+          "Value": "Valore",
+          "ValueHint": "Deve essere deterministico, senza elementi casuali come i lanci di dadi.",
+          "RollHint": "Supporta elementi casuali come i lanci di dadi.",
+          "Simple": "Semplice"
+        },
+        "Label": "Modifica Editor",
+        "AddChange": "Aggiungi Modifica",
+        "AsType": "Tipo",
+        "CopyId": "Copia ID modifica",
+        "Invalid": "Non valido",
+        "Operator": {
+          "Add": "Regola",
+          "AddVerb": "Regola",
+          "AddHint": "Regola la proprietà del target con formula",
+          "Set": "Imposta",
+          "SetVerb": "Imposta",
+          "SetHint": "Imposta la proprietà del target sulla formula",
+          "InvalidHint": "Operatore sconosciuto."
+        }
+      },
+      "ActionSelector": {
+        "Title": "{actor} usa {item}"
+      },
+      "CurrencyTransfer": {
+        "Send": "Invia Monete",
+        "Failed": "Trasferimento Monete fallito: ",
+        "GMRequired": "Per completare il trasferimento è necessario un GM.",
+        "Insufficient": "Monete Insufficienti"
+      },
+      "XPDistributor": {
+        "Title": "Distributore di Esperienza",
+        "Options": {
+          "BonusExperience": "Bonus Esperienza"
+        },
+        "Reward": "Ricompensa",
+        "SplitEvenly": "Dividi equamente",
+        "GiveToAll": "Dare a tutti",
+        "TotalExperience": "Esperienza Totale",
+        "SplitExperience": "Dividi Esperienza",
+        "Warnings": {
+          "NoRecipients": "Nessun destinatario selezionato.",
+          "NoReward": "Nessuna ricompensa definita."
+        },
+        "Result": "{xp} PE assegnati."
+      },
+      "VisionSharing": {
+        "Label": "Condivisione della visione"
+      },
+      "EntrySelector": {
+        "Title": "Selettore voce",
+        "TitleIsolated": "{item} – {title}",
+        "TitleOwned": "{item} – {actor} – {title}"
+      },
+      "TraitSelector": {
+        "CustomHint": "Aggiungere nuove voci con invio o punto e virgola (;). Premendo due volte backspace quando l'input è vuoto si rimuove l'ultimo elemento.",
+        "NoCustomEntries": "Nessuna voce personalizzata.",
+        "CustomPlaceholder": "Inserisci voce personalizzata"
+      },
+      "ItemSelector": {
+        "Quantity": "Quantità",
+        "Title": "Selettore Elemento",
+        "Items": "Elementi"
+      },
+      "ActorSelector": {
+        "Title": "Selettore Attore",
+        "You": "Tu",
+        "Owner": "Proprietario",
+        "OwnedActors": "Posseduto",
+        "UnownedActors": "Altro",
+        "NoUnownedActors": "Non hai il permesso di vedere alcun attore.",
+        "MinimumPermissionLevel": "Il livello minimo di autorizzazione richiesto è Limitato."
+      },
+      "GetNumber": {
+        "Title": "Inserire il numero",
+        "Confirm": "Conferma"
+      },
+      "PointBuy": {
+        "Title": "Calcolatore Point Buy",
+        "SetupHint": "Il calcolatore Point Buy è disponibile qui solo temporaneamente. Puoi sempre accedervi dalla scheda impostazioni.",
+        "Warning": "Il calcolatore Point Buy SOSTITUIRÀ i punteggi delle abilità base del personaggio.",
+        "InvalidPoints": "Utilizzo punti non valido.",
+        "Spent": "Punti Spesi",
+        "Points": "Punti",
+        "CampaignType": "Tipo Campagna",
+        "Type": {
+          "low": "Classico",
+          "standard": "Standard",
+          "high": "Eroico",
+          "epic": "Epico"
+        }
+      },
+      "DocumentSelector": {
+        "Title": "Selettore Documento",
+        "None": "Nessuno"
+      },
+      "Damage": {
+        "Instances": "Istanze",
+        "ReduceBy": "Ridotto da",
+        "ApplyDamage": "Danni applicati a {targets} bersaglio/i.",
+        "ApplyHeal": "Cura applicata a {targets} bersaglio/i.",
+        "DualHeal": "Doppia cura",
+        "DualHealHint": "Cura sia la salute normale che quella non letale.",
+        "AsWounds": "Come Ferite"
+      }
+    },
+    "Bright": "Intensa",
+    "BrowseBuffs": "Sfoglia Effetti",
+    "Change": "Modifica",
+    "ClearReduction": "Cancella Riduzione",
+    "CustomRollDesc": "Questo lancio usa una formula non-default",
+    "Dim": "Fioca",
+    "Disable": "Disabilita",
+    "DuplicateInitiative": "Duplica Iniziativa",
+    "Edit": "Modifica",
+    "Enable": "Abilita",
+    "Flags": "Flags",
+    "FlagsBoolean": "Flags Booleani",
+    "FlagsDictionary": "Flags Dizionario",
+    "FormulaResult": "Risultato Formula",
+    "Hidden": "Nascosto",
+    "Horizontal": "Orizzontale",
+    "InitiativeOffset": "Offset Initiativa",
+    "Iterative": "Iterattivo",
+    "Key_Control": "Controllo",
+    "Manyshot": "Tiro Multiplo",
+    "MeleeSpell": "Incantesimo in Mischia",
+    "MeleeWeapon": "Arma da Mischia",
+    "Migration": {
+      "End": "Migrazione Sistema PF1 alla versione {version} completato!",
+      "Ongoing": "Migrazione in corso. Prego attendere.",
+      "Start": "Applicazione Migrazione Sistema PF1 alla versione {version}. Prego attendere.",
+      "Dialog": {
+        "Tooltip": {
+          "Processed": "Elaborato",
+          "Ignored": "Ignorato",
+          "Invalid": "Non valido",
+          "Errors": "Errori",
+          "Status": "Status",
+          "Total": "Totale"
+        },
+        "Completed": "Migrazione completata!",
+        "RefreshRequired": "Refresh richiesto per finalizzare la migrazione!",
+        "Title": "Migrazione",
+        "Ongoing": "Migrazione in corso!",
+        "IgnoreLocked": "Vengono ignorati i compendi bloccati",
+        "ProcessLocked": "Elaborazione di compendi bloccati",
+        "FastMode": "Vengono saltati i documenti migrati.",
+        "SlowMode": "Elaborazione di tutti i documenti.",
+        "ReloadAll": "Ricaricare tutti i Client",
+        "Category": "Categoria",
+        "Issues": "Problemi di Migrazione",
+        "InvalidDocuments": "Documenti non validi",
+        "ErrorHelp": "Fare clic sui contatori degli errori della categoria per visualizzarne i dettagli.",
+        "Errors": "Errori"
+      },
+      "InProgress": "La migrazione del sistema PF1 è in corso. Attendi che finisca.",
+      "Category": {
+        "World": "Mondo",
+        "Modules": "Pacchetti Moduli",
+        "System": "Sistema",
+        "Actors": "Elenco Attori",
+        "Items": "Elenco Elementi",
+        "Chat": "Messaggi Chat",
+        "Scenes": "Scene",
+        "Packs": "Compendi"
+      },
+      "Issues": {
+        "ID": "ID",
+        "UUID": "UUID",
+        "Message": "Messaggio"
+      }
+    },
+    "NewClassFeaturePlural": "Nuovi Privilegi di Classe",
+    "NotImplemented": "Non Implementato",
+    "OnMouse": "On Mouse",
+    "Operator": "Operatore",
+    "RangedSpell": "Incantesimo a Distanza",
+    "RangedWeapon": "Arma a Distanza",
+    "Raw": "Raw",
+    "ReduceBy": "Ridotto di",
+    "RemoveInfo": "Remuovi Info",
+    "SecondaryAttack": "Attacco Secondario",
+    "SourceInfoSkillRank_ClassBase": "{className} (Base)",
+    "SourceInfoSkillRank_ClassFC": "{className} (Classe Preferita)",
+    "StaticSize": "Statistiche Taglia",
+    "StepsRequired": "Passi Richiesti",
+    "SwapSelected": "Scambia Selezionati",
+    "Vertical": "Verticale",
+    "ScriptCalls": {
+      "Name": "Script",
+      "NewName": "Nuovo Script",
+      "Use": {
+        "Name": "Utilizzo",
+        "Info": "Richiamato quando l'elemento viene 'usato' (attacco, bere pozione, ecc.). Prevede la variabile array <code>attacks</code>, che contiene i tiri per colpire dell'azione, se disponibile."
+      },
+      "Equip": {
+        "Name": "Equipaggiato",
+        "Info": "Richiamato quando l'oggetto viene equipaggiato o disequipaggiato. Prevede la variabile booleana extra <code>equipped</code>."
+      },
+      "Toggle": {
+        "Name": "Attiva/Disattiva",
+        "Info": "Richiamato quando l'oggetto viene attivato o disattivato. Prevede la variabile booleana extra <code>state</code>."
+      },
+      "ChangeQuantity": {
+        "Name": "Cambio Quantità",
+        "Info": "Richiamato quando vengono cambiate le quantità dell'oggetto. Prevede le variabili numeriche extra <code>quantity.previous</code> e <code>quantity.new</code>."
+      },
+      "ChangeLevel": {
+        "Name": "Cambio Livello",
+        "Info": "Richiamato quando viene cambiato il livello dell'oggetto. Prevede le variabili numeriche extra <code>level.previous</code> e <code>level.new</code>."
+      },
+      "Create": "Crea chiamata script incorporata",
+      "PostUse": {
+        "Info": "Chiamato dopo che l'elemento è stato \"utilizzato\" e tutte le elaborazioni pertinenti da parte del sistema sono state completate.",
+        "Name": "Post-Utilizzo"
+      },
+      "Implant": {
+        "Name": "Impiantato",
+        "Info": "Chiamato quando l'elemento è stato impiantato o non impiantato. Ha la variabile booleana extra <code>implanted</code>."
+      }
+    },
+    "Help": {
+      "Label": "Documentazione",
+      "GoForward": "Click per proseguire",
+      "GoBack": "Click per tornare indietro",
+      "GoHome": "Click per andare alla home"
+    },
+    "Title": "Pathfinder 1e",
+    "KEYBINDINGS": {
+      "SkipConfirmPrompt": {
+        "Name": "Salta Richiesta di Conferma"
+      },
+      "HideTokenTooltip": {
+        "Hint": "Nasconde i tooltip dei token quando il tasto è premuto",
+        "Name": "Nascondi Tooltip del Token"
+      },
+      "HideTokenTooltipGMInfo": {
+        "Name": "Mostra Tooltip dei Token come Giocatore"
+      },
+      "ForceShowItem": {
+        "Name": "Forza Mostra Oggetto",
+        "Hint": "Se mostrare l'oggetto in chat o meno quando si usa una macro usandolo"
+      },
+      "StickyTokenTooltip": {
+        "Name": "Blocca Tooltip Token",
+        "Hint": "Mantieni aperto il Tooltip del token anche dopo aver spostato il cursore fuori dal token."
+      }
+    },
+    "Sheet": {
+      "PC": "Personaggio Giocante (PG)",
+      "Item": "Oggetto Generico",
+      "NPC": "Personaggio Non Giocante (PNG)",
+      "NPCLite": "PNG Lite",
+      "NPCLoot": "Bottino",
+      "Container": "Contenitore",
+      "Haunt": "Infestazione",
+      "Trap": "Trappola",
+      "Vehicle": "Veicolo",
+      "TextPage": "Pagina Testo (PF1)"
+    },
+    "Disposition": {
+      "None": "Nessuna",
+      "Hostile": "Ostile",
+      "Non-Friendly": "Non Amichevole",
+      "All": "Tutte"
+    },
+    "SpellDescriptors": {
+      "acid": "acido",
+      "air": "aria",
+      "mindAffecting": "influenza mentale",
+      "pain": "dolore",
+      "poison": "veleno",
+      "ruse": "stratagemma",
+      "shadow": "ombra",
+      "sonic": "sonoro",
+      "water": "acqua",
+      "chaotic": "caotico",
+      "cold": "freddo",
+      "curse": "maledizione",
+      "darkness": "oscurità",
+      "death": "morte",
+      "disease": "malattia",
+      "draconic": "draconico",
+      "earth": "terra",
+      "electricity": "elettricità",
+      "emotion": "emozione",
+      "evil": "male",
+      "fear": "paura",
+      "fire": "fuoco",
+      "force": "forza",
+      "good": "bene",
+      "languageDependent": "dipendente dal linguaggio",
+      "lawful": "legge",
+      "light": "luce",
+      "meditative": "meditativo"
+    },
+    "WoundLevel": {
+      "healthy": "Sano",
+      "grazed": "Escoriato",
+      "wounded": "Ferito",
+      "critical": "Critico"
+    },
+    "EditAction": "Modifica Azione",
+    "Condition": {
+      "deathEffects": "Effetti di Morte",
+      "poison": "Veleno",
+      "moraleEffects": "Effetti Morale",
+      "squeezing": "Comprimersi",
+      "flatFooted": "Impreparato",
+      "frightened": "Spaventato",
+      "grappled": "In Lotta",
+      "helpless": "Indifeso",
+      "incorporeal": "Incorporeo",
+      "invisible": "Invisibile",
+      "mindAffecting": "Influenza Mentale",
+      "nauseated": "Nauseato",
+      "panicked": "In Preda al Panico",
+      "paralyzed": "Paralizzato",
+      "petrified": "Pietrificato",
+      "pinned": "Immobilizzato",
+      "polymorph": "Polimorfo",
+      "prone": "Prono",
+      "shaken": "Scosso",
+      "sickened": "Infermo",
+      "sleep": "Sonno",
+      "stable": "Stabilizzato",
+      "staggered": "Barcollante",
+      "stunned": "Stordito",
+      "unconscious": "Incosciente",
+      "bleed": "Sanguinamento",
+      "blind": "Accecato",
+      "confused": "Confuso",
+      "cowering": "Accovacciato",
+      "dazzled": "Abbagliato",
+      "dead": "Morto",
+      "deaf": "Assordato",
+      "dazed": "Frastornato",
+      "disabled": "Inabile",
+      "disease": "Malattia",
+      "dying": "Morente",
+      "energyDrain": "Risucchio di Energia",
+      "entangled": "Intralciato",
+      "exhausted": "Esausto",
+      "fatigued": "Affaticato",
+      "fear": "Paura",
+      "curse": "Effetti Maledizione"
+    },
+    "AbilityPenalty": "Penalità Abilità",
+    "ActionTypes": {
+      "spellSave": "Tiro Salvezza (Inc.)",
+      "other": "Altro",
+      "rwak": "Attacco con Arma a Distanza",
+      "mwak": "Attacco con Arma da Mischia",
+      "twak": "Attacco con Arma da Lancio",
+      "msak": "Attacco Incantesimo da Mischia",
+      "rsak": "Attacco Incantesimo a Distanza",
+      "mcman": "Manovra di Combattimento in Mischia",
+      "rcman": "Manovra di Combattimento a Distanza",
+      "save": "Tiro Salvezza",
+      "heal": "Cura"
+    },
+    "QuantitySub": "Riduci Quantità<br><br>Click: -1<br>Shift + Click: -5<br>Ctrl + Click: -10",
+    "DeleteActionConfirmation": "Vuoi davvero eliminare questa azione da {name}?",
+    "WeaponHoldTypeOneHanded": "A Una Mano",
+    "WeaponGroup": {
+      "axes": "Asce",
+      "bladesHeavy": "Lama Pesante",
+      "bladesLight": "Lama Leggera",
+      "bows": "Archi",
+      "close": "Ravvicinato",
+      "crossbows": "Balestre",
+      "double": "Doppie",
+      "firearms": "Da Fuoco",
+      "hammers": "Martelli",
+      "monk": "Monaco",
+      "natural": "Naturali",
+      "polearms": "Ad Asta",
+      "siegeEngines": "Macchine d'Assedio",
+      "spears": "Lance",
+      "thrown": "Da Lancio",
+      "tribal": "Tribali",
+      "flails": "Mazzafrusti"
+    },
+    "Alignments": {
+      "cg": "Caotico Buono",
+      "c": "Caotico",
+      "Short": {
+        "lg": "LB",
+        "cn": "CN",
+        "le": "LM",
+        "ng": "NB",
+        "ln": "LN",
+        "tn": "N",
+        "cg": "CB",
+        "ne": "NM",
+        "ce": "CM"
+      },
+      "ng": "Neutrale Buono",
+      "ce": "Caotico Malvagio",
+      "l": "Legale",
+      "g": "Bene",
+      "tn": "Neutrale",
+      "cn": "Caotico Neutrale",
+      "le": "Legale Malvagio",
+      "ne": "Neutrale Malvagio",
+      "e": "Male",
+      "lg": "Legale Buono",
+      "ln": "Legale Neutrale"
+    },
+    "DuplicateAction": "Duplica Azione",
+    "DeleteAction": "Elimina Azione",
+    "DeleteActionTitle": "Elimina Azione: {name}",
+    "LinkHelpSupplements": "Quando questo elemento viene aggiunto a un attore, vengono aggiunti anche gli elementi supplementari.",
+    "Duplicate": "Duplica",
+    "QuantityAdd": "Aumenta Quantità<br><br>Click: 1<br>Shift + Click: 5<br>Ctrl + Click: 10",
+    "ModifierOnlyShort": "Solo Mod.",
+    "CheckOnly": "Solo Prova",
+    "Delete": "Elimina",
+    "AbilityStrPen": "Penalità Forza",
+    "AbilityDexPen": "Penalità Destrezza",
+    "AbilityConPen": "Penalità Costituzione",
+    "AbilityIntPen": "Penalità Intelligenza",
+    "AbilityWisPen": "Penalità Saggezza",
+    "Hands": "Mani Richieste",
+    "ApplyToAll": "Applica a tutto",
+    "TakeX": "Prendi {number}",
+    "ModifierOnly": "Solo Modificatore",
+    "DeleteChildLinks": "Anche i seguenti elementi verranno eliminati a causa dei collegamenti figlio o altre associazioni",
+    "DeleteSkill": "Elimina Abilità",
+    "DeleteSkillTitle": "Elimina Abilità: {name}",
+    "DeleteSkillConfirmation": "Sei sicuro di voler eliminare questa abilità?",
+    "LinkTypeSupplements": "Supplementi",
+    "EditSkill": "Modifica Abilità",
+    "Roll": "Tira",
+    "AbilityChaPen": "Penalità Carisma",
+    "TotalItemValue": "Valore Tot. Oggetti: {gp} mo, {sp} ma, {cp} mr",
+    "Subtypes": {
+      "Item": {
+        "attack": {
+          "natural": {
+            "Plural": "Attacchi Naturali",
+            "Single": "Attacco Naturale"
+          },
+          "weapon": {
+            "Single": "Attacco con Arma",
+            "Plural": "Attacchi con Arma"
+          },
+          "ability": {
+            "Single": "Caratteristica di Classe",
+            "Plural": "Caratteristiche di Classe"
+          },
+          "racialAbility": {
+            "Single": "Caratteristica Razziale",
+            "Plural": "Caratteristiche Razziali"
+          },
+          "item": {
+            "Single": "Elemento",
+            "Plural": "Oggetti"
+          },
+          "misc": {
+            "Single": "Vario",
+            "Plural": "Vari"
+          }
+        },
+        "loot": {
+          "misc": {
+            "Single": "Vario",
+            "Plural": "Vari"
+          },
+          "ammo": {
+            "Single": "Munizione",
+            "Plural": "Munizioni"
+          },
+          "tradeGoods": {
+            "Single": "Merce di Scambio",
+            "Plural": "Merci di Scambio"
+          },
+          "gear": {
+            "Single": "Arnese",
+            "Plural": "Arnesi"
+          },
+          "tool": {
+            "Single": "Strumento",
+            "Plural": "Strumenti"
+          },
+          "animal": {
+            "Plural": "Animali/Cavalcature",
+            "Single": "Animale/Cavalcatura"
+          },
+          "animalGear": {
+            "Single": "Attrezzo per Animali",
+            "Plural": "Attrezzi per Animali"
+          },
+          "reagent": {
+            "Single": "Reagente Alchemico",
+            "Plural": "Reagenti Alchemici"
+          },
+          "food": {
+            "Single": "Cibo",
+            "Plural": "Cibi"
+          },
+          "herb": {
+            "Single": "Erba",
+            "Plural": "Erbe"
+          },
+          "adventuring": {
+            "Single": "Equipaggiamento d'Avventura",
+            "Plural": "Attrezzi d'Avventura"
+          },
+          "remedy": {
+            "Single": "Rimedio Alchemico",
+            "Plural": "Rimedi Alchemici"
+          },
+          "entertainment": {
+            "Single": "Intrattenimento",
+            "Plural": "Intrattenimenti"
+          },
+          "treasure": {
+            "Single": "Tesoro",
+            "Plural": "Tesori"
+          },
+          "vehicle": {
+            "Single": "Veicolo/Trasporto",
+            "Plural": "Veicoli/Trasporti"
+          }
+        },
+        "weapon": {
+          "firearm": {
+            "Single": "Da Fuoco"
+          },
+          "simple": {
+            "Single": "Semplice"
+          },
+          "martial": {
+            "Single": "Da Guerra"
+          },
+          "exotic": {
+            "Single": "Esotico"
+          },
+          "siege": {
+            "Single": "Assedio"
+          },
+          "heavy": {
+            "Single": "Pesante"
+          },
+          "misc": {
+            "Single": "Altro"
+          }
+        },
+        "feat": {
+          "racial": {
+            "Single": "Tratto Razziale",
+            "Plural": "Tratti Razziali"
+          },
+          "feat": {
+            "Single": "Talento",
+            "Plural": "Talenti"
+          },
+          "classFeat": {
+            "Single": "Privilegio di Classe",
+            "Plural": "Privilegi di Classe"
+          },
+          "trait": {
+            "Single": "Tratto",
+            "Plural": "Tratti"
+          },
+          "template": {
+            "Plural": "Archetipi Creature",
+            "Single": "Archetipo Creatura"
+          },
+          "misc": {
+            "Single": "Altro",
+            "Plural": "Altri"
+          }
+        },
+        "class": {
+          "base": {
+            "Single": "Classe Base"
+          },
+          "prestige": {
+            "Single": "Classe di Prestigio"
+          },
+          "npc": {
+            "Single": "Classe PNG"
+          },
+          "racial": {
+            "Single": "DV Razziale"
+          },
+          "mythic": {
+            "Single": "Percorso Mitico"
+          }
+        },
+        "equipment": {
+          "armor": {
+            "Single": "Armatura",
+            "Plural": "Armature",
+            "Types": {
+              "light": "Armatura leggera",
+              "medium": "Armatura Media",
+              "heavy": "Armatura Pesante"
+            }
+          },
+          "wondrous": {
+            "Single": "Meravigliosa"
+          },
+          "clothing": {
+            "Single": "Veste",
+            "Plural": "Vesti"
+          },
+          "shield": {
+            "Single": "Scudo",
+            "Types": {
+              "light": "Scudo Leggero",
+              "heavy": "Scudo Pesante",
+              "tower": "Scudo Torre",
+              "misc": "Scudo Vari"
+            }
+          }
+        },
+        "consumable": {
+          "potion": {
+            "Single": "Pozione/Olio"
+          },
+          "poison": {
+            "Single": "Veleno"
+          },
+          "scroll": {
+            "Single": "Pergamena"
+          },
+          "wand": {
+            "Single": "Bacchetta"
+          },
+          "rod": {
+            "Single": "Verga"
+          },
+          "staff": {
+            "Single": "Bastone"
+          },
+          "pharmaceutical": {
+            "Single": "Farmaco"
+          },
+          "drug": {
+            "Single": "Droga"
+          }
+        },
+        "buff": {
+          "temp": {
+            "Single": "Temporaneo",
+            "Plural": "Temporanei"
+          },
+          "spell": {
+            "Single": "Incantesimo",
+            "Plural": "Incantesimi"
+          },
+          "misc": {
+            "Single": "Vario",
+            "Plural": "Vari"
+          },
+          "feat": {
+            "Single": "Talento",
+            "Plural": "Talenti"
+          },
+          "perm": {
+            "Single": "Permanente",
+            "Plural": "Permanenti"
+          },
+          "item": {
+            "Single": "Elemento",
+            "Plural": "Oggetti"
+          }
+        },
+        "implant": {
+          "cybertech": {
+            "Single": "Cybertecnologia"
+          }
+        }
+      }
+    },
+    "Distance": {
+      "mShort": "m",
+      "personal": "Personale",
+      "touch": "Contatto",
+      "melee": "In Mischia",
+      "reach": "Portata",
+      "close": "Vicino",
+      "medium": "Medio",
+      "long": "Lungo",
+      "ft": "Piedi",
+      "ftShort": "ft",
+      "mi": "Miglia",
+      "miShort": "mi",
+      "m": "Metri",
+      "km": "Chilometri",
+      "kmShort": "km"
+    },
+    "Containers": {
+      "Contents": {
+        "SellValue": "Valore di Vendita del Contenuto",
+        "Label": "Contenuto",
+        "Weight": "Peso del Contenuto",
+        "Value": "Valore del Contenuto",
+        "Take": "Prendi dal Contenitore"
+      },
+      "TotalValue": "Valore Tot.: {gp} mo, {sp} ma, {cp} mr",
+      "SellValue": "Val. Vendita: {gp} mo, {sp} ma, {cp} mr"
+    },
+    "TemplateSizeFormula": "Formula Dimensione (ft)",
+    "TemplateSizeFormulaHint": "Definisce la distanza del cono e del raggio, il raggio del cerchio e il lato del rettangolo.",
+    "StartingWealth": "Ricchezza Iniziale",
+    "SplitValue": "{gp} mo, {sp} ma, {cp} mr",
+    "WeightReduction": {
+      "Label": "Riduzione Peso",
+      "Percentage": "Percentuale",
+      "Flat": "Nulla"
+    },
+    "DamageTypeCategory": {
+      "misc": "Altro",
+      "physical": "Fisico",
+      "energy": "Energia"
+    },
+    "DamageAlignment": {
+      "Override": "Sostituisce l'elemento padre",
+      "Inherit": "Ereditato dall'elemento padre"
+    },
+    "CompendiumBrowserTitle": "Browser Compendio: {type}",
+    "FilterBooleanOperatorHint": "Passa dalla restituzione di elementi corrispondenti a tutti i filtri, oppure a uno solo.",
+    "EquipSlots": {
+      "body": "Corpo",
+      "armor": "Armatura",
+      "none": "Senza Slot",
+      "shield": "Scudo",
+      "clothing": "Veste",
+      "head": "Testa",
+      "headband": "Fronte",
+      "eyes": "Occhi",
+      "shoulders": "Spalle",
+      "neck": "Collo",
+      "chest": "Torace",
+      "belt": "Cintura",
+      "wrists": "Polsi",
+      "hands": "Mani",
+      "ring": "Anello",
+      "feet": "Piedi"
+    },
+    "Time": {
+      "Period": {
+        "day": {
+          "Label": "Giorni"
+        },
+        "inst": {
+          "Label": "Istantaneo"
+        },
+        "turn": {
+          "Label": "Turno",
+          "Short": "turno"
+        },
+        "round": {
+          "Label": "Round",
+          "Short": "round"
+        },
+        "second": {
+          "Label": "Secondi",
+          "Short": "sec"
+        },
+        "minute": {
+          "Label": "Minuti",
+          "Short": "min"
+        },
+        "hour": {
+          "Label": "Ore",
+          "Short": "h"
+        },
+        "month": {
+          "Label": "Mesi"
+        },
+        "year": {
+          "Label": "Anni"
+        },
+        "perm": {
+          "Label": "Permanente"
+        }
+      },
+      "Format": "{value} {unit}",
+      "Turn": {
+        "Start": "Inizio del Turno",
+        "End": "Fine del Turno"
+      }
+    },
+    "SpellSubschools": {
+      "haunted": "Infestato",
+      "calling": "Richiamo",
+      "charm": "Charme",
+      "compulsion": "Compulsione",
+      "creation": "Creazione",
+      "figment": "Finzione",
+      "glamer": "Fascino",
+      "healing": "Guarigione",
+      "pattern": "Trama",
+      "phantasm": "Fantasma",
+      "polymorph": "Metamorfosi",
+      "scrying": "Scrutamento",
+      "shadow": "Ombra",
+      "summoning": "Convocazione",
+      "teleportation": "Teletrasporto"
+    },
+    "FavouredClass": {
+      "Bonuses": {
+        "Label": "Bonus Classe Preferita",
+        "skill": "Abilità",
+        "alt": "Alt",
+        "hp": "Punti Ferita"
+      }
+    },
+    "CompendiumBrowser": {
+      "ShowPack": "Mostra nei browser di compendio",
+      "HidePack": "Nascondi nei browser di compendio",
+      "ClearFilters": "Cancella Filtri",
+      "ReloadPacks": "Ricarica Pacchetti",
+      "HiddenPack": "Pacchetto nascosto nei browser di compendio",
+      "ActiveFilters": "Filtri Attivi<br><br>Click per cancellare"
+    },
+    "WeaponProperty": {
+      "Thrown": "Da Lancio",
+      "Automatic": "Automatica",
+      "Brace": "Puntare",
+      "Blocking": "Bloccante",
+      "Deadly": "Letale",
+      "Disarm": "Disarmare",
+      "Finesse": "Accurata",
+      "Fragile": "Fragile",
+      "Grapple": "Lottante",
+      "Distracting": "Distrarre",
+      "Improvised": "Improvvisata",
+      "Performance": "Esibizione",
+      "Reach": "Portata",
+      "SemiAutomatic": "Semi-automatica",
+      "Scatter": "Dispersione",
+      "SlowFiring": "Fuoco Lento",
+      "Special": "Speciale",
+      "Trip": "Sbilanciare",
+      "Sunder": "Spezzare",
+      "Monk": "Monaco",
+      "NonLethal": "Non Letale",
+      "Double": "Doppia"
+    },
+    "SpellSchools": {
+      "enc": "Ammaliamento",
+      "abj": "Abiurazione",
+      "con": "Evocazione",
+      "div": "Divinazione",
+      "evo": "Invocazione",
+      "ill": "Illusione",
+      "nec": "Necromanzia",
+      "tra": "Trasmutazione",
+      "uni": "Universale"
+    },
+    "ChangeFlags": {
+      "NoMediumEncumbrance": "Non influenzato dall'Ingombro Medio",
+      "SeeInvisibility": "Vedere Invisibilità",
+      "ImmuneToMoraleEffects": "Immune ad Effetti Morali",
+      "LoseDexToAC": "Perde DES a CA",
+      "NoHeavyEncumbrance": "Non influenzato dall'Ingombro Pesante",
+      "MediumArmorFullSpeed": "Velocità Massima in Armatura Media",
+      "HeavyArmorFullSpeed": "Velocità Massima in Armatura Pesante",
+      "LowLightVision": "Visione Crepuscolare",
+      "SeeInDarkness": "Vedere nel Buio"
+    },
+    "Error": {
+      "NoInitOnDuplicateCombatant": "Non è stato possibile determinare per quale combattente lanciare l'iniziativa.",
+      "DisallowedActionType": "A \"{name}\" non è consentito eseguire questo tipo di azione.",
+      "NoActorPermission": "Non sei autorizzato a controllare questo attore",
+      "NoItemPermission": "Non sei autorizzato a modificare questo elemento.",
+      "NoFormula": "{name} non ha una formula per il lancio!",
+      "TooManyConditionSources": "Troppe fonti di condizioni da modificare.",
+      "ItemNoOwner": "Questo elemento non ha proprietari",
+      "NoFreeSpellbooks": "Nessun libro di incantesimi libero",
+      "SpellbookExists": "Libro di incantesimi già esistente",
+      "CommandParse": "Impossibile eseguire il comando chat.",
+      "NoMacroID": "Non è stata trovata alcuna macro con id '{id}'",
+      "EmptySkillTag": "Tag dell'Abilità non può essere vuoto",
+      "SkillTagAlreadyExists": "Tag abilità '{tag}' esiste già",
+      "NoActorPermissionAlt": "Non sei autorizzato a controllare \"{name}\"",
+      "GenericPermission": "Non sei autorizzato a eseguire tale azione",
+      "InvalidContentLinkDrop": "Impossibile creare il collegamento al contenuto dai dati rilasciati.",
+      "NoGiftTargets": "Nessun obiettivo valido a cui dare qualcosa.",
+      "ItemFormula": "C'è un errore di formula nell'elemento \"{item}\" sull'attore \"{actor}\"",
+      "ActionFormula": "C'è un errore di formula nell'azione \"{action}\" nell'elemento \"{item}\" sull'attore \"{actor}\"",
+      "InsufficientCharges": "Non ci sono più cariche sufficienti in {name}",
+      "NoCharges": "Non ci sono più cariche in {name}",
+      "InsufficientPreparation": "{nome} non è stato preparato o non è conosciuto.",
+      "NoQuantity": "Non ne hai più di quell'oggetto",
+      "NoSpellsLeft": "Non hai più incantesimi di quel tipo",
+      "ActorNotFound": "Attore con ID {id} non trovato",
+      "CantIdentify": "Non ti è consentito identificare gli oggetti",
+      "NoApplicableActorFoundForAction": "Nessun attore trovato applicabile per l'azione '{name}'",
+      "CouldNotFindActorByName": "Impossibile trovare l'attore con il nome '{name}'",
+      "FeatDisabled": "Questo talento è disabilitato",
+      "ItemNotFound": "Elemento con ID {id} non trovato",
+      "NoDefenseCard": "Impossibile visualizzare la scheda di difesa. L'attore non la supporta?",
+      "NoSave": "Tiro salvezza fallito. L'attore non lo supporta?",
+      "UUIDNotFound": "UUID \"{uuid}\" non ha portato a nulla di rilevante."
+    },
+    "Activation": {
+      "standard": {
+        "Plural": "Azioni Standard",
+        "Single": "Standard"
+      },
+      "aoo": {
+        "Single": "Attacco di Opportunità",
+        "Plural": "Attacchi di Opportunità"
+      },
+      "move": {
+        "Single": "Movimento",
+        "Plural": "Azioni di Movimento"
+      },
+      "fullRound": {
+        "Single": "Round Completo",
+        "Plural": "Azioni Round Completo"
+      },
+      "attack": {
+        "Single": "Attacco",
+        "Plural": "Azioni Attacco"
+      },
+      "round": {
+        "Single": "Round",
+        "Plural": "Round"
+      },
+      "minute": {
+        "Single": "Minuto",
+        "Plural": "Minuti"
+      },
+      "hour": {
+        "Single": "Ora",
+        "Plural": "Ore"
+      },
+      "special": {
+        "Single": "Speciale",
+        "Plural": "Speciali"
+      },
+      "nonaction": {
+        "Single": "Non Azione"
+      },
+      "reaction": {
+        "Single": "Reazione",
+        "Plural": "Reazioni"
+      },
+      "action": {
+        "Single": "Azione",
+        "Plural": "Azioni"
+      },
+      "passive": {
+        "Single": "Passivo",
+        "Plural": "Passivi"
+      },
+      "free": {
+        "Single": "Gratuito",
+        "Plural": "Gratuiti"
+      },
+      "swift": {
+        "Single": "Veloce",
+        "Plural": "Azioni Veloci"
+      },
+      "immediate": {
+        "Single": "Immediata",
+        "Plural": "Azioni Immediate"
+      }
+    },
+    "Proficiency": {
+      "Armor": {
+        "LabelPlural": "Competenze Armature",
+        "light": "Armature Leggere",
+        "medium": "Armature Medie",
+        "heavy": "Armature Pesanti",
+        "shield": "Scudi",
+        "tower": "Scudi Torre"
+      },
+      "Weapon": {
+        "simple": "Armi Semplici",
+        "martial": "Armi da Guerra",
+        "firearm": "Armi da Fuoco",
+        "siege": "Armi d'Assedio",
+        "heavy": "Armi Pesanti",
+        "LabelPlural": "Competenze Armi"
+      },
+      "Granted": "Competenze concesse",
+      "Penalty": "Penalità Competenza"
+    },
+    "Warning": {
+      "NoSizeDie": "Impossibile determinare quale dado per {formula}, impostazione predefinita: {fallback}",
+      "DuplicateDFlag": "Flag dizionario in conflitto \"{key}\" per l'elemento \"{item}\" (con identificatore \"{tag}\") sull'attore \"{actor}\".",
+      "DuplicateTag": "Identificatore di elemento duplicato \"{tag}\" trovato nell'elemento \"{item}\" dell'attore \"{actor}\".",
+      "NoDiceAllowedInFormula": "Non sono consentiti tiri di dado nella formula '{formula}' per {context}",
+      "InsufficientAmmunition": "Non hai abbastanza munizioni di tipo {type}",
+      "MissingAmmunition": "Mancano le munizioni collegate all'attacco.",
+      "ConditionalRoll": "La formula condizionale n. {number} della formula condizionale {name} ha causato un errore",
+      "NoItemOnActor": "L'attore \"{actor}\" non ha alcun elemento \"{item}\"",
+      "NoActionInItem": "L'elemento \"{item}\" non ha alcuna azione \"{action}\"",
+      "InvalidUUID": "UUID non valido \"{uuid}\"",
+      "ImmuneToCondition": "{name} è immune alla condizione {condition}.",
+      "CannotCreateChargeLink2": "Impossibile far sì che {target} erediti Cariche da {source}, perché {target} sta già ereditando da {deeptarget}",
+      "LinkOwnerMismatch": "Impossibile creare un collegamento su un elemento con un proprietario diverso.",
+      "LinkOnlyUnowned": "Non è possibile collegare gli elementi posseduti.",
+      "LinkOnlyCompendium": "Non è possibile collegare elementi esterni ai compendi.",
+      "NoMultiLink": "Non è possibile collegare lo stesso elemento più volte.",
+      "FormulaMustBeSimple": "La formula deve essere semplice (niente variabili, tiri di dado o altri elementi non matematici).",
+      "InvalidInput": "Valore non valido",
+      "InvalidItemSheetDrop": "Ricevuto tipo di rilascio non valido \"{type}\".",
+      "CannotCreateChargeLink": "Impossibile far sì che {target} erediti Cariche da {source}, perché {target} sta già condividendo le sue Cariche.",
+      "FormulaMustBeDeterministic": "La formula deve essere deterministica (niente tiri di dado o altri elementi casuali).",
+      "NoCombatantFound": "Nessun combattente trovato",
+      "NoActorSelected": "Nessun attore selezionato per l'azione.",
+      "NoConditionalTargetOptions": "Nessuna opzione di target condizionale disponibile."
+    },
+    "Sense": {
+      "tremorsense": "Percezione Tellurica",
+      "trueseeing": "Visione del Vero",
+      "seeInvis": "Vedere Invisibilità",
+      "seeInDark": "Vedere al Buio",
+      "scent": "Fiuto",
+      "blindsense": "Percezione Cieca",
+      "blindsight": "Vista Cieca",
+      "darkvision": "Scurovisione",
+      "lowlight": "Visione Crepuscolare",
+      "lifesense": "Percepire Vita"
+    },
+    "BuffTarThrownAttack": "Tiri di Attacco da Lancio",
+    "BuffTarSpellEffect": "Effetto Incantesimo",
+    "AssociatedClass": "Classe Associata",
+    "Psychic": "Parapsichico",
+    "Any": "Qualsiasi",
+    "FilterNoChoices": "Nessuna scelta corrispondente trovata.",
+    "WeaponSubtypeLight": "Leggero",
+    "WeaponSubtypeOneHanded": "A Una Mano",
+    "WeaponSubtypeTwoHanded": "A Due Mani",
+    "WeaponSubtypeAssault": "Assalto",
+    "WeaponSubtypeDirect": "Fuoco Diretto",
+    "WeaponSubtypeIndirect": "Fuoco Indiretto",
+    "Cybertech": {
+      "Implantation": "Impianti",
+      "Install": "Installa CD",
+      "Disabled": "Disabilitato",
+      "Slots": {
+        "none": "Nessuno",
+        "arm": "Braccia",
+        "body": "Corpo",
+        "brain": "Cervello",
+        "ears": "Orecchie",
+        "eyes": "Occhi",
+        "head": "Testa",
+        "legs": "Gambe"
+      }
+    },
+    "Trait": {
+      "magic": "Magico",
+      "campaign": "Campagna",
+      "equipment": "Equipaggiamento",
+      "exemplar": "Esemplare",
+      "faction": "Fazione",
+      "family": "Famiglia",
+      "mount": "Cavalcatura",
+      "drawback": "Inconveniente",
+      "cosmic": "Cosmico",
+      "social": "Sociale",
+      "faith": "Mistico",
+      "race": "Razziale",
+      "region": "Regionale",
+      "combat": "Combattimento",
+      "religion": "Religioso"
+    },
+    "SpellLevels": {
+      "0": "Trucchetto/orazione",
+      "1": "1° Livello",
+      "2": "2° Livello",
+      "3": "3° Livello",
+      "4": "4° Livello",
+      "5": "5° Livello",
+      "6": "6° Livello",
+      "7": "7° Livello",
+      "8": "8° Livello",
+      "9": "9° Livello"
+    },
+    "InventoryEquipment": "Equipaggiamento",
+    "AddSkill": "Aggiungi Abilità",
+    "Implanted": "Impiantato",
+    "Spellcasting": {
+      "Progression": {
+        "Label": "Progressione",
+        "Hint": "Alto arriva fino al livello 9.<br>Medio arriva fino al livello 6.<br>Basso arriva fino al livello 4."
+      },
+      "Type": {
+        "Label": "Tipo Incantesimo",
+        "Arcane": "Arcano",
+        "Divine": "Divino",
+        "Psychic": "Parapsichico",
+        "Alchemy": "Alchemico"
+      }
+    },
+    "Spellbook": {
+      "OpenSlots": "Slot Liberi",
+      "InsufficientAbility": "Punteggio di Caratteristica Insufficiente",
+      "InsufficientLevel": "Livello Insufficiente",
+      "Known": "Conosciuti"
+    },
+    "LoadingItemsFromIndexes": "Caricamento di {items} elementi da {indexes} indici…",
+    "CopyUuidToClipboard": "Copia UUID negli appunti",
+    "BuffTarReach": "Portata Naturale",
+    "BuffTarSpellAttack": "Tiri di Attacco con Incantesimo",
+    "BuffTarWeaponAttack": "Tiri di Attacco con Arma",
+    "BuffTarNaturalAttack": "Tiri di Attacco Naturale",
+    "TraitType": "Tipo Tratto",
+    "AmmoType": {
+      "arrow": "Freccia",
+      "bolt": "Quadrello",
+      "repeatingBolt": "Quadrello (Ripetizione)",
+      "slingBullet": "Proiettile (Fionda)",
+      "gunBullet": "Proiettile (Arma da Fuoco)",
+      "dragoonBullet": "Proiettile (Armi Dragoon)",
+      "dart": "Dardo",
+      "siege": "Assedio"
+    },
+    "RacePoints": "Punti Razza",
+    "Template": {
+      "Acquired": "Acquisito",
+      "Inherited": "Ereditato",
+      "Simple": "Semplice",
+      "UsableWithSummons": "Usabile con evocazioni"
+    },
+    "RacialTraitCategories": {
+      "defense": "Difesa",
+      "featSkills": "Talenti e Capacità",
+      "magical": "Magico",
+      "movement": "Movimento",
+      "senses": "Sensi",
+      "offense": "Offesa",
+      "other": "Altro",
+      "weakness": "Debolezza"
+    },
+    "RaceType": "Tipo Razza",
+    "RaceTypes": {
+      "standard": "Standard",
+      "advanced": "Avanzato",
+      "monstrous": "Mostruoso"
+    },
+    "Undefined": "Non definito",
+    "InventoryImplants": "Impianti",
+    "BuffTarUntrainedSkills": "Abilità Non allenate",
+    "Language": {
+      "vishkanya": "Vishkanya",
+      "abyssal": "Abissale",
+      "hallit": "Hallit",
+      "aklo": "Aklo",
+      "ancientosiriani": "Osiariano Antico",
+      "androffan": "Androffano",
+      "aquan": "Aquan",
+      "auran": "Auran",
+      "azlanti": "Azlanti",
+      "celestial": "Celestiale",
+      "common": "Comune",
+      "cyclops": "Ciclope",
+      "dziriak": "D'ziriak",
+      "elven": "Elfico",
+      "giant": "Gigante",
+      "gnoll": "Gnoll",
+      "gnome": "Gnomesco",
+      "goblin": "Goblin",
+      "grippli": "Grippli",
+      "halfling": "Halfling",
+      "ib": "Ib",
+      "ignan": "Ignan",
+      "infernal": "Infernale",
+      "jistka": "Jistka",
+      "kasatha": "Kasatha",
+      "kelish": "Kelish",
+      "kuru": "Kuru",
+      "lashunta": "Lashunta",
+      "munavri": "Munavri",
+      "necril": "Necril",
+      "orvian": "Orvian",
+      "osiriani": "Osiriano",
+      "catfolk": "Felinide",
+      "protean": "Protean",
+      "rougarou": "Rougarou",
+      "samsaran": "Samsaran",
+      "sasquatch": "Sasquatch",
+      "shoanti": "Shoanti",
+      "skald": "Skald",
+      "sphinx": "Sphinx",
+      "strix": "Strix",
+      "sylvan": "Silvano",
+      "syrinx": "Syrinx",
+      "tengu": "Tengu",
+      "tien": "Tien",
+      "treant": "Treant",
+      "triaxian": "Triaxian",
+      "undercommon": "Sottocomune",
+      "vanaran": "Vanaran",
+      "varisian": "Varisiano",
+      "vegepygmy": "Vegepygmy",
+      "vudrani": "Vudrani",
+      "yaddithian": "Yaddithian",
+      "reptoid": "Rettile",
+      "shadowtongue": "Lingua Ombra",
+      "boggard": "Boggard",
+      "polyglot": "Poliglotta",
+      "dark": "Oscuro",
+      "orc": "Orchesco",
+      "aboleth": "Aboleth",
+      "draconic": "Draconico",
+      "drowsign": "Segni Drow",
+      "druidic": "Druidico",
+      "dwarven": "Nanico",
+      "terran": "Terran",
+      "thassilonian": "Thassiloniano",
+      "taldane": "Taldano",
+      "tekritanin": "Tekritanin"
+    },
+    "CreatureSubTypes": {
+      "shapechanger": "Mutaforma",
+      "spawnOfRovagug": "Progenie di Rovagug",
+      "adlet": "Adlet",
+      "aeon": "Eone",
+      "agathion": "Agathion",
+      "air": "Aria",
+      "android": "Androide",
+      "angel": "Angelo",
+      "aquatic": "Aquatico",
+      "archon": "Arconte",
+      "astomoi": "Astomoi",
+      "asura": "Asura",
+      "augmented": "Aumentato",
+      "azata": "Azata",
+      "behemoth": "Behemoth",
+      "aether": "Etereo",
+      "catfolk": "Felinide",
+      "changeling": "Changeling",
+      "cold": "Freddo",
+      "colossus": "Colosso",
+      "daemon": "Daemon",
+      "darkFolk": "Oscuro",
+      "deepOne": "Abitatori del Profondo",
+      "demodand": "Demodand",
+      "blight": "Calamità",
+      "demon": "Demone",
+      "derro": "Derro",
+      "devil": "Diavolo",
+      "dwarf": "Nano",
+      "earth": "Terra",
+      "elemental": "Elementale",
+      "elf": "Elfo",
+      "evil": "Malvagio",
+      "extraplanar": "Extraplanare",
+      "fire": "Fuoco",
+      "giant": "Gigante",
+      "gnome": "Gnomo",
+      "good": "Buono",
+      "gray": "Grigio",
+      "greatOldOne": "Grande Antico",
+      "grippli": "Grippli",
+      "halfling": "Halfling",
+      "hive": "Alveare",
+      "herald": "Araldo",
+      "human": "Umano",
+      "incorporeal": "Incorporeo",
+      "inevitable": "Inevitabile",
+      "kaiju": "Kaiju",
+      "kami": "Kami",
+      "kasatha": "Kasatha",
+      "kitsune": "Kitsune",
+      "kyton": "Kyton",
+      "lawful": "Legale",
+      "manasaputra": "Manasaputra",
+      "mortic": "Mortic",
+      "munavri": "Munavri",
+      "mythic": "Mitico",
+      "native": "Nativo",
+      "nightshade": "Ombra Notturna",
+      "oni": "Oni",
+      "orc": "Orco",
+      "sahkil": "Sahkil",
+      "phantom": "Fantasma",
+      "protean": "Protean",
+      "rakshasa": "Rakshasa",
+      "ratfolk": "Rattoide",
+      "reptilian": "Rettile",
+      "robot": "Robot",
+      "samsaran": "Samsaran",
+      "sasquatch": "Sasquatch",
+      "skinwalker": "Yenaldooshi",
+      "swarm": "Sciame",
+      "troop": "Truppa",
+      "vanara": "Vanara",
+      "vishkanya": "Vishkanya",
+      "water": "Acqua",
+      "wayang": "Wayang",
+      "wildHunt": "Caccia Selvaggia",
+      "leshy": "Leshy",
+      "qlippoth": "Qlippoth",
+      "Single": "Sottotipo Creatura",
+      "Plural": "Sottotipi Creatura",
+      "clockwork": "Clockwork",
+      "div": "Div",
+      "goblinoid": "Goblinoide",
+      "chaotic": "Caotico",
+      "psychopomp": "Psicopompo"
+    },
+    "FullRestMessage": "{name} ha riposato per {hours} ore e ha ripristinato gli utilizzi giornalieri.",
+    "Materials": {
+      "Types": {
+        "bloodCrystal": "Cristallo Sanguinario",
+        "abysium": "Abysium",
+        "adamantine": "Adamantio",
+        "alchemicalSilver": "Argento Alchemico",
+        "angelSkin": "Pelle di Angelo",
+        "aszite": "Aszite",
+        "blackwood": "Legnoscuro",
+        "blightQuartz": "Quarzo Oscuro",
+        "buletteArmor": "Armatura Bulette",
+        "caphorite": "Caphorite",
+        "coldIron": "Ferro Freddo",
+        "cryptstone": "Pietra Criptica",
+        "darkleafCloth": "Stoffa di Fogliascura",
+        "cloth": "Stoffa",
+        "darkwood": "Legnoscuro",
+        "dragonhide": "Pelle di Drago",
+        "druchite": "Druchite",
+        "eelHide": "Pelle di Anguilla",
+        "elysianBronze": "Bronzo Eliseo",
+        "glaucite": "Glaucite",
+        "greenwood": "Legnoverde",
+        "griffonMane": "Criniera di Grifone",
+        "heatstonePlating": "Pietra riscaldante",
+        "horacalcum": "Horacalcum",
+        "inubrix": "Inubrix",
+        "irespanbasalt": "Basalto Irespano",
+        "lazurite": "Lazurite",
+        "leather": "Pelle",
+        "liquidGlass": "Vetro Liquido",
+        "livingSteel": "Acciaio Vivente",
+        "noqual": "Noqual",
+        "paueliel": "Paueliel",
+        "pyresteel": "Acciaio Pira",
+        "siccatite": "Siccatite",
+        "silver": "Argento",
+        "singingSteel": "Acciaio Canterino",
+        "spireSteel": "Acciaio Spirituale",
+        "steel": "Acciaio",
+        "sunsilver": "Argento Solare",
+        "sunsilk": "Seta Solare",
+        "throneglass": "Vetro del Trono",
+        "viridium": "Viridio",
+        "voidglass": "Vetro del Vuoto",
+        "whipwood": "Legnofrusta",
+        "wyroot": "Radice di Wyrwood",
+        "bone": "Ossa",
+        "gold": "Oro",
+        "obsidian": "Ossidiana",
+        "stone": "Pietra",
+        "wood": "Legno",
+        "magic": "Magia",
+        "epic": "Epico",
+        "nexavaranSteel": "Acciaio Nexavaran",
+        "silversheen": "Argento Lucido",
+        "bronze": "Bronzo",
+        "fireForgedSteel": "Acciaio Forgiato per il Fuoco",
+        "mithral": "Mithral",
+        "frostForgedSteel": "Acciaio Forgiato per il Ghiaccio",
+        "glass": "Vetro"
+      },
+      "Label": "Materiali",
+      "Base": "Materiale Base",
+      "NormalOverride": "Sostituzione Materiale",
+      "Addon": "Componenti Aggiuntivi",
+      "AddonOverride": "Sostituzione Componenti Aggiuntivi",
+      "Normal": "Materiale"
+    },
+    "Movement": {
+      "Mode": {
+        "climb": "Scalare",
+        "land": "A Terra",
+        "swim": "Nuotare",
+        "fly": "Volare",
+        "burrow": "Scavare"
+      },
+      "Label": "Movimento",
+      "Speed": "Velocità",
+      "Short": "{speed} {unit} {mode}",
+      "FlyManeuverability": {
+        "Label": "Manovrabilità",
+        "Abbr": "Manovr.",
+        "Quality": {
+          "clumsy": "Maldestra",
+          "poor": "Scarsa",
+          "average": "Media",
+          "perfect": "Perfetta",
+          "good": "Buona"
+        }
+      }
+    },
+    "ThrownWeaponDamage": "Danno Arma da Lancio",
+    "Reach": "Portata",
+    "Resizing": "Ridimensionamento",
+    "ActorSize": {
+      "fine": "Piccolissima",
+      "dim": "Minuta",
+      "tiny": "Minuscola",
+      "sm": "Piccola",
+      "med": "Media",
+      "lg": "Grande",
+      "huge": "Enorme",
+      "grg": "Mastodontica",
+      "col": "Colossale"
+    },
+    "AgeCategories": {
+      "young": "Giovane",
+      "adult": "Adulto",
+      "middleAge": "Mezz'Età",
+      "old": "Vecchio",
+      "venerable": "Venerabile"
+    },
+    "Skill": "Abilità",
+    "StackDetails": {
+      "Total": "Totale: {value}",
+      "Contents": "Contenuto: {value}",
+      "Base": "Base: {value}",
+      "Stack": "Pila: {value}"
+    },
+    "Precision": "Precisione",
+    "Tiebreaker": "Spareggio",
+    "Subtype": "Sottotipo",
+    "JoinAnd": "e",
+    "JoinOr": "o",
+    "SpellBookPrimary": "Primario",
+    "SpellBookSecondary": "Secondario",
+    "SpellBookTertiary": "Terziario",
+    "SpellBookSpelllike": "Capacità Magiche",
+    "SpellResistanceAbbr": "RI",
+    "Subschool": "Sottoscuola",
+    "SubschoolExample": "es. convocazione, compulsione",
+    "MeleeWeaponDamage": "Danno Arma in Mischia",
+    "RangedWeaponDamage": "Danno Arma a Distanza",
+    "AllRangedDamage": "Tutti i Danni a Distanza",
+    "AllMeleeDamage": "Tutti i Danni in Mischia",
+    "NaturalAttackDamage": "Danno Attacco Naturale",
+    "CriticalHitPlural": "Colpo Critico",
+    "KeyAbility": "Caratteristica Chiave",
+    "Immune": "Immune",
+    "InitiativeCheck": "Tiro di Iniziativa",
+    "SavingThrowButtonLabelGMSensitive": "T.S. {save}",
+    "HalfBAB": "1/2 BAB",
+    "BABOverride": "Sostituzione BAB",
+    "ACFFAbbr": "CA Imprep.",
+    "MaxRangeNote": "Gittata Max: {distance} {units}",
+    "Radius": "Raggio",
+    "Footnotes": "Note a piè di pagina",
+    "FootnotesHint": "Note riportate solo nella parte inferiore della scheda della chat.",
+    "EffectNotesHint": "Note riportate per ogni istanza, ad esempio per ogni singolo attacco riguardo i suoi effetti.",
+    "DCSchoolNotes": "Note CD ({school})",
+    "SkillJournalHint": "Trascina e rilascia qui il diario o la pagina del diario per collegarlo.",
+    "CreatureTypes": {
+      "Single": "Tipo Creatura",
+      "aberration": "Aberrazione",
+      "animal": "Animale",
+      "construct": "Costrutto",
+      "dragon": "Drago",
+      "fey": "Folletto",
+      "humanoid": "Umanoide",
+      "magicalBeast": "Bestia Magica",
+      "ooze": "Melma",
+      "outsider": "Esterno",
+      "plant": "Vegetale",
+      "undead": "Non Morto",
+      "vermin": "Parassita",
+      "Plural": "Tipi Creatura",
+      "monstrousHumanoid": "Umanoide Mostruoso"
+    },
+    "ModifierType": {
+      "untypedPerm": "Generico (Permanente)",
+      "base": "Base",
+      "enhancement": "Potenziamento",
+      "dodge": "Schivare",
+      "inherent": "Intrinseco",
+      "deflection": "Deviazione",
+      "morale": "Morale",
+      "sacred": "Sacro",
+      "insight": "Cognitivo",
+      "resistance": "Resistenza",
+      "profane": "Profano",
+      "trait": "Tratto",
+      "racial": "Razziale",
+      "size": "Taglia",
+      "competence": "Competenza",
+      "circumstance": "Circostanza",
+      "alchemical": "Alchemico",
+      "haste": "Velocità",
+      "untyped": "Generico",
+      "luck": "Fortuna"
+    },
+    "AbilityTypes": {
+      "na": {
+        "Label": "Naturale",
+        "Short": "Na"
+      },
+      "ex": {
+        "Short": "Str",
+        "Label": "Straordinaria"
+      },
+      "su": {
+        "Label": "Sovrannaturale",
+        "Short": "Sop"
+      },
+      "sp": {
+        "Label": "Magica",
+        "Short": "Mag"
+      }
+    },
+    "RollSaveMacroName": "{actor}: Lancia Tiro Salvezza {type}",
+    "RollInitiativeMacroName": "{actor}: Lancia Iniziativa",
+    "RollMeleeMacroName": "{actor}: Tira Attacco in Mischia",
+    "RollRangedMacroName": "{actor}: Tira Attacco a Distanza",
+    "DamageTypes": {
+      "untyped": {
+        "Label": "Generico"
+      },
+      "areaOfEffect": {
+        "Label": "Area d'Effetto"
+      },
+      "bludgeoning": {
+        "Label": "Contundente",
+        "Abbr": "C"
+      },
+      "piercing": {
+        "Label": "Perforante",
+        "Abbr": "P"
+      },
+      "slashing": {
+        "Label": "Tagliente",
+        "Abbr": "T"
+      },
+      "cold": {
+        "Label": "Freddo"
+      },
+      "fire": {
+        "Label": "Fuoco"
+      },
+      "electricity": {
+        "Label": "Elettricità"
+      },
+      "sonic": {
+        "Label": "Sonoro"
+      },
+      "acid": {
+        "Label": "Acido"
+      },
+      "negative": {
+        "Label": "Negativo"
+      },
+      "positive": {
+        "Label": "Positivo"
+      },
+      "force": {
+        "Label": "Forza"
+      }
+    },
+    "CreateItemNamePlaceholder": "Bacchetta, Pergamena o Pozione",
+    "Trigger": "Attivazione",
+    "Haunt": {
+      "Notice": "Avvistamento",
+      "Weakness": "Debolezze",
+      "Destruction": "Distruzione",
+      "Template": {
+        "belligerent": "Belligerante",
+        "chained": "Incatenata",
+        "elusive": "Elusiva",
+        "itemBound": "Vincolata all'oggetto",
+        "fast": "Rapida",
+        "freeRoaming": "Errante",
+        "increasedArea": "Area aumentata",
+        "latent": "Latente",
+        "persistent": "Persistente",
+        "possessing": "Possidente",
+        "spiteful": "Perfida",
+        "tenacious": "Pertinace",
+        "unyielding": "Incrollabile",
+        "vaporous": "Gassosa",
+        "variant": "Varianti"
+      },
+      "Shape": "Forma"
+    },
+    "Trap": {
+      "Type": "Tipo",
+      "EffectsDetails": "Effetti",
+      "Trigger": "Attivatore",
+      "PerceptionDC": "CD Percezione",
+      "DisableDeviceDC": "CD Disattivare Congegni",
+      "Tooltips": {
+        "Trigger": {
+          "Period": "Periodo Attivazione",
+          "Range": "Portata Attivazione",
+          "Time": "Tempo Attivazione",
+          "Type": "Tipo Attivazione"
+        },
+        "Reset": {
+          "Time": "Tempo Ripristino",
+          "Type": "Tipo Ripristino",
+          "Period": "Periodo Ripristino"
+        },
+        "Bypass": "Tipo Aggiramento",
+        "Technology": "Si tratta di una trappola tecnologica?",
+        "Vision": "Tipo Visione"
+      },
+      "Labels": {
+        "DisableDeviceDC": "CD Disattivare Congegni",
+        "EffectsDetails": "Effetti",
+        "PerceptionDC": "CD Percezione",
+        "Bypass": "Aggiramento",
+        "Technology": "Tecnologia"
+      },
+      "Bypass": {
+        "HiddenLock": "Serratura nascosta",
+        "HiddenSwitch": "Leva nascosta",
+        "Lock": "Serratura"
+      },
+      "Reset": {
+        "Manual": "Manuale",
+        "Repair": "Riparabile",
+        "Automatic": "Automatico"
+      },
+      "Triggers": {
+        "ElectricEyes": "Occhi Elettrici",
+        "Genetic": "Genetica",
+        "Location": "Posizione",
+        "Proximity": "Prossimità",
+        "Sound": "Sonoro",
+        "Spell": "Incantesimo",
+        "Timed": "A Tempo",
+        "Touch": "Contatto",
+        "Visual": "Visivo"
+      },
+      "Types": {
+        "Magic": "Magica",
+        "Mechanical": "Meccanica"
+      },
+      "Vision": {
+        "ArcaneEye": "Occhio Arcano",
+        "Clairvoyance": "Chiaroveggenza",
+        "TrueSeeing": "Visone del Vero"
+      }
+    },
+    "Vehicles": {
+      "Space": {
+        "Large": "2-6 quadretti",
+        "Huge": "7-12 quadretti",
+        "Gargantuan": "13-20 quadretti",
+        "Colossal": "21+ quadretti"
+      },
+      "Types": {
+        "Land": "Terrestre",
+        "Sea": "Acquatico",
+        "Air": "Aereo"
+      },
+      "OccupiedSpace": "Spazio Occupato",
+      "MaximumSpeed": "Velocità Massima",
+      "Acceleration": "Accelerazione",
+      "Propulsion": "Propulsione",
+      "ForwardFacing": "Orientamento Frontale",
+      "DrivingDevice": "Dispositivo di Guida",
+      "DrivingSpace": "Spazio di Guida",
+      "Crew": "Equipaggio",
+      "Decks": "Ponti",
+      "DrivingCheck": "Prova di Guida",
+      "SelectDriver": "Seleziona un Guidatore",
+      "MagicallyHardened": "Trattato Magicamente",
+      "Squares": "Quadretti",
+      "Full": "Pieno",
+      "CurrentSpeed": "Velocità Corrente",
+      "DriverSkill": "Abilità Guidatore",
+      "ACStoppedMotion": "Fermo",
+      "CMDStoppedMotion": "DMC (Fermo)",
+      "Cargo": "Carico",
+      "Passengers": "Occupanti",
+      "Metal": "Metallo"
+    },
+    "NaturalArmor": "Armatura Naturale",
+    "Copy": "Copia",
+    "DefenseDC": "CD Difesa",
+    "NoDescription": "Nessuna descrizione.",
+    "Instructions": "Istruzioni",
+    "Descriptor": "Descrittore",
+    "DescriptorPlural": "Descrittori",
+    "HealthPerTier": "Salute per livello",
+    "RollAbilityMacroName": "{actor}: Tira {ability}",
+    "AddEntry": "Aggiungi voce",
+    "CustomHitDice": "Dado Vita Personalizzato",
+    "CustomHitDiceHint": "Inserisci formula, es. floor(@item.level / 2)",
+    "NegativeLevels": "Livelli Negativi",
+    "AgeCategory": {
+      "Base": "Categoria Età",
+      "Mental": "Categoria di età mentale",
+      "Physical": "Categoria di età fisica"
+    },
+    "CreateSpellbook": "Crea Libro Incantesimi",
+    "CLSchoolNotes": "Note LI ({school})",
+    "Abundant": "Abbondante",
+    "AbundantDesc": "Non rimuovere mai le munizioni quando sono in uso.",
+    "NoInstrutions": "Nessuna istruzione fornita.",
+    "Splash": "Spargimento",
+    "KeyAbilityRef": "Caratteristica Chiave ({ability})",
+    "DieSize": "d{size}",
+    "SourceNote": "Fonte: {source}",
+    "RestMessage": "{name} ha riposato per {hours} ore.",
+    "BaseSetup": "Impostazione di base",
+    "UtilityFunctions": "Funzioni Utilità",
+    "SavingThrowGoodFractionalBonus": "Bonus Tiro Salvezza Buono",
+    "AttackAlignmentOverride": "Sostituzione Tratti di Allineamento",
+    "AttackAlignment": "Tratti di Allineamento",
+    "Harmless": "Innocuo",
+    "CasterLevelAbbr": "LI",
+    "LevelOffset": "Offset Livello",
+    "Aura": {
+      "Single": "Aura",
+      "Plural": "Aure",
+      "Strength": {
+        "moderate": "Moderata",
+        "strong": "Forte",
+        "overwhelming": "Schiacciante",
+        "faint": "Debole"
+      }
+    },
+    "Unknown": "Sconosciuto",
+    "CastsPerDayUsedFormula": "Formula Lanci al Giorno",
+    "AutoSlotIncompatible": "Richiede la disattivazione degli slot incantesimi automatici.",
+    "Infinite": "Infinito",
+    "BonusFormula": "Formula Bonus",
+    "Rolls": {
+      "Check": {
+        "Override": "Sostituzione Prova",
+        "OverrideHint": "es. 2d20kl",
+        "Label": "Prova"
+      },
+      "Bonus": "Bonus Prova",
+      "BonusHint": "es. 1d6[Ispirazione] + 2[Aiuto] + 1"
+    },
+    "EnhancementInline": "+{bonus} Potenziamento",
+    "Dismissable": "Interrompibile",
+    "ArcaneSpellFailureAbbr": "FIA",
+    "EnhancementBonusOverride": "Sostituzione del bonus di potenziamento",
+    "Preparation": "Preparazione",
+    "InheritAs": "Ereditato ({inherited})",
+    "Identifier": "Identificatore",
+    "Cursed": "Maledetto",
+    "SecondaryAttackModifier": "Modificatore Attacco Secondario",
+    "BaseTypes": {
+      "Description": "Per talenti che funzionano su un tipo specifico come Arma Focalizzata o Competenza in un'arma specifica (come competenze nelle armi esotiche), oppure quando il nome dell'oggetto si discosta dalla sua base.<p>Ad esempio, la Lama del Fato ha tipo base Pugnale.",
+      "Label": "Tipi Equipaggiamento Base"
+    },
+    "SETTINGS": {
+      "CybertechHint": "Abilitare le funzionalità cibernetiche anche senza aver installato la cybertica, come ad esempio la visualizzazione della capacità di impianto.",
+      "InitTiebreaker": {
+        "Hint": "Aggiungi l'iniziativa totale divisa per 100 per risolvere i pareggi nell'iniziativa.",
+        "Label": "Spareggio Iniziativa"
+      },
+      "Vision": {
+        "SystemControlHint": "Usa la configurazione della visione della creatura per determinare la vista, supportando concetti specifici di PF come la visione in condizioni di scarsa illuminazione. Se disabilitata, la vista è determinata solo nelle impostazioni del token di Foundry.",
+        "PCDefaultHint": "Per impostazione predefinita, i personaggi dei giocatori hanno una visione token, indipendentemente dalla configurazione predefinita dei token.",
+        "SharingHint": "Come gestire la Visione Condivisa tra i giocatori.",
+        "SharingWithoutSelection": "Senza token selezionato",
+        "SharingWithSelection": "Sempre",
+        "Guaranteed": "Permessi Visione Base",
+        "GuaranteedHint": "Permesso minimo richiesto per vedere sempre da un token. Il valore predefinito di Foundry è Osservatore.",
+        "PCDefault": "Visione Personaggio Giocante",
+        "SystemControl": "Visione Controllata dal Sistema",
+        "RequiresSelection": "La visione speciale richiede una selezione",
+        "RequiresSelectionHint": "Se selezionata, i giocatori che non hanno selezionato alcun token NON trarranno beneficio dalla visione crepuscolare o dalla visione al buio di nessuno dei loro token.",
+        "Sharing": "Condividi Visione"
+      },
+      "DisableLLV": {
+        "Hint": "Impedisci alla visione crepuscolare di influenzare il raggio di questa sorgente luminosa.",
+        "Label": "Disabilita VC"
+      },
+      "NoManeuvers": "Nessuna Manovra",
+      "DiagonalRule": {
+        "Label": "Regole Movimento Diagonale",
+        "Hint": "Configura quale regola di movimento diagonale deve essere utilizzata per le partite all'interno di questo sistema.",
+        "Options": {
+          "Core": "5/10/5",
+          "Simple": "5/5/5"
+        }
+      },
+      "VariantRules": {
+        "BackgroundSkills": "Usa Abilità di Background",
+        "BackgroundSkillsHint": "Utilizzare il set di regole opzionale Abilità di Background",
+        "FractionalBaseBonuses": "Usa Bonus Base Frazionari",
+        "FractionalBaseBonusesHint": "Utilizzare il set di regole opzionale Bonus Base Frazionari"
+      },
+      "Token": {
+        "PCDispositionHint": "Sostituisce la disposizione predefinita dei token per i personaggi giocanti.",
+        "NPCDisposition": "Disposizione Personaggi non giocanti",
+        "NPCDispositionHint": "Sostituisce la disposizione predefinita dei token per i personaggi non giocanti",
+        "PCDisposition": "Disposizione del personaggio giocante"
+      },
+      "Canvas": {
+        "MeasureStyle": "Utilizzare lo stile di misura Pathfinder",
+        "MeasureStyleHint": "Determina se utilizzare lo stile di misurazione di Pathfinder invece dello stile predefinito di FoundryVTT"
+      },
+      "HideTokenConditionsN": "Nascondi Effetti sui Token",
+      "HideTokenConditionsH": "Determina se nascondere le icone degli effetti sui token",
+      "CoreEffectsN": "Condizioni di Default dei Token",
+      "CoreEffectsH": "Visualizza sui token solo le condizioni di PF1 (non selezionato) o anche le icone core di Foundry (selezionato)",
+      "UnchainedActionEconomyN": "Gestione Azioni Rivisitata",
+      "UnchainedActionEconomyH": "Determina se utilizzare il set di regole opzionale della Gestione Riveduta delle Azioni (Unchained Action Economy).",
+      "Cybertech": "Cybertecnologia",
+      "CriticalConfirm": "Tiri di Conferma Critico",
+      "SkipActionDialogsN": "Salta le richieste sulle azione",
+      "SkipActionDialogsH": "Salta le richieste di azione (come quelle degli attacchi e dei tiri salvezza) a meno che non si faccia clic su di esse tenendo premuto Maiusc",
+      "MeasureOnQuickUse": "Sagome di misurazione sui lanci rapidi",
+      "MeasureOnQuickUseHint": "Abilita il posizionamento delle sagome di misura quando si salta la richiesta dell'azione.",
+      "Sheet": {
+        "InvertFilters": "Inverti il comportamento dei filtri inventario",
+        "InvertFiltersHint": "Inverte il comportamento del clic tenendo premuto Maiusc sui filtri nelle sezioni della scheda."
+      },
+      "Houserules": {
+        "CoinDivisor": "Divisore Peso delle monete",
+        "CoinDivisorHint": "Quante monete pesano 1 lbs? Imposta su zero (0) per disabilitare il peso delle monete. Il valore predefinito è 50.",
+        "SpellPointCost": "Costo default Punti Incantesimo",
+        "AltReach": "Regole Alternative sulla Portata",
+        "AltReachHint": "Nasconde gli angoli esterni dalle misurazioni della portata di 10 piedi",
+        "NPCProficiencies": "Competenze PNG",
+        "NPCProficienciesHint": "Anche gli attori PNG usano le competenze. Con questa funzione disabilitata (default), sono considerati competenti in tutto ciò che hanno, come da RAW.",
+        "SpellPointCostHint": "Il costo predefinito dei punti magia impostato sugli incantesimi, se non configurati sui singoli incantesimo."
+      },
+      "Chat": {
+        "ObscureInlineRolls": "Oscura tiri in linea",
+        "ObscureSaveDCs": "Oscura la CD dei tiri salvezza",
+        "ObscureSaveDCsHint": "Nascondi i valori di CD dalle schede chat dei giocatori.",
+        "AutoCollapse": "Comprimi le schede degli oggetti nella chat",
+        "HideButtons": "Nascondi i Bottoni delle schede Chat",
+        "NoTargets": "Disabilita Target Attacchi",
+        "NoTargetsHint": "Impedisce agli attori presi di mira di comparire sulle schede di attacco in chat",
+        "ClearTargets": "Cancella i target dopo l'attacco",
+        "ClearTargetsHint": "Determina se rimuovere tutti i target dopo un tiro di attacco.",
+        "ObscureInlineRollsHint": "Nascondi i tiri in linea a coloro che non hanno almeno il permesso di osservatore.",
+        "HideButtonsHint": "determina se nascondere i pulsanti delle schede chat, come quelli che si trovano sui tiri di attacco.",
+        "AutoCollapseHint": "Riduci automaticamente le descrizioni degli oggetti nella chat"
+      },
+      "DragRulerWalk": "camminare",
+      "DragRulerDash": "scattare",
+      "DragRulerUseElevationHint": "Usa l'elevazione di un token per determinare se sta volando o scavando",
+      "Units": {
+        "System": "Sistema di unità",
+        "SystemHint": "Sistema di unità di misura usato nel mondo",
+        "Imperial": "Imperiale (piedi, libbre)",
+        "ImperialWeight": "Imperiale (lbs)",
+        "ImperialDistance": "Imperiale (ft)",
+        "MetricDistance": "Metrico (m)",
+        "MetricWeight": "Metrico (kg)",
+        "Distance": "Sistema di unità per le distanze",
+        "DistanceHint": "Sostituisce il sistema di unità da utilizzare per le distanze.",
+        "Weight": "Sistema di unità di misura per i pesi",
+        "Metric": "Metrico (metri, chilogrammi)",
+        "WeightHint": "Sostituisce il sistema di unità da utilizzare con i pesi."
+      },
+      "OverlandVariantN": "Variante di velocità sulla terra",
+      "OverlandVariantL": "Variante del calcolo della velocità via terra con distanze metriche.",
+      "OverlandMetricRounded": "Arrotondato (tedesco e francese)",
+      "CriticalConfirmHint": "Se disabilitato, i tiri di conferma dei critici vengono sostituiti dalla visualizzazione della CD di Difesa, per l'Armatura come regola opzionale della RD.",
+      "DragRulerUseElevationName": "Utilizzare l'elevazione per determinare il tipo di movimento",
+      "OverlandMetricExact": "Esatto (spagnolo)",
+      "DragRulerRun": "correre",
+      "HealthDisplay": {
+        "Hint": "Livello minimo di autorizzazione necessario per visualizzare i simboli fluttuanti relativi alla salute (punti ferita, danni alle abilità, livelli negativi, ecc.) sui token.",
+        "Label": "Permesso Salute Fluttuante",
+        "AnyPermission": "Qualsiasi, Trasparenza Piena"
+      },
+      "DualHealDefault": "Doppia Cura per impostazione predefinita",
+      "DualHealDefaultHint": "Cura sia i punti ferita che i danni non letali quando si curano i punti ferita, come da regola per cui la magia e le abilità curano entrambi quando vengono curati i punti ferita normali (e pertanto il riposo non è influenzato)."
+    },
+    "ChargeCostFormula": "Formula Costo Carica",
+    "RechargeFormulaHint": "La ricarica imposta le cariche correnti sul risultato della formula. Per la ricarica relativa, usa il valore della carica corrente <code>@item.uses.value</code> come parte della formula.",
+    "RequiresAutoSlots": "Richiede l'abilitazione degli slot incantesimi automatici.",
+    "MaxAbilityHint": "Modificatore massimo del punteggio di caratteristica consentito. Limite applicato prima del moltiplicatore. Illimitato se non definito.",
+    "SecondaryAttackAbilityMultiplier": "Moltiplicatore Caratteristica Attacco Secondario",
+    "BaseFormula": "Formula Base",
+    "DamageFormulaHint": "es. sizeRoll(1, 8, @size)",
+    "UsesAmmo": "Usa Munizioni",
+    "Tours": {
+      "ActorSheet": {
+        "FeaturesTab": {
+          "Content": "Tutto ciò che riguarda i talenti o le abilità concesse dalla classe, dalla razza, dal dado o da altri effetti può essere trovato qui.<br /><br />Come prima, troverai il filtro in alto e le opzioni <i class='fas fa-folder-plus'></i>, <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.<br /><br />Puoi anche passare il mouse sulle icone per informazioni.",
+          "Title": "Scheda Talenti e Privilegi di Classe"
+        },
+        "HighlightStreetMagicianInCompendium": {
+          "Content": "Questo è uno dei PNG più completi del compendio.<br>Ha molte abilità e caratteristiche, oltre ad alcune capacità magiche e alcuni oggetti magici con script.",
+          "Title": "Mago di strada"
+        },
+        "GoToBasicMonsters": {
+          "Content": "Pathfinder 1e include alcuni mostri base pronti all'uso.<br >Ne useremo uno per rivedere la scheda e come è stata configurata.",
+          "Title": "Mostri Base pronti all'uso"
+        },
+        "TooltipsWithDefinitions": {
+          "Content": "È possibile passare il mouse su una qualsiasi voce della scheda per visualizzare un tooltip che mostra come riferirsi ai dati nelle formule (<code>@attributes.hp.max</code> tra gli altri, ad esempio passando il mouse su Max PF).",
+          "Title": "Riferimenti dati"
+        },
+        "OtherCommonButtons": {
+          "Content": "Tieni d'occhio anche i seguenti pulsanti, poiché condividono tutti la stessa funzionalità <em>item</em> (razza, classe, arma, talento, priv. di classe...) in tutta la scheda. Se non sei un GM non potrai vedere queste icone in <strong>questo foglio specifico</strong>.<br><ul class='pf1-tour'><li><i class='fas fa-folder-plus'></i> Cerca un <em>item</em> nel <code>CompendiumBrowser</code>.</li><li><i class='fas fa-edit'></i> Modifica un <em>item</em>.</li><li><i class='fas fa-trash'></i> Elimina un <em>item</em>.</li><li><i class='fas fa-copy'></i> Clona l'<em>item</em>.</li><li><i class='fas fa-plus'></i> Aggiungi un <em>item</em> da zero.</li></ul>",
+          "Title": "Altri pulsanti comuni"
+        },
+        "Classes": {
+          "Content": "Allo stesso modo della Razza puoi cliccare su <i class='fas fa-folder-plus'></i> per aggiungere una classe da <code>CompendiumBrowser</code>, cliccare su <i class='fas fa-edit'></i> per modificare la classe o eliminarla cliccando su <i class='fas fa-trash'></i>.<br><br>Ogni volta che aggiungi una classe o ne fai salire di livello una esistente, apparirà una finestra di dialogo di Aumento di livello guidata per aiutarti a configurare le modifiche.<br><br>Inoltre puoi clonare una classe esistente cliccando su <i class='fas fa-copy'></i>.",
+          "Title": "Classi"
+        },
+        "SheetTabs": {
+          "Content": "La scheda contiene molte schede diverse che riportano parti diverse dei dati.<br>È possibile considerarle come sezioni diverse della scheda.",
+          "Title": "Schede"
+        },
+        "Race": {
+          "Content": "Ecco la visualizzazione della razza.<br>Se l'attore non ha ancora una razza, potrai selezionarne una dal <code>CompendiumBrowser</code> cliccando su <i class='fas fa-folder-plus'></i> oppure crearne una personalizzata cliccando su <i class='fas fa-plus'></i>.<br><br>Inoltre, puoi modificare la razza e aggiungere le parti mancanti, se necessario (ad esempio +2 per l'umano a qualsiasi punteggio di caratteristica) cliccando su <i class='fas fa-edit'></i> oppure eliminarla cliccando su <i class='fas fa-trash'></i>.",
+          "Title": "Razza"
+        },
+        "HdCrAndExperience": {
+          "Content": "Questo vale solo per <strong>schede PNG</strong>. Per <strong>schede PG</strong>, verrà invece visualizzata una barra dell'esperienza se abilitata (come di default).<br><br>I dadi vita e l'esperienza che questo PNG fornisce vengono calcolati automaticamente. I dadi vita si basano sulla sezione delle classi, mentre l'esperienza si basa sul GS.<br><br>Il GM può modificare manualmente il GS.",
+          "Title": "Dadi Vita, GS ed Esperienza"
+        },
+        "Title": "Panoramica della Scheda del Personaggio",
+        "Description": "Una rapida occhiata a come appare la scheda del personaggio in Pathfinder 1e per Foundry e dove si trova ogni cosa.",
+        "HighlightSheet": {
+          "Title": "La Scheda",
+          "Content": "Questa è la scheda del PNG.<br>A prima vista sembra complicata, ma la capirai presto."
+        },
+        "RollButtons": {
+          "Title": "Pulsanti di Tiro",
+          "Content": "Tieni a mente le icone <i class='fas fa-dice-d20'></i> e <i class='fas fa-dice'></i>.<br>Sono sparse ovunque sul foglio e puoi cliccarci sopra per effettuare tiri salvezza, attacchi, visualizzare difese, ecc..."
+        },
+        "DetailsInSheet": {
+          "Title": "Sezione Dettagli",
+          "Content": "La scheda Riepilogo è composta da molte sezioni diverse.<br><br>In questa parte dovrai indicare dettagli quali <em>Sesso</em>, <em>Età</em>, ecc... nonché la razza.<br />Torneremo su questo argomento più avanti."
+        },
+        "RestButton": {
+          "Title": "Riposo",
+          "Content": "Il pulsante di riposo riempirà automaticamente tutte le cariche per le abilità e gli elementi giornalieri.<br> Aggiungerà anche i punti ferita recuperati in base alle ore di riposo."
+        },
+        "HitPointsAndSpeed": {
+          "Title": "Punti Ferita e Velocità",
+          "Content": "Puoi modificare manualmente tutti gli input qui, ma <strong>il massimo</strong> è che il calcolo venga effettuato in base al modificatore di Costituzione e ai dadi vita."
+        },
+        "QuickActionsInSummary": {
+          "Title": "Azioni Rapide e Tiri",
+          "Content": "Da qui puoi tirare tutto con l'icona <i class='fas fa-dice'></i> cliccandoci sopra, così come con una qualsiasi delle azioni rapide."
+        },
+        "AttributesTab": {
+          "Title": "Scheda Attributi",
+          "Content": "Ecco una panoramica dei punteggi delle caratteristiche e degli attributi.<br>Chiamiamo attributi l'insieme di Sensi, Dimensioni, Linguaggi, Resistenze, Immunità... Li esamineremo rapidamente."
+        },
+        "TraitsSection": {
+          "Content": "Taglia, sensi, resistenze, immunità... tutte le voci qui sono modificabili cliccando su <i class='fas fa-edit'></i>, digitando direttamente l'input o selezionando da un menu a discesa.<br <br>I sensi funzionano automaticamente con il sistema di illuminazione Foundry, ad eccezione di quelli non supportati e contrassegnati come tali (<code>*</code>).",
+          "Title": "Attributi"
+        },
+        "InventoryTab": {
+          "Content": "Qui potrai vedere tutti gli oggetti che hai nel tuo inventario.<br />Come nella <em>scheda Combattimento</em>, le voci sono raggruppate per tipo.<br /><br />Puoi aggiungere oggetti dal <code>CompendiumBrowser</code> cliccando su <i class='fas fa-folder-plus'></i>.<br />Hai anche le opzioni <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.",
+          "Title": "Scheda Inventario"
+        },
+        "SettingsTab": {
+          "Content": "Qui potrai configurare quali abilità usare per calcoli specifici (ad esempio <em>Carisma</em> invece di <em>Costituzione</em> per i Non Morti) e anche i libri degli incantesimi.<br /><br />Inoltre puoi usare il <code>Calcolatore Point Buy</code> in qualsiasi momento, non solo durante la creazione del personaggio.",
+          "Title": "Impostazioni"
+        },
+        "CombatTab": {
+          "Content": "Qui troverai tutte le scorciatoie di cui potresti aver bisogno quando affronti un scontro. Come puoi vedere, gli elementi sono raggruppati per tipo.<br><br>Puoi modificare le voci cliccando su <i class='fas fa-edit'></i>, eliminarle cliccando su <i class='fas fa-trash'></i> o clonarle cliccando su <i class='fas fa-copy'></i>.<br>Inoltre, puoi aggiungere un oggetto da zero cliccando su <code><i class='fas fa-plus'></i>Add</code>.",
+          "Title": "Scheda Combattimento"
+        },
+        "BuffsTab": {
+          "Content": "Tutte le condizioni e i buff possono essere trovati qui.<br />Una volta aggiunto un buff, vedrai le opzioni <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>. Puoi anche crearne uno con le opzioni <i class='fas fa-folder-plus'></i> e <i class='fas fa-plus'></i>.<br /><br/>La maggior parte delle condizioni di Pathfinder 1e sono visualizzate sopra, altrimenti puoi cercarle nel <code>CompendiumBrowser</code>.",
+          "Title": "Scheda Effetti e Condizioni"
+        },
+        "SpellsTab": {
+          "Content": "Se la tua classe è un incantatore o hai configurato capacità magiche, queste verranno mostrate qui.<br />Come al solito puoi trovare le opzioni <i class='fas fa-folder-plus'></i>, <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.",
+          "Title": "Scheda Incantesimi"
+        },
+        "Charges": {
+          "Content": "Questa è la quantità di cariche di un oggetto (<strong>non la quantità di utilizzi rimanenti</strong>; ad esempio 4 <em>Imposizione delle mani</em> rimanenti non significano 4 <em>Incanalamento di energia positiva</em> rimanenti). Seguito dalla quantità massima.<br /><br />Puoi modificare manualmente le cariche digitando nell'input o cliccando su <i class='fas fa-edit'></i>.<br /><br />Puoi anche modificare il costo della carica cliccando su <i class='fas fa-edit'></i>.",
+          "Title": "Cariche"
+        },
+        "SpellbooksConfiguration": {
+          "Content": "Puoi configurare i libri degli incantesimi qui cliccando sull'icona <i class='fas fa-cogs'></i>. Qui potrai modificare a tuo piacimento le numerose opzioni dei libri degli incantesimi.<br /><br />Se il tuo libro degli incantesimi proviene da un incantatore del <code>CompendiumBrowser</code>, è già configurato, fatta eccezione per alcune piccole modifiche (come incantesimi extra per lo Stregone).",
+          "Title": "Configurazione Libri degli Incantesimi"
+        },
+        "MagicItemsTable": {
+          "Content": "Qui il GM potrà anche vedere tutti gli oggetti magici del personaggio, così come la CD per l'identificazione, la scuola e una scorciatoia per impostarli come identificati.",
+          "Title": "Oggetti Magici"
+        },
+        "AbilityScoresSection": {
+          "Title": "Punteggi Caratteristiche",
+          "Content": "Il punteggio di caratteristica <em>Totale</em> è modificabile, così come <em>Danno</em>, <em>Risucchio</em> e <em>Penalità</em>.<br>I <em>modificatori</em>, <em>PCA <small>(Penalità alla Classe Armatura)</small></em> e <em>FIA <small>(Fallimento Incantesimi Arcani)</small></em> vengono calcolati automaticamente."
+        },
+        "ResistancesAndImmunitiesDialog": {
+          "Title": "Finestra Resistenze e Immunità",
+          "Content": "Ogni volta che stai per infliggere danni puoi usare <code>Maiusc+clic</code> per visualizzare le tue resistenze e immunità e ridurre i danni che ne derivano."
+        },
+        "FilterOptions": {
+          "Title": "Filtra Opzioni",
+          "Content": "Nota le opzioni di filtro. Queste opzioni vengono utilizzate per filtrare le voci. E sono disponibili anche in altre schede.<br><br>Ogni scheda avrà filtri per i propri tipi di elementi specifici."
+        },
+        "ItemsDetails": {
+          "Title": "Dettagli e Opzioni Elementi",
+          "Content": "Puoi passare il mouse su ciascuna icona nell'intestazione del gruppo (<i class='icon-pf text-icon icon-inventory-slot'></i>, <i class='icon-pf text-icon icon-gears'></i>, <i class='icon-pf text-icon icon-weight'></i>, <i class='icon-pf text-icon icon-quill-ink'></i>, ...) per trovare maggiori informazioni sul loro significato."
+        },
+        "SkillsTab": {
+          "Title": "Scheda Abilità",
+          "Content": "Qui sono elencate tutte le abilità di Pathfinder.<br />Se passi il mouse su una qualsiasi di esse, verrà visualizzata un'icona <i class='fas fa-book'></i> che aprirà la voce del compendio per l'abilità.<br /><br />Inoltre, puoi aggiungere abilità personalizzate cliccando su <code><i class='fas fa-plus'></i>Aggiungi abilità</code> in fondo all'elenco."
+        },
+        "UnlockSkills": {
+          "Title": "Sblocca abilità per la modifica",
+          "Content": "Puoi sbloccare le abilità per la modifica cliccando su <i class='fas fa-lock'></i>.<br />Dopodiché vedrai l'icona <i class='fas fa-edit'></i>. Puoi anche bloccare di nuovo le abilità cliccando su <i class='fas fa-lock-open'></i>."
+        },
+        "AddSubskill": {
+          "Title": "Aggiungi sotto-abilità",
+          "Content": "Puoi aggiungere una sotto-abilità da un'abilità (ad esempio <em>Alchimia</em> per <em>Artigianato</em>) cliccando su <i class='fas fa-plus'></i> per l'abilità."
+        },
+        "ConditionDuration": {
+          "Title": "Durata Condizioni",
+          "Content": "Come previsto, puoi attivare/disattivare la condizione cliccando sull'icona.<br /><br />Puoi anche impostare una durata per la condizione cliccandoci sopra con il <em>tasto destro</em> del mouse."
+        },
+        "SpellbooksTab": {
+          "Title": "Libri degli Incantesimi",
+          "Content": "A seconda di dove provengono i tuoi incantesimi o di come hai configurato i libri degli incantesimi, vedrai più schede qui. Puoi passare da una all'altra per aggiungere/modificare/eliminare incantesimi."
+        },
+        "BiographyTab": {
+          "Title": "Scheda Biografia",
+          "Content": "Questo è un campo di testo libero che puoi usare per scrivere la biografia del tuo personaggio, i suoi vantaggi, ecc.<br /><br />L'unica cosa da tenere a mente è che il testo qui è <strong>visibile a chiunque abbia un permesso <code>Limitato</code></strong>."
+        },
+        "NotesTab": {
+          "Title": "Scheda Note",
+          "Content": "Campo di testo libero che puoi usare per scrivere note sul tuo personaggio, come tattiche dei PNG, retroscena (per evitare spoiler), ecc."
+        }
+      },
+      "RestartTutorialWarning": "Qualcosa è andato storto durante il tutorial. Riavvia il tour."
+    },
+    "CustomBonusType": "Bonus Personalizzato ({type})",
+    "OnCritBonusFormula": "Formula Bonus Critico",
+    "NonMultBonusFormula": "Formula Bonus Non moltiplicativa",
+    "AddOnCritInstance": "Aggiungi Istanza Critica",
+    "AddBaseInstance": "Aggiungi Istanza Base",
+    "AddNonMultInstance": "Aggiungi Istanza Non moltiplicativa",
+    "QuickCombatHint": "Includi questo elemento anche nella scheda combattimento.",
+    "ChargeCostItemFormulaHint": "Quante cariche (o lanci, punti incantesimo, ecc.) questo oggetto consuma di default. I valori negativi ripristineranno invece le cariche.",
+    "AutoBroken": "Si interrompe automaticamente a causa della salute residua.",
+    "DamageModifiers": "Modificatori Danno",
+    "DamageBonusHint": "es. 1d4[Fuoco] + 2",
+    "HealBonus": "Bonus Cura",
+    "HealBonusHint": "es. 1d6 + 6[Curatore Incredibile]",
+    "DurationEndTiming": "Termine",
+    "EnabledCheckFlags": "Abilita Flags",
+    "PricePerCharge": "Prezzo per Carica",
+    "BonusCarryMultiplier": "Moltiplicatore Bonus Carico",
+    "CarryStrength": "Forza per il Carico",
+    "CarryMultiplier": "Moltiplicatore di Carico",
+    "AbilityMultiplier": "Moltiplicatore Caratteristica",
+    "ToggleSkillLock": "Attiva/disattiva blocco modifica sulle parti raramente utilizzate della lista abilità.",
+    "Transferred": "Trasferito",
+    "SpellDC": "CD Incantesimo",
+    "DCFormula": "Formula CD",
+    "DCOffsetFormula": "Formula Offset CD",
+    "DCThreshold": "CD {threshold}",
+    "Flanking": "Fiancheggiamento",
+    "HighGround": "Posizione Sopraelevata",
+    "Charge": "Carica",
+    "TouchAttack": "Attacco a Contatto",
+    "TouchAttackShort": "Contatto",
+    "DismissableMark": "(C)",
+    "ProficientAttack": "Competenza (Attacco)",
+    "Standard": "Standard",
+    "Manual": "Manuale",
+    "Override": "Sovrascrivi",
+    "NoOverride": "Non Sovrascrivere",
+    "CustomSkill": "Abilità Personalizzata",
+    "Finish": "Fine",
+    "Quickbar": "Quickbar",
+    "QuickbarHint": "Visualizza nell'HUD del token e nel riepilogo delle azioni rapide.",
+    "QuickCombat": "Scheda Combattimento",
+    "Reset": "Reset",
+    "Offsets": "Offset",
+    "Ammunition": "Munizioni",
+    "AmmunitionType": "Tipo Munizioni",
+    "AmmunitionPerAttack": "Costo delle Munizioni (per attacco)",
+    "AmmunitionAbbr": "Muniz.",
+    "ChargesDepleted": "Cariche esaurite!",
+    "NotSelected": "Non Selezionato",
+    "InvalidAmmoType": "Tipo Munizioni Non valido",
+    "DefaultAmmo": "Munizioni di Default",
+    "Misfire": "Inceppamento",
+    "Capacity": "Capacità",
+    "ChargeCostActionFormulaHint": "Quante cariche (o lanci, punti incantesimo, ecc.) consuma questa azione. I valori negativi ripristineranno invece le cariche.",
+    "PerAttack": "Per Attacco",
+    "ChargeSource": "Fonte Carica",
+    "RechargeFormula": "Formula Ricarica",
+    "SellValue": "Valore di Vendita",
+    "FilterPrepared": "Filtrare gli impreparati.",
+    "FilterEmpty": "Filtra sezioni vuote.",
+    "FromLevels": "Dai Livelli",
+    "FromMythic": "Da Mitico",
+    "Excess": "Eccesso",
+    "CustomBonus": "Bonus Personalizzato",
+    "UseBuff": "Usa Effetto",
+    "RollSkill": "Tira Prova Abilità",
+    "DisplayInChat": "Mostra in chat",
+    "Timeworn": "Deperito",
+    "Artifact": "Artefatto",
+    "HeldMult": "Impugnatura (×{mult})",
+    "ArmorOrShield": "Armatura/Scudo",
+    "WeaponGroups": "Gruppi Armi",
+    "GiveItemToActor": "Dai l'elemento all'attore",
+    "SplitItem": "Dividi Elemento",
+    "MediumEncumbrance": "Ingombro Medio",
+    "HeavyEncumbrance": "Ingombro Pesante",
+    "IdentifyCurseDC": "CD Identificare Maledizione",
+    "Identify": "Identifica",
+    "Unidentify": "Non identificato",
+    "Troubleshooter": {
+      "Steps": {
+        "Report": "Considera {reportlink} come un bug o una richiesta di funzionalità.",
+        "DiscordChannel": "Il canale <code>{channel}</code> è dedicato alle tue esigenze su Pathfinder 1e.",
+        "Log": "Controllare il log della console degli strumenti di sviluppo per eventuali errori (F12 [o Opzion+Command+I su Mac], scheda console)",
+        "Label": "Passi",
+        "Foundry": "Leggi {link} di Foundry.",
+        "FoundryLink": "documentazione utente",
+        "Help": "Controlla il {link}, che di solito si trova vicino al pulsante per la risoluzione dei problemi.",
+        "HelpLink": "documentazione del sistema",
+        "FAQ": "Controlla le FAQ",
+        "Modules": "Assicurarsi che la causa non siano i moduli.",
+        "DisableModules": "L'avvio in modalità provvisoria è un modo rapido per disattivare tutti i moduli.",
+        "ModuleSuggest": "{link} può in alternativa accelerare l'esclusione dei moduli.",
+        "Discord": "Fai un salto sul server Discord {link}.",
+        "DiscordHint": "Solitamente i pin del canale contengono tutte le informazioni pertinenti.",
+        "ReportLinkText": "segnalando il tuo problema"
+      },
+      "Actions": {
+        "MigrateWorldHint": "Di solito la migrazione viene eseguita automaticamente, se ci sono migrazioni pertinenti in sospeso, ogni volta che si verifica un aggiornamento PF1 e il GM effettua l'accesso per la prima volta.<br>L'esecuzione manuale della migrazione può talvolta risolvere problemi, ad esempio con documenti importati da fonti non migrate.",
+        "Label": "Operazioni",
+        "UnlockPacks": "Sblocca i pacchetti per la migrazione. I pacchetti bloccati vengono altrimenti ignorati.",
+        "Reprocess": "Elaborare tutti i documenti, indipendentemente dal fatto che siano già stati migrati.",
+        "MigrateWorld": "Migra Mondo",
+        "MigrateModules": "Migrazione dei pacchetti dei Moduli",
+        "MigrateModulesHint": "Nel caso in cui si disponga di moduli con compendi che non sono stati migrati per essere completamente compatibili con la versione corrente."
+      },
+      "Button": "Risoluzione dei problemi",
+      "Title": "Risoluzione dei problemi del sistema Pathfinder 1e",
+      "Prelude": "Ecco alcune cose che puoi fare quando ti trovi ad affrontare dei problemi."
+    },
+    "PACKS": {
+      "companion-features": "Talenti Compagno",
+      "classes": "Classi",
+      "mythicpaths": "Percorsi Mitici",
+      "commonbuffs": "Effetti Comuni",
+      "spells": "Incantesimi",
+      "feats": "Talenti",
+      "items": "Oggetti",
+      "armors-and-shields": "Armature e Scudi",
+      "weapons-and-ammo": "Armi e Munizioni",
+      "technology": "Tecnologia",
+      "monster-abilities": "Capacità dei Mostri",
+      "monsters": "Mostri Base",
+      "racialhd": "DV Razziali",
+      "races": "Razze",
+      "monster-templates": "Archetipi Mostri",
+      "sample-macros": "Esempi Macro",
+      "roll-tables": "Tabelle Casuali",
+      "ultimate-equipment": "Guida all'Equipaggiamento",
+      "pf1e-rules": "Regole Pathfinder 1ed",
+      "class-abilities": "Privilegi di Classe",
+      "template-abilities": "Modello Caratteristiche",
+      "macros": "Esempi Macro",
+      "rules": "Regole Pathfinder 1e",
+      "mythic-paths": "Percorsi Mitici",
+      "racial-hd": "DV Razziale",
+      "buffs": "Effetti Comuni"
+    },
+    "Enhancement": "Potenziamento",
+    "NoCastingAbilityLimit": "Ignora Limite Caratteristica",
+    "AbilityBonus": "Bonus Caratteristica",
+    "Missing": "Mancante",
+    "AverageShort": "Med.",
+    "Properties": "Proprietà",
+    "ContentSource": {
+      "DelEntryDesc": "Sei sicuro di voler eliminare \"{entry}\"?",
+      "Title": "Fonti del contenuto: {nome}",
+      "EditHint": "Modifica i dettagli della fonte del contenuto",
+      "Info": {
+        "ErrataHint": "Versione o data Errata",
+        "Title": "Titolo",
+        "TitleHint": "Titolo del materiale di origine, solitamente il nome del libro.",
+        "ID": "ID",
+        "IDHint": "ID libro o similare, es. PZO1110",
+        "Edition": "Edizione",
+        "EditionHint": "es. 6",
+        "Errata": "Errata",
+        "Release": "Release",
+        "Pages": "Pagine",
+        "PagesHint": "Numero pagina, intervallo (ad esempio 276-278) o elenco (ad esempio 124,270)",
+        "Publisher": "Editore",
+        "PublisherHint": "es. Paizo"
+      },
+      "Missing": "Nessuna informazione sulla fonte",
+      "Extras": "Fonti aggiuntive",
+      "AddEntry": "Aggiungi Fonte",
+      "DelEntry": "Elimina Fonte",
+      "DelTitle": "Elimina fonte: {entry}",
+      "Pages": "p. {pages}",
+      "Autofill": "Autocompilato dal registro della fonte.",
+      "DateFormat": "YYYY-MM-DD",
+      "Errors": {
+        "DuplicateID": "Esiste già una voce di fonte con lo stesso ID."
+      },
+      "NewEntry": "Nuova Fonte"
+    },
+    "StaticSizeHint": "Se abilitata, le dimensioni e la scala del token non vengono regolate automaticamente per adattarsi alle dimensioni del carattere.",
+    "CustomVisionRules": {
+      "Warning": "Questa configurazione non ha effetto finché la visione controllata dal sistema è disabilitata globalmente o nel token. Disattiva entrambi se desideri continuare a utilizzarla.",
+      "Label": "Disattiva la Visione controllata dal sistema",
+      "Description": "Impedisce al sistema di controllare la Vista, consentendoti di personalizzarla.",
+      "ConfigHint": "I sensi controllati dal sistema sono configurati nella scheda Attributi della scheda dell'attore."
+    },
+    "Average": "Medio",
+    "XPValue": "{value} PE",
+    "MaxShort": "Max",
+    "Minimum": "Minimo",
+    "AbilityPlural": "Caratteristiche",
+    "ModifierAbbr": "Mod.",
+    "Bonus": "Bonus",
+    "Command": "Comando",
+    "PCs": "PG",
+    "NPCs": "PNG",
+    "Options": "Opzioni",
+    "Cancel": "Annulla",
+    "Split": "Dividi",
+    "ChooseAnAction": "Scegli un'azione",
+    "Select": "Seleziona",
+    "Drink": "Bevi",
+    "SelectSpecific": "Seleziona {specifier}",
+    "Dialog": {
+      "SplitItem": {
+        "Title": "Dividi elemento: {name}",
+        "Keep": "Mantieni",
+        "Split": "Dividi"
+      },
+      "VehicleSave": {
+        "Message": "Seleziona il tipo di tiro salvezza da effettuare.",
+        "Title": "Seleziona tiro salvezza"
+      }
+    },
+    "EnrichedText": {
+      "Health": {
+        "Heal": "Cura {value} {NL}",
+        "Damage": "Danno {value} {NL}",
+        "NL": "NL"
+      },
+      "Add": "Aggiungi {value}",
+      "Remove": "Rimuovi {value}",
+      "Toggle": "Attiva/Disattiva {value}",
+      "Browse": "Sfoglia {value}",
+      "AsSpeaker": "Agire come oratore",
+      "AsCard": "Genera scheda chat",
+      "Direct": "Applica Direttamente",
+      "Subject": "Soggetto: {name}",
+      "Roll": "Tiro",
+      "Error": "Errore",
+      "Condition": {
+        "Duration": "Durata: {period} {unit}"
+      },
+      "Errors": {
+        "NoCategory": "Categoria non trovata",
+        "ItemNotFound": "Elemento specifico non trovato.",
+        "UnsupportedItemType": "Tipo elemento non supportato \"{type}\"",
+        "NoItemInMessage": "Nessun elemento rilevante trovato nel messaggio.",
+        "BrowserNotFound": "Browser Compendio per \"{category}\" non trovato!",
+        "NoActors": "Nessun attore valido trovato."
+      }
+    },
+    "Chat": {
+      "Visibility": {
+        "Public": "Pubblico",
+        "Private": "Privato",
+        "Self": "Se Stesso",
+        "Blind": "Cieco"
+      },
+      "FocusReference": "Scorri fino al messaggio di riferimento"
+    },
+    "RecoveredAmmo": "Recuperate {count} munizioni",
+    "DifficultyClass": "Classe Difficoltà",
+    "Success": "Successo",
+    "Failure": "Fallimento",
+    "ChangePriority": {
+      "Late": "Finale",
+      "Normal": "Normale",
+      "Early": "Iniziale"
+    },
+    "WoundThreshold": "Soglia di Ferimento",
+    "ActiveFeedback": {
+      "Deltas": {
+        "TempVigor": "{value} Vigore Temp.",
+        "Health": "{value} Punti Ferita",
+        "Nonlethal": "{value} Non letale",
+        "TempHP": "{value} PF Temp.",
+        "Wounds": "{value} Ferite",
+        "Vigor": "{value} Vigore",
+        "AbilityDamage": "{value} Danno {ability}",
+        "AbilityDrain": "{value} Risucchio {ability}",
+        "AbilityPenalty": "{value} Penalità {ability}",
+        "NegativeLevel": "{value} Livelli Negativi"
+      }
+    },
+    "InvalidSpellLevelHint": "Livello incantesimo non valido<br>Viene visualizzato solo a causa degli incantesimi ad esso assegnati.",
+    "UnidentifiedDescription": "Dettagli Superficiali",
+    "IdentifiedDescription": "Proprietà identificate",
+    "DefaultRef": "Default ({value})",
+    "RangeFormat": "Prova {type}",
+    "ConcentationDuration": "concentrazione, fino a {duration}",
+    "ForDuration": "{subject} per {duration}",
+    "Driving": "Guida",
+    "Calendar": {
+      "Label": "Calendario Golarion",
+      "Months": {
+        "1": {
+          "Name": "Abadius"
+        },
+        "2": {
+          "Name": "Calistril"
+        },
+        "3": {
+          "Name": "Pharast"
+        },
+        "4": {
+          "Name": "Gozran"
+        },
+        "5": {
+          "Name": "Desnus"
+        },
+        "6": {
+          "Name": "Sarenith"
+        },
+        "7": {
+          "Name": "Erastus"
+        },
+        "8": {
+          "Name": "Arodus"
+        },
+        "9": {
+          "Name": "Rova"
+        },
+        "10": {
+          "Name": "Lamashan"
+        },
+        "11": {
+          "Name": "Neth"
+        },
+        "12": {
+          "Name": "Kuthona"
+        }
+      },
+      "Days": {
+        "1": {
+          "Name": "Lunadì"
+        },
+        "2": {
+          "Name": "Lavordì"
+        },
+        "3": {
+          "Name": "Prosperodì"
+        },
+        "4": {
+          "Name": "Votodì"
+        },
+        "5": {
+          "Name": "Fuocodì"
+        },
+        "6": {
+          "Name": "Astrodì"
+        },
+        "7": {
+          "Name": "Soledì"
+        }
+      }
+    },
+    "Check": "Prova {type}"
+  },
+  "TOKEN": {
+    "VisionLowLight": "Visione Crepuscolare",
+    "VisionLowLightMultiplier": "Moltiplicatore Vis.Crepuscolare"
+  },
+  "TYPES": {
+    "Item": {
+      "feat": "Talento",
+      "weapon": "Arma",
+      "equipment": "Equipaggiamento",
+      "consumable": "Consumabile",
+      "loot": "Bottino",
+      "class": "Classe",
+      "spell": "Incantesimo",
+      "buff": "Effetto",
+      "attack": "Attacco",
+      "race": "Razza",
+      "container": "Contenitore",
+      "implant": "Impianto"
+    },
+    "Actor": {
+      "character": "(PG) Personaggio Giocante",
+      "haunt": "Infestazione",
+      "trap": "Trappola",
+      "vehicle": "Veicolo",
+      "basic": "Basico (per moduli)",
+      "npc": "(PNG) Personaggio Non Giocante"
+    }
+  },
+  "EFFECT": {
+    "StatusSwim": "Nuotare"
+  }
+}

@@ -3,7 +3,7 @@
   <div class="item-list-header flexrow">
     <h3>{{localize "FFD20.EnabledCheckFlags"}}</h3>
 
-    <div class="controls flexrow">
+    <div class="controls">
       <a class="control flag-selector" data-title="FFD20.CheckFlags"
          data-options="changeFlags" data-for="system.changeFlags" data-tooltip="FFD20.Edit">
         <i class="fa-solid fa-edit" inert></i>
@@ -28,7 +28,7 @@
 <ol class="item-groups-list changes-list">
   <li class="item-list-header change-header flexrow">
     <h3>{{localize "FFD20.Changes"}}</h3>
-    <div class="controls flexrow">
+    <div class="controls">
       <a class="control change-control add-change" data-target="change" data-action="add"  data-tooltip="FFD20.Add">
         <i class="fa-solid fa-plus" inert></i>
       </a>
@@ -128,7 +128,7 @@
       <h3>{{localize "FFD20.Target"}}</h3>
     </div>
     {{#if @root.owner}}
-    <div class="item-controls basic flexrow">
+    <div class="controls basic">
       <a class="context-note-control add-note" data-tooltip="FFD20.Add">
         <i class="fa-solid fa-plus" inert></i>
       </a>
@@ -147,9 +147,9 @@
         <span class="context-note-target{{#unless isValid}} invalid{{/unless}}">{{label}}</span>
       </div>
 
-      <div class="item-controls flexrow basic">
+      <div class="controls basic">
         {{#if @root.owner}}
-        <a class="context-note-control delete-note"><i class="fa-solid fa-trash" inert></i></a>
+        <a class="context-note-control delete-note"><i class="fa-solid fa-trash fa-fw" inert></i></a>
         {{/if}}
       </div>
     </li>

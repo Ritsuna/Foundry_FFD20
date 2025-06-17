@@ -118,7 +118,7 @@
   <label>{{localize "FFD20.CriticalMultiplier"}}</label>
   <div class="form-fields">
     <input type="number" name="ability.critMult" value="{{data.ability.critMult}}" min="1" step="1"
-      placeholder="{{localize "FFD20.NonApplicable"}}" {{disabled (not action.ability.critRange)}}>
+      placeholder="1" {{disabled (not action.ability.critRange)}}>
   </div>
 </div>
 
@@ -315,7 +315,7 @@
 <div class="form-group">
   <label>{{localize "FFD20.DamageBonus"}}</label>
   <div class="form-fields">
-    <input type="number" name="powerAttack.damageBonus" value="{{data.powerAttack.damageBonus}}" min="0" step="1">
+    <input type="number" name="powerAttack.damageBonus" value="{{data.powerAttack.damageBonus}}" min="0" step="1" placeholder="2">
   </div>
 </div>
 

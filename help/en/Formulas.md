@@ -207,25 +207,6 @@ Alias for `ifelse()` with `if(a, b)` being equivalent of `ifelse(a, b, 0)`, the 
 
 **Example:** `if(gt(@attributes.hd.total, 5), 2)` – gives 2 if HD is greater than 5, and zero otherwise.
 
-### Basic Logic Functions
-
-These return one (`1`) if the comparison is true, and zero (`0`) if not, allowing simple math logic.
-
-| Function              | Name  | Math | Example                                                         | Example Explanation                                                   |
-| :-------------------- | :---- | :--- | :-------------------------------------------------------------- | :-------------------------------------------------------------------- |
-| Equal                 | `eq`  | `=`  | `eq(@attributes.hd.total, 5)`                                   | HD equal to 5                                                         |
-| Not equal             | `ne`  | `!=` | `ne(@attributes.hd.total, 5)`                                   | HD not equal to 5                                                     |
-| Less than             | `lt`  | `<`  | `lt(@class.level, 5)`                                           | Class level is less than 5                                            |
-| Less or equal than    | `lte` | `<=` | `lte(@class.level, 9)`                                          | Class level is 9 or less                                              |
-| Greater than          | `gt`  | `>`  | `gt(@class.level, 5)`                                           | Class level is greater than 5                                         |
-| Greater or equal than | `gte` | `>=` | `gte(@class.level, 9)`                                          | Class level is 9 or greater                                           |
-| And                   | `and` |      | `and(lt(@attributes.encumbrance.level, 2), lt(@armor.type, 3))` | Encumbrance level is lesser than 2 and worn armor type is less than 3 |
-| Or                    | `or`  |      | `or(@armor.type, @shield.type)`                                 | Is equipped with any armor or shield (types is non-zero)              |
-| Exclusive or          | `xor` |      | `xor(@armor.type, @shield.type)`                                | Is wearing armor or shield, but not both.                             |
-| Not                   | `not` |      | `not(@armor.type)`                                              | Is not wearing armor (armor type is non-zero)                         |
-
-🛈 Note! And, Or, and Exclusive Or functions allow any number of parameters.
-
 ### `lookup`
 
 Lookup function when none of the above provide meaningful solution.
@@ -247,3 +228,22 @@ Resulting in 1d6 roll turning into [1=0, 1=2, 3=2, 4=4, 5=4, 6=5] mapping.
 
 **Example**: `lookup(min(@class.level, 7), 0, 1, 1, 1, 2, 2, 2, 4)` -
 Resulting in 1 to 4 range from level being 1 to 7 or higher with 7 or higher giving 1 more than previous increments.
+
+### Basic Logic Functions
+
+These return one (`1`) if the comparison is true, and zero (`0`) if not, allowing simple math logic.
+
+| Function              | Name  | Math | Example                                                         | Example Explanation                                                   |
+| :-------------------- | :---- | :--- | :-------------------------------------------------------------- | :-------------------------------------------------------------------- |
+| Equal                 | `eq`  | `=`  | `eq(@attributes.hd.total, 5)`                                   | HD equal to 5                                                         |
+| Not equal             | `ne`  | `!=` | `ne(@attributes.hd.total, 5)`                                   | HD not equal to 5                                                     |
+| Less than             | `lt`  | `<`  | `lt(@class.level, 5)`                                           | Class level is less than 5                                            |
+| Less or equal than    | `lte` | `<=` | `lte(@class.level, 9)`                                          | Class level is 9 or less                                              |
+| Greater than          | `gt`  | `>`  | `gt(@class.level, 5)`                                           | Class level is greater than 5                                         |
+| Greater or equal than | `gte` | `>=` | `gte(@class.level, 9)`                                          | Class level is 9 or greater                                           |
+| And                   | `and` |      | `and(lt(@attributes.encumbrance.level, 2), lt(@armor.type, 3))` | Encumbrance level is lesser than 2 and worn armor type is less than 3 |
+| Or                    | `or`  |      | `or(@armor.type, @shield.type)`                                 | Is equipped with any armor or shield (types is non-zero)              |
+| Exclusive or          | `xor` |      | `xor(@armor.type, @shield.type)`                                | Is wearing armor or shield, but not both.                             |
+| Not                   | `not` |      | `not(@armor.type)`                                              | Is not wearing armor (armor type is non-zero)                         |
+
+🛈 Note! And, Or, and Exclusive Or functions allow any number of parameters.

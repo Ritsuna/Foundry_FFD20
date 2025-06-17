@@ -1,8 +1,8 @@
 {
   "id": "ffd20",
   "title": "Final Fantasy d20",
-  "description": "FFd20 using Pathfinder 1e v11.6 as a base in the Foundry VTT environment.",
-  "version": "12.11.6.0",
+  "description": "FFd20 using Pathfinder 1e v11.7 as a base in the Foundry VTT environment.",
+  "version": "12.11.7.0",
   "authors": [
     {
       "name": "Ritsu Voices",
@@ -39,11 +39,7 @@
     },
     {
       "name": "Equipment",
-      "packs": [
-        "weapons-and-ammo",
-        "armors-and-shields",
-        "items",
-        "technology"],
+      "packs": ["weapons-and-ammo", "armors-and-shields", "items", "technology"],
       "color": "#777777"
     },
     {
@@ -52,6 +48,7 @@
         "classes",
         "companion-features",
         "racial-hd",
+        "class-abilities",
         "feats",
         "monster-templates",
         "template-abilities",
@@ -61,10 +58,7 @@
     },
     {
       "name": "Roll Tables",
-      "packs": [
-        "roll-tables",
-        "ultimate-equipment"
-      ],
+      "packs": ["roll-tables", "ultimate-equipment"],
       "color": "#005755"
     },
     {
@@ -106,6 +100,14 @@
     {
       "name": "buffs",
       "label": "FFD20.PACKS.buffs",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      }
+    },
+    {
+      "name": "spells",
+      "label": "FFD20.PACKS.spells",
       "type": "Item",
       "ownership": {
         "PLAYER": "OBSERVER"
@@ -168,6 +170,14 @@
       }
     },
     {
+      "name": "class-abilities",
+      "label": "FFD20.PACKS.class-abilities",
+      "type": "Item",
+      "ownership": {
+        "PLAYER": "OBSERVER"
+      }
+    },
+    {
       "name": "monster-templates",
       "label": "FFD20.PACKS.monster-templates",
       "type": "Item",
@@ -221,6 +231,36 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
+    },
+    {
+      "lang": "de",
+      "name": "Deutsch (German)",
+      "path": "lang/de.json"
+    },
+    {
+      "lang": "fr",
+      "name": "Française (French)",
+      "path": "lang/fr.json"
+    },
+    {
+      "lang": "it",
+      "name": "Italiano (Italian)",
+      "path": "lang/it.json"
+    },
+    {
+      "lang": "es",
+      "name": "Español (Spanish)",
+      "path": "lang/es.json"
+    },
+    {
+      "lang": "cn",
+      "name": "Chinese",
+      "path": "lang/cn.json"
+    },
+    {
+      "lang": "pt-BR",
+      "name": "Português (Brasil)",
+      "path": "lang/pt_BR.json"
     }
   ],
   "socket": true,
@@ -280,5 +320,5 @@
   "bugs": "https://github.com/Ritsuna/Foundry_FFD20/-/issues",
   "url": "https://github.com/Ritsuna/Foundry_FFD20",
   "manifest": "https://raw.githubusercontent.com/Ritsuna/Foundry_FFD20/master/system.json",
-  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/12.11.6.0.zip"
+  "download": "https://github.com/Ritsuna/Foundry_FFD20/archive/refs/tags/12.11.7.0.zip"
 }

@@ -168,16 +168,16 @@
 
       {{!-- Equipment Slot --}}
       {{#if hasMultipleSlots}}
-        <div class="form-group">
-          <label>{{localize "FFD20.Slot"}}</label>
-          <div class="form-fields">
-            <select name="system.slot">
-              {{selectOptions equipmentSlots selected=system.slot}}
-            </select>
-          </div>
+      <div class="form-group">
+        <label>{{localize "FFD20.Slot"}}</label>
+        <div class="form-fields">
+          <select name="system.slot">
+            {{selectOptions equipmentSlots selected=system.slot}}
+          </select>
         </div>
+      </div>
       {{else}}
-        <input type="hidden" name="system.slot" value="{{system.subType}}">
+      <input type="hidden" name="system.slot" value="{{system.subType}}">
       {{/if}}
 
       {{!-- Materia Slotted --}}
@@ -206,7 +206,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.Hands"}}</label>
         <div class="form-fields">
-          <input type="number" name="system.hands" value="{{system.hands}}" min="0" step="1" placeholder="0">
+          <input type="number" name="system.hands" value="{{data.hands}}" min="0" step="1" placeholder="0">
         </div>
       </div>
       {{/if}}
@@ -221,7 +221,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.ArmorClass"}}</label>
         <div class="form-fields">
-          <input type="number" name="system.armor.value" value="{{system.armor.value}}" min="0" step="1">
+          <input type="number" name="system.armor.value" value="{{data.armor.value}}" min="0" step="1" placeholder="0">
         </div>
       </div>
 
@@ -230,7 +230,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.EnhancementBonus"}}</label>
         <div class="form-fields">
-          <input type="number" name="system.armor.enh" value="{{system.armor.enh}}" min="0" step="1">
+          <input type="number" name="system.armor.enh" value="{{data.armor.enh}}" min="0" step="1" placeholder="0">
         </div>
       </div>
       {{/unless}}
@@ -239,7 +239,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.MaxDexterityModifier"}}</label>
         <div class="form-fields">
-          <input type="number" name="system.armor.dex" value="{{system.armor.dex}}" placeholder="{{localize "FFD20.Unlimited"}}" step="1">
+          <input type="number" name="system.armor.dex" value="{{data.armor.dex}}" placeholder="{{localize "FFD20.Unlimited"}}" step="1">
         </div>
       </div>
 
@@ -247,7 +247,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.ArmorCheckPenalty"}}</label>
         <div class="form-fields">
-          <input type="number" name="system.armor.acp" value="{{system.armor.acp}}" placeholder="0" min="0" step="1">
+          <input type="number" name="system.armor.acp" value="{{data.armor.acp}}" placeholder="0" min="0" step="1">
         </div>
       </div>
 
@@ -255,7 +255,7 @@
       <div class="form-group">
         <label>{{localize "FFD20.ArcaneSpellFailure"}}</label>
         <div class="form-fields">
-          <input type="number" name="system.spellFailure" value="{{system.spellFailure}}" placeholder="0" min="0" step="1">
+          <input type="number" name="system.spellFailure" value="{{data.spellFailure}}" placeholder="0" min="0" step="1">
         </div>
       </div>
 

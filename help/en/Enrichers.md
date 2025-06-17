@@ -54,7 +54,7 @@ If name is defined instead of UUID, item is searched from items directory and co
 | :----------------------------------------------------------------- | :------------------------------------------------------------------ |
 | `@Apply[Special Mood]`                                             | Add custom buff with level untouched.                               |
 | `@Apply[Compendium.ffd20.commonbuffs.Item.IlO0CNpAIKZtNYu8;level=5]` | Add Mage Armor with buff level set to 5.                            |
-| `@Apply[Rage;level=3]`                                             | Add Rage with buff level set to 10.                                 |
+| `@Apply[Rage;level=3]`                                             | Add Rage with buff level set to 3.                                  |
 | `@Apply[Shield;level=@cl]`                                         | Add Shield at caster level as defined by action at time of casting. |
 
 #### Special Options
