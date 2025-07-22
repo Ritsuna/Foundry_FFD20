@@ -150,7 +150,7 @@
             </ul>
           </div>
           {{/if}}
-          {{#if hardness.available}}
+          {{#if (not hardness.disabled)}}
           <div class="reduction-category hardness">
             <h6>{{localize "FFD20.Hardness"}}</h6>
             <ul>

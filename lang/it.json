@@ -1082,9 +1082,9 @@
     "MeleeSpell": "Incantesimo in Mischia",
     "MeleeWeapon": "Arma da Mischia",
     "Migration": {
-      "End": "Migrazione Sistema PF1 alla versione {version} completato!",
+      "End": "Migrazione Sistema FFD20 alla versione {version} completato!",
       "Ongoing": "Migrazione in corso. Prego attendere.",
-      "Start": "Applicazione Migrazione Sistema PF1 alla versione {version}. Prego attendere.",
+      "Start": "Applicazione Migrazione Sistema FFD20 alla versione {version}. Prego attendere.",
       "Dialog": {
         "Tooltip": {
           "Processed": "Elaborato",
@@ -1109,7 +1109,7 @@
         "ErrorHelp": "Fare clic sui contatori degli errori della categoria per visualizzarne i dettagli.",
         "Errors": "Errori"
       },
-      "InProgress": "La migrazione del sistema PF1 è in corso. Attendi che finisca.",
+      "InProgress": "La migrazione del sistema FFD20 è in corso. Attendi che finisca.",
       "Category": {
         "World": "Mondo",
         "Modules": "Pacchetti Moduli",
@@ -2761,7 +2761,7 @@
       "HideTokenConditionsN": "Nascondi Effetti sui Token",
       "HideTokenConditionsH": "Determina se nascondere le icone degli effetti sui token",
       "CoreEffectsN": "Condizioni di Default dei Token",
-      "CoreEffectsH": "Visualizza sui token solo le condizioni di PF1 (non selezionato) o anche le icone core di Foundry (selezionato)",
+      "CoreEffectsH": "Visualizza sui token solo le condizioni di FFD20 (non selezionato) o anche le icone core di Foundry (selezionato)",
       "UnchainedActionEconomyN": "Gestione Azioni Rivisitata",
       "UnchainedActionEconomyH": "Determina se utilizzare il set di regole opzionale della Gestione Riveduta delle Azioni (Unchained Action Economy).",
       "Cybertech": "Cybertecnologia",
@@ -2785,8 +2785,8 @@
         "SpellPointCostHint": "Il costo predefinito dei punti magia impostato sugli incantesimi, se non configurati sui singoli incantesimo."
       },
       "Chat": {
-        "ObscureInlineRolls": "Oscura tiri in linea",
-        "ObscureSaveDCs": "Oscura la CD dei tiri salvezza",
+        "ObscureInlineRolls": "Offusca Tiri",
+        "ObscureSaveDCs": "Oscura le CD",
         "ObscureSaveDCsHint": "Nascondi i valori di CD dalle schede chat dei giocatori.",
         "AutoCollapse": "Comprimi le schede degli oggetti nella chat",
         "HideButtons": "Nascondi i Bottoni delle schede Chat",
@@ -2794,7 +2794,7 @@
         "NoTargetsHint": "Impedisce agli attori presi di mira di comparire sulle schede di attacco in chat",
         "ClearTargets": "Cancella i target dopo l'attacco",
         "ClearTargetsHint": "Determina se rimuovere tutti i target dopo un tiro di attacco.",
-        "ObscureInlineRollsHint": "Nascondi i tiri in linea a coloro che non hanno almeno il permesso di osservatore.",
+        "ObscureInlineRollsHint": "Nascondi i bonus e i dettagli del tiro a coloro che non hanno almeno il permesso di osservatore.",
         "HideButtonsHint": "determina se nascondere i pulsanti delle schede chat, come quelli che si trovano sui tiri di attacco.",
         "AutoCollapseHint": "Riduci automaticamente le descrizioni degli oggetti nella chat"
       },
@@ -2841,7 +2841,7 @@
     "Tours": {
       "ActorSheet": {
         "FeaturesTab": {
-          "Content": "Tutto ciò che riguarda i talenti o le abilità concesse dalla classe, dalla razza, dal dado o da altri effetti può essere trovato qui.<br /><br />Come prima, troverai il filtro in alto e le opzioni <i class='fas fa-folder-plus'></i>, <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.<br /><br />Puoi anche passare il mouse sulle icone per informazioni.",
+          "Content": "Tutto ciò che riguarda i talenti o le abilità concesse dalla classe, dalla razza, dal dado o da altri effetti può essere trovato qui.<br><br>Come prima, troverai il filtro in alto e le opzioni <i class='fas fa-folder-plus'></i>, <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.<br><br>Puoi anche passare il mouse sulle icone per informazioni.",
           "Title": "Scheda Talenti e Privilegi di Classe"
         },
         "HighlightStreetMagicianInCompendium": {
@@ -2911,11 +2911,11 @@
           "Title": "Attributi"
         },
         "InventoryTab": {
-          "Content": "Qui potrai vedere tutti gli oggetti che hai nel tuo inventario.<br />Come nella <em>scheda Combattimento</em>, le voci sono raggruppate per tipo.<br /><br />Puoi aggiungere oggetti dal <code>CompendiumBrowser</code> cliccando su <i class='fas fa-folder-plus'></i>.<br />Hai anche le opzioni <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.",
+          "Content": "Qui potrai vedere tutti gli oggetti che hai nel tuo inventario.<br>Come nella <em>scheda Combattimento</em>, le voci sono raggruppate per tipo.<br><br>Puoi aggiungere oggetti dal <code>CompendiumBrowser</code> cliccando su <i class='fas fa-folder-plus'></i>.<br>Hai anche le opzioni <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.",
           "Title": "Scheda Inventario"
         },
         "SettingsTab": {
-          "Content": "Qui potrai configurare quali abilità usare per calcoli specifici (ad esempio <em>Carisma</em> invece di <em>Costituzione</em> per i Non Morti) e anche i libri degli incantesimi.<br /><br />Inoltre puoi usare il <code>Calcolatore Point Buy</code> in qualsiasi momento, non solo durante la creazione del personaggio.",
+          "Content": "Qui potrai configurare quali abilità usare per calcoli specifici (ad esempio <em>Carisma</em> invece di <em>Costituzione</em> per i Non Morti) e anche i libri degli incantesimi.<br><br>Inoltre puoi usare il <code>Calcolatore Point Buy</code> in qualsiasi momento, non solo durante la creazione del personaggio.",
           "Title": "Impostazioni"
         },
         "CombatTab": {
@@ -2923,19 +2923,19 @@
           "Title": "Scheda Combattimento"
         },
         "BuffsTab": {
-          "Content": "Tutte le condizioni e i buff possono essere trovati qui.<br />Una volta aggiunto un buff, vedrai le opzioni <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>. Puoi anche crearne uno con le opzioni <i class='fas fa-folder-plus'></i> e <i class='fas fa-plus'></i>.<br /><br/>La maggior parte delle condizioni di Pathfinder 1e sono visualizzate sopra, altrimenti puoi cercarle nel <code>CompendiumBrowser</code>.",
+          "Content": "Tutte le condizioni e i buff possono essere trovati qui.<br>Una volta aggiunto un buff, vedrai le opzioni <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>. Puoi anche crearne uno con le opzioni <i class='fas fa-folder-plus'></i> e <i class='fas fa-plus'></i>.<br><br>La maggior parte delle condizioni di Pathfinder 1e sono visualizzate sopra, altrimenti puoi cercarle nel <code>CompendiumBrowser</code>.",
           "Title": "Scheda Effetti e Condizioni"
         },
         "SpellsTab": {
-          "Content": "Se la tua classe è un incantatore o hai configurato capacità magiche, queste verranno mostrate qui.<br />Come al solito puoi trovare le opzioni <i class='fas fa-folder-plus'></i>, <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.",
+          "Content": "Se la tua classe è un incantatore o hai configurato capacità magiche, queste verranno mostrate qui.<br>Come al solito puoi trovare le opzioni <i class='fas fa-folder-plus'></i>, <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> e <i class='fas fa-copy'></i>.",
           "Title": "Scheda Incantesimi"
         },
         "Charges": {
-          "Content": "Questa è la quantità di cariche di un oggetto (<strong>non la quantità di utilizzi rimanenti</strong>; ad esempio 4 <em>Imposizione delle mani</em> rimanenti non significano 4 <em>Incanalamento di energia positiva</em> rimanenti). Seguito dalla quantità massima.<br /><br />Puoi modificare manualmente le cariche digitando nell'input o cliccando su <i class='fas fa-edit'></i>.<br /><br />Puoi anche modificare il costo della carica cliccando su <i class='fas fa-edit'></i>.",
+          "Content": "Questa è la quantità di cariche di un oggetto (<strong>non la quantità di utilizzi rimanenti</strong>; ad esempio 4 <em>Imposizione delle mani</em> rimanenti non significano 4 <em>Incanalamento di energia positiva</em> rimanenti). Seguito dalla quantità massima.<br><br>Puoi modificare manualmente le cariche digitando nell'input o cliccando su <i class='fas fa-edit'></i>.<br><br>Puoi anche modificare il costo della carica cliccando su <i class='fas fa-edit'></i>.",
           "Title": "Cariche"
         },
         "SpellbooksConfiguration": {
-          "Content": "Puoi configurare i libri degli incantesimi qui cliccando sull'icona <i class='fas fa-cogs'></i>. Qui potrai modificare a tuo piacimento le numerose opzioni dei libri degli incantesimi.<br /><br />Se il tuo libro degli incantesimi proviene da un incantatore del <code>CompendiumBrowser</code>, è già configurato, fatta eccezione per alcune piccole modifiche (come incantesimi extra per lo Stregone).",
+          "Content": "Puoi configurare i libri degli incantesimi qui cliccando sull'icona <i class='fas fa-cogs'></i>. Qui potrai modificare a tuo piacimento le numerose opzioni dei libri degli incantesimi.<br><br>Se il tuo libro degli incantesimi proviene da un incantatore del <code>CompendiumBrowser</code>, è già configurato, fatta eccezione per alcune piccole modifiche (come incantesimi extra per lo Stregone).",
           "Title": "Configurazione Libri degli Incantesimi"
         },
         "MagicItemsTable": {
@@ -2944,7 +2944,7 @@
         },
         "AbilityScoresSection": {
           "Title": "Punteggi Caratteristiche",
-          "Content": "Il punteggio di caratteristica <em>Totale</em> è modificabile, così come <em>Danno</em>, <em>Risucchio</em> e <em>Penalità</em>.<br>I <em>modificatori</em>, <em>PCA <small>(Penalità alla Classe Armatura)</small></em> e <em>FIA <small>(Fallimento Incantesimi Arcani)</small></em> vengono calcolati automaticamente."
+          "Content": "Il punteggio di caratteristica <em>Totale</em> è modificabile, ma modifica il valore base. Anche <em>Danno</em>, <em>Risucchio</em> e <em>Penalità</em> possono essere modificati qui."
         },
         "ResistancesAndImmunitiesDialog": {
           "Title": "Finestra Resistenze e Immunità",
@@ -2960,11 +2960,11 @@
         },
         "SkillsTab": {
           "Title": "Scheda Abilità",
-          "Content": "Qui sono elencate tutte le abilità di Pathfinder.<br />Se passi il mouse su una qualsiasi di esse, verrà visualizzata un'icona <i class='fas fa-book'></i> che aprirà la voce del compendio per l'abilità.<br /><br />Inoltre, puoi aggiungere abilità personalizzate cliccando su <code><i class='fas fa-plus'></i>Aggiungi abilità</code> in fondo all'elenco."
+          "Content": "Qui sono elencate tutte le abilità di Pathfinder.<br>Se passi il mouse su una qualsiasi di esse, verrà visualizzata un'icona <i class='fas fa-book'></i> che aprirà la voce del compendio per l'abilità.<br><br>Inoltre, puoi aggiungere abilità personalizzate cliccando su <code><i class='fas fa-plus'></i>Aggiungi abilità</code> in fondo all'elenco."
         },
         "UnlockSkills": {
           "Title": "Sblocca abilità per la modifica",
-          "Content": "Puoi sbloccare le abilità per la modifica cliccando su <i class='fas fa-lock'></i>.<br />Dopodiché vedrai l'icona <i class='fas fa-edit'></i>. Puoi anche bloccare di nuovo le abilità cliccando su <i class='fas fa-lock-open'></i>."
+          "Content": "Puoi sbloccare le abilità per la modifica cliccando su <i class='fas fa-lock'></i>.<br>Dopodiché vedrai l'icona <i class='fas fa-edit'></i>. Puoi anche bloccare di nuovo le abilità cliccando su <i class='fas fa-lock-open'></i>."
         },
         "AddSubskill": {
           "Title": "Aggiungi sotto-abilità",
@@ -2972,7 +2972,7 @@
         },
         "ConditionDuration": {
           "Title": "Durata Condizioni",
-          "Content": "Come previsto, puoi attivare/disattivare la condizione cliccando sull'icona.<br /><br />Puoi anche impostare una durata per la condizione cliccandoci sopra con il <em>tasto destro</em> del mouse."
+          "Content": "Come previsto, puoi attivare/disattivare la condizione cliccando sull'icona.<br><br>Puoi anche impostare una durata per la condizione cliccandoci sopra con il <em>tasto destro</em> del mouse."
         },
         "SpellbooksTab": {
           "Title": "Libri degli Incantesimi",
@@ -2980,7 +2980,7 @@
         },
         "BiographyTab": {
           "Title": "Scheda Biografia",
-          "Content": "Questo è un campo di testo libero che puoi usare per scrivere la biografia del tuo personaggio, i suoi vantaggi, ecc.<br /><br />L'unica cosa da tenere a mente è che il testo qui è <strong>visibile a chiunque abbia un permesso <code>Limitato</code></strong>."
+          "Content": "Questo è un campo di testo libero che puoi usare per scrivere la biografia del tuo personaggio, i suoi vantaggi, ecc.<br><br>L'unica cosa da tenere a mente è che il testo qui è <strong>visibile a chiunque abbia un permesso <code>Limitato</code></strong>."
         },
         "NotesTab": {
           "Title": "Scheda Note",
@@ -3088,7 +3088,7 @@
         "ReportLinkText": "segnalando il tuo problema"
       },
       "Actions": {
-        "MigrateWorldHint": "Di solito la migrazione viene eseguita automaticamente, se ci sono migrazioni pertinenti in sospeso, ogni volta che si verifica un aggiornamento PF1 e il GM effettua l'accesso per la prima volta.<br>L'esecuzione manuale della migrazione può talvolta risolvere problemi, ad esempio con documenti importati da fonti non migrate.",
+        "MigrateWorldHint": "Di solito la migrazione viene eseguita automaticamente, se ci sono migrazioni pertinenti in sospeso, ogni volta che si verifica un aggiornamento FFD20 e il GM effettua l'accesso per la prima volta.<br>L'esecuzione manuale della migrazione può talvolta risolvere problemi, ad esempio con documenti importati da fonti non migrate.",
         "Label": "Operazioni",
         "UnlockPacks": "Sblocca i pacchetti per la migrazione. I pacchetti bloccati vengono altrimenti ignorati.",
         "Reprocess": "Elaborare tutti i documenti, indipendentemente dal fatto che siano già stati migrati.",

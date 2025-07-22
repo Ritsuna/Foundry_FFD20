@@ -240,7 +240,7 @@
     "SkillKPl": "Saber (Planos)",
     "SkillKRe": "Saber (Religión)",
     "SkillLin": "Lingüística",
-    "SkillLor": "Saberes",
+    "SkillLor": "Sabiduría popular (Lore)",
     "SkillPer": "Percepción",
     "SkillPrf": "Interpretación",
     "SkillPro": "Profesión",
@@ -935,10 +935,10 @@
     "Bright": "Claro",
     "Dim": "Tenue",
     "Migration": {
-      "Start": "Aplicando Migración del Sistema PF1 para la versión {version}. Por favor, espere.",
+      "Start": "Aplicando Migración del Sistema FFD20 para la versión {version}. Por favor, espere.",
       "Ongoing": "Migración en marcha. Por favor espere a que finalice.",
-      "End": "¡La Migración del Sistema de PF1 a la versión {version} a sido un éxito!",
-      "InProgress": "Migración del sistema PF1 en proceso. Por favor, espere a que termine.",
+      "End": "¡La Migración del Sistema de FFD20 a la versión {version} a sido un éxito!",
+      "InProgress": "Migración del sistema FFD20 en proceso. Por favor, espere a que termine.",
       "Dialog": {
         "Title": "Migración",
         "Ongoing": "¡Migración en marcha!",
@@ -1298,7 +1298,7 @@
       "Actions": {
         "MigrateWorld": "Migrar mundo",
         "Label": "Operaciones",
-        "MigrateWorldHint": "Normalmente, la migración se ejecuta automáticamente, si hay migraciones pertinentes pendientes, cada vez que se realiza una actualización de PF1 y GM inicia sesión por primera vez.<br>Ejecutar la migración manualmente a veces puede resolver problemas, como con documentos importados de fuentes no migradas.",
+        "MigrateWorldHint": "Normalmente, la migración se ejecuta automáticamente, si hay migraciones pertinentes pendientes, cada vez que se realiza una actualización de FFD20 y GM inicia sesión por primera vez.<br>Ejecutar la migración manualmente a veces puede resolver problemas, como con documentos importados de fuentes no migradas.",
         "MigrateModules": "Migrar packs de modulos",
         "MigrateModulesHint": "En caso de que tenga módulos con compendios que no hayan sido migrados en su extremo para que sean totalmente compatibles con la versión actual.",
         "UnlockPacks": "Desbloquear compendios para la migración, sino los compendios bloqueados son ignorados.",
@@ -1581,7 +1581,8 @@
         "Touch": "Toque",
         "Visual": "Visual",
         "ElectricEyes": "Ojos eléctricos",
-        "Genetic": "Genética"
+        "Genetic": "Genética",
+        "Manual": "Manual"
       },
       "Types": {
         "Magic": "Mágica",
@@ -2904,7 +2905,7 @@
       "HideTokenConditionsN": "Ocultar Buffs del Token",
       "HideTokenConditionsH": "Si deberían ocultarse los íconos de Buff del Token",
       "CoreEffectsN": "Estados de la ficha (token) por defecto",
-      "CoreEffectsH": "Muestra solo los Estados de PF1 en las fichas (tokens) (Desactivado) o los íconos base de Foundry también (Activado)",
+      "CoreEffectsH": "Muestra solo los Estados de FFD20 en las fichas (tokens) (Desactivado) o los íconos base de Foundry también (Activado)",
       "UnchainedActionEconomyN": "Economía de Acciones de Unchained",
       "UnchainedActionEconomyH": "Si deseas usar las reglas de Economía de Acciones de Unchained.",
       "Cybertech": "Cibertecnología",
@@ -3292,7 +3293,7 @@
         },
         "TooltipsWithDefinitions": {
           "Title": "Referencias de datos",
-          "Content": "Puedes pasar el ratón por encima de cualquier entrada de la hoja de personaje y se mostrará un mensaje que indica cómo hacer referencia a los datos en las fórmulas (<code>@attributes.hp.max</code>, entre otros, pasando el ratón por encima de PG Máx., por ejemplo)."
+          "Content": "Puedes pasar el ratón por encima de cualquier entrada de la hoja de personaje y se mostrará un mensaje que indica cómo hacer referencia a los datos en las fórmulas (por ejemplo <code>@attributes.hp.max</code>, entre otros, pasando el ratón por encima de PG Máx., por ejemplo)."
         },
         "DetailsInSheet": {
           "Title": "Sección de detalles",
@@ -3324,7 +3325,7 @@
         },
         "AbilityScoresSection": {
           "Title": "Puntuaciones de característica",
-          "Content": "La puntuación de característica <em>Total</em> es editable, así como <em>Daño</em>, <em>Drenaje</em> y <em>Penalizador</em>.<br/>Los <em>modificadores</em>, <em>PdA <small>(Penalizador de armadura)</small></em> y <em>FdCA <small>(Fallo de conjuro arcano)</small></em> se calculan automáticamente."
+          "Content": "La puntuación de característica <em>Total</em> es editable, pero edita el valor base. <em>Daño</em>, <em>Drenaje</em> y <em>Penalizador</em> pueden ajustarse de igual manera."
         },
         "TraitsSection": {
           "Title": "Rasgos",
@@ -3347,7 +3348,7 @@
           "Content": "Aquí podrás ver todos los objetos que tienes en tu inventario.<br/>Al igual que en la <em>pestaña de combate</em> las entradas están agrupadas por tipo.<br/><br/>Puedes añadir objetos desde el <code>CompendiumBrowser</code> haciendo clic en <i class='fas fa-folder-plus'></i>. <br/>También tienes las opciones <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> y <i class='fas fa-copy'></i>."
         },
         "ItemsDetails": {
-          "Title": "Detalles y opciones de los artículos",
+          "Title": "Detalles y opciones del artículo",
           "Content": "Puede pasar el ratón por encima de cada uno de los iconos de la cabecera del grupo (<i class='icon-pf text-icon icon-inventory-slot'></i>, <i class='icon-pf text-icon icon-gears'></i>, <i class='icon-pf text-icon icon-weight'></i>, <i class='icon-pf text-icon icon-quill-ink'></i>, ...) para obtener más información sobre su significado."
         },
         "FeaturesTab": {

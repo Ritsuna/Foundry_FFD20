@@ -40,8 +40,7 @@
             <label for="cost-{{appId}}">
               {{localize "FFD20.Price"}}&nbsp;<span class="unit">{{labels.currency}}</span>
             </label>
-            <input id="cost-{{appId}}" name="system.details.cost" type="number" value="{{system.details.cost}}" placeholder="{{localize "FFD20.CostGP"}}"
-              data-tooltip="{{localize "FFD20.CostGP"}}" min="0" step="1">
+            <input id="cost-{{appId}}" name="system.details.cost" type="number" value="{{system.details.cost}}" placeholder="0" min="0" step="1">
           </li>
           {{! Material }}
           <li data-tooltip-extended="material">
@@ -79,13 +78,13 @@
           <h3>{{localize "FFD20.HitPoints"}}</h3>
 
           <div class="info-box-joined">
-            <div class="info-box current">
+            <div class="info-box hp-current">
               <h5>{{localize "FFD20.Current"}}</h5>
               <span class="value">
                 <span class="text-box direct wheel-change allow-relative hp-current-input" name="system.attributes.hp.value" data-dtype="Number">{{system.attributes.hp.value}}</span>
               </span>
             </div>
-            <div class="info-box maximum">
+            <div class="info-box hp-max">
               <h5>{{localize "FFD20.Maximum"}}</h5>
               <span class="value">
                 <span class="text-box direct hp-max-input" name="system.attributes.hp.bonus" type="number" data-dtype="Number">{{system.attributes.hp.max}}</span>
@@ -98,19 +97,19 @@
           <h3>{{localize "FFD20.Vehicles.Crew"}}</h3>
 
           <div class="info-box-joined">
-            <div class="info-box">
+            <div class="info-box crew-current">
               <h5>{{localize "FFD20.Current"}}</h5>
               <span class="value text-box direct wheel-change allow-relative">
                 {{formInput fields.crew.fields.value value=system.crew.value}}
               </span>
             </div>
-            <div class="info-box">
+            <div class="info-box crew-max">
               <h5>{{localize "FFD20.Vehicles.Full"}}</h5>
               <span class="value text-box direct wheel-change allow-relative">
                 {{formInput fields.crew.fields.max value=system.crew.max placeholder="1"}}
               </span>
             </div>
-            <div class="info-box">
+            <div class="info-box passengers">
               <h5>{{localize "FFD20.Vehicles.Passengers"}}</h5>
               <span class="value text-box direct wheel-change allow-relative">
                 {{formInput fields.crew.fields.passengers value=system.crew.passengers placeholder="0"}}
@@ -124,14 +123,14 @@
       <div class="defenses info-box-header">
         <h3><i class="fa-solid fa-dice-d20 rollable" data-dtype="defenses"></i> {{localize "FFD20.Defenses"}}</h3>
         {{!-- AC --}}
-        <div class="info-box ac" data-tooltip-extended="ac.normal">
+        <div class="info-box ac-mobile" data-tooltip-extended="ac.normal">
           <h5>{{localize "FFD20.ACNormal"}}</h5>
           <span class="value text-box direct" name="system.attributes.ac.normal.bonus" data-dtype="number" step="1">
             {{system.attributes.ac.normal.total}}
           </span>
         </div>
         {{!-- AC Base --}}
-        <div class="info-box ac" data-tooltip-extended="ac.touch">
+        <div class="info-box ac-touch" data-tooltip-extended="ac.touch">
           <h5>{{localize "FFD20.ACTouch"}}</h5>
           <span class="value text-box direct" name="system.attributes.ac.touch.bonus" data-dtype="number" step="1">
             {{system.attributes.ac.touch.total}}
@@ -139,7 +138,7 @@
         </div>
         {{#if (eq system.traits.type "sea")}}
           {{!-- AC Stopped in Motion --}}
-          <div class="info-box ac" data-tooltip-extended="ac.stopped">
+          <div class="info-box ac-stopped" data-tooltip-extended="ac.stopped">
             <h5>{{localize "FFD20.Vehicles.ACStoppedMotion"}}</h5>
             <span class="value text-box direct" name="system.attributes.ac.stopped.bonus" data-dtype="number" step="1">
               {{system.attributes.ac.stopped.total}}
@@ -147,14 +146,14 @@
           </div>
         {{/if}}
         {{!-- Hardness --}}
-        <div class="info-box ac" data-tooltip-extended="hardness">
+        <div class="info-box hardness" data-tooltip-extended="hardness">
           <h5>{{localize "FFD20.Hardness"}}</h5>
           <span class="value text-box direct" name="system.attributes.hardness.bonus" data-dtype="Number" step="1">
             {{system.attributes.hardness.total}}
           </span>
         </div>
         {{!-- Saving Throw --}}
-        <div class="info-box ac" data-tooltip-extended="save">
+        <div class="info-box save" data-tooltip-extended="save">
           <h5><a class="rollable" data-dtype="saving-throws">{{localize "FFD20.SavingThrow"}}</a></h5>
           <span class="value text-box direct" name="system.attributes.savingThrows.save.base" data-dtype="Number" step="1">
             {{system.attributes.savingThrows.save.total}}
@@ -174,7 +173,7 @@
           </span>
         </div>
         {{! CMD }}
-        <div class="info-box" data-tooltip-extended="cmd.total">
+        <div class="info-box cmd-mobile" data-tooltip-extended="cmd.total">
           <h5>{{localize "FFD20.CMDAbbr"}}</h5>
           <span class="value">
             <span name="system.attributes.cmd.value" data-dtype="Number">{{system.attributes.cmd.total}}</span>
@@ -182,7 +181,7 @@
         </div>
         {{#if (eq system.traits.type "sea")}}
         {{! CMD Stopped }}
-          <div class="info-box" data-tooltip-extended="cmd.stoppedTotal">
+          <div class="info-box cmd-stopped" data-tooltip-extended="cmd.stoppedTotal">
             <h5>{{localize "FFD20.Vehicles.CMDStoppedMotion"}}</h5>
             <span class="value">
               <span name="system.attributes.cmd.value" data-dtype="Number">{{system.attributes.cmd.stoppedTotal}}</span>
@@ -217,35 +216,44 @@
         </div>
         <div class="driving-info">
           {{!-- Acceleration --}}
-          <div class="info-box" data-tooltip-extended="acceleration">
+          <div class="info-box acceleration" data-tooltip-extended="acceleration">
             <h5>{{localize "FFD20.Vehicles.Acceleration"}}</h5>
-            <span class="value text-box direct wheel-change speed" name="system.details.acceleration" data-dtype="Number" placeholder="{{localize "FFD20.NonApplicable"}}">
+            <span class="value text-box direct wheel-change speed" data-for="system.details.acceleration" data-dtype="Number"
+              data-type="distance"
+              data-min="0" data-step={{#if settings.isMetricDistance}}"1.5"{{else}}"5"{{/if}}
+              placeholder="{{localize "FFD20.NonApplicable"}}">
               {{convertDistance system.details.acceleration}}
             </span>
           </div>
           {{!-- Current Speed --}}
-          <div class="info-box" data-tooltip-extended="currentSpeed">
+          <div class="info-box speed-current" data-tooltip-extended="currentSpeed">
             <h5>{{localize "FFD20.Vehicles.CurrentSpeed"}}</h5>
-            <span class="value text-box direct wheel-change speed" name="system.details.currentSpeed" data-dtype="Number" step="{{system.details.acceleration}}" placeholder="{{localize "FFD20.NonApplicable"}}">
+            <span class="value text-box direct wheel-change speed" data-for="system.details.currentSpeed" data-dtype="Number" step="{{system.details.acceleration}}"
+              data-type="distance"
+              data-min="0" data-step={{#if settings.isMetricDistance}}"1.5"{{else}}"5"{{/if}}
+              placeholder="{{localize "FFD20.NonApplicable"}}">
               {{convertDistance system.details.currentSpeed}}
             </span>
           </div>
           {{!-- Max Speed --}}
-          <div class="info-box" data-tooltip-extended="maxSpeed">
+          <div class="info-box speed-maximum" data-tooltip-extended="maxSpeed">
             <h5>{{localize "FFD20.Vehicles.MaximumSpeed"}}</h5>
-            <span class="value text-box direct wheel-change speed" name="system.details.maxSpeed" data-dtype="Number" placeholder="{{localize "FFD20.NonApplicable"}}">
+            <span class="value text-box direct wheel-change speed" data-for="system.details.maxSpeed" data-dtype="Number"
+              data-type="distance"
+              data-min="0" data-step={{#if settings.isMetricDistance}}"1.5"{{else}}"5"{{/if}}
+              placeholder="{{localize "FFD20.NonApplicable"}}">
               {{convertDistance system.details.maxSpeed}}
             </span>
           </div>
           {{!-- Propulsion --}}
-          <div class="info-box">
+          <div class="info-box propulsion">
             <h5>{{localize "FFD20.Vehicles.Propulsion"}}</h5>
             <span class="value">
               {{formInput fields.details.fields.propulsion value=system.details.propulsion}}
             </span>
           </div>
           {{!-- Forward Facing --}}
-          <div class="info-box">
+          <div class="info-box forward-facing">
             <h5>{{localize "FFD20.Vehicles.ForwardFacing"}}</h5>
             <span class="value">
               {{formInput fields.details.fields.forwardFacing value=system.details.forwardFacing}}
@@ -254,28 +262,28 @@
         </div>
         <div class="capacity">
           {{!-- Driving Check --}}
-          <div class="info-box">
+          <div class="info-box driving-check">
             <h5>{{localize "FFD20.Vehicles.DrivingCheck"}}</h5>
             <span class="value">
               {{formInput fields.details.fields.drivingCheck value=system.details.drivingCheck}}
             </span>
           </div>
           {{!-- Driving Device --}}
-          <div class="info-box">
+          <div class="info-box driving-device">
             <h5>{{localize "FFD20.Vehicles.DrivingDevice"}}</h5>
             <span class="value">
               {{formInput fields.details.fields.drivingDevice value=system.details.drivingDevice}}
             </span>
           </div>
-          <div class="info-box">
+          <div class="info-box driving-space">
             <h5>{{localize "FFD20.Vehicles.DrivingSpace"}}</h5>
             <span class="value">
               {{formInput fields.details.fields.drivingSpace value=system.details.drivingSpace}}
             </span>
           </div>
-          <div class="info-box">
+          <div class="info-box decks">
             <h5>{{localize "FFD20.Vehicles.Decks"}}</h5>
-            <span class="value text-box direct">
+            <span class="value">
               {{formInput fields.details.fields.decks value=system.details.decks}}
             </span>
           </div>
@@ -350,7 +358,7 @@
 
                 <div class="item-detail item-range" data-tooltip-extended="item.{{item.id}}.range">
                   {{#if item.hasRange}}
-                  <label>{{actionRange item.document.defaultAction @root.rollData}}</label>
+                  <label>{{actionRange item.document.defaultAction null}}</label>
                   {{/if}}
                 </div>
 

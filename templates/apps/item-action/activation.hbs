@@ -36,7 +36,7 @@
 <div class="form-group input-select">
   <label>{{localize "FFD20.Range"}}</label>
   <div class="form-fields">
-    {{#if canInputRange}}<input class="formula" type="text" name="range.value" value="{{action.range.value}}" placeholder="{{#unless isSpell}}{{localize "FFD20.Formula"}}{{/unless}}">{{/if}}
+    {{#if canInputRange}}<input class="{{#if isRangeFormula}}formula{{/if}}" type="text" name="range.value" value="{{action.range.value}}" {{#if isRangeFormula}}placeholder="{{localize "FFD20.Formula"}}"{{/if}}>{{/if}}
     <select name="range.units">
       {{selectOptions @root.choices.distanceUnits selected=action.range.units blank=(localize "FFD20.None")}}
     </select>

@@ -997,7 +997,7 @@
     "Drink": "Trinke",
     "Properties": "Eigenschaften",
     "Migration": {
-      "Start": "Starte PF1 System-Migration für Version {version}. Bitte warten.",
+      "Start": "Starte FFD20 System-Migration für Version {version}. Bitte warten.",
       "Ongoing": "Migration läuft noch. Bitte warten bis diese abgeschlossen ist.",
       "End": "FFD20 System-Migration auf Version {version} erfolgreich abgeschlossen!",
       "Dialog": {

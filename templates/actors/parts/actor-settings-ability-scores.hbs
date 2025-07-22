@@ -8,7 +8,7 @@
       <h3>{{localize "FFD20.General"}}</h3>
 
       {{!-- Hit Points --}}
-      <label>{{localize "FFD20.HitPoints"}}</label>
+      <label>{{#if @root.useWoundsAndVigor}}{{localize "FFD20.Vigor"}}{{else}}{{localize "FFD20.HitPoints"}}{{/if}}</label>
       <select name="system.attributes.hpAbility">
         {{selectOptions @root.config.abilities selected=system.attributes.hpAbility blank=""}}
       </select>

@@ -39,8 +39,8 @@
   <div class="form-group senses" data-tooltip-extended="senses">
     <label>{{localize "FFD20.Senses"}}</label>
     <ul class="traits-list tag-list">
-      {{#each labels.senses as |v k|}}
-      <li class="tag {{k}}">{{v}}</li>
+      {{#each labels.senses}}
+      <li class="tag tag-id-{{cssId}}">{{label}}</li>
       {{/each}}
     </ul>
     <a class="senses-selector"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -64,8 +64,8 @@
   <div class="form-group energy-resistance {{#unless system.traits.eres}}inactive{{/unless}}" data-tooltip-extended="energyResistance">
     <label>{{localize "FFD20.EnRes"}}</label>
     <ul class="traits-list tooltip tag-list">
-    {{#each eres}}
-      <li class="tag {{@key}}">{{this}}</li>
+    {{#each traits.eres}}
+      <li class="tag tag-id-{{@key}}">{{this}}</li>
     {{/each}}
     </ul>
     <a class="resistance-selector" data-for="system.traits.eres" data-options="eres" data-fields="{{localize "FFD20.Application.DamageResistanceSelector.DamageAmount"}};{{localize "FFD20.Application.DamageResistanceSelector.Resisted"}};{{localize "FFD20.Application.DamageResistanceSelector.CombinationType"}};{{localize "FFD20.Application.DamageResistanceSelector.Resisted"}}" data-dtypes="Number;String;Boolean;String"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -74,8 +74,8 @@
   <div class="form-group damage-reduction {{#unless system.traits.dr}}inactive{{/unless}}" data-tooltip-extended="damageReduction">
     <label>{{localize "FFD20.DamRed"}}</label>
     <ul class="traits-list tooltip tag-list">
-      {{#each dr}}
-        <li class="tag {{@key}}">{{this}}</li>
+      {{#each traits.dr}}
+        <li class="tag tag-id-{{@key}}">{{this}}</li>
       {{/each}}
     </ul>
     <a class="resistance-selector" data-for="system.traits.dr" data-options="dr" data-fields="{{localize "FFD20.Application.DamageResistanceSelector.DamageAmount"}};{{localize "FFD20.Application.DamageResistanceSelector.Bypassed"}};{{localize "FFD20.Application.DamageResistanceSelector.CombinationType"}};{{localize "FFD20.Application.DamageResistanceSelector.Bypassed"}}" data-dtypes="Number;String;Boolean;String"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -85,7 +85,7 @@
     <label>{{localize "FFD20.DamImm"}}</label>
     <ul class="traits-list tag-list">
     {{#each system.traits.di.selected}}
-      <li class="tag {{@key}}">{{this}}</li>
+      <li class="tag tag-id-{{cssId}}">{{label}}</li>
     {{/each}}
     </ul>
     <a class="trait-selector" data-for="system.traits.di" data-options="damageTypes" data-resist="true"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -100,7 +100,7 @@
     <label>{{localize "FFD20.DamVuln"}}</label>
     <ul class="traits-list tag-list">
     {{#each system.traits.dv.selected}}
-      <li class="tag {{@key}}">{{this}}</li>
+      <li class="tag tag-id-{{cssId}}">{{label}}</li>
     {{/each}}
     </ul>
     <a class="trait-selector" data-for="system.traits.dv" data-options="damageTypes"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -115,7 +115,7 @@
     <label>{{localize "FFD20.ConImm"}}</label>
     <ul class="traits-list tag-list">
     {{#each system.traits.ci.selected}}
-      <li class="tag {{@key}}">{{this}}</li>
+      <li class="tag tag-id-{{cssId}}">{{label}}</li>
     {{/each}}
     </ul>
     <a class="trait-selector" data-for="system.traits.ci" data-options="conditionTypes"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -125,7 +125,7 @@
     <label>{{localize "FFD20.Languages"}}</label>
     <ul class="traits-list tag-list">
     {{#each system.traits.languages.selected}}
-      <li class="tag {{@key}}">{{this}}</li>
+      <li class="tag tag-id-{{cssId}}">{{label}}</li>
     {{/each}}
     </ul>
     <a class="trait-selector" data-for="system.traits.languages" data-options="languages"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -136,7 +136,7 @@
       <label>{{localize "FFD20.Proficiency.Weapon.LabelPlural"}}</label>
       <ul class="traits-list tag-list">
       {{#each system.traits.weaponProf.selected}}
-        <li class="tag {{@key}}">{{this}}</li>
+        <li class="tag tag-id-{{cssId}}">{{label}}</li>
       {{/each}}
       </ul>
       <a class="trait-selector" data-for="system.traits.weaponProf" data-options="weaponProficiencies"><i class="fa-solid fa-edit fa-fw" inert></i></a>
@@ -146,7 +146,7 @@
       <label>{{localize "FFD20.Proficiency.Armor.LabelPlural"}}</label>
       <ul class="traits-list tag-list">
       {{#each system.traits.armorProf.selected}}
-        <li class="tag {{@key}}">{{this}}</li>
+        <li class="tag tag-id-{{cssId}}">{{label}}</li>
       {{/each}}
       </ul>
       <a class="trait-selector" data-for="system.traits.armorProf" data-options="armorProficiencies"><i class="fa-solid fa-edit fa-fw" inert></i></a>

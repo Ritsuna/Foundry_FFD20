@@ -3060,7 +3060,7 @@
         },
         "TooltipsWithDefinitions": {
           "Title": "Data references",
-          "Content": "You can hover over any entry in the sheet and a tooltip will be showed listing how to reference the data in formulas (<code>@attributes.hp.max</code> among others by hovering Max HP for example)."
+          "Content": "You can hover over any entry in the sheet and a tooltip will be shown listing how to reference the data in formulas (for example, <code>@attributes.hp.max</code> among others by hovering Max HP for example)."
         },
         "RollButtons": {
           "Title": "Roll buttons",
@@ -3108,7 +3108,7 @@
         },
         "AbilityScoresSection": {
           "Title": "Ability Scores",
-          "Content": "The ability score <em>Total</em> is editable, as well as <em>Damage</em>, <em>Drain</em> and <em>Penalty</em>.<br>The <em>modifiers</em>, <em>ACP <small>(Armor Class Penalty)</small></em> and <em>ASF <small>(Arcane Spell Failure)</small></em> are automatically calculated."
+          "Content": "The ability score <em>Total</em> is is editable, but it edits the base value. <em>Damage</em>, <em>Drain</em> and <em>Penalty</em> can be adjusted here as well."
         },
         "TraitsSection": {
           "Title": "Traits",
@@ -3131,7 +3131,7 @@
           "Content": "Here you'll be able to see all the items you have in your inventory.<br>Same as with the <em>Combat tab</em> the entries are grouped by type.<br><br>You can add items from the <code>CompendiumBrowser</code> by clicking on <i class='fas fa-folder-plus'></i>.<br>You also have the <i class='fas fa-plus'></i>, <i class='fas fa-edit'></i>, <i class='fas fa-trash'></i> and <i class='fas fa-copy'></i> options."
         },
         "ItemsDetails": {
-          "Title": "Items details and options",
+          "Title": "Item details and options",
           "Content": "You can hover over each of the icons in the group header (<i class='icon-pf text-icon icon-inventory-slot'></i>, <i class='icon-pf text-icon icon-gears'></i>, <i class='icon-pf text-icon icon-weight'></i>, <i class='icon-pf text-icon icon-quill-ink'></i>, ...) to find more information about what they mean."
         },
         "FeaturesTab": {

@@ -69,34 +69,34 @@
     </p>
   </div>
   {{/if}}
+</div>
 
-  <div class="armor-attributes">
-    {{! ACP }}
-    <div class="info-box acp" data-tooltip-extended="acp">
-      <h5>{{localize "FFD20.ACP"}}</h5>
-      <span class="value">{{system.attributes.acp.total}}</span>
-    </div>
-
-    {{! Max Dex }}
-    <div class="info-box maxdex" data-tooltip-extended="max-dex">
-      <h5>{{localize "FFD20.MaxDexShort"}}</h5>
-      <span class="value">{{#if (ne system.attributes.maxDexBonus null)}}{{system.attributes.maxDexBonus}}{{else}}{{localize "FFD20.Unlimited"}}{{/if}}</span>
-    </div>
-
-    {{#with implants}}
-    <div class="info-box implants" data-tooltip-extended="implants">
-      <h5>{{localize "FFD20.Cybertech.Implantation"}}</h5>
-      <span class="value">{{load}} / {{max}}</span>
-    </div>
-    {{/with}}
-
-    {{#with asf}}
-    <div class="info-box asf" data-tooltip-extended="asf">
-      <h5>{{localize "FFD20.ArcaneSpellFailureAbbr"}}</h5>
-      <span class="value">{{total}}%</span>
-    </div>
-    {{/with}}
+<div class="armor-attributes">
+  {{! ACP }}
+  <div class="info-box acp" data-tooltip-extended="acp">
+    <h5>{{localize "FFD20.ACP"}}</h5>
+    <span class="value">{{system.attributes.acp.total}}</span>
   </div>
+
+  {{! Max Dex }}
+  <div class="info-box maxdex" data-tooltip-extended="max-dex">
+    <h5>{{localize "FFD20.MaxDexShort"}}</h5>
+    <span class="value">{{#if (ne system.attributes.maxDexBonus null)}}{{system.attributes.maxDexBonus}}{{else}}{{localize "FFD20.Unlimited"}}{{/if}}</span>
+  </div>
+
+  {{#with implants}}
+  <div class="info-box implants" data-tooltip-extended="implants">
+    <h5>{{localize "FFD20.Cybertech.Implantation"}}</h5>
+    <span class="value">{{load}} / {{max}}</span>
+  </div>
+  {{/with}}
+
+  {{#with asf}}
+  <div class="info-box asf" data-tooltip-extended="asf">
+    <h5>{{localize "FFD20.ArcaneSpellFailureAbbr"}}</h5>
+    <span class="value">{{total}}%</span>
+  </div>
+  {{/with}}
 </div>
 
 {{!-- Traits --}}

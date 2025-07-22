@@ -21,30 +21,28 @@
 
       <h4 class="size">{{lookup config.actorSizes system.size}}</h4>
 
-      {{#if raceCreatureTypes.length}}
-      {{#if (eq raceCreatureTypes.length 1)}}
-      <h4 class="creature-type">{{raceCreatureTypes.[0]}}</h4>
+      {{#if creatureTypes.total.size}}
+      {{#if (eq creatureTypes.total.size 1)}}
+      <h4 class="creature-type">{{creatureTypes.names.[0]}}</h4>
       {{else}}
-      <ul class="property-list types">
+      <ul class="property-list creature-types">
         <h5>{{localize "FFD20.TypePlural"}}</h5>
 
-        {{#each raceCreatureTypes}}
-        <li class="property type">{{this}}</li>
+        {{#each creatureTypes}}
+        <li class="property creature-type">{{this}}</li>
         {{/each}}
       </ul>
       {{/if}}
       {{/if}}
     </header>
 
-    <ul class="property-list subtypes">
+    <ul class="property-list creature-subtypes">
       <h5>{{localize "FFD20.RaceSubtypePlural"}}</h5>
-      {{#if raceCreatureSubtypes.length}}
-      {{#each raceCreatureSubtypes}}
-      <li class="property subtype">{{this}}</li>
-      {{/each}}
+      {{#each creatureSubtypes.selected}}
+      <li class="property creature-subtype">{{this}}</li>
       {{else}}
       <li class="no-properties">{{localize "FFD20.NonApplicable"}}</li>
-      {{/if}}
+      {{/each}}
     </ul>
 
     {{! Languages }}

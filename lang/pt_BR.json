@@ -198,8 +198,8 @@
     "Properties": "Propriedades",
     "Migration": {
       "Ongoing": "A migração está em andamento. Aguarde até que termine.",
-      "End": "Migração do Sistema PF1 para a versão {version} concluída!",
-      "Start": "Aplicando a migração do sistema PF1 para a versão {version}. Por favor espere."
+      "End": "Migração do Sistema FFD20 para a versão {version} concluída!",
+      "Start": "Aplicando a migração do sistema FFD20 para a versão {version}. Por favor espere."
     },
     "Application": {
       "ChangeTargetSelector": {
@@ -1067,7 +1067,7 @@
         "MigrateModules": "Migrar Pacotes de Módulos",
         "MigrateModulesHint": "Caso você tenha módulos com compêndios que ainda não foram migrados para serem totalmente compatíveis com a versão atual.",
         "MigrateWorld": "Migrar Mundo",
-        "MigrateWorldHint": "Normalmente, a migração é executada automaticamente sempre que houver migrações pertinentes pendentes, durante a atualização do PF1 e quando o Mestre fizer login pela primeira vez. Executar a migração manualmente às vezes pode resolver problemas, como com documentos importados de fontes não migradas.",
+        "MigrateWorldHint": "Normalmente, a migração é executada automaticamente sempre que houver migrações pertinentes pendentes, durante a atualização do FFD20 e quando o Mestre fizer login pela primeira vez. Executar a migração manualmente às vezes pode resolver problemas, como com documentos importados de fontes não migradas.",
         "UnlockPacks": "Desbloqueie pacotes para migração. Caso contrário, os pacotes bloqueados serão ignorados."
       }
     },

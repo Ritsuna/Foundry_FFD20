@@ -542,7 +542,7 @@
   gap: unset;
 }
 /* ----------------------------------------- */
-/*  All PF1 Apps                           */
+/*  All FFD20 Apps                           */
 /* ----------------------------------------- */
 .ffd20 {
   --pf1-header-height: 100px;
@@ -1265,7 +1265,7 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   min-width: unset;
 }
 /**
- * Stylings common to all PF1 apps, be they sheets, widgets, dialogs, or anything else.
+ * Stylings common to all FFD20 apps, be they sheets, widgets, dialogs, or anything else.
  */
 .app.ffd20 button h3,
 .app.ffd20 .item-name h3 {
@@ -2816,6 +2816,9 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet form.editable label:has(input:not(:disabled)) {
   cursor: pointer;
 }
+.ffd20.sheet input:indeterminate {
+  accent-color: var(--color-checkbox-checked, #666);
+}
 .ffd20.sheet .action.roll {
   justify-self: center;
   display: inline-flex;
@@ -3756,7 +3759,7 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.actor.vehicle form .tab.summary .driving {
   display: flex;
   flex-flow: row wrap;
-  gap: 1px 3px;
+  gap: 2px 3px;
 }
 .ffd20.sheet.actor.vehicle form .tab.summary .defenses h3,
 .ffd20.sheet.actor.vehicle form .tab.summary .combat h3,
@@ -3773,7 +3776,7 @@ form.application.pf1-v2.html-editor .editor {
 }
 .ffd20.sheet.actor.vehicle form .tab.summary .driver {
   padding-bottom: 2px;
-  gap: 1px 5px;
+  gap: 0.5rem;
 }
 .ffd20.sheet.actor.vehicle form .tab.summary .driver-info {
   flex-flow: nowrap;
@@ -3788,10 +3791,6 @@ form.application.pf1-v2.html-editor .editor {
   padding-left: 5px;
   border: unset;
 }
-.ffd20.sheet.actor.vehicle form .tab.summary .driver-skill {
-  padding-left: 5px;
-  padding-right: 5px;
-}
 .ffd20.sheet.actor.vehicle form .tab.summary .driver-skill select {
   text-align: center;
 }
@@ -3805,8 +3804,29 @@ form.application.pf1-v2.html-editor .editor {
 .ffd20.sheet.actor.vehicle form .tab.summary .capacity h3 {
   flex: 1 100%;
 }
+.ffd20.sheet.actor.vehicle form .tab.summary .driving-info > .info-box,
+.ffd20.sheet.actor.vehicle form .tab.summary .capacity > .info-box {
+  flex: 2;
+}
+.ffd20.sheet.actor.vehicle form .tab.summary .driving-info > .info-box.driving-space,
+.ffd20.sheet.actor.vehicle form .tab.summary .capacity > .info-box.driving-space {
+  flex: 3;
+}
+.ffd20.sheet.actor.vehicle form .tab.summary .driving-info > .info-box.decks,
+.ffd20.sheet.actor.vehicle form .tab.summary .capacity > .info-box.decks {
+  flex: 1;
+}
+.ffd20.sheet.actor.vehicle form .tab.summary .driving-info > .info-box {
+  flex: 2;
+}
+.ffd20.sheet.actor.vehicle form .tab.summary .driving-info > .info-box.propulsion {
+  flex: 4;
+}
+.ffd20.sheet.actor.vehicle form .tab.summary .driving-info > .info-box.forward-facing {
+  flex: 3;
+}
 .ffd20.sheet.actor.vehicle form .tab.summary .combat-attacks {
-  height: 20%;
+  flex-basis: 20%;
 }
 .ffd20.sheet.actor.vehicle form .item-detail.item-type {
   flex: 0 0 100px;
@@ -9299,15 +9319,15 @@ body {
   height: unset;
   line-height: unset;
 }
-.tour ul.pf1-tour {
+#tooltip.tour ul.pf1-tour {
   display: grid;
   gap: 0.5rem;
 }
-.tour#tooltip .content .icon-pf.text-icon {
+#tooltip.tour .icon-pf.text-icon {
   display: inline-block;
   width: var(--font-size-16);
   height: var(--font-size-16);
-  background-color: var(--color-select-option-bg);
+  background-color: var(--color-select-option-bg, var(--color-text-primary));
 }
 :is(.ffd20, .pf1-v2) {
   --icon-info: url("icons/misc/info.svg");

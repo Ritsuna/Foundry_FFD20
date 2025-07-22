@@ -59,10 +59,10 @@
           <h4>{{race.name}}</h4>
           <div class="tag-list">
             {{#each system.traits.creatureTypes.selected}}
-              <span class="tag creature-type {{@key}}">{{this}}</span>
+              <span class="tag creature-type tag-id-{{cssId}}">{{label}}</span>
             {{/each}}
             {{#each system.traits.creatureSubtypes.selected}}
-              <span class="tag creature-subtype {{@key}}">{{this}}</span>
+              <span class="tag creature-subtype tag-id-{{cssID}}">{{label}}</span>
             {{/each}}
           </div>
           {{/if}}
