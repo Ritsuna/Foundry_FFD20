@@ -23,8 +23,11 @@
   {{#if hp}}
   <div class="part">
     <h2>{{localize "FFD20.LevelUp.Chat.Health.Header"}}</h2>
-
+    {{#if hp.roll}}
     <span>{{{localize hp.label add=hp.add}}}</span>
+    {{else}}
+    <span>{{localize "FFD20.LevelUp.Health.None.Desc"}}</span>
+    {{/if}}
   </div>
   {{/if}}
 

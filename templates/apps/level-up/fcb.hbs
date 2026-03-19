@@ -2,11 +2,12 @@
   <li class="choice">
     <label>
       <input type="radio" name="fcb.choice" value="none" {{checked (eq fcb.choice "none")}}>
-      <h3>
-
-        {{localize "FFD20.LevelUp.FC.None.Label"}}
-      </h3>
+      <h3>{{localize "FFD20.LevelUp.FC.None.Label"}}</h3>
+      {{#if noHDGain}}
+      <p>{{localize "FFD20.LevelUp.Health.None.Desc"}}</p>
+      {{else}}
       <p>{{localize "FFD20.LevelUp.FC.None.Desc"}}</p>
+      {{/if}}
     </label>
   </li>
 

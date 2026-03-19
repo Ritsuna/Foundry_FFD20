@@ -1,5 +1,13 @@
 <ul class="choices">
-  {{#if isMythic}}
+  {{#if noHDGain}}
+  <li class="choice">
+    <label>
+      <input type="radio" name="health.type" value="none" checked>
+      <h3>{{localize "FFD20.None"}}<span class="value"><span class="delta">{{localize "FFD20.NonApplicable"}}</span></span></h3>
+      <p>{{localize "FFD20.LevelUp.Health.None.Desc"}}</p>
+    </label>
+  </li>
+  {{else if isMythic}}
   <li class="choice">
     <label>
       <input type="radio" name="health.type" value="static" checked>
@@ -14,14 +22,14 @@
       <h3>
         {{localize "FFD20.LevelUp.Health.Auto.Label"}}
         <span class="value">
-          {{#if health.maximized}}{{localize "FFD20.LevelUp.Health.Maximized.Label"}}{{/if}}
+          {{#if (gt health.maximized.left 0)}}{{localize "FFD20.LevelUp.Health.Maximized.Label"}}{{/if}}
           <span class="delta">{{numberFormat health.delta sign=true}}</span>
         </span>
       </h3>
       <p>{{localize "FFD20.LevelUp.Health.Auto.Desc" rate=health.rate}}</p>
     </label>
   </li>
-  {{else if health.maximized}}
+  {{else if health.maximized.left}}
   <li class="choice">
     <label>
       <input type="radio" name="health.type" value="max" {{checked (eq health.type "max")}}>

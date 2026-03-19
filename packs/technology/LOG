@@ -1,5 +1,5 @@
-2025/07/21-20:35:03.407 964 Delete type=3 #1
-2025/07/21-20:35:07.039 bdcc Level-0 table #5: started
-2025/07/21-20:35:07.266 bdcc Level-0 table #5: 377356 bytes OK
-2025/07/21-20:35:07.284 bdcc Delete type=0 #3
-2025/07/21-20:35:07.683 bdcc Manual compaction at level-0 from '!folders!07LmOqf2qBzm5RsK' @ 72057594037927935 : 1 .. '!items!zf260gyIOr7wRR0b' @ 0 : 0; will stop at (end)
+2026/03/12-13:23:45.666 15bb0 Delete type=3 #1
+2026/03/12-13:23:50.625 131e8 Level-0 table #5: started
+2026/03/12-13:23:50.912 131e8 Level-0 table #5: 377356 bytes OK
+2026/03/12-13:23:50.968 131e8 Delete type=0 #3
+2026/03/12-13:23:51.404 131e8 Manual compaction at level-0 from '!folders!07LmOqf2qBzm5RsK' @ 72057594037927935 : 1 .. '!items!zf260gyIOr7wRR0b' @ 0 : 0; will stop at (end)

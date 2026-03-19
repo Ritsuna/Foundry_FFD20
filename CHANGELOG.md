@@ -1,5 +1,42 @@
 # Changelog
 
+## 12.11.11.0 - 2026-03-11
+
+### Match PF1e v11.11
+
+#### 11.11 Bug Fixes
+- Compendium context menus did not work on Foundry v12.
+- System would fail to load on Foundry v12.
+
+#### 11.10 Bug Fixes
+- Armor and some other items were still treated as active while in a container. ([4708](https://gitlab.com/foundryvtt_pathfinder1e/foundryvtt-pathfinder1/-/issues/4708))
+- Expiring effects for unlinked actors could cause harmless errors.
+- Clear targets after attack would error and prevent post-use script calls on Foundry v13.
+- Generic attacks did not correctly heed ability score configuration.
+- Compendium browser sidebar buttons were not legible in dark mode. ([4657](https://gitlab.com/foundryvtt_pathfinder1e/foundryvtt-pathfinder1/-/issues/4657))
+- ⚠️ Hide in compendium browser toggle was nonfunctional. Old configuration not migrated!
+- Health source breakdown could display different values than in actual play.
+- ⚠️ Health configuration defaults changed to continuous health and rounding down, instead of discrete with rounding up, to match core rules and precedent.
+- Obfuscate rolls setting no longer hid details with Foundry v13.
+- Chat message roll obfuscation could run too late, potentially causing values to leak with modules.
+- Level-up dialog displayed gained health incorrectly and inconsistently with automatic health. ([4787](https://gitlab.com/foundryvtt_pathfinder1e/foundryvtt-pathfinder1/-/issues/4787))
+- Maximized HD was not correctly determined in some circumstances.
+- Level-up dialog could incorrectly grant health and FCB on levels where no HD is gained.
+
+#### 11.9 Bug Fixes
+- Chat message header stylings on Foundry v13.
+- Forced ammo recovery button was displayed wrong.
+- Clearing default ability score for melee still used an ability score for the generic attacks.
+- Prototype token settings did not have system's additional settings.
+- `@Source` text enricher did not work correctly when given book abbreviation instead of ID.
+- `@Source` text enricher did not correctly fail when given invalid source.
+- Minimum damage rule incorrectly applied lethal damage.
+- Level-up cards did not display character name in Foundry v13.
+- Race sidebar displayed creature types wrong if more than one was selected.
+- Some UI elements were missing their intended colors.
+- Token HUD would break with custom status effect ID. ([4433](https://gitlab.com/foundryvtt_pathfinder1e/foundryvtt-pathfinder1/-/issues/4433))
+- Item value column on loot sheet could have excessive precision.
+
 ## 12.11.8.0 - 2025-07-21
 
 ### Match PF1e v11.8

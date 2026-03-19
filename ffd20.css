@@ -24,6 +24,31 @@
     transform: rotate(1turn) scale(1.2);
   }
 }
+.ffd20 {
+  --color-text-light-highlight: #f0f0e0;
+  --color-text-dark-primary: #191813;
+  --color-text-dark-inactive: #7a7971;
+  --color-text-primary: var(--color-text-dark-primary);
+  --color-text-emphatic: var(--color-text-dark-primary);
+  --color-text-dark-5: #666;
+  --color-text-dark-6: #777;
+  --color-border-light-1: #ddd;
+  --color-border-light-2: #999;
+  --color-border-dark-1: #111;
+  --color-border-dark-2: #222;
+  --color-border-dark-3: #333;
+  --color-border-dark-4: #444;
+  --color-border-dark-5: #666;
+  --color-shadow-primary: #ff0000;
+  --color-shadow-dark: #000;
+  --color-underline-header: #782e22;
+  --color-border-light-primary: #b5b3a4;
+  --color-border-light-secondary: #c9c7b8;
+  --color-border-light-tertiary: #7a7971;
+  --color-border-dark-tertiary: #4b4a44;
+  --color-select-option-bg: #dad8cc;
+  --color-checkbox-checked: #666;
+}
 :root {
   --color-border-light-secondary: var(--pf1-beige);
 }
@@ -132,8 +157,6 @@
   flex: 1;
   display: flex;
   flex-flow: column;
-  --color-border-dark-3: #333;
-  --color-text-light-highlight: #f0f0e0;
   border: 1px solid var(--color-border-dark-3);
   border-radius: 0.3em;
 }
@@ -382,6 +405,7 @@
 }
 .application.pf1-v2 .window-content input[type="checkbox"]:indeterminate::before {
   content: "\f0fe";
+  position: relative;
 }
 .application.pf1-v2 .window-content input[type="checkbox"]:checked::before {
   font-family: var(--font-awesome);
@@ -542,7 +566,7 @@
   gap: unset;
 }
 /* ----------------------------------------- */
-/*  All FFD20 Apps                           */
+/*  All PF1 Apps                           */
 /* ----------------------------------------- */
 .ffd20 {
   --pf1-header-height: 100px;
@@ -560,7 +584,7 @@
 }
 .ffd20 div.group-container {
   position: relative;
-  border: 1px solid var(--color-border-dark-2);
+  border: 1px solid var(--color-border-light-secondary);
   border-radius: 4px;
   padding: 4px;
   margin: 2px;
@@ -580,7 +604,7 @@
   top: -2px;
   font-size: var(--font-size-12);
   background: black;
-  color: var(--color-text-light-highlight);
+  color: var(--color-text-light-highlight, white);
   padding: 1px;
   border-radius: 4px;
   height: 10px;
@@ -1265,7 +1289,7 @@ dialog.application.pf1-v2:is(.delete-item, .delete-action) .dialog-content p:fir
   min-width: unset;
 }
 /**
- * Stylings common to all FFD20 apps, be they sheets, widgets, dialogs, or anything else.
+ * Stylings common to all PF1 apps, be they sheets, widgets, dialogs, or anything else.
  */
 .app.ffd20 button h3,
 .app.ffd20 .item-name h3 {
@@ -6169,6 +6193,7 @@ form.application.pf1-v2.html-editor .editor {
   display: flex;
   flex-flow: row wrap;
   align-content: center;
+  font-weight: normal;
 }
 .ffd20.chat-card .card-header h3 {
   flex: 1;
@@ -6342,6 +6367,8 @@ form.application.pf1-v2.html-editor .editor {
 .message .attack-targets h2 {
   flex: 1 100%;
   margin: 0.2rem 0;
+  font-weight: normal;
+  font-size: var(--font-size-18);
 }
 .message .attack-targets .target {
   display: flex;
@@ -7029,7 +7056,7 @@ a.pf1-info > i {
   grid-column: span 2;
 }
 .compendium-sidebar .ffd20.action-buttons.v13 button {
-  color: var(--color-text-primary);
+  color: var(--button-text-color);
   border: 1px solid var(--button-border-color);
 }
 .compendium-sidebar .ffd20.action-buttons.v13 button::after {

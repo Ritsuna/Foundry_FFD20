@@ -310,6 +310,7 @@
     },
     "Condition": {
       "antagonized": "Antagonized",
+      "banished": "Banished",
       "berserk": "Berserk",
       "bleed": "Bleed",
       "blind": "Blind",
@@ -343,6 +344,7 @@
       "frozen": "Frozen",
       "grappled": "Grappled",
       "helpless": "Helpless",
+      "illuminated": "Illuminated",
       "immobilized": "Immobilized",
       "imperil": "Imperil",
       "incorporeal": "Incorporeal",
@@ -358,6 +360,7 @@
       "poison": "Poison",
       "polymorph": "Polymorph",
       "prone": "Prone",
+      "reversed": "Reversed",
       "sapped": "Sapped",
       "shaken": "Shaken",
       "shell": "Shell",
@@ -370,6 +373,7 @@
       "stable": "Stable",
       "staggered": "Staggered",
       "static": "Static",
+      "statue": "Statue",
       "stop": "Stop",
       "stunned": "Stunned",
       "unconscious": "Unconscious",
@@ -681,6 +685,12 @@
           },
           "heavy": {
             "Single": "Heavy"
+          },
+          "chef": {
+            "Single": "Chef"
+          },
+          "power": {
+            "Single": "Power"
           },
           "misc": {
             "Single": "Miscellaneous"

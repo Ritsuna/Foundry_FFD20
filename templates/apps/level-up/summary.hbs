@@ -38,7 +38,7 @@
   <h3>{{localize "FFD20.LevelUp.Health.Label"}}</h3>
   {{#unless isMythic}}
   <label>{{localize "FFD20.HitDie"}}:</label>
-  <span class="value hit-die">{{localize "FFD20.DieSize" size=health.hitDie}}</span>
+  <span class="value hit-die">{{localize "FFD20.DieSize" size=health.hitDie}}{{#if (gt level.hd.delta 1)}} ×{{level.hd.delta}}{{/if}}</span>
   <br>
   {{#if health.ability.key}}
   <label>{{lookup config.abilities health.ability.key}}</label>
